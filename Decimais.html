@@ -1,289 +1,394 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudando Números Decimais | Guia Interativo</title>
-    <style>
-        /* Estilos inspirados em card e contraste das citações */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background-color: #f4f7fb; /* Fundo suave */
-            padding: 20px;
-            max-width: 900px;
-            margin: auto;
-        }
-        header {
-            background-color: #4f46e5; /* Indigo forte, cor de destaque */
-            color: white;
-            padding: 30px 20px;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 5px;
-        }
-        .section-card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin-bottom: 30px;
-            border-left: 5px solid #6366f1; /* Destaque lateral */
-        }
-        h2 {
-            color: #4f46e5;
-            border-bottom: 2px dashed #ccc;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        .step, .principio {
-            background-color: #eef2ff; /* Azul claro para passos */
-            padding: 15px;
-            border-left: 3px solid #4f46e5;
-            margin: 10px 0;
-            border-radius: 6px;
-        }
-        /* Estilo para o Lab Interativo */
-        #laboratorio input[type="number"], #laboratorio button {
-            padding: 10px;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 80px;
-        }
-        #resultadoLab {
-            margin-top: 20px;
-            font-size: 1.2em;
-            font-weight: bold;
-            min-height: 30px;
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Números Decimais — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#4f46e5;background:#eef2ff;color:#312e81}
+  canvas{max-width:100%}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .sticky-mini{position:sticky;top:74px;z-index:20}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  .grid-paper{background-image:linear-gradient(#e5e7eb 1px,transparent 1px),linear-gradient(90deg,#e5e7eb 1px,transparent 1px);background-size:28px 28px}
+</style>
 </head>
-<body>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">🔢 Números Decimais</div><div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo, não decorando</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exemplos">💡 Exemplos</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
 
-    <header>
-        <h1>💡 Módulo de Estudo Interativo</h1>
-        <h2>Números Decimais: Desvendando o Valor Posicional</h2>
-        <p style="font-size: 1.2em;">Paciência e revisão são suas melhores ferramentas! Vamos aprender passo a passo.</p>
-    </header>
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Curso do zero</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Números Decimais sem mistério</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Você vai entender o que cada casa depois da vírgula significa e vai aprender um jeito seguro de somar, subtrair, multiplicar, dividir e comparar decimais — sem decorar truques soltos.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">8</b><div class="text-xs text-indigo-200">tópicos de teoria</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">30</b><div class="text-xs text-indigo-200">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">resolução detalhada</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">🔬</b><div class="text-xs text-indigo-200">laboratório visual</div></div>
+  </div>
+ </div>
 
-    <!-- ========================================= -->
-    <!-- SEÇÃO 1: TEORIA (CONCEITO) - Inspirado na Citação 3 -->
-    <!-- ========================================= -->
-    <div class="section-card" id="teoria">
-        <h2>📘 1. O que são Números Decimais? (A Teoria)</h2>
-        
-        <h3>🤔 Por que isso é importante?</h3>
-        <p>Os números decimais nos ajudam a medir o mundo real: dinheiro, altura, tempo. Eles representam partes de um inteiro.</p>
-        
-        <h3>💸 A Analogia do Dinheiro (O Segredo!)</h3>
-        <div class="principio">
-            <p>Imagine que você tem <strong>R$ 1,00</strong>. O número **1** é o real completo (unidade). Os centavos são as casas decimais.</p>
-            <p style="font-size: 1.5em; color: #dc2626;">&nbsp;&nbsp; R$ 1,<strong>50</strong></p>
-            <p>Isso significa: **1** Real (Unidades) e **50** centavos (Décimos e Centésimos).</p>
-        </div>
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Como estudar:</b> leia a ideia, observe o desenho, veja o exemplo resolvido na aba <b>Exemplos</b> e só depois tente os exercícios. Errar faz parte do aprendizado — volte ao passo a passo sempre que precisar, sem pressa.</div>
 
-        <h3>🔢 Valor Posicional é tudo!</h3>
-        <ul>
-            <li><strong>À esquerda da vírgula:</strong> São os números inteiros (unidades, dezenas...).</li>
-            <li><strong>À direita da vírgula:</strong> Os valores diminuem em frações (décimos $\frac{1}{10}$, centésimos $\frac{1}{100}$). <strong>A VÍRGULA É O PONTO DE ALINHAMENTO!</strong></li>
-        </ul>
-    </div>
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O que é um número decimal?</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Um número decimal é um jeito de escrever uma quantidade que não é inteira, usando uma <b>vírgula</b> para separar a parte inteira da parte "quebrada". Em \(3{,}45\): o <b>3</b> é a parte inteira e o <b>45</b>, depois da vírgula, é a parte decimal.</p>
+   <div class="my-5 flex justify-center"><div id="visual-line"></div></div>
+   <div class="grid sm:grid-cols-2 gap-3 text-sm"><div class="bg-indigo-50 rounded-xl p-4"><b>Parte inteira</b><br>o que vem antes da vírgula.</div><div class="bg-amber-50 rounded-xl p-4"><b>Parte decimal</b><br>o que vem depois da vírgula — sempre menor que um inteiro inteiro completo.</div></div>
+  </article>
 
-    <!-- ========================================= -->
-    <!-- SEÇÃO 2: EXEMPLOS GUIADOS (OPERAÇÕES) - Inspirado nas Citações 2 e 3 -->
-    <!-- ========================================= -->
-    <div class="section-card" id="exemplo">
-        <h2>➕ 2. Operando com Decimais (Exemplos Guiados)</h2>
-        <p>O maior erro é esquecer de alinhar a vírgula! Lembre-se: o alinhamento do ponto separa as casas.</p>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Valor posicional</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Cada casa depois da vírgula vale <b>10 vezes menos</b> que a anterior. É a mesma ideia das unidades, dezenas e centenas — só que "de trás para frente".</p>
+   <div class="paper rounded-xl p-5 mt-4 overflow-x-auto">
+    <table class="w-full text-center text-sm"><thead><tr class="text-indigo-700 font-bold"><td>Centena</td><td>Dezena</td><td>Unidade</td><td>,</td><td>Décimos</td><td>Centésimos</td><td>Milésimos</td></tr></thead>
+    <tbody><tr class="font-mono text-lg"><td>-</td><td>-</td><td>2</td><td>,</td><td>3</td><td>5</td><td>7</td></tr></tbody></table>
+   </div>
+   <div class="success rounded-xl p-4 mt-4 text-sm">Em \(2{,}357\): 3 décimos (\(\frac{3}{10}\)), 5 centésimos (\(\frac{5}{100}\)) e 7 milésimos (\(\frac{7}{1000}\)).</div>
+  </article>
+ </div>
 
-        <h3>📚 Exemplo 1: Soma</h3>
-        <div class="step">
-            <strong>Problema:</strong> <span style="font-size: 1.2em;">3,5 + 10,75 = ?</span>
-            <ol>
-                <li>**Passo 1 (Alinhamento):** Coloque as vírgulas umas embaixo das outras. Preencha os espaços vazios com zero para ajudar a visualizar ($\text{3,5} \rightarrow 3,5\mathbf{0}$).</li>
-                <li><strong>Passo 2 (A Soma):</strong> Some normalmente (comece da direita). $$ \begin{matrix} & 10, & 7 \\ + & 3, & 5\mathbf{0} \\ \hline & 14, & 20 \end{matrix} $$</li>
-                <li><strong>Resultado:</strong> 14,20 ou simplesmente 14,2.</li>
-            </ol>
-        </div>
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">3. Comparando decimais</h2>
+   <p class="mt-3 text-slate-600 leading-7">A armadilha mais comum é achar que \(0{,}7\) é menor que \(0{,}65\) só porque "7 é menor que 65". Para comparar direito, <b>iguale o número de casas decimais</b> completando com zeros à direita — isso não muda o valor.</p>
+   <div class="space-y-3 mt-4">
+    <div class="step" data-step="1">Iguale as casas: \(0{,}7 \to 0{,}70\) e \(0{,}65\) já tem duas casas.</div>
+    <div class="step" data-step="2">Agora compare como se fossem inteiros: \(70 > 65\).</div>
+    <div class="step" data-step="3">Logo, \(0{,}70 > 0{,}65\), ou seja, \(0{,}7 > 0{,}65\).</div>
+   </div>
+  </article>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. Adição e subtração</h2>
+   <p class="mt-3 text-slate-600 leading-7">A regra de ouro: <b>alinhe a vírgula embaixo da vírgula</b>. Complete as casas que faltam com zero para os números ficarem do mesmo "tamanho".</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center font-mono text-lg leading-8">
+    &nbsp;&nbsp;3,40<br>+1,25<br><hr class="my-1">&nbsp;&nbsp;4,65
+   </div>
+   <div class="tip rounded-xl p-4 mt-4 text-sm"><b>Dica:</b> \(3{,}4\) é igual a \(3{,}40\) — acrescentar zero no final de um decimal não muda seu valor.</div>
+  </article>
+ </div>
 
-         <h3>📚 Exemplo 2: Subtração</h3>
-        <div class="step">
-             <strong>Problema:</strong> <span style="font-size: 1.2em;">8,3 - 5,12 = ?</span>
-            <ol>
-                <li>**Passo 1 (Alinhamento):** Alinhe as vírgulas e complete com zero ($8,3 \rightarrow 8,3\mathbf{0}$).</li>
-                <li>**Passo 2 (A Subtração):** $$ \begin{matrix} & 8, & 3\mathbf{0} \\ - & 5, & 12 \\ \hline & 3, & 18 \end{matrix} $$</li>
-                <li><strong>Resultado:</strong> 3,18.</li>
-            </ol>
-        </div>
-    </div>
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <h2 class="text-2xl font-black">5. Multiplicação de decimais</h2>
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div>
+    <h3 class="font-bold text-indigo-800">A ideia</h3>
+    <p class="text-sm text-slate-600 mt-2 leading-7">Multiplique <b>ignorando as vírgulas</b>, como se fossem números inteiros. No final, conte quantas casas decimais os dois números tinham <b>juntos</b> e coloque a vírgula nessa posição, contando da direita para a esquerda.</p>
+   </div>
+   <div>
+    <h3 class="font-bold text-indigo-800">Passo a passo</h3>
+    <ol class="mt-3 space-y-2 text-sm list-decimal list-inside text-slate-700">
+     <li>Multiplique os números <b>sem a vírgula</b>.</li>
+     <li>Conte as casas decimais de cada fator.</li>
+     <li><b>Some</b> essas quantidades de casas.</li>
+     <li>No resultado, ande esse número de casas <b>da direita para a esquerda</b> e coloque a vírgula.</li>
+    </ol>
+   </div>
+  </div>
+  <div class="paper rounded-2xl p-5 mt-6">
+   <div class="text-sm font-bold text-indigo-700 mb-3">EXEMPLO GUIADO</div>
+   <div class="grid md:grid-cols-2 gap-4 text-sm">
+    <div class="step" data-step="1"><b>Multiplique sem vírgula:</b> \(12 \times 3 = 36\).</div>
+    <div class="step" data-step="2"><b>Conte as casas:</b> \(1{,}2\) tem 1 casa; \(0{,}3\) tem 1 casa. Total: 2 casas.</div>
+    <div class="step" data-step="3"><b>Posicione a vírgula:</b> ande 2 casas em 36 a partir da direita.</div>
+    <div class="step" data-step="4"><b>Resultado:</b> \(1{,}2 \times 0{,}3 = 0{,}36\).</div>
+   </div>
+  </div>
+ </div>
 
-    <!-- ========================================= -->
-    <!-- SEÇÃO 3: LABORATÓRIO INTERATIVO (PRÁTICA) - Novo Componente -->
-    <!-- ========================================= -->
-    <div class="section-card" id="laboratorio">
-        <h2>🛠️ 3. Laboratório de Prática (Mão na Massa!)</h2>
-        <p>Use esta área para fixar o alinhamento e a operação.</p>
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">6. Divisão de decimais</h2>
+   <p class="mt-3 text-slate-600 leading-7">O truque é transformar a divisão de decimais em uma divisão de <b>números inteiros</b>: multiplique o dividendo e o divisor pela mesma potência de 10, até o divisor virar inteiro.</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="step" data-step="1">Escreva a divisão: \(4{,}8 \div 0{,}4\).</div>
+    <div class="step" data-step="2">Multiplique os dois por 10 para eliminar a vírgula do divisor: \(48 \div 4\).</div>
+    <div class="step" data-step="3">Divida normalmente: \(48 \div 4 = 12\).</div>
+   </div>
+   <div class="warning rounded-xl p-4 mt-4 text-sm"><b>Atenção:</b> o que você faz no dividendo, tem que fazer no divisor também — multiplicar os dois pelo mesmo número mantém o resultado da divisão igual.</div>
+  </article>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">7. Fração ↔ Decimal</h2>
+   <p class="mt-3 text-slate-600 leading-7">Toda fração pode virar decimal: basta <b>dividir o numerador pelo denominador</b>. E todo decimal exato pode virar fração usando o valor posicional.</p>
+   <div class="bg-indigo-50 rounded-xl p-4 mt-4 text-sm"><b>Fração → decimal:</b> \(\frac{3}{4} = 3 \div 4 = 0{,}75\).</div>
+   <div class="bg-amber-50 rounded-xl p-4 mt-3 text-sm"><b>Decimal → fração:</b> \(0{,}75 = \frac{75}{100} = \frac{3}{4}\) (simplificando).</div>
+   <div class="warning rounded-xl p-4 mt-3 text-sm"><b>Dízima periódica:</b> \(\frac{1}{3} = 1 \div 3 = 0{,}333\ldots\) — os algarismos se repetem para sempre. É chamada de dízima periódica.</div>
+  </article>
+ </div>
 
-        <h4>Soma Simples:</h4>
-        <div style="margin-bottom: 20px;">
-            <span style="font-size: 1.5em;">3,4 + 2,5 =</span>
-            <input type="number" id="numA" placeholder="3,4">
-            <span>+</span>
-            <input type="number" id="numB" placeholder="2,5">
-            <button onclick="calcularSoma()">Calcular</button>
-        </div>
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">8. Arredondamento</h2>
+  <p class="mt-3 text-slate-600 leading-7">Para arredondar, olhe o algarismo <b>logo depois</b> da casa que você quer manter: se for 5, 6, 7, 8 ou 9, o algarismo anterior <b>sobe uma unidade</b>; se for 0, 1, 2, 3 ou 4, ele <b>permanece igual</b>. Todos os algarismos depois são descartados.</p>
+  <div class="grid sm:grid-cols-2 gap-3 mt-4 text-sm">
+   <div class="bg-slate-50 rounded-xl p-4"><b>Arredondar \(2{,}378\) para centésimos:</b> o algarismo seguinte é 8 (≥5) → \(2{,}38\).</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>Arredondar \(5{,}132\) para décimos:</b> o algarismo seguinte é 3 (<5) → \(5{,}1\).</div>
+  </div>
+ </article>
 
-        <h4>Subtração Simples:</h4>
-         <div>
-            <span style="font-size: 1.5em;">7,9 - 3,2 =</span>
-            <input type="number" id="numC" placeholder="7,9">
-             <span>-</span>
-            <input type="number" id="numD" placeholder="3,2">
-            <button onclick="calcularSubtracao()">Calcular</button>
-        </div>
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">Checklist para qualquer questão</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 text-sm">
+   <div class="bg-slate-50 rounded-xl p-4"><b>① Identifique</b><br>Qual operação é: somar, comparar, multiplicar, dividir?</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>② Alinhe</b><br>Em soma/subtração, alinhe a vírgula. Complete zeros se precisar.</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>③ Calcule</b><br>Siga o passo a passo da operação, com calma.</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>④ Confira</b><br>O resultado faz sentido? A vírgula está no lugar certo?</div>
+  </div>
+ </article>
+</section>
 
-        
+<!-- EXEMPLOS -->
+<section id="sec-exemplos" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Exemplos resolvidos</span><h1 class="text-3xl font-black mt-2">Veja o raciocínio completo, passo a passo</h1><p class="text-slate-600 mt-2">Antes de tentar os exercícios, acompanhe estes modelos com atenção.</p></div>
 
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 1 — Comparar dois decimais</h2>
+  <p class="mt-2 text-slate-600">Qual é maior: \(0{,}45\) ou \(0{,}4\)?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Iguale as casas decimais: \(0{,}4 \to 0{,}40\).</div>
+   <div class="step" data-step="2">Compare como inteiros: \(45 > 40\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> \(0{,}45 > 0{,}4\).</div>
+  </div>
+ </article>
 
-        <!-- ========================================= -->
-        <!-- NOVO: MULTIPLICAÇÃO -->
-        <!-- ========================================= -->
-         <h4 style="margin-top: 20px;">&times; Multiplicação (Atenção ao Z!)</h4>
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span>${numE},</span> <input type="number" id="numE" placeholder="Ex: 3,4">
-            <span>&times;</span>
-            <span>${numF},</span> <input type="number" id="numF" placeholder="Ex: 2,5">
-            <button onclick="calcularMultiplicacao()">Calcular</button>
-        </div>
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 2 — Adição com casas diferentes</h2>
+  <p class="mt-2 text-slate-600">Calcule \(7{,}2 + 1{,}35\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Complete com zero: \(7{,}2 \to 7{,}20\).</div>
+   <div class="step" data-step="2">Alinhe as vírgulas e some: \(7{,}20 + 1{,}35\).</div>
+   <div class="step" data-step="3">Some casa por casa, da direita: \(0+5=5\); \(2+3=5\); \(7+1=8\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(8{,}55\).</div>
+  </div>
+ </article>
 
-         <!-- ========================================= -->
-         <!-- NOVO: DIVISÃO -->
-         <!-- ========================================= -->
-         <h4 style="margin-top: 20px;">&divide; Divisão (Cuidado com o Zero!)</h4>
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span>${numG},</span> <input type="number" id="numG" placeholder="Ex: 7,9">
-            <span>&divide;</span>
-            <span>${numH},</span> <input type="number" id="numH" placeholder="Ex: 3,2">
-            <button onclick="calcularDivisao()">Calcular</button>
-        </div>
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 3 — Subtração "emprestando"</h2>
+  <p class="mt-2 text-slate-600">Calcule \(5 - 2{,}35\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Escreva 5 como decimal: \(5{,}00\).</div>
+   <div class="step" data-step="2">Alinhe as vírgulas: \(5{,}00 - 2{,}35\).</div>
+   <div class="step" data-step="3">Subtraia normalmente, emprestando quando precisar, como em números inteiros.</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(2{,}65\).</div>
+  </div>
+ </article>
 
-        <div id="resultadoLab" style="margin-top: 20px; padding: 15px; border: 2px dashed #6366f1;">
-            Resultado aparecerá aqui após clicar nos botões.
-        </div>
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 4 — Multiplicação</h2>
+  <p class="mt-2 text-slate-600">Calcule \(2{,}5 \times 1{,}4\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Multiplique sem vírgula: \(25 \times 14 = 350\).</div>
+   <div class="step" data-step="2">Conte as casas: 1 casa + 1 casa = 2 casas.</div>
+   <div class="step" data-step="3">Posicione a vírgula andando 2 casas da direita em 350: \(3{,}50\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(3{,}5\).</div>
+  </div>
+ </article>
 
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 5 — Divisão</h2>
+  <p class="mt-2 text-slate-600">Calcule \(7{,}5 \div 0{,}25\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">O divisor \(0{,}25\) tem 2 casas decimais, então multiplique os dois por 100.</div>
+   <div class="step" data-step="2">Fica \(750 \div 25\).</div>
+   <div class="step" data-step="3">Divida: \(750 \div 25 = 30\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(30\).</div>
+  </div>
+ </article>
 
-    </div>
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 6 — Fração para decimal e arredondamento</h2>
+  <p class="mt-2 text-slate-600">Escreva \(\frac{2}{3}\) como decimal, arredondado para centésimos.</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Divida: \(2 \div 3 = 0{,}666\ldots\) (dízima periódica).</div>
+   <div class="step" data-step="2">Para arredondar em centésimos, olhe a terceira casa: é 6 (≥5).</div>
+   <div class="step" data-step="3">A segunda casa (6) sobe para 7.</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(0{,}67\).</div>
+  </div>
+ </article>
+</section>
 
-     
+<!-- LAB -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Laboratório visual</span><h1 class="text-3xl font-black mt-2">Veja o decimal em blocos de 100</h1><p class="text-slate-600 mt-2">Mova o controle e observe a parte inteira e a parte decimal representadas visualmente.</p></div>
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <label class="font-bold text-sm">Parte inteira: <span id="lab-int-label" class="text-indigo-600">1</span></label><input id="lab-int" type="range" min="0" max="4" value="1" class="w-full mt-3">
+   <label class="font-bold text-sm block mt-6">Centésimos (0 a 99): <span id="lab-cent-label" class="text-indigo-600">34</span></label><input id="lab-cent" type="range" min="0" max="99" value="34" class="w-full mt-3">
+   <div class="grid grid-cols-2 gap-2 mt-6"><button id="lab-minus" class="rounded-xl bg-slate-100 py-2 font-bold">−</button><button id="lab-plus" class="rounded-xl bg-slate-100 py-2 font-bold">+</button></div>
+  </div>
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="grid md:grid-cols-2 gap-7">
+    <div><h3 class="font-black text-center">Grades de 100 (cada uma = 1 inteiro)</h3><div id="grids" class="flex flex-wrap gap-4 justify-center mt-4"></div></div>
+    <div><h3 class="font-black text-center">Reta numérica</h3><div id="numline" class="mt-8"></div></div>
+   </div>
+   <div class="border-t mt-6 pt-5 text-center"><div id="lab-value" class="text-3xl font-black"></div><div id="lab-info" class="mt-4 grid sm:grid-cols-3 gap-2 text-sm"></div></div>
+  </div>
+ </div>
+ <div class="bg-indigo-950 text-white rounded-2xl p-6"><h2 class="font-black text-xl">Comparador passo a passo</h2><p class="text-indigo-200 text-sm mt-1">Digite dois decimais para ver a comparação detalhada.</p>
+  <div class="grid sm:grid-cols-3 gap-3 mt-4 items-center">
+   <input id="cmp-a" value="0,7" class="rounded-xl px-3 py-2 text-slate-900 font-mono text-center">
+   <input id="cmp-b" value="0,65" class="rounded-xl px-3 py-2 text-slate-900 font-mono text-center">
+   <button onclick="renderCompare()" class="bg-white text-indigo-900 rounded-xl py-2 font-bold">Comparar</button>
+  </div>
+  <div id="cmp-out" class="mt-4 text-slate-900"></div>
+ </div>
+</section>
 
-    <!-- ========================================= -->
-    <!-- SEÇÃO 4: EXERCÍCIOS (AVALIAÇÃO) - Inspirado na Citação 1 -->
-    <!-- ========================================= -->
-    <div class="section-card" id="exercicios">
-        <h2>✅ 4. Hora dos Exercícios!</h2>
-        <p>Não olhe o exemplo antes de tentar. Lembre-se do passo a passo: Alinhar $\rightarrow$ Somar/Subtrair.</p>
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span><h1 class="text-3xl font-black mt-2">30 exercícios com resolução</h1><p class="text-slate-600 mt-2">Tente primeiro. Quando quiser conferir, clique em <b>Visualizar resposta e resolução</b>. Use vírgula ou ponto para decimais.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 30</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-indigo-600 rounded-full" style="width:0%"></div></div></div></div></div>
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters"><button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button><button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 1 · Valor posicional</button><button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 2 · Soma/Subtração</button><button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 3 · Multiplicação</button><button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 4 · Divisão</button><button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 5 · Conversão</button><input id="search" placeholder="Buscar questão..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[180px]"></div></div>
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo de estudo de Números Decimais • Fórmulas renderizadas em notação matemática</div></footer>
 
-        <h3>❓ Desafio Rápido (Sem ajuda)</h3>
-        <ol>
-            <li>Qual é o resultado de 5,2 + 1,08?</li>
-            <li>Se você comprou algo por R$ 12,50 e pagou com uma nota de R$ 20,00, quanto recebeu de troco?</li>
-        </ol>
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})}
 
-        <h3>🧠 Dica de Estudo (Retomada do Procedimento)</h3>
-        <p style="padding: 10px; background-color: #fffbe8; border-left: 4px solid orange;">💡 Se você travar em um exercício, não tente adivinhar. Volte imediatamente para a seção de "Exemplos Guiados" e refaça o problema lá até conseguir fazer sem pensar.</p>
-    </div>
+// Navegação
+const sections=['teoria','exemplos','laboratorio','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises();if(t==='laboratorio')updateLab()}));
 
-    <script>
-        // ===========================================
-        // JAVASCRIPT PARA A INTERATIVIDADE (LABORATÓRIO)
-        // ===========================================
+// Visual introdutório: reta numérica simples
+function drawIntroLine(containerId){const el=$(containerId);el.innerHTML='';const c=document.createElement('canvas');c.width=260;c.height=90;el.appendChild(c);const ctx=c.getContext('2d');ctx.strokeStyle='#64748b';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(20,45);ctx.lineTo(240,45);ctx.stroke();for(let i=0;i<=4;i++){const x=20+i*55;ctx.beginPath();ctx.moveTo(x,38);ctx.lineTo(x,52);ctx.stroke();ctx.fillStyle='#243044';ctx.font='13px sans-serif';ctx.textAlign='center';ctx.fillText(String(i),x,70)}const px=20+3*55+0.45*55;ctx.fillStyle='#6366f1';ctx.beginPath();ctx.arc(px,45,6,0,7);ctx.fill();ctx.font='bold 12px sans-serif';ctx.fillText('3,45',px,25)}
+drawIntroLine('visual-line');
 
-        // ===========================================
-// JAVASCRIPT PARA A INTERATIVIDADE (LABORATÓRIO) - ATUALIZADO
-// ===========================================
+// Laboratório: grades de 100
+function drawGrid100(canvas,filled){const ctx=canvas.getContext('2d'),size=120,cell=size/10;canvas.width=size;canvas.height=size;for(let r=0;r<10;r++){for(let c=0;c<10;c++){const idx=r*10+c;ctx.fillStyle=idx<filled?'#6366f1':'#f8fafc';ctx.fillRect(c*cell,r*cell,cell,cell);ctx.strokeStyle='#cbd5e1';ctx.strokeRect(c*cell,r*cell,cell,cell)}}}
+function updateLab(){const w=+$('lab-int').value,c=+$('lab-cent').value;$('lab-int-label').textContent=w;$('lab-cent-label').textContent=c;const value=(w+c/100).toFixed(2).replace('.',',');$('lab-value').innerHTML=value;$('grids').innerHTML='';for(let k=0;k<w;k++){const cv=document.createElement('canvas');$('grids').appendChild(cv);drawGrid100(cv,100)}const cv=document.createElement('canvas');$('grids').appendChild(cv);drawGrid100(cv,c);
+ $('numline').innerHTML='';const el=document.createElement('div');$('numline').appendChild(el);drawIntroLineAt(el,w,c);
+ $('lab-info').innerHTML=`<div class="bg-slate-50 rounded-xl p-3"><b>Como fração</b><br>${(w*100+c)} / 100</div><div class="bg-slate-50 rounded-xl p-3"><b>Décimos</b><br>${Math.floor(c/10)} décimos e ${c%10} centésimos</div><div class="bg-slate-50 rounded-xl p-3"><b>Leitura</b><br>${w} inteiro(s) e ${c} centésimos</div>`}
+function drawIntroLineAt(el,w,c){const cv=document.createElement('canvas');cv.width=300;cv.height=90;el.appendChild(cv);const ctx=cv.getContext('2d');ctx.strokeStyle='#64748b';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(20,45);ctx.lineTo(280,45);ctx.stroke();const maxW=Math.max(w+1,2);for(let i=0;i<=maxW;i++){const x=20+i*(260/maxW);ctx.beginPath();ctx.moveTo(x,38);ctx.lineTo(x,52);ctx.stroke();ctx.fillStyle='#243044';ctx.font='12px sans-serif';ctx.textAlign='center';ctx.fillText(String(i),x,70)}const frac=w+c/100;const px=20+frac*(260/maxW);ctx.fillStyle='#6366f1';ctx.beginPath();ctx.arc(px,45,6,0,7);ctx.fill()}
+$('lab-int').addEventListener('input',updateLab);$('lab-cent').addEventListener('input',updateLab);
+$('lab-minus').onclick=()=>{$('lab-cent').value=Math.max(0,+$('lab-cent').value-1);updateLab()};
+$('lab-plus').onclick=()=>{$('lab-cent').value=Math.min(99,+$('lab-cent').value+1);updateLab()};
 
-function calcularSoma() {
-    const numA = parseFloat(document.getElementById('numA').value);
-    const numB = parseFloat(document.getElementById('numB').value);
-    const resultadoDiv = document.getElementById('resultadoLab');
-    let resultado;
-
-    if (isNaN(numA) || isNaN(numB)) {
-        resultadoDiv.innerHTML = "⚠️ Por favor, preencha os dois campos para calcular a soma.";
-        return;
-    }
-    
-    resultado = numA + numB;
-    // Usa toFixed(2).replace(/\.?0+$/, "") para garantir duas casas decimais se necessário, mas remover zeros finais.
-    resultadoDiv.innerHTML = `✅ O resultado de ${numA} + ${numB} é: <strong style="font-size: 1.5em;">${resultado.toFixed(2).replace(/\.?0+$/, "")}</strong>`;
+// Comparador
+function renderCompare(){
+ const rawA=$('cmp-a').value.trim().replace(',','.'),rawB=$('cmp-b').value.trim().replace(',','.');
+ const a=parseFloat(rawA),b=parseFloat(rawB);
+ if(isNaN(a)||isNaN(b)){$('cmp-out').innerHTML='<div class="warning rounded-xl p-4">Digite dois números válidos.</div>';return}
+ const decA=(rawA.split('.')[1]||'').length,decB=(rawB.split('.')[1]||'').length,casas=Math.max(decA,decB);
+ const strA=a.toFixed(casas).replace('.',','),strB=b.toFixed(casas).replace('.',',');
+ const cmp=a>b?'>':a<b?'<':'=';
+ $('cmp-out').innerHTML=`<div class="step" data-step="1">Igualando as casas decimais: <b>${strA}</b> e <b>${strB}</b>.</div><div class="step mt-3" data-step="2">Comparando como se fossem inteiros: <b>${Math.round(a*Math.pow(10,casas))}</b> ${cmp} <b>${Math.round(b*Math.pow(10,casas))}</b>.</div><div class="success rounded-xl p-4 mt-3 text-center font-bold">Portanto, ${strA} ${cmp} ${strB}</div>`;
 }
 
-function calcularSubtracao() {
-    const numC = parseFloat(document.getElementById('numC').value);
-    const numD = parseFloat(document.getElementById('numD').value);
-    const resultadoDiv = document.getElementById('resultadoLab');
-    let resultado;
+// ===== EXERCÍCIOS =====
+function mi(s){return '\\('+s+'\\)'}
+const exercisesData = [
+ // Nível 1 — Valor posicional e leitura (1-6)
+ {id:1,level:1,title:"Nível 1: Valor posicional",question:"Quanto vale o algarismo 7 em "+mi("4{,}371")+"? (responda em fração, ex: 7/100)",answer:"7/100",accept:["7/100"],steps:[["1","O 7 está na segunda casa depois da vírgula: a casa dos centésimos."],["2","Cada centésimo vale 1/100."],["3","Resposta: 7/100."]]},
+ {id:2,level:1,title:"Nível 1: Valor posicional",question:"Escreva por extenso o número de casas decimais de "+mi("0{,}056"),answer:"3",accept:["3","tres","três"],steps:[["1","Conte os algarismos depois da vírgula: 0, 5 e 6."],["2","São 3 casas decimais (décimos, centésimos, milésimos)."],["3","Resposta: 3."]]},
+ {id:3,level:1,title:"Nível 1: Valor posicional",question:"Qual decimal representa 4 inteiros, 2 décimos e 5 centésimos?",answer:"4,25",accept:["4,25","4.25"],steps:[["1","Parte inteira: 4."],["2","Décimos: 2 → primeira casa. Centésimos: 5 → segunda casa."],["3","Resposta: 4,25."]]},
+ {id:4,level:1,title:"Nível 1: Valor posicional",question:"Complete: "+mi("2{,}5")+" é igual a "+mi("2{,}50")+"? Responda sim ou não.",answer:"sim",accept:["sim","s"],steps:[["1","Acrescentar um zero no final da parte decimal não muda o valor do número."],["2","2,5 = 2,50 = 2,500 ..."],["3","Resposta: sim."]]},
+ {id:5,level:1,title:"Nível 1: Valor posicional",question:"Qual é o próximo número na sequência: 1,1 — 1,2 — 1,3 — ___",answer:"1,4",accept:["1,4","1.4"],steps:[["1","A sequência aumenta 1 décimo (0,1) a cada passo."],["2","1,3 + 0,1 = 1,4."],["3","Resposta: 1,4."]]},
+ {id:6,level:1,title:"Nível 1: Valor posicional",question:"Transforme em decimal: 3 unidades e 8 milésimos.",answer:"3,008",accept:["3,008","3.008"],steps:[["1","Milésimos é a terceira casa depois da vírgula."],["2","3 unidades → parte inteira 3. 8 milésimos → 008 nas três casas decimais."],["3","Resposta: 3,008."]]},
+ // Nível 2 — Adição e subtração (7-12)
+ {id:7,level:2,title:"Nível 2: Adição e subtração",question:mi("3{,}4 + 1{,}25")+" = ?",answer:"4,65",accept:["4,65","4.65"],tolerance:0.001,steps:[["1","Complete 3,4 para 3,40, igualando as casas."],["2","Alinhe as vírgulas: 3,40 + 1,25."],["3","Some casa por casa: 0+5=5; 4+2=6; 3+1=4."],["4","Resposta: 4,65."]]},
+ {id:8,level:2,title:"Nível 2: Adição e subtração",question:mi("5 - 2{,}35")+" = ?",answer:"2,65",accept:["2,65","2.65"],tolerance:0.001,steps:[["1","Escreva 5 como 5,00."],["2","Subtraia alinhando a vírgula: 5,00 - 2,35."],["3","Resposta: 2,65."]]},
+ {id:9,level:2,title:"Nível 2: Adição e subtração",question:mi("7{,}2 + 3{,}09")+" = ?",answer:"10,29",accept:["10,29","10.29"],tolerance:0.001,steps:[["1","Complete 7,2 para 7,20."],["2","Some: 7,20 + 3,09."],["3","Resposta: 10,29."]]},
+ {id:10,level:2,title:"Nível 2: Adição e subtração",question:mi("9{,}5 - 4{,}75")+" = ?",answer:"4,75",accept:["4,75","4.75"],tolerance:0.001,steps:[["1","Complete 9,5 para 9,50."],["2","Subtraia: 9,50 - 4,75."],["3","Resposta: 4,75."]]},
+ {id:11,level:2,title:"Nível 2: Adição e subtração",question:mi("0{,}8 + 0{,}45 + 1{,}2")+" = ?",answer:"2,45",accept:["2,45","2.45"],tolerance:0.001,steps:[["1","Iguale as casas: 0,80 + 0,45 + 1,20."],["2","Some os três valores em coluna."],["3","Resposta: 2,45."]]},
+ {id:12,level:2,title:"Nível 2: Adição e subtração",question:"Ana tinha "+mi("12{,}5")+" reais e gastou "+mi("8{,}75")+" reais. Quanto sobrou?",answer:"3,75",accept:["3,75","3.75"],tolerance:0.001,steps:[["1","Sobrou: 12,50 - 8,75."],["2","Alinhe as vírgulas e subtraia."],["3","Resposta: 3,75 reais."]]},
+ // Nível 3 — Multiplicação (13-18)
+ {id:13,level:3,title:"Nível 3: Multiplicação",question:mi("1{,}2 \\times 0{,}3")+" = ?",answer:"0,36",accept:["0,36","0.36",",36"],tolerance:0.001,steps:[["1","Multiplique sem vírgula: 12 × 3 = 36."],["2","Conte as casas decimais: 1 + 1 = 2 casas."],["3","Posicione a vírgula: 0,36."]]},
+ {id:14,level:3,title:"Nível 3: Multiplicação",question:mi("2{,}5 \\times 1{,}4")+" = ?",answer:"3,5",accept:["3,5","3.5","3,50"],tolerance:0.001,steps:[["1","Multiplique sem vírgula: 25 × 14 = 350."],["2","Conte as casas: 1 + 1 = 2 casas → 3,50."],["3","Resposta: 3,5."]]},
+ {id:15,level:3,title:"Nível 3: Multiplicação",question:mi("0{,}5 \\times 0{,}5")+" = ?",answer:"0,25",accept:["0,25","0.25",",25"],tolerance:0.001,steps:[["1","Multiplique sem vírgula: 5 × 5 = 25."],["2","Conte as casas: 1 + 1 = 2 casas."],["3","Resposta: 0,25."]]},
+ {id:16,level:3,title:"Nível 3: Multiplicação",question:mi("3 \\times 0{,}25")+" = ?",answer:"0,75",accept:["0,75","0.75",",75"],tolerance:0.001,steps:[["1","Multiplique sem vírgula: 3 × 25 = 75."],["2","O número 3 tem 0 casas e 0,25 tem 2 casas → total 2 casas."],["3","Resposta: 0,75."]]},
+ {id:17,level:3,title:"Nível 3: Multiplicação",question:mi("1{,}1 \\times 1{,}1")+" = ?",answer:"1,21",accept:["1,21","1.21"],tolerance:0.001,steps:[["1","Multiplique sem vírgula: 11 × 11 = 121."],["2","Conte as casas: 1 + 1 = 2 casas."],["3","Resposta: 1,21."]]},
+ {id:18,level:3,title:"Nível 3: Multiplicação",question:"Um caderno custa "+mi("6{,}50")+" reais. Quanto custam 3 cadernos?",answer:"19,5",accept:["19,5","19.5","19,50"],tolerance:0.001,steps:[["1","Multiplique 6,50 × 3."],["2","Sem vírgula: 650 × 3 = 1950."],["3","6,50 tem 2 casas, então: 19,50."],["4","Resposta: 19,50 reais."]]},
+ // Nível 4 — Divisão (19-24)
+ {id:19,level:4,title:"Nível 4: Divisão",question:mi("4{,}8 \\div 0{,}4")+" = ?",answer:"12",accept:["12","12,0","12.0"],tolerance:0.001,steps:[["1","Multiplique os dois por 10 para tirar a vírgula do divisor: 48 ÷ 4."],["2","Divida: 48 ÷ 4 = 12."],["3","Resposta: 12."]]},
+ {id:20,level:4,title:"Nível 4: Divisão",question:mi("7{,}5 \\div 0{,}25")+" = ?",answer:"30",accept:["30","30,0","30.0"],tolerance:0.001,steps:[["1","O divisor tem 2 casas, multiplique os dois por 100: 750 ÷ 25."],["2","Divida: 750 ÷ 25 = 30."],["3","Resposta: 30."]]},
+ {id:21,level:4,title:"Nível 4: Divisão",question:mi("1 \\div 4")+" = ? (como decimal)",answer:"0,25",accept:["0,25","0.25",",25"],tolerance:0.001,steps:[["1","Divida 1 por 4 usando vírgula no quociente."],["2","1,00 ÷ 4 = 0,25."],["3","Resposta: 0,25."]]},
+ {id:22,level:4,title:"Nível 4: Divisão",question:mi("9{,}6 \\div 3")+" = ?",answer:"3,2",accept:["3,2","3.2"],tolerance:0.001,steps:[["1","Divida a parte inteira: 9 ÷ 3 = 3."],["2","Continue com a parte decimal: 0,6 ÷ 3 = 0,2."],["3","Resposta: 3,2."]]},
+ {id:23,level:4,title:"Nível 4: Divisão",question:"Divida "+mi("15")+" reais igualmente entre 4 pessoas. Quanto cada uma recebe?",answer:"3,75",accept:["3,75","3.75"],tolerance:0.001,steps:[["1","Calcule 15 ÷ 4."],["2","15,00 ÷ 4 = 3,75."],["3","Resposta: 3,75 reais cada."]]},
+ {id:24,level:4,title:"Nível 4: Divisão",question:mi("2{,}52 \\div 1{,}2")+" = ?",answer:"2,1",accept:["2,1","2.1"],tolerance:0.001,steps:[["1","O divisor tem 1 casa, multiplique os dois por 10: 25,2 ÷ 12."],["2","Divida: 25,2 ÷ 12 = 2,1."],["3","Resposta: 2,1."]]},
+ // Nível 5 — Conversão fração-decimal e arredondamento (25-30)
+ {id:25,level:5,title:"Nível 5: Conversão e arredondamento",question:"Escreva "+mi("\\frac{3}{4}")+" como decimal.",answer:"0,75",accept:["0,75","0.75",",75"],tolerance:0.001,steps:[["1","Divida numerador por denominador: 3 ÷ 4."],["2","3,00 ÷ 4 = 0,75."],["3","Resposta: 0,75."]]},
+ {id:26,level:5,title:"Nível 5: Conversão e arredondamento",question:"Escreva "+mi("0{,}6")+" como fração simplificada.",answer:"3/5",accept:["3/5"],steps:[["1","0,6 = 6/10 (décimos)."],["2","Simplifique dividindo por 2: 6÷2=3, 10÷2=5."],["3","Resposta: 3/5."]]},
+ {id:27,level:5,title:"Nível 5: Conversão e arredondamento",question:"Arredonde "+mi("2{,}378")+" para os centésimos.",answer:"2,38",accept:["2,38","2.38"],tolerance:0.001,steps:[["1","A casa dos centésimos é o 7. O próximo algarismo é 8."],["2","Como 8 ≥ 5, o 7 sobe para 8."],["3","Resposta: 2,38."]]},
+ {id:28,level:5,title:"Nível 5: Conversão e arredondamento",question:"Arredonde "+mi("5{,}132")+" para os décimos.",answer:"5,1",accept:["5,1","5.1"],tolerance:0.001,steps:[["1","A casa dos décimos é o 1. O próximo algarismo é 3."],["2","Como 3 < 5, o 1 permanece."],["3","Resposta: 5,1."]]},
+ {id:29,level:5,title:"Nível 5: Conversão e arredondamento",question:"Escreva "+mi("\\frac{1}{8}")+" como decimal.",answer:"0,125",accept:["0,125","0.125"],tolerance:0.001,steps:[["1","Divida: 1 ÷ 8."],["2","1,000 ÷ 8 = 0,125."],["3","Resposta: 0,125."]]},
+ {id:30,level:5,title:"Nível 5: Conversão e arredondamento",question:"Arredonde a dízima de "+mi("\\frac{1}{3}")+" para centésimos.",answer:"0,33",accept:["0,33","0.33",",33"],tolerance:0.001,steps:[["1","1 ÷ 3 = 0,333... (dízima periódica)."],["2","A terceira casa é 3 (<5), então a segunda casa não sobe."],["3","Resposta: 0,33."]]}
+];
 
-     if (isNaN(numC) || isNaN(numD)) {
-        resultadoDiv.innerHTML = "⚠️ Por favor, preencha os dois campos para calcular a subtração.";
-        return;
-    }
-    
-    resultado = numC - numD;
-    resultadoDiv.innerHTML = `✅ O resultado de ${numC} - ${numD} é: <strong style="font-size: 1.5em;">${Math.abs(resultado).toFixed(2).replace(/\.?0+$/, "")}</strong>`; // Math.abs para evitar negativo em display
+function normalize(s){return String(s).trim().toLowerCase().replace(/\s+/g,'').replace(/\./g,',')}
+function checkAnswer(ex,raw){
+ const v=normalize(raw);
+ const accepted=(ex.accept||[ex.answer]).map(normalize);
+ if(accepted.includes(v))return true;
+ if(ex.tolerance!=null){
+  const num=parseFloat(v.replace(',','.'));
+  const target=parseFloat(normalize(ex.answer).replace(',','.'));
+  if(!isNaN(num)&&!isNaN(target)&&Math.abs(num-target)<=ex.tolerance)return true;
+ }
+ return false;
 }
-
-// =========================================
-// NOVO: FUNÇÃO DE MULTIPLICAÇÃO
-// =========================================
-function calcularMultiplicacao() {
-    const numE = parseFloat(document.getElementById('numE').value);
-    const numF = parseFloat(document.getElementById('numF').value);
-    const resultadoDiv = document.getElementById('resultadoLab');
-    let resultado;
-
-    if (isNaN(numE) || isNaN(numF)) {
-        resultadoDiv.innerHTML = "⚠️ Por favor, preencha os dois campos para calcular a multiplicação.";
-        return;
-    }
-    
-    resultado = numE * numF;
-    // Multiplicação pode resultar em muitas casas decimais, mas o foco é mostrar a precisão.
-    resultadoDiv.innerHTML = `✅ O resultado de ${numE} x ${numF} é: <strong style="font-size: 1.5em;">${resultado.toFixed(3).replace(/\.?0+$/, "")}</strong>`;
+let solved=new Set(JSON.parse(localStorage.getItem('decSolved')||'[]'));let currentLevel='all';
+function renderExercises(){
+ const q=($('search').value||'').toLowerCase();
+ let list=exercisesData.filter(e=>(currentLevel==='all'||e.level==currentLevel)&&(q===''||(`questão ${e.id} ${e.title}`).toLowerCase().includes(q)));
+ $('exercise-list').innerHTML=list.map(ex=>{const done=solved.has(ex.id);
+  return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm">
+   <div class="flex justify-between gap-3"><span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700">Questão ${ex.id}</span><span class="text-xs text-slate-400">${ex.title}</span></div>
+   <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-6 text-center text-lg">${ex.question}</div>
+   <div class="flex gap-2 mt-4"><input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm" placeholder="Sua resposta"><button onclick="check(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Conferir</button></div>
+   <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+   <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-indigo-700 hover:underline">👁 Visualizar resposta e resolução</button>
+   <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+    <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução completa</div>
+    ${ex.steps.map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+    <div class="success rounded-xl p-4 text-center font-bold">Resposta: ${ex.answer}</div>
+   </div>
+  </article>`}).join('');
+ $('progress-text').textContent=`${solved.size} / ${exercisesData.length}`;
+ $('progress-bar').style.width=Math.round(100*solved.size/exercisesData.length)+'%';
+ renderAll();
 }
-
-// =========================================
-// NOVO: FUNÇÃO DE DIVISÃO (Mais Complexa, deve ser tratada com cuidado)
-// =========================================
-function calcularDivisao() {
-    const numG = parseFloat(document.getElementById('numG').value);
-    const numH = parseFloat(document.getElementById('numH').value);
-    const resultadoDiv = document.getElementById('resultadoLab');
-    let resultado;
-
-    if (isNaN(numG) || isNaN(numH)) {
-        resultadoDiv.innerHTML = "⚠️ Por favor, preencha os dois campos para calcular a divisão.";
-        return;
-    }
-
-    if (numH === 0) {
-         resultadoDiv.innerHTML = `<strong style="color: red;">🛑 Erro! Divisão por zero não é definida.</strong>`;
-         return;
-    }
-
-    resultado = numG / numH;
-    // Para divisões, exibimos com precisão para simular a necessidade de continuação/aproximação
-    resultadoDiv.innerHTML = `✅ O resultado de ${numG} ÷ ${numH} é: <strong style="font-size: 1.5em;">${result.toFixed(3).replace(/\.?0+$/, "")}</strong>`;
+function check(id){
+ const ex=exercisesData.find(x=>x.id===id),raw=$('answer-'+id).value,fb=$('feedback-'+id);
+ if(checkAnswer(ex,raw)){solved.add(id);localStorage.setItem('decSolved',JSON.stringify([...solved]));fb.className='text-sm font-bold mt-2 text-emerald-600';fb.textContent='✓ Correto! Muito bem.'}
+ else{fb.className='text-sm font-bold mt-2 text-red-600';fb.textContent='✗ Ainda não. Revise os passos e tente novamente.'}
+ renderExercises();
 }
+function toggleSol(id){$('solution-'+id).classList.toggle('hidden')}
+document.querySelectorAll('.level-btn').forEach(b=>b.onclick=()=>{currentLevel=b.dataset.level;document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderExercises()});
+$('search').addEventListener('input',renderExercises);
 
-// Adicione também a chamada dessas novas funções aos botões no HTML!
-
-    </script>
+window.addEventListener('DOMContentLoaded',()=>{updateLab();renderAll();});
+</script>
 </body>
 </html>
