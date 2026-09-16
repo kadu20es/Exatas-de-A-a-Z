@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física — Estática e Máquinas Simples</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {--ink: #134e4a; --paper: #f0fdfa; --line: #ccfbf1; --accent: #0d9488}
+  body {background: #f0fdfa; color: var(--ink)}
+  .tab-btn.active {color: #0f766e; border-bottom-color: #0f766e; font-weight: 800}
+  .paper {background: var(--paper); background-image: linear-gradient(#ccfbf1 1px, transparent 1px); background-size: 100% 2rem; border: 1px solid #99f6e4; box-shadow: 0 8px 24px #042f2e0d}
+  .step {position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #ccfbf1; border-radius: 1rem; background: white}
+  .step::before {content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #ccfbf1; color: #0f766e; font-weight: 800; display: grid; place-items: center; font-size: .8rem}
+  .level-btn.active {background: #0d9488; color: white}
+  .exercise-solution {animation: fade .2s ease}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  .tip {border-left: 4px solid #f59e0b; background: #fffbeb}
+  .success {border-left: 4px solid #10b981; background: #ecfdf5}
+  .warning {border-left: 4px solid #ef4444; background: #fef2f2}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-teal-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-teal-900">⚖️ Estática & Mecânica</div><div class="text-[11px] text-slate-500 hidden sm:block">Equilíbrio, Alavancas e Engrenagens</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Máquinas</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-teal-950 via-teal-800 to-cyan-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-teal-300">Mecânica Clássica</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">A Arte do Equilíbrio</h1>
+  <p class="mt-4 max-w-3xl text-teal-100 leading-7">Como pequenas forças conseguem erguer carros, pontes se mantêm em pé e engrenagens movem o mundo. Entenda os segredos da estática e das máquinas simples que ampliam a força humana.</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Dica de Estudo:</b> Em Estática, a regra de ouro é: "O que puxa para um lado, tem que ser igual ao que puxa para o outro". Se o objeto está em equilíbrio, nada ganha, tudo empata!</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tema 1 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">Ponto Material vs Corpo Extenso</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Tudo depende do <b>referencial</b>. O tamanho importa para o problema?</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-cyan-50 rounded-xl p-4 border border-cyan-100">
+     <b class="text-cyan-800 text-base">Ponto Material (Partícula)</b>
+     <p class="mt-1 text-slate-600">As dimensões (tamanho) do corpo <b>NÃO</b> importam. Ex: Um carro viajando de São Paulo ao Rio de Janeiro. O tamanho do carro é irrelevante perto da estrada.</p>
+    </div>
+    <div class="bg-teal-50 rounded-xl p-4 border border-teal-100">
+     <b class="text-teal-800 text-base">Corpo Extenso</b>
+     <p class="mt-1 text-slate-600">O tamanho do corpo <b>IMPORTA</b>. Ex: Um trem de 200m atravessando uma ponte de 100m. A distância total da travessia será a soma: ponte + trem (300m).</p>
+    </div>
+   </div>
+  </article>
+
+  <!-- Tema 2 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Equilíbrio do Ponto Material</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Para uma "partícula" estar em equilíbrio, ela deve estar parada (Repouso) ou em Movimento Retilíneo Uniforme (MRU).</p>
+   <div class="paper text-center py-4 mt-3 rounded-xl shadow-inner font-bold text-lg">\[\Sigma F = 0 \quad \text{(Força Resultante Nula)}\]</div>
+   <p class="mt-4 text-slate-600 text-sm">Na prática:</p>
+   <ul class="list-disc pl-5 mt-2 text-sm text-slate-600 space-y-2">
+    <li>As forças que puxam para <b>CIMA</b> = As forças que puxam para <b>BAIXO</b>.</li>
+    <li>As forças que puxam para a <b>DIREITA</b> = As forças que puxam para a <b>ESQUERDA</b>.</li>
+   </ul>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">3 e 4</span><h2 class="text-2xl font-black">Torque (Momento) e o Corpo Extenso</h2></div>
+  
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div>
+    <h3 class="font-bold text-teal-800">O Efeito de Giro (Torque)</h3>
+    <p class="text-sm text-slate-600 mt-2 mb-3">Tente abrir uma porta empurrando perto da dobradiça. É difícil, não é? A força de giro não depende só da força, mas da <b>distância</b>. A isso chamamos de Momento Polar ou Torque (M).</p>
+    
+    <div class="paper rounded-xl p-5 text-center text-lg shadow-inner">\[M = F \cdot d\]</div>
+    
+    <ul class="text-sm text-slate-600 mt-4 space-y-2 list-disc pl-5">
+     <li><b>F:</b> Força aplicada (Newtons).</li>
+     <li><b>d:</b> Distância (braço de alavanca) até o eixo de giro (metros).</li>
+     <li><b>Convenção:</b> Giro anti-horário (+), giro horário (-).</li>
+    </ul>
+   </div>
+   
+   <div class="space-y-4">
+    <div class="bg-slate-50 border p-4 rounded-xl">
+     <h3 class="font-bold text-slate-800">Equilíbrio do Corpo Extenso</h3>
+     <p class="text-sm text-slate-600 mt-2">Diferente de um ponto, um corpo comprido (como uma gangorra ou ponte) pode girar. Para estar em equilíbrio, ele precisa cumprir <b>DUAS</b> regras:</p>
+     <div class="mt-3 space-y-2 text-sm text-slate-700">
+        <div><b>1ª) Não se move:</b> \(F_{cima} = F_{baixo}\)</div>
+        <div><b>2ª) Não gira:</b> \(M_{horário} = M_{anti-horário}\)</div>
+     </div>
+    </div>
+    <div class="bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-xl">
+     <b class="text-teal-800 text-sm">Centro de Gravidade (CG)</b>
+     <p class="text-xs text-slate-700 mt-1">O peso de um objeto inteiro (como uma barra) atua exatamente no seu meio geométrico (se for homogêneo). É lá que desenhamos o vetor Peso!</p>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Máquinas Simples</h2></div>
+   <p class="mt-3 text-slate-600 text-sm mb-4">Dispositivos criados para facilitar o trabalho, geralmente diminuindo a força que precisamos aplicar (multiplicadores de força).</p>
+   
+   <b class="text-teal-800 text-sm">1. Polias (Roldanas)</b>
+   <div class="bg-slate-50 rounded p-3 text-sm mt-1 mb-3">
+    • <b>Fixas:</b> Só mudam a direção da força (não alivia o peso).<br>
+    • <b>Móveis:</b> Cada polia móvel divide o peso pela metade!
+    <div class="text-center mt-2 font-bold">\[F = \frac{P}{2^n}\]</div>
+    <div class="text-[10px] text-slate-500 text-center">(Onde n = número de polias móveis)</div>
+   </div>
+
+   <b class="text-teal-800 text-sm">2. Alavancas (Onde fica o meio?)</b>
+   <div class="bg-slate-50 rounded p-3 text-sm mt-1">
+    • <b>Interfixa:</b> Apoio no meio (Gangorra, Tesoura).<br>
+    • <b>Inter-resistente:</b> Peso/Resistência no meio (Carrinho de mão).<br>
+    • <b>Interpotente:</b> Força aplicada no meio (Pinça, Vassoura).
+   </div>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">Transmissão Circular</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">Como as bicicletas e motores funcionam acoplando engrenagens ou rodas.</p>
+   
+   <div class="space-y-4 mt-4 text-sm">
+    <div class="border-l-4 border-amber-400 pl-3">
+     <b class="text-slate-800">Eixos Diferentes (Por Correia ou Dentes)</b>
+     <p class="text-slate-600 mt-1">Giram juntos pela borda. A velocidade linear (V) é a mesma. Rodas menores giram mais rápido (maior Frequência).</p>
+     <div class="paper text-center py-2 mt-2 font-bold rounded-lg">\[f_A \cdot R_A = f_B \cdot R_B\]</div>
+     <p class="text-[11px] text-slate-500 mt-1">Giram em sentidos opostos (se encostados) ou iguais (com correia lisa).</p>
+    </div>
+
+    <div class="border-l-4 border-cyan-400 pl-3">
+     <b class="text-slate-800">Mesmo Eixo (Concêntricas)</b>
+     <p class="text-slate-600 mt-1">Giram juntas no mesmo "pauzinho" central. O número de voltas por minuto (Frequência) é EXATAMENTE igual para as duas.</p>
+     <div class="paper text-center py-2 mt-2 font-bold rounded-lg">\[f_A = f_B \quad \text{e} \quad \omega_A = \omega_B\]</div>
+    </div>
+   </div>
+  </article>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-teal-600">Simulações de Engenharia</span><h1 class="text-3xl font-black mt-2">Máquinas em Ação</h1><p class="text-slate-600 mt-2 text-sm">Use essas calculadoras para entender como as forças se distribuem em estruturas estáticas e como a multiplicação de forças ocorre.</p></div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Lab Torque -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">A Balança de Arquimedes (Gangorra)</h2>
+   <p class="text-xs text-slate-500 mb-4">Para equilibrar uma gangorra, o Torque de um lado deve ser igual ao do outro. Ajuste as forças e distâncias.</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Peso Objeto A (Newtons):</label><input id="lab-pa" type="number" value="600" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Distância A até o centro (m):</label><input id="lab-da" type="number" value="2" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <hr>
+    <div class="flex items-center justify-between"><label>Distância B até o centro (m):</label><input id="lab-db" type="number" value="3" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcTorque()" class="mt-4 w-full bg-teal-600 hover:bg-teal-700 text-white rounded-xl py-3 font-bold transition">Calcular Peso de B</button>
+   <div id="out-torque" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+
+  <!-- Lab Polias -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">Talha Exponencial (Associação de Polias)</h2>
+   <p class="text-xs text-slate-500 mb-4">Veja como colocar polias móveis reduz drasticamente a força humana necessária para erguer um motor de carro.</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Peso da Carga - P (Newtons):</label><input id="lab-p" type="number" value="1600" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Quantidade de Polias MÓVEIS (n):<br><span class="text-[10px] text-teal-600">Não conte as fixas do teto!</span></label><input id="lab-n" type="number" value="3" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcPolias()" class="mt-4 w-full bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl py-3 font-bold transition">Calcular Esforço</button>
+   <div id="out-polias" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-teal-600">Treino Progressivo</span><h1 class="text-3xl font-black mt-2">90 Questões Resolvidas</h1><p class="text-slate-600 mt-2 text-sm"><b>Teoria:</b> digite a letra (A, B, C, D). <b>Cálculos:</b> digite apenas o número (use '.' ou ',' para decimais). Arredonde para 2 casas quando necessário.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold text-teal-900"><span>Progresso</span><span id="progress-text">0 / 90</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-teal-500 transition-all duration-500 rounded-full" style="width:0%"></div></div></div></div></div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters">
+  <button data-theme="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold transition">Todos</button>
+  <button data-theme="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T1: Ponto vs Extenso</button>
+  <button data-theme="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T2: Equilíbrio (Ponto)</button>
+  <button data-theme="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T3: Torque</button>
+  <button data-theme="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T4: Equil. Extenso</button>
+  <button data-theme="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T5: Máquinas Simples</button>
+  <button data-theme="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T6: Transmissão</button>
+ </div></div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+</main>
+
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo - Estática, Máquinas Simples e Transmissão de Movimentos</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Tab Navigation
+const sections=['teoria','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises();}));
+
+// Calculators
+function calcTorque(){
+    const pa = +$('lab-pa').value;
+    const da = +$('lab-da').value;
+    const db = +$('lab-db').value;
+    
+    if (db <= 0) {
+        $('out-torque').innerHTML = `<b class="text-red-500">A distância B deve ser maior que zero.</b>`;
+        $('out-torque').classList.remove('hidden');
+        return;
+    }
+    
+    const pb = (pa * da) / db;
+    
+    let h = `<b>1. Condição de Equilíbrio:</b><br>`;
+    h += `Os Torques (Momentos) dos dois lados devem ser iguais.<br>`;
+    h += `\\[M_A = M_B \\rightarrow P_A \\cdot d_A = P_B \\cdot d_B\\]<br>`;
+    h += `<b>2. Inserindo os valores:</b><br>`;
+    h += `Lado A: \\(M_A = ${pa} \\cdot ${da} = ${pa*da}\\)<br>`;
+    h += `Lado B: \\(${pa*da} = P_B \\cdot ${db}\\)<br><br>`;
+    h += `<b>3. Resultado:</b><br>`;
+    h += `\\(P_B = \\frac{${pa*da}}{${db}}\\)<br>`;
+    h += `Para equilibrar, o Peso B deve ser de <b class="text-teal-700">${pb.toFixed(2)} N</b>.`;
+    
+    $('out-torque').innerHTML = h;
+    $('out-torque').classList.remove('hidden');
+    renderAll();
+}
+
+function calcPolias(){
+    const p = +$('lab-p').value;
+    const n = +$('lab-n').value;
+    
+    if (n < 0 || p <= 0) {
+        $('out-polias').innerHTML = `<b class="text-red-500">O peso deve ser > 0 e polias >= 0.</b>`;
+        $('out-polias').classList.remove('hidden');
+        return;
+    }
+    
+    const factor = Math.pow(2, n);
+    const f = p / factor;
+    
+    let h = `<b>1. Entendendo a Vantagem Mecânica:</b><br>`;
+    h += `Cada polia móvel divide a força que você faz pela metade.<br>`;
+    h += `Temos ${n} polia(s) móvel(is). O fator de divisão é \\(2^${n} = ${factor}\\).<br><br>`;
+    h += `<b>2. Calculando a Força:</b><br>`;
+    h += `\\[F = \\frac{P}{2^n} = \\frac{${p}}{${factor}}\\]<br>`;
+    h += `Você só precisará fazer uma força equivalente a <b class="text-cyan-700">${f.toFixed(2)} N</b>.<br>`;
+    h += `<span class="text-xs text-slate-500">(É como se levantasse só ${(f/10).toFixed(1)} kg para erguer uma carga de ${(p/10).toFixed(1)} kg!)</span>`;
+    
+    $('out-polias').innerHTML = h;
+    $('out-polias').classList.remove('hidden');
+    renderAll();
+}
+
+const exercisesData = [];
+let exId = 1;
+const addQ = (th, ty, q, ans, steps, opts=[]) => { exercisesData.push({ id: exId++, theme: th, type: ty, q, ans, steps, opts }); };
+
+// TEMA 1: Ponto Material e Corpo Extenso (1-15)
+addQ(1,'theo',"Um carro de 4 metros viaja de São Paulo ao Rio de Janeiro (400 km). Nesse caso, o carro é considerado:", "A", ["O tamanho do carro (4m) é insignificante perante 400.000m. Ele não afeta o cálculo do tempo da viagem."], ["A) Ponto Material", "B) Corpo Extenso", "C) Corpo Rígido", "D) Referencial Absoluto"]);
+addQ(1,'theo',"O que define se um corpo é Ponto Material ou Corpo Extenso na Física?", "C", ["O tamanho do corpo não é absoluto. Ele depende do fenômeno que está sendo estudado (o referencial)."], ["A) Seu peso exato", "B) Seu material de construção", "C) A relação do seu tamanho com o espaço em que se move", "D) Apenas o seu volume total em litros"]);
+addQ(1,'theo',"Um trem de 100 metros tenta cruzar uma ponte de 20 metros. Nesse problema, o trem é:", "B", ["Como 100m é muito maior que 20m, o tamanho do trem mudará drasticamente o tempo de travessia. Ele tem dimensões consideráveis no evento."], ["A) Ponto Material", "B) Corpo Extenso", "C) Ambos", "D) Partícula isolada"]);
+addQ(1,'theo',"A Terra viaja ao redor do Sol (órbita de centenas de milhões de km). Neste trajeto longo, a Terra é tratada como:", "A", ["Apesar de ser imensa, perto do tamanho da órbita ao redor do Sol, a Terra age como uma 'poeira' matemática (ponto material)."], ["A) Ponto Material", "B) Corpo Extenso", "C) Estrela Anã", "D) Galáxia"]);
+addQ(1,'theo',"Se eu quero calcular o tempo para que 2 trens se cruzem completamente um pelo outro, eles devem ser tratados como:", "B", ["O cruzamento total requer que a traseira de um passe pela traseira do outro. O comprimento deles é fundamental."], ["A) Pontos materiais", "B) Corpos extensos", "C) Referenciais inerciais", "D) Partículas sem massa"]);
+
+addQ(1,'calc',"Um trem de 150 m viaja em MRU. Ele passa por um poste. Como o poste é muito fino, a distância percorrida até o trem passar todo pelo poste é igual ao próprio tamanho do trem. Qual o $\\Delta S$ (em metros)?", "150", ["Como o poste é um 'ponto', o trem precisa andar apenas o seu próprio comprimento para que sua traseira passe pelo poste."]);
+addQ(1,'calc',"Um trem (corpo extenso) tem 200 m de comprimento e vai atravessar uma ponte de 300 m. Para atravessar totalmente, a traseira do trem deve sair da ponte. Qual o espaço total $\\Delta S$ que ele percorre?", "500", ["$\\Delta S = L_{trem} + L_{ponte}$", "$\\Delta S = 200 + 300 = 500\\text{ m}$"]);
+addQ(1,'calc',"Um caminhão de 20 m de comprimento atravessa um túnel de 80 m. Qual o espaço total percorrido durante a travessia completa?", "100", ["$\\Delta S = 20 + 80 = 100\\text{ m}$"]);
+addQ(1,'calc',"O trem da questão anterior (20m + 80m de túnel) andava a uma velocidade constante de 10 m/s. Quantos segundos levou a travessia?", "10", ["$\\Delta S = 100\\text{ m}$", "Tempo = Espaço / Velocidade", "$T = 100 / 10 = 10\\text{ s}$"]);
+addQ(1,'calc',"Se o trem fosse considerado um 'Ponto Material' (tamanho zero), quanto tempo (s) ele levaria para cruzar o mesmo túnel de 80m a 10 m/s?", "8", ["Se é ponto material, $\\Delta S$ é só o túnel (80m).", "$T = 80 / 10 = 8\\text{ s}$"]);
+addQ(1,'calc',"Um trem de comprimento L atravessa uma ponte de 100m. O espaço total percorrido na travessia foi 250m. Qual o comprimento L do trem (em m)?", "150", ["$\\Delta S = L + 100$", "$250 = L + 100 \\rightarrow L = 150\\text{ m}$"]);
+addQ(1,'calc',"Dois trens vêm em sentidos opostos. Trem A = 100m e Trem B = 150m. O espaço relativo que eles devem percorrer para se cruzarem totalmente é a soma de seus tamanhos. Quanto é isso?", "250", ["$\\Delta S = 100 + 150 = 250\\text{ m}$"]);
+addQ(1,'calc',"Trem X tem 120m. Ele gasta 20 segundos para cruzar uma ponte de 80m. Qual a velocidade do trem (m/s)?", "10", ["$\\Delta S = 120 + 80 = 200\\text{ m}$", "$V = \\Delta S / \\Delta t = 200 / 20 = 10\\text{ m/s}$"]);
+addQ(1,'calc',"Um avião de 50 m voa a 200 m/s. Quanto tempo ele leva para 'passar por inteiro' diante de um radar (poste)?", "0.25", ["Poste não tem comprimento. $\\Delta S = 50\\text{ m}$", "$T = 50 / 200 = 0,25\\text{ s}$"]);
+addQ(1,'calc',"Uma carreta (25m) ultrapassa um fusca (5m). O $\\Delta S$ relativo para a ultrapassagem completa é a soma dos comprimentos (para a traseira da carreta passar o nariz do fusca). Qual o $\\Delta S$?", "30", ["$\\Delta S = 25 + 5 = 30\\text{ m}$"]);
+
+// TEMA 2: Equilíbrio de Ponto Material (16-30)
+addQ(2,'theo',"Pela Primeira Lei de Newton (Inércia), um ponto material está em equilíbrio quando a Força Resultante sobre ele é:", "C", ["O equilíbrio ocorre quando não há força 'sobrando'. A aceleração é zero."], ["A) Máxima", "B) Constante e positiva", "C) Nula (Zero)", "D) Igual à gravidade"]);
+addQ(2,'theo',"Um corpo em equilíbrio pode estar em duas situações de movimento. Quais são?", "B", ["Se a força é zero, ele não acelera. Fica quieto (Repouso) ou continua em linha reta sem mudar de velocidade (MRU)."], ["A) Queda livre ou Curva", "B) Repouso ou MRU (Retilíneo Uniforme)", "C) Aceleração ou Frenagem", "D) Apenas repouso, nunca movimento"]);
+addQ(2,'theo',"Um bloco pesado está suspenso e parado no teto por uma corda. As duas únicas forças nele são o Peso (para baixo) e a Tração da corda (para cima). Podemos dizer que:", "A", ["Puxam em sentidos opostos com a mesma força, logo, se anulam e o bloco fica quieto."], ["A) T = Peso", "B) T é maior que o Peso", "C) T é menor que o Peso", "D) Não existe Tração"]);
+addQ(2,'theo',"Se uma força F horizontal puxa para a direita com 50N, qual deve ser a força de atrito (puxando para a esquerda) para que um bloco fique em equilíbrio?", "C", ["Tudo que puxa pra direita = puxa pra esquerda."], ["A) 0 N", "B) 25 N", "C) 50 N", "D) 100 N"]);
+addQ(2,'theo',"Quando usamos eixos x e y para decompor forças inclinadas em um corpo em equilíbrio, o que deve acontecer?", "D", ["Para haver equilíbrio total, NENHUM lado pode vencer."], ["A) $\\Sigma F_x = 0$ apenas.", "B) $\\Sigma F_y = 0$ apenas.", "C) As somas devem dar 1.", "D) Ambas as somas (em X e em Y) devem ser zero."]);
+
+addQ(2,'calc',"Bloco em repouso no chão. O Peso dele é 200 N (para baixo). Qual é a Força Normal (apoio do chão, para cima) em N?", "200", ["$F_{cima} = F_{baixo}$", "$Normal = Peso = 200\\text{ N}$"]);
+addQ(2,'calc',"Menino empurra caixa (direita) com 40N e menina empurra (esquerda). A caixa não se move. Qual a força da menina?", "40", ["Como não se move, Força Esquerda = Força Direita."]);
+addQ(2,'calc',"Um semáforo de 80 N está suspenso por DOIS fios verticais perfeitamente idênticos. Qual a força de tração em cada fio?", "40", ["Os fios dividem a carga igualmente.", "$2T = 80 \\rightarrow T = 40\\text{ N}$"]);
+addQ(2,'calc',"Bloco está preso por três cordas (A, B e C). A puxa para Norte com 30N. B puxa para o Sul com 10N. Para ficar em equilíbrio, C deve puxar para o Sul com quantos N?", "20", ["Norte = Sul.", "$30 = 10 + C \\rightarrow C = 20\\text{ N}$"]);
+addQ(2,'calc',"Um objeto está em equilíbrio. Para a direita há uma força de 15 N. Para a esquerda há duas forças de valor x. Qual o valor de x?", "7.5", ["$Esquerda = Direita \\rightarrow x + x = 15 \\rightarrow 2x = 15$", "$x = 7,5\\text{ N}$"]);
+addQ(2,'calc',"Uma corda inclinada puxa com força T. A componente vertical ($T_y$) dessa força deve equilibrar o Peso de 100 N de um bloco no ar. Qual o valor de $T_y$ (em N)?", "100", ["No eixo y, quem puxa para cima é o $T_y$ e quem puxa para baixo é o Peso. Elas devem ser iguais.", "$T_y = 100\\text{ N}$"]);
+addQ(2,'calc',"Na questão anterior, sabendo que a corda faz um ângulo em que $sen(\\theta) = 0,5$. Qual a Tração total (T) na corda? (Use $T_y = T \\cdot sen(\\theta)$)", "200", ["$100 = T \\cdot 0,5$", "$T = 100 / 0,5 = 200\\text{ N}$"]);
+addQ(2,'calc',"Bloco no plano horizontal. Peso = 50N. Uma corda puxa o bloco para cima com 10N. Qual a Normal (força que o chão ainda faz)?", "40", ["Equilíbrio Vertical: $F_{cima} = F_{baixo}$", "$Normal + 10 = 50 \\rightarrow Normal = 40\\text{ N}$"]);
+addQ(2,'calc',"Bloco preso num teto e numa parede. Fio do teto segura o peso y=40N. Fio da parede segura puxão lateral x=30N. Qual a Tração (T) no fio principal que está em diagonal? (Use Pitágoras $T^2 = T_x^2 + T_y^2$)", "50", ["A tração diagonal forma um triângulo retângulo com componentes 30 e 40.", "$T = \\sqrt{30^2 + 40^2} = \\sqrt{900+1600} = \\sqrt{2500} = 50\\text{ N}$ (Triângulo 3-4-5)."]);
+addQ(2,'calc',"Corpo no chão recebe empurrão para baixo de 30N. O Peso é 60N. Qual a força Normal agora?", "90", ["Ambas empurram contra o chão (para baixo). O chão devolve a soma.", "$Normal = 30 + 60 = 90\\text{ N}$"]);
+
+// TEMA 3: Torque ou Momento de uma força (31-45)
+addQ(3,'theo',"Na física, a grandeza que mede a tendência de uma força fazer um corpo girar ao redor de um eixo chama-se:", "B", ["Torque, ou Momento Polar, é a capacidade de giro."], ["A) Atrito", "B) Torque (Momento)", "C) Potência", "D) Energia Gravitacional"]);
+addQ(3,'theo',"Para abrir uma porta mais facilmente, você deve empurrar:", "C", ["Quanto maior a distância (d) até a dobradiça, maior o Torque gerado com a mesma força."], ["A) Perto das dobradiças", "B) Exatamente no centro da porta", "C) O mais longe possível das dobradiças (na maçaneta)", "D) Na aresta superior"]);
+addQ(3,'theo',"Na fórmula do Torque (M = F · d), a distância 'd' é medida a partir de qual ponto?", "A", ["O 'braço de alavanca' (d) é sempre medido do eixo de rotação até o ponto onde a força atua."], ["A) Do eixo de rotação (ponto de giro)", "B) Do chão", "C) Da ponta extrema do corpo", "D) Do centro de gravidade sempre"]);
+addQ(3,'theo',"Por convenção clássica na física (usando o sistema matemático), se uma força tenta girar a barra no sentido ANTI-HORÁRIO, seu torque é:", "A", ["No círculo trigonométrico, rodar no sentido anti-horário avança nos graus (é positivo)."], ["A) Positivo (+)", "B) Negativo (-)", "C) Neutro", "D) Exponencial"]);
+addQ(3,'theo',"Se eu aplicar uma força EXATAMENTE no eixo de rotação de uma porta (dobradiça), qual será o torque gerado?", "C", ["Como a distância (d) até o eixo é zero, a fórmula fica $M = F \\cdot 0 = 0$. Não há giro."], ["A) Muito grande", "B) Igual à Força", "C) Zero", "D) Infinito"]);
+
+addQ(3,'calc',"Aplico 20 N na ponta de uma chave inglesa de 0,5 m (meio metro) de comprimento. Qual o Torque (em N.m)?", "10", ["$M = F \\cdot d$", "$M = 20 \\cdot 0,5 = 10\\text{ N.m}$"]);
+addQ(3,'calc',"Para gerar um Torque de 100 N.m em um parafuso, uso uma chave de 0,2 m. Qual Força devo fazer?", "500", ["$M = F \\cdot d \\rightarrow 100 = F \\cdot 0,2$", "$F = 100 / 0,2 = 500\\text{ N}$"]);
+addQ(3,'calc',"Uma criança pesa 300N e senta a 2m do centro da gangorra. Qual o Torque (Momento) gerado por ela?", "600", ["$M = F \\cdot d = 300 \\cdot 2 = 600\\text{ N.m}$"]);
+addQ(3,'calc',"Um operário quer girar uma catraca que requer M=150 N.m. Ele só aguenta fazer 50 N de força. Qual o tamanho mínimo do braço da chave que ele deve usar (em metros)?", "3", ["$150 = 50 \\cdot d$", "$d = 150 / 50 = 3\\text{ m}$"]);
+addQ(3,'calc',"Força F atua na ponta de uma barra presa na parede (eixo na parede). A barra tem 4m. O torque foi 80 N.m. Qual a força?", "20", ["$80 = F \\cdot 4 \\rightarrow F = 80 / 4 = 20\\text{ N}$"]);
+addQ(3,'calc',"Duas forças puxam o mesmo volante. F1 = 10N roda no sentido horário a 1m. F2 = 5N roda no sentido anti-horário a 2m. Qual o Torque Resultante?", "0", ["Horário (-): $-10 \\cdot 1 = -10$", "Anti-horário (+): $5 \\cdot 2 = +10$", "Resultante: $-10 + 10 = 0$"]);
+addQ(3,'calc',"Você aperta a porca de pneu pisando na chave (P = 800N). A distância do seu pé ao eixo é 0,25m. Qual o Torque?", "200", ["$M = 800 \\cdot 0,25 = 200\\text{ N.m}$"]);
+addQ(3,'calc',"Se eu dobrar o tamanho da chave, a força necessária para causar o mesmo Torque ficará multiplicada por qual fator (fração na forma decimal)?", "0.5", ["Distância dobra, a Força fica pela metade para manter o mesmo produto. Metade = 0.5."]);
+addQ(3,'calc',"Um cesto de 50N está a 4m de um eixo. A que distância (m) devo colocar um saco de 20N no lado oposto para anular o torque?", "10", ["Lado A: $50 \\cdot 4 = 200$", "Lado B: $20 \\cdot d = 200 \\rightarrow d = 10\\text{ m}$"]);
+addQ(3,'calc',"Barra com eixo no ponto X. Força de 60N aplica-se a 3m de X. Qual deve ser a Força (em N) a 2m de X para dar empate?", "90", ["$60 \\cdot 3 = F \\cdot 2$", "$180 = 2F \\rightarrow F = 90\\text{ N}$"]);
+
+// TEMA 4: Equilíbrio de Corpo Extenso (46-60)
+addQ(4,'theo',"Para um corpo extenso (ex: ponte) estar em equilíbrio TOTAL, quais as DUAS condições necessárias?", "D", ["Ele não pode andar nem para cima/baixo (Resultante de forças = 0) nem tombar/girar (Torque resultante = 0)."], ["A) Resultante = 0 e Atrito = 0", "B) Momento = 0 e Gravidade = 0", "C) Forças iguais em todos os pontos", "D) Força Resultante nula ($\\Sigma F = 0$) e Torque Resultante nulo ($\\Sigma M = 0$)"]);
+addQ(4,'theo',"O peso de uma régua escolar uniforme de 30 cm pode ser considerado como agindo em um único ponto para facilitar os cálculos de torque. Qual o nome desse ponto e onde ele fica?", "A", ["Corpos homogêneos têm seu peso concentrado (matematicamente) no seu centro geométrico."], ["A) Centro de Gravidade, nos 15 cm.", "B) Centro de Pressão, nos 30 cm.", "C) Ponto Material, no zero.", "D) Centro Magnético, nas bordas."]);
+addQ(4,'theo',"Uma tábua homogênea pesada repousa sobre dois apoios nas extremidades A e B. Se um homem caminhar em direção a B, a Força Normal que o apoio B faz vai:", "B", ["Quanto mais perto do apoio, mais o peso dele atua ali, forçando o apoio a reagir mais."], ["A) Diminuir", "B) Aumentar", "C) Ficar igual", "D) Ficar zero"]);
+addQ(4,'theo',"Para facilitar as contas (equacionar) os torques num corpo com suportes (apoios), escolhemos onde colocar o 'Ponto Eixo imaginário'. A melhor escolha para facilitar a conta matemática é colocar o eixo em:", "C", ["Se eu coloco o eixo em cima da força desconhecida, a distância dela vira zero e ela some da conta de torque, facilitando achar a outra."], ["A) O centro exato da gravidade", "B) Onde a força é mínima", "C) Um ponto onde atua uma Força Desconhecida", "D) Fora da barra"]);
+addQ(4,'theo',"Uma gangorra só tem UM apoio no meio e não encosta no chão. Duas pessoas de pesos diferentes sentam nela. Para equilibrar, a mais leve deve sentar:", "A", ["Peso (pequeno) $\\cdot$ Distância (grande) = Peso (grande) $\\cdot$ Distância (pequena)."], ["A) Mais longe do centro", "B) Mais perto do centro", "C) Na mesma distância exata da outra", "D) Acima do eixo"]);
+
+addQ(4,'calc',"Gangorra: O apoio é o eixo. Lado A: João (400N) está a 2m. Lado B: Pedro (200N). Qual a distância de Pedro ao eixo (em m) para equilibrar?", "4", ["$400 \\cdot 2 = 200 \\cdot d_p$", "$800 = 200d_p \\rightarrow d_p = 4\\text{ m}$"]);
+addQ(4,'calc',"Barra SEM peso apoiada em A (esquerda) e B (direita). A barra tem 10m de tamanho total. Uma caixa de 100N é posta BEM no MEIO (5m). Qual a Força de reação do apoio A?", "50", ["Por simetria, se o peso está no meio, ele se divide igual para os dois apoios.", "$100 / 2 = 50\\text{ N}$"]);
+addQ(4,'calc',"Mesma barra de 10m. Agora a caixa de 100N é posta a 2m do apoio A e 8m do apoio B. Colocando o EIXO (giro zero) no apoio B: O Torque da caixa é $100 \\cdot 8$ = 800. O Torque do apoio A é $N_A \\cdot 10$. Iguale-os para achar a Força Normal em A:", "80", ["$N_A \\cdot 10 = 100 \\cdot 8$", "$10 N_A = 800 \\rightarrow N_A = 80\\text{ N}$"]);
+addQ(4,'calc',"Na questão anterior, sabendo que a Força em A deu 80N e que as forças para cima (A + B) devem anular o peso total de 100N para baixo. Qual a Força no apoio B?", "20", ["$\\Sigma F_y = 0 \\rightarrow N_A + N_B = P$", "$80 + N_B = 100 \\rightarrow N_B = 20\\text{ N}$"]);
+addQ(4,'calc',"Barra homogênea pesa 60N e tem 4 metros de comprimento. Ela tem um apoio na extremidade A. Seu Centro de Gravidade fica no meio (a 2m de A). Qual o Torque gerado pelo PESO da barra em relação ao apoio A?", "120", ["Peso atua no meio (CG = 2m do início).", "$M = 60 \\cdot 2 = 120\\text{ N.m}$"]);
+
+addQ(4,'calc',"Menina de 300N caminha numa prancha (apoiada na beira de um navio). O apoio é o eixo. Do outro lado do apoio a prancha é presa por uma corda. O torque da menina quando está a 2m do eixo é 600. A corda prende a prancha a 1m do outro lado. Qual a Tração na corda?", "600", ["$Menina: 300 \\cdot 2 = 600$", "$Corda: T \\cdot 1 = 600 \\rightarrow T = 600\\text{ N}$"]);
+addQ(4,'calc',"Uma barra de 10 m, sem peso, possui apoios nas pontas X e Y. Um bloco P = 400N está a 3m de X. Calcule a reação em Y. (Dica: Eixo em X, $N_y \\cdot 10 = 400 \\cdot 3$)", "120", ["$10 \\cdot N_y = 1200 \\rightarrow N_y = 120\\text{ N}$"]);
+addQ(4,'calc',"Na barra acima, se a reação em Y é 120 N e o bloco pesa 400 N. Qual a reação em X?", "280", ["$N_x + N_y = P \\rightarrow N_x + 120 = 400$", "$N_x = 400 - 120 = 280\\text{ N}$"]);
+addQ(4,'calc',"Balança de braços iguais: Objeto P1 a 0,5m de um lado equilibra P2 = 20N a 0,5m do outro. Qual o valor de P1?", "20", ["Braços iguais (0,5m) = Forças (Pesos) iguais."]);
+addQ(4,'calc',"Guindaste: O braço tem 10m de um lado onde penduro 5000N. Do outro, a que distância coloco o contrapeso de 10000N?", "5", ["$5000 \\cdot 10 = 10000 \\cdot d$", "$50000 = 10000d \\rightarrow d = 5\\text{ m}$"]);
+
+// TEMA 5: Máquinas Simples (61-75)
+addQ(5,'theo',"Qual é o objetivo principal das Máquinas Simples, como as polias móveis e alavancas?", "C", ["O trabalho e energia continuam iguais, o que muda é a Força aplicada."], ["A) Criar energia do nada", "B) Diminuir a massa dos objetos", "C) Multiplicar a força humana (diminuir esforço necessário)", "D) Eliminar a gravidade local"]);
+addQ(5,'theo',"O carrinho de mão é uma alavanca que tem a roda (Apoio) na frente, o Peso (Resistência) na caçamba do meio, e as mãos fazem a Força atrás. Que tipo de alavanca é essa?", "B", ["Quando a Resistência está no MEIO, a alavanca é inter-resistente."], ["A) Interfixa", "B) Inter-resistente", "C) Interpotente", "D) Polia fixa"]);
+addQ(5,'theo',"A tesoura tem o parafuso (Apoio) no meio das duas hastes. Sendo o apoio (ponto Fixo) no meio, ela é:", "A", ["Ponto Fixo no meio: Interfixa."], ["A) Interfixa", "B) Inter-resistente", "C) Interpotente", "D) Intermediária"]);
+addQ(5,'theo',"Na pinça de sobrancelha, aplicamos a força com os dedos bem no MEIO do instrumento, enquanto as pontas pegam o pelo (resistência) e a parte de trás é o apoio. Ela é:", "C", ["A Potência (força) no meio: Interpotente."], ["A) Interfixa", "B) Inter-resistente", "C) Interpotente", "D) Inútil pois não gera vantagem"]);
+addQ(5,'theo',"Uma polia FIXA no teto serve para:", "D", ["A polia fixa apenas redireciona o fio, não reduz a força. É mais fácil puxar pra baixo usando o peso do corpo."], ["A) Reduzir o peso pela metade", "B) Reduzir a massa", "C) Aumentar a gravidade", "D) Mudar a direção e sentido da força sem alterar seu módulo"]);
+
+addQ(5,'calc',"Preciso levantar uma caixa de 400N. Uso 1 polia fixa (no teto) e 1 polia móvel. Qual a força que deverei fazer?", "200", ["A fixa não muda o valor. A 1 polia móvel divide o peso por 2.", "$F = 400 / 2^1 = 200\\text{ N}$"]);
+addQ(5,'calc',"Motor de 1200 N. Usa-se uma talha com 2 polias móveis (e 1 fixa). Qual a força necessária ($F = P / 2^n$)?", "300", ["$2^2 = 4$", "$F = 1200 / 4 = 300\\text{ N}$"]);
+addQ(5,'calc',"Qual deve ser a força humana para erguer 800 N usando 3 polias móveis?", "100", ["$2^3 = 8$", "$F = 800 / 8 = 100\\text{ N}$"]);
+addQ(5,'calc',"Se eu faço apenas 50 N de força puxando uma corda com 4 polias móveis interligadas, qual o peso que estou sustentando do outro lado?", "800", ["$F = P / 2^4 \\rightarrow 50 = P / 16 \\rightarrow P = 50 \\cdot 16 = 800\\text{ N}$"]);
+addQ(5,'calc',"Alavanca (pé-de-cabra): O apoio fica a 0,1m do prego (Resistência = 1000N). A mão fica no lado longo a 1m do apoio. Qual Força a mão faz? (Força $\\cdot$ Braço = Resistencia $\\cdot$ Braço_r)", "100", ["$F_{mão} \\cdot 1 = 1000 \\cdot 0,1 \\rightarrow F = 100\\text{ N}$"]);
+addQ(5,'calc',"Carrinho de mão: Apoio (roda) na frente. Carga de 400N está a 0,5m da roda. A mão puxa a 1,5m da roda. Qual a Força na mão?", "133.33", ["$F_{mão} \\cdot 1,5 = 400 \\cdot 0,5$", "$1,5 F = 200 \\rightarrow F = 200 / 1,5 \\approx 133,33\\text{ N}$"]);
+addQ(5,'calc',"Alicate (Interfixo): A ponta está a 2cm do eixo apertando um fio com 500N. A mão aperta o cabo a 10cm do eixo. Qual a força da mão?", "100", ["$F \\cdot 10 = 500 \\cdot 2 \\rightarrow 10 F = 1000 \\rightarrow F = 100\\text{ N}$"]);
+addQ(5,'calc',"Para ter uma força 8 vezes menor ao levantar peso ($F = P / 8$), quantas polias MÓVEIS eu preciso montar?", "3", ["$2^n = 8 \\rightarrow n = 3$"]);
+addQ(5,'calc',"Abridor de garrafa (Apoio na pontinha da tampa). A resistência é a aba da tampa a 1 cm. A mão puxa a 5 cm. A resistência vale 150N. Qual força da mão?", "30", ["$F \\cdot 5 = 150 \\cdot 1 \\rightarrow 5F = 150 \\rightarrow F = 30\\text{ N}$"]);
+addQ(5,'calc',"Uma talha exponencial com 5 polias móveis divide a carga por $2^5$. Qual é esse fator de divisão divisor (número)?", "32", ["$2^5 = 32$"]);
+
+// TEMA 6: Transmissão de Movimentos (76-90)
+addQ(6,'theo',"Duas engrenagens, A (grande) e B (pequena), estão encostadas (dentes encaixados). O que podemos afirmar sobre o movimento delas?", "A", ["Por estarem acopladas pelas bordas, a velocidade com que a borda de uma 'anda' empurra a borda da outra. A velocidade linear (V) da borda é igual."], ["A) Têm a mesma velocidade linear periférica (V), mas rodam em sentidos opostos.", "B) Dão exatamente o mesmo número de voltas por minuto (frequência).", "C) Rodam para o mesmo sentido.", "D) Não se movem se forem de tamanhos diferentes."]);
+addQ(6,'theo',"Uma bicicleta possui a catraca (engrenagem de trás) e a coroa (engrenagem da frente) ligadas por uma CORREIA. Qual das afirmações está correta?", "C", ["A correia garante a mesma velocidade linear e, se não estiver cruzada, faz ambas girarem no mesmo sentido."], ["A) Giram em sentidos opostos", "B) Dão o mesmo número de voltas", "C) Têm a mesma velocidade linear na borda (V) e giram para o mesmo sentido.", "D) A correia diminui a velocidade total."]);
+addQ(6,'theo',"Ao colocar a marcha de uma bicicleta numa catraca traseira MUITO PEQUENA (menor raio), o que acontece com a roda traseira?", "B", ["Raio pequeno (R baixo) exige que a frequência seja mais rápida para compensar ($f_1 R_1 = f_2 R_2$). Logo, a roda gira muito mais rápido."], ["A) Gira mais devagar", "B) Gira mais vezes (maior frequência) com a mesma pedalada", "C) Trava o movimento", "D) Inverte o sentido"]);
+addQ(6,'theo',"O eixo do motor de um carro gira junto com a engrenagem que está espetada exatamente NESSE MESMO EIXO concentrico. Qual relação matemática é verdadeira?", "B", ["Mesmo pauzinho, giram grudadas. Completam uma volta juntas."], ["A) $V_A = V_B$", "B) Frequência (f) é igual para as duas", "C) Giram opostos", "D) Raios iguais"]);
+addQ(6,'theo',"Se eu ligo duas engrenagens A e B por seus dentes. A tem raio de 10 cm e B tem raio de 5 cm. A engrenagem menor B...", "A", ["Para a engrenagem pequena acompanhar a quantidade de dentes 'andados' pela grande, ela precisa dar mais voltas."], ["A) Gira mais rápido (maior Frequência, RPM)", "B) Gira mais devagar", "C) Tem a mesma frequência", "D) Quebra os dentes"]);
+
+addQ(6,'calc',"Polia A (Raio 10cm) ligada por correia à Polia B (Raio 5cm). A gira a 60 RPM. Quantos RPM B faz? ($f_A \\cdot R_A = f_B \\cdot R_B$)", "120", ["$60 \\cdot 10 = f_B \\cdot 5$", "$600 = 5 f_B \\rightarrow f_B = 120\\text{ RPM}$"]);
+addQ(6,'calc',"Engrenagem Coroa (R=20cm) gira a 30 RPM. Ela liga numa Catraca por correia. A Catraca gira a 120 RPM. Qual o raio da Catraca (em cm)?", "5", ["$30 \\cdot 20 = 120 \\cdot R_c$", "$600 = 120 R_c \\rightarrow R_c = 5\\text{ cm}$"]);
+addQ(6,'calc',"Motor (Raio = 2cm, 900 RPM) ligado por correia ao tambor de máquina (Raio = 30cm). Qual o RPM do tambor?", "60", ["$900 \\cdot 2 = f \\cdot 30$", "$1800 = 30f \\rightarrow f = 60\\text{ RPM}$"]);
+addQ(6,'calc',"Duas rodas, mesmo eixo concentrico. Roda Interna (Raio 10cm) faz 45 voltas em 1 minuto. A Roda Externa (Raio 40cm) fará quantas voltas em 1 minuto?", "45", ["Se estão no mesmo eixo, a frequência é a mesma independente do raio!"]);
+addQ(6,'calc',"Bicicleta: Pedal roda a coroa (R = 15cm) a 20 RPM. A correia liga na catraca (R = 5cm) que fica acoplada no mesmo eixo da Roda traseira (R = 30cm). Quantos RPM a RODA traseira dá? (Ache o da catraca e ele será igual ao da roda).", "60", ["1º Achar catraca: $20 \\cdot 15 = f_c \\cdot 5 \\rightarrow 300 = 5f_c \\rightarrow f_c = 60\\text{ RPM}$", "Roda = Catraca, logo Roda = 60 RPM."]);
+addQ(6,'calc',"A transmissão por dentes usa a equação $f_1 \\cdot Z_1 = f_2 \\cdot Z_2$ (onde Z = número de dentes). Engrenagem 1 (40 dentes) roda a 50 RPM. Liga em Engrenagem 2 (20 dentes). Qual o RPM da engrenagem 2?", "100", ["$50 \\cdot 40 = f_2 \\cdot 20$", "$2000 = 20 f_2 \\rightarrow f_2 = 100\\text{ RPM}$"]);
+addQ(6,'calc',"Engrenagem X (10 dentes, 300 RPM) gira a Engrenagem Y. Y gira a 60 RPM. Quantos dentes Y tem?", "50", ["$300 \\cdot 10 = 60 \\cdot Z_y$", "$3000 = 60 Z_y \\rightarrow Z_y = 50\\text{ dentes}$"]);
+addQ(6,'calc',"Em vez do Raio ou Dentes, às vezes temos o Diâmetro (D). A regra é a mesma ($f_A \\cdot D_A = f_B \\cdot D_B$). Polia motriz de D=4cm (200 RPM) liga em Polia de D=16cm. Qual o RPM?", "50", ["$200 \\cdot 4 = f \\cdot 16$", "$800 = 16f \\rightarrow f = 50\\text{ RPM}$"]);
+addQ(6,'calc',"Duas polias ligadas por correia. A polia maior (20cm) dá 3 voltas. Quantas voltas dá a polia menor (5cm)? (A proporção de voltas é inversamente proporcional aos raios).", "12", ["Relação dos raios: $20/5 = 4$ (A menor é 4x menor).", "Se ela é 4x menor, dá 4x mais voltas. $3 \\cdot 4 = 12$ voltas.", "Na fórmula: $Voltas_A \\cdot R_A = Voltas_B \\cdot R_B \\rightarrow 3 \\cdot 20 = V \\cdot 5 \\rightarrow V = 12$."]);
+addQ(6,'calc',"Se eu quiser que o meu ventilador rode com o TRIPLO do RPM do motor original. Usando correia e polias, se a polia do motor tiver raio 12cm, qual deve ser o raio da polia espetada na hélice do ventilador?", "4", ["Para a frequência multiplicar por 3, o Raio tem que dividir por 3.", "$R = 12 / 3 = 4\\text{ cm}$"]);
+
+let currentTheme = 'all';
+let solved = new Set(JSON.parse(localStorage.getItem('fisicaEstaticaSolved')||'[]'));
+
+function renderExercises() {
+    const listDiv = $('exercise-list');
+    let html = '';
+    
+    exercisesData.forEach(ex => {
+        if (currentTheme !== 'all' && ex.theme != currentTheme) return;
+        
+        const isSolved = solved.has(ex.id);
+        const borderColor = isSolved ? 'border-teal-400' : 'border-slate-200';
+        const badgeColor = isSolved ? 'bg-teal-100 text-teal-800' : 'bg-slate-100 text-slate-700';
+        const themeNames = ["", "Ponto/Extenso", "Equil. Partícula", "Torque", "Equil. Extenso", "Máquinas Simples", "Transmissão Circ."];
+        
+        let questionBody = `<p class="mt-3 text-slate-700 mb-4 text-sm leading-6">${ex.q}</p>`;
+        
+        if (ex.type === 'theo' && ex.opts) {
+            questionBody += `<div class="space-y-2 mb-4 text-sm text-slate-600">`;
+            ex.opts.forEach(opt => {
+                questionBody += `<div class="p-2 bg-slate-50 rounded-lg border border-slate-100">${opt}</div>`;
+            });
+            questionBody += `</div>`;
+        }
+
+        html += `
+        <article class="bg-white rounded-2xl border ${borderColor} p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div class="flex justify-between gap-3 items-center">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full ${badgeColor}">Questão ${ex.id}</span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">TEMA ${ex.theme}: ${themeNames[ex.theme]}</span>
+            </div>
+            
+            ${questionBody}
+            
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" type="text" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="${ex.type==='theo' ? 'Letra (A, B, C, D)' : 'Valor numérico'}">
+                <button onclick="checkAnswer(${ex.id})" class="bg-teal-600 hover:bg-teal-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+            </div>
+            
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+            
+            <button onclick="document.getElementById('sol-${ex.id}').classList.toggle('hidden')" class="mt-3 text-sm font-bold text-teal-700 hover:underline">
+                👁 Mostrar explicação / cálculo
+            </button>
+            
+            <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t border-teal-100 pt-4">
+                <div class="text-xs uppercase tracking-widest font-black text-teal-800 mb-3">Resolução Passo a Passo</div>
+                ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+                <div class="success rounded-xl p-4 text-center font-bold mt-2 text-emerald-900">Resposta Correta: ${ex.ans}</div>
+            </div>
+        </article>
+        `;
+    });
+    
+    listDiv.innerHTML = html;
+    updateProgress();
+    renderAll();
+}
+
+function checkAnswer(id) {
+    const ex = exercisesData.find(x => x.id === id);
+    const inputEl = $(`ans-${id}`);
+    const fbEl = $(`fb-${id}`);
+    
+    let rawInput = inputEl.value.trim().toUpperCase();
+    if(ex.type === 'calc') {
+        rawInput = rawInput.replace(',', '.'); // Allow comma decimal
+    }
+
+    let isCorrect = false;
+    
+    if (ex.type === 'theo') {
+        isCorrect = (rawInput === ex.ans);
+    } else {
+        const numIn = parseFloat(rawInput);
+        const numAns = parseFloat(ex.ans);
+        // Margem de erro bem pequena
+        if(!isNaN(numIn) && Math.abs(numIn - numAns) <= 0.05) {
+            isCorrect = true;
+        }
+    }
+
+    if (isCorrect) {
+        solved.add(id);
+        localStorage.setItem('fisicaEstaticaSolved', JSON.stringify([...solved]));
+        fbEl.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fbEl.textContent = '✓ Excelente! Você acertou.';
+        setTimeout(renderExercises, 400); 
+    } else {
+        fbEl.className = 'text-sm font-bold mt-2 text-red-500';
+        fbEl.textContent = '✗ Quase lá. Leia a dica da teoria e tente novamente!';
+    }
+}
+
+function updateProgress() {
+    const max = exercisesData.length;
+    const current = solved.size;
+    $('progress-text').textContent = `${current} / ${max}`;
+    $('progress-bar').style.width = `${(current/max)*100}%`;
+}
+
+// Filtros Theme
+document.querySelectorAll('.level-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active', 'bg-teal-500', 'text-white'));
+        document.querySelectorAll('.level-btn:not(.active)').forEach(b => b.classList.add('bg-slate-100'));
+        
+        btn.classList.add('active');
+        btn.classList.remove('bg-slate-100');
+        
+        currentTheme = btn.dataset.theme;
+        renderExercises();
+    };
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderExercises();
+    renderAll();
+});
+</script>
+</body>
+</html>

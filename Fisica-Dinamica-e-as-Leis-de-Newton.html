@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física: Dinâmica e Cálculos Completos</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#1e293b;--paper:#fffdf8;--line:#e7dfd0;--accent:#8b5cf6}
+  body{background:#f5f3ff;color:var(--ink)}
+  .tab-btn.active{color:#7c3aed;border-bottom-color:#7c3aed;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#ede9fe 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd6fe;box-shadow:0 8px 24px #2e10650d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#ede9fe;color:#5b21b6;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .tip{border-left:4px solid #8b5cf6;background:#f5f3ff}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  canvas { max-width: 100%; border-radius: 12px; }
+  .grid-bg { background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px); background-size: 20px 20px; }
+  
+  .exercise-solution { animation: fade .3s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-violet-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-violet-900">🚀 Dinâmica Completa</div><div class="text-[11px] text-slate-500 hidden sm:block">Teoria e Matemática do Movimento</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Resumo Fórmulas</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Simulador</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Calculadora</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 60 Questões</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA E FÓRMULAS -->
+<section id="sec-teoria" class="space-y-7">
+
+
+  <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-violet-900 via-purple-800 to-fuchsia-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-violet-200">Dinâmica das Partículas</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Por que as coisas se movem?</h1>
+  <p class="mt-4 max-w-3xl text-violet-100 leading-7">Na Cinemática aprendemos a calcular velocidades. Agora, vamos descobrir <b>o que causa</b> o movimento: a ação das forças e as regras criadas pelo cientista Isaac Newton.</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm font-medium text-violet-900"><b>A regra de ouro:</b> O Universo é preguiçoso! Nenhum objeto gosta de mudar sua velocidade. Se ele está parado, quer continuar parado. Se está se movendo, quer continuar se movendo para sempre. Para mudar isso, precisamos de um empurrão (Força).</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O Conceito de Força</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Força não é algo que a pessoa "tem" (como energia), é algo que ela <b>aplica</b>. Força é um empurrão ou um puxão capaz de fazer duas coisas:</p>
+   <ul class="mt-4 space-y-3 text-sm">
+    <li class="bg-slate-50 p-3 rounded-xl"><b>1. Alterar o movimento:</b> Fazer algo acelerar, frear ou fazer curva.</li>
+    <li class="bg-slate-50 p-3 rounded-xl"><b>2. Causar deformação:</b> Como amassar uma latinha ou esticar um elástico.</li>
+   </ul>
+   <p class="mt-4 text-sm font-bold text-violet-800">No Sistema Internacional (SI), medimos a Força em Newtons (N). E sim, Força é um Vetor (precisa de direção e sentido).</p>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">As 3 Leis de Newton</h2></div>
+   <p class="mt-2 text-sm text-slate-500 mb-3">Sir Isaac Newton resumiu o universo em 3 leis básicas:</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="step" data-step="1ª"><b>Inércia:</b> A preguiça natural. Sem força resultante, quem tá parado fica parado, quem tá andando em linha reta não para nunca. Por isso você é jogado pra frente quando o carro freia bruscamente!</div>
+    <div class="step" data-step="2ª"><b>Princípio Fundamental:</b> A Força Resultante (\(F_R\)) é igual à massa multiplicada pela aceleração: \[ F_R = m \cdot a \] (Quanto mais pesado, mais força preciso fazer para acelerar).</div>
+    <div class="step" data-step="3ª"><b>Ação e Reação:</b> Se eu dou um soco na parede com 100 N, a parede me dá um soco de volta com 100 N. Por isso a mão dói! Forças atuam sempre em pares, mas em corpos diferentes.</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">3. A Família das Forças</h2>
+   <p class="mt-3 text-sm text-slate-600 mb-4">Muitas forças do dia a dia recebem nomes especiais:</p>
+   <div class="grid grid-cols-2 gap-3 text-xs">
+    <div class="bg-blue-50 rounded-xl p-3 border border-blue-100">
+     <b class="text-blue-800 text-sm">Peso (P)</b><br>A Terra puxando você pra baixo. \(P = m \cdot g\)
+    </div>
+    <div class="bg-green-50 rounded-xl p-3 border border-green-100">
+     <b class="text-green-800 text-sm">Normal (N)</b><br>O chão empurrando você pra cima para você não afundar.
+    </div>
+    <div class="bg-red-50 rounded-xl p-3 border border-red-100">
+     <b class="text-red-800 text-sm">Atrito (\(F_{at}\))</b><br>O "lumbisgo" das superfícies. Sempre atrapalha o deslizamento.
+    </div>
+    <div class="bg-orange-50 rounded-xl p-3 border border-orange-100">
+     <b class="text-orange-800 text-sm">Tração (T)</b><br>A força que viaja pelos fios, cordas e cabos quando esticados.
+    </div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm border-l-4 border-l-pink-500">
+   <h2 class="text-xl font-black text-pink-700">4. Força Resultante Centrípeta</h2>
+   <p class="mt-3 text-slate-600">Pela 1ª Lei de Newton (Inércia), todo objeto quer andar sempre numa linha reta. Se algo está fazendo <b>curva</b>, é porque existe uma força puxando ele para o <b>centro</b> dessa curva.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center text-sm">
+    Chamamos de Força Centrípeta (\(F_{cp}\)):
+    \[ F_{cp} = \frac{m \cdot v^2}{R} \]
+    <ul class="text-left list-disc list-inside mt-3 text-slate-700">
+        <li>\(m\) = massa do carro.</li>
+        <li>\(v^2\) = velocidade (se for alta, precisa de muita força!).</li>
+        <li>\(R\) = raio da curva (se a curva for fechada, precisa de mais força).</li>
+    </ul>
+   </div>
+  </article>
+ </div>
+
+
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-violet-900 via-purple-800 to-fuchsia-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-violet-200">As Leis de Newton</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Da Teoria ao Cálculo</h1>
+  <p class="mt-4 max-w-3xl text-violet-100 leading-7">Para gabaritar as 60 questões, você precisará entender os conceitos teóricos (Inércia, Ação e Reação) e dominar as 3 fórmulas principais do Universo da Dinâmica.</p>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">Força Resultante (\(F_R\)) e Teoria</h2></div>
+   <p class="mt-4 text-slate-600 leading-7"><b>Teoria básica:</b> Força é um empurrão ou puxão capaz de alterar a velocidade. A Inércia garante que as coisas fiquem como estão, a menos que haja uma força.</p>
+   <ul class="mt-3 space-y-3 text-sm">
+    <li class="bg-slate-50 p-3 rounded-xl border border-slate-100"><b>Forças no mesmo sentido:</b> Soma tudo. \(F_R = F_1 + F_2\)</li>
+    <li class="bg-slate-50 p-3 rounded-xl border border-slate-100"><b>Sentidos opostos:</b> Subtrai a menor da maior. \(F_R = F_{maior} - F_{menor}\)</li>
+   </ul>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">2ª Lei de Newton</h2></div>
+   <p class="mt-4 text-slate-600">A força total (\(F_R\)) que sobra no objeto é quem gera a aceleração (\(a\)).</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">
+    \[ F_R = m \cdot a \]
+   </div>
+   <p class="mt-3 text-sm text-slate-500 text-center">Unidades: Força em Newtons (N), Massa em kg, Aceleração em m/s².</p>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-pink-100 text-pink-700 grid place-items-center font-black">3</span><h2 class="text-xl font-black text-pink-700">O Peso (\(P\))</h2></div>
+   <p class="mt-4 text-slate-600">É a força com que o planeta te puxa para o centro.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg border-pink-200 bg-pink-50/30">
+    \[ P = m \cdot g \]
+   </div>
+   <p class="mt-3 text-sm text-slate-500 text-center">Lembre-se: Massa (\(m\)) é a quantidade de matéria, nunca muda. Peso (\(P\)) muda dependendo da gravidade! Terra: \(g \approx 10 \text{ m/s}^2\).</p>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black text-amber-700">Força Centrípeta (\(F_{cp}\))</h2></div>
+   <p class="mt-4 text-slate-600">A força necessária para fazer algo curvar. Sempre aponta para o centro.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg border-amber-200 bg-amber-50/30">
+    \[ F_{cp} = \frac{m \cdot v^2}{R} \]
+   </div>
+   <p class="mt-3 text-sm text-amber-600 text-center font-bold">Atenção na matemática: A velocidade (\(v\)) deve ser elevada ao quadrado ANTES da multiplicação!</p>
+  </article>
+ </div>
+</section>
+
+<!-- LABORATORIO -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-violet-600">Laboratório</span>
+  <h1 class="text-3xl font-black mt-2">Simulador: 2ª Lei na Prática</h1>
+  <p class="text-slate-600 mt-2">Ajuste a massa do bloco e a força aplicada. Sem atrito (estamos no espaço), veja como a aceleração muda!</p>
+ </div>
+ <div class="grid lg:grid-cols-[300px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm space-y-6">
+   <div><label class="font-bold text-sm flex justify-between">Massa (\(m\)): <span id="val-mass" class="text-blue-600">2 kg</span></label><input id="slide-m" type="range" min="1" max="10" value="2" class="w-full mt-2 accent-blue-500"></div>
+   <div><label class="font-bold text-sm flex justify-between">Força (\(F\)): <span id="val-force" class="text-red-600">10 N</span></label><input id="slide-f" type="range" min="0" max="50" value="10" class="w-full mt-2 accent-red-500"></div>
+   <div class="bg-slate-50 p-4 rounded-xl text-center border">Aceleração (\(a\)):<br><b class="text-2xl text-violet-700" id="val-accel">5.0 m/s²</b></div>
+   <div class="flex gap-2 pt-4 border-t">
+    <button id="btn-push" class="flex-1 bg-violet-600 text-white font-bold py-3 rounded-xl shadow-sm hover:bg-violet-700">▶ Empurrar</button>
+    <button id="btn-stop" class="flex-1 bg-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-300">↻ Resetar</button>
+   </div>
+  </div>
+  <div class="bg-white rounded-2xl border p-6 shadow-sm overflow-hidden flex flex-col justify-center items-center relative">
+   <div class="w-full h-48 grid-bg relative border-b-4 border-slate-700" id="dyn-canvas-container"><canvas id="dyn-canvas" class="absolute inset-0 w-full h-full"></canvas></div>
+   <div class="absolute top-8 right-8 flex gap-4 text-xs font-bold text-slate-400"><div>Velocidade: <span id="dyn-v" class="text-slate-800 text-lg">0</span> m/s</div></div>
+  </div>
+ </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-violet-600">Ferramentas</span><h1 class="text-3xl font-black mt-2">Calculadora Inteligente</h1><p class="text-slate-600 mt-2">Não erre mais continhas nas provas. Deixe UM campo em branco para o computador descobrir a resposta.</p></div>
+ <div class="grid lg:grid-cols-2 gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+    <h2 class="font-black text-lg text-violet-900 mb-4">Lei de Newton: \(F_R = m \cdot a\)</h2>
+    <div class="space-y-4">
+        <div><label class="text-xs font-bold text-slate-500 uppercase">Força Resultante (N)</label><input id="c-f" type="number" class="w-full border rounded-xl p-3"></div>
+        <div><label class="text-xs font-bold text-slate-500 uppercase">Massa (kg)</label><input id="c-m" type="number" class="w-full border rounded-xl p-3"></div>
+        <div><label class="text-xs font-bold text-slate-500 uppercase">Aceleração (m/s²)</label><input id="c-a" type="number" class="w-full border rounded-xl p-3"></div>
+        <button onclick="calcFMA()" class="w-full bg-violet-600 text-white font-bold py-3 rounded-xl hover:bg-violet-700">Calcular Mistério</button>
+        <div id="out-fma" class="hidden bg-violet-50 text-violet-800 font-bold text-center p-3 rounded-xl border border-violet-200"></div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+    <h2 class="font-black text-lg text-pink-700 mb-4">Calculadora de Peso: \(P = m \cdot g\)</h2>
+    <div class="space-y-4">
+        <div><label class="text-xs font-bold text-slate-500 uppercase">Peso (N)</label><input id="c-p" type="number" class="w-full border rounded-xl p-3"></div>
+        <div><label class="text-xs font-bold text-slate-500 uppercase">Massa (kg)</label><input id="c-mp" type="number" class="w-full border rounded-xl p-3"></div>
+        <div><label class="text-xs font-bold text-slate-500 uppercase">Gravidade (Terra = 10)</label><input id="c-g" type="number" value="10" class="w-full border rounded-xl p-3"></div>
+        <button onclick="calcPeso()" class="w-full bg-pink-600 text-white font-bold py-3 rounded-xl hover:bg-pink-700">Calcular Peso</button>
+        <div id="out-peso" class="hidden bg-pink-50 text-pink-800 font-bold text-center p-3 rounded-xl border border-pink-200"></div>
+    </div>
+  </div>
+ </div>
+
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+    <h2 class="font-black text-lg text-amber-700 mb-4">Centrípeta: \(F_{cp} = \frac{m \cdot v^2}{R}\)</h2>
+    <div class="space-y-4">
+        <div class="grid grid-cols-2 gap-2">
+            <div><label class="text-xs font-bold text-slate-500 uppercase">Massa (kg)</label><input id="cc-m" type="number" class="w-full border rounded-xl p-3"></div>
+            <div><label class="text-xs font-bold text-slate-500 uppercase">Veloc. (m/s)</label><input id="cc-v" type="number" class="w-full border rounded-xl p-3"></div>
+        </div>
+        <div><label class="text-xs font-bold text-slate-500 uppercase">Raio da curva (m)</label><input id="cc-r" type="number" class="w-full border rounded-xl p-3"></div>
+        <button onclick="calcFCP()" class="w-full bg-amber-600 text-white font-bold py-3 rounded-xl hover:bg-amber-700">Calcular Força Centrípeta</button>
+        <div id="out-fcp" class="hidden bg-amber-50 text-amber-800 font-bold text-center p-3 rounded-xl border border-amber-200"></div>
+    </div>
+  </div>
+ </div>
+</section>
+
+<!-- EXERCICIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div>
+    <span class="text-xs font-bold uppercase tracking-widest text-violet-600">Teste Final</span>
+    <h1 class="text-3xl font-black mt-2">60 Questões de Física</h1>
+    <p class="text-slate-600 mt-2">Temos 20 questões de teoria e 40 de cálculo (você pode pular entre elas nos botões abaixo). Caso trave, clique em <b>Visualizar resolução</b>.</p>
+   </div>
+   <div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold"><span>Progresso Total</span><span id="progress-text">0 / 60</span></div>
+   <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-violet-600 rounded-full" style="width:0%"></div></div></div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm flex gap-2 overflow-x-auto" id="filter-container">
+    <button class="level-btn active rounded-lg px-3 py-2 text-xs font-bold" data-cat="all">Todas as 60</button>
+    <button class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100" data-cat="teoria">📘 Teoria (20)</button>
+    <button class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100" data-cat="resultante">🧮 Resultante (10)</button>
+    <button class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100" data-cat="newton">🧮 2ª Lei (10)</button>
+    <button class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100" data-cat="peso">🧮 Peso/Forças (10)</button>
+    <button class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100" data-cat="centripeta">🧮 Centrípeta (10)</button>
+ </div>
+
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Física do Ensino Fundamental • Treinamento Teórico e Numérico (KaTeX)</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function katexInit(){ if(window.renderMathInElement) renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]}); }
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+ const t=btn.dataset.tab;
+ sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));
+ document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));
+ if(t==='exercicios') renderExercises();
+ if(t==='laboratorio') initSim();
+}));
+
+// Ferramentas Calculadoras
+function calcFMA() {
+    const f = $('c-f').value; const m = $('c-m').value; const a = $('c-a').value;
+    const out = $('out-fma'); out.classList.remove('hidden');
+    if(!f && m && a) out.textContent = `Força Resultante = ${m} × ${a} = ${m*a} N`;
+    else if(f && !m && a) out.textContent = `Massa = ${f} ÷ ${a} = ${f/a} kg`;
+    else if(f && m && !a) out.textContent = `Aceleração = ${f} ÷ ${m} = ${f/m} m/s²`;
+    else out.textContent = 'Deixe exatamente UM campo vazio!';
+}
+function calcFCP() {
+    const m = $('cc-m').value; const v = $('cc-v').value; const r = $('cc-r').value;
+    const out = $('out-fcp'); out.classList.remove('hidden');
+    if(m && v && r) out.textContent = `Fcp = (${m} × ${v*v}) ÷ ${r} = ${(m*v*v)/r} N`;
+    else out.textContent = 'Preencha os três campos!';
+}
+function calcPeso() {
+    const p = $('c-p').value; const m = $('c-mp').value; const g = $('c-g').value;
+    const out = $('out-peso'); out.classList.remove('hidden');
+    if(!p && m && g) out.textContent = `Peso = ${m} × ${g} = ${m*g} N`;
+    else if(p && !m && g) out.textContent = `Massa = ${p} ÷ ${g} = ${p/g} kg`;
+    else out.textContent = 'Deixe exatamente UM campo vazio (exceto gravidade)!';
+}
+
+// Simulador
+let dynAnim, dynTime=0, dynVel=0, dynPos=0, isPushing=false;
+const canvas = $('dyn-canvas'); const ctx = canvas.getContext('2d');
+function resizeCanvas() { canvas.width = canvas.parentElement.clientWidth; canvas.height = canvas.parentElement.clientHeight; drawDyn(); }
+window.addEventListener('resize', resizeCanvas);
+
+$('slide-m').addEventListener('input', e => { $('val-mass').textContent = e.target.value + ' kg'; updateA(); resetDyn(); });
+$('slide-f').addEventListener('input', e => { $('val-force').textContent = e.target.value + ' N'; updateA(); resetDyn(); });
+
+function updateA() {
+    const f = parseFloat($('slide-f').value);
+    const m = parseFloat($('slide-m').value);
+    $('val-accel').textContent = (f/m).toFixed(1) + ' m/s²';
+}
+function initSim() { resizeCanvas(); updateA(); resetDyn(); }
+$('btn-push').onclick = () => { if(!isPushing){ isPushing=true; lastTime=performance.now(); dynAnim=requestAnimationFrame(loopDyn); } };
+$('btn-stop').onclick = resetDyn;
+
+let lastTime=0;
+function loopDyn(time) {
+    if(!isPushing) return;
+    const dt = (time - lastTime) / 1000; lastTime = time;
+    const a = parseFloat($('slide-f').value) / parseFloat($('slide-m').value);
+    dynPos += dynVel * dt + (a * dt * dt) / 2; dynVel += a * dt;
+    if(dynPos > canvas.width / 10 - 5) { dynPos = canvas.width / 10 - 5; dynVel = 0; isPushing = false; }
+    $('dyn-v').textContent = dynVel.toFixed(1);
+    drawDyn();
+    if(isPushing) dynAnim = requestAnimationFrame(loopDyn);
+}
+function resetDyn() { cancelAnimationFrame(dynAnim); isPushing=false; dynVel=0; dynPos=0; $('dyn-v').textContent="0.0"; drawDyn(); }
+function drawDyn() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const x = dynPos * 10 + 20; const y = canvas.height - 40;
+    const m = parseFloat($('slide-m').value); const size = 30 + m * 2; 
+    ctx.fillStyle = '#8b5cf6'; ctx.fillRect(x, y - size + 40, size, size);
+    if(isPushing && dynVel > 0) {
+        ctx.fillStyle = '#ef4444'; const f = parseFloat($('slide-f').value); const arrowLen = f + 20;
+        ctx.fillRect(x - arrowLen, y - size/2 + 40 - 2, arrowLen, 4);
+        ctx.beginPath(); ctx.moveTo(x, y - size/2 + 40); ctx.lineTo(x - 10, y - size/2 + 35); ctx.lineTo(x - 10, y - size/2 + 45); ctx.fill();
+    }
+}
+
+// 60 EXERCÍCIOS: 20 TEORIA + 40 MATEMÁTICA
+const exData = [
+    // --- 1 a 20: QUESTÕES DE TEORIA ---
+    { id: 1, cat: 'teoria', q: "O que é necessário aplicar sobre um objeto para alterar a sua velocidade?", ans: "forca", alt: "força", 
+      steps: ["1. A Inércia nos diz que o corpo tende a manter a velocidade.", "2. Para quebrar a inércia, precisamos dar um empurrão ou puxão.", "3. Resposta: força."] },
+    { id: 2, cat: 'teoria', q: "Qual é a unidade de medida de força no Sistema Internacional (SI)?", ans: "newton", alt: "n", 
+      steps: ["1. A unidade padrão se forma multiplicando kg (massa) por m/s² (aceleração).", "2. A unidade foi batizada em homenagem ao pai da física.", "3. Resposta: newton (ou N)."] },
+    { id: 3, cat: 'teoria', q: "Grandezas que precisam de número, direção e sentido (como a força) são chamadas de...?", ans: "vetoriais", alt: "vetorial", 
+      steps: ["1. Escalares precisam só do número (ex: 5 kg).", "2. Grandezas com 'setas' direcionais são vetoriais.", "3. Resposta: vetoriais."] },
+    { id: 4, cat: 'teoria', q: "Como se chama a tendência natural dos corpos de manterem seu repouso ou movimento em linha reta?", ans: "inercia", alt: "inércia", 
+      steps: ["1. Trata-se da 'preguiça' natural da matéria.", "2. Está descrita na 1ª Lei de Newton.", "3. Resposta: inércia."] },
+    { id: 5, cat: 'teoria', q: "A Primeira Lei de Newton também é conhecida como o Princípio da...?", ans: "inercia", alt: "inércia", 
+      steps: ["1. O princípio é que nada muda sua velocidade de forma espontânea.", "2. Resposta: inércia."] },
+    { id: 6, cat: 'teoria', q: "Na fórmula clássica F = m.a, o que a letra 'm' representa?", ans: "massa", 
+      steps: ["1. F é força, a é aceleração.", "2. 'm' é a quantidade de matéria do corpo em kg.", "3. Resposta: massa."] },
+    { id: 7, cat: 'teoria', q: "Segundo a 3ª Lei de Newton, para toda Ação existe sempre uma...?", ans: "reacao", alt: "reação", 
+      steps: ["1. Se bater na parede, a parede bate de volta.", "2. As forças andam em pares.", "3. Resposta: reação."] },
+    { id: 8, cat: 'teoria', q: "As forças de Ação e Reação atuam no mesmo corpo? (Sim ou Não)", ans: "nao", alt: "não", 
+      steps: ["1. A mão (corpo A) bate na mesa (corpo B). A mesa (corpo B) bate na mão (corpo A).", "2. Atuam em corpos diferentes, por isso não se anulam.", "3. Resposta: não."] },
+    { id: 9, cat: 'teoria', q: "O cinto de segurança funciona graças a qual Lei de Newton? (Escreva: primeira, segunda ou terceira)", ans: "primeira", alt: "inercia", 
+      steps: ["1. Quando o carro freia, você quer continuar em movimento para a frente.", "2. Isso ocorre devido à inércia (1ª lei).", "3. Resposta: primeira."] },
+    { id: 10, cat: 'teoria', q: "Quando várias forças atuam sobre um corpo, podemos substituí-las por uma força principal. Qual o nome dela?", ans: "resultante", 
+      steps: ["1. É a força que 'resulta' das somas e subtrações.", "2. Resposta: força resultante."] },
+    { id: 11, cat: 'teoria', q: "Qual força o planeta Terra exerce puxando os objetos (e nós) para o seu centro?", ans: "peso", alt: "gravidade", 
+      steps: ["1. Não é massa!", "2. Massa multiplicada pela gravidade dá o peso.", "3. Resposta: peso."] },
+    { id: 12, cat: 'teoria', q: "A força exercida por uma superfície de apoio (como o chão ou mesa) empurrando o objeto chama-se...?", ans: "normal", 
+      steps: ["1. Ela existe para você não afundar no chão.", "2. Faz um ângulo de 90 graus com a superfície.", "3. Resposta: normal."] },
+    { id: 13, cat: 'teoria', q: "A força que surge sempre se opondo ao movimento ou deslizamento, gerando calor ao esfregar as mãos, é o...?", ans: "atrito", 
+      steps: ["1. Depende da rugosidade do chão.", "2. Resposta: atrito."] },
+    { id: 14, cat: 'teoria', q: "A Força transmitida através de fios, cordas e cabos bem esticados é a força de...?", ans: "tracao", alt: "tração", 
+      steps: ["1. Muito comum em elevadores, cordas de pular e cabos de aço.", "2. Também conhecida como tensão.", "3. Resposta: tração."] },
+    { id: 15, cat: 'teoria', q: "O que muda quando um astronauta viaja para a Lua: a sua massa ou o seu peso?", ans: "peso", 
+      steps: ["1. Massa (kg) é quantidade de moléculas, e não muda.", "2. A força com que ele é puxado pra baixo diminui porque a gravidade é menor.", "3. Resposta: peso."] },
+    { id: 16, cat: 'teoria', q: "Óleo, lubrificantes e rodinhas servem para diminuir consideravelmente qual força?", ans: "atrito", 
+      steps: ["1. Ajudam a deslizar melhor.", "2. Removem a rugosidade.", "3. Resposta: atrito."] },
+    { id: 17, cat: 'teoria', q: "Como se chama a força resultante que aponta exatamente para o centro de uma curva?", ans: "centripeta", alt: "centrípeta", 
+      steps: ["1. Significa literalmente: 'A que busca o centro'.", "2. Sem ela o carro passa reto pela inércia.", "3. Resposta: centrípeta."] },
+    { id: 18, cat: 'teoria', q: "Se a força resultante sobre um corpo é zero (0), ele pode estar parado, ou num Movimento Retilíneo...?", ans: "uniforme", alt: "mru", 
+      steps: ["1. Se Fr = 0, a aceleração = 0.", "2. A velocidade é constante.", "3. Resposta: uniforme."] },
+    { id: 19, cat: 'teoria', q: "A força centrípeta altera o valor (número) da velocidade ou a sua direção?", ans: "direcao", alt: "direção", 
+      steps: ["1. No MCU o valor da velocidade do carro é o mesmo (ex: 80 km/h o tempo todo na curva).", "2. A força puxa de lado só para virar o volante.", "3. Resposta: direção."] },
+    { id: 20, cat: 'teoria', q: "Um astronauta no espaço (sem atrito) arremessa uma ferramenta. Se nenhuma força atuar nela, ela vai parar alguma hora? (Sim ou Não)", ans: "nao", alt: "não", 
+      steps: ["1. Inércia na ausência de forças = movimento eterno em linha reta.", "2. Resposta: não."] },
+
+    // --- 21 a 30: RESULTANTE (Cálculos) ---
+    { id: 21, cat: 'resultante', q: "Duas pessoas empurram para a direita: Uma com 15 N e outra com 25 N. Resultante (em N)?", ans: "40", 
+      steps: ["1. Mesmo sentido soma.", "2. \\( F_R = 15 + 25 \\).", "3. Resposta: \\( F_R = 40 \\, \\text{N} \\)."] },
+    { id: 22, cat: 'resultante', q: "Um carro é puxado para a direita com 200 N e esquerda com 50 N. Resultante?", ans: "150", 
+      steps: ["1. Sentidos opostos: subtrai.", "2. \\( F_R = 200 - 50 \\).", "3. Resposta: \\( F_R = 150 \\, \\text{N} \\)."] },
+    { id: 23, cat: 'resultante', q: "Três formigas puxam para o sul com 4 N cada. Resultante total?", ans: "12", 
+      steps: ["1. Mesmo sentido, soma tudo.", "2. \\( 4 + 4 + 4 \\).", "3. Resposta: \\( 12 \\, \\text{N} \\)."] },
+    { id: 24, cat: 'resultante', q: "Se a Resultante é 0. Puxam para a direita com 80 N, qual a força exercida para a esquerda?", ans: "80", 
+      steps: ["1. Resultante zero é empate.", "2. Direita = Esquerda.", "3. Resposta: \\( 80 \\, \\text{N} \\)."] },
+    { id: 25, cat: 'resultante', q: "Frente: 30 N + 20 N. Trás: 10 N. Resultante?", ans: "40", 
+      steps: ["1. Frente = \\( 30+20 = 50 \\).", "2. Subtrai a traseira: \\( 50 - 10 \\).", "3. Resposta: \\( 40 \\, \\text{N} \\)."] },
+    { id: 26, cat: 'resultante', q: "O motor faz 500 N, a água freia com atrito de 150 N. Resultante?", ans: "350", 
+      steps: ["1. Motor (favor) - Atrito (contra).", "2. \\( 500 - 150 \\).", "3. Resposta: \\( 350 \\, \\text{N} \\)."] },
+    { id: 27, cat: 'resultante', q: "A Resultante é 10 N para cima. O Peso é 20 N para baixo. Quanto puxa para cima?", ans: "30", 
+      steps: ["1. \\( F_{cima} - Peso = Resultante \\).", "2. \\( F_{cima} - 20 = 10 \\).", "3. Resposta: \\( 30 \\, \\text{N} \\)."] },
+    { id: 28, cat: 'resultante', q: "Cabo de guerra empata (Fr=0). Time A: 500 N. Time B: Jogador 1 tem 200 N. Força do Jogador 2?", ans: "300", 
+      steps: ["1. \\( A = B \\).", "2. \\( 500 = 200 + J_2 \\).", "3. Resposta: \\( 300 \\, \\text{N} \\)."] },
+    { id: 29, cat: 'resultante', q: "F1 = 60 N, F2 = 60 N (mesmo sentido). Resultante?", ans: "120", 
+      steps: ["1. Somar.", "2. \\( 60 + 60 \\).", "3. Resposta: \\( 120 \\, \\text{N} \\)."] },
+    { id: 30, cat: 'resultante', q: "Frente: 70 N e 30 N. Atrito: 40 N. Resultante?", ans: "60", 
+      steps: ["1. Total favor: \\( 70 + 30 = 100 \\).", "2. \\( 100 - 40 \\).", "3. Resposta: \\( 60 \\, \\text{N} \\)."] },
+
+    // --- 31 a 40: 2ª LEI (F = ma) ---
+    { id: 31, cat: 'newton', q: "Massa de 5 kg e aceleração 2 m/s². Força Resultante?", ans: "10", 
+      steps: ["1. \\( F_R = m \\cdot a \\).", "2. \\( F_R = 5 \\cdot 2 \\).", "3. Resposta: \\( 10 \\, \\text{N} \\)."] },
+    { id: 32, cat: 'newton', q: "Força de 30 N em corpo de 6 kg. Aceleração?", ans: "5", 
+      steps: ["1. \\( 30 = 6 \\cdot a \\).", "2. \\( a = \\frac{30}{6} \\).", "3. Resposta: \\( 5 \\, \\text{m/s}^2 \\)."] },
+    { id: 33, cat: 'newton', q: "Força de 40 N gera aceleração de 4 m/s². Massa?", ans: "10", 
+      steps: ["1. \\( 40 = m \\cdot 4 \\).", "2. \\( m = \\frac{40}{4} \\).", "3. Resposta: \\( 10 \\, \\text{kg} \\)."] },
+    { id: 34, cat: 'newton', q: "Carro de 1000 kg precisa atingir 3 m/s². Força do motor?", ans: "3000", 
+      steps: ["1. \\( F_R = 1000 \\cdot 3 \\).", "2. Resposta: \\( 3000 \\, \\text{N} \\)."] },
+    { id: 35, cat: 'newton', q: "Massa = 10 kg. Empurra com 50 N, atrito de 10 N. Aceleração?", ans: "4", 
+      steps: ["1. Resultante: \\( 50 - 10 = 40 \\, \\text{N} \\).", "2. \\( 40 = 10 \\cdot a \\).", "3. Resposta: \\( a = 4 \\, \\text{m/s}^2 \\)."] },
+    { id: 36, cat: 'newton', q: "Se a massa for 4 kg, qual força precisa para dar 5 m/s²?", ans: "20", 
+      steps: ["1. \\( F = m \\cdot a \\).", "2. \\( F = 4 \\cdot 5 \\).", "3. Resposta: \\( 20 \\, \\text{N} \\)."] },
+    { id: 37, cat: 'newton', q: "Corpo parado (a=0), massa 50 kg. Força resultante?", ans: "0", 
+      steps: ["1. \\( F = 50 \\cdot 0 \\).", "2. Resposta: \\( 0 \\, \\text{N} \\)."] },
+    { id: 38, cat: 'newton', q: "Duas forças: 10 N e 6 N (mesmo sentido) em 4 kg. Aceleração?", ans: "4", 
+      steps: ["1. Resultante = \\( 16 \\, \\text{N} \\).", "2. \\( 16 = 4 \\cdot a \\).", "3. Resposta: \\( a = 4 \\, \\text{m/s}^2 \\)."] },
+    { id: 39, cat: 'newton', q: "No espaço, 500 N geram aceleração de 2 m/s². Massa?", ans: "250", 
+      steps: ["1. \\( 500 = m \\cdot 2 \\).", "2. Resposta: \\( m = 250 \\, \\text{kg} \\)."] },
+    { id: 40, cat: 'newton', q: "Força resultante de 100 N atua e gera a=5 m/s². Massa M?", ans: "20", 
+      steps: ["1. \\( 100 = M \\cdot 5 \\).", "2. Resposta: \\( 20 \\, \\text{kg} \\)."] },
+
+    // --- 41 a 50: PESO E FORÇAS (P = mg) ---
+    { id: 41, cat: 'peso', q: "Na Terra (g = 10), qual o Peso de 2 kg?", ans: "20", 
+      steps: ["1. \\( P = m \\cdot g \\).", "2. \\( P = 2 \\cdot 10 \\).", "3. Resposta: \\( 20 \\, \\text{N} \\)."] },
+    { id: 42, cat: 'peso', q: "Alguém pesa '600 N' na Terra. Qual a MASSA?", ans: "60", 
+      steps: ["1. \\( 600 = m \\cdot 10 \\).", "2. Resposta: \\( m = 60 \\, \\text{kg} \\)."] },
+    { id: 43, cat: 'peso', q: "Na Lua (g = 2 m/s²). Qual o peso de massa 80 kg?", ans: "160", 
+      steps: ["1. \\( P = 80 \\cdot 2 \\).", "2. Resposta: \\( 160 \\, \\text{N} \\)."] },
+    { id: 44, cat: 'peso', q: "Mesa Terra (g=10). Livro 1 kg parado. Qual a força Normal?", ans: "10", 
+      steps: ["1. Peso = \\( 1 \\cdot 10 = 10 \\, \\text{N} \\).", "2. Normal empata com Peso. Resposta: \\( 10 \\, \\text{N} \\)."] },
+    { id: 45, cat: 'peso', q: "Corda segura 300 N no máximo. Qual a maior massa pendurada (g=10)?", ans: "30", 
+      steps: ["1. \\( 300 = m \\cdot 10 \\).", "2. Resposta: \\( 30 \\, \\text{kg} \\)."] },
+    { id: 46, cat: 'peso', q: "Bloco de 10 kg, peso total na Terra?", ans: "100", 
+      steps: ["1. \\( P = 10 \\cdot 10 \\).", "2. Resposta: \\( 100 \\, \\text{N} \\)."] },
+    { id: 47, cat: 'peso', q: "Duas cordas seguram bloco de 100 N de peso. Tração em CADA corda?", ans: "50", 
+      steps: ["1. Divisão por 2: \\( \\frac{100}{2} \\).", "2. Resposta: \\( 50 \\, \\text{N} \\)."] },
+    { id: 48, cat: 'peso', q: "Júpiter: 5 kg pesam 125 N. Aceleração da gravidade 'g' lá?", ans: "25", 
+      steps: ["1. \\( 125 = 5 \\cdot g \\).", "2. Resposta: \\( g = 25 \\, \\text{m/s}^2 \\)."] },
+    { id: 49, cat: 'peso', q: "Tijolo de 4 kg. Qual o Peso na Terra (g=10)?", ans: "40", 
+      steps: ["1. \\( P = 4 \\cdot 10 \\).", "2. Resposta: \\( 40 \\, \\text{N} \\)."] },
+    { id: 50, cat: 'peso', q: "Mola esticou 50 N. Que bloco (massa) causa o mesmo (g=10)?", ans: "5", 
+      steps: ["1. \\( 50 = m \\cdot 10 \\).", "2. Resposta: \\( m = 5 \\, \\text{kg} \\)."] },
+
+    // --- 51 a 60: CENTRÍPETA (Fcp = mv²/R) ---
+    { id: 51, cat: 'centripeta', q: "Massa 2 kg, vel = 3 m/s, R = 2 m. Fcp?", ans: "9", 
+      steps: ["1. \\( v^2 = 9 \\).", "2. \\( F_{cp} = \\frac{2 \\cdot 9}{2} \\).", "3. Resposta: \\( 9 \\, \\text{N} \\)."] },
+    { id: 52, cat: 'centripeta', q: "Massa 1000 kg, v = 10 m/s, R = 100 m. Fcp?", ans: "1000", 
+      steps: ["1. \\( v^2 = 100 \\).", "2. \\( F_{cp} = \\frac{1000 \\cdot 100}{100} \\).", "3. Resposta: \\( 1000 \\, \\text{N} \\)."] },
+    { id: 53, cat: 'centripeta', q: "M=5, v=2, R=1. Fcp?", ans: "20", 
+      steps: ["1. \\( 2^2 = 4 \\).", "2. \\( F_{cp} = \\frac{5 \\cdot 4}{1} \\).", "3. Resposta: \\( 20 \\, \\text{N} \\)."] },
+    { id: 54, cat: 'centripeta', q: "Fcp=40 N, m=10, v=2. Qual o Raio (R)?", ans: "1", 
+      steps: ["1. \\( 40 = \\frac{10 \\cdot 4}{R} \\).", "2. \\( 40 = \\frac{40}{R} \\).", "3. Resposta: \\( R = 1 \\, \\text{m} \\)."] },
+    { id: 55, cat: 'centripeta', q: "Fcp=18 N, R=2, v=3. Qual a massa (m)?", ans: "4", 
+      steps: ["1. \\( 18 = \\frac{m \\cdot 9}{2} \\).", "2. \\( 36 = 9m \\).", "3. Resposta: \\( m = 4 \\, \\text{kg} \\)."] },
+    { id: 56, cat: 'centripeta', q: "Patinador 50 kg, R = 2 m, v = 4 m/s. Fcp?", ans: "400", 
+      steps: ["1. \\( 4^2 = 16 \\).", "2. \\( F_{cp} = \\frac{50 \\cdot 16}{2} \\).", "3. Resposta: \\( 400 \\, \\text{N} \\)."] },
+    { id: 57, cat: 'centripeta', q: "Corpo 2 kg, v=4 m/s, R=4. Fcp?", ans: "8", 
+      steps: ["1. \\( 4^2 = 16 \\).", "2. \\( F_{cp} = \\frac{2 \\cdot 16}{4} \\).", "3. Resposta: \\( 8 \\, \\text{N} \\)."] },
+    { id: 58, cat: 'centripeta', q: "Fcp=50, m=2, R=1. Qual é o valor do QUADRADO da velocidade (v²)?", ans: "25", 
+      steps: ["1. \\( 50 = \\frac{2 \\cdot v^2}{1} \\).", "2. \\( v^2 = 25 \\).", "3. Resposta: \\( 25 \\)."] },
+    { id: 59, cat: 'centripeta', q: "Se v² = 25, qual é a velocidade 'v' exata (raiz)?", ans: "5", 
+      steps: ["1. \\( \\sqrt{25} = 5 \\).", "2. Resposta: \\( 5 \\, \\text{m/s} \\)."] },
+    { id: 60, cat: 'centripeta', q: "A Força Centrípeta era 10 N. O motorista dobrou a velocidade. Qual a nova Fcp?", ans: "40", 
+      steps: ["1. Se a velocidade dobra (2x), por causa do quadrado (2²), a força fica 4 vezes maior.", "2. \\( 10 \\cdot 4 = 40 \\).", "3. Resposta: \\( 40 \\, \\text{N} \\)."] }
+];
+
+let solvedList = new Set(JSON.parse(localStorage.getItem('dinamicaFull60') || '[]'));
+let currentFilter = 'all';
+
+document.querySelectorAll('.level-btn').forEach(b => {
+    b.onclick = () => {
+        currentFilter = b.dataset.cat;
+        document.querySelectorAll('.level-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        renderExercises();
+    };
+});
+
+function renderExercises() {
+    const list = exData.filter(e => currentFilter === 'all' || e.cat === currentFilter);
+    
+    $('exercise-list').innerHTML = list.map(ex => {
+        const isSolved = solvedList.has(ex.id);
+        const fbClass = isSolved ? 'text-emerald-600' : '';
+        const fbText = isSolved ? '✓ Resolvido!' : '';
+        const dis = isSolved ? 'disabled' : '';
+        // Para a Teoria, mostro a palavra "correta". Para cálculo, mostro o número
+        let valString = ex.cat === 'teoria' ? ex.ans : ex.ans;
+        const val = isSolved ? `value="${valString}"` : '';
+
+        // Passos da resolução
+        const stepsHtml = ex.steps.map((s, i) => `<div class="step mb-2" data-step="${i+1}">${s}</div>`).join('');
+        const solutionDiv = `
+            <div id="sol-${ex.id}" class="hidden mt-4 pt-4 border-t border-slate-200 exercise-solution">
+                <div class="text-xs uppercase font-black text-violet-700 mb-3 tracking-widest">Resolução Passo a Passo</div>
+                ${stepsHtml}
+            </div>
+        `;
+
+        const placeholder = ex.cat === 'teoria' ? "Palavra principal" : "Valor numérico";
+
+        return `
+        <article class="bg-white rounded-2xl border ${isSolved ? 'border-emerald-400' : 'border-slate-200'} p-5 shadow-sm">
+            <div class="flex justify-between gap-3 mb-3">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full bg-violet-50 text-violet-700">Questão ${ex.id}</span>
+            </div>
+            <div class="text-slate-700 font-medium text-sm sm:text-base">${ex.q}</div>
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:border-violet-400 focus:outline-none font-bold" placeholder="${placeholder}" ${dis} ${val}>
+                <button onclick="checkEx(${ex.id})" class="bg-violet-600 hover:bg-violet-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition-colors" ${dis}>Verificar</button>
+            </div>
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5 ${fbClass}">${fbText}</div>
+            
+            <button onclick="toggleSol(${ex.id})" class="mt-2 text-xs font-bold text-violet-700 hover:underline flex items-center gap-1">👁 Visualizar resolução</button>
+            ${solutionDiv}
+        </article>
+        `;
+    }).join('');
+    
+    $('progress-text').textContent = `${solvedList.size} / 60`;
+    $('progress-bar').style.width = (solvedList.size / 60 * 100) + '%';
+    katexInit();
+}
+
+document.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter' && e.target.id.startsWith('ans-')) {
+        const id = parseInt(e.target.id.replace('ans-', ''));
+        checkEx(id);
+    }
+});
+
+function checkEx(id) {
+    const ex = exData.find(x => x.id === id);
+    let inputRaw = $('ans-'+id).value.trim();
+    let isCorrect = false;
+
+    if (ex.cat === 'teoria') {
+        // Validação inteligente de texto ignorando acentos, traços e tamanho da fonte
+        let inputNorm = inputRaw.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\s]/gi, '');
+        let ansNorm1 = ex.ans.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        let ansNorm2 = ex.alt ? ex.alt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") : '----';
+        
+        if (inputNorm === ansNorm1 || inputNorm === ansNorm2 || (inputNorm !== "" && ansNorm1.includes(inputNorm) && inputNorm.length > 3)) {
+            isCorrect = true;
+        }
+    } else {
+        // Validação para os de cálculo numérico (Substitui vírgula do Brasil por ponto matemático)
+        let inputNum = inputRaw.replace(',', '.');
+        if (inputNum === ex.ans) {
+            isCorrect = true;
+        }
+    }
+    
+    if (isCorrect) {
+        solvedList.add(id);
+        localStorage.setItem('dinamicaFull60', JSON.stringify([...solvedList]));
+        $('fb-'+id).className = 'text-sm font-bold mt-2 text-emerald-600';
+        $('fb-'+id).textContent = '✓ Excelente!';
+    } else {
+        $('fb-'+id).className = 'text-sm font-bold mt-2 text-red-600';
+        $('fb-'+id).textContent = '✗ Tente novamente, ou clique em Visualizar resolução.';
+    }
+    renderExercises(); 
+}
+
+function toggleSol(id) {
+    $('sol-'+id).classList.toggle('hidden');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    katexInit();
+    renderExercises();
+});
+</script>
+</body>
+</html>

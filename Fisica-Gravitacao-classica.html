@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física — Gravitação Universal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#1e1b4b;--paper:#fcfaff;--line:#e9d5ff;--accent:#8b5cf6}
+  body{background:#f5f3ff;color:var(--ink)}
+  .tab-btn.active{color:#7c3aed;border-bottom-color:#7c3aed;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#f3e8ff 1px,transparent 1px);background-size:100% 2rem;border:1px solid #d8b4fe;box-shadow:0 8px 24px #3b07640a}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e9d5ff;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#ede9fe;color:#5b21b6;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .level-btn.active{background:#8b5cf6;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-violet-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-violet-950">🌌 Física Cósmica</div><div class="text-[11px] text-slate-500 hidden sm:block">Modelos, Kepler e Gravitação Universal</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-violet-950 via-purple-900 to-indigo-950 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-violet-300">Gravitação Clássica</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">A Dança do Universo</h1>
+  <p class="mt-4 max-w-3xl text-violet-100 leading-7">Como a humanidade deixou de ser o centro de tudo, descobriu as rotas elípticas dos planetas e encontrou a fórmula matemática que une a queda de uma maçã ao giro da Lua.</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Dica de Estudo:</b> Na Gravitação, o raciocínio <b>proporcional</b> é mais importante que fazer contas gigantes. Se a distância dobrar, o que acontece com a força? Entender isso vale mais do que decorar números.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tema 1 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">História da Cosmologia</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Por milênios, olhamos para o céu e tentamos entender nosso lugar nele. Dois grandes modelos disputaram a verdade:</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100">
+     <b class="text-indigo-800 text-base">Geocentrismo (Terra no Centro)</b>
+     <p class="mt-1 text-slate-600">Defendido por Aristóteles e <b>Ptolomeu</b>. Acreditava-se que o Sol e os planetas giravam ao redor da Terra. Para explicar por que alguns planetas pareciam "dar ré" no céu, Ptolomeu inventou os <b>Epiciclos</b> (círculos menores girando em círculos maiores).</p>
+    </div>
+    <div class="bg-purple-50 rounded-xl p-4 border border-purple-100">
+     <b class="text-purple-800 text-base">Heliocentrismo (Sol no Centro)</b>
+     <p class="mt-1 text-slate-600">Proposto na antiguidade por Aristarco, mas revivido com força matemática por <b>Nicolau Copérnico</b>. <b>Galileu Galilei</b> apontou o telescópio para o céu e provou a teoria ao ver as luas de Júpiter girando ao redor daquele planeta (ou seja, nem tudo girava em torno da Terra!).</p>
+    </div>
+   </div>
+  </article>
+
+  <!-- Tema 2 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">As Leis de Kepler</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Johannes Kepler usou os dados perfeitos de seu mestre Tycho Brahe para descobrir como os planetas realmente se movem. Ele criou três leis imortais:</p>
+   
+   <div class="mt-4 space-y-4">
+    <div>
+     <b class="text-violet-800">1ª Lei (Órbitas):</b> Os planetas giram ao redor do Sol em órbitas <b>Elípticas</b> (ovais), com o Sol ocupando um dos focos.
+     <div class="text-xs text-slate-500 mt-1"><i>Consequência:</i> Há momentos em que estamos mais perto (Periélio) e mais longe (Afélio) do Sol.</div>
+    </div>
+    
+    <div>
+     <b class="text-violet-800">2ª Lei (Áreas):</b> A linha que liga o planeta ao Sol varre áreas iguais em tempos iguais.
+     <div class="text-xs text-slate-500 mt-1"><i>Consequência:</i> Para cobrir a mesma área perto do Sol (Periélio), o planeta precisa andar mais rápido na borda! <b>Ele acelera perto do sol e freia longe dele.</b></div>
+    </div>
+    
+    <div class="bg-violet-50 rounded-xl p-3 border">
+     <b class="text-violet-800">3ª Lei (Períodos):</b> Quanto mais longe o planeta, mais tempo ele demora para dar uma volta completa.
+     <div class="paper text-center py-2 mt-2 font-bold text-sm">\[\frac{T^2}{R^3} = K \quad \text{(Constante)}\]</div>
+     <div class="text-[11px] text-slate-500 text-center mt-1">T = Tempo (Ano), R = Raio (Distância)</div>
+    </div>
+   </div>
+  </article>
+ </div>
+
+ <!-- Tema 3 -->
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">3</span><h2 class="text-2xl font-black">A Lei da Gravitação Universal de Newton</h2></div>
+  
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div>
+    <p class="text-sm text-slate-600 mb-3">Isaac Newton percebeu que a mesma força que faz a maçã cair no chão é a força que segura a Lua em sua órbita. Ele descobriu que <b>"Matéria atrai matéria na razão direta de suas massas e na razão inversa do quadrado da distância"</b>.</p>
+    
+    <div class="paper rounded-xl p-5 text-center text-lg shadow-inner">\[F = G \cdot \frac{M \cdot m}{d^2}\]</div>
+    
+    <ul class="text-sm text-slate-600 mt-4 space-y-2 list-disc pl-5">
+     <li><b>F:</b> Força de atração (em Newtons).</li>
+     <li><b>G:</b> Constante universal (Um número absurdamente pequeno: \(6,67 \times 10^{-11}\)).</li>
+     <li><b>M e m:</b> As massas dos dois corpos (em kg).</li>
+     <li><b>d²:</b> A distância entre os <i>centros</i> dos corpos, <b>elevada ao quadrado</b>.</li>
+    </ul>
+   </div>
+   
+   <div class="space-y-4">
+    <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded-r-xl">
+     <h3 class="font-bold text-red-800 text-sm">A Armadilha do Inverso do Quadrado</h3>
+     <p class="text-xs text-slate-700 mt-2">Como a distância (\(d\)) está embaixo e ao quadrado, o efeito é poderoso:<br><br>
+     • Se a distância <b>DOBRAR</b> (\(2x\)), a força divide por <b>4</b> (\(2^2\)).<br>
+     • Se a distância <b>TRIPLICAR</b> (\(3x\)), a força divide por <b>9</b> (\(3^2\)).<br>
+     • Se a distância cair pela <b>METADE</b>, a força multiplica por <b>4</b>!</p>
+    </div>
+
+    <div class="bg-slate-50 border p-4 rounded-xl">
+     <h3 class="font-bold text-slate-800 text-sm">A Gravidade de um Planeta (g)</h3>
+     <p class="text-xs text-slate-600 mt-2">A aceleração da gravidade na superfície de um planeta não depende do objeto que está caindo, só do planeta!</p>
+     <div class="text-center mt-2 font-bold text-sm">\[g = G \cdot \frac{M_{planeta}}{R^2}\]</div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-violet-600">Simulador Astrofísico</span><h1 class="text-3xl font-black mt-2">Laboratório Espacial</h1><p class="text-slate-600 mt-2 text-sm">Teste as leis de Kepler e Newton de forma interativa sem precisar quebrar a cabeça com notações científicas.</p></div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Lab Kepler -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">3ª Lei de Kepler (Sistema Solar)</h2>
+   <p class="text-xs text-slate-500 mb-4">Se medirmos a distância em Unidades Astronômicas (1 UA = Distância Terra-Sol) e o tempo em Anos Terrestres, a constante <b>K é igual a 1</b>. (\(T^2 = R^3\)).</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Raio da Órbita - \(R\) (UA):</label><input id="lab-r" type="number" value="4" step="0.5" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcKepler()" class="mt-4 w-full bg-violet-600 hover:bg-violet-700 text-white rounded-xl py-3 font-bold transition">Calcular Ano do Planeta</button>
+   <div id="out-kepler" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+
+  <!-- Lab Proporção Newton -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">Gravidade Proporcional</h2>
+   <p class="text-xs text-slate-500 mb-4">Veja como a gravidade de um planeta fictício se compara com a da Terra (onde g = 10 m/s²) alterando sua massa e tamanho.</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Massa (em relação à Terra):<br><span class="text-[10px] text-slate-400">Ex: 2 = dobro da massa</span></label><input id="lab-m" type="number" value="2" step="0.1" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Raio (em relação à Terra):<br><span class="text-[10px] text-slate-400">Ex: 0.5 = metade do tamanho</span></label><input id="lab-d" type="number" value="0.5" step="0.1" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcGravity()" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl py-3 font-bold transition">Analisar Gravidade</button>
+   <div id="out-gravity" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-violet-600">Treino Progressivo</span><h1 class="text-3xl font-black mt-2">45 Questões Resolvidas</h1><p class="text-slate-600 mt-2 text-sm"><b>Teoria:</b> digite a letra (A, B, C, D). <b>Cálculos:</b> digite apenas o número (use '.' ou ',' para decimais). A gravidade base da Terra é g=10 m/s².</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold text-violet-900"><span>Progresso</span><span id="progress-text">0 / 45</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-violet-500 transition-all duration-500 rounded-full" style="width:0%"></div></div></div></div></div>
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters">
+  <button data-theme="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold transition">Todos</button>
+  <button data-theme="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T1: Modelos e História</button>
+  <button data-theme="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T2: Leis de Kepler</button>
+  <button data-theme="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T3: Gravitação de Newton</button>
+ </div></div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Mecânica Clássica - Cosmologia e Gravitação Universal</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Tab Navigation
+const sections=['teoria','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises();}));
+
+// Calculators
+function calcKepler(){
+    const r=+$('lab-r').value;
+    if(r <= 0) { $('out-kepler').innerHTML = `<b class="text-red-500">O raio deve ser maior que zero.</b>`; $('out-kepler').classList.remove('hidden'); return; }
+    
+    // T^2 / R^3 = 1 -> T^2 = R^3 -> T = sqrt(R^3)
+    const r3 = Math.pow(r, 3);
+    const t = Math.sqrt(r3);
+    
+    let h = `<b>1. Aplicando a Constante do Sistema Solar:</b><br>`;
+    h += `Na relação Terra-Sol, usamos 1 UA e 1 Ano. Portanto a constante é 1.<br>`;
+    h += `\\[\\frac{T^2}{R^3} = 1 \\rightarrow T^2 = R^3\\]<br>`;
+    h += `<b>2. Inserindo o raio (R = ${r} UA):</b><br>`;
+    h += `\\[T^2 = (${r})^3 = ${r3}\\]<br>`;
+    h += `<b>3. Resultado:</b><br>`;
+    h += `\\[T = \\sqrt{${r3}}\\]<br>`;
+    h += `O "Ano" desse planeta dura <b class="text-violet-700">${t.toFixed(2)} anos terrestres</b>.`;
+    $('out-kepler').innerHTML = h;
+    $('out-kepler').classList.remove('hidden');
+    renderAll();
+}
+
+function calcGravity(){
+    const m=+$('lab-m').value, d=+$('lab-d').value;
+    if(m <= 0 || d <= 0) { $('out-gravity').innerHTML = `<b class="text-red-500">Valores devem ser maiores que zero.</b>`; $('out-gravity').classList.remove('hidden'); return; }
+    
+    const factor = m / Math.pow(d, 2);
+    const g_final = factor * 10;
+    
+    let h = `<b>1. Entendendo as proporções:</b><br>`;
+    h += `O planeta tem <b>${m}x</b> a massa da Terra, o que <i>multiplica</i> a gravidade por ${m}.<br>`;
+    h += `O raio é <b>${d}x</b> o da Terra. Como é o inverso do quadrado, o efeito é dividir a gravidade por \\(${d}^2 = ${(d*d).toFixed(2)}\\).<br><br>`;
+    h += `<b>2. Fator resultante:</b><br>`;
+    h += `Fator = \\(\\frac{M}{R^2} = \\frac{${m}}{${(d*d).toFixed(2)}} = ${factor.toFixed(2)}\\)<br><br>`;
+    h += `<b>3. Gravidade Final:</b><br>`;
+    h += `A gravidade será ${factor.toFixed(2)} vezes a da Terra (que é 10 m/s²).<br>`;
+    h += `Nova gravidade: <b class="text-indigo-700">${g_final.toFixed(2)} m/s²</b>`;
+    $('out-gravity').innerHTML = h;
+    $('out-gravity').classList.remove('hidden');
+    renderAll();
+}
+
+const exercisesData = [];
+let exId = 1;
+const addQ = (th, ty, q, ans, steps, opts=[]) => { exercisesData.push({ id: exId++, theme: th, type: ty, q, ans, steps, opts }); };
+
+// TEMA 1: Cosmologia e Modelos (1-15)
+addQ(1,'theo',"O modelo cosmológico que afirmava que a Terra era o centro do universo, adotado pela Igreja na Idade Média, chamava-se:", "A", ["O modelo que coloca a Terra ('Geo') no centro é o Geocentrismo."], ["A) Geocentrismo","B) Heliocentrismo","C) Teoria do Big Bang","D) Epiciclos"]);
+addQ(1,'theo',"Para explicar o movimento retrógrado de Marte (quando parecia andar para trás no céu), Ptolomeu propôs que os planetas giravam em pequenos círculos que giravam em círculos maiores. Como chamavam-se os círculos menores?", "C", ["Essa engenhosa, porém complexa, adaptação geométrica criada por Ptolomeu era chamada de Epiciclos."], ["A) Elipses","B) Órbitas focais","C) Epiciclos","D) Excentricidades"]);
+addQ(1,'theo',"Qual astrônomo polonês resgatou o Heliocentrismo de forma matemática no século XVI, argumentando que o Sol estava no centro?", "B", ["Nicolau Copérnico revolucionou a ciência ao publicar sua obra (De revolutionibus) propondo o Sol no centro do sistema."], ["A) Tycho Brahe","B) Nicolau Copérnico","C) Aristóteles","D) Kepler"]);
+addQ(1,'theo',"Galileu Galilei usou o telescópio recém-inventado e fez uma observação que derrubou o geocentrismo. O que ele viu?", "B", ["Galileu viu quatro luas orbitando Júpiter. Isso provou que existiam corpos celestes que orbitavam outros centros que não a Terra."], ["A) Viu o Sol orbitando a Terra.","B) Viu satélites (luas) girando em torno de Júpiter.","C) Viu que a Terra era plana.","D) Viu as crateras do Sol."]);
+addQ(1,'theo',"Kepler foi assistente de um astrônomo muito rico e excêntrico, que não usava telescópios, mas possuía os registros mais precisos a olho nu da história. Quem era?", "D", ["Tycho Brahe dedicou sua vida a catalogar a posição das estrelas e planetas, e Kepler herdou esses valiosos dados."], ["A) Galileu","B) Newton","C) Ptolomeu","D) Tycho Brahe"]);
+addQ(1,'calc',"Na astronomia, usamos a Unidade Astronômica (UA). 1 UA = 150 milhões de km. Se Júpiter está a 5 UA do Sol, qual sua distância em milhões de km?", "750", ["\\(Dist = 5 \\cdot 150 = 750\\)", "Júpiter está a 750 milhões de quilômetros do Sol."]);
+addQ(1,'calc',"Se Saturno está a cerca de 1500 milhões de km do Sol, a quantas UA (Unidades Astronômicas) ele está? (Use 1 UA = 150 milhões de km)", "10", ["Para descobrir, divida a distância pelo valor de 1 UA.", "\\(UA = 1500 / 150 = 10 \\text{ UA}\\)"]);
+addQ(1,'calc',"A luz do Sol leva cerca de 8 minutos para chegar à Terra (1 UA). Supondo velocidade da luz constante, quantos minutos leva para chegar em Marte, que está a 1,5 UA?", "12", ["É uma proporção direta (regra de 3).", "Se 1 UA = 8 min, então 1,5 UA = 1,5 * 8 = 12 minutos."]);
+addQ(1,'calc',"Netuno está a incríveis 30 UA do Sol. Quantas horas a luz solar leva para chegar lá? (Use a proporção 1 UA = 8 minutos).", "4", ["1 UA = 8 min.", "30 UA = 30 * 8 = 240 minutos.", "Como 1 hora = 60 minutos: \\(240 / 60 = 4 \\text{ horas}\\)."]);
+addQ(1,'calc',"O raio da Terra é aproximadamente 6400 km. O raio de Júpiter é quase 11 vezes maior. Qual o valor aproximado do raio de Júpiter (digite o número em km)?", "70400", ["Basta multiplicar por 11.", "\\(R = 6400 \\cdot 11 = 70400 \\text{ km}\\)"]);
+addQ(1,'calc',"O modelo heliocêntrico facilitou a medição relativa. Se Vênus leva 0,6 anos terrestres para dar uma volta no Sol, e a Terra leva 1 ano. Em 3 anos terrestres, quantas voltas completas Vênus deu?", "5", ["Total de anos / Duração do ano de Vênus", "\\(Voltas = 3 / 0,6 = 5 \\text{ voltas}\\)."]);
+addQ(1,'calc',"A velocidade da luz é 300.000 km/s. Quantos milhões de km a luz percorre em 10 segundos? (Digite apenas o número referente aos 'milhões').", "3", ["Em 1 seg: 300.000 km.", "Em 10 seg: 300.000 * 10 = 3.000.000 km.", "Ou seja, 3 milhões de km."]);
+addQ(1,'calc',"Se uma nave viaja a 1/10 da velocidade da luz (ou seja, 30.000 km/s). Quantos segundos ela leva para ir da Terra à Lua (distância = 360.000 km)?", "12", ["\\(Tempo = \\text{Distância} / \\text{Velocidade}\\)", "\\(T = 360.000 / 30.000\\)", "\\(T = 12 \\text{ segundos}\\)."]);
+addQ(1,'calc',"Anos-luz é medida de distância! Se uma estrela A está a 4 anos-luz e B a 20 anos-luz. Quantas vezes a estrela B é mais distante que a A?", "5", ["Basta fazer a razão (divisão) entre as distâncias.", "\\(R = 20 / 4 = 5\\).", "B é 5 vezes mais distante."]);
+addQ(1,'calc',"Uma Estrela de Nêutrons gira sobre si mesma muito rápido. Se ela dá 30 voltas em 1 segundo. Quantas voltas ela dá em 1 minuto?", "1800", ["1 minuto tem 60 segundos.", "Se dá 30 voltas em 1 seg, em 60 seg ela dará:", "\\(30 \\cdot 60 = 1800 \\text{ voltas}\\)."]);
+
+// TEMA 2: Leis de Kepler (16-30)
+addQ(2,'theo',"A Primeira Lei de Kepler, ou Lei das Órbitas, define que a trajetória dos planetas ao redor do Sol é:", "D", ["Os planetas não fazem um círculo perfeito. Sua trajetória é uma Elipse, com o sol em um dos focos."], ["A) Circular perfeito","B) Parabólica","C) Epicíclica","D) Elíptica"]);
+addQ(2,'theo',"Quando um planeta está no ponto de sua órbita MAIS PRÓXIMO ao Sol, dizemos que ele está no:", "C", ["A origem das palavras ajuda: 'Peri' (perto) e 'Hélio' (Sol). No Afélio ele está 'Afastado'."], ["A) Equinócio","B) Afélio","C) Periélio","D) Solstício"]);
+addQ(2,'theo',"Pela Segunda Lei de Kepler (Lei das Áreas), podemos afirmar que a velocidade orbital de um planeta:", "B", ["Para varrer a mesma área em tempos iguais, quando o planeta está no Periélio (mais perto) a linha é mais curta, então ele precisa andar muito mais rápido pelo arco."], ["A) É constante.","B) É maior quando ele está perto do Sol (Periélio).","C) É maior quando ele está longe do Sol (Afélio).","D) Depende da massa do planeta."]);
+addQ(2,'theo',"A Terceira Lei de Kepler (\\(T^2 / R^3 = K\\)) mostra que a constante 'K' depende do quê?", "A", ["A constante K só depende da massa do corpo central que está sendo orbitado. Para todos os planetas que orbitam o Sol, o K é o mesmo."], ["A) Da massa do Sol (corpo central).","B) Da massa de cada planeta.","C) Da velocidade da luz.","D) Da atmosfera planetária."]);
+addQ(2,'theo',"Se descobrirmos um exoplaneta girando em torno de uma estrela idêntica ao Sol, e ele estiver no mesmo raio orbital que a Terra (1 UA), seu 'ano' durará:", "D", ["Como o corpo central (a estrela) tem a mesma massa que o Sol, o K será o mesmo. Tendo o mesmo Raio (R=1), o Tempo (T) será obrigatoriamente 1 ano terrestre."], ["A) O dobro da Terra.","B) A metade da Terra.","C) Depende da massa dele.","D) O mesmo tempo que a Terra (1 ano)."]);
+addQ(2,'calc',"Se usarmos Anos e Unidades Astronômicas, para a Terra \\(T=1\\) e \\(R=1\\). Logo a constante K = 1. Um asteroide tem órbita média R = 4 UA. Qual o seu período T (anos)?", "8", ["\\(T^2 / R^3 = 1 \\rightarrow T^2 = R^3\\)", "\\(T^2 = 4^3 \\rightarrow T^2 = 64\\)", "\\(T = \\sqrt{64} = 8 \\text{ anos}\\)."]);
+addQ(2,'calc',"Pela 3ª lei (K=1), se um cometa demora 27 anos (T=27) para dar uma volta no Sol. Qual é o raio médio (R) de sua órbita em UA?", "9", ["\\(T^2 = R^3\\)", "\\(27^2 = R^3 \\rightarrow 729 = R^3\\)", "\\(R = \\sqrt[3]{729} = 9 \\text{ UA}\\)."]);
+addQ(2,'calc',"A velocidade (v) x raio (r) no periélio e afélio são proporcionais: \\(v_p \\cdot r_p = v_a \\cdot r_a\\). O periélio de um cometa é 1 UA e v=60 km/s. No afélio a distância é 3 UA. Qual a velocidade no afélio (em km/s)?", "20", ["Conservação do momento angular (simplificada):", "\\(60 \\cdot 1 = v_a \\cdot 3\\)", "\\(3 \\cdot v_a = 60 \\rightarrow v_a = 20 \\text{ km/s}\\)."]);
+addQ(2,'calc',"A linha imaginária de um planeta varre uma área de 30 'unidades' em 2 meses. Quantas 'unidades' de área ela varrerá em 6 meses?", "90", ["Pela 2ª Lei, áreas são varridas proporcionalmente ao tempo.", "Razão: 30 unidades / 2 meses = 15 unidades por mês.", "Em 6 meses: \\(15 \\cdot 6 = 90\\)."]);
+addQ(2,'calc',"Um planeta tem raio médio R = 100 UA. Qual o seu período orbital (T) em anos terrestres? (K=1)", "1000", ["\\(T^2 = R^3\\)", "\\(T^2 = (10^2)^3 = 10^6 = 1.000.000\\)", "\\(T = \\sqrt{1.000.000} = 1000 \\text{ anos}\\)."]);
+addQ(2,'calc',"Planeta A tem R=1. Planeta B tem R=4. A velocidade escalar média orbital de A é 'v'. A velocidade orbital média de B será um valor menor. Sabendo que Velocidade Média é o comprimento da órbita dividida por T, qual a relação (T_B / T_A)?", "8", ["\\(T_A = \\sqrt{1^3} = 1\\)", "\\(T_B = \\sqrt{4^3} = 8\\)", "A proporção \\(T_B/T_A = 8/1 = 8\\). B demora 8x mais para dar a volta."]);
+addQ(2,'calc',"Um satélite dá uma volta na Terra em 1 hora num raio R. Em qual raio orbital R' (em função de R) ele deveria ser colocado para demorar 8 horas? (Digite apenas o número do fator)", "4", ["Aqui a Terra é o corpo central, então o K é igual para ambos.", "\\(T_1 = 1, R_1 = 1R\\). \\(K = 1^2 / 1^3 = 1\\).", "Para o satélite 2: \\(T_2 = 8\\).", "\\(8^2 / (R')^3 = 1 \\rightarrow 64 = (R')^3 \\rightarrow R' = \\sqrt[3]{64} = 4R\\). O fator é 4."]);
+addQ(2,'calc',"Um asteroide tem Periélio = 2 UA e Afélio = 8 UA. O raio médio da órbita é a média aritmética simples dessas distâncias na elipse (eixo maior sobre 2). Qual o Raio Médio em UA?", "5", ["Na geometria da elipse, o eixo maior (2a) é a soma do periélio e afélio.", "\\(2a = 2 + 8 = 10 \\text{ UA}\\).", "O Raio médio (R) usado na 3ª lei é o semi-eixo maior (a). Logo, \\(a = 10 / 2 = 5 \\text{ UA}\\)."]);
+addQ(2,'calc',"Baseado na questão anterior (Raio Médio = 5). Qual a soma (Afélio + Periélio) da órbita da Terra se o seu Raio Médio é 1 UA?", "2", ["\\(\\text{Raio Médio} = \\frac{Afélio + Periélio}{2}\\)", "\\(1 = \\frac{Soma}{2} \\rightarrow Soma = 2 \\text{ UA}\\)."]);
+addQ(2,'calc',"Planeta P varre 100 km² em 1 dia no periélio. Quando estiver no afélio, quanto tempo (em dias) levará para varrer 400 km²?", "4", ["A taxa de área varrida é constante em toda a órbita.", "Se varre 100 km² por dia, para varrer 400 km² serão necessários:", "\\(400 / 100 = 4 \\text{ dias}\\)."]);
+
+// TEMA 3: Lei da Gravitação Universal (31-45)
+addQ(3,'theo',"Segundo a Lei da Gravitação de Newton, a força de atração entre dois corpos é diretamente proporcional ao produto de suas...", "B", ["A fórmula é \\(F = G \\frac{m_1 m_2}{d^2}\\). O topo tem o produto das massas."], ["A) Velocidades","B) Massas","C) Cargas elétricas","D) Distâncias"]);
+addQ(3,'theo',"A Terra atrai uma maçã com uma força P (Peso). Pela 3ª Lei de Newton (Ação e Reação), qual a força com que a maçã atrai a Terra?", "A", ["As forças de ação e reação são sempre IGUAIS em módulo e opostas em sentido. O que muda é a aceleração, a Terra não sai do lugar porque é imensa, mas a força é a mesma!"], ["A) Exatamente P","B) Muito menor que P","C) Muito maior que P","D) Zero"]);
+addQ(3,'theo',"O que acontece com a força gravitacional entre dois asteroides se a distância entre eles for REDUZIDA pela METADE?", "D", ["A distância está no denominador e elevada ao quadrado. Dividir a distância por 2 eleva a força por um fator de \\(2^2 = 4\\)."], ["A) Fica a metade.","B) Fica o dobro.","C) Reduz à quarta parte.","D) Fica quatro vezes MAIOR."]);
+addQ(3,'theo',"Se a massa da Terra magicamente dobrasse, mas seu raio (tamanho) ficasse o mesmo, o seu Peso (Força da gravidade) nela:", "B", ["Na fórmula do peso \\(P = G \\cdot M \\cdot m / R^2\\), a Força é diretamente proporcional à massa do planeta. Dobra M, dobra P."], ["A) Fica igual.","B) Dobraria.","C) Reduziria pela metade.","D) Fica quatro vezes maior."]);
+addQ(3,'theo',"No espaço sideral, astronautas 'flutuam' dentro da ISS. Isso ocorre porque lá não há gravidade?", "C", ["O nome é 'imponderabilidade'. Existe gravidade sim (cerca de 90% da superfície), mas a ISS está em queda livre constante e lateral ao redor da Terra, fazendo os corpos 'caírem' no mesmo ritmo."], ["A) Sim, no espaço a gravidade é zero absoluto.","B) Porque tem oxigênio.","C) Não. Eles e a nave estão 'caindo' juntos ao redor da Terra.","D) Porque a Lua anula a gravidade terrestre lá."]);
+addQ(3,'calc',"Dois blocos sentem uma força de atração F = 100 N. Se a distância entre eles DOBRAR, para qual valor cairá a Força (em N)?", "25", ["Como a distância dobrou, a força divide por \\(2^2 = 4\\).", "\\(F = 100 / 4 = 25 \\text{ N}\\)."]);
+addQ(3,'calc',"A força gravitacional inicial é 40 N. Se a distância entre os corpos TRIPLICAR, a nova força não será exata inteira. Qual o fator de DIVISÃO dessa força?", "9", ["Distância triplicou (3x).", "A força diminui pelo quadrado da distância: \\(3^2 = 9\\). A força será dividida por 9."]);
+addQ(3,'calc',"Dois corpos de massa 10 kg estão a 1 metro de distância. Usando G = 6,67 x 10⁻¹¹, o valor da força é Y x 10⁻¹¹ N. Qual o valor de Y?", "667", ["\\(F = G \\cdot \\frac{m_1 m_2}{d^2}\\)", "\\(F = 6,67 \\times 10^{-11} \\cdot \\frac{10 \\cdot 10}{1^2}\\)", "\\(F = 6,67 \\times 10^{-11} \\cdot 100 = 667 \\times 10^{-11}\\). Y = 667."]);
+addQ(3,'calc',"Na superfície da Terra, \\(g = 10 \\text{ m/s}^2\\). Em um planeta X, a massa é o DOBRO da Terra e o raio orbital é IGUAL. Qual a gravidade no planeta X?", "20", ["\\(g = G \\cdot M / R^2\\).", "Se M dobra (2x) e R mantém, g também dobra.", "\\(g = 10 \\cdot 2 = 20 \\text{ m/s}^2\\)."]);
+addQ(3,'calc',"Num planeta Y, a massa é IGUAL à da Terra, mas o raio é o DOBRO. Qual o valor da gravidade lá (em m/s²)?", "2.5", ["Massa igual = fator 1.", "Raio dobrou (2x) = a força divide por \\(2^2 = 4\\).", "\\(g = 10 / 4 = 2,5 \\text{ m/s}^2\\)."]);
+addQ(3,'calc',"E se o planeta tiver o DOBRO da massa e o DOBRO do Raio da Terra. Qual será sua gravidade g?", "5", ["Massa dobrou: multiplica por 2.", "Raio dobrou: divide por 4.", "Fator total: \\(2 / 4 = 0,5\\).", "\\(g = 10 \\cdot 0,5 = 5 \\text{ m/s}^2\\)."]);
+addQ(3,'calc',"Uma nave se afasta da Terra. A que distância (em Raio Terrestres - Rt) do centro da Terra a gravidade cai para 1/9 do valor da superfície (g)?", "3", ["Para a gravidade dividir por 9, a distância tem que ser multiplicada pela raiz quadrada de 9.", "\\(\\sqrt{9} = 3\\). A distância é 3x o raio da Terra."]);
+addQ(3,'calc',"A atração entre A e B é 10 N. Se eu triplicar a massa de A e dobrar a massa de B (sem mexer na distância). Para qual valor vai a Força?", "60", ["As massas estão no numerador e multiplicam de forma direta.", "Novo numerador é \\(3 \\cdot 2 = 6\\) vezes maior.", "\\(F = 10 \\cdot 6 = 60 \\text{ N}\\)."]);
+addQ(3,'calc',"Um rapaz pesa 800 N na Terra. Em um planeta onde a gravidade é 2,5 vezes menor, qual será o seu Peso (em Newtons)?", "320", ["A massa não muda, mas o peso depende do g. Se o g é 2,5 vezes menor, o peso divide por 2,5.", "\\(P = 800 / 2,5 = 320 \\text{ N}\\)."]);
+addQ(3,'calc',"Satélite em órbita circular tem velocidade \\(V = \\sqrt{GM/R}\\). Se ele orbita um planeta 4x mais pesado (4M) que a Terra, mantendo o MESMO raio (R). Por qual fator numérico a sua velocidade V precisa ser multiplicada?", "2", ["A velocidade tem a raiz quadrada de M: \\(\\sqrt{4M}\\).", "\\(\\sqrt{4} = 2\\). Ele precisa girar com o DOBRO da velocidade para não cair."]);
+
+let currentTheme = 'all';
+let solved = new Set(JSON.parse(localStorage.getItem('fisicaGravSolved')||'[]'));
+
+function renderExercises() {
+    const listDiv = $('exercise-list');
+    let html = '';
+    
+    exercisesData.forEach(ex => {
+        if (currentTheme !== 'all' && ex.theme != currentTheme) return;
+        
+        const isSolved = solved.has(ex.id);
+        const borderColor = isSolved ? 'border-emerald-400' : 'border-slate-200';
+        const badgeColor = isSolved ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-700';
+        const themeNames = ["", "Modelos / Hist.", "Kepler", "Gravitação"];
+        
+        let questionBody = `<p class="mt-3 text-slate-700 mb-4 text-sm leading-6">${ex.q}</p>`;
+        
+        if (ex.type === 'theo' && ex.opts) {
+            questionBody += `<div class="space-y-2 mb-4 text-sm text-slate-600">`;
+            ex.opts.forEach(opt => {
+                questionBody += `<div class="p-2 bg-slate-50 rounded-lg border border-slate-100">${opt}</div>`;
+            });
+            questionBody += `</div>`;
+        }
+
+        html += `
+        <article class="bg-white rounded-2xl border ${borderColor} p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div class="flex justify-between gap-3 items-center">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full ${badgeColor}">Questão ${ex.id}</span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">TEMA ${ex.theme}: ${themeNames[ex.theme]}</span>
+            </div>
+            
+            ${questionBody}
+            
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" type="text" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500" placeholder="${ex.type==='theo' ? 'Letra (A, B, C, D)' : 'Valor numérico'}">
+                <button onclick="checkAnswer(${ex.id})" class="bg-violet-600 hover:bg-violet-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+            </div>
+            
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+            
+            <button onclick="document.getElementById('sol-${ex.id}').classList.toggle('hidden')" class="mt-3 text-sm font-bold text-violet-700 hover:underline">
+                👁 Mostrar explicação / cálculo
+            </button>
+            
+            <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t border-violet-100 pt-4">
+                <div class="text-xs uppercase tracking-widest font-black text-violet-800 mb-3">Resolução Passo a Passo</div>
+                ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+                <div class="success rounded-xl p-4 text-center font-bold mt-2 text-emerald-900">Resposta Correta: ${ex.ans}</div>
+            </div>
+        </article>
+        `;
+    });
+    
+    listDiv.innerHTML = html;
+    updateProgress();
+    renderAll();
+}
+
+function checkAnswer(id) {
+    const ex = exercisesData.find(x => x.id === id);
+    const inputEl = $(`ans-${id}`);
+    const fbEl = $(`fb-${id}`);
+    
+    let rawInput = inputEl.value.trim().toUpperCase();
+    if(ex.type === 'calc') {
+        rawInput = rawInput.replace(',', '.'); // Allow comma decimal
+    }
+
+    let isCorrect = false;
+    
+    if (ex.type === 'theo') {
+        isCorrect = (rawInput === ex.ans);
+    } else {
+        const numIn = parseFloat(rawInput);
+        const numAns = parseFloat(ex.ans);
+        // Margem de erro bem pequena
+        if(!isNaN(numIn) && Math.abs(numIn - numAns) <= 0.05) {
+            isCorrect = true;
+        }
+    }
+
+    if (isCorrect) {
+        solved.add(id);
+        localStorage.setItem('fisicaGravSolved', JSON.stringify([...solved]));
+        fbEl.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fbEl.textContent = '✓ Excelente! Você acertou.';
+        setTimeout(renderExercises, 400); 
+    } else {
+        fbEl.className = 'text-sm font-bold mt-2 text-red-500';
+        fbEl.textContent = '✗ Quase lá. Leia a dica da teoria e tente novamente!';
+    }
+}
+
+function updateProgress() {
+    const max = exercisesData.length;
+    const current = solved.size;
+    $('progress-text').textContent = `${current} / ${max}`;
+    $('progress-bar').style.width = `${(current/max)*100}%`;
+}
+
+// Filtros Theme
+document.querySelectorAll('.level-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active', 'bg-violet-500', 'text-white'));
+        document.querySelectorAll('.level-btn:not(.active)').forEach(b => b.classList.add('bg-slate-100'));
+        
+        btn.classList.add('active');
+        btn.classList.remove('bg-slate-100');
+        
+        currentTheme = btn.dataset.theme;
+        renderExercises();
+    };
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderExercises();
+    renderAll();
+});
+</script>
+</body>
+</html>

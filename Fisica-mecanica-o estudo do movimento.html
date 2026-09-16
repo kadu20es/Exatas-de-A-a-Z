@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física: O Estudo do Movimento</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#1e293b;--paper:#fffdf8;--line:#e7dfd0;--accent:#f59e0b}
+  body{background:#fffbeb;color:var(--ink)}
+  .tab-btn.active{color:#d97706;border-bottom-color:#d97706;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#fef3c7 1px,transparent 1px);background-size:100% 2rem;border:1px solid #fde68a;box-shadow:0 8px 24px #451a030d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#fef3c7;color:#b45309;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  canvas { max-width: 100%; border-radius: 12px; }
+  .grid-bg { background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px); background-size: 20px 20px; }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-amber-900">🚗 Mecânica e Movimento</div><div class="text-[11px] text-slate-500 hidden sm:block">Física para o Ensino Fundamental</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Simulador</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Calculadora</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 30 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-amber-900 via-amber-800 to-orange-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-amber-200">Cinemática Básica</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Desvendando o Movimento</h1>
+  <p class="mt-4 max-w-3xl text-amber-100 leading-7">Por que as coisas caem? Como sabemos se algo está se movendo ou parado? Nesta lição, vamos aprender a descrever a dança do universo de forma simples e matemática.</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Um segredo da Física:</b> Antes de fazer qualquer conta, imagine a cena! Feche os olhos e visualize o carro andando, a maçã caindo ou a bola sendo chutada. Isso facilita tudo.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">Referencial, Espaço e Tempo</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Você já esteve num ônibus e teve a sensação de que o ônibus do lado estava andando, mas na verdade era o seu? Isso acontece porque o <b>movimento é relativo</b>.</p>
+   <ul class="mt-4 space-y-3 text-sm">
+    <li class="bg-slate-50 p-3 rounded-xl"><b>Referencial:</b> É o ponto de observação. Para quem está dentro do ônibus, o motorista está parado. Para quem está na calçada, o motorista está em movimento!</li>
+    <li class="bg-slate-50 p-3 rounded-xl"><b>Espaço (\(S\)):</b> É o lugar (posição) onde o objeto está em uma estrada ou trajetória.</li>
+    <li class="bg-slate-50 p-3 rounded-xl"><b>Deslocamento (\(\Delta S\)):</b> É a diferença entre onde ele chegou e de onde saiu (\(S_{final} - S_{inicial}\)).</li>
+   </ul>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Velocidade e Aceleração</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Velocidade é a rapidez, enquanto a aceleração é a pressa de mudar essa rapidez!</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center">
+    <div class="font-bold text-amber-800">Velocidade Média (\(v\))</div>
+    É o espaço percorrido dividido pelo tempo que demorou:
+    \[ v = \frac{\Delta S}{\Delta t} \]
+   </div>
+   <div class="paper rounded-xl p-5 mt-4 text-center">
+    <div class="font-bold text-red-700">Aceleração (\(a\))</div>
+    Mede o quanto a velocidade muda a cada segundo (como pisar no acelerador ou no freio):
+    \[ a = \frac{\Delta v}{\Delta t} \]
+   </div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">3. Os dois grandes Movimentos</h2>
+   <p class="mt-3 text-slate-600">Podemos classificar o movimento de um objeto de acordo com o que acontece com a sua velocidade.</p>
+   <div class="mt-4 space-y-4 text-sm">
+    <div class="step" data-step="MU"><b>Movimento Uniforme (MU)</b><br>A velocidade é <b>constante</b>. Não há aceleração (\(a = 0\)). Imagine um carro viajando sempre a 80 km/h sem frear nem acelerar.</div>
+    <div class="step" data-step="MUV"><b>Movimento Uniformemente Variado (MUV)</b><br>A velocidade <b>muda de forma igual</b>. A aceleração é constante. Exemplo: um foguete que ganha 10 m/s de velocidade a cada segundo que passa.</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. Grandezas Escalares e Vetoriais</h2>
+   <p class="mt-3 text-slate-600">Na física, os números às vezes precisam de uma "setinha" (direção) para fazerem sentido.</p>
+   <div class="grid sm:grid-cols-2 gap-3 mt-4 text-sm">
+    <div class="bg-blue-50 rounded-xl p-4">
+     <b class="text-blue-800">Escalares</b><br>Só precisam do número e da unidade.
+     <br><br><i>Exemplo:</i> Tempo (2 horas), Massa (5 kg), Temperatura (30 °C). Ninguém diz "30 °C para a esquerda".
+    </div>
+    <div class="bg-orange-50 rounded-xl p-4">
+     <b class="text-orange-800">Vetoriais</b><br>Precisam de número, <b>direção</b> (horizontal/vertical) e <b>sentido</b> (direita/esquerda).
+     <br><br><i>Exemplo:</i> Força, Velocidade, Aceleração. Empurrar algo para a direita é diferente de empurrar para a esquerda!
+    </div>
+   </div>
+  </article>
+ </div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">5. Movimento sob a Gravidade (Queda e Lançamento)</h2>
+  <div class="grid md:grid-cols-2 gap-6 mt-4">
+   <div>
+    <p class="text-slate-600">A Terra atrai todos os objetos para o seu centro. Essa atração cria uma aceleração constante chamada <b>Gravidade (\(g\))</b>, que vale aproximadamente <b>10 m/s²</b>.</p>
+    <ul class="mt-3 space-y-2 text-sm text-slate-700">
+     <li>🍏 <b>Queda Livre:</b> Se você soltar uma maçã, a velocidade dela aumenta 10 m/s a cada segundo de queda (é um MUV!).</li>
+     <li>🚀 <b>Lançamento Vertical:</b> Se jogar para cima, a gravidade age freando o objeto. A velocidade diminui até chegar a zero no ponto mais alto.</li>
+    </ul>
+   </div>
+   <div class="bg-slate-50 p-4 rounded-xl border">
+    <h3 class="font-bold text-amber-700">Movimento Bidimensional</h3>
+    <p class="text-sm mt-2 text-slate-600">Quando você chuta uma bola para a frente, ela faz dois movimentos ao mesmo tempo:</p>
+    <ul class="text-sm mt-2 list-disc list-inside">
+     <li><b>Para a frente (eixo X):</b> MU (Vai reto, se não houver ar).</li>
+     <li><b>Para baixo (eixo Y):</b> MUV (A gravidade puxa).</li>
+    </ul>
+    <p class="text-sm mt-2 font-bold">A soma desses dois movimentos forma uma curva chamada PARÁBOLA!</p>
+   </div>
+  </div>
+ </article>
+</section>
+
+<!-- LABORATORIO -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-amber-600">Simulador Interativo</span>
+  <h1 class="text-3xl font-black mt-2">Testando MU e MUV</h1>
+  <p class="text-slate-600 mt-2">Ajuste os controles antes de dar "Play". Veja a diferença entre ter velocidade e ter aceleração!</p>
+ </div>
+
+ <div class="grid lg:grid-cols-[300px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm space-y-6">
+   <div>
+    <label class="font-bold text-sm block flex justify-between">Velocidade Inicial: <span id="val-v0" class="text-amber-600">2 m/s</span></label>
+    <input id="slider-v0" type="range" min="0" max="20" value="2" class="w-full mt-2 accent-amber-500">
+    <p class="text-xs text-slate-400 mt-1">Quão rápido o carro começa.</p>
+   </div>
+   <div>
+    <label class="font-bold text-sm block flex justify-between">Aceleração: <span id="val-a" class="text-red-600">0 m/s²</span></label>
+    <input id="slider-a" type="range" min="-2" max="5" step="0.5" value="0" class="w-full mt-2 accent-red-500">
+    <p class="text-xs text-slate-400 mt-1">Negativo = freia. Zero = não muda. Positivo = acelera.</p>
+   </div>
+   <div class="flex gap-2 pt-4 border-t">
+    <button id="btn-play" class="flex-1 bg-green-600 text-white font-bold py-3 rounded-xl shadow-sm hover:bg-green-700">▶ Iniciar</button>
+    <button id="btn-reset" class="flex-1 bg-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-300">↻ Reset</button>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm overflow-hidden flex flex-col items-center">
+   <div class="w-full h-40 grid-bg relative border-b-4 border-slate-700 bg-sky-50" id="sim-canvas-container">
+    <canvas id="sim-canvas" class="absolute inset-0 w-full h-full"></canvas>
+   </div>
+   <div class="w-full grid grid-cols-3 gap-4 mt-6 text-center text-sm">
+    <div class="bg-slate-50 p-3 rounded-xl border">Tempo: <br><b class="text-xl" id="sim-time">0.0 s</b></div>
+    <div class="bg-slate-50 p-3 rounded-xl border">Velocidade: <br><b class="text-xl text-amber-600" id="sim-vel">0.0 m/s</b></div>
+    <div class="bg-slate-50 p-3 rounded-xl border">Posição: <br><b class="text-xl text-blue-600" id="sim-pos">0.0 m</b></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-amber-600">Calculadora</span><h1 class="text-3xl font-black mt-2">Máquina da Velocidade Média</h1><p class="text-slate-600 mt-2">Descubra a Velocidade (\(v\)), a Distância (\(\Delta S\)) ou o Tempo (\(\Delta t\)) deixando o campo que quer descobrir em branco.</p></div>
+ 
+ <div class="bg-white rounded-2xl border p-6 shadow-sm max-w-2xl mx-auto">
+  <div class="grid sm:grid-cols-3 gap-4">
+   <div><label class="font-bold text-sm">Velocidade (m/s)</label><input id="calc-v" type="number" class="w-full border rounded-xl p-3 mt-1" placeholder="Ex: 10"></div>
+   <div><label class="font-bold text-sm">Distância (m)</label><input id="calc-s" type="number" class="w-full border rounded-xl p-3 mt-1" placeholder="Ex: 50"></div>
+   <div><label class="font-bold text-sm">Tempo (s)</label><input id="calc-t" type="number" class="w-full border rounded-xl p-3 mt-1" placeholder="Ex: 5"></div>
+  </div>
+  <button onclick="calculateKinematics()" class="w-full mt-6 bg-amber-600 text-white font-bold py-3 rounded-xl">Calcular Mistério</button>
+  <div id="calc-out" class="hidden paper rounded-xl p-5 mt-6 text-center text-lg font-bold text-slate-700"></div>
+ </div>
+</section>
+
+<!-- EXERCICIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div><span class="text-xs font-bold uppercase tracking-widest text-amber-600">Fixação do Conteúdo</span>
+   <h1 class="text-3xl font-black mt-2">30 Exercícios Práticos</h1>
+   <p class="text-slate-600 mt-2">Responda de forma simples (números ou 1 a 2 palavras principais). Clique nas dicas se travar!</p></div>
+   <div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 30</span></div>
+   <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-amber-500 rounded-full" style="width:0%"></div></div></div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm flex gap-2 overflow-x-auto" id="filter-container">
+    <button class="level-btn active rounded-lg px-3 py-2 text-xs font-bold" data-cat="all">Todos</button>
+    <button class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100" data-cat="ref">Referencial & Tempo</button>
+    <button class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100" data-cat="vel">Velocidade & Acel.</button>
+    <button class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100" data-cat="vet">Escalar vs Vetor</button>
+    <button class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100" data-cat="grav">Gravidade</button>
+ </div>
+
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Mecânica para Ensino Fundamental • Física Visual</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function katexInit(){ if(window.renderMathInElement) renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]}); }
+
+// Navegação Tabs
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+ const t=btn.dataset.tab;
+ sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));
+ document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));
+ if(t==='exercicios') renderExercises();
+ if(t==='laboratorio') initSim();
+}));
+
+// Ferramenta Calculadora
+function calculateKinematics() {
+    const v = $('calc-v').value;
+    const s = $('calc-s').value;
+    const t = $('calc-t').value;
+    const out = $('calc-out');
+    out.classList.remove('hidden');
+
+    if (!v && s && t) { out.innerHTML = `Velocidade = ${s} ÷ ${t} = <span class="text-amber-600">${s/t} m/s</span>`; }
+    else if (v && !s && t) { out.innerHTML = `Distância = ${v} × ${t} = <span class="text-amber-600">${v*t} metros</span>`; }
+    else if (v && s && !t) { out.innerHTML = `Tempo = ${s} ÷ ${v} = <span class="text-amber-600">${s/v} segundos</span>`; }
+    else { out.innerHTML = `<span class="text-red-500">Deixe exatamente UM campo em branco para eu descobrir!</span>`; }
+}
+
+// Simulador
+let simAnim, simTime=0, simVel=0, simPos=0, isPlaying=false;
+const canvas = $('sim-canvas');
+const ctx = canvas.getContext('2d');
+// Redimensionar pro container
+function resizeCanvas() { canvas.width = canvas.parentElement.clientWidth; canvas.height = canvas.parentElement.clientHeight; drawSim(); }
+window.addEventListener('resize', resizeCanvas);
+
+function initSim() {
+    resizeCanvas();
+    resetSim();
+}
+
+$('slider-v0').addEventListener('input', e => { $('val-v0').textContent = e.target.value + ' m/s'; resetSim(); });
+$('slider-a').addEventListener('input', e => { $('val-a').textContent = e.target.value + ' m/s²'; resetSim(); });
+
+$('btn-play').onclick = () => {
+    if(isPlaying) return;
+    isPlaying = true;
+    lastTime = performance.now();
+    simAnim = requestAnimationFrame(loopSim);
+};
+$('btn-reset').onclick = resetSim;
+
+let lastTime=0;
+function loopSim(time) {
+    if(!isPlaying) return;
+    const dt = (time - lastTime) / 1000; // segundos passados na tela
+    lastTime = time;
+
+    const a = parseFloat($('slider-a').value);
+    
+    // Equações do movimento (Física no código!)
+    simPos += simVel * dt + (a * dt * dt) / 2;
+    simVel += a * dt;
+    simTime += dt;
+
+    // Trava se a velocidade ficar negativa (pra não andar de ré infinito pro lado esquerdo)
+    if(simVel < 0 && simPos <= 0) { simVel = 0; }
+    // Loop de tela: se sair da tela pela direita, volta pra esquerda
+    if(simPos > canvas.width / 10) { simPos = -5; } // Escala: 10px = 1m
+
+    updateSimUI();
+    drawSim();
+    simAnim = requestAnimationFrame(loopSim);
+}
+
+function resetSim() {
+    cancelAnimationFrame(simAnim);
+    isPlaying = false;
+    simTime = 0;
+    simPos = 0;
+    simVel = parseFloat($('slider-v0').value);
+    updateSimUI();
+    drawSim();
+}
+
+function updateSimUI() {
+    $('sim-time').textContent = simTime.toFixed(1) + ' s';
+    $('sim-vel').textContent = simVel.toFixed(1) + ' m/s';
+    $('sim-pos').textContent = simPos.toFixed(1) + ' m';
+}
+
+function drawSim() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Desenha o carro (um bloco simples)
+    const x = simPos * 10; // escala gráfica
+    const y = canvas.height - 40;
+    
+    ctx.fillStyle = '#f59e0b';
+    ctx.fillRect(x, y, 50, 30);
+    // Rodas
+    ctx.fillStyle = '#1e293b';
+    ctx.beginPath(); ctx.arc(x+10, y+30, 8, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(x+40, y+30, 8, 0, Math.PI*2); ctx.fill();
+}
+
+// Exercícios (30 questões)
+const exData = [
+    // Referencial e Espaço (1 a 7)
+    { id: 1, cat: 'ref', q: "Se você está dormindo no banco de um trem em movimento, em relação ao banco, você está em movimento ou repouso?", ans: "repouso", hints: ["Você não muda de lugar dentro do trem."] },
+    { id: 2, cat: 'ref', q: "O motorista de um ônibus está em repouso em relação a quem está esperando no ponto de ônibus? (Sim ou Não)", ans: "nao", alt: "não", hints: ["O ônibus está se aproximando, logo o motorista também."] },
+    { id: 3, cat: 'ref', q: "Na física, o 'ponto de observação' que usamos para decidir se algo se move é chamado de...?", ans: "referencial", hints: ["Começa com R."] },
+    { id: 4, cat: 'ref', q: "O caminho que um objeto faz enquanto se move é chamado de...? (Ex: linha reta ou curva)", ans: "trajetoria", alt: "trajetória", hints: ["O rastro que um foguete deixa forma a sua..."] },
+    { id: 5, cat: 'ref', q: "A diferença matemática entre a posição final e a posição inicial é o...", ans: "deslocamento", hints: ["Começa com a letra D."] },
+    { id: 6, cat: 'ref', q: "Se eu dou uma volta completa num quarteirão e paro exatamente onde comecei, meu deslocamento foi igual a qual número?", ans: "0", alt: "zero", hints: ["Posição final igual à inicial. 10 - 10 = ?"] },
+    { id: 7, cat: 'ref', q: "Na fórmula da velocidade, a letra que representa o Espaço é o...? (Use maiúscula)", ans: "S", hints: ["Do inglês Space."] },
+
+    // Velocidade e Aceleração (8 a 15)
+    { id: 8, cat: 'vel', q: "A grandeza que mede o quão rápido o objeto muda de posição é a...", ans: "velocidade", hints: ["O ponteiro do velocímetro mede isso."] },
+    { id: 9, cat: 'vel', q: "Um carro percorre 100 metros em 10 segundos. Qual sua velocidade em m/s?", ans: "10", hints: ["Divida 100 por 10."] },
+    { id: 10, cat: 'vel', q: "Quando o ponteiro do velocímetro não sai do lugar, dizemos que o movimento é...? (MU ou MUV)", ans: "mu", alt: "movimento uniforme", hints: ["Significa que não muda."] },
+    { id: 11, cat: 'vel', q: "A grandeza responsável por 'puxar' o ponteiro do velocímetro para cima ou para baixo é a...", ans: "aceleracao", alt: "aceleração", hints: ["Você pisa nela no carro para ir mais rápido."] },
+    { id: 12, cat: 'vel', q: "Se a aceleração é igual a zero, a velocidade muda? (Sim ou Não)", ans: "nao", alt: "não", hints: ["Sem aceleração, sem mudança."] },
+    { id: 13, cat: 'vel', q: "No Movimento Uniformemente Variado (MUV), o que é constante: a velocidade ou a aceleração?", ans: "aceleracao", alt: "aceleração", hints: ["Variado significa que a velocidade varia. Então o que sobra?"] },
+    { id: 14, cat: 'vel', q: "Um carro tem aceleração de -2 m/s². Esse carro está ganhando velocidade ou freando?", ans: "freando", hints: ["Aceleração negativa retira velocidade."] },
+    { id: 15, cat: 'vel', q: "O carro vai de 0 a 20 m/s em 4 segundos. Qual a aceleração em m/s²?", ans: "5", hints: ["Divida 20 por 4."] },
+
+    // Grandezas (16 a 22)
+    { id: 16, cat: 'vet', q: "Grandezas que precisam de número, direção e sentido são chamadas de...", ans: "vetoriais", hints: ["Elas usam uma setinha em cima da letra."] },
+    { id: 17, cat: 'vet', q: "A 'Massa' (ex: 5 kg) precisa de direção? (Sim ou Não)", ans: "nao", alt: "não", hints: ["Massa não tem lado."] },
+    { id: 18, cat: 'vet', q: "Logo, a massa é uma grandeza escalar ou vetorial?", ans: "escalar", hints: ["Aquelas que só precisam de um número (escala)."] },
+    { id: 19, cat: 'vet', q: "A Força é empurrar ou puxar algo. Força é uma grandeza escalar ou vetorial?", ans: "vetorial", hints: ["Importa muito para onde você empurra."] },
+    { id: 20, cat: 'vet', q: "O Tempo (ex: 30 segundos) é grandeza escalar ou vetorial?", ans: "escalar", hints: ["O tempo só vai para a frente, não precisamos indicar '30 segundos para a direita'."] },
+    { id: 21, cat: 'vet', q: "Se dois carros estão a 80 km/h, mas um vai para o norte e outro pro sul, eles têm a mesma velocidade escalar, mas o (...) é diferente.", ans: "sentido", alt: "direção", hints: ["Para onde a seta aponta."] },
+    { id: 22, cat: 'vet', q: "O deslocamento leva em conta a direção. Ele é uma grandeza escalar ou vetorial?", ans: "vetorial", hints: ["Ir de A para B tem uma seta que liga os pontos."] },
+
+    // Gravidade e Bidimensional (23 a 30)
+    { id: 23, cat: 'grav', q: "A força que puxa todos os corpos para o centro da Terra causa uma aceleração chamada...?", ans: "gravidade", hints: ["Newton e a maçã!"] },
+    { id: 24, cat: 'grav', q: "Para facilitar contas, adotamos que a gravidade da Terra vale aproximadamente quantos m/s²?", ans: "10", hints: ["Um número redondo entre 9 e 11."] },
+    { id: 25, cat: 'grav', q: "Se soltarmos uma pedra em queda livre, a cada segundo que passa, ela fica mais...? (Lenta ou Rápida)", ans: "rapida", alt: "rápida", hints: ["A gravidade vai puxando mais e mais."] },
+    { id: 26, cat: 'grav', q: "Jogar uma bola para o alto (lançamento vertical) é um movimento acelerado ou retardado (freando)?", ans: "retardado", alt: "freando", hints: ["A gravidade puxa pra baixo, mas a bola vai pra cima."] },
+    { id: 27, cat: 'grav', q: "No exato ponto mais alto (lá no topo) de um lançamento vertical para cima, quanto vale a velocidade da bola?", ans: "0", alt: "zero", hints: ["Ela tem que parar para poder descer."] },
+    { id: 28, cat: 'grav', q: "A curva descrita por uma bola chutada pra frente e pra cima é chamada de...?", ans: "parabola", alt: "parábola", hints: ["Uma curva em formato de 'U' invertido."] },
+    { id: 29, cat: 'grav', q: "Num lançamento parabólico (chute horizontal), o movimento no eixo X (para a frente) sofre interferência da gravidade? (Sim ou Não)", ans: "nao", alt: "não", hints: ["A gravidade só puxa no eixo Y (vertical)."] },
+    { id: 30, cat: 'grav', q: "Se eu soltar uma bola (caindo reto) e arremessar outra para frente, da mesma altura, qual bate no chão primeiro? (A mesma, a que caiu reto, a arremessada)", ans: "a mesma", alt: "juntas", hints: ["O tempo de queda depende apenas da altura e da gravidade (eixo Y). O movimento X não afeta o Y!"] }
+];
+
+let solvedList = new Set(JSON.parse(localStorage.getItem('mecanicaSolved') || '[]'));
+let currentFilter = 'all';
+
+document.querySelectorAll('.level-btn').forEach(b => {
+    b.onclick = () => {
+        currentFilter = b.dataset.cat;
+        document.querySelectorAll('.level-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        renderExercises();
+    };
+});
+
+function renderExercises() {
+    const list = exData.filter(e => currentFilter === 'all' || e.cat === currentFilter);
+    
+    $('exercise-list').innerHTML = list.map(ex => {
+        const isSolved = solvedList.has(ex.id);
+        const fbClass = isSolved ? 'text-emerald-600' : '';
+        const fbText = isSolved ? '✓ Correto!' : '';
+        const dis = isSolved ? 'disabled' : '';
+        const val = isSolved ? `value="${ex.ans}"` : '';
+
+        return `
+        <article class="bg-white rounded-2xl border ${isSolved ? 'border-emerald-400' : 'border-slate-200'} p-5 shadow-sm">
+            <div class="flex justify-between gap-3 mb-3">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full bg-amber-50 text-amber-700">Questão ${ex.id}</span>
+            </div>
+            <div class="text-slate-700 font-medium">${ex.q}</div>
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:border-amber-400 focus:outline-none" placeholder="Resposta curta" ${dis} ${val}>
+                <button onclick="checkEx(${ex.id})" class="bg-amber-600 hover:bg-amber-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition-colors" ${dis}>Verificar</button>
+            </div>
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5 ${fbClass}">${fbText}</div>
+            <button onclick="toggleHint(${ex.id})" class="mt-2 text-sm font-bold text-amber-700 hover:underline">💡 Dica</button>
+            <div id="hint-${ex.id}" class="hidden mt-3 p-3 bg-yellow-50 border-l-4 border-yellow-400 text-sm rounded-r-lg">
+                <ul class="list-disc pl-4">${ex.hints.map(h => `<li>${h}</li>`).join('')}</ul>
+            </div>
+        </article>
+        `;
+    }).join('');
+    
+    $('progress-text').textContent = `${solvedList.size} / 30`;
+    $('progress-bar').style.width = (solvedList.size / 30 * 100) + '%';
+    katexInit();
+}
+
+// Para permitir checar com "Enter"
+document.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter' && e.target.id.startsWith('ans-')) {
+        const id = parseInt(e.target.id.replace('ans-', ''));
+        checkEx(id);
+    }
+});
+
+function normalizeStr(s) {
+    return s.trim().toLowerCase()
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove acentos
+            .replace(/[^\w\s]/gi, ''); // remove pontuação
+}
+
+function checkEx(id) {
+    const ex = exData.find(x => x.id === id);
+    const inputRaw = $('ans-'+id).value;
+    const input = normalizeStr(inputRaw);
+    
+    const c1 = normalizeStr(ex.ans);
+    const c2 = ex.alt ? normalizeStr(ex.alt) : '-----';
+    
+    if (input === c1 || input === c2 || (input !== "" && c1.includes(input) && input.length > 3)) {
+        solvedList.add(id);
+        localStorage.setItem('mecanicaSolved', JSON.stringify([...solvedList]));
+        $('fb-'+id).className = 'text-sm font-bold mt-2 text-emerald-600';
+        $('fb-'+id).textContent = '✓ Você acertou! Muito bem.';
+    } else {
+        $('fb-'+id).className = 'text-sm font-bold mt-2 text-red-600';
+        $('fb-'+id).textContent = '✗ Ops, tente novamente.';
+    }
+    renderExercises(); // Atualiza a UI para travar o input correto
+}
+
+function toggleHint(id) {
+    $('hint-'+id).classList.toggle('hidden');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    katexInit();
+    renderExercises();
+});
+</script>
+</body>
+</html>

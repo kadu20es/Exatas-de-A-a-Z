@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física — Impulso e Quantidade de Movimento</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#0ea5e9}
+  body{background:#f0f9ff;color:var(--ink)}
+  .tab-btn.active{color:#0284c7;border-bottom-color:#0284c7;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#e0f2fe;color:#0369a1;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#0ea5e9;background:#e0f2fe;color:#075985}
+  canvas{max-width:100%}
+  .level-btn.active{background:#0ea5e9;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-sky-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-sky-900">🚀 Física Descomplicada</div><div class="text-[11px] text-slate-500 hidden sm:block">Impulso, Qtd. de Movimento e Choques</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Calculadoras</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-sky-950 via-sky-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-sky-200">Dinâmica das Colisões</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Movimento sem sustos</h1>
+  <p class="mt-4 max-w-3xl text-sky-100 leading-7">Entenda o que acontece quando objetos colidem, por que o airbag salva vidas e como calcular forças em frações de segundo. Tudo com exemplos do dia a dia.</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Como estudar:</b> Leia a teoria focando nos conceitos (por que acontece). A fórmula é só um resumo da ideia. Faça os exemplos mentalmente e depois vá para a lista de exercícios.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">Quantidade de Movimento (Q)</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Imagine tentar parar uma bicicleta e um caminhão que estão na mesma velocidade. O caminhão é muito mais difícil de parar porque tem mais massa. A Quantidade de Movimento (ou Momento Linear) mede justamente essa "dificuldade de parar" um corpo.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[Q = m \cdot v\]</div>
+   <div class="grid sm:grid-cols-2 gap-3 text-sm mt-4">
+    <div class="bg-sky-50 rounded-xl p-4"><b>\(m\) (Massa)</b><br>Sempre em kg.</div>
+    <div class="bg-amber-50 rounded-xl p-4"><b>\(v\) (Velocidade)</b><br>Sempre em m/s.</div>
+   </div>
+   <div class="warning rounded-xl p-4 mt-4 text-sm"><b>Atenção:</b> \(Q\) é uma grandeza vetorial. Se o objeto vai para a direita, dizemos que \(v\) é positivo. Se vai para a esquerda, \(v\) é negativo! Unidade: <b>kg·m/s</b>.</div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Impulso de uma Força (I)</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Para mudar o movimento de algo, você precisa aplicar uma Força durante um certo Tempo. Isso é o Impulso! Um chute na bola é um impulso (força alta em tempo curto). Empurrar um carro enguiçado é outro impulso (força moderada em tempo longo).</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[I = F \cdot \Delta t\]</div>
+   <div class="success rounded-xl p-4 mt-4 text-sm"><b>Gráficos:</b> Se a força não for constante, o Impulso é igual à <b>Área</b> do gráfico de Força x Tempo. Unidade: <b>N·s</b>.</div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">3</span><h2 class="text-2xl font-black">Teorema do Impulso</h2></div>
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div>
+    <p class="text-sm text-slate-600 leading-6">Este é o elo entre os dois temas anteriores. O Impulso que você dá a um corpo é exatamente igual à mudança que ocorre na Quantidade de Movimento dele.</p>
+    <div class="paper rounded-xl p-5 mt-3 text-center text-lg">\[I = Q_{final} - Q_{inicial}\]</div>
+    <div class="bg-slate-50 rounded-xl p-4 mt-4 text-sm"><b>O segredo do Airbag:</b> Numa batida, a variação de \(Q\) é fixa (o carro tem que parar). O airbag aumenta o tempo de contato (\(\Delta t\)). Como \(I = F \cdot \Delta t\), se o tempo aumenta, a Força do impacto no seu rosto diminui drasticamente!</div>
+   </div>
+   <div>
+    <div class="paper rounded-2xl p-5">
+     <div class="text-sm font-bold text-sky-700 mb-3">EXEMPLO GUIADO</div>
+     <p class="text-xs mb-3 text-slate-600">Uma bola de 0,5 kg vem a -10 m/s (esquerda) e é chutada de volta a +20 m/s (direita). Qual o impulso do chute?</p>
+     <div class="space-y-2 text-sm">
+      <div class="step" data-step="1">\(Q_{inicial} = 0,5 \cdot (-10) = -5\)</div>
+      <div class="step" data-step="2">\(Q_{final} = 0,5 \cdot 20 = 10\)</div>
+      <div class="step" data-step="3">\(I = Q_{final} - Q_{inicial}\)</div>
+      <div class="step" data-step="4">\(I = 10 - (-5) = 15 \text{ N}\cdot\text{s}\)</div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Conservação da Quantidade de Movimento</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">Se não houver forças externas (como atrito severo), a Quantidade de Movimento total de um sistema antes de um evento (colisão, explosão, empurrão) é <b>igual</b> à total depois.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">\[Q_{antes} = Q_{depois}\]</div>
+   <p class="mt-3 text-slate-600 text-sm"><b>Exemplo do Canhão:</b> Antes do tiro, tudo está parado (\(Q=0\)). Quando a bola é atirada pra frente (\(Q\) positivo), o canhão recua pra trás (\(Q\) negativo) para que a soma continue sendo zero!</p>
+  </article>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Choques Mecânicos (Colisões)</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">Em TODA colisão, \(Q\) se conserva. O que diferencia os tipos de choque é a <b>Energia Cinética</b> (se amassa ou não).</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-green-50 border-l-4 border-green-400 p-3"><b>1. Perfeitamente Elástico:</b> Não amassa, não faz barulho. Os corpos se separam. Energia é conservada 100%. (\(e=1\)).</div>
+    <div class="bg-orange-50 border-l-4 border-orange-400 p-3"><b>2. Parcialmente Elástico:</b> A maioria dos choques reais. Amassa um pouco. Perde energia. Os corpos se separam. (\(0 < e < 1\)).</div>
+    <div class="bg-red-50 border-l-4 border-red-400 p-3"><b>3. Inelástico:</b> Perda MÁXIMA de energia. Os corpos <b>grudam</b> e andam juntos com a mesma velocidade final. (\(e=0\)).</div>
+   </div>
+  </article>
+ </div>
+</section>
+
+
+<!-- FERRAMENTAS -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-sky-600">Laboratório e Calculadoras</span><h1 class="text-3xl font-black mt-2">Simule Situações Físicas</h1><p class="text-slate-600 mt-2">Insira os valores para ver como as fórmulas funcionam na prática.</p></div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">Calculadora de Choque Inelástico</h2>
+   <p class="text-xs text-slate-500 mb-4">Dois corpos colidem de frente e <b>grudam</b>. Calcule a velocidade final conjunta.</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Massa 1 (kg):</label><input id="calc-m1" type="number" value="2" class="border rounded px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Velocidade 1 (m/s):</label><input id="calc-v1" type="number" value="10" class="border rounded px-2 py-1 w-24 text-center"></div>
+    <hr>
+    <div class="flex items-center justify-between"><label>Massa 2 (kg):</label><input id="calc-m2" type="number" value="3" class="border rounded px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Velocidade 2 (m/s):<br><span class="text-[10px] text-red-500">Negativo se vier contra o corpo 1</span></label><input id="calc-v2" type="number" value="-5" class="border rounded px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcInelastico()" class="mt-4 w-full bg-sky-600 text-white rounded-xl py-3 font-bold">Simular Batida</button>
+   <div id="out-inelastico" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">O Efeito Airbag (Teorema do Impulso)</h2>
+   <p class="text-xs text-slate-500 mb-4">Um motorista de 70kg bate o carro a 20m/s (72km/h) e precisa parar completamente (v=0). Veja a força gerada pelo cinto vs. airbag.</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Massa pessoa (kg):</label><input id="calc-mp" type="number" value="70" readonly class="bg-slate-100 border rounded px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Variação de Vel (\(\Delta v\)):</label><input id="calc-dv" type="number" value="20" readonly class="bg-slate-100 border rounded px-2 py-1 w-24 text-center"></div>
+    <hr>
+    <div class="flex items-center justify-between"><label>Tempo parando SÓ no cinto (s):</label><input id="calc-t1" type="number" value="0.05" step="0.01" class="border rounded px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Tempo parando COM airbag (s):</label><input id="calc-t2" type="number" value="0.25" step="0.01" class="border rounded px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcAirbag()" class="mt-4 w-full bg-amber-500 text-white rounded-xl py-3 font-bold">Calcular Força do Impacto</button>
+   <div id="out-airbag" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-sky-600">Treino Progressivo</span><h1 class="text-3xl font-black mt-2">60 Questões Resolvidas</h1><p class="text-slate-600 mt-2"><b>DICA:</b> Questões Teóricas: digite a letra da alternativa (A, B, C ou D). Questões de Cálculo: digite apenas o número.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 60</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-sky-500 rounded-full" style="width:0%"></div></div></div></div></div>
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters"><button data-theme="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button><button data-theme="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Tema 1: Momento</button><button data-theme="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Tema 2: Impulso/Teorema</button><button data-theme="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Tema 3: Conservação</button><button data-theme="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Tema 4: Choques</button></div></div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo de estudo • Física - Dinâmica</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Navegação
+const sections=['teoria','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises();}));
+
+// Ferramentas Lab
+function calcInelastico(){
+    const m1=+$('calc-m1').value, v1=+$('calc-v1').value;
+    const m2=+$('calc-m2').value, v2=+$('calc-v2').value;
+    const qi = (m1*v1) + (m2*v2);
+    const vf = qi / (m1+m2);
+    let h = `<b>1.</b> Quantidade Inicial = (M1 × V1) + (M2 × V2)<br>`;
+    h += `\(Q_{antes} = (${m1} \\times ${v1}) + (${m2} \\times ${v2}) = ${qi} \\text{ kg m/s}\)<br><br>`;
+    h += `<b>2.</b> Após o choque inelástico, eles grudam (massa total = ${m1+m2} kg).<br>`;
+    h += `\(Q_{depois} = (${m1+m2}) \\times V_{final}\)<br><br>`;
+    h += `<b>3.</b> Conservação: \(Q_{antes} = Q_{depois}\)<br>`;
+    h += `${qi} = ${m1+m2} × Vfinal ➔ <b>Vfinal = ${vf.toFixed(2)} m/s</b>`;
+    $('out-inelastico').innerHTML = h;
+    $('out-inelastico').classList.remove('hidden');
+    renderAll();
+}
+
+function calcAirbag(){
+    const m=+$('calc-mp').value, dv=+$('calc-dv').value;
+    const t1=+$('calc-t1').value, t2=+$('calc-t2').value;
+    const q = m * dv; // I = \Delta Q
+    const f1 = q/t1;
+    const f2 = q/t2;
+    let h = `<b>1. Variação de Movimento (\(\Delta Q\)):</b><br> O motorista precisa de um Impulso de ${m} × ${dv} = <b>${q} N·s</b> para parar.<br><br>`;
+    h += `<b>2. Impacto apenas no Cinto (\(\Delta t = ${t1}s\)):</b><br>`;
+    h += `\(F = \\frac{I}{\\Delta t} = \\frac{${q}}{${t1}}\) = <b class="text-red-600">${f1.toFixed(0)} Newtons!</b> (Muito perigoso)<br><br>`;
+    h += `<b>3. Impacto com Airbag (\(\Delta t = ${t2}s\)):</b><br>`;
+    h += `\(F = \\frac{I}{\\Delta t} = \\frac{${q}}{${t2}}\) = <b class="text-green-600">${f2.toFixed(0)} Newtons.</b> (A força foi dividida por ${(f1/f2).toFixed(1)}x!)`;
+    $('out-airbag').innerHTML = h;
+    $('out-airbag').classList.remove('hidden');
+    renderAll();
+}
+
+// Bando de Dados de Exercícios
+const exercisesData = [];
+let exId = 1;
+
+// TEMA 1: Quantidade de Movimento (1-15)
+exercisesData.push({ id: exId++, theme: 1, type: 'theo', q: "Qual das grandezas físicas abaixo determina a dificuldade de frear um objeto em movimento?", ans: "C", opts: ["A) Aceleração", "B) Trabalho", "C) Quantidade de Movimento", "D) Energia Potencial"], steps: ["Corpos com maior massa ou maior velocidade são mais difíceis de parar.", "Essa grandeza é a Quantidade de Movimento (Q = m·v)."] });
+exercisesData.push({ id: exId++, theme: 1, type: 'theo', q: "Qual a unidade da Quantidade de Movimento no Sistema Internacional (SI)?", ans: "B", opts: ["A) N/s", "B) kg·m/s", "C) Joules", "D) Watts"], steps: ["A fórmula é Q = m·v.", "Massa é em kg e velocidade em m/s, resultando em kg·m/s."] });
+exercisesData.push({ id: exId++, theme: 1, type: 'theo', q: "A Quantidade de Movimento é uma grandeza...", ans: "A", opts: ["A) Vetorial, possui módulo, direção e sentido.", "B) Escalar, definida apenas por um número.", "C) Adimensional, não tem unidade.", "D) Sempre positiva, independente da direção."], steps: ["Por depender da velocidade (que é vetorial), a quantidade de movimento herda essa característica, importando a direção do movimento."] });
+exercisesData.push({ id: exId++, theme: 1, type: 'theo', q: "Se a velocidade de um carro dobrar, o que acontece com a sua quantidade de movimento?", ans: "C", opts: ["A) Permanece igual", "B) Quadruplica", "C) Dobra", "D) Cai pela metade"], steps: ["Como Q = m·v, a relação com a velocidade é linear e direta.", "Dobrando 'v', 'Q' também dobra."] });
+exercisesData.push({ id: exId++, theme: 1, type: 'theo', q: "Um caminhão pesado e um fusca leve andam a 50 km/h. Quem tem maior quantidade de movimento?", ans: "A", opts: ["A) O caminhão", "B) O fusca", "C) Ambos têm a mesma", "D) Falta a força do motor para saber"], steps: ["As velocidades são iguais.", "O caminhão tem maior massa (m), logo terá maior Q (Q = m·v)."] });
+// Calculos T1
+exercisesData.push({ id: exId++, theme: 1, type: 'calc', q: "Um corpo de massa 3 kg move-se com velocidade de 4 m/s. Qual o módulo de sua quantidade de movimento?", ans: "12", steps: ["\(Q = m \\cdot v\)", "\(Q = 3 \\cdot 4\)", "\(Q = 12 \\text{ kg.m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 1, type: 'calc', q: "Um cachorro de 10 kg corre a 2 m/s. Calcule sua quantidade de movimento.", ans: "20", steps: ["\(Q = m \\cdot v\)", "\(Q = 10 \\cdot 2\)", "\(Q = 20 \\text{ kg.m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 1, type: 'calc', q: "Se a quantidade de movimento de um objeto é 50 kg·m/s e sua massa é 5 kg, qual é sua velocidade? (em m/s)", ans: "10", steps: ["\(Q = m \\cdot v\)", "\(50 = 5 \\cdot v\)", "\(v = 50 / 5 = 10 \\text{ m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 1, type: 'calc', q: "Um objeto move-se a 8 m/s e possui Q = 24 kg·m/s. Qual a sua massa? (em kg)", ans: "3", steps: ["\(Q = m \\cdot v\)", "\(24 = m \\cdot 8\)", "\(m = 24 / 8 = 3 \\text{ kg}\)"] });
+exercisesData.push({ id: exId++, theme: 1, type: 'calc', q: "Um carro de 1000 kg viaja a 72 km/h. Qual a sua quantidade de movimento em unidades do SI? (Lembre de converter km/h)", ans: "20000", steps: ["Converta a velocidade para SI: \(72 \\div 3,6 = 20 \\text{ m/s}\).", "\(Q = m \\cdot v\)", "\(Q = 1000 \\cdot 20\)", "\(Q = 20000 \\text{ kg.m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 1, type: 'calc', q: "Uma bola de tênis de 50 g (0,05 kg) é sacada a 40 m/s. Qual a sua Q?", ans: "2", steps: ["Massa já convertida: 0,05 kg.", "\(Q = m \\cdot v\)", "\(Q = 0,05 \\cdot 40\)", "\(Q = 2 \\text{ kg.m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 1, type: 'calc', q: "Dois blocos: A (2kg a 5m/s) e B (5kg a 2m/s). Qual a soma da Q dos dois (andando no mesmo sentido)?", ans: "20", steps: ["\(Q_A = 2 \\cdot 5 = 10\)", "\(Q_B = 5 \\cdot 2 = 10\)", "\(Q_{total} = 10 + 10 = 20\)"] });
+exercisesData.push({ id: exId++, theme: 1, type: 'calc', q: "Uma bicicleta e o ciclista pesam juntos 80 kg e viajam a 36 km/h. Qual é a Q? (Atenção à unidade de velocidade)", ans: "800", steps: ["\(36 \\text{ km/h} = 10 \\text{ m/s}\)", "\(Q = m \\cdot v\)", "\(Q = 80 \\cdot 10 = 800 \\text{ kg.m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 1, type: 'calc', q: "Um trem de 50.000 kg está a 0,5 m/s. Qual a Q?", ans: "25000", steps: ["\(Q = m \\cdot v\)", "\(Q = 50000 \\cdot 0,5 = 25000 \\text{ kg.m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 1, type: 'calc', q: "Um avião tem Q = 3.000.000 kg·m/s enquanto voa a 100 m/s. Qual sua massa em toneladas (1 ton = 1000 kg)?", ans: "30", steps: ["\(Q = m \\cdot v \\rightarrow 3000000 = m \\cdot 100\)", "\(m = 30000 \\text{ kg}\)", "Dividindo por 1000: \(m = 30 \\text{ toneladas}\)."] });
+
+// TEMA 2: Impulso e Teorema (16-30)
+exercisesData.push({ id: exId++, theme: 2, type: 'theo', q: "O Impulso mede o efeito de uma Força aplicada durante um certo...", ans: "B", opts: ["A) Deslocamento", "B) Tempo", "C) Aceleração", "D) Espaço"], steps: ["A fórmula é \(I = F \\cdot \\Delta t\). A Força atua durante um intervalo de tempo."] });
+exercisesData.push({ id: exId++, theme: 2, type: 'theo', q: "De acordo com o Teorema do Impulso, o impulso aplicado num corpo é igual à sua variação de:", ans: "D", opts: ["A) Energia", "B) Força", "C) Massa", "D) Quantidade de movimento"], steps: ["O teorema afirma que \(I = \\Delta Q = Q_{final} - Q_{inicial}\)."] });
+exercisesData.push({ id: exId++, theme: 2, type: 'theo', q: "Se a força atuante num corpo não é constante, como podemos calcular o Impulso?", ans: "A", opts: ["A) Pela área do gráfico Força x Tempo.", "B) Pela área do gráfico Velocidade x Tempo.", "C) É impossível calcular.", "D) Multiplicando a força máxima pelo tempo."], steps: ["Sempre que F varia, o cálculo é feito geometricamente pela área entre a linha do gráfico e o eixo do tempo (gráfico F x t)."] });
+exercisesData.push({ id: exId++, theme: 2, type: 'theo', q: "Qual a função do airbag durante uma colisão do ponto de vista do Impulso?", ans: "C", opts: ["A) Diminuir o tempo de impacto e aumentar a força.", "B) Manter a força constante, alterando a massa.", "C) Aumentar o tempo de impacto, diminuindo a força resultante no corpo.", "D) Mudar a quantidade de movimento inicial do veículo."], steps: ["A variação de movimento é fixa (o carro vai parar).", "Como \(F = I / \\Delta t\), se o airbag aumenta o tempo (\(\\Delta t\)), a Força (F) diminui drasticamente."] });
+exercisesData.push({ id: exId++, theme: 2, type: 'theo', q: "Quais são as unidades equivalentes para Impulso no SI?", ans: "B", opts: ["A) N/s e kg/m", "B) N.s e kg.m/s", "C) J e N", "D) N.s e J/s"], steps: ["Como \(I = F \\cdot \\Delta t\), uma unidade é Newton × segundo (N·s).", "Como \(I = \\Delta Q\), a outra unidade válida é a mesma do Q: kg·m/s."] });
+// Calculos T2
+exercisesData.push({ id: exId++, theme: 2, type: 'calc', q: "Uma força constante de 20 N age sobre um bloco por 3 segundos. Qual o módulo do impulso?", ans: "60", steps: ["\(I = F \\cdot \\Delta t\)", "\(I = 20 \\cdot 3\)", "\(I = 60 \\text{ N.s}\)"] });
+exercisesData.push({ id: exId++, theme: 2, type: 'calc', q: "Para gerar um impulso de 100 N·s em 2 segundos, qual deve ser a força aplicada?", ans: "50", steps: ["\(I = F \\cdot \\Delta t\)", "\(100 = F \\cdot 2\)", "\(F = 100 / 2 = 50 \\text{ N}\)"] });
+exercisesData.push({ id: exId++, theme: 2, type: 'calc', q: "Um objeto estava em repouso (Q=0). Sofre um impulso de 30 N·s. Qual a sua quantidade de movimento final?", ans: "30", steps: ["Teorema do Impulso: \(I = Q_f - Q_i\)", "\(30 = Q_f - 0\)", "\(Q_f = 30 \\text{ kg.m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 2, type: 'calc', q: "Um corpo de 2 kg vinha a 5 m/s. Após receber um empurrão por trás (mesmo sentido), vai a 15 m/s. Qual foi o Impulso recebido?", ans: "20", steps: ["\(Q_i = 2 \\cdot 5 = 10\)", "\(Q_f = 2 \\cdot 15 = 30\)", "\(I = Q_f - Q_i = 30 - 10 = 20 \\text{ N.s}\)"] });
+exercisesData.push({ id: exId++, theme: 2, type: 'calc', q: "Um carrinho de supermercado (20kg) vai a 2m/s. Uma força frenante o para em 4 segundos. Qual o módulo da força?", ans: "10", steps: ["\(Q_i = 20 \\cdot 2 = 40\); \(Q_f = 0\)", "\(I = Q_f - Q_i = 0 - 40 = -40 \\text{ N.s}\)", "\(F \\cdot \\Delta t = -40 \\rightarrow F \\cdot 4 = -40 \\rightarrow F = -10\\text{N}\). O módulo é 10."] });
+exercisesData.push({ id: exId++, theme: 2, type: 'calc', q: "Um gráfico de Força x Tempo é um retângulo de base 5 (segundos) e altura 12 (Newtons). Qual o Impulso total?", ans: "60", steps: ["Impulso = Área do gráfico (retângulo = base × altura).", "\(I = 5 \\cdot 12 = 60 \\text{ N.s}\)"] });
+exercisesData.push({ id: exId++, theme: 2, type: 'calc', q: "Uma bola de 1 kg vem horizontalmente contra uma parede a -5 m/s (esquerda) e rebate a +5 m/s (direita). Qual o impulso da parede sobre a bola?", ans: "10", steps: ["\(Q_i = 1 \\cdot (-5) = -5\)", "\(Q_f = 1 \\cdot (+5) = 5\)", "\(I = Q_f - Q_i = 5 - (-5) = 10 \\text{ N.s}\)"] });
+exercisesData.push({ id: exId++, theme: 2, type: 'calc', q: "Um foguete solta gás com força de 500 N por 10s. Se a nave pesa 100 kg e partiu do repouso, qual a sua velocidade final?", ans: "50", steps: ["\(I = 500 \\cdot 10 = 5000\)", "\(I = m \\cdot v_f - 0\)", "\(5000 = 100 \\cdot v_f \\rightarrow v_f = 50 \\text{ m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 2, type: 'calc', q: "Gráfico de triângulo: a Força vai de 0 a 10 N em 2 segundos. Qual o Impulso? (Dica: Área do triângulo = b·h/2)", ans: "10", steps: ["Área = (base \\(\\times\\) altura) / 2", "\(I = (2 \\cdot 10) / 2 = 20 / 2 = 10 \\text{ N.s}\)"] });
+exercisesData.push({ id: exId++, theme: 2, type: 'calc', q: "Uma marretada bate num prego. O prego ganha uma velocidade de 2 m/s. Se ele tem massa de 0,1 kg e o contato durou 0,01s, qual o módulo da força?", ans: "20", steps: ["\(Q_i = 0\); \(Q_f = 0,1 \\cdot 2 = 0,2\)", "\(I = 0,2\)", "\(F \\cdot \\Delta t = I \\rightarrow F \\cdot 0,01 = 0,2\)", "\(F = 0,2 / 0,01 = 20 \\text{ N}\)"] });
+
+// TEMA 3: Conservação (31-45)
+exercisesData.push({ id: exId++, theme: 3, type: 'theo', q: "A Quantidade de Movimento de um sistema se conserva SEMPRE que:", ans: "A", opts: ["A) O sistema for isolado de forças externas.", "B) Houver muito atrito.", "C) A colisão for apenas perfeitamente elástica.", "D) Não houver nenhuma velocidade."], steps: ["O Princípio da Conservação afirma que a soma vetorial do Q não muda se a resultante das forças externas for nula (sistema isolado)."] });
+exercisesData.push({ id: exId++, theme: 3, type: 'theo', q: "Numa explosão de uma granada parada no ar, pedaços voam para todos os lados. A quantidade de movimento total imediatamente APÓS a explosão será:", ans: "C", opts: ["A) Maior que antes.", "B) Depende da energia da pólvora.", "C) Zero.", "D) Negativa."], steps: ["Se estava parada antes, \(Q_{antes} = 0\).", "A explosão é força interna. Pela conservação, a soma vetorial dos pedaços voando para lados opostos será nula. \(Q_{depois} = 0\)."] });
+exercisesData.push({ id: exId++, theme: 3, type: 'theo', q: "Um astronauta flutuando no espaço empurra seu parceiro. O que acontece com ele?", ans: "B", opts: ["A) Ele fica parado e o parceiro vai para frente.", "B) Ele é impulsionado para trás.", "C) Ambos vão para frente.", "D) A gravidade puxa ambos para baixo."], steps: ["Inicialmente estão parados (\(Q=0\)).", "Ao empurrar o parceiro para frente (+Q), o astronauta recua para trás (-Q) para manter a soma em 0."] });
+exercisesData.push({ id: exId++, theme: 3, type: 'theo', q: "O coice (recuo) de uma espingarda ao atirar é explicado por:", ans: "A", opts: ["A) Conservação da Quantidade de Movimento.", "B) Conservação da Energia Cinética.", "C) Atrito do ar no cano.", "D) Choque inelástico."], steps: ["Bala vai para frente (m·v positivo), espingarda vai para trás (M·V negativo). A soma continua sendo nula, conservando o Q inicial."] });
+exercisesData.push({ id: exId++, theme: 3, type: 'theo', q: "Se a massa da arma for muito maior que a massa da bala, a velocidade de recuo da arma será:", ans: "D", opts: ["A) Igual à da bala.", "B) Maior que a da bala.", "C) Inexistente (zero).", "D) Muito menor que a da bala."], steps: ["O módulo do Q é o mesmo: \(M_{arma} \\cdot V_{arma} = m_{bala} \\cdot v_{bala}\).", "Para o produto ser igual, se a massa da arma é gigante, sua velocidade é pequenininha."] });
+// Calculos T3
+exercisesData.push({ id: exId++, theme: 3, type: 'calc', q: "Um canhão (M=500kg) atira uma bala (m=10kg) a 100m/s. Qual a velocidade de recuo do canhão? (em m/s)", ans: "2", steps: ["Inicialmente parado: \(Q_{antes} = 0\)", "\(Q_{depois} = Q_{canhão} + Q_{bala} = 0\)", "\(500 \\cdot (-v) + 10 \\cdot 100 = 0\)", "\(500v = 1000 \\rightarrow v = 2 \\text{ m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 3, type: 'calc', q: "No gelo, um menino (40kg) e um adulto (80kg) empurram-se. O menino escorrega a 4 m/s. Qual a velocidade do adulto? (em m/s)", ans: "2", steps: ["\(m_1 \\cdot v_1 = m_2 \\cdot v_2\)", "\(40 \\cdot 4 = 80 \\cdot v_2\)", "\(160 = 80 \\cdot v_2 \\rightarrow v_2 = 160 / 80 = 2 \\text{ m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 3, type: 'calc', q: "Pessoa de 50kg num carrinho de 10kg andando juntos a 6m/s. Qual a Quantidade de Movimento total do sistema?", ans: "360", steps: ["Massa total = 50 + 10 = 60 kg", "\(Q = m_{total} \\cdot v\)", "\(Q = 60 \\cdot 6 = 360 \\text{ kg.m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 3, type: 'calc', q: "Massa de 3kg explode em duas de 1,5kg. Uma vai pra direita a 10m/s. Qual a velocidade da outra (ignorando o sinal negativo de direção)?", ans: "10", steps: ["Se as massas são idênticas e devem anular a quantidade de movimento (para dar zero), as velocidades devem ser iguais, porém em sentidos opostos. Resposta: 10 m/s."] });
+exercisesData.push({ id: exId++, theme: 3, type: 'calc', q: "Um dardo de 0,2kg é atirado a 15m/s de zarabatana de 0,6kg livre no ar. Qual a velocidade de recuo da zarabatana?", ans: "5", steps: ["\(m_{dardo} \\cdot v_{dardo} = M_{zarabatana} \\cdot V_{zarabatana}\)", "\(0,2 \\cdot 15 = 0,6 \\cdot V\)", "\(3 = 0,6 \\cdot V \\rightarrow V = 3 / 0,6 = 5 \\text{ m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 3, type: 'calc', q: "Bloco A (2kg) à 5m/s colide com bloco B (3kg) parado, e ficam unidos. Qual a Q_antes do sistema (apenas de A, já que B tava parado)?", ans: "10", steps: ["\(Q_{antes} = Q_A + Q_B\)", "\(Q_A = 2 \\cdot 5 = 10\)", "\(Q_B = 3 \\cdot 0 = 0\)", "\(Q_{total} = 10 \\text{ kg.m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 3, type: 'calc', q: "No mesmo caso acima, qual a velocidade do conjunto após eles grudarem?", ans: "2", steps: ["\(Q_{antes} = 10\)", "Eles grudam, então a massa total = 2 + 3 = 5kg.", "\(Q_{depois} = M_{total} \\cdot v_{final}\)", "\(10 = 5 \\cdot v_{final} \\rightarrow v_{final} = 2 \\text{ m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 3, type: 'calc', q: "Carrinho 1 (M=10kg) v=4m/s colide com Carrinho 2 (M=10kg) v=-4m/s (batida de frente). Qual o Q total do sistema ANTES do choque?", ans: "0", steps: ["\(Q_1 = 10 \\cdot 4 = 40\)", "\(Q_2 = 10 \\cdot (-4) = -40\)", "\(Q_{total} = 40 - 40 = 0\)", "Mesmo em movimento, devido aos vetores opostos, o sistema tem Q = 0."] });
+exercisesData.push({ id: exId++, theme: 3, type: 'calc', q: "Bomba de 4kg dividida em A (1kg) e B (3kg). Se A voa pra esquerda a 15m/s, qual a velocidade de B pra direita?", ans: "5", steps: ["\(m_A \\cdot v_A = m_B \\cdot v_B\)", "\(1 \\cdot 15 = 3 \\cdot v_B\)", "\(v_B = 15 / 3 = 5 \\text{ m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 3, type: 'calc', q: "Atleta de 70kg atira disco de 2kg a 14m/s num lago congelado (sem atrito). Com qual velocidade ele recua?", ans: "0.4", steps: ["\(M \\cdot V = m \\cdot v\)", "\(70 \\cdot V = 2 \\cdot 14\)", "\(70V = 28 \\rightarrow V = 28 / 70 = 0,4 \\text{ m/s}\)"] });
+
+// TEMA 4: Choques (46-60)
+exercisesData.push({ id: exId++, theme: 4, type: 'theo', q: "Na colisão do tipo Inelástica, o que obrigatoriamente acontece?", ans: "C", opts: ["A) Os corpos voltam à velocidade inicial.", "B) Toda a energia cinética é conservada.", "C) Os corpos permanecem juntos (grudados) após o choque.", "D) As massas dos corpos se alteram."], steps: ["Choque inelástico é aquele em que a perda de energia deforma ou anexa os corpos, fazendo com que andem juntos com a mesma velocidade final."] });
+exercisesData.push({ id: exId++, theme: 4, type: 'theo', q: "Em qual tipo de colisão NÃO há perda de energia cinética?", ans: "A", opts: ["A) Perfeitamente elástica", "B) Parcialmente elástica", "C) Inelástica", "D) Explosiva"], steps: ["Somente no choque perfeitamente elástico (como o modelo das bolas de bilhar ideais) a energia se conserva em 100%."] });
+exercisesData.push({ id: exId++, theme: 4, type: 'theo', q: "No choque parcialmente elástico, o coeficiente de restituição (e) possui valor:", ans: "B", opts: ["A) Igual a 1", "B) Entre 0 e 1", "C) Igual a 0", "D) Menor que 0"], steps: ["e=1 (elástico), e=0 (inelástico). Tudo que está no meio (realidade na maioria dos casos) é de 0 a 1."] });
+exercisesData.push({ id: exId++, theme: 4, type: 'theo', q: "Dois pedaços de massa de modelar são atirados um contra o outro e viram uma única bola. Esse é um choque:", ans: "D", opts: ["A) Elástico", "B) Mágico", "C) Térmico", "D) Inelástico"], steps: ["Se eles deformam irreversivelmente e passam a caminhar como uma massa única, trata-se de um choque inelástico."] });
+exercisesData.push({ id: exId++, theme: 4, type: 'theo', q: "A Quantidade de Movimento (Q) se conserva em colisões inelásticas?", ans: "A", opts: ["A) Sim, Q se conserva em TODAS as colisões isoladas.", "B) Não, pois a energia é perdida.", "C) Apenas se a massa final for menor.", "D) Não, Q só se conserva em colisão elástica."], steps: ["Lembre-se: em colisão inelástica perde-se Energia, mas a Quantidade de Movimento (Q) SEMPRE se conserva no sistema."] });
+// Calculos T4
+exercisesData.push({ id: exId++, theme: 4, type: 'calc', q: "Patinador A (40kg) a 3m/s abraça Patinadora B (60kg) que estava parada. Com qual velocidade eles andam juntos? (Inelástico)", ans: "1.2", steps: ["\(Q_{antes} = 40 \\cdot 3 + 60 \\cdot 0 = 120\)", "\(Q_{depois} = (40+60) \\cdot v\)", "\(120 = 100 \\cdot v \\rightarrow v = 120/100 = 1,2 \\text{ m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 4, type: 'calc', q: "Carro de 1000kg a 20m/s colide atrás de um caminhao de 3000kg a 10m/s. Grudam. Qual a velocidade final do conjunto?", ans: "12.5", steps: ["Ambos na mesma direção.", "\(Q_{antes} = (1000 \\cdot 20) + (3000 \\cdot 10) = 20000 + 30000 = 50000\)", "\(Q_{depois} = (1000 + 3000) \\cdot v = 4000v\)", "\(4000v = 50000 \\rightarrow v = 50 / 4 = 12,5 \\text{ m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 4, type: 'calc', q: "Bolinha de gude A bate na B (ambas de mesma massa). Choque perfeitamente elástico. A vinha a 5 m/s, B estava parada. Qual a velocidade de A após o choque?", ans: "0", steps: ["Regra de ouro: no choque perfeitamente elástico frontal de massas iguais, eles 'trocam' de velocidade.", "A que vinha a 5 para (v=0) e a que estava parada sai a 5."] });
+exercisesData.push({ id: exId++, theme: 4, type: 'calc', q: "Na mesma batida acima, qual a velocidade da bolinha B após o choque?", ans: "5", steps: ["Como trocaram de velocidade, a bolinha B sai com a velocidade que a bolinha A tinha: 5 m/s."] });
+exercisesData.push({ id: exId++, theme: 4, type: 'calc', q: "Massa de 2kg a 4m/s bate de frente e gruda noutra de 2kg a -4m/s. Qual a velocidade do conjunto após a batida?", ans: "0", steps: ["\(Q_{antes} = (2 \\cdot 4) + (2 \\cdot -4) = 8 - 8 = 0\)", "\(Q_{depois} = 4 \\cdot v = 0\)", "\(v = 0\). (Batem de frente e param)."] });
+exercisesData.push({ id: exId++, theme: 4, type: 'calc', q: "O coeficiente de restituição (e) é a Velocidade Relativa de Afastamento dividida pela Velocidade Relativa de Aproximação. Se 2 carros se aproximam a 10m/s e se afastam a 6m/s, qual é 'e'?", ans: "0.6", steps: ["\(e = V_{afastamento} / V_{aproximacao}\)", "\(e = 6 / 10 = 0,6\)"] });
+exercisesData.push({ id: exId++, theme: 4, type: 'calc', q: "Um meteorito de 1kg caindo a 100m/s bate em um satélite inoperante de 99kg parado. Ficam encravados. Qual a velocidade do lixo espacial resultante?", ans: "1", steps: ["\(Q_{antes} = 1 \\cdot 100 + 0 = 100\)", "\(Q_{depois} = (1 + 99) \\cdot v = 100v\)", "\(100 = 100v \\rightarrow v = 1 \\text{ m/s}\)"] });
+exercisesData.push({ id: exId++, theme: 4, type: 'calc', q: "Objeto A (5kg, 8m/s) persegue B (5kg, 4m/s). Bate elásticamente. Massas iguais. Qual a velocidade de B após o choque?", ans: "8", steps: ["Massas idênticas e choque elástico = Troca de velocidades.", "B assume a velocidade que era de A. Logo, B = 8 m/s."] });
+exercisesData.push({ id: exId++, theme: 4, type: 'calc', q: "Pássaro (0,5kg) a 10m/s tenta comer um inseto parado no ar, e o engole. Agora o pássaro viaja a 9m/s. Qual a massa do inseto, em kg?", ans: "0.05", steps: ["\(Q_{antes} = 0,5 \\cdot 10 + 0 = 5\)", "\(Q_{depois} = (0,5 + m_{inseto}) \\cdot 9\)", "\(5 = 4,5 + 9 \\cdot m\)", "\(0,5 = 9m \\rightarrow m \\approx 0,055\\text{kg...} \text{ Opa, } (5 / 9 = 0,55\)... \\text{espera, reescrevendo a conta: se a resposta exata pro gabarito for algo limpo...}\) \n Na verdade, resolvendo \( 5 = (0.5+x)*9 \\rightarrow 5 = 4.5 + 9x \\rightarrow 0.5 = 9x \\rightarrow x = 1/18\). Para ser 0.05 a conta seria \(5 / 100 = 0.05\). Vamos considerar \(x \\approx 0.05\). (Para o aluno digitar: 0.055) \n*Corrigindo a questão para dar cravado:* Passaro 0,9kg voa a 10m/s. Engole inseto. Velocidade cai pra 9m/s. \n \( 0,9 \\cdot 10 = (0,9 + m) \\cdot 9 \\rightarrow 9 = 8,1 + 9m \\rightarrow 0,9 = 9m \\rightarrow m = 0,1 \\text{kg}\). O gabarito configurado aqui na memória é 0.1? Não, configuramos a pergunta original, mas deixaremos a conta simples. A resposta cravada programada no sistema foi revista para a versão arrumada (0.05... arredondado). Digite a resposta arredondada ou reavalie a questão: A resposta real configurada pro verificador desta variante corrigida é '0.055' aprox. (Deixemos como 0.1, consertando o prompt interno para: pássaro 0.9kg). (Assumiremos 0.1 como resposta correta se eu mudar a pergunta, mas a pergunta exibida será Pássaro 0,9kg)."] }); 
+// Consertando a de cima pra não ter erro matemático na exbição
+exercisesData[58].q = "Pássaro de 0,9 kg a 10 m/s engole um inseto no ar. A velocidade do pássaro cai pra 9 m/s. Qual a massa do inseto em kg?";
+exercisesData[58].ans = "0.1";
+exercisesData[58].steps = ["\(Q_{antes} = 0,9 \\cdot 10 = 9\)", "\(Q_{depois} = (0,9 + m) \\cdot 9\)", "\(9 = 9 \\cdot (0,9 + m) \\rightarrow 1 = 0,9 + m\)", "\(m = 0,1 \\text{ kg}\)"];
+
+exercisesData.push({ id: exId++, theme: 4, type: 'calc', q: "Duas bolas de massas iguais se batem de frente. Elásticas. Uma vinha a +3 e a outra a -2. Qual a velocidade da que vinha a +3 após o batida?", ans: "-2", steps: ["Choque perfeitamente elástico de massas iguais:", "Elas apenas invertem as velocidades uma da outra.", "A que tinha +3 passa a ter -2."] });
+
+let currentTheme = 'all';
+let solved = new Set();
+
+function renderExercises() {
+    const listDiv = $('exercise-list');
+    let html = '';
+    
+    exercisesData.forEach(ex => {
+        if (currentTheme !== 'all' && ex.theme != currentTheme) return;
+        
+        const isSolved = solved.has(ex.id);
+        const borderColor = isSolved ? 'border-green-400' : 'border-slate-200';
+        const badgeColor = isSolved ? 'bg-green-100 text-green-700' : 'bg-sky-50 text-sky-700';
+        
+        let questionBody = `<p class="mt-3 text-slate-700 mb-4">${ex.q}</p>`;
+        
+        if (ex.type === 'theo' && ex.opts) {
+            questionBody += `<div class="space-y-2 mb-4 text-sm text-slate-600">`;
+            ex.opts.forEach(opt => {
+                questionBody += `<div class="p-2 bg-slate-50 rounded border">${opt}</div>`;
+            });
+            questionBody += `</div>`;
+        }
+
+        html += `
+        <article class="bg-white rounded-2xl border ${borderColor} p-5 shadow-sm">
+            <div class="flex justify-between gap-3 items-center">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full ${badgeColor}">Questão ${ex.id}</span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">TEMA ${ex.theme}</span>
+            </div>
+            
+            ${questionBody}
+            
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" type="text" class="flex-1 border rounded-xl px-3 py-2 text-sm" placeholder="${ex.type==='theo' ? 'Digite a letra (A, B, C, D)' : 'Digite o número'}">
+                <button onclick="checkAnswer(${ex.id})" class="bg-sky-600 hover:bg-sky-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+            </div>
+            
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+            
+            <button onclick="document.getElementById('sol-${ex.id}').classList.toggle('hidden')" class="mt-3 text-sm font-bold text-sky-700 hover:underline">
+                👁 Visualizar resposta e resolução
+            </button>
+            
+            <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+                <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução Passo a Passo</div>
+                ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+                <div class="success rounded-xl p-4 text-center font-bold mt-2">Resposta Correta: ${ex.ans}</div>
+            </div>
+        </article>
+        `;
+    });
+    
+    listDiv.innerHTML = html;
+    updateProgress();
+    renderAll();
+}
+
+function checkAnswer(id) {
+    const ex = exercisesData.find(x => x.id === id);
+    const inputEl = $(`ans-${id}`);
+    const fbEl = $(`fb-${id}`);
+    
+    let rawInput = inputEl.value.trim().toUpperCase();
+    if(ex.type === 'calc') {
+        // Aceita virgula ou ponto para decimal
+        rawInput = rawInput.replace(',', '.');
+    }
+
+    let isCorrect = false;
+    
+    if (ex.type === 'theo') {
+        isCorrect = (rawInput === ex.ans);
+    } else {
+        // Validação númerica (pequena margem de erro)
+        const numIn = parseFloat(rawInput);
+        const numAns = parseFloat(ex.ans);
+        if(!isNaN(numIn) && Math.abs(numIn - numAns) < 0.01) {
+            isCorrect = true;
+        }
+    }
+
+    if (isCorrect) {
+        solved.add(id);
+        fbEl.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fbEl.textContent = '✓ Correto! Excelente trabalho.';
+        // Atualiza a borda da caixa e o progresso
+        setTimeout(renderExercises, 500); 
+    } else {
+        fbEl.className = 'text-sm font-bold mt-2 text-red-600';
+        fbEl.textContent = '✗ Ainda não. Reveja os conceitos e tente novamente!';
+    }
+}
+
+function updateProgress() {
+    const max = exercisesData.length;
+    const current = solved.size;
+    $('progress-text').textContent = `${current} / ${max}`;
+    $('progress-bar').style.width = `${(current/max)*100}%`;
+}
+
+// Filtros
+document.querySelectorAll('.level-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active', 'bg-sky-500', 'text-white'));
+        document.querySelectorAll('.level-btn:not(.active)').forEach(b => b.classList.add('bg-slate-100'));
+        
+        btn.classList.add('active');
+        btn.classList.remove('bg-slate-100');
+        
+        currentTheme = btn.dataset.theme;
+        renderExercises();
+    };
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderExercises();
+    renderAll();
+});
+</script>
+</body>
+</html>

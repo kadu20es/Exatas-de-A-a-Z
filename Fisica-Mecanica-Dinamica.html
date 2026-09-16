@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física — Trabalho, Energia e Potência</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#1e293b;--paper:#f8fafc;--line:#e2e8f0;--accent:#10b981}
+  body{background:#f0fdf4;color:var(--ink)}
+  .tab-btn.active{color:#059669;border-bottom-color:#059669;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e2e8f0 1px,transparent 1px);background-size:100% 2rem;border:1px solid #cbd5e1;box-shadow:0 8px 24px #0f172a0d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e2e8f0;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#d1fae5;color:#047857;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .level-btn.active{background:#10b981;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-emerald-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-emerald-900">⚡ Física Passo a Passo</div><div class="text-[11px] text-slate-500 hidden sm:block">Trabalho, Energia e Potência</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-emerald-300">Mecânica Dinâmica</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">O Motor do Universo</h1>
+  <p class="mt-4 max-w-3xl text-emerald-100 leading-7">Compreenda como a energia se transforma, como as forças realizam trabalho para mover objetos e como medir a eficiência dessas transformações. Baseado na didática moderna: entender o conceito antes da fórmula.</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Dica de Estudo:</b> A energia nunca desaparece, ela apenas muda de "fantasia" (de cinética para térmica, de potencial para cinética). Tente enxergar essas trocas de fantasia nos exemplos do dia a dia.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tema 1 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">As várias formas de Energia</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Energia é a capacidade de realizar trabalho ou provocar mudanças. Ela se apresenta de várias formas:</p>
+   <ul class="list-disc pl-5 mt-2 text-sm text-slate-600 space-y-1">
+    <li><b>Térmica:</b> Associada ao calor (agitação das moléculas).</li>
+    <li><b>Química:</b> Armazenada nos alimentos, pilhas e combustíveis.</li>
+    <li><b>Elétrica:</b> Movimento ordenado de elétrons.</li>
+    <li><b>Mecânica:</b> Associada ao movimento e à posição (foco deste material).</li>
+   </ul>
+   <div class="bg-slate-50 rounded-xl p-4 mt-4 text-sm">
+    <b>Unidades Importantes:</b> No SI, usamos o <b>Joule (J)</b>. <br>Outras comuns: Caloria (1 cal ≈ 4,18 J) e o kWh para conta de luz (1 kWh = 3.600.000 J).
+   </div>
+  </article>
+
+  <!-- Tema 2 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Trabalho de uma Força (\(\tau\) ou W)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Na física, "Trabalho" não é emprego. É a energia transferida a um corpo quando uma Força o desloca. Se você empurra uma parede e ela não anda (d = 0), o trabalho é zero!</p>
+   <div class="paper rounded-xl p-4 mt-3 text-center text-lg">\[W = F \cdot d \cdot \cos\theta\]</div>
+   <div class="grid sm:grid-cols-2 gap-3 text-sm mt-3">
+    <div class="bg-emerald-50 rounded-xl p-3"><b>Motor (+)</b><br>Força ajuda o movimento. (Ex: empurrar o carro).</div>
+    <div class="bg-red-50 rounded-xl p-3"><b>Resistente (-)</b><br>Força atrapalha o movimento. (Ex: atrito, freio).</div>
+   </div>
+  </article>
+ </div>
+
+ <!-- Tema 3 -->
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">3</span><h2 class="text-2xl font-black">Energia Mecânica (O Trio Principal)</h2></div>
+  <p class="text-sm text-slate-600 mt-2 mb-4">A Energia Mecânica é a soma da energia de movimento com as energias armazenadas (potenciais).</p>
+  <div class="grid lg:grid-cols-3 gap-4">
+   <div class="border rounded-xl p-4">
+    <h3 class="font-bold text-emerald-800 text-center">Cinética (\(E_c\))</h3>
+    <p class="text-xs text-slate-500 mt-1 mb-2 text-center">Energia do movimento. Depende da massa e (muito) da velocidade.</p>
+    <div class="paper p-3 text-center rounded-lg">\[E_c = \frac{m \cdot v^2}{2}\]</div>
+   </div>
+   <div class="border rounded-xl p-4">
+    <h3 class="font-bold text-emerald-800 text-center">Pot. Gravitacional (\(E_{pg}\))</h3>
+    <p class="text-xs text-slate-500 mt-1 mb-2 text-center">Armazenada pela altura. Pode se transformar em velocidade ao cair.</p>
+    <div class="paper p-3 text-center rounded-lg">\[E_{pg} = m \cdot g \cdot h\]</div>
+   </div>
+   <div class="border rounded-xl p-4">
+    <h3 class="font-bold text-emerald-800 text-center">Pot. Elástica (\(E_{pe}\))</h3>
+    <p class="text-xs text-slate-500 mt-1 mb-2 text-center">Armazenada em molas ou elásticos esticados/comprimidos (deformação x).</p>
+    <div class="paper p-3 text-center rounded-lg">\[E_{pe} = \frac{k \cdot x^2}{2}\]</div>
+   </div>
+  </div>
+ </div>
+
+ <!-- Tema 4 e 5 -->
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Teorema da Energia Cinética (TEC)</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">O Trabalho Total (soma dos trabalhos de todas as forças) feito sobre um corpo é exatamente igual à variação da sua energia de movimento.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">\[W_{total} = \Delta E_c = E_{c(final)} - E_{c(inicial)}\]</div>
+   <div class="bg-amber-50 border-l-4 border-amber-400 p-3 mt-4 text-xs text-slate-700"><b>Exemplo:</b> Para frear um carro, o trabalho do freio tira toda a energia cinética do veículo. O trabalho será negativo, igual à energia que o carro tinha.</div>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Conservação da Energia</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">Se não houver forças dissipativas (como o atrito ou resistência do ar), a Energia Mecânica se conserva. Apenas troca de tipo.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">\[E_{M(antes)} = E_{M(depois)}\]</div>
+   <div class="bg-emerald-50 border-l-4 border-emerald-400 p-3 mt-4 text-xs text-slate-700">Numa montanha-russa ideal, a altura lá do alto (Potencial) vira velocidade lá embaixo (Cinética). A soma das duas é a mesma em qualquer ponto!</div>
+  </article>
+ </div>
+
+ <!-- Tema 6 -->
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">6</span><h2 class="text-2xl font-black">Potência e Rendimento</h2></div>
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div>
+    <p class="text-sm text-slate-600">Não basta realizar trabalho, muitas vezes importa a <b>rapidez</b> com que ele é feito. Potência é a taxa de energia gasta ou trabalho realizado por unidade de tempo.</p>
+    <div class="paper rounded-xl p-4 mt-3 text-center text-lg">\[P_m = \frac{W}{\Delta t} \quad \text{ou} \quad P = F \cdot v\]</div>
+    <p class="text-sm text-slate-600 mt-3"><b>Unidade:</b> Watt (W = Joule/segundo). Outras: cv (cavalo-vapor = 735W) e HP (horse-power = 746W).</p>
+   </div>
+   <div>
+    <div class="bg-slate-50 rounded-2xl p-4 border">
+     <h3 class="font-bold text-sm text-slate-700">Rendimento (\(\eta\))</h3>
+     <p class="text-xs text-slate-500 mt-2">Nenhuma máquina é perfeita. Uma parte da energia é sempre perdida (dissipada), geralmente em forma de calor.</p>
+     <div class="paper text-center rounded-lg py-2 mt-2 font-bold text-sm">\[\eta = \frac{Pot_{util}}{Pot_{total}}\]</div>
+     <p class="text-[11px] text-slate-400 mt-2 text-center">Multiplique por 100 para ter em %.</p>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Física Aplicada</span><h1 class="text-3xl font-black mt-2">Laboratório Virtual</h1><p class="text-slate-600 mt-2">Simule a matemática por trás dos parques de diversão e da engenharia.</p></div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Calculadora Conservação -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">Montanha-Russa Ideal</h2>
+   <p class="text-xs text-slate-500 mb-4">Simule a queda de um carrinho a partir do repouso. Calcule a velocidade ao atingir um ponto mais baixo, assumindo g=10 m/s² e sem atrito.</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Massa do carrinho (kg):</label><input id="lab-m1" type="number" value="500" class="border rounded px-2 py-1 w-24 text-center bg-slate-100" readonly></div>
+    <div class="flex items-center justify-between"><label>Altura Inicial - Ponto A (m):</label><input id="lab-ha" type="number" value="45" class="border rounded px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Altura Final - Ponto B (m):<br><span class="text-[10px] text-emerald-600">Tem que ser menor que a inicial</span></label><input id="lab-hb" type="number" value="25" class="border rounded px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcRollerCoaster()" class="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl py-3 font-bold transition">Calcular Velocidade</button>
+   <div id="out-roller" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+
+  <!-- Calculadora Potência -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">Potência do Guindaste</h2>
+   <p class="text-xs text-slate-500 mb-4">Um motor levanta uma carga de peso conhecido. Descubra o Trabalho e a Potência média do motor.</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Massa da carga (kg):</label><input id="lab-mc" type="number" value="200" class="border rounded px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Altura levantada (m):</label><input id="lab-hc" type="number" value="15" class="border rounded px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Tempo gasto (s):</label><input id="lab-tc" type="number" value="10" step="1" class="border rounded px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcPower()" class="mt-4 w-full bg-sky-600 hover:bg-sky-700 text-white rounded-xl py-3 font-bold transition">Analisar Motor</button>
+   <div id="out-power" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Treino Progressivo</span><h1 class="text-3xl font-black mt-2">90 Questões Resolvidas</h1><p class="text-slate-600 mt-2 text-sm"><b>Teoria:</b> digite A, B, C ou D. <b>Cálculos:</b> digite o número (use '.' ou ',' para decimais). Considere g = 10 m/s².</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 90</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-emerald-500 transition-all duration-500 rounded-full" style="width:0%"></div></div></div></div></div>
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters"><button data-theme="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold transition">Todos</button><button data-theme="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T1: Formas</button><button data-theme="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T2: Trabalho</button><button data-theme="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T3: E. Mecânica</button><button data-theme="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T4: TEC</button><button data-theme="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T5: Conservação</button><button data-theme="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T6: Potência</button></div></div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Mecânica - Trabalho, Energia e Potência (g = 10 m/s²)</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Tab Navigation
+const sections=['teoria','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises();}));
+
+// Calculators
+function calcRollerCoaster(){
+    const ha=+$('lab-ha').value, hb=+$('lab-hb').value;
+    if(hb >= ha) { $('out-roller').innerHTML = `<b class="text-red-500">A altura B deve ser menor que a altura A para haver velocidade.</b>`; $('out-roller').classList.remove('hidden'); return; }
+    const m=500, g=10;
+    const eca = 0, epa = m*g*ha;
+    const epb = m*g*hb;
+    const ecb = epa - epb; // since Ea = Eb -> eca + epa = ecb + epb -> epa = ecb + epb
+    const v = Math.sqrt((2*ecb)/m);
+    
+    let h = `<b>1. Conservação da Energia Mecânica:</b> O carrinho parte do repouso (Velocidade = 0, Energia Cinética A = 0).<br>`;
+    h += `\\(E_{MA} = E_{MB}\\)<br>`;
+    h += `\\(E_{pg(A)} = E_{c(B)} + E_{pg(B)}\\)<br><br>`;
+    h += `<b>2. Calculando a queda (Variação da Altura):</b><br>`;
+    h += `Desnível \(\\Delta h = ${ha} - ${hb} = ${ha-hb}\\) metros.<br>`;
+    h += `Toda energia potencial desse desnível virou energia cinética!<br>`;
+    h += `\\(m \\cdot g \\cdot \\Delta h = \\frac{m \\cdot v^2}{2}\\)<br><br>`;
+    h += `<b>3. Isolando a velocidade:</b><br>`;
+    h += `Note que a massa "m" pode ser cortada da equação. A velocidade independe da massa do carrinho!<br>`;
+    h += `\\(v = \\sqrt{2 \\cdot g \\cdot \\Delta h}\\)<br>`;
+    h += `\\(v = \\sqrt{2 \\cdot 10 \\cdot ${ha-hb}} = \\sqrt{${20*(ha-hb)}}\\)<br>`;
+    h += `Velocidade no ponto B = <b class="text-emerald-700">${v.toFixed(2)} m/s</b> (ou ${(v*3.6).toFixed(1)} km/h)`;
+    $('out-roller').innerHTML = h;
+    $('out-roller').classList.remove('hidden');
+    renderAll();
+}
+
+function calcPower(){
+    const m=+$('lab-mc').value, ht=+$('lab-hc').value, t=+$('lab-tc').value;
+    const g=10;
+    const force = m*g; // Peso
+    const work = force * ht;
+    const power = work / t;
+    const cv = power / 735;
+    
+    let h = `<b>1. Força aplicada:</b> Para levantar a carga em velocidade constante, o guindaste faz uma força igual ao Peso.<br>`;
+    h += `\\(F = Peso = m \\cdot g = ${m} \\cdot 10 = ${force} \\text{ N}\\)<br><br>`;
+    h += `<b>2. Trabalho realizado (\(W\)):</b><br>`;
+    h += `\\(W = F \\cdot d = ${force} \\cdot ${ht} = ${work} \\text{ Joules}\\)<br><br>`;
+    h += `<b>3. Potência Média (\(P_m\)):</b><br>`;
+    h += `\\(P_m = \\frac{W}{\\Delta t} = \\frac{${work}}{${t}}\\) = <b class="text-sky-700">${power.toFixed(0)} Watts</b>.<br>`;
+    h += `<span class="text-xs text-slate-500">Equivale a aprox. ${cv.toFixed(2)} Cavalos-Vapor (cv).</span>`;
+    $('out-power').innerHTML = h;
+    $('out-power').classList.remove('hidden');
+    renderAll();
+}
+
+const exercisesData = [];
+let exId = 1;
+// Helper for generation
+const addQ = (th, ty, q, ans, steps, opts=[]) => { exercisesData.push({ id: exId++, theme: th, type: ty, q, ans, steps, opts }); };
+
+// TEMA 1: Formas de Energia (1-15)
+addQ(1,'theo',"A energia associada ao movimento de um corpo é denominada de energia:", "C", ["A energia do movimento é chamada de Cinética, do grego 'kinesis' (movimento)."], ["A) Potencial","B) Térmica","C) Cinética","D) Química"]);
+addQ(1,'theo',"A energia armazenada nos alimentos e nos combustíveis fósseis é um tipo de energia:", "B", ["Alimentos e combustíveis liberam energia através de reações químicas. Logo, é energia química."], ["A) Térmica","B) Química","C) Nuclear","D) Elétrica"]);
+addQ(1,'theo',"Um chuveiro elétrico converte principalmente qual forma de energia em qual?", "A", ["O chuveiro recebe energia elétrica e a resistência esquenta, convertendo-a em energia térmica."], ["A) Elétrica em Térmica","B) Térmica em Elétrica","C) Química em Térmica","D) Elétrica em Mecânica"]);
+addQ(1,'theo',"No SI (Sistema Internacional), a unidade oficial de Energia é:", "D", ["Embora caloria e kWh sejam comuns, no SI a unidade de energia e trabalho é o Joule (J)."], ["A) Newton","B) Watt","C) Caloria","D) Joule"]);
+addQ(1,'theo',"Um motor de carro converte energia química da gasolina em qual energia para mover as rodas?", "C", ["A gasolina (química) sofre combustão e gera movimento (mecânica). Uma parte é perdida como térmica, mas o fim desejado é mecânico."], ["A) Apenas térmica","B) Nuclear","C) Mecânica","D) Potencial elástica"]);
+addQ(1,'calc',"Converta 2000 calorias (cal) para Joules (J). Considere 1 cal = 4,18 J.", "8360", ["Regra de três simples:", "\\(E = 2000 \\cdot 4,18\\)", "\\(E = 8360 \\text{ J}\\)"]);
+addQ(1,'calc',"Se 1 kWh equivale a 3.600.000 J. Quantos Joules há em 5 kWh?", "18000000", ["Basta multiplicar o valor por 3,6 milhões.", "\\(E = 5 \\cdot 3.600.000\\)", "\\(E = 18.000.000 \\text{ J}\\)"]);
+addQ(1,'calc',"Um aparelho consome 2.000.000 J. Quantos kWh (aproximadamente) ele consumiu? (Use ponto para separar a casa decimal se precisar, 1 decimal)", "0.55", ["\\(E(kWh) = \\frac{2.000.000}{3.600.000}\\)", "\\(E(kWh) \\approx 0,55 \\text{ kWh}\\)"]);
+addQ(1,'calc',"A combustão de certa massa de gás libera 50.000 calorias. Qual o valor aproximado em kiloJoules (kJ)? (1 cal = 4,18 J e 1 kJ = 1000 J)", "209", ["Joules: \\(50000 \\cdot 4,18 = 209.000 \\text{ J}\\)", "Para kJ divida por 1000: \\(209.000 / 1000 = 209 \\text{ kJ}\\)"]);
+addQ(1,'calc',"O equivalente mecânico do calor afirma que 1 kcal = 4180 J. Quantos Joules são necessários para gerar 3 kcal?", "12540", ["\\(E = 3 \\cdot 4180\\)", "\\(E = 12540 \\text{ J}\\)"]);
+addQ(1,'calc',"Converta 10 kWh de energia elétrica em Joules. Digite o número inteiro.", "36000000", ["\\(1 \\text{ kWh} = 3.600.000 \\text{ J}\\)", "\\(10 \\cdot 3.600.000 = 36.000.000 \\text{ J}\\)"]);
+addQ(1,'calc',"Um painel solar absorve 500 Joules por segundo. Em 10 segundos, qual a energia total absorvida?", "5000", ["Basta multiplicar a taxa de energia pelo tempo.", "\\(E = 500 \\cdot 10 = 5000 \\text{ J}\\)"]);
+addQ(1,'calc',"Se um litro de gasolina tem cerca de 32.000.000 Joules. Quantos Joules têm 2 litros de gasolina?", "64000000", ["Multiplicação direta.", "\\(E = 2 \\cdot 32.000.000 = 64.000.000 \\text{ J}\\)"]);
+addQ(1,'calc',"Quantos litros de gasolina (do exercício anterior, 32.000.000 J/L) equivalem à energia de 10 kWh (36.000.000 J)? (aprox, 2 decimais)", "1.12", ["Energia = 36.000.000 J", "Gasolina = Energia / 32.000.000", "\\(Volume = \\frac{36}{32} = 1,125\\). Arredondando conforme margem de erro: 1.12 ou 1.13"]); // Accepted margin in code
+addQ(1,'calc',"Um pacote de biscoito tem 150 kcal. Sabendo que 1 kcal = 4180 J. Qual a energia em kJ?", "627", ["Joules: \\(150 \\cdot 4180 = 627.000 \\text{ J}\\)", "Em kJ: 627."]);
+
+// TEMA 2: Trabalho de uma força (16-30)
+addQ(2,'theo',"Quando a força é aplicada na mesma direção e sentido do deslocamento, dizemos que o trabalho é:", "A", ["Quando Força e Deslocamento estão no mesmo sentido (ângulo 0, cos = 1), o trabalho é Motor e positivo."], ["A) Motor","B) Resistente","C) Nulo","D) Dissipado"]);
+addQ(2,'theo',"Se você carrega uma mochila nas costas e caminha em linha reta numa rua plana, qual é o trabalho da Força Peso sobre a mochila?", "C", ["A Força Peso atua para baixo. O deslocamento é horizontal. O ângulo é 90º. Como cos(90º) = 0, o trabalho é Nulo."], ["A) Motor, dependendo da massa","B) Resistente, pois a mochila é pesada","C) Nulo, pois forma 90º com o deslocamento","D) Máximo"]);
+addQ(2,'theo',"A força de atrito cinético sempre atua no sentido oposto ao movimento. Logo, seu trabalho é:", "B", ["Sentido oposto forma ângulo de 180º. O cos(180º) = -1. Trabalho negativo = Resistente (retira energia)."], ["A) Motor","B) Resistente (Negativo)","C) Nulo","D) Positivo"]);
+addQ(2,'theo',"No gráfico da Força (constante ou variável) pelo Deslocamento (F x d), como se calcula o Trabalho?", "D", ["Essa é uma regra matemática e geométrica fundamental na física. O Trabalho é dado pela área do gráfico F x d."], ["A) Pela inclinação da reta","B) Calculando a raiz quadrada da base","C) Pelo perímetro da figura","D) Pela área sob a curva/reta"]);
+addQ(2,'theo',"O trabalho realizado por uma força conservativa (como o peso) em um percurso fechado (vai e volta ao mesmo ponto) é:", "C", ["Se volta ao ponto inicial, o deslocamento resultante é zero (em termos de energia de posição), então o trabalho de forças conservativas é zero."], ["A) Dobrado","B) Positivo","C) Zero","D) Depende do tempo"]);
+addQ(2,'calc',"Uma força constante de 50 N empurra um bloco no mesmo sentido do movimento por 4 m. Qual o trabalho em Joules?", "200", ["\\(W = F \\cdot d \\cdot \\cos(0º)\\)", "\\(W = 50 \\cdot 4 \\cdot 1\\)", "\\(W = 200 \\text{ J}\\)"]);
+addQ(2,'calc',"Um trator arrasta um tronco fazendo força de 2000 N por 10 metros. Qual o trabalho realizado?", "20000", ["\\(W = F \\cdot d\\)", "\\(W = 2000 \\cdot 10 = 20000 \\text{ J}\\)"]);
+addQ(2,'calc',"Uma força de atrito constante de 15 N age num bloco que escorrega por 6 m. Qual o trabalho dessa força?", "-90", ["Força no sentido oposto: ângulo de 180º, cosseno = -1.", "\\(W = -F \\cdot d\\)", "\\(W = -15 \\cdot 6 = -90 \\text{ J}\\)"]);
+addQ(2,'calc',"Força F = 40N forma ângulo de 60º com o deslocamento de 5m. Qual o trabalho? (Use cos 60º = 0,5)", "100", ["\\(W = F \\cdot d \\cdot \\cos(60º)\\)", "\\(W = 40 \\cdot 5 \\cdot 0,5\\)", "\\(W = 100 \\text{ J}\\)"]);
+addQ(2,'calc',"Qual o trabalho do Peso para um objeto de 10 kg que cai verticalmente 3 metros? (g=10, mesma direção da queda)", "300", ["\\(P = m \\cdot g = 10 \\cdot 10 = 100 \\text{ N}\\)", "Queda (mesmo sentido): \\(W = P \\cdot h\\)", "\\(W = 100 \\cdot 3 = 300 \\text{ J}\\)"]);
+addQ(2,'calc',"Qual o trabalho do Peso do mesmo objeto de 10 kg se ele for LEVANTADO em 3 metros? (g=10)", "-300", ["O objeto sobe, mas o peso puxa para baixo (sentidos opostos).", "\\(W = -P \\cdot h\\)", "\\(W = -(10 \\cdot 10) \\cdot 3 = -300 \\text{ J}\\)"]);
+addQ(2,'calc',"Um gráfico F x d forma um retângulo de base = 4m e altura = 20N. Qual o trabalho total?", "80", ["O trabalho é a área do gráfico.", "Área do Retângulo = base \\(\\times\\) altura", "\\(W = 4 \\cdot 20 = 80 \\text{ J}\\)"]);
+addQ(2,'calc',"Gráfico F x d forma um triângulo com base 6m e altura 10N. Qual o trabalho?", "30", ["Área do Triângulo = (base \\(\\times\\) altura) / 2", "\\(W = (6 \\cdot 10) / 2 = 60 / 2 = 30 \\text{ J}\\)"]);
+addQ(2,'calc',"Uma força F paralela puxa uma mala de 20kg por 5m. O trabalho foi 250J. Qual a intensidade da força em N?", "50", ["\\(W = F \\cdot d\\)", "\\(250 = F \\cdot 5\\)", "\\(F = 250 / 5 = 50 \\text{ N}\\)"]);
+addQ(2,'calc',"Menino empurra parede com força de 1000 N durante 5 minutos. A parede não se move. Qual o trabalho?", "0", ["Se não há deslocamento (d = 0), a transferência mecânica de energia é nula.", "\\(W = 1000 \\cdot 0 = 0\\)"]);
+
+// TEMA 3: Energia Mecânica (31-45)
+addQ(3,'theo',"A energia associada à altura (posição) de um corpo em relação ao solo é:", "B", ["Energia relacionada ao campo gravitacional terrestre e altura é a Potencial Gravitacional."], ["A) Cinética","B) Potencial Gravitacional","C) Potencial Elástica","D) Térmica"]);
+addQ(3,'theo',"Qual a grandeza que afeta mais intensamente a energia cinética, pois está elevada ao quadrado na fórmula?", "C", ["Na fórmula \\(Ec = \\frac{m \\cdot v^2}{2}\\), a velocidade está ao quadrado. Dobrando a velocidade, a energia multiplica por 4!"], ["A) A massa","B) O tempo","C) A velocidade","D) O atrito"]);
+addQ(3,'theo',"A energia potencial elástica armazenada em uma mola depende da constante elástica da mola (k) e da:", "D", ["A fórmula é \\(E_{pe} = k \\cdot x^2 / 2\\), onde x é o quanto a mola foi esticada ou encolhida (deformação)."], ["A) Massa pendurada","B) Gravidade local","C) Temperatura da mola","D) Deformação (x)"]);
+addQ(3,'theo',"Um carro viaja a uma velocidade v. Se ele dobrar de massa (tiver com muita carga) e mantiver a velocidade, sua Ec:", "A", ["A energia cinética é DIRETAMENTE PROPORCIONAL à massa. Se a massa dobra, a Ec dobra."], ["A) Dobra","B) Quadruplica","C) Fica igual","D) Cai pela metade"]);
+addQ(3,'theo',"Se dois corpos têm mesma energia cinética, mas um tem o quádruplo da massa do outro, o que tem menor massa deve estar:", "B", ["Para compensar a massa menor e manter a mesma energia, o corpo leve deve estar muito mais rápido."], ["A) Parado","B) Com o dobro da velocidade","C) Com metade da velocidade","D) Na mesma velocidade"]);
+addQ(3,'calc',"Um cão de 20 kg corre a 3 m/s. Calcule sua Energia Cinética.", "90", ["\\(Ec = \\frac{m \\cdot v^2}{2}\\)", "\\(Ec = \\frac{20 \\cdot 3^2}{2} = \\frac{20 \\cdot 9}{2}\\)", "\\(Ec = \\frac{180}{2} = 90 \\text{ J}\\)"]);
+addQ(3,'calc',"Um carro de 1000 kg se desloca a 20 m/s (72 km/h). Qual sua energia cinética em Joules?", "200000", ["\\(Ec = \\frac{1000 \\cdot 20^2}{2}\\)", "\\(Ec = \\frac{1000 \\cdot 400}{2} = \\frac{400.000}{2}\\)", "\\(Ec = 200.000 \\text{ J}\\)"]);
+addQ(3,'calc',"Uma pedra de 2 kg está no topo de um prédio de 40 m de altura. Qual sua Energia Potencial Gravitacional? (g=10)", "800", ["\\(E_{pg} = m \\cdot g \\cdot h\\)", "\\(E_{pg} = 2 \\cdot 10 \\cdot 40\\)", "\\(E_{pg} = 800 \\text{ J}\\)"]);
+addQ(3,'calc',"Qual a massa de um corpo que, a 15 m de altura, tem uma energia potencial gravitacional de 450 J? (g=10)", "3", ["\\(E_{pg} = m \\cdot g \\cdot h\\)", "\\(450 = m \\cdot 10 \\cdot 15\\)", "\\(450 = m \\cdot 150 \\rightarrow m = 3 \\text{ kg}\\)"]);
+addQ(3,'calc',"Um atleta de 70 kg está correndo. Sua energia cinética é 875 J. Qual sua velocidade em m/s?", "5", ["\\(Ec = \\frac{m \\cdot v^2}{2}\\)", "\\(875 = \\frac{70 \\cdot v^2}{2} \\rightarrow 875 = 35 \\cdot v^2\\)", "\\(v^2 = 25 \\rightarrow v = 5 \\text{ m/s}\\)"]);
+addQ(3,'calc',"Uma mola tem constante elástica k = 200 N/m. Se for esticada em 0,5 m, qual a energia potencial elástica?", "25", ["\\(E_{pe} = \\frac{k \\cdot x^2}{2}\\)", "\\(E_{pe} = \\frac{200 \\cdot (0,5)^2}{2} = \\frac{200 \\cdot 0,25}{2}\\)", "\\(E_{pe} = 100 \\cdot 0,25 = 25 \\text{ J}\\)"]);
+addQ(3,'calc',"Energia potencial elástica armazenada num arco é 40 J quando esticado 0,4 m. Qual o k da corda (N/m)?", "500", ["\\(40 = \\frac{k \\cdot (0,4)^2}{2}\\)", "\\(80 = k \\cdot 0,16\\)", "\\(k = \\frac{80}{0,16} = 500 \\text{ N/m}\\)"]);
+addQ(3,'calc',"Pássaro de 1kg voa a 10 m/s a uma altura de 20 m. Calcule sua Energia Mecânica Total (Ec + Epg).", "250", ["\\(Ec = \\frac{1 \\cdot 10^2}{2} = 50 \\text{ J}\\)", "\\(E_{pg} = 1 \\cdot 10 \\cdot 20 = 200 \\text{ J}\\)", "Energia Mecânica = 50 + 200 = 250 J"]);
+addQ(3,'calc',"Para dobrar a energia cinética de um carro mantendo sua massa, sua velocidade deve ser multiplicada por quanto? (Aprox, use decimais).", "1.41", ["Como Ec tem \\(v^2\\), para dobrar a Ec, a velocidade deve ser multiplicada por \\(\\sqrt{2}\\).", "\\(\\sqrt{2} \\approx 1,41\\)"]);
+addQ(3,'calc',"Avião de 5.000 kg a 100 m/s tem quanta Energia Cinética em MEGA Joules (MJ)? (Lembre 1 MJ = 1.000.000 J)", "25", ["\\(Ec = \\frac{5000 \\cdot 10.000}{2} = 25.000.000 \\text{ J}\\)", "Em Mega Joules: 25 MJ"]);
+
+// TEMA 4: Teorema da Energia Cinética (46-60)
+addQ(4,'theo',"O Teorema da Energia Cinética afirma que o Trabalho da força resultante é igual à:", "C", ["O trabalho das forças faz a energia de movimento do corpo aumentar ou diminuir."], ["A) Energia Mecânica Total","B) Variação da Energia Potencial","C) Variação da Energia Cinética","D) Velocidade ao quadrado"]);
+addQ(4,'theo',"Se o trabalho da força resultante sobre um bloco for positivo, a energia cinética dele irá:", "A", ["Trabalho positivo significa fornecimento de energia ao sistema, logo ele fica mais rápido."], ["A) Aumentar","B) Diminuir","C) Ficar igual","D) Se anular"]);
+addQ(4,'theo',"Para parar um carro que se move a certa velocidade, o freio realiza um trabalho:", "B", ["Para parar, a Energia Cinética final será zero. A variação (Final - Inicial) será negativa. O trabalho absorve energia."], ["A) Motor","B) Resistente","C) Nulo","D) Perpétuo"]);
+addQ(4,'theo',"Se um corpo está em Movimento Retilíneo Uniforme (velocidade constante), qual é o Trabalho Total das forças nele?", "C", ["Velocidade constante = energia cinética não varia (\\(\\Delta Ec = 0\\)). Logo, pelo TEC, o Trabalho Total é zero."], ["A) Positivo","B) Negativo","C) Zero","D) Depende da massa"]);
+addQ(4,'theo',"O Teorema da Energia Cinética é válido para forças constantes e para forças variáveis?", "A", ["Sim, é um teorema universal da mecânica clássica. Funciona sempre."], ["A) Sim, sempre válido.","B) Apenas para constantes.","C) Apenas para variáveis.","D) Só sem atrito."]);
+addQ(4,'calc',"Corpo de 2 kg partiu do repouso. Uma força agiu até ele atingir 4 m/s. Qual o trabalho dessa força?", "16", ["\\(W = E_{c(final)} - E_{c(inicial)}\\)", "\\(W = \\frac{2 \\cdot 4^2}{2} - 0\\)", "\\(W = 16 \\text{ J}\\)"]);
+addQ(4,'calc',"Um carro de 1000kg viaja a 10 m/s. O motorista acelera até 20 m/s. Qual o trabalho realizado pelo motor?", "150000", ["\\(E_{c(i)} = \\frac{1000 \\cdot 10^2}{2} = 50.000\\)", "\\(E_{c(f)} = \\frac{1000 \\cdot 20^2}{2} = 200.000\\)", "\\(W = 200.000 - 50.000 = 150.000 \\text{ J}\\)"]);
+addQ(4,'calc',"Bala de revólver (0,02 kg) bate num toco de madeira a 400 m/s e sai do outro lado a 100 m/s. Qual o módulo do trabalho que a madeira fez na bala?", "1500", ["\\(E_{c(i)} = \\frac{0,02 \\cdot 400^2}{2} = 0,01 \\cdot 160000 = 1600\\)", "\\(E_{c(f)} = \\frac{0,02 \\cdot 100^2}{2} = 0,01 \\cdot 10000 = 100\\)", "\\(W = 100 - 1600 = -1500\\). O módulo é 1500 J."]);
+addQ(4,'calc',"Um ciclista (80kg com a bike) freia até parar (v=0). Ele estava a 5m/s. Qual o trabalho das forças de freio?", "-1000", ["\\(E_{c(f)} = 0\\)", "\\(E_{c(i)} = \\frac{80 \\cdot 5^2}{2} = 40 \\cdot 25 = 1000\\)", "\\(W = 0 - 1000 = -1000 \\text{ J}\\)"]);
+addQ(4,'calc',"Um corpo recebe um trabalho de 40 J e sua energia cinética final passa a ser 100 J. Qual era sua Ec inicial?", "60", ["\\(W = E_{c(f)} - E_{c(i)}\\)", "\\(40 = 100 - E_{c(i)}\\)", "\\(E_{c(i)} = 100 - 40 = 60 \\text{ J}\\)"]);
+addQ(4,'calc',"Corpo de 4kg tem v=2m/s. Força o puxa e faz trabalho de 32J. Qual a velocidade final dele?", "4", ["\\(E_{c(i)} = \\frac{4 \\cdot 2^2}{2} = 8\\)", "\\(W = E_{c(f)} - 8 \\rightarrow 32 = E_{c(f)} - 8 \\rightarrow E_{c(f)} = 40\\)", "\\(40 = \\frac{4 \\cdot v^2}{2} \\rightarrow 40 = 2v^2 \\rightarrow v^2 = 20 \\rightarrow v = \\sqrt{20} \\approx 4,47\\). Ops, mudei pro número redondo: vamos aceitar o erro. Para a conta dar 4: Ecf tem que ser 32. Entao W seria 24. Resolvendo raiz(20) = 4.47."]); // I'll override this next to be perfectly round
+exercisesData[55].q = "Corpo de 4kg tem v=2m/s. Força faz trabalho de 24J. Qual a nova velocidade dele?";
+exercisesData[55].ans = "4";
+exercisesData[55].steps = ["\\(E_{c(i)} = \\frac{4 \\cdot 2^2}{2} = 8\\)", "\\(W = E_{c(f)} - E_{c(i)} \\rightarrow 24 = E_{c(f)} - 8 \\rightarrow E_{c(f)} = 32\\)", "\\(32 = \\frac{4 \\cdot v^2}{2} \\rightarrow 32 = 2v^2 \\rightarrow v^2 = 16 \\rightarrow v = 4 \\text{ m/s}\\)"];
+
+addQ(4,'calc',"Uma caixa de 50 kg sofre trabalho resultante nulo. Se a velocidade inicial era 10m/s, qual a velocidade final?", "10", ["Se W = 0, a variação da energia cinética é zero.", "A velocidade se mantém constante em 10 m/s."]);
+addQ(4,'calc',"Bloco de 2kg arremessado. Atrito faz W = -36J e ele para. Qual era a velocidade inicial?", "6", ["\\(E_{c(f)} = 0\\)", "\\(-36 = 0 - E_{c(i)} \\rightarrow E_{c(i)} = 36\\)", "\\(36 = \\frac{2 \\cdot v^2}{2} \\rightarrow v^2 = 36 \\rightarrow v = 6 \\text{ m/s}\\)"]);
+addQ(4,'calc',"Numa descida, o trabalho do Peso é 500J e do Atrito é -200J sobre um carrinho que partiu do repouso. Qual a E. Cinética final?", "300", ["\\(W_{total} = W_{peso} + W_{atrito} = 500 - 200 = 300 \\text{ J}\\)", "\\(W_{total} = \\Delta Ec\\)", "Como partiu do repouso, \\(Ec_{final} = 300 \\text{ J}\\)"]);
+addQ(4,'calc',"Foguete de brinquedo sofre W=500J do propulsor. Se ele pesa 10 kg, qual sua v final se partiu parado?", "10", ["\\(500 = \\frac{10 \\cdot v^2}{2} - 0\\)", "\\(500 = 5v^2 \\rightarrow v^2 = 100 \\rightarrow v = 10 \\text{ m/s}\\)"]);
+
+// TEMA 5: Conservação (61-75)
+addQ(5,'theo',"Em um sistema conservativo, quando um objeto cai livremente no ar, sua energia cinética: ", "A", ["Ao cair, ele perde altura (perde potencial gravitacional) e ganha velocidade (ganha cinética)."], ["A) Aumenta e a potencial diminui","B) Diminui e a potencial aumenta","C) Permanece constante","D) Se transforma em elástica"]);
+addQ(5,'theo',"O Princípio da Conservação da Energia Mecânica é válido quando:", "B", ["Válido quando atuam apenas forças conservativas (Peso, Elástica), desprezando atrito e resistência do ar."], ["A) Há muito atrito","B) Não há forças dissipativas (como o atrito)","C) O corpo não sai do lugar","D) O trabalho total é nulo"]);
+addQ(5,'theo',"Um skatista numa rampa em formato de U não consegue atingir a mesma altura do outro lado na vida real porque:", "C", ["Na realidade existem forças dissipativas que retiram energia mecânica do sistema e a transformam em calor/som."], ["A) A gravidade puxa mais forte na volta","B) Ele ganha massa ao andar","C) Parte da energia mecânica vira calor devido ao atrito","D) O Teorema da Energia Cinética falha"]);
+addQ(5,'theo',"Para qualquer sistema conservativo, a soma (Energia Cinética + Energia Potencial) em qualquer momento é:", "D", ["A soma dessas duas é a definição de Energia Mecânica, que se mantém constante em qualquer ponto."], ["A) Zero","B) Sempre máxima na altura máxima","C) Negativa","D) Constante"]);
+addQ(5,'theo',"Uma mola comprimida empurra um bloco no gelo (sem atrito). Que transformação de energia ocorreu?", "A", ["A mola esticada tinha energia potencial elástica, que foi transferida para o bloco na forma de velocidade (cinética)."], ["A) Potencial Elástica para Cinética","B) Cinética para Potencial Gravitacional","C) Térmica para Mecânica","D) Gravitacional para Elástica"]);
+addQ(5,'calc',"Bola de 1kg é solta de 5 m de altura (sem atrito). Qual a Ec pouco antes de bater no solo? (g=10)", "50", ["Pela conservação, toda Epg vira Ec no solo.", "\\(E_{pg(top)} = 1 \\cdot 10 \\cdot 5 = 50 \\text{ J}\\)", "Logo, \\(Ec_{solo} = 50 \\text{ J}\\)"]);
+addQ(5,'calc',"Na mesma situação da bola, qual a velocidade dela ao chegar no solo? (m/s)", "10", ["\\(Ec = 50\\)", "\\(50 = \\frac{1 \\cdot v^2}{2} \\rightarrow 100 = v^2 \\rightarrow v = 10 \\text{ m/s}\\)"]);
+addQ(5,'calc',"Carrinho de montanha russa passa pela base a 20 m/s. Até que altura máxima ele consegue subir se não tiver motor? (g=10)", "20", ["No ponto mais baixo: só Ec. No mais alto: só Epg.", "\\(Ec = E_{pg} \\rightarrow \\frac{m \\cdot v^2}{2} = m \\cdot g \\cdot h\\) (Corta a massa)", "\\(h = \\frac{v^2}{2g} = \\frac{400}{20} = 20 \\text{ m}\\)"]);
+addQ(5,'calc',"Pêndulo é puxado até 0,8m de altura e solto. Qual a velocidade máxima que passa no ponto mais baixo? (g=10)", "4", ["\\(E_{pg} = Ec \\rightarrow mgh = \\frac{mv^2}{2}\\)", "\\(10 \\cdot 0,8 = \\frac{v^2}{2} \\rightarrow 8 = \\frac{v^2}{2}\\)", "\\(v^2 = 16 \\rightarrow v = 4 \\text{ m/s}\\)"]);
+addQ(5,'calc',"Mola (k=100) é comprimida em 0,2m. Ela atira um cubo de 1 kg no gelo. Qual a velocidade do cubo?", "2", ["A Energia Potencial Elástica vira Cinética.", "\\(E_{pe} = \\frac{100 \\cdot (0,2)^2}{2} = \\frac{100 \\cdot 0,04}{2} = 2 \\text{ J}\\)", "\\(2 = \\frac{1 \\cdot v^2}{2} \\rightarrow v^2 = 4 \\rightarrow v = 2 \\text{ m/s}\\)"]);
+addQ(5,'calc',"Corpo de massa 'm' é atirado para CIMA com 30m/s. Qual a altura máxima atingida? (g=10)", "45", ["\\(Ec = E_{pg} \\rightarrow \\frac{v^2}{2} = g \\cdot h\\)", "\\(\\frac{30^2}{2} = 10 \\cdot h \\rightarrow 450 = 10h\\)", "\\(h = 45 \\text{ m}\\)"]);
+addQ(5,'calc',"Tarzan (80kg) se solta de um cipó a 5m de altura. Ao passar na altura de 3m (mais baixo), qual a Energia Cinética dele?", "1600", ["No alto (h=5): \\(E_M = 80 \\cdot 10 \\cdot 5 = 4000\\)", "No baixo (h=3): \\(E_M = Ec + Epg = Ec + (80 \\cdot 10 \\cdot 3) = Ec + 2400\\)", "Conservação: \\(4000 = Ec + 2400 \\rightarrow Ec = 1600 \\text{ J}\\)"]);
+addQ(5,'calc',"Num tobogã sem atrito (h=10m), uma criança (30kg) desce. Sua E. Mecânica total no meio da descida (h=5m) é:", "3000", ["A energia mecânica total se conserva. Basta calcular lá no topo onde v=0.", "\\(E_M = mgh = 30 \\cdot 10 \\cdot 10 = 3000 \\text{ J}\\) em qualquer ponto!"]);
+addQ(5,'calc',"Se o tobogã ACIMA tivesse atrito e a criança chegasse lá embaixo com Ec=2000J. Quanto de energia foi dissipada pelo atrito?", "1000", ["\\(E_{inicial} = 3000 \\text{ J}\\)", "\\(E_{final} = 2000 \\text{ J}\\)", "A diferença (3000 - 2000 = 1000 J) virou calor."]);
+addQ(5,'calc',"Bloco de 2kg solto de 1m acima de uma mola (em pé). Ele cai, amassa a mola e para por um instante. Se k=400 N/m, quanto a mola afundou (x)? (Aproxime, Epg vira Epe. Considere queda de 1m exato)", "0.31", ["\\(Epg = mgh = 2 \\cdot 10 \\cdot 1 = 20 \\text{ J}\\) (Simplificando queda antes da mola)", "\\(Epe = 20 \\rightarrow \\frac{400 \\cdot x^2}{2} = 20 \\rightarrow 200x^2 = 20\\)", "\\(x^2 = 0,1 \\rightarrow x = \\sqrt{0,1} \\approx 0,316 \\text{ m}\\)"]); 
+
+// TEMA 6: Potência (76-90)
+addQ(6,'theo',"A Potência mede a relação entre o Trabalho realizado e o:", "D", ["Potência é a rapidez com que a energia é transformada ou trabalho é feito ao longo do tempo."], ["A) Deslocamento horizontal","B) O peso do objeto","C) A área da superfície","D) Intervalo de Tempo"]);
+addQ(6,'theo',"Dois guindastes elevam um bloco de 1 tonelada à mesma altura. O Guindaste A faz isso em 10s e o B em 20s. Qual realizou mais Trabalho?", "C", ["O Trabalho depende da força (peso) e distância. Como ambos ergueram o mesmo peso na mesma altura, o Trabalho é o MESMO."], ["A) O guindaste A","B) O guindaste B","C) Os dois realizaram o mesmo trabalho","D) Depende do motor"]);
+addQ(6,'theo',"Na situação anterior, qual guindaste desenvolveu maior Potência Média?", "A", ["A potência é inversamente proporcional ao tempo. O guindaste A fez no menor tempo, logo, foi mais potente."], ["A) O guindaste A","B) O guindaste B","C) Têm a mesma potência","D) Não dá pra saber"]);
+addQ(6,'theo',"O motor de um carro está rendendo 30%. Isso significa que:", "B", ["Rendimento de 30% significa que 30% vira força útil (mover o carro) e os outros 70% se perdem, geralmente em calor e som."], ["A) Ele produz 30% mais energia do que consome.","B) Só 30% da energia consumida vira trabalho útil.","C) Ele está quebrado e vai parar.","D) 70% da energia vira trabalho útil."]);
+addQ(6,'theo',"Outra fórmula útil para potência (útil em M.R.U) é o produto da Força pela:", "C", ["Como Potência = (F * d) / t, e d / t = v (velocidade). Logo, Pot = F * v."], ["A) Massa","B) Aceleração da Gravidade","C) Velocidade","D) Temperatura"]);
+addQ(6,'calc',"Motor realiza trabalho de 1200 J em 6 segundos. Qual a sua potência média em Watts?", "200", ["\\(P = \\frac{W}{\\Delta t}\\)", "\\(P = \\frac{1200}{6} = 200 \\text{ W}\\)"]);
+addQ(6,'calc',"Lâmpada consome 60 W de potência. Quanta energia (Trabalho) ela gasta em 10 segundos?", "600", ["\\(P = \\frac{W}{t} \\rightarrow W = P \\cdot t\\)", "\\(W = 60 \\cdot 10 = 600 \\text{ J}\\)"]);
+addQ(6,'calc',"Elevador levanta peso total de 5000 N a 10 metros de altura em 20 s. Qual a Potência?", "2500", ["\\(W = F \\cdot d = 5000 \\cdot 10 = 50.000 \\text{ J}\\)", "\\(P = \\frac{50.000}{20} = 2500 \\text{ W}\\)"]);
+addQ(6,'calc',"Se 1 CV (cavalo-vapor) = 735 W. Quantos CV tem um motor que fornece 1470 W?", "2", ["Basta dividir a potência por 735.", "\\(CV = \\frac{1470}{735} = 2 \\text{ cv}\\)"]);
+addQ(6,'calc',"Carro em estrada plana faz força constante de 2000 N para manter velocidade de 30 m/s. Qual a Potência desenvolvida (Watts)?", "60000", ["Usando a fórmula alternativa: \\(P = F \\cdot v\\)", "\\(P = 2000 \\cdot 30 = 60.000 \\text{ W}\\)"]);
+addQ(6,'calc',"Máquina consome 1000W da tomada, mas entrega 800W de potência útil mecânica. Qual o rendimento em %? (Digite o número inteiro sem o %)", "80", ["\\(\\eta = \\frac{P_{util}}{P_{total}}\\)", "\\(\\eta = \\frac{800}{1000} = 0,80\\)", "Transformando em porcentagem: 80%"]);
+addQ(6,'calc',"Motor de 200W reais (útil) levanta tijolos de 2kg. Quantos metros ele consegue içar UM tijolo em 5 segundos?", "50", ["\\(W = P \\cdot t = 200 \\cdot 5 = 1000 \\text{ J}\\)", "Para subir peso: \\(W = m \\cdot g \\cdot h\\)", "\\(1000 = 2 \\cdot 10 \\cdot h \\rightarrow 1000 = 20h \\rightarrow h = 50 \\text{ m}\\)"]);
+addQ(6,'calc',"Motor recebe 5000 W. Seu rendimento é 40%. Quantos Watts de potência ÚTIL ele tem?", "2000", ["\\(P_{util} = P_{total} \\cdot \\text{rendimento}\\)", "\\(P_{util} = 5000 \\cdot 0,40 = 2000 \\text{ W}\\)"]);
+addQ(6,'calc',"Qual a potência perdida (dissipada) pela máquina da questão anterior (em Watts)?", "3000", ["\\(P_{dissipada} = P_{total} - P_{util}\\)", "\\(P_{dissipada} = 5000 - 2000 = 3000 \\text{ W}\\)"]);
+addQ(6,'calc',"Bomba d'água eleva 500 kg de água a 4 metros por segundo. Qual a Potência (Watts) gasta no líquido? (g=10)", "20000", ["A força feita por segundo é pra erguer 500 kg: Peso = 5000 N.", "Velocidade de subida = 4 m/s.", "\\(P = F \\cdot v = 5000 \\cdot 4 = 20.000 \\text{ W}\\)"]);
+
+let currentTheme = 'all';
+let solved = new Set(JSON.parse(localStorage.getItem('fisicaEnergiaSolved')||'[]'));
+
+function renderExercises() {
+    const listDiv = $('exercise-list');
+    let html = '';
+    
+    exercisesData.forEach(ex => {
+        if (currentTheme !== 'all' && ex.theme != currentTheme) return;
+        
+        const isSolved = solved.has(ex.id);
+        const borderColor = isSolved ? 'border-emerald-400' : 'border-slate-200';
+        const badgeColor = isSolved ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-700';
+        const themeNames = ["", "Formas de E.", "Trabalho", "E. Mecânica", "T.E.C.", "Conservação", "Potência"];
+        
+        let questionBody = `<p class="mt-3 text-slate-700 mb-4">${ex.q}</p>`;
+        
+        if (ex.type === 'theo' && ex.opts) {
+            questionBody += `<div class="space-y-2 mb-4 text-sm text-slate-600">`;
+            ex.opts.forEach(opt => {
+                questionBody += `<div class="p-2 bg-slate-50 rounded border border-dashed">${opt}</div>`;
+            });
+            questionBody += `</div>`;
+        }
+
+        html += `
+        <article class="bg-white rounded-2xl border ${borderColor} p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div class="flex justify-between gap-3 items-center">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full ${badgeColor}">Questão ${ex.id}</span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">TEMA ${ex.theme}: ${themeNames[ex.theme]}</span>
+            </div>
+            
+            ${questionBody}
+            
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" type="text" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="${ex.type==='theo' ? 'Letra (A, B, C, D)' : 'Valor numérico'}">
+                <button onclick="checkAnswer(${ex.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+            </div>
+            
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+            
+            <button onclick="document.getElementById('sol-${ex.id}').classList.toggle('hidden')" class="mt-3 text-sm font-bold text-emerald-700 hover:underline">
+                👁 Mostrar explicação / cálculo
+            </button>
+            
+            <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+                <div class="text-xs uppercase tracking-widest font-black text-emerald-800 mb-3">Resolução Passo a Passo</div>
+                ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+                <div class="success rounded-xl p-4 text-center font-bold mt-2">Resposta Correta: ${ex.ans}</div>
+            </div>
+        </article>
+        `;
+    });
+    
+    listDiv.innerHTML = html;
+    updateProgress();
+    renderAll();
+}
+
+function checkAnswer(id) {
+    const ex = exercisesData.find(x => x.id === id);
+    const inputEl = $(`ans-${id}`);
+    const fbEl = $(`fb-${id}`);
+    
+    let rawInput = inputEl.value.trim().toUpperCase();
+    if(ex.type === 'calc') {
+        rawInput = rawInput.replace(',', '.'); // Allow comma decimal
+    }
+
+    let isCorrect = false;
+    
+    if (ex.type === 'theo') {
+        isCorrect = (rawInput === ex.ans);
+    } else {
+        const numIn = parseFloat(rawInput);
+        const numAns = parseFloat(ex.ans);
+        // Margem de erro pequena para arredondamentos
+        if(!isNaN(numIn) && Math.abs(numIn - numAns) <= 0.05) {
+            isCorrect = true;
+        }
+    }
+
+    if (isCorrect) {
+        solved.add(id);
+        localStorage.setItem('fisicaEnergiaSolved', JSON.stringify([...solved]));
+        fbEl.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fbEl.textContent = '✓ Excelente! Você acertou.';
+        setTimeout(renderExercises, 400); 
+    } else {
+        fbEl.className = 'text-sm font-bold mt-2 text-red-500';
+        fbEl.textContent = '✗ Quase lá. Tente verificar a fórmula ou os dados!';
+    }
+}
+
+function updateProgress() {
+    const max = exercisesData.length;
+    const current = solved.size;
+    $('progress-text').textContent = `${current} / ${max}`;
+    $('progress-bar').style.width = `${(current/max)*100}%`;
+}
+
+// Filtros Theme
+document.querySelectorAll('.level-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active', 'bg-emerald-500', 'text-white'));
+        document.querySelectorAll('.level-btn:not(.active)').forEach(b => b.classList.add('bg-slate-100'));
+        
+        btn.classList.add('active');
+        btn.classList.remove('bg-slate-100');
+        
+        currentTheme = btn.dataset.theme;
+        renderExercises();
+    };
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderExercises();
+    renderAll();
+});
+</script>
+</body>
+</html>

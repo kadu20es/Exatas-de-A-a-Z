@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introdução à Física — Ensino Fundamental</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#1e293b;--paper:#fffdf8;--line:#e7dfd0;--accent:#0ea5e9}
+  body{background:#f0f9ff;color:var(--ink)}
+  .tab-btn.active{color:#0ea5e9;border-bottom-color:#0ea5e9;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #0f172a0d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#e0f2fe;color:#0369a1;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#0ea5e9;background:#e0f2fe;color:#075985}
+  .level-btn.active{background:#0ea5e9;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  table.si-table th { background: #e0f2fe; color: #075985; font-weight: bold; padding: 10px; border: 1px solid #bae6fd;}
+  table.si-table td { padding: 10px; border: 1px solid #bae6fd; background: #fff;}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-sky-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-sky-900">🌌 Física Básica</div><div class="text-[11px] text-slate-500 hidden sm:block">Descobrindo como o universo funciona</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Conversor</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-sky-950 via-sky-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-sky-200">Ciências da Natureza</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Fundamentos da Física</h1>
+  <p class="mt-4 max-w-3xl text-sky-100 leading-7">Entenda como a ciência observa o mundo, como medimos as coisas ao nosso redor e como traduzimos a natureza em informações gráficas e numéricas.</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Dica de estudo:</b> A Física não é apenas matemática! Antes de decorar fórmulas ou prefixos, foque em entender <i>o que</i> está sendo medido e <i>por que</i> usamos um método organizado para isso.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O Pensamento Científico</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">O pensamento científico nasce da <b>curiosidade</b> e da <b>dúvida</b>. Diferente do senso comum (crenças cotidianas não testadas), o conhecimento científico exige observação rigorosa e evidências. Ele busca explicar <i>como</i> e <i>por que</i> os fenômenos acontecem usando a lógica e a razão, sendo sempre aberto a correções caso novas descobertas surjam.</p>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">O Método Científico</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">É o "passo a passo" que os cientistas usam para investigar a natureza.</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="step" data-step="1"><b>Observação:</b> Notar um fenômeno (ex: a maçã cai da árvore).</div>
+    <div class="step" data-step="2"><b>Pergunta:</b> Levantar o problema (ex: por que ela cai para baixo?).</div>
+    <div class="step" data-step="3"><b>Hipótese:</b> Propor uma possível resposta ou explicação prévia.</div>
+    <div class="step" data-step="4"><b>Experimento:</b> Testar a hipótese realizando medições precisas.</div>
+    <div class="step" data-step="5"><b>Conclusão:</b> Analisar os dados para confirmar ou descartar a hipótese.</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">3. A Física</h2>
+   <p class="mt-3 text-slate-600">A palavra <i>Física</i> vem do grego (Physis) e significa <b>Natureza</b>. É a ciência que estuda a matéria, a energia, o espaço e o tempo, além das interações entre eles. Em vez de estudar do que as coisas são feitas quimicamente ou biologicamente, a Física foca nas <b>leis fundamentais</b> do universo: movimento, forças, calor, luz, eletricidade e magnetismo.</p>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. O Sistema Internacional (SI)</h2>
+   <p class="mt-3 text-slate-600">Para que cientistas do mundo inteiro se entendam, criou-se o <b>Sistema Internacional de Unidades (SI)</b>. Ele define unidades padrão para cada grandeza.</p>
+   <table class="w-full mt-4 text-sm si-table">
+    <tr><th>Grandeza</th><th>Unidade Base</th><th>Símbolo</th></tr>
+    <tr><td>Comprimento</td><td>metro</td><td>m</td></tr>
+    <tr><td>Massa</td><td>quilograma</td><td>kg</td></tr>
+    <tr><td>Tempo</td><td>segundo</td><td>s</td></tr>
+    <tr><td>Temperatura</td><td>kelvin</td><td>K</td></tr>
+    <tr><td>Corrente elétrica</td><td>ampere</td><td>A</td></tr>
+   </table>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <h2 class="text-2xl font-black">5. Prefixos do SI e Múltiplos</h2>
+  <p class="text-sm text-slate-600 mt-2">Na Física, lidamos com coisas muito grandes (planetas) e muito pequenas (átomos). Para não escrevermos dezenas de zeros, usamos prefixos que representam <b>potências de 10</b>.</p>
+  
+  <div class="grid lg:grid-cols-2 gap-6 mt-5 text-sm">
+   <div>
+    <h3 class="font-bold text-sky-800">Múltiplos (Para coisas grandes)</h3>
+    <ul class="mt-2 space-y-2">
+     <li class="bg-slate-50 p-3 rounded-lg"><b>Quilo (k):</b> \(10^3\) = 1.000 (Ex: 1 km = 1.000 m)</li>
+     <li class="bg-slate-50 p-3 rounded-lg"><b>Mega (M):</b> \(10^6\) = 1.000.000 (Ex: 1 MW = 1 milhão de Watts)</li>
+     <li class="bg-slate-50 p-3 rounded-lg"><b>Giga (G):</b> \(10^9\) = 1.000.000.000 (Ex: 1 GB)</li>
+    </ul>
+   </div>
+   <div>
+    <h3 class="font-bold text-sky-800">Submúltiplos (Para coisas pequenas)</h3>
+    <ul class="mt-2 space-y-2">
+     <li class="bg-slate-50 p-3 rounded-lg"><b>Mili (m):</b> \(10^{-3}\) = 0,001 (Ex: 1 mm = 0,001 m)</li>
+     <li class="bg-slate-50 p-3 rounded-lg"><b>Micro (µ):</b> \(10^{-6}\) = 0,000001 (Ex: Células)</li>
+     <li class="bg-slate-50 p-3 rounded-lg"><b>Nano (n):</b> \(10^{-9}\) = 0,000000001 (Ex: Nanotecnologia)</li>
+    </ul>
+   </div>
+  </div>
+ </div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">6. Representações Gráficas</h2>
+  <p class="mt-3 text-slate-600">A Física utiliza gráficos (geralmente no plano cartesiano, com eixo X e Y) para mostrar a relação entre duas grandezas (ex: Posição ao longo do Tempo). Eles permitem visualizar tendências sem precisar fazer dezenas de contas isoladas.</p>
+  <div class="grid sm:grid-cols-2 gap-4 mt-4 text-sm">
+   <div class="bg-sky-50 rounded-xl p-4">
+    <b>Eixo X (Horizontal)</b><br>Geralmente representa a variável <b>independente</b>, como o <b>Tempo (t)</b>. O tempo passa independente do que o objeto faz.
+   </div>
+   <div class="bg-sky-50 rounded-xl p-4">
+    <b>Eixo Y (Vertical)</b><br>Geralmente representa a variável <b>dependente</b>, como a <b>Posição (S)</b> ou a <b>Velocidade (v)</b>. Depende do momento em que foi medida.
+   </div>
+  </div>
+  <div class="paper rounded-xl p-5 mt-4 text-sm">
+    <b>Como ler um gráfico simples:</b> Se a linha em um gráfico de Posição (Y) por Tempo (X) é uma reta subindo, significa que conforme os segundos passam, o objeto avança distâncias iguais. Ou seja, ele tem velocidade constante!
+  </div>
+ </article>
+
+</section>
+
+<!-- LAB -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-sky-600">Laboratório visual</span><h1 class="text-3xl font-black mt-2">A Escala do Universo</h1><p class="text-slate-600 mt-2">Deslize o controle para alterar a ordem de grandeza (potência de 10) e veja o prefixo do Sistema Internacional correspondente.</p></div>
+ 
+ <div class="bg-white rounded-2xl border p-6 shadow-sm">
+  <div class="text-center mb-8">
+   <div class="text-5xl font-black text-sky-600" id="lab-potencia">10⁰</div>
+   <div class="text-2xl font-bold mt-2 text-slate-700" id="lab-prefixo">Unidade Base (Ex: metro)</div>
+   <div class="text-lg mt-2 text-slate-500 font-mono" id="lab-valor">1</div>
+  </div>
+  
+  <input id="lab-range" type="range" min="-9" max="9" step="3" value="0" class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600">
+  <div class="flex justify-between text-xs font-bold text-slate-400 mt-2 px-1">
+   <span>Nano (-9)</span><span>Micro (-6)</span><span>Mili (-3)</span><span>Base (0)</span><span>Quilo (3)</span><span>Mega (6)</span><span>Giga (9)</span>
+  </div>
+
+  <div class="mt-10 p-6 rounded-2xl bg-slate-50 border text-center">
+   <span class="text-sm font-bold text-sky-700 uppercase tracking-wider">O que medimos nessa escala?</span>
+   <p id="lab-exemplo" class="text-lg mt-2 font-medium">Coisas do nosso tamanho (metros, gramas).</p>
+  </div>
+ </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-sky-600">Ferramentas</span><h1 class="text-3xl font-black mt-2">Conversor de Unidades (SI)</h1><p class="text-slate-600 mt-2">Converta rapidamente unidades básicas de Física utilizando fatores de multiplicação.</p></div>
+ 
+ <div class="bg-white rounded-2xl border p-6 shadow-sm">
+  <div class="grid md:grid-cols-[1fr_auto_1fr] gap-4 items-center">
+   <div>
+    <label class="block text-sm font-bold mb-2">Valor Inicial</label>
+    <input id="conv-val" type="number" value="1" class="w-full border rounded-xl p-3 text-lg">
+    <select id="conv-from" class="w-full border rounded-xl p-3 mt-2 bg-slate-50">
+     <option value="1">Metros (m)</option>
+     <option value="1000">Quilômetros (km)</option>
+     <option value="0.01">Centímetros (cm)</option>
+     <option value="0.001">Milímetros (mm)</option>
+    </select>
+   </div>
+   <div class="text-3xl text-slate-400 flex justify-center mt-6 md:mt-0">➔</div>
+   <div>
+    <label class="block text-sm font-bold mb-2">Converter Para</label>
+    <div class="w-full border rounded-xl p-3 text-lg bg-sky-50 font-mono font-bold text-sky-700 min-h-[52px]" id="conv-res">1</div>
+    <select id="conv-to" class="w-full border rounded-xl p-3 mt-2 bg-slate-50">
+     <option value="1">Metros (m)</option>
+     <option value="1000">Quilômetros (km)</option>
+     <option value="0.01">Centímetros (cm)</option>
+     <option value="0.001" selected>Milímetros (mm)</option>
+    </select>
+   </div>
+  </div>
+  <div class="mt-6 text-sm text-slate-500 text-center">
+   Multiplicador usado: <span id="conv-mult" class="font-bold text-slate-700">1000</span>
+  </div>
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-sky-600">Treino</span><h1 class="text-3xl font-black mt-2">Exercícios de Revisão</h1><p class="text-slate-600 mt-2">Teste seus conhecimentos. Tente responder (apenas o número ou palavra chave) e clique em conferir.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 8</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-sky-600 rounded-full" style="width:0%"></div></div></div></div></div>
+ 
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Introdução à Física para Ensino Fundamental • Baseado na estrutura interativa de aprendizado</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function katexInit(){ if(window.renderMathInElement) renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]}); }
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+ const t=btn.dataset.tab;
+ sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));
+ document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));
+ if(t==='exercicios') renderExercises();
+}));
+
+// Laboratório Lógica
+const prefixData = {
+ '-9': { p: 'Nano (n)', v: '0,000000001', ex: 'Tamanho de moléculas e vírus.' },
+ '-6': { p: 'Micro (µ)', v: '0,000001', ex: 'Células biológicas, espessura de um fio de teia de aranha.' },
+ '-3': { p: 'Mili (m)', v: '0,001', ex: 'Uma gota de água, espessura de um cartão de crédito.' },
+ '0':  { p: 'Unidade Base', v: '1', ex: 'Tamanho humano, mesas, cadeiras, carros.' },
+ '3':  { p: 'Quilo (k)', v: '1.000', ex: 'Distâncias entre bairros (km), peso de compras (kg).' },
+ '6':  { p: 'Mega (M)', v: '1.000.000', ex: 'Distância entre cidades distantes, energia de usinas.' },
+ '9':  { p: 'Giga (G)', v: '1.000.000.000', ex: 'Armazenamento de computadores, tamanho do Sol (em metros).' }
+};
+
+$('lab-range').addEventListener('input', (e) => {
+ const val = e.target.value;
+ const data = prefixData[val];
+ $('lab-potencia').innerHTML = `10<sup class="text-2xl">${val}</sup>`;
+ $('lab-prefixo').textContent = data.p;
+ $('lab-valor').textContent = "Multiplicador: " + data.v;
+ $('lab-exemplo').textContent = data.ex;
+});
+
+// Conversor Lógica
+function updateConv() {
+ const v = +$('conv-val').value || 0;
+ const from = +$('conv-from').value;
+ const to = +$('conv-to').value;
+ const result = (v * from) / to;
+ $('conv-res').textContent = result;
+ $('conv-mult').textContent = (from / to);
+}
+$('conv-val').addEventListener('input', updateConv);
+$('conv-from').addEventListener('change', updateConv);
+$('conv-to').addEventListener('change', updateConv);
+updateConv();
+
+// Exercícios
+const exData = [
+ { id: 1, q: "Qual etapa do método científico vem logo após formular uma 'Pergunta'?", ans: "Hipótese", hints: ["Começa com a letra H.", "É uma tentativa de explicação antes do experimento."] },
+ { id: 2, q: "Qual é a unidade base de Massa no Sistema Internacional (SI)?", ans: "quilograma", alt: "kg", hints: ["Não é a grama!", "Geralmente usamos para nos pesar na farmácia."] },
+ { id: 3, q: "O prefixo 'Quilo' equivale a multiplicar a unidade base por qual número?", ans: "1000", alt: "1.000", hints: ["O mesmo que \(10^3\)."] },
+ { id: 4, q: "O tempo é uma variável que costuma ficar em qual eixo de um gráfico (X ou Y)?", ans: "X", alt: "x", hints: ["É a variável independente, no eixo horizontal."] },
+ { id: 5, q: "Quantos metros existem em 2 quilômetros (2 km)?", ans: "2000", alt: "2.000", hints: ["Lembre-se que quilo = 1000.", "Multiplique 2 por 1000."] },
+ { id: 6, q: "Qual é o símbolo para o prefixo 'Mili'?", ans: "m", hints: ["Letra minúscula usada em milímetros (mm)."] },
+ { id: 7, q: "A Física tenta explicar a natureza usando crenças ou evidências?", ans: "evidências", alt: "evidencias", hints: ["A ciência requer provas observáveis e testáveis."] },
+ { id: 8, q: "Um milhão (1.000.000) corresponde a qual prefixo do SI?", ans: "Mega", alt: "mega", hints: ["Usado muito para falar de internet (Megabytes)."] }
+];
+
+let solved = new Set(JSON.parse(localStorage.getItem('fisicaSolved') || '[]'));
+
+function renderExercises() {
+ $('exercise-list').innerHTML = exData.map(ex => {
+  const isSolved = solved.has(ex.id);
+  return `
+   <article class="bg-white rounded-2xl border ${isSolved ? 'border-emerald-400' : 'border-slate-200'} p-5 shadow-sm">
+    <div class="flex justify-between gap-3">
+     <span class="text-xs font-black px-2.5 py-1 rounded-full bg-sky-50 text-sky-700">Questão ${ex.id}</span>
+    </div>
+    <div class="mt-4 text-slate-700 font-medium">${ex.q}</div>
+    <div class="flex gap-2 mt-4">
+     <input id="ans-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm" placeholder="Sua resposta" ${isSolved ? 'disabled value="'+ex.ans+'"' : ''}>
+     <button onclick="checkEx(${ex.id})" class="bg-sky-600 hover:bg-sky-700 text-white rounded-xl px-4 py-2 text-sm font-bold" ${isSolved ? 'disabled' : ''}>Conferir</button>
+    </div>
+    <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5 ${isSolved ? 'text-emerald-600' : ''}">${isSolved ? '✓ Correto!' : ''}</div>
+    <button onclick="toggleHint(${ex.id})" class="mt-2 text-sm font-bold text-sky-700 hover:underline">💡 Ver dicas</button>
+    <div id="hint-${ex.id}" class="hidden mt-3 p-3 bg-yellow-50 border-l-4 border-yellow-400 text-sm">
+     <ul class="list-disc pl-4">${ex.hints.map(h => `<li>${h}</li>`).join('')}</ul>
+    </div>
+   </article>
+  `;
+ }).join('');
+ $('progress-text').textContent = `${solved.size} / 8`;
+ $('progress-bar').style.width = (solved.size / 8 * 100) + '%';
+ katexInit();
+}
+
+function checkEx(id) {
+ const ex = exData.find(x => x.id === id);
+ const input = $('ans-'+id).value.trim().toLowerCase();
+ const correct1 = ex.ans.toLowerCase();
+ const correct2 = ex.alt ? ex.alt.toLowerCase() : null;
+ 
+ if (input === correct1 || input === correct2) {
+  solved.add(id);
+  localStorage.setItem('fisicaSolved', JSON.stringify([...solved]));
+  $('fb-'+id).className = 'text-sm font-bold mt-2 text-emerald-600';
+  $('fb-'+id).textContent = '✓ Correto! Muito bem.';
+ } else {
+  $('fb-'+id).className = 'text-sm font-bold mt-2 text-red-600';
+  $('fb-'+id).textContent = '✗ Tente novamente. Que tal usar a dica?';
+ }
+ renderExercises();
+}
+
+function toggleHint(id) {
+ $('hint-'+id).classList.toggle('hidden');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+ katexInit();
+ renderExercises();
+});
+</script>
+</body>
+</html>

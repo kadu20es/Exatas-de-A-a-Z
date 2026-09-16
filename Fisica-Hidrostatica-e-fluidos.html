@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física — Hidrostática</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {--ink: #0c4a6e; --paper: #f0f9ff; --line: #bae6fd; --accent: #0284c7}
+  body {background: #f0f9ff; color: var(--ink)}
+  .tab-btn.active {color: #0369a1; border-bottom-color: #0369a1; font-weight: 800}
+  .paper {background: var(--paper); background-image: linear-gradient(#bae6fd 1px, transparent 1px); background-size: 100% 2rem; border: 1px solid #7dd3fc; box-shadow: 0 8px 24px #082f490d}
+  .step {position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #bae6fd; border-radius: 1rem; background: white}
+  .step::before {content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #e0f2fe; color: #0284c7; font-weight: 800; display: grid; place-items: center; font-size: .8rem}
+  .level-btn.active {background: #0284c7; color: white}
+  .exercise-solution {animation: fade .2s ease}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  .tip {border-left: 4px solid #f59e0b; background: #fffbeb}
+  .success {border-left: 4px solid #10b981; background: #ecfdf5}
+  .warning {border-left: 4px solid #ef4444; background: #fef2f2}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-sky-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-sky-900">🌊 Física sem Mistério</div><div class="text-[11px] text-slate-500 hidden sm:block">Fluidos, Pressão, Arquimedes, Pascal e Stevin</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-sky-950 via-blue-900 to-cyan-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-sky-300">Hidrostática</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">O Poder dos Fluidos</h1>
+  <p class="mt-4 max-w-3xl text-sky-100 leading-7">Descubra por que navios de aço flutuam, como um simples macaco hidráulico ergue um carro e os mistérios da pressão atmosférica que nos esmaga o tempo todo (sem percebermos).</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Dica de Estudo:</b> Na hidrostática, o formato do recipiente quase nunca importa. O que importa é a <b>altura (profundidade)</b> do líquido! Não se deixe enganar por recipientes largos ou fininhos.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tema 1 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">Conceito de Fluido</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Em física, chamamos de fluido tudo aquilo que pode escoar (fluir) e que <b>não tem forma própria</b>, assumindo o formato do recipiente que o contém.</p>
+   <ul class="list-disc pl-5 mt-3 text-sm text-slate-600 space-y-2">
+    <li><b>Líquidos:</b> São incompressíveis (volume constante). Eles se adaptam à forma, mas não mudam de volume se você apertar.</li>
+    <li><b>Gases:</b> São compressíveis e expansíveis. Assumem a forma <i>e</i> o volume total do recipiente onde estão.</li>
+   </ul>
+  </article>
+
+  <!-- Tema 2 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Densidade e Massa Específica</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Densidade mostra o quanto de matéria está compactada num espaço. Chumbo é mais denso que algodão.</p>
+   <div class="paper text-center py-4 mt-3 rounded-xl shadow-inner font-bold text-lg">\[d = \frac{m}{V}\]</div>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-blue-50 rounded-xl p-3 border border-blue-100">
+     <b class="text-blue-800 text-xs">Densidade (d) vs Massa Específica ($\mu$)</b>
+     <p class="mt-1 text-slate-600">Usam a mesma fórmula. Mas <b>Massa Específica</b> refere-se à substância pura e maciça (ex: Ouro). <b>Densidade</b> refere-se ao objeto inteiro (ex: Navio, que tem muito ar dentro e fica menos denso que a água).</p>
+    </div>
+   </div>
+  </article>
+ </div>
+
+ <!-- Tema 3 -->
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">3</span><h2 class="text-2xl font-black">O Conceito de Pressão</h2></div>
+  <div class="grid lg:grid-cols-2 gap-6 mt-4">
+   <div>
+    <p class="text-sm text-slate-600 mb-3">Pressão <b>não</b> é força! É como a Força se espalha sobre uma Área. Um prego entra na parede porque a área da ponta é minúscula, concentrando toda a força ali.</p>
+    <div class="paper rounded-xl p-5 text-center text-lg shadow-inner">\[p = \frac{F}{A}\]</div>
+    <ul class="text-sm text-slate-600 mt-4 space-y-2 list-disc pl-5">
+     <li><b>F:</b> Força aplicada (Newtons).</li>
+     <li><b>A:</b> Área de contato (Metros quadrados $m^2$).</li>
+     <li><b>Unidade SI:</b> Pascal ($Pa$) ou $N/m^2$.</li>
+    </ul>
+   </div>
+   <div class="space-y-3">
+    <div class="bg-slate-50 border p-4 rounded-xl">
+     <b class="text-slate-800 text-sm">Relação Inversa</b>
+     <p class="text-xs text-slate-600 mt-2">Maior a área $\rightarrow$ Menor a pressão.<br>Raquetes de neve e pneus de trator são largos para <b>não afundar</b>, espalhando o peso em uma área enorme.</p>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tema 4 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Teorema de Stevin</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">Explica a pressão <b>dentro</b> de um fluido. Quanto mais fundo você mergulha, mais água tem em cima de você. A pressão depende apenas da Profundidade (h), da Densidade do líquido (d) e da Gravidade (g).</p>
+   <div class="paper text-center py-4 mt-3 rounded-xl font-bold">\[p = d \cdot g \cdot h\]</div>
+   <div class="bg-sky-50 border-l-4 border-sky-400 p-3 mt-3 text-xs text-slate-700">
+    <b>Vasos Comunicantes:</b> Se vários recipientes de formatos estranhos são interligados por baixo, a água atinge <b>exatamente o mesmo nível (altura)</b> em todos.
+   </div>
+  </article>
+  
+  <!-- Tema 5 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Pressão Atmosférica ($P_{atm}$)</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">O ar tem peso! Estamos no fundo de um "oceano de ar" que nos esmaga o tempo todo com 1 atm de pressão.</p>
+   <div class="bg-slate-50 p-3 rounded-lg text-sm mt-3 border">
+    <b>Pressão Absoluta no fundo do mar:</b>
+    <div class="text-center font-bold mt-1">\[P_{total} = P_{atm} + d \cdot g \cdot h\]</div>
+   </div>
+   <p class="mt-3 text-slate-600 text-[11px]"><i>Experiência de Torricelli:</i> Ele usou um tubo de mercúrio e descobriu que 1 atm sustenta uma coluna de 76 cm de Hg (760 mmHg). 1 atm equivale a cerca de $10^5 \text{ Pa}$ ou $10^5 \text{ N/m}^2$.</p>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tema 6 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">Princípio de Pascal</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">"Um aumento de pressão num ponto de um líquido ideal é transmitido integralmente a todos os pontos desse líquido."</p>
+   <div class="border-l-4 border-emerald-400 pl-3 mt-3">
+    <b class="text-slate-800 text-sm">Prensa Hidráulica</b>
+    <p class="text-slate-600 text-xs mt-1">É uma máquina multiplicadora de força. Empurrar um pistão fininho joga a pressão para um pistão gigante do outro lado, criando uma força colossal capaz de erguer um carro.</p>
+    <div class="paper text-center py-2 mt-2 font-bold rounded-lg text-sm">\[\frac{F_1}{A_1} = \frac{F_2}{A_2}\]</div>
+   </div>
+  </article>
+  
+  <!-- Tema 7 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">7</span><h2 class="text-xl font-black">Princípio de Arquimedes (Empuxo)</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">"Todo corpo submerso num líquido sofre uma força para CIMA, igual ao peso do líquido que ele deslocou." Essa força é o <b>Empuxo (E)</b>.</p>
+   <div class="paper text-center py-2 mt-3 font-bold rounded-lg">\[E = d_{liq} \cdot V_{sub} \cdot g\]</div>
+   <div class="space-y-2 mt-3 text-xs text-slate-600">
+    <div>• Se $Densidade_{corpo} < Densidade_{liq} \rightarrow$ Flutua</div>
+    <div>• Se $Densidade_{corpo} > Densidade_{liq} \rightarrow$ Afunda</div>
+    <div><b>Peso Aparente:</b> É o peso que você sente dentro d'água ($P_{aparente} = Peso - Empuxo$).</div>
+   </div>
+  </article>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-sky-600">Laboratório Hidrostático</span><h1 class="text-3xl font-black mt-2">Simulações Clássicas</h1><p class="text-slate-600 mt-2 text-sm">Veja na prática como a prensa hidráulica multiplica a força e como o empuxo anula parte do peso dos objetos.</p></div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Lab Pascal -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">A Prensa Hidráulica (Elevador)</h2>
+   <p class="text-xs text-slate-500 mb-4">Ajuste o tamanho do êmbolo (pistão) e a força inicial para ver o quão pesado é o carro que você consegue levantar.</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Força F1 de entrada (Newtons):</label><input id="lab-f1" type="number" value="100" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Área A1 do pistão menor ($m^2$):</label><input id="lab-a1" type="number" value="0.5" step="0.1" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <hr>
+    <div class="flex items-center justify-between"><label>Área A2 do pistão gigante ($m^2$):</label><input id="lab-a2" type="number" value="5" step="0.5" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcPascal()" class="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl py-3 font-bold transition">Acionar Prensa</button>
+   <div id="out-pascal" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+
+  <!-- Lab Arquimedes -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">Calculadora de Empuxo</h2>
+   <p class="text-xs text-slate-500 mb-4">Descubra qual será o peso de uma pedra quando submersa na água (Peso Aparente). Considere g=10 $m/s^2$.</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Densidade do Líquido ($kg/m^3$):<br><span class="text-[10px] text-sky-600">1000 = Água Doce</span></label><input id="lab-dliq" type="number" value="1000" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Volume do Objeto Submerso ($m^3$):</label><input id="lab-vol" type="number" value="0.05" step="0.01" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <hr>
+    <div class="flex items-center justify-between"><label>Peso Real do Objeto (Newtons):</label><input id="lab-peso" type="number" value="800" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcEmpuxo()" class="mt-4 w-full bg-sky-600 hover:bg-sky-700 text-white rounded-xl py-3 font-bold transition">Mergulhar Objeto</button>
+   <div id="out-empuxo" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-sky-600">Treino Progressivo</span><h1 class="text-3xl font-black mt-2">105 Questões Resolvidas</h1><p class="text-slate-600 mt-2 text-sm"><b>Teoria:</b> digite a letra (A, B, C, D). <b>Cálculos:</b> digite apenas o número (use '.' ou ',' para decimais). Arredonde para 2 casas. Use $g = 10 \text{ m/s}^2$ sempre.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold text-sky-900"><span>Progresso</span><span id="progress-text">0 / 105</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-sky-500 transition-all duration-500 rounded-full" style="width:0%"></div></div></div></div></div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters">
+  <button data-theme="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold transition">Todos</button>
+  <button data-theme="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T1: Fluidos</button>
+  <button data-theme="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T2: Densidade</button>
+  <button data-theme="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T3: Pressão</button>
+  <button data-theme="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T4: Stevin</button>
+  <button data-theme="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T5: P. Atmosférica</button>
+  <button data-theme="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T6: Pascal</button>
+  <button data-theme="7" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T7: Arquimedes</button>
+ </div></div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+</main>
+
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo - Física • Hidrostática</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Tab Navigation
+const sections=['teoria','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises();}));
+
+// Calculators
+function calcPascal(){
+    const f1 = +$('lab-f1').value;
+    const a1 = +$('lab-a1').value;
+    const a2 = +$('lab-a2').value;
+    
+    if (a1 <= 0 || a2 <= 0) {
+        $('out-pascal').innerHTML = `<b class="text-red-500">As áreas devem ser maiores que zero.</b>`;
+        $('out-pascal').classList.remove('hidden');
+        return;
+    }
+    
+    const f2 = (f1 * a2) / a1;
+    
+    let h = `<b>1. Princípio de Pascal:</b><br>`;
+    h += `A pressão se transmite igualmente. $p_1 = p_2$<br>`;
+    h += `\\[\\frac{F_1}{A_1} = \\frac{F_2}{A_2}\\]<br>`;
+    h += `<b>2. Calculando as áreas:</b><br>`;
+    h += `O pistão 2 é ${(a2/a1).toFixed(1)} vezes maior que o pistão 1.<br>`;
+    h += `Isso significa que a força será multiplicada por ${(a2/a1).toFixed(1)}!<br><br>`;
+    h += `<b>3. Resultado:</b><br>`;
+    h += `\\[\\frac{${f1}}{${a1}} = \\frac{F_2}{${a2}} \\rightarrow F_2 = ${f1} \\cdot \\frac{${a2}}{${a1}}\\]<br>`;
+    h += `A força gerada do outro lado é gigantesca: <b class="text-emerald-700">${f2.toFixed(2)} N</b>.<br>`;
+    h += `<span class="text-xs text-slate-500">Você conseguiria erguer ${(f2/10).toFixed(0)} kg com essa prensa.</span>`;
+    
+    $('out-pascal').innerHTML = h;
+    $('out-pascal').classList.remove('hidden');
+    renderAll();
+}
+
+function calcEmpuxo(){
+    const dliq = +$('lab-dliq').value;
+    const vol = +$('lab-vol').value;
+    const peso = +$('lab-peso').value;
+    const g = 10;
+    
+    if (vol < 0 || dliq <= 0) {
+        $('out-empuxo').innerHTML = `<b class="text-red-500">Valores devem ser positivos.</b>`;
+        $('out-empuxo').classList.remove('hidden');
+        return;
+    }
+    
+    const empuxo = dliq * vol * g;
+    const pesoAparente = peso - empuxo;
+    
+    let h = `<b>1. Calculando a Força de Empuxo:</b><br>`;
+    h += `\\[E = d_{liq} \\cdot V_{sub} \\cdot g\\]<br>`;
+    h += `\\[E = ${dliq} \\cdot ${vol} \\cdot 10 = ${empuxo} \\text{ N}\\]<br><br>`;
+    h += `<b>2. Descobrindo o que acontece:</b><br>`;
+    if (empuxo > peso) {
+        h += `O Empuxo (${empuxo} N) é MAIOR que o Peso real (${peso} N).<br>`;
+        h += `<b class="text-sky-700">O objeto vai ser jogado pra CIMA e FLUTUARÁ na superfície!</b><br>`;
+        h += `(Peso aparente não faz sentido aqui, pois ele sobe).`;
+    } else if (empuxo === peso) {
+        h += `O Empuxo é IGUAL ao Peso real.<br>`;
+        h += `<b class="text-amber-600">O objeto ficará em equilíbrio (parado) no meio do líquido.</b><br>`;
+        h += `Peso aparente: 0 N (Flutuação indiferente).`;
+    } else {
+        h += `O Empuxo (${empuxo} N) é MENOR que o Peso real (${peso} N).<br>`;
+        h += `<b class="text-red-600">O objeto vai AFUNDAR.</b><br><br>`;
+        h += `<b>3. Peso Aparente (o peso sentido no fundo da piscina):</b><br>`;
+        h += `\\[P_{ap} = Peso - Empuxo\\]<br>`;
+        h += `\\[P_{ap} = ${peso} - ${empuxo} = ${pesoAparente} \\text{ N}\\]<br>`;
+        h += `<span class="text-xs text-slate-500">Ele afunda, mas parece "mais leve" ao ser erguido sob a água.</span>`;
+    }
+    
+    $('out-empuxo').innerHTML = h;
+    $('out-empuxo').classList.remove('hidden');
+    renderAll();
+}
+
+const exercisesData = [];
+let exId = 1;
+const addQ = (th, ty, q, ans, steps, opts=[]) => { exercisesData.push({ id: exId++, theme: th, type: ty, q, ans, steps, opts }); };
+
+// TEMA 1: Conceito de Fluido (1-15)
+addQ(1,'theo',"Quais dos estados físicos da matéria são considerados fluidos?", "C", ["Fluidos são matérias que podem escoar (fluir) e que assumem o formato do recipiente."], ["A) Sólidos e Líquidos", "B) Apenas Líquidos", "C) Líquidos e Gases", "D) Sólidos e Gases"]);
+addQ(1,'theo',"Uma das características que diferenciam os líquidos dos gases num recipiente fechado é:", "A", ["Gases ocupam o volume total. Líquidos ocupam um volume fixo (parte inferior) e são incompressíveis."], ["A) Líquidos são incompressíveis e têm volume fixo.", "B) Gases têm volume fixo e não ocupam tudo.", "C) Líquidos ocupam todo o espaço disponível.", "D) Gases são mais pesados que os líquidos sempre."]);
+addQ(1,'theo',"Ao mudar 1 litro de água de uma garrafa alta para uma bacia larga, a água muda de forma. O seu volume:", "B", ["Líquidos não mudam de volume ao mudar de recipiente."], ["A) Aumenta", "B) Permanece igual", "C) Diminui", "D) Transforma-se em gás"]);
+addQ(1,'theo',"Numa seringa de injeção tampada na ponta contendo apenas AR, conseguimos empurrar o êmbolo. Se ela contiver apenas ÁGUA, o êmbolo não desce. Isso prova que:", "C", ["O ar (gás) é compressível. A água (líquido) é incompressível."], ["A) O ar pesa mais.", "B) A água escapa pelo plástico.", "C) Gases são compressíveis e líquidos são incompressíveis.", "D) O plástico amoleceu."]);
+addQ(1,'theo',"Um submarino está a 100m de profundidade. A água que o rodeia é classificada como fluido por quê?", "D", ["Todo fluido escoa e não tem forma rígida. O gelo é água sólida, não escoa, tem forma, logo não é fluido (nesta definição básica)."], ["A) É feita de H2O.", "B) É salgada.", "C) Tem alta pressão.", "D) Não possui forma própria e pode escoar."]);
+
+addQ(1,'calc',"Um gás ocupa uma sala retangular de 3m x 4m x 2,5m. Qual é o volume (em $m^3$) que esse gás ocupa?", "30", ["Volume do gás = Volume total do recipiente.", "$V = 3 \\cdot 4 \\cdot 2,5 = 30 \\text{ m}^3$"]);
+addQ(1,'calc',"Uma caixa-d'água de 1000 Litros está cheia. Sabendo que 1 $m^3$ equivale a 1000 Litros, qual é o volume do líquido em $m^3$?", "1", ["$V = 1000 / 1000 = 1 \\text{ m}^3$"]);
+addQ(1,'calc',"Se 2 Litros de gás são soltos numa sala de 10.000 Litros de volume, qual será o volume final ocupado pelo gás (em Litros)?", "10000", ["O gás sempre se expande até ocupar TODO o volume disponível."]);
+addQ(1,'calc',"Um aquário tem dimensões 0,5m x 0,2m x 0,4m. Se for enchido até a metade, qual o volume do fluido (água) em $m^3$?", "0.02", ["$V_{total} = 0,5 \\cdot 0,2 \\cdot 0,4 = 0,04 \\text{ m}^3$", "$V_{metade} = 0,04 / 2 = 0,02 \\text{ m}^3$"]);
+addQ(1,'calc',"Para converter $cm^3$ para $m^3$, devemos dividir o valor por 1.000.000 (ou multiplicar por $10^{-6}$). Quantos $m^3$ equivalem a 500.000 $cm^3$?", "0.5", ["$500.000 / 1.000.000 = 0,5 \\text{ m}^3$"]);
+addQ(1,'calc',"1 kg de água ocupa cerca de 1 Litro (0,001 $m^3$). Qual o volume ocupado por 2000 kg de água em $m^3$?", "2", ["1 kg = 0,001 $m^3$.", "2000 kg = $2000 \\cdot 0,001 = 2 \\text{ m}^3$."]);
+addQ(1,'calc',"Num cilindro com êmbolo (tipo seringa) há ar ocupando 50 $cm^3$. Aperta-se o êmbolo e o volume cai pela metade. Qual o volume do gás agora em $cm^3$?", "25", ["O gás é compressível. O novo volume é $50 / 2 = 25 \\text{ cm}^3$."]);
+addQ(1,'calc',"O mesmo cilindro agora tem 50 $cm^3$ de água pura, sem bolhas. Se empurrar o êmbolo, qual será o volume d'água (ignorando dilatação térmica ou pressão extrema destrutiva)?", "50", ["Líquidos são incompressíveis em condições normais. O volume se mantém 50."]);
+addQ(1,'calc',"Um balão de oxigênio de 15 Litros é levado a 30 metros de profundidade. O cilindro metálico não muda de tamanho. Qual o volume ocupado pelo gás dentro dele em Litros?", "15", ["O gás ocupa o volume do recipiente, que permaneceu inalterado (15L)."]);
+addQ(1,'calc',"O volume de um objeto de formato irregular é medido jogando-o num copo d'água medidor. Se o copo tinha 200 ml e a água subiu para 250 ml ao afundar o objeto, qual o volume do objeto (em ml)?", "50", ["Princípio do deslocamento: volume = diferença dos níveis.", "$V = 250 - 200 = 50 \\text{ ml}$."]);
+
+// TEMA 2: Densidade (16-30)
+addQ(2,'theo',"A densidade de um corpo é definida como a razão (divisão) entre quais grandezas?", "B", ["Fórmula: $d = m / V$"], ["A) Peso e Área", "B) Massa e Volume", "C) Força e Aceleração", "D) Volume e Pressão"]);
+addQ(2,'theo',"Um navio cargueiro de milhares de toneladas é feito de ferro (muito mais denso que a água). Por que ele não afunda?", "C", ["A densidade DELE, como objeto completo, é menor que a da água, pois o espaço dentro dele (volume) é gigante e cheio de ar (que é muito leve)."], ["A) O aço do navio repele a água.", "B) A gravidade no oceano é menor.", "C) O navio é oco e contém muito ar, fazendo sua densidade total ser menor que a da água.", "D) Motores gigantes o empurram para cima."]);
+addQ(2,'theo',"Qual a diferença principal entre 'Massa Específica' e 'Densidade'?", "A", ["Ouro puro tem massa específica constante. Mas um anel de ouro oco tem uma densidade menor, pois conta o volume de ar interno."], ["A) Massa específica foca na substância pura e maciça; densidade foca no objeto completo (podendo ser oco).", "B) São palavras idênticas para o mesmo cálculo.", "C) Massa específica só serve para gases.", "D) Densidade se mede em kg, massa específica em metros."]);
+addQ(2,'theo',"Óleo, água e mel são colocados num copo e não se misturam. A ordem, de CIMA para BAIXO, dependerá das suas densidades. O líquido no FUNDO será o que tiver:", "A", ["O mais denso é o mais 'pesado para o mesmo volume', logo afunda em relação aos outros."], ["A) Maior densidade.", "B) Menor densidade.", "C) Mesma densidade.", "D) Maior volume apenas."]);
+addQ(2,'theo',"No SI (Sistema Internacional), a unidade oficial de massa específica / densidade é:", "D", ["Massa no SI é quilograma (kg), Volume no SI é metro cúbico ($m^3$)."], ["A) g / $cm^3$", "B) kg / Litro", "C) g / mL", "D) kg / $m^3$"]);
+
+addQ(2,'calc',"Um bloco maciço tem massa 200 kg e volume de 0,5 $m^3$. Qual a sua densidade em $kg/m^3$?", "400", ["$d = m / V$", "$d = 200 / 0,5 = 400 \\text{ kg/m}^3$"]);
+addQ(2,'calc',"Uma substância tem densidade $d = 800 \\text{ kg/m}^3$. Qual a massa de $2 \\text{ m}^3$ dessa substância (em kg)?", "1600", ["$d = m / V \\rightarrow 800 = m / 2$", "$m = 800 \\cdot 2 = 1600 \\text{ kg}$"]);
+addQ(2,'calc',"Qual o volume ocupado por 5000 kg de água doce? (Dado: Densidade da água doce $\\mu = 1000 \\text{ kg/m}^3$)", "5", ["$d = m / V \\rightarrow 1000 = 5000 / V$", "$V = 5000 / 1000 = 5 \\text{ m}^3$"]);
+addQ(2,'calc',"Um anel supostamente de ouro puro maciço tem massa de 96,5 g e volume de 5 $cm^3$. Qual a densidade (em g/$cm^3$)? (Obs: Ouro = 19,3)", "19.3", ["$d = m / V = 96,5 / 5 = 19,3 \\text{ g/cm}^3$ (É puro!)."]);
+addQ(2,'calc',"Para converter densidade de $\\text{g/cm}^3$ para $\\text{kg/m}^3$, devemos multiplicar por 1000. O alumínio tem densidade 2,7 $\\text{g/cm}^3$. Qual o valor em $\\text{kg/m}^3$?", "2700", ["$2,7 \\cdot 1000 = 2700 \\text{ kg/m}^3$"]);
+addQ(2,'calc',"Misturamos $V_1 = 2 \\text{ Litros}$ de água ($d_1 = 1 \\text{ kg/L}$) com $V_2 = 3 \\text{ Litros}$ de outro líquido ($d_2 = 2 \\text{ kg/L}$). Qual a massa TOTAL da mistura (em kg)?", "8", ["$m_1 = d_1 \\cdot V_1 = 1 \\cdot 2 = 2 \\text{ kg}$", "$m_2 = d_2 \\cdot V_2 = 2 \\cdot 3 = 6 \\text{ kg}$", "$M_{total} = 2 + 6 = 8 \\text{ kg}$"]);
+addQ(2,'calc',"Com base na questão anterior (Massa total = 8kg e Volume total = 5L), qual a densidade da mistura (em kg/L)?", "1.6", ["$d_{mistura} = M_{total} / V_{total}$", "$d = 8 / 5 = 1,6 \\text{ kg/L}$"]);
+addQ(2,'calc',"Um objeto oco de ferro tem massa total de 7800 kg. Seu volume externo total é 10 $m^3$. Qual a densidade do OBJETO em $\\text{kg/m}^3$?", "780", ["$d = m / V_{total}$", "$d = 7800 / 10 = 780 \\text{ kg/m}^3$.", "(Ele vai flutuar na água, pois 780 < 1000)."]);
+addQ(2,'calc',"Uma caixa vazia pesa 10 kg e tem volume interno de 2 $m^3$. Ela é totalmente cheia com água (Dens = 1000 $\\text{kg/m}^3$). Qual a massa final do conjunto (caixa + água)?", "2010", ["$m_{agua} = d \\cdot V = 1000 \\cdot 2 = 2000 \\text{ kg}$", "$m_{total} = 2000 + 10 = 2010 \\text{ kg}$"]);
+addQ(2,'calc',"Qual é a densidade de um corpo de 10.000 kg que ocupa 8 $m^3$ (em $\\text{kg/m}^3$)?", "1250", ["$d = 10000 / 8 = 1250 \\text{ kg/m}^3$"]);
+
+// TEMA 3: Conceito de Pressão (31-45)
+addQ(3,'theo',"Qual a fórmula matemática que define Pressão?", "B", ["Pressão é Força dividida pela Área sobre a qual ela atua."], ["A) $P = F \\cdot A$", "B) $P = F / A$", "C) $P = m \\cdot A$", "D) $P = F \\cdot V$"]);
+addQ(3,'theo',"Uma pessoa pisa na neve fofa com sapato comum e afunda. Depois calça raquetes de neve e caminha sem afundar. Isso ocorre porque as raquetes:", "C", ["As raquetes de neve aumentam muito a área de contato do pé com a neve. Como a Força (peso) continua a mesma, ao dividir por uma área maior, a Pressão diminui."], ["A) Diminuem o peso da pessoa.", "B) Alteram a gravidade local.", "C) Aumentam a área de contato, diminuindo a pressão sobre a neve.", "D) Aumentam a pressão sobre a neve."]);
+addQ(3,'theo',"Por que facas afiadas cortam carne com mais facilidade?", "A", ["Afiar a faca significa tornar a extremidade (área de contato) a menor possível. Área menor gera pressão gigante para a mesma força."], ["A) A área da lâmina é minúscula, gerando enorme pressão para a força aplicada.", "B) A faca fica mais pesada.", "C) A área da lâmina aumenta.", "D) O atrito da faca desaparece totalmente."]);
+addQ(3,'theo',"No SI, a unidade da Pressão é o Pascal (Pa). Um Pascal equivale exatamente a:", "C", ["Como $P = F/A$, e força é em Newtons e área em metros quadrados."], ["A) 1 kg/m", "B) 1 Joule/$m^2$", "C) 1 Newton/$m^2$", "D) 1 Newton/metro"]);
+addQ(3,'theo',"Um elefante e uma bailarina clássica na ponta do pé aplicam pressões no chão. A bailarina pode gerar mais pressão que o elefante no ponto de contato?", "A", ["Mesmo o elefante sendo muito mais pesado (Força enorme), suas patas têm uma área imensa. A bailarina na ponta do pé tem uma área quase zero, o que pode disparar a conta da Pressão lá para o alto."], ["A) Sim, porque a área do pé da bailarina é mínima.", "B) Jamais, elefante sempre vence em tudo.", "C) Sim, porque a bailarina pesa mais.", "D) A pressão depende apenas da força."]);
+
+addQ(3,'calc',"Força F = 400 N aplicada uniformemente numa área de 2 $m^2$. Qual a Pressão em Pascal (Pa)?", "200", ["$P = F / A$", "$P = 400 / 2 = 200 \\text{ Pa}$"]);
+addQ(3,'calc',"Pressão P = 100.000 Pa sobre um vidro quadrado. A força total atuante no vidro é de 50.000 N. Qual a Área do vidro (em $m^2$)?", "0.5", ["$P = F / A \\rightarrow 100000 = 50000 / A$", "$A = 50000 / 100000 = 0,5 \\text{ m}^2$"]);
+addQ(3,'calc',"Qual a força necessária (em Newtons) para gerar 5000 Pa de pressão em uma área de 3 $m^2$?", "15000", ["$P = F / A \\rightarrow 5000 = F / 3$", "$F = 5000 \\cdot 3 = 15000 \\text{ N}$"]);
+addQ(3,'calc',"Um homem de 80 kg está de pé com os dois pés juntos. Cada pé tem área de 0,02 $m^2$. Qual a Pressão (em Pa) no piso? (Use $g=10 \\text{ m/s}^2$ para achar o Peso = Força).", "20000", ["Força = Peso = $80 \\cdot 10 = 800 \\text{ N}$", "Área total = 2 pés = $0,02 + 0,02 = 0,04 \\text{ m}^2$", "$P = 800 / 0,04 = 20000 \\text{ Pa}$"]);
+addQ(3,'calc',"O mesmo homem, ao levantar um pé (ficando como um flamingo), apoia-se em apenas 0,02 $m^2$. Qual a Pressão (em Pa) sobre esse pé agora?", "40000", ["Área caiu pela metade, a pressão dobra.", "$P = 800 / 0,02 = 40000 \\text{ Pa}$"]);
+addQ(3,'calc',"Bloco retangular de massa 30 kg ($Peso = 300 \\text{ N}$) tem base medindo 2m x 3m. Qual a área dessa base (em $m^2$)?", "6", ["Área do retângulo: Base x Altura.", "$A = 2 \\cdot 3 = 6 \\text{ m}^2$"]);
+addQ(3,'calc',"Baseado na questão anterior, qual a Pressão (Pa) que a base do bloco aplica no chão?", "50", ["$P = F / A$", "$P = 300 / 6 = 50 \\text{ Pa}$"]);
+addQ(3,'calc',"Para converter $cm^2$ em $m^2$, dividimos por 10.000 (ou $10^{-4}$). O salto agulha de um sapato feminino tem 1 $cm^2$ ($0,0001 \\text{ m}^2$). Se a mulher (Peso = 500 N) se apoia SÓ no salto, qual a pressão (em Pa)?", "5000000", ["$P = 500 / 0,0001 = 5.000.000 \\text{ Pa}$", "(Cinco milhões de Pascais, muito superior à pata de um elefante!)"]);
+addQ(3,'calc',"Prensa hidráulica quebra algo fazendo 10.000 Pa em uma área de 0,1 $m^2$. Qual a força sentida pelo objeto (em N)?", "1000", ["$F = P \\cdot A = 10000 \\cdot 0,1 = 1000 \\text{ N}$"]);
+addQ(3,'calc',"Seringa de injeção: Força no êmbolo = 10 N. Área do êmbolo = 0,0005 $m^2$. Pressão = ?", "20000", ["$P = 10 / 0,0005 = 20000 \\text{ Pa}$"]);
+
+// TEMA 4: Teorema de Stevin (46-60)
+addQ(4,'theo',"O Teorema de Stevin ($\Delta P = d \cdot g \cdot \Delta h$) mostra que a pressão hidrostática em um líquido em repouso depende de três fatores, sendo o principal deles variável qual?", "A", ["A densidade e gravidade são constantes para o fluido num tanque, logo a única coisa que você varia nadando é a profundidade."], ["A) Profundidade (altura da coluna de líquido)", "B) Formato do recipiente", "C) Volume total da piscina", "D) Tempo de mergulho"]);
+addQ(4,'theo',"Uma garrafa plástica fechada cheia de água tem três furos, tapados: um no alto, um no meio e um bem perto da base. Ao abrir, de qual furo a água esguicha mais longe?", "C", ["Pelo teorema de Stevin, a pressão aumenta com a profundidade. O furo de baixo tem mais água 'pesando' em cima dele."], ["A) Do furo de cima.", "B) Do furo do meio.", "C) Do furo perto da base, onde a pressão é maior.", "D) Todos espirram igual."]);
+addQ(4,'theo',"No fundo de uma piscina rasa bem larga e de uma caixa d'água estreita mas muito alta. Onde a pressão da água é MAIOR no fundo?", "B", ["A pressão ($P = dgh$) independe da largura/volume total. Depende apenas da profundidade $h$. A caixa é mais alta (mais funda), logo tem mais pressão no fundo."], ["A) Na piscina rasa.", "B) Na caixa d'água muito alta.", "C) Em ambas é igual.", "D) Não dá pra saber."]);
+addQ(4,'theo',"Vasos comunicantes: Tubos de formatos bizarros ligados por baixo. Ao jogar água dentro, o que observamos sobre o nível da água em cada tubo?", "A", ["O nível da água é ditado pela pressão atmosférica e de fundo igualitária. Eles se equilibram na mesma linha horizontal."], ["A) A água alcança exatamente a mesma altura horizontal em todos os tubos.", "B) No tubo mais fino, a água sobe mais.", "C) No tubo mais grosso, a água sobe mais.", "D) A água desce para o tubo torto."]);
+addQ(4,'theo',"Dois mergulhadores estão num lago. O mergulhador A está a 5m de profundidade e o B está a 10m de profundidade. É correto afirmar que a pressão da água sofreida:", "B", ["Se h dobrou (de 5 para 10), a parcela de pressão da água ($dgh$) também dobra. (Atenção: A pressão total não dobra por causa da P_atm, mas a pressão exercida só pela água sim)."], ["A) Em A é maior que em B.", "B) Em B é o dobro da pressão hidrostática exercida em A.", "C) É idêntica.", "D) Em A é negativa."]);
+
+addQ(4,'calc',"A água possui densidade $d = 1000 \\text{ kg/m}^3$. A gravidade $g = 10 \\text{ m/s}^2$. Qual a pressão hidrostática (só da água) no fundo de uma piscina de $h = 2 \\text{ m}$? (Em Pa)", "20000", ["$P_{agua} = d \\cdot g \\cdot h$", "$P = 1000 \\cdot 10 \\cdot 2 = 20000 \\text{ Pa}$"]);
+addQ(4,'calc',"O fundo de um lago está a 10 metros de profundidade. Qual a pressão da coluna de água lá embaixo? ($d = 1000, g = 10$)", "100000", ["$P = 1000 \\cdot 10 \\cdot 10 = 100000 \\text{ Pa}$", "Curiosidade: 100.000 Pa = 1 Atmosfera! A cada 10m sob a água ganhamos +1 atm."]);
+addQ(4,'calc',"Em um tubo, um óleo ($d = 800 \\text{ kg/m}^3$) chega a uma altura de 5m. Qual a pressão feita por essa coluna de óleo? (Em Pa)", "40000", ["$P = 800 \\cdot 10 \\cdot 5 = 40000 \\text{ Pa}$"]);
+addQ(4,'calc',"Mergulhador está no mar (Água salgada $d = 1030 \\text{ kg/m}^3$). A profundidade é 20 m. Qual a pressão hidrostática (em Pa)?", "206000", ["$P = 1030 \\cdot 10 \\cdot 20 = 206000 \\text{ Pa}$"]);
+addQ(4,'calc',"Diferença de pressão. Ponto A está a 2m sob a água doce e Ponto B está a 7m. O desnível (diferença de h) é 5m. Qual a diferença de pressão hidrostática entre A e B ($\\Delta P$) em Pa?", "50000", ["$\\Delta P = d \\cdot g \\cdot \\Delta h = 1000 \\cdot 10 \\cdot 5 = 50000 \\text{ Pa}$"]);
+addQ(4,'calc',"Torre de caixa d'água tem água até 30 m de altura. A torneira do chuveiro de uma casa está na altura 0 m (chão). Qual a pressão de água que chega na torneira? (Em Pa, $d_{agua}=1000$)", "300000", ["$P = 1000 \\cdot 10 \\cdot 30 = 300000 \\text{ Pa}$"]);
+addQ(4,'calc',"Em Tubo em U, despeja-se água ($d=1000$) e um líquido desconhecido. Eles não se misturam. Do ponto de contato até a borda, a água subiu $h_1 = 40 \\text{ cm}$. O líquido ficou a $h_2 = 50 \\text{ cm}$. Se as pressões nas bases das colunas são iguais ($d_1 h_1 = d_2 h_2$), qual a densidade do líquido (em $\\text{kg/m}^3$)?", "800", ["$1000 \\cdot 40 = d_2 \\cdot 50$", "$40000 = 50 \\cdot d_2 \\rightarrow d_2 = 40000 / 50 = 800 \\text{ kg/m}^3$"]);
+addQ(4,'calc',"Um líquido tem $d = 1500 \\text{ kg/m}^3$. A que profundidade a pressão exercida por ele atinge $45000 \\text{ Pa}$?", "3", ["$P = d \\cdot g \\cdot h$", "$45000 = 1500 \\cdot 10 \\cdot h \\rightarrow 45000 = 15000 \\cdot h$", "$h = 3 \\text{ metros}$"]);
+addQ(4,'calc',"Um barril com vinho ($d = 900 \\text{ kg/m}^3$) rompe com uma pressão interna hidrostática na base de $27000 \\text{ Pa}$. Qual era a altura (h) da coluna de vinho no cano estourado?", "3", ["$27000 = 900 \\cdot 10 \\cdot h \\rightarrow 27000 = 9000h$", "$h = 27000 / 9000 = 3 \\text{ m}$"]);
+addQ(4,'calc',"Num tubo em U, óleo ($d = 800$) tem $h_1 = 20 \\text{ cm}$. Água ($d = 1000$) vai ter que altura ($h_2$ em cm) para equilibrar as colunas?", "16", ["$800 \\cdot 20 = 1000 \\cdot h_2$", "$16000 = 1000 h_2 \\rightarrow h_2 = 16 \\text{ cm}$"]);
+
+// TEMA 5: Pressão Atmosférica (61-75)
+addQ(5,'theo',"O que foi comprovado pelo experimento clássico de Evangelista Torricelli, que usou um tubo cheio de mercúrio virado num prato?", "D", ["Ele provou que a pressão atmosférica sustentava 76 cm de coluna de mercúrio e que no topo do tubo não havia ar (vácuo)."], ["A) Que o mercúrio evapora no vácuo.", "B) Que a pressão independe da profundidade.", "C) Que o peso muda com a temperatura.", "D) A existência da pressão atmosférica e a medição do seu valor (1 atm = 760 mmHg)."]);
+addQ(5,'theo',"O que acontece com a Pressão Atmosférica conforme subimos uma montanha muito alta (ou seja, aumentamos a altitude)?", "B", ["No alto da montanha, a coluna de ar pesando sobre nós é menor e o ar é mais rarefeito. Logo, a pressão é menor."], ["A) Aumenta muito.", "B) Diminui.", "C) Permanece exatamente igual.", "D) Fica negativa."]);
+addQ(5,'theo',"Por que a água ferve mais rápido (em temperatura menor que 100ºC) no topo de uma montanha alta?", "A", ["A pressão do ar 'segura' a água no estado líquido. Se a pressão é menor, a água escapa para vapor mais fácil, a menor temperatura."], ["A) Porque a pressão atmosférica é menor, o que abaixa o ponto de ebulição da água.", "B) Porque faz mais frio lá em cima.", "C) Porque o ar lá em cima tem mais oxigênio.", "D) Porque a gravidade é zero."]);
+addQ(5,'theo',"Um valor de 1 Atmosfera (1 atm) adotado como padrão no nível do mar equivale, aproximadamente, a quantos Pascal (N/$m^2$)?", "C", ["É um padrão memorizado nas provas de física."], ["A) 1 Pa", "B) 100 Pa", "C) 100.000 Pa (ou $10^5$ Pa)", "D) 1.000.000 Pa"]);
+addQ(5,'theo',"A pressão 'Absoluta' que atua sobre um mergulhador é:", "B", ["O mergulhador suporta o peso da água + o peso do ar da atmosfera empurrando a água."], ["A) Só a pressão da água.", "B) A soma da Pressão da Água (Hidrostática) com a Pressão Atmosférica.", "C) A pressão atmosférica menos o empuxo.", "D) Só a pressão atmosférica."]);
+
+addQ(5,'calc',"Dada 1 atm = 100.000 Pa. Um pneu tem pressão interna de 2,5 atm. Qual o valor em Pa?", "250000", ["$2,5 \\cdot 100.000 = 250.000 \\text{ Pa}$"]);
+addQ(5,'calc',"Num submarino a 50m de profundidade, a pressão só da água ($dgh$) é 500.000 Pa (5 atm). A pressão Atmosférica é de 100.000 Pa (1 atm). Qual a pressão ABSOLUTA total sobre o casco (em Pa)?", "600000", ["$P_{abs} = P_{atm} + P_{hidro}$", "$P_{abs} = 100000 + 500000 = 600000 \\text{ Pa}$"]);
+addQ(5,'calc',"Usando ATMs, se cada 10 metros sob a água vale +1 atm. Qual a pressão ABSOLUTA sofrida por um mergulhador a 30 metros de profundidade? (Em atm)", "4", ["A água dá: $30m / 10m = 3 \\text{ atm}$.", "Pressão atmosférica original = 1 atm.", "Total = 3 + 1 = 4 atm."]);
+addQ(5,'calc',"Qual a pressão hidrostática (só da água) a 100 m de profundidade, expressa em ATMs? (Sabendo que a cada 10m desce 1atm).", "10", ["$100 / 10 = 10 \\text{ atm}$ (Isso apenas a coluna d'água)."]);
+addQ(5,'calc',"A pressão Absoluta num mini-submarino marca 8 atm. Como sabemos que 1 atm é o ar, a água responde por 7 atm de pressão. Sabendo que 1 atm d'água é 10m de profundidade. Qual a profundidade dele?", "70", ["$P_{agua} = 8 - 1 = 7 \\text{ atm}$.", "Profundidade = $7 \\cdot 10 = 70 \\text{ metros}$."]);
+addQ(5,'calc',"O experimento de Torricelli no nível do mar atingiu 76 cm de coluna de Mercúrio. Se fossem 2 atmosferas completas, quantos cm a coluna deveria ter?", "152", ["1 atm = 76 cmHg", "2 atm = $76 \\cdot 2 = 152 \\text{ cmHg}$"]);
+addQ(5,'calc',"Num dia de furacão, a pressão atmosférica cai e a altura da coluna de mercúrio desce para 72,2 cmHg. Divida por 76 para saber quantas ATMs representam esses 72,2 cmHg. (Em atm)", "0.95", ["$72,2 / 76 = 0,95 \\text{ atm}$"]);
+addQ(5,'calc',"No topo de uma montanha a pressão caiu para 0,5 atm. Converta isso para Pascal ($1 \\text{ atm} = 100.000 \\text{ Pa}$).", "50000", ["$0,5 \\cdot 100.000 = 50.000 \\text{ Pa}$"]);
+addQ(5,'calc',"Cálculo da força da atmosfera: Qual a Força (em Newtons) feita pelo ar ($100.000 \\text{ Pa}$) num tampo de mesa de $1,5 \\text{ m}^2$ de área?", "150000", ["$F = P \\cdot A$", "$F = 100.000 \\cdot 1,5 = 150.000 \\text{ N}$ (Temos o peso de 15 carros sobre a mesa, mas não quebra pois o ar empurra por debaixo dela também!)"]);
+addQ(5,'calc',"Se fizéssemos o experimento de Torricelli com Água em vez de mercúrio. Quantos metros a coluna d'água subiria (sabendo que a água é 10x mais leve e portanto sobe muito mais que o mercúrio)? A conta do $P = dgh$ indica que 1 atm da água dá $10 \\text{ metros}$.", "10", ["Para fazer um barômetro de água, você precisaria de um tubo de um prédio de 3 andares (10 metros)!! Por isso se usa o mercúrio."]);
+
+// TEMA 6: Princípio de Pascal (76-90)
+addQ(6,'theo',"O Princípio de Pascal dita o funcionamento dos freios e elevadores hidráulicos. O que ele diz sobre a pressão aplicada num líquido fechado?", "C", ["Pisar no freio (êmbolo pequeno) transmite inteiramente aquela P, resultando em força absurda na roda (êmbolo grande)."], ["A) Perde força no caminho.", "B) Só age na vertical.", "C) É transmitida integralmente para todos os pontos do fluido e paredes do recipiente.", "D) Transforma o líquido em gás."]);
+addQ(6,'theo',"Na prensa hidráulica (elevador de carros posto), uma pequena força é aplicada num pistão estreito. Do outro lado, num pistão largo, o carro sobe. Como a Força se comporta?", "B", ["As pressões são iguais, mas $F_1 / A_1 = F_2 / A_2$. A Área grande gera Força grande."], ["A) Fica igual em todo lugar.", "B) A força é multiplicada. Onde a área é maior, a Força resultante é maior.", "C) A força é dividida. Onde a área é maior, a força fica fraca.", "D) A pressão aumenta e a força some."]);
+addQ(6,'theo',"Se a prensa hidráulica multiplica (aumenta) a Força, quer dizer que o elevador cria energia do nada?", "D", ["Nada é de graça! Você ganha Força, mas perde em deslocamento. O pistãozinho tem que descer 10 metros pra empurrar o carro apenas 1 metro pra cima. O Trabalho ($F \cdot d$) se conserva."], ["A) Sim, é a máquina perpétua.", "B) Sim, o fluido hidráulico tem energia ilimitada.", "C) Não, porque ele rouba energia atmosférica.", "D) Não. Você aplica pouca força mas num deslocamento gigante do pistãozinho. O Trabalho (Energia) é conservado."]);
+addQ(6,'theo',"Para a seringa 1 (menor) de uma experiência acionar uma seringa 2 (maior), unidas por mangueira fechada, o que o fluido (água) precisa estar?", "B", ["Bolhas de ar na mangueira ou vazamentos tornam o fluido compressível, destruindo a rigidez hidráulica. Por isso tira-se o ar ('sangrar o freio')."], ["A) Cheio de ar misturado.", "B) Sem bolhas de gás (incompressível).", "C) Fervendo.", "D) Em estado sólido."]);
+addQ(6,'theo',"Pelo Princípio de Pascal, podemos afirmar que nas paredes de um balão de ar comprimido, se aumentarmos a pressão de um lado apertando:", "A", ["Gases e líquidos fechados transmitem $\Delta P$ (um acréscimo de pressão) para todo o volume igualitariamente."], ["A) O acréscimo de pressão se distribui por toda a parede do balão uniformemente.", "B) Só o local apertado sente mais pressão.", "C) A pressão diminui do lado oposto.", "D) O balão esfria."]);
+
+addQ(6,'calc',"Prensa hidráulica: Pistão 1 (pequeno) tem área $A_1 = 2 \\text{ m}^2$. Pistão 2 (grande) tem área $A_2 = 10 \\text{ m}^2$. Foi aplicada força $F_1 = 50 \\text{ N}$ no pequeno. Qual a força gerada $F_2$ no grande (em N)?", "250", ["$F_1/A_1 = F_2/A_2$", "$50 / 2 = F_2 / 10 \\rightarrow 25 = F_2 / 10$", "$F_2 = 250 \\text{ N}$"]);
+addQ(6,'calc',"O pistão maior de um elevador de carros tem área 100 vezes MAIOR que o pistão da manivela ($A_2 = 100 A_1$). Se faço força de 20 N na manivela, qual Força sustento do outro lado (em N)?", "2000", ["A multiplicação da área é a multiplicação da força. 100x maior.", "$F = 20 \\cdot 100 = 2000 \\text{ N}$"]);
+addQ(6,'calc',"Para levantar um carro de $15000 \\text{ N}$ ($F_2$), usa-se um sistema onde $A_1 = 1 \\text{ m}^2$ e $A_2 = 50 \\text{ m}^2$. Qual a força necessária do operador $F_1$?", "300", ["$F_1 / 1 = 15000 / 50$", "$F_1 = 300 \\text{ N}$"]);
+addQ(6,'calc',"Áreas de êmbolos circulares ($A = \pi \cdot R^2$): Se o raio do pistão grande é 3 vezes o raio do pequeno ($R_2 = 3 R_1$). A área será multiplicada pelo quadrado do raio ($3^2 = 9$). Por qual fator numérico a Força será multiplicada?", "9", ["Área cresce com o quadrado do raio. $3^2 = 9$ vezes mais força."]);
+addQ(6,'calc',"Pistão A tem raio de 5 cm. Pistão B tem raio de 10 cm (dobro). A área de B é, portanto, $2^2 = 4$ vezes maior. Faço força de 10 N em A. Qual a Força sai em B?", "40", ["$F_B = 10 \\cdot 4 = 40 \\text{ N}$"]);
+addQ(6,'calc',"Um macaco de garrafa ergue 20.000 N aplicando-se apenas 200 N. Qual a relação matemática entre as áreas ($A_{grande} / A_{pequena}$)? (Por qual fator ele multiplicou a força?)", "100", ["$20000 / 200 = 100$. A área maior é 100x a menor."]);
+addQ(6,'calc',"Trabalho da prensa: A força num êmbolo é 10N e ele DESCE 20cm (0,2m). O Trabalho é $10 \\cdot 0,2 = 2 \\text{ Joules}$. Qual o Trabalho ganho (energia) pelo carro subindo do outro lado? (Lembre-se que energia se conserva)", "2", ["Trabalho de entrada = Trabalho de saída. 2 Joules! O carro vai ter força gigante, mas andará milímetros."]);
+addQ(6,'calc',"$F_1 = 15 \\text{ N}$, $A_1 = 3 \\text{ m}^2$, $F_2 = 45 \\text{ N}$. Qual deve ser a Área 2 ($A_2$)?", "9", ["$15 / 3 = 45 / A_2 \\rightarrow 5 = 45 / A_2$", "$A_2 = 45 / 5 = 9 \\text{ m}^2$"]);
+addQ(6,'calc',"Duas seringas idênticas ligadas (mesma área $A_1 = A_2$). Eu aperto com 5 N de um lado. O que ocorre do outro?", "5", ["Mesma área = Sem multiplicação. Força de 5 N."]);
+addQ(6,'calc',"Prensa hidráulica com $A_1 = 0,2 \\text{ m}^2$ e $A_2 = 2 \\text{ m}^2$. Quero gerar $F_2 = 1000 \\text{ N}$. Qual a Pressão ($P$) única sentida em todo o fluido, em Pascal?", "500", ["Calcule a pressão do lado conhecido: $P = F_2 / A_2$", "$P = 1000 / 2 = 500 \\text{ Pa}$. (O Princípio de Pascal diz que essa é a pressão em todo lugar!)"]);
+
+// TEMA 7: Princípio de Arquimedes (91-105)
+addQ(7,'theo',"O Empuxo é uma força hidrostática que sempre aponta para:", "B", ["O empuxo luta contra o Peso, por isso o barco flutua."], ["A) Baixo, empurrando para o fundo.", "B) Cima, oposta ao peso do objeto.", "C) Lados, esmagando o objeto.", "D) Fora da piscina."]);
+addQ(7,'theo',"O valor da força de Empuxo sofrida por um corpo é exatamente igual a:", "A", ["Essa é a frase clássica do Princípio de Arquimedes. (O volume de água que derrama se você encher a banheira até a borda e entrar)."], ["A) Peso do volume do líquido deslocado pelo corpo.", "B) Peso do corpo inteiro.", "C) Densidade do corpo.", "D) Ao volume da piscina toda."]);
+addQ(7,'theo',"Quando um navio está boiando (flutuando em equilíbrio na superfície) do mar, o Empuxo que a água faz nele é:", "C", ["Se ele não está afundando nem voando pro céu, a força para cima (Empuxo) anulou exatamente a força para baixo (Peso)."], ["A) Maior que o peso do navio.", "B) Menor que o peso do navio.", "C) Exatamente igual ao peso do navio.", "D) Zero."]);
+addQ(7,'theo',"Um ovo fresco afunda num copo de água pura (doce). Quando você joga MUITO sal na água, o ovo sobe e flutua. O que aconteceu?", "C", ["O sal aumenta brutalmente a densidade do líquido (água salgada). Líquido mais denso exerce maior Empuxo!"], ["A) O ovo perdeu massa.", "B) O sal comeu a casca do ovo.", "C) A densidade do líquido aumentou, e agora é maior que a do ovo.", "D) O ovo ficou mais denso."]);
+addQ(7,'theo',"O chamado 'Peso Aparente' é a sensação de que somos mais leves ao sermos carregados dentro da piscina. A fórmula é:", "D", ["O Empuxo nos ajuda a subir."], ["A) $P_{ap} = P + E$", "B) $P_{ap} = E - P$", "C) $P_{ap} = P \\cdot E$", "D) $P_{ap} = P_{real} - E$"]);
+
+addQ(7,'calc',"Empuxo: $E = d_{liq} \\cdot V_{sub} \\cdot g$. Bloco de concreto afundado na água. Volume do bloco = 2 $m^3$. Dens. da água = 1000 $\\text{kg/m}^3$. Gravidade = 10. Qual o valor do Empuxo (em N)?", "20000", ["$E = 1000 \\cdot 2 \\cdot 10 = 20000 \\text{ N}$"]);
+addQ(7,'calc',"Baseado na questão anterior (E = 20.000 N). Se o bloco pesa (P) na realidade 50.000 N. Qual o seu Peso Aparente debaixo d'água (em N)?", "30000", ["$P_{ap} = 50000 - 20000 = 30000 \\text{ N}$"]);
+addQ(7,'calc',"Navio flutuando, seu Peso total é 100.000 N. Qual o valor do Empuxo que o mar está fazendo sobre ele (em N)?", "100000", ["Objeto boiando está em equilíbrio: Empuxo tem o exato valor do Peso."]);
+addQ(7,'calc',"Tijolo afunda totalmente no álcool ($d_{alcool} = 800 \\text{kg/m}^3$). O volume dele é 0,05 $m^3$. Qual o Empuxo (em N)? (Use $g=10$)", "400", ["$E = 800 \\cdot 0,05 \\cdot 10 = 400 \\text{ N}$"]);
+addQ(7,'calc',"Um cubo de madeira de 5 $m^3$ boia na água ($d=1000$). Metade do cubo está debaixo d'água ($V_{submerso} = 2,5 \\text{ m}^3$). Qual o Empuxo sofrido (N)?", "25000", ["Use sempre e somente a parte submersa (que está empurrando a água).", "$E = 1000 \\cdot 2,5 \\cdot 10 = 25000 \\text{ N}$"]);
+addQ(7,'calc',"Na mesma situação (E = 25.000N, boiando em equilíbrio). Se ele boia, o Empuxo é igual ao Peso total do cubo. Qual a MASSA do cubo todo (em kg)? (Use P = m·g)", "2500", ["Se $P = 25000 \\text{ N}$, então $m = P / g = 25000 / 10 = 2500 \\text{ kg}$"]);
+addQ(7,'calc',"Bolinha no ar pesa 50 N. Numa balança submersa na água pesa só 10 N (Peso aparente). Quanto vale o Empuxo sobre ela (em N)?", "40", ["$P_{ap} = P_{real} - E \\rightarrow 10 = 50 - E \\rightarrow E = 40 \\text{ N}$"]);
+addQ(7,'calc',"Balão atmosférico: flutua no ar (o ar também é fluido que dá empuxo!). O balão todo ocupa 100 $m^3$. Densidade do ar externo = 1,2 $\\text{kg/m}^3$. Qual o Empuxo que puxa o balão pro céu (N)? (Use $g=10$)", "1200", ["$E = d_{ar} \\cdot V_{balao} \\cdot g = 1,2 \\cdot 100 \\cdot 10 = 1200 \\text{ N}$"]);
+addQ(7,'calc',"Gelo flutuando na água pura. A densidade do gelo é cerca de 900 $\\text{kg/m}^3$. A da água é 1000. Quantos por cento (%) do volume do gelo fica SUBMERSO? (Dica: A fração submersa é a divisão $d_{corpo} / d_{liquido}$).", "90", ["Fração = 900 / 1000 = 0,90.", "Significa que 90% de um iceberg está escondido embaixo d'água!"]);
+addQ(7,'calc',"Mergulhador totalmente submerso tem volume de 0,08 $m^3$. Água = 1000. g = 10. Qual o Empuxo?", "800", ["$E = 1000 \\cdot 0,08 \\cdot 10 = 800 \\text{ N}$"]);
+
+let currentTheme = 'all';
+let solved = new Set(JSON.parse(localStorage.getItem('fisicaHidroSolved')||'[]'));
+
+function renderExercises() {
+    const listDiv = $('exercise-list');
+    let html = '';
+    
+    exercisesData.forEach(ex => {
+        if (currentTheme !== 'all' && ex.theme != currentTheme) return;
+        
+        const isSolved = solved.has(ex.id);
+        const borderColor = isSolved ? 'border-sky-400' : 'border-slate-200';
+        const badgeColor = isSolved ? 'bg-sky-100 text-sky-800' : 'bg-slate-100 text-slate-700';
+        const themeNames = ["", "Fluidos", "Densidade", "Pressão", "Stevin", "P. Atmosférica", "Pascal", "Arquimedes"];
+        
+        let questionBody = `<p class="mt-3 text-slate-700 mb-4 text-sm leading-6">${ex.q}</p>`;
+        
+        if (ex.type === 'theo' && ex.opts) {
+            questionBody += `<div class="space-y-2 mb-4 text-sm text-slate-600">`;
+            ex.opts.forEach(opt => {
+                questionBody += `<div class="p-2 bg-slate-50 rounded-lg border border-slate-100">${opt}</div>`;
+            });
+            questionBody += `</div>`;
+        }
+
+        html += `
+        <article class="bg-white rounded-2xl border ${borderColor} p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div class="flex justify-between gap-3 items-center">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full ${badgeColor}">Questão ${ex.id}</span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">TEMA ${ex.theme}: ${themeNames[ex.theme]}</span>
+            </div>
+            
+            ${questionBody}
+            
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" type="text" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="${ex.type==='theo' ? 'Letra (A, B, C, D)' : 'Valor numérico'}">
+                <button onclick="checkAnswer(${ex.id})" class="bg-sky-600 hover:bg-sky-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+            </div>
+            
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+            
+            <button onclick="document.getElementById('sol-${ex.id}').classList.toggle('hidden')" class="mt-3 text-sm font-bold text-sky-700 hover:underline">
+                👁 Mostrar explicação / cálculo
+            </button>
+            
+            <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t border-sky-100 pt-4">
+                <div class="text-xs uppercase tracking-widest font-black text-sky-800 mb-3">Resolução Passo a Passo</div>
+                ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+                <div class="success rounded-xl p-4 text-center font-bold mt-2 text-emerald-900">Resposta Correta: ${ex.ans}</div>
+            </div>
+        </article>
+        `;
+    });
+    
+    listDiv.innerHTML = html;
+    updateProgress();
+    renderAll();
+}
+
+function checkAnswer(id) {
+    const ex = exercisesData.find(x => x.id === id);
+    const inputEl = $(`ans-${id}`);
+    const fbEl = $(`fb-${id}`);
+    
+    let rawInput = inputEl.value.trim().toUpperCase();
+    if(ex.type === 'calc') {
+        rawInput = rawInput.replace(',', '.'); 
+    }
+
+    let isCorrect = false;
+    
+    if (ex.type === 'theo') {
+        isCorrect = (rawInput === ex.ans);
+    } else {
+        const numIn = parseFloat(rawInput);
+        const numAns = parseFloat(ex.ans);
+        // Margem de tolerância pequena para contas quebradas (se houver).
+        if(!isNaN(numIn) && Math.abs(numIn - numAns) <= 0.05) {
+            isCorrect = true;
+        }
+    }
+
+    if (isCorrect) {
+        solved.add(id);
+        localStorage.setItem('fisicaHidroSolved', JSON.stringify([...solved]));
+        fbEl.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fbEl.textContent = '✓ Excelente! Você acertou.';
+        setTimeout(renderExercises, 400); 
+    } else {
+        fbEl.className = 'text-sm font-bold mt-2 text-red-500';
+        fbEl.textContent = '✗ Quase lá. Dê uma espiadinha na teoria ou na resolução!';
+    }
+}
+
+function updateProgress() {
+    const max = exercisesData.length;
+    const current = solved.size;
+    $('progress-text').textContent = `${current} / ${max}`;
+    $('progress-bar').style.width = `${(current/max)*100}%`;
+}
+
+// Filtros Theme
+document.querySelectorAll('.level-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active', 'bg-sky-500', 'text-white'));
+        document.querySelectorAll('.level-btn:not(.active)').forEach(b => b.classList.add('bg-slate-100'));
+        
+        btn.classList.add('active');
+        btn.classList.remove('bg-slate-100');
+        
+        currentTheme = btn.dataset.theme;
+        renderExercises();
+    };
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderExercises();
+    renderAll();
+});
+</script>
+</body>
+</html>
