@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equações do 2º Grau — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#4f46e5;background:#eef2ff;color:#312e81}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  
+  /* Canvas Lab Styling */
+  #lab-canvas {
+      width: 100%;
+      height: 350px;
+      background-color: #f8fafc;
+      border-radius: 1rem;
+      border: 2px solid #e2e8f0;
+      cursor: crosshair;
+  }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">🧮 Equações do 2º Grau</div><div class="text-[11px] text-slate-500 hidden sm:block">Dominando raízes, delta e parábolas</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Plotador</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Bhaskara Passo a Passo</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">A Anatomia da Parábola</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Os Segredos de Bhaskara</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Enquanto as equações do 1º grau formam retas, as equações do 2º grau formam curvas chamadas parábolas. Aprenda a encontrar onde essa curva corta o chão (raízes) e onde ela atinge seu pico ou fundo (vértice).</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">4</b><div class="text-xs text-indigo-200">métodos vitais</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-indigo-200">exercícios práticos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">fórmulas visuais</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">📈</b><div class="text-xs text-indigo-200">gráfico interativo</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Estrutura Base:</b> Toda equação do 2º grau pode ser organizada no formato <b>\(ax^2 + bx + c = 0\)</b>, onde "a", "b" e "c" são os coeficientes (números) e o "a" nunca pode ser zero!</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O Discriminante (Delta \(\Delta\))</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">O Delta é o "vidente" da equação. Antes mesmo de achar as raízes, calculando o Delta você descobre se a equação tem solução e quantas raízes ela possui.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center font-bold text-lg text-indigo-900">
+    \[ \Delta = b^2 - 4ac \]
+   </div>
+   <div class="mt-4 space-y-2 text-sm">
+    <div class="bg-emerald-50 text-emerald-800 p-3 rounded-lg border border-emerald-100"><b>\(\Delta > 0\):</b> Duas raízes reais e diferentes (corta o eixo X em dois pontos).</div>
+    <div class="bg-amber-50 text-amber-800 p-3 rounded-lg border border-amber-100"><b>\(\Delta = 0\):</b> Duas raízes reais e iguais (toca o eixo X em apenas um ponto).</div>
+    <div class="bg-rose-50 text-rose-800 p-3 rounded-lg border border-rose-100"><b>\(\Delta < 0\):</b> Não possui raízes reais (a parábola "flutua", não encosta no eixo X).</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">A Fórmula de Bhaskara</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Esta é a chave-mestra. Sabendo o valor de Delta, aplicamos a fórmula para descobrir os valores exatos de \(x\) (as raízes).</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center font-bold text-lg text-indigo-900">
+    \[ x = \frac{-b \pm \sqrt{\Delta}}{2a} \]
+   </div>
+   <div class="mt-4 text-sm text-slate-600 bg-slate-50 p-4 rounded-lg border">
+    O sinal de <b>\(\pm\) (mais ou menos)</b> indica que você fará duas contas finais: uma usando o sinal de mais (para achar o \(x_1\)) e outra usando o sinal de menos (para achar o \(x_2\)).
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black text-xl">S</span><h2 class="text-2xl font-black">3. Soma e Produto (Atalho Mental)</h2></div>
+  <p class="mt-3 text-slate-600">Se o coeficiente <b>\(a = 1\)</b>, você pode achar as raízes sem usar Bhaskara! Basta pensar em dois números que, quando somados, dão o valor de \(-b\), e quando multiplicados, dão o valor de \(c\).</p>
+  
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div class="paper rounded-xl p-5">
+    <div class="font-bold text-rose-800 text-center mb-3">As Fórmulas</div>
+    <div class="text-center font-black text-lg">
+     \[ \text{Soma } (S) = -\frac{b}{a} \]
+     \[ \text{Produto } (P) = \frac{c}{a} \]
+    </div>
+   </div>
+   <div class="bg-slate-50 p-5 rounded-xl border text-sm text-slate-700">
+    <b>Exemplo prático:</b> Resolva \(x^2 - 5x + 6 = 0\)<br><br>
+    Soma \(= -(-5) = \mathbf{5}\) <br>
+    Produto \(= \mathbf{6}\) <br><br>
+    <i>Quais dois números somam 5 e multiplicam 6?</i> <br>
+    Raízes: <b>2 e 3</b>. (Pois \(2+3=5\) e \(2\times3=6\)).
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. O Vértice da Parábola</h2>
+   <p class="mt-3 text-slate-600">O vértice é o ponto de "virada" da parábola. Se o "a" for positivo, a boca é pra cima e o vértice é o <b>Ponto Mínimo</b>. Se o "a" for negativo, a boca é pra baixo e o vértice é o <b>Ponto Máximo</b>.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    <div class="font-bold text-slate-500 mb-2">Coordenadas do Vértice \((X_v, Y_v)\)</div>
+    <div class="text-lg font-black text-indigo-700 mt-2">\[ X_v = -\frac{b}{2a} \]</div>
+    <div class="text-lg font-black text-indigo-700 mt-2">\[ Y_v = -\frac{\Delta}{4a} \]</div>
+   </div>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">5. Equações Incompletas (Atalhos)</h2>
+   <p class="mt-3 text-slate-600">Não gaste tempo com Bhaskara se faltar o "b" ou o "c".</p>
+   <div class="mt-4 space-y-3 text-sm text-slate-700">
+    <div class="bg-slate-50 p-3 rounded border">
+        <b>Se \(c = 0\):</b> Coloque o \(x\) em evidência.<br>
+        Ex: \(x^2 - 4x = 0 \implies x(x - 4) = 0\)<br>
+        Raízes: \(x = 0\) ou \(x = 4\).
+    </div>
+    <div class="bg-slate-50 p-3 rounded border">
+        <b>Se \(b = 0\):</b> Isole o \(x^2\) e tire a raiz.<br>
+        Ex: \(x^2 - 25 = 0 \implies x^2 = 25\)<br>
+        Raízes: \(x = 5\) ou \(x = -5\).
+    </div>
+   </div>
+  </article>
+ </div>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Gráfico em Tempo Real</span>
+  <h1 class="text-3xl font-black mt-2">Plotador de Parábolas</h1>
+  <p class="text-slate-600 mt-2">Altere os valores de <b>a, b, c</b> e veja imediatamente o que acontece com a curva, suas raízes e seu vértice.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[300px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col gap-5">
+   
+   <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl text-center">
+    <div class="font-bold text-slate-500 text-xs uppercase mb-1">Equação Atual</div>
+    <div id="lab-eq-display" class="font-black text-xl text-indigo-900">1x² + 0x - 4 = 0</div>
+   </div>
+
+   <div>
+    <label class="font-bold text-sm block mb-1">Coeficiente (a): <span id="lab-val-a" class="text-indigo-600">1</span></label>
+    <input id="lab-slide-a" type="range" min="-5" max="5" value="1" step="0.5" class="w-full accent-indigo-600">
+    <div class="text-[10px] text-slate-400">Controla a abertura e a concavidade (para cima/baixo).</div>
+   </div>
+   
+   <div>
+    <label class="font-bold text-sm block mb-1">Coeficiente (b): <span id="lab-val-b" class="text-indigo-600">0</span></label>
+    <input id="lab-slide-b" type="range" min="-10" max="10" value="0" step="1" class="w-full accent-indigo-600">
+    <div class="text-[10px] text-slate-400">Desloca a parábola inclinando-a.</div>
+   </div>
+
+   <div>
+    <label class="font-bold text-sm block mb-1">Coeficiente (c): <span id="lab-val-c" class="text-indigo-600">-4</span></label>
+    <input id="lab-slide-c" type="range" min="-10" max="10" value="-4" step="1" class="w-full accent-indigo-600">
+    <div class="text-[10px] text-slate-400">Ponto onde a parábola corta o eixo vertical (Y).</div>
+   </div>
+
+   <div class="mt-4 pt-4 border-t space-y-2 text-sm">
+    <div class="flex justify-between"><span class="font-bold text-slate-500">Delta (Δ):</span> <span id="lab-delta" class="font-black">16</span></div>
+    <div class="flex justify-between"><span class="font-bold text-slate-500">Raízes (X):</span> <span id="lab-roots" class="font-black text-emerald-600">-2 e 2</span></div>
+    <div class="flex justify-between"><span class="font-bold text-slate-500">Vértice (X,Y):</span> <span id="lab-vertex" class="font-black text-rose-600">(0, -4)</span></div>
+   </div>
+
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-4 shadow-sm flex flex-col relative overflow-hidden">
+   <canvas id="lab-canvas"></canvas>
+   <div class="mt-3 flex justify-center gap-4 text-xs font-bold">
+    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> Raízes</span>
+    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span> Vértice</span>
+    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> Ponto 'c'</span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Resolvedor Mágico</span>
+  <h1 class="text-3xl font-black mt-2">Bhaskara Passo a Passo</h1>
+  <p class="text-slate-600 mt-2">Insira os coeficientes <b>a</b>, <b>b</b> e <b>c</b> para ver o cálculo completo sendo resolvido como num quadro-negro.</p>
+ </div>
+ 
+ <div class="max-w-4xl mx-auto">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   
+   <div class="flex flex-wrap items-center justify-center gap-3 text-xl font-black text-indigo-900 mt-2 bg-slate-50 p-6 rounded-2xl border">
+    <input id="tool-a" type="number" value="1" class="border-2 border-indigo-200 bg-white rounded-xl p-3 w-24 text-center outline-none focus:border-indigo-500 transition">
+    <span>x²</span>
+    <span class="mx-1">+</span>
+    
+    <input id="tool-b" type="number" value="-5" class="border-2 border-indigo-200 bg-white rounded-xl p-3 w-24 text-center outline-none focus:border-indigo-500 transition">
+    <span>x</span>
+    <span class="mx-1">+</span>
+    
+    <input id="tool-c" type="number" value="6" class="border-2 border-indigo-200 bg-white rounded-xl p-3 w-24 text-center outline-none focus:border-indigo-500 transition">
+    <span class="mx-1">= 0</span>
+   </div>
+   
+   <button onclick="solveTool()" class="mt-6 w-full bg-indigo-600 text-white rounded-xl py-4 font-black text-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">Gerar Resolução Completa</button>
+   <div id="tool-out" class="paper rounded-xl p-6 mt-6 hidden space-y-5"></div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div>
+    <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span>
+    <h1 class="text-3xl font-black mt-2">100 Exercícios Classificados</h1>
+    <p class="text-slate-600 mt-2 text-sm">Responda o que for pedido. Para raízes, digite os valores separados por vírgula (ex: <b>-2, 3</b> ou <b>5</b> se for única). Para frações, use a barra (ex: <b>1/2</b>).</p>
+   </div>
+   <div class="min-w-[210px]">
+    <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+    <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden">
+     <div id="progress-bar" class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width:0%"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L1: Incompletas</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L2: Bhaskara (Raízes Reais)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L3: Soma e Produto</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L4: Cálculo de Vértice</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L5: O Valor do Delta</button>
+   <input id="search" placeholder="Buscar..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[150px] outline-none focus:border-indigo-500">
+  </div>
+ </div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+
+</main>
+<footer class="border-t bg-white mt-8">
+ <div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">
+  Material didático de matemática • Fórmulas renderizadas com KaTeX
+ </div>
+</footer>
+
+<script>
+// Utils & KaTeX Config
+const $ = id => document.getElementById(id);
+const mathInline = latex => String.raw`\(${latex}\)`;
+const mathDisplay = latex => String.raw`\[${latex}\]`;
+
+function renderMathIn(element) {
+  if (window.renderMathInElement) {
+    renderMathInElement(element, { delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '\\[', right: '\\]', display: true},
+      {left: '\\(', right: '\\)', display: false}
+    ] });
+  }
+}
+function renderAll() { document.querySelectorAll('body').forEach(el => renderMathIn(el)); }
+
+// Formatting Helpers
+function formatTerm(coeff, variable, isFirst) {
+    if (coeff === 0 && !isFirst) return "";
+    let str = "";
+    if (coeff < 0) {
+        str += isFirst ? "-" : " - ";
+    } else if (!isFirst) {
+        str += " + ";
+    }
+    let absC = Math.abs(coeff);
+    if (!variable) {
+        str += absC;
+    } else {
+        if (absC !== 1 || variable === "") str += absC;
+        str += variable;
+    }
+    return str;
+}
+function formatEq(a, b, c) {
+    let eq = formatTerm(a, "x^2", true);
+    if (b !== 0) eq += formatTerm(b, "x", false);
+    if (c !== 0) eq += formatTerm(c, "", false);
+    return eq + " = 0";
+}
+function formatNum(n) { return Number.isInteger(n) ? n.toString() : n.toFixed(2); }
+
+// Tabs
+const sections = ['teoria', 'laboratorio', 'ferramentas', 'exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => 
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.tab;
+    sections.forEach(s => $(`sec-${s}`).classList.toggle('hidden', s !== t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    if (t === 'exercicios') renderExercises();
+    if (t === 'laboratorio') { resizeCanvas(); drawLab(); }
+  })
+);
+
+
+// --- LABORATÓRIO (CANVAS) ---
+const canvas = $('lab-canvas');
+const ctx = canvas.getContext('2d');
+let labA = 1, labB = 0, labC = -4;
+
+function resizeCanvas() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+}
+window.addEventListener('resize', () => { if(!$('sec-laboratorio').classList.contains('hidden')) { resizeCanvas(); drawLab(); } });
+
+function getQuadData(a, b, c) {
+    let delta = (b*b) - (4*a*c);
+    let r1 = null, r2 = null;
+    if (delta > 0) {
+        r1 = (-b - Math.sqrt(delta)) / (2*a);
+        r2 = (-b + Math.sqrt(delta)) / (2*a);
+    } else if (delta === 0) {
+        r1 = -b / (2*a);
+    }
+    let xv = -b / (2*a);
+    let yv = -delta / (4*a);
+    return { delta, r1, r2, xv, yv };
+}
+
+function updateLabUI() {
+    let a = labA, b = labB, c = labC;
+    $('lab-eq-display').innerText = formatEq(a, b, c).replace(/x\^2/g, 'x²');
+    
+    let d = getQuadData(a, b, c);
+    $('lab-delta').innerText = d.delta;
+    
+    if (d.delta < 0) {
+        $('lab-roots').innerText = "Não há raízes reais";
+        $('lab-roots').className = "font-black text-rose-500";
+    } else if (d.delta === 0) {
+        $('lab-roots').innerText = formatNum(d.r1);
+        $('lab-roots').className = "font-black text-emerald-600";
+    } else {
+        $('lab-roots').innerText = `${formatNum(Math.min(d.r1, d.r2))} e ${formatNum(Math.max(d.r1, d.r2))}`;
+        $('lab-roots').className = "font-black text-emerald-600";
+    }
+    $('lab-vertex').innerText = `(${formatNum(d.xv)}, ${formatNum(d.yv)})`;
+}
+
+function drawLab() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const w = canvas.width, h = canvas.height;
+    const cx = w / 2, cy = h / 2;
+    const scale = 20; // 20px per unit
+    
+    // Draw Grid
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+    for(let i=0; i<w; i+=scale) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,h); ctx.stroke(); }
+    for(let i=0; i<h; i+=scale) { ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(w,i); ctx.stroke(); }
+    
+    // Draw Axes
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(w, cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, h); ctx.stroke();
+
+    // Draw Parabola
+    ctx.beginPath();
+    ctx.strokeStyle = '#4f46e5'; // Indigo-600
+    ctx.lineWidth = 3;
+    let started = false;
+    for (let px = 0; px <= w; px++) {
+        let x = (px - cx) / scale;
+        let y = (labA * x * x) + (labB * x) + labC;
+        let py = cy - (y * scale);
+        
+        if (py > -1000 && py < h + 1000) { // Limit drawing bounds
+            if(!started) { ctx.moveTo(px, py); started = true; }
+            else { ctx.lineTo(px, py); }
+        } else {
+            started = false;
+        }
+    }
+    ctx.stroke();
+
+    // Draw Points
+    let d = getQuadData(labA, labB, labC);
+    
+    function drawPoint(x, y, color) {
+        let px = cx + (x * scale);
+        let py = cy - (y * scale);
+        ctx.beginPath(); ctx.arc(px, py, 6, 0, 2*Math.PI);
+        ctx.fillStyle = color; ctx.fill();
+        ctx.strokeStyle = '#fff'; ctx.lineWidth=2; ctx.stroke();
+    }
+    
+    // Y-intercept (c)
+    drawPoint(0, labC, '#f59e0b'); // Amber
+    // Roots
+    if (d.r1 !== null) drawPoint(d.r1, 0, '#10b981'); // Emerald
+    if (d.r2 !== null) drawPoint(d.r2, 0, '#10b981'); // Emerald
+    // Vertex
+    drawPoint(d.xv, d.yv, '#f43f5e'); // Rose
+}
+
+['a', 'b', 'c'].forEach(id => {
+    $(`lab-slide-${id}`).addEventListener('input', (e) => {
+        let val = parseFloat(e.target.value);
+        if (id === 'a' && val === 0) { e.target.value = 0.5; val = 0.5; } // a != 0
+        if (id === 'a') labA = val;
+        if (id === 'b') labB = val;
+        if (id === 'c') labC = val;
+        $(`lab-val-${id}`).innerText = val;
+        updateLabUI();
+        drawLab();
+    });
+});
+
+// Init Lab values
+window.addEventListener('DOMContentLoaded', () => {
+    updateLabUI();
+});
+
+
+// --- RESOLVEDOR (Ferramentas) ---
+function solveTool() {
+    let a = parseFloat($('tool-a').value);
+    let b = parseFloat($('tool-b').value);
+    let c = parseFloat($('tool-c').value);
+    const out = $('tool-out');
+    
+    if(isNaN(a) || isNaN(b) || isNaN(c)) return out.innerHTML = `<div class="warning p-3 rounded-lg font-bold">Preencha todos os coeficientes numéricos.</div>`;
+    if(a === 0) return out.innerHTML = `<div class="warning p-3 rounded-lg font-bold">Se a = 0, a equação é do 1º grau, não do 2º!</div>`;
+    
+    out.classList.remove('hidden');
+    let html = '';
+    let step = 1;
+    
+    html += `<div class="font-black text-center text-xl pb-4 border-b"> ${mathInline(formatEq(a, b, c))} </div>`;
+    
+    // 1. Identificar coeficientes
+    html += `<div class="step mt-4" data-step="${step++}"><b>Identificando os coeficientes:</b> <br>
+             Temos \(a = ${a}\), \(b = ${b}\) e \(c = ${c}\).</div>`;
+             
+    // 2. Calcular Delta
+    let deltaStr = `${b < 0 ? '('+b+')' : b}^2 - 4 \\cdot (${a}) \\cdot (${c})`;
+    let delta = (b*b) - (4*a*c);
+    let b2 = b*b; let ac4 = -4*a*c;
+    
+    html += `<div class="step mt-4" data-step="${step++}"><b>Cálculo do Discriminante (\\(\Delta\\)):</b><br>
+             Fórmula: \(\\Delta = b^2 - 4ac\)<br>
+             Substituindo: \(\\Delta = ${deltaStr}\)<br>
+             \(\\Delta = ${b2} ${ac4 > 0 ? '+ '+ac4 : ac4}\)<br>
+             <b>\\(\\Delta = ${delta}\\)</b>
+             </div>`;
+             
+    // 3. Análise do Delta
+    if (delta < 0) {
+        html += `<div class="step mt-4" data-step="${step++}"><b>Análise do \\(\\Delta\\):</b> Como \\(\\Delta < 0\\) (${delta}), não existe raiz quadrada real de número negativo. Logo, a equação <b>não possui raízes reais</b> (a parábola não cruza o eixo x).</div>`;
+        
+        let xv = -b / (2*a); let yv = -delta / (4*a);
+        html += `<div class="step mt-4" data-step="${step++}"><b>Bônus - Vértice da Parábola:</b><br>
+                 \(X_v = \\frac{-b}{2a} = \\frac{-(${b})}{2(${a})} = \\mathbf{${formatNum(xv)}}\)<br>
+                 \(Y_v = \\frac{-\\Delta}{4a} = \\frac{-(${delta})}{4(${a})} = \\mathbf{${formatNum(yv)}}\)</div>`;
+                 
+        out.innerHTML = html;
+        renderMathIn(out);
+        return;
+    }
+
+    html += `<div class="step mt-4" data-step="${step++}"><b>Análise do \\(\\Delta\\):</b> Como \\(\\Delta ${delta === 0 ? '= 0' : '> 0'}\\) (${delta}), teremos ${delta === 0 ? 'duas raízes reais iguais (uma única raiz visual)' : 'duas raízes reais distintas'}.</div>`;
+    
+    // 4. Bhaskara
+    let sqrtDelta = Math.sqrt(delta);
+    let isPerfectSquare = Number.isInteger(sqrtDelta);
+    let sqrtStr = isPerfectSquare ? sqrtDelta : `\\sqrt{${delta}}`;
+    
+    html += `<div class="step mt-4" data-step="${step++}"><b>Fórmula de Bhaskara:</b><br>
+             Fórmula: \(x = \\frac{-b \\pm \\sqrt{\\Delta}}{2a}\)<br>
+             Substituindo: \(x = \\frac{-(${b}) \\pm \\sqrt{${delta}}}{2 \\cdot (${a})}\)<br>
+             \(x = \\frac{${-b} \\pm ${sqrtStr}}{${2*a}}\)
+             </div>`;
+             
+    if (!isPerfectSquare) {
+        html += `<div class="warning mt-4 p-3 rounded-lg text-sm">O Delta (${delta}) não possui raiz exata. Para fins didáticos, usaremos aproximação decimal (\\(\\approx ${sqrtDelta.toFixed(2)}\\)) nos cálculos abaixo.</div>`;
+        sqrtDelta = parseFloat(sqrtDelta.toFixed(2));
+    }
+
+    let den = 2*a;
+    let x1 = (-b + sqrtDelta) / den;
+    let x2 = (-b - sqrtDelta) / den;
+    
+    html += `<div class="step mt-4" data-step="${step++}"><b>Calculando as Raízes (\(x_1\) e \(x_2\)):</b><br>
+             \(x_1 = \\frac{${-b} + ${sqrtDelta}}{${den}} = \\frac{${-b + sqrtDelta}}{${den}} = \\mathbf{${formatNum(x1)}}\)<br>
+             \(x_2 = \\frac{${-b} - ${sqrtDelta}}{${den}} = \\frac{${-b - sqrtDelta}}{${den}} = \\mathbf{${formatNum(x2)}}\)
+             </div>`;
+             
+    let xv = -b / den; let yv = -delta / (4*a);
+    html += `<div class="step mt-4" data-step="${step++}"><b>Cálculo do Vértice (Onde a curva vira):</b><br>
+             \(X_v = \\frac{-b}{2a} = \\frac{-(${b})}{${den}} = \\mathbf{${formatNum(xv)}}\)<br>
+             \(Y_v = \\frac{-\\Delta}{4a} = \\frac{-(${delta})}{${4*a}} = \\mathbf{${formatNum(yv)}}\)</div>`;
+             
+    html += `<div class="success p-4 rounded-xl mt-6 text-center font-black text-xl">
+             Conjunto Solução: S = {${formatNum(Math.min(x1,x2))}, ${formatNum(Math.max(x1,x2))}}
+             </div>`;
+             
+    out.innerHTML = html;
+    renderMathIn(out);
+}
+
+// --- GERADOR DE EXERCÍCIOS ---
+const E = [];
+let exId = 1;
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+function pushEx(lvl, title, text, ansType, ansStr, steps) {
+    E.push({ id: exId++, level: lvl, title, text, ansType, ans: ansStr, steps });
+}
+
+// L1: Incompletas (20 ex) -> c=0 (10) e b=0 (10)
+for(let i=0; i<10; i++) {
+    // c = 0
+    let a = rand(1, 4) * (Math.random()>0.5?1:-1);
+    let r2 = rand(-10, 10);
+    if(r2===0) r2=5;
+    let b = -(a * r2);
+    let eq = formatEq(a, b, 0);
+    
+    let st = [
+        `Como \(c=0\), podemos fatorar colocando \(x\) em evidência: \\(x(${a}x ${b>0?'+':''} ${b}) = 0\\).`,
+        `Para uma multiplicação dar zero, um dos termos deve ser zero. Logo, \\(x_1 = 0\\).`,
+        `O outro termo: \\(${a}x ${b>0?'+':''} ${b} = 0 \\implies ${a}x = ${-b} \\implies x_2 = ${-b/a}\\).`
+    ];
+    let ansSorted = [0, r2].sort((x,y)=>x-y).join(',');
+    pushEx(1, "Incompleta (c=0)", `Quais as raízes de \\(${eq}\\)?`, 'roots', ansSorted, st);
+}
+for(let i=0; i<10; i++) {
+    // b = 0
+    let a = rand(1, 4);
+    let root = rand(2, 9);
+    let c = -(a * root * root);
+    let eq = formatEq(a, 0, c);
+    
+    let st = [
+        `Como \(b=0\), isole o \(x^2\). Passe o número pro outro lado.`,
+        `\\(${a}x^2 = ${-c} \\implies x^2 = \\frac{${-c}}{${a}} \\implies x^2 = ${-c/a}\\).`,
+        `Tire a raiz quadrada de ambos os lados: \\(x = \\pm \\sqrt{${-c/a}}\\).`,
+        `Raízes: \\(x_1 = ${-root}\\) e \\(x_2 = ${root}\\).`
+    ];
+    let ansSorted = [-root, root].join(',');
+    pushEx(1, "Incompleta (b=0)", `Quais as raízes de \\(${eq}\\)?`, 'roots', ansSorted, st);
+}
+
+// L2: Bhaskara Completa (20 ex)
+for(let i=0; i<20; i++) {
+    let r1 = rand(-8, 8);
+    let r2 = rand(-8, 8);
+    let a = 1;
+    let b = -(r1 + r2);
+    let c = r1 * r2;
+    let eq = formatEq(a, b, c);
+    
+    let delta = (b*b) - (4*a*c);
+    let st = [
+        `Temos \\(a=${a}\\), \\(b=${b}\\), \\(c=${c}\\).`,
+        `Calculamos \\(\\Delta = b^2 - 4ac = (${b})^2 - 4(${a})(${c}) = ${b*b} - (${4*a*c}) = ${delta}\\).`,
+        `Como \\(\\Delta = ${delta}\\), usamos Bhaskara: \\(x = \\frac{-(${b}) \\pm \\sqrt{${delta}}}{2(${a})}\\).`,
+        `\\(x = \\frac{${-b} \\pm ${Math.sqrt(delta)}}{2}\\). Obtendo \\(x_1 = ${r1}\\) e \\(x_2 = ${r2}\\).`
+    ];
+    let ansSorted = [r1, r2].sort((x,y)=>x-y).join(',');
+    pushEx(2, "Bhaskara Tradicional", `Encontre as raízes de \\(${eq}\\).`, 'roots', ansSorted, st);
+}
+
+// L3: Soma e Produto (20 ex)
+for(let i=0; i<20; i++) {
+    let r1 = rand(-12, 12);
+    let r2 = rand(-12, 12);
+    let b = -(r1 + r2);
+    let c = r1 * r2;
+    let eq = formatEq(1, b, c);
+    
+    let st = [
+        `Com \\(a=1\\), a Soma das raízes é \\(-b = ${-b}\\) e o Produto é \\(c = ${c}\\).`,
+        `Quais dois números somados dão ${-b} e multiplicados dão ${c}?`,
+        `Pensando um pouco: ${r1} e ${r2}. Pois ${r1} + (${r2}) = ${-b} e ${r1} \\times (${r2}) = ${c}.`
+    ];
+    let ansSorted = [r1, r2].sort((x,y)=>x-y).join(',');
+    pushEx(3, "Ache por Soma e Produto", `Para \\(${eq}\\), determine as raízes mentalmente.`, 'roots', ansSorted, st);
+}
+
+// L4: Vértice (20 ex)
+for(let i=0; i<20; i++) {
+    let a = rand(1,3) * (Math.random()>0.5?1:-1);
+    let xv = rand(-5, 5);
+    let b = -xv * 2 * a;
+    let c = rand(-10, 10);
+    
+    let delta = (b*b) - (4*a*c);
+    let yv = -delta / (4*a);
+    let eq = formatEq(a, b, c);
+    
+    let st = [
+        `O vértice \\(V(X_v, Y_v)\\) é o pico ou fundo da parábola.`,
+        `Cálculo do \\(X_v = \\frac{-b}{2a} = \\frac{-(${b})}{2(${a})} = ${xv}\\).`,
+        `Calculamos \\(\\Delta = (${b})^2 - 4(${a})(${c}) = ${delta}\\).`,
+        `Cálculo do \\(Y_v = \\frac{-\\Delta}{4a} = \\frac{-(${delta})}{4(${a})} = ${yv}\\).`
+    ];
+    let ansCoord = `${xv},${yv}`;
+    pushEx(4, "Cálculo do Vértice", `Determine as coordenadas (X, Y) do vértice da parábola \\(y = ${eq.replace('= 0','')}\\).`, 'coord', ansCoord, st);
+}
+
+// L5: O Valor do Delta (20 ex)
+for(let i=0; i<20; i++) {
+    let a = rand(-5, 5); if(a===0) a=1;
+    let b = rand(-10, 10);
+    let c = rand(-10, 10);
+    let eq = formatEq(a, b, c);
+    let delta = (b*b) - (4*a*c);
+    
+    let st = [
+        `Fórmula do discriminante: \\(\\Delta = b^2 - 4ac\\).`,
+        `Substituindo: \\(\\Delta = (${b})^2 - 4 \\cdot (${a}) \\cdot (${c})\\).`,
+        `\\(\\Delta = ${b*b} - (${4*a*c}) = ${delta}\\).`
+    ];
+    pushEx(5, "O Discriminante", `Calcule apenas o valor do \\(\\Delta\\) na equação \\(${eq}\\).`, 'val', delta.toString(), st);
+}
+
+let solved = new Set(JSON.parse(localStorage.getItem('eq2gSolved') || '[]'));
+let currentLevel = 'all';
+
+function parseRootsInput(str) {
+    if(!str) return null;
+    let parts = str.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+    if(parts.length === 0) return null;
+    return parts.sort((x,y)=>x-y).join(',');
+}
+
+function parseCoordInput(str) {
+    if(!str) return null;
+    let parts = str.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+    if(parts.length !== 2) return null;
+    return `${parts[0]},${parts[1]}`;
+}
+
+function renderExercises() {
+  const q = ($('search').value || '').toLowerCase();
+  let list = E.filter(e => 
+    (currentLevel === 'all' || e.level == currentLevel) && 
+    (q === '' || (`questão ${e.id} ${e.title} ${e.text}`).toLowerCase().includes(q))
+  );
+  
+  $('exercise-list').innerHTML = list.map(ex => {
+    const done = solved.has(ex.id);
+    
+    let placeholder = ex.ansType === 'roots' ? "Ex: -2, 5 (use vírgula para duas raízes)" : 
+                      ex.ansType === 'coord' ? "Ex: 3, -4 (coordenada X, Y)" : "Ex: 16 (apenas o número)";
+
+    return `
+    <article class="bg-white rounded-2xl border ${done ? 'border-emerald-400 shadow-emerald-100' : 'border-slate-200'} p-5 shadow-sm transition-all hover:shadow-md flex flex-col justify-between">
+      <div>
+          <div class="flex justify-between gap-3 mb-3">
+            <span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 whitespace-nowrap">Questão ${ex.id}</span>
+            <span class="text-xs text-slate-400 text-right font-bold uppercase tracking-wide">${ex.title}</span>
+          </div>
+          <div class="text-slate-800 leading-relaxed font-medium">
+            ${ex.text}
+          </div>
+      </div>
+      <div class="mt-4">
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input id="ans-${ex.id}" class="flex-1 border-2 border-slate-200 focus:border-indigo-500 outline-none rounded-xl px-4 py-2 text-sm font-mono" placeholder="${placeholder}">
+            <button onclick="checkAnswer(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-5 py-2 text-sm font-black hover:bg-indigo-700 transition whitespace-nowrap">Conferir</button>
+          </div>
+          <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-[1.5rem]"></div>
+          
+          <button onclick="toggleSol(${ex.id})" class="mt-3 text-xs font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-800 transition">👁 Ver Passo a Passo</button>
+          
+          <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+            <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução</div>
+            ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+            <div class="success rounded-xl p-3 text-center font-black mt-4">
+              Resposta Oficial: ${ex.ans}
+            </div>
+          </div>
+      </div>
+    </article>`;
+  }).join('');
+  
+  $('progress-text').textContent = `${solved.size} / 100`;
+  $('progress-bar').style.width = (solved.size) + '%';
+  setTimeout(() => renderAll(), 10);
+}
+
+function checkAnswer(id) {
+  const ex = E.find(x => x.id === id);
+  const rawAns = $(`ans-${id}`).value;
+  const fb = $(`fb-${id}`);
+  
+  if (rawAns.trim() === '') {
+    fb.className = 'text-sm font-bold mt-2 text-amber-600';
+    fb.textContent = '⚠ Digite algo antes de conferir.';
+    return;
+  }
+
+  let userStr = "";
+  if(ex.ansType === 'roots') {
+      let r = parseRootsInput(rawAns);
+      if(!r) { fb.className = 'text-sm font-bold mt-2 text-amber-600'; fb.textContent = 'Formato inválido. Digite as raízes separadas por vírgula.'; return; }
+      userStr = r;
+      let exRoots = ex.ans.split(',');
+      if(exRoots[0] === exRoots[1] && userStr === exRoots[0]) userStr = ex.ans;
+  } else if (ex.ansType === 'coord') {
+      let c = parseCoordInput(rawAns);
+      if(!c) { fb.className = 'text-sm font-bold mt-2 text-amber-600'; fb.textContent = 'Forneça exatamente duas coordenadas X, Y separadas por vírgula.'; return; }
+      userStr = c;
+  } else {
+      userStr = parseFloat(rawAns.replace(',','.')).toString();
+      if(isNaN(parseFloat(userStr))) { fb.className = 'text-sm font-bold mt-2 text-amber-600'; fb.textContent = 'Digite apenas um número válido.'; return; }
+  }
+  
+  let isCorrect = (userStr === ex.ans);
+  
+  if (isCorrect) {
+    solved.add(id);
+    localStorage.setItem('eq2gSolved', JSON.stringify([...solved]));
+    fb.className = 'text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent = '✓ Correto! Excelente raciocínio.';
+  } else {
+    fb.className = 'text-sm font-bold mt-2 text-rose-600';
+    fb.textContent = '✗ Opa, não é esse o valor. Revise os sinais!';
+  }
+  renderExercises();
+}
+
+function toggleSol(id) { $(`sol-${id}`).classList.toggle('hidden'); }
+
+// Filtros
+document.querySelectorAll('.level-btn').forEach(b => b.onclick = () => {
+  currentLevel = b.dataset.level;
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.remove('active', 'bg-indigo-600', 'text-white'));
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.add('bg-slate-100'));
+  
+  b.classList.add('active');
+  b.classList.remove('bg-slate-100');
+  renderExercises();
+});
+$('search').addEventListener('input', renderExercises);
+
+// Init
+window.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+  resizeCanvas();
+  drawLab();
+});
+</script>
+</body>
+</html>

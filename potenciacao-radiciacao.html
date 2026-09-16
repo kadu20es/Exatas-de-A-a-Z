@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Potenciação e Radiciação — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#4f46e5;background:#eef2ff;color:#312e81}
+  canvas{max-width:100%}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .sticky-mini{position:sticky;top:74px;z-index:20}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  .grid-paper{background-image:linear-gradient(#e5e7eb 1px,transparent 1px),linear-gradient(90deg,#e5e7eb 1px,transparent 1px);background-size:28px 28px}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">🔺 Potenciação e Radiciação</div><div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo, não decorando</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exemplos">💡 Exemplos</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Curso do zero</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Potenciação e Radiciação sem mistério</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Potência é uma forma resumida de escrever multiplicações repetidas, e raiz é a operação que "desfaz" a potência. Você vai entender essas duas operações e suas propriedades com calma.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">7</b><div class="text-xs text-indigo-200">tópicos de teoria</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">30</b><div class="text-xs text-indigo-200">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">resolução detalhada</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">🔬</b><div class="text-xs text-indigo-200">laboratório visual</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Como estudar:</b> leia a ideia, observe o exemplo, veja o exemplo resolvido na aba <b>Exemplos</b> e só depois tente os exercícios. As propriedades parecem muitas, mas seguem uma lógica simples — expanda a potência quando tiver dúvida.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O que é potenciação?</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Potenciação é uma forma curta de escrever uma <b>multiplicação repetida do mesmo número</b>. Em \(2^4\): o 2 é a <b>base</b> (o número que se repete) e o 4 é o <b>expoente</b> (quantas vezes ele se repete).</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[2^4 = 2\times2\times2\times2 = 16\]</div>
+   <div class="bg-indigo-50 rounded-xl p-4 mt-4 text-sm"><b>Atenção:</b> \(2^4\) não é \(2\times4\)! É 2 multiplicado por ele mesmo, 4 vezes.</div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Casos especiais</h2></div>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-slate-50 rounded-xl p-4"><b>Expoente 1:</b> \(a^1 = a\) (qualquer número elevado a 1 é ele mesmo).</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>Expoente 0:</b> \(a^0 = 1\), para \(a \neq 0\) (qualquer número diferente de zero, elevado a zero, dá 1).</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>Expoente negativo:</b> \(a^{-n} = \frac{1}{a^n}\) — inverte a base para uma fração.</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <h2 class="text-2xl font-black">3. Propriedades da potenciação</h2>
+  <div class="grid sm:grid-cols-2 gap-4 mt-5 text-sm">
+   <div class="paper rounded-xl p-4"><b>Produto de potências de mesma base:</b><br>\[a^m \times a^n = a^{m+n}\]<span class="text-slate-500">Some os expoentes.</span></div>
+   <div class="paper rounded-xl p-4"><b>Quociente de potências de mesma base:</b><br>\[a^m \div a^n = a^{m-n}\]<span class="text-slate-500">Subtraia os expoentes.</span></div>
+   <div class="paper rounded-xl p-4"><b>Potência de potência:</b><br>\[(a^m)^n = a^{m\times n}\]<span class="text-slate-500">Multiplique os expoentes.</span></div>
+   <div class="paper rounded-xl p-4"><b>Potência de um produto:</b><br>\[(a\times b)^n = a^n \times b^n\]<span class="text-slate-500">Distribua o expoente.</span></div>
+  </div>
+  <div class="warning rounded-xl p-4 mt-5 text-sm"><b>Atenção:</b> essas propriedades só valem diretamente quando as bases (ou os expoentes, na potência de potência) são iguais. \(2^3 \times 3^2\) não pode ser simplificado somando expoentes, pois as bases são diferentes.</div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. Potências de 10</h2>
+   <p class="mt-3 text-slate-600 leading-7">Uma potência de 10 é o número 1 seguido de tantos zeros quanto o expoente indicar. É muito usada para escrever números grandes ou pequenos.</p>
+   <div class="space-y-2 mt-4 text-sm">
+    <div class="bg-slate-50 rounded-xl p-3">\(10^3 = 1000\) (1 seguido de 3 zeros)</div>
+    <div class="bg-slate-50 rounded-xl p-3">\(10^0 = 1\)</div>
+    <div class="bg-slate-50 rounded-xl p-3">\(10^{-2} = \frac{1}{100} = 0{,}01\)</div>
+   </div>
+  </article>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">5. O que é radiciação?</h2>
+   <p class="mt-3 text-slate-600 leading-7">Radiciação é a operação <b>inversa da potenciação</b>: ela pergunta "que número, elevado a esse expoente, dá esse resultado?". A raiz quadrada de 16 é 4, porque \(4^2=16\).</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[\sqrt{16} = 4 \quad \text{pois} \quad 4^2=16\]</div>
+   <div class="bg-amber-50 rounded-xl p-4 mt-3 text-sm">O símbolo \(\sqrt{\phantom{x}}\) é chamado de <b>radical</b>. Sem número escrito no "V", entende-se raiz quadrada (índice 2).</div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">6. Raiz cúbica e outras raízes</h2>
+   <p class="mt-3 text-slate-600 leading-7">O número pequeno antes do radical é o <b>índice</b> da raiz, e indica quantas vezes o resultado deve ser multiplicado por si mesmo para dar o número de dentro.</p>
+   <div class="space-y-2 mt-4 text-sm">
+    <div class="bg-slate-50 rounded-xl p-3">\(\sqrt[3]{27}=3\), pois \(3^3=27\) (raiz cúbica).</div>
+    <div class="bg-slate-50 rounded-xl p-3">\(\sqrt[4]{16}=2\), pois \(2^4=16\) (raiz quarta).</div>
+   </div>
+  </article>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">7. Propriedades da radiciação</h2>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-slate-50 rounded-xl p-4"><b>Raiz como expoente fracionário:</b> \(\sqrt[n]{a} = a^{\frac{1}{n}}\).</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>Raiz de um produto:</b> \(\sqrt{a\times b} = \sqrt{a}\times\sqrt{b}\).</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>Simplificação:</b> \(\sqrt{50} = \sqrt{25\times2} = \sqrt{25}\times\sqrt{2} = 5\sqrt2\).</div>
+   </div>
+  </article>
+ </div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">Checklist para qualquer questão</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 text-sm">
+   <div class="bg-slate-50 rounded-xl p-4"><b>① Identifique</b><br>É potência ou raiz? Bases iguais para usar propriedades?</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>② Casos especiais</b><br>Expoente 0, 1 ou negativo?</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>③ Aplique a propriedade</b><br>Some, subtraia ou multiplique os expoentes conforme a regra.</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>④ Confira</b><br>Expanda a potência se tiver dúvida do resultado.</div>
+  </div>
+ </article>
+</section>
+
+<!-- EXEMPLOS -->
+<section id="sec-exemplos" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Exemplos resolvidos</span><h1 class="text-3xl font-black mt-2">Veja o raciocínio completo, passo a passo</h1><p class="text-slate-600 mt-2">Antes de tentar os exercícios, acompanhe estes modelos com atenção.</p></div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 1 — Potenciação básica</h2>
+  <p class="mt-2 text-slate-600">Calcule \(3^4\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Expanda: \(3\times3\times3\times3\).</div>
+   <div class="step" data-step="2">Multiplique aos poucos: \(3\times3=9\); \(9\times3=27\); \(27\times3=81\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> 81.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 2 — Produto de potências de mesma base</h2>
+  <p class="mt-2 text-slate-600">Simplifique \(2^3 \times 2^5\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Mesma base (2), então some os expoentes: \(3+5=8\).</div>
+   <div class="step" data-step="2">Resultado: \(2^8\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> \(2^8 = 256\).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 3 — Expoente negativo</h2>
+  <p class="mt-2 text-slate-600">Calcule \(2^{-3}\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Expoente negativo inverte a base: \(2^{-3} = \frac{1}{2^3}\).</div>
+   <div class="step" data-step="2">Calcule \(2^3=8\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> \(\frac{1}{8}\).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 4 — Potência de potência</h2>
+  <p class="mt-2 text-slate-600">Simplifique \((3^2)^3\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Multiplique os expoentes: \(2\times3=6\).</div>
+   <div class="step" data-step="2">Resultado: \(3^6\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> \(3^6 = 729\).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 5 — Radiciação exata</h2>
+  <p class="mt-2 text-slate-600">Calcule \(\sqrt{81}\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Pergunte: que número multiplicado por ele mesmo dá 81?</div>
+   <div class="step" data-step="2">Teste: \(9\times9=81\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> \(\sqrt{81}=9\).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 6 — Simplificando um radical</h2>
+  <p class="mt-2 text-slate-600">Simplifique \(\sqrt{50}\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Escreva 50 como produto envolvendo um quadrado perfeito: \(50 = 25\times2\).</div>
+   <div class="step" data-step="2">Separe as raízes: \(\sqrt{25\times2}=\sqrt{25}\times\sqrt{2}\).</div>
+   <div class="step" data-step="3">Calcule \(\sqrt{25}=5\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(5\sqrt{2}\).</div>
+  </div>
+ </article>
+</section>
+
+<!-- LAB -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Laboratório visual</span><h1 class="text-3xl font-black mt-2">Veja a potência se expandir</h1><p class="text-slate-600 mt-2">Mova os controles de base e expoente e acompanhe a multiplicação, passo a passo.</p></div>
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <label class="font-bold text-sm">Base: <span id="lab-base-label" class="text-indigo-600">2</span></label><input id="lab-base" type="range" min="1" max="10" value="2" class="w-full mt-3">
+   <label class="font-bold text-sm block mt-6">Expoente: <span id="lab-exp-label" class="text-indigo-600">4</span></label><input id="lab-exp" type="range" min="0" max="6" value="4" class="w-full mt-3">
+  </div>
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h3 class="font-black text-center">Expansão</h3>
+   <div id="lab-expand" class="paper rounded-xl p-5 mt-4 text-center text-lg"></div>
+   <div class="border-t mt-6 pt-5 text-center"><div id="lab-result" class="text-3xl font-black"></div></div>
+  </div>
+ </div>
+ <div class="bg-indigo-950 text-white rounded-2xl p-6"><h2 class="font-black text-xl">Calculadora de raiz</h2><p class="text-indigo-200 text-sm mt-1">Digite um número e o índice da raiz. Se for uma raiz exata, veja a fatoração passo a passo.</p>
+  <div class="grid sm:grid-cols-3 gap-3 mt-4 items-center">
+   <input id="rt-num" value="144" type="number" class="rounded-xl px-3 py-2 text-slate-900 text-center">
+   <input id="rt-idx" value="2" type="number" min="2" class="rounded-xl px-3 py-2 text-slate-900 text-center">
+   <button onclick="renderRaiz()" class="bg-white text-indigo-900 rounded-xl py-2 font-bold">Calcular raiz</button>
+  </div>
+  <div id="rt-out" class="mt-4 text-slate-900"></div>
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span><h1 class="text-3xl font-black mt-2">30 exercícios com resolução</h1><p class="text-slate-600 mt-2">Tente primeiro. Quando quiser conferir, clique em <b>Visualizar resposta e resolução</b>.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 30</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-indigo-600 rounded-full" style="width:0%"></div></div></div></div></div>
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters"><button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button><button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 1 · Potenciação básica</button><button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 2 · Propriedades</button><button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 3 · Expoente 0 e negativo</button><button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 4 · Radiciação</button><button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 5 · Simplificação</button><input id="search" placeholder="Buscar questão..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[180px]"></div></div>
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo de estudo de Potenciação e Radiciação • Fórmulas renderizadas em notação matemática</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})}
+
+const sections=['teoria','exemplos','laboratorio','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises()}));
+
+function updateLab(){
+ const base=+$('lab-base').value,exp=+$('lab-exp').value;
+ $('lab-base-label').textContent=base;$('lab-exp-label').textContent=exp;
+ let expandStr,result;
+ if(exp===0){expandStr=`${base}^0`;result=1}
+ else{expandStr=Array.from({length:exp}).map(()=>base).join(' \\times ');result=Math.pow(base,exp)}
+ $('lab-expand').innerHTML= exp===0 ? `\\(${base}^{0} = 1\\) (qualquer número, exceto 0, elevado a 0 é 1)` : `\\(${base}^{${exp}} = ${expandStr} = ${result}\\)`;
+ $('lab-result').innerHTML=`${base}<sup>${exp}</sup> = ${result}`;
+ renderAll();
+}
+$('lab-base').addEventListener('input',updateLab);$('lab-exp').addEventListener('input',updateLab);
+
+function fatorarQuadrado(n){
+ // encontra maior quadrado perfeito que divide n, para simplificação de raiz quadrada
+ for(let k=Math.floor(Math.sqrt(n));k>=1;k--){
+  if(n % (k*k) === 0) return {quad:k*k,resto:n/(k*k),raizQuad:k};
+ }
+ return {quad:1,resto:n,raizQuad:1};
+}
+function renderRaiz(){
+ const n=parseFloat($('rt-num').value),idx=parseInt($('rt-idx').value);
+ if(isNaN(n)||isNaN(idx)||idx<2||n<0){$('rt-out').innerHTML='<div class="warning rounded-xl p-4">Digite um número não-negativo e um índice inteiro maior ou igual a 2.</div>';return}
+ const raiz=Math.pow(n,1/idx);
+ const raizArred=Math.round(raiz);
+ if(Math.abs(Math.pow(raizArred,idx)-n)<1e-6){
+  $('rt-out').innerHTML=`<div class="step" data-step="1">Buscamos um número que, elevado a ${idx}, resulte em ${n}.</div><div class="step mt-3" data-step="2">Teste: ${raizArred}<sup>${idx}</sup> = ${Math.pow(raizArred,idx)}.</div><div class="success rounded-xl p-4 mt-3 text-center font-bold">Raiz exata: ${raizArred}</div>`;
+ } else if(idx===2){
+  const f=fatorarQuadrado(n);
+  if(f.raizQuad>1){
+   $('rt-out').innerHTML=`<div class="step" data-step="1">${n} não é um quadrado perfeito, mas pode ser simplificado.</div><div class="step mt-3" data-step="2">Escreva ${n} = ${f.quad} × ${f.resto}, onde ${f.quad} é quadrado perfeito.</div><div class="step mt-3" data-step="3">√${n} = √${f.quad} × √${f.resto} = ${f.raizQuad}√${f.resto}.</div><div class="success rounded-xl p-4 mt-3 text-center font-bold">Forma simplificada: ${f.raizQuad}√${f.resto} ≈ ${raiz.toFixed(3)}</div>`;
+  } else {
+   $('rt-out').innerHTML=`<div class="step" data-step="1">${n} não é um quadrado perfeito e não simplifica.</div><div class="success rounded-xl p-4 mt-3 text-center font-bold">Valor aproximado: √${n} ≈ ${raiz.toFixed(3)}</div>`;
+  }
+ } else {
+  $('rt-out').innerHTML=`<div class="step" data-step="1">Não é uma raiz exata de índice ${idx}.</div><div class="success rounded-xl p-4 mt-3 text-center font-bold">Valor aproximado: ≈ ${raiz.toFixed(3)}</div>`;
+ }
+}
+
+// ===== EXERCÍCIOS =====
+function mi(s){return '\\('+s+'\\)'}
+const exercisesData = [
+ // Nível 1 — Potenciação básica (1-6)
+ {id:1,level:1,title:"Nível 1: Potenciação básica",question:mi("2^5")+" = ?",answer:"32",accept:["32"],steps:[["1","Expanda: 2×2×2×2×2."],["2","2×2=4; 4×2=8; 8×2=16; 16×2=32."],["3","Resposta: 32."]]},
+ {id:2,level:1,title:"Nível 1: Potenciação básica",question:mi("3^3")+" = ?",answer:"27",accept:["27"],steps:[["1","Expanda: 3×3×3."],["2","3×3=9; 9×3=27."],["3","Resposta: 27."]]},
+ {id:3,level:1,title:"Nível 1: Potenciação básica",question:mi("5^2")+" = ?",answer:"25",accept:["25"],steps:[["1","Expanda: 5×5."],["2","Resposta: 25."]]},
+ {id:4,level:1,title:"Nível 1: Potenciação básica",question:mi("10^3")+" = ?",answer:"1000",accept:["1000"],steps:[["1","10 elevado a 3 é 1 seguido de 3 zeros."],["2","Resposta: 1000."]]},
+ {id:5,level:1,title:"Nível 1: Potenciação básica",question:mi("4^3")+" = ?",answer:"64",accept:["64"],steps:[["1","Expanda: 4×4×4."],["2","4×4=16; 16×4=64."],["3","Resposta: 64."]]},
+ {id:6,level:1,title:"Nível 1: Potenciação básica",question:mi("1^7")+" = ?",answer:"1",accept:["1"],steps:[["1","1 multiplicado por ele mesmo qualquer número de vezes é sempre 1."],["2","Resposta: 1."]]},
+ // Nível 2 — Propriedades (7-12)
+ {id:7,level:2,title:"Nível 2: Propriedades",question:mi("2^3 \\times 2^5")+" = ? (dê a resposta como potência de 2, ex: 2^8, ou o valor numérico)",answer:"256",accept:["256","2^8"],steps:[["1","Mesma base: some os expoentes: 3+5=8."],["2","Resultado: 2^8."],["3","2^8 = 256."]]},
+ {id:8,level:2,title:"Nível 2: Propriedades",question:mi("5^6 \\div 5^4")+" = ?",answer:"25",accept:["25","5^2"],steps:[["1","Mesma base: subtraia os expoentes: 6-4=2."],["2","Resultado: 5^2 = 25."]]},
+ {id:9,level:2,title:"Nível 2: Propriedades",question:mi("(2^3)^2")+" = ?",answer:"64",accept:["64","2^6"],steps:[["1","Potência de potência: multiplique os expoentes: 3×2=6."],["2","Resultado: 2^6 = 64."]]},
+ {id:10,level:2,title:"Nível 2: Propriedades",question:mi("(2 \\times 3)^2")+" = ?",answer:"36",accept:["36"],steps:[["1","Distribua o expoente: 2² × 3²."],["2","4 × 9 = 36."],["3","Resposta: 36."]]},
+ {id:11,level:2,title:"Nível 2: Propriedades",question:mi("3^4 \\times 3^1")+" = ? (valor numérico)",answer:"243",accept:["243","3^5"],steps:[["1","Some os expoentes: 4+1=5."],["2","3^5 = 243."]]},
+ {id:12,level:2,title:"Nível 2: Propriedades",question:mi("(4^5) \\div (4^3)")+" = ?",answer:"16",accept:["16","4^2"],steps:[["1","Subtraia os expoentes: 5-3=2."],["2","4^2 = 16."]]},
+ // Nível 3 — Expoente 0 e negativo (13-18)
+ {id:13,level:3,title:"Nível 3: Expoente zero e negativo",question:mi("7^0")+" = ?",answer:"1",accept:["1"],steps:[["1","Qualquer número (diferente de zero) elevado a 0 é igual a 1."],["2","Resposta: 1."]]},
+ {id:14,level:3,title:"Nível 3: Expoente zero e negativo",question:mi("2^{-2}")+" = ? (fração)",answer:"1/4",accept:["1/4"],steps:[["1","Expoente negativo inverte a base: 2^-2 = 1/2²."],["2","2²=4."],["3","Resposta: 1/4."]]},
+ {id:15,level:3,title:"Nível 3: Expoente zero e negativo",question:mi("10^{-1}")+" = ? (decimal)",answer:"0,1",accept:["0,1","0.1"],tolerance:0.001,steps:[["1","10^-1 = 1/10¹ = 1/10."],["2","Resposta: 0,1."]]},
+ {id:16,level:3,title:"Nível 3: Expoente zero e negativo",question:mi("5^{-2}")+" = ? (fração)",answer:"1/25",accept:["1/25"],steps:[["1","5^-2 = 1/5²."],["2","5²=25."],["3","Resposta: 1/25."]]},
+ {id:17,level:3,title:"Nível 3: Expoente zero e negativo",question:mi("100^0")+" = ?",answer:"1",accept:["1"],steps:[["1","Qualquer número diferente de zero elevado a 0 é 1."],["2","Resposta: 1."]]},
+ {id:18,level:3,title:"Nível 3: Expoente zero e negativo",question:mi("3^{-3}")+" = ? (fração)",answer:"1/27",accept:["1/27"],steps:[["1","3^-3 = 1/3³."],["2","3³=27."],["3","Resposta: 1/27."]]},
+ // Nível 4 — Radiciação básica (19-24)
+ {id:19,level:4,title:"Nível 4: Radiciação básica",question:"\\(\\sqrt{81}\\) = ?",answer:"9",accept:["9"],steps:[["1","Busque um número que multiplicado por ele mesmo dê 81."],["2","9×9=81."],["3","Resposta: 9."]]},
+ {id:20,level:4,title:"Nível 4: Radiciação básica",question:"\\(\\sqrt{144}\\) = ?",answer:"12",accept:["12"],steps:[["1","Busque um número que multiplicado por ele mesmo dê 144."],["2","12×12=144."],["3","Resposta: 12."]]},
+ {id:21,level:4,title:"Nível 4: Radiciação básica",question:"\\(\\sqrt[3]{27}\\) = ?",answer:"3",accept:["3"],steps:[["1","Busque um número que elevado ao cubo dê 27."],["2","3³=27."],["3","Resposta: 3."]]},
+ {id:22,level:4,title:"Nível 4: Radiciação básica",question:"\\(\\sqrt{100}\\) = ?",answer:"10",accept:["10"],steps:[["1","10×10=100."],["2","Resposta: 10."]]},
+ {id:23,level:4,title:"Nível 4: Radiciação básica",question:"\\(\\sqrt[3]{64}\\) = ?",answer:"4",accept:["4"],steps:[["1","4³=4×4×4=64."],["2","Resposta: 4."]]},
+ {id:24,level:4,title:"Nível 4: Radiciação básica",question:"\\(\\sqrt{49}\\) = ?",answer:"7",accept:["7"],steps:[["1","7×7=49."],["2","Resposta: 7."]]},
+ // Nível 5 — Propriedades de radicais / simplificação (25-30)
+ {id:25,level:5,title:"Nível 5: Simplificação de radicais",question:"Simplifique \\(\\sqrt{50}\\) na forma \\(a\\sqrt{b}\\). Dê o valor de a.",answer:"5",accept:["5"],steps:[["1","50 = 25 × 2, onde 25 é quadrado perfeito."],["2","√50 = √25 × √2 = 5√2."],["3","Resposta: a = 5."]]},
+ {id:26,level:5,title:"Nível 5: Simplificação de radicais",question:"Simplifique \\(\\sqrt{72}\\) na forma \\(a\\sqrt{b}\\). Dê o valor de b.",answer:"2",accept:["2"],steps:[["1","72 = 36 × 2, onde 36 é quadrado perfeito."],["2","√72 = √36 × √2 = 6√2."],["3","Resposta: b = 2."]]},
+ {id:27,level:5,title:"Nível 5: Simplificação de radicais",question:"Calcule \\(\\sqrt{9 \\times 16}\\) usando a propriedade da raiz do produto.",answer:"12",accept:["12"],steps:[["1","√(9×16) = √9 × √16."],["2","√9=3 e √16=4."],["3","3×4=12."]]},
+ {id:28,level:5,title:"Nível 5: Simplificação de radicais",question:"Escreva \\(\\sqrt[3]{8}\\) como potência de expoente fracionário e calcule o valor.",answer:"2",accept:["2"],steps:[["1","∛8 = 8^(1/3)."],["2","Busque um número cujo cubo seja 8: 2³=8."],["3","Resposta: 2."]]},
+ {id:29,level:5,title:"Nível 5: Simplificação de radicais",question:"Simplifique \\(\\sqrt{200}\\) na forma \\(a\\sqrt{b}\\). Dê o valor de a.",answer:"10",accept:["10"],steps:[["1","200 = 100 × 2, onde 100 é quadrado perfeito."],["2","√200 = √100 × √2 = 10√2."],["3","Resposta: a = 10."]]},
+ {id:30,level:5,title:"Nível 5: Simplificação de radicais",question:"Calcule \\(\\sqrt{4} \\times \\sqrt{9}\\).",answer:"6",accept:["6"],steps:[["1","√4=2 e √9=3."],["2","2×3=6."],["3","Resposta: 6."]]}
+];
+
+function normalize(s){return String(s).trim().toLowerCase().replace(/\s+/g,'').replace(/\./g,',')}
+function checkAnswer(ex,raw){
+ const v=normalize(raw);
+ const accepted=(ex.accept||[ex.answer]).map(normalize);
+ if(accepted.includes(v))return true;
+ if(ex.tolerance!=null){
+  const num=parseFloat(v.replace(',','.'));
+  const target=parseFloat(normalize(ex.answer).replace(',','.'));
+  if(!isNaN(num)&&!isNaN(target)&&Math.abs(num-target)<=ex.tolerance)return true;
+ }
+ return false;
+}
+let solved=new Set(JSON.parse(localStorage.getItem('potSolved')||'[]'));let currentLevel='all';
+function renderExercises(){
+ const q=($('search').value||'').toLowerCase();
+ let list=exercisesData.filter(e=>(currentLevel==='all'||e.level==currentLevel)&&(q===''||(`questão ${e.id} ${e.title}`).toLowerCase().includes(q)));
+ $('exercise-list').innerHTML=list.map(ex=>{const done=solved.has(ex.id);
+  return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm">
+   <div class="flex justify-between gap-3"><span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700">Questão ${ex.id}</span><span class="text-xs text-slate-400">${ex.title}</span></div>
+   <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-6 text-center text-lg">${ex.question}</div>
+   <div class="flex gap-2 mt-4"><input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm" placeholder="Sua resposta"><button onclick="check(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Conferir</button></div>
+   <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+   <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-indigo-700 hover:underline">👁 Visualizar resposta e resolução</button>
+   <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+    <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução completa</div>
+    ${ex.steps.map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+    <div class="success rounded-xl p-4 text-center font-bold">Resposta: ${ex.answer}</div>
+   </div>
+  </article>`}).join('');
+ $('progress-text').textContent=`${solved.size} / ${exercisesData.length}`;
+ $('progress-bar').style.width=Math.round(100*solved.size/exercisesData.length)+'%';
+ renderAll();
+}
+function check(id){
+ const ex=exercisesData.find(x=>x.id===id),raw=$('answer-'+id).value,fb=$('feedback-'+id);
+ if(checkAnswer(ex,raw)){solved.add(id);localStorage.setItem('potSolved',JSON.stringify([...solved]));fb.className='text-sm font-bold mt-2 text-emerald-600';fb.textContent='✓ Correto! Muito bem.'}
+ else{fb.className='text-sm font-bold mt-2 text-red-600';fb.textContent='✗ Ainda não. Revise os passos e tente novamente.'}
+ renderExercises();
+}
+function toggleSol(id){$('solution-'+id).classList.toggle('hidden')}
+document.querySelectorAll('.level-btn').forEach(b=>b.onclick=()=>{currentLevel=b.dataset.level;document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderExercises()});
+$('search').addEventListener('input',renderExercises);
+
+window.addEventListener('DOMContentLoaded',()=>{updateLab();renderAll();});
+</script>
+</body>
+</html>

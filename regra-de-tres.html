@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regra de Três — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#4f46e5;background:#eef2ff;color:#312e81}
+  canvas{max-width:100%}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .sticky-mini{position:sticky;top:74px;z-index:20}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  .grid-paper{background-image:linear-gradient(#e5e7eb 1px,transparent 1px),linear-gradient(90deg,#e5e7eb 1px,transparent 1px);background-size:28px 28px}
+  .arrow-up::after{content:'↑';color:#10b981;font-weight:900;margin-left:.35rem}
+  .arrow-down::after{content:'↓';color:#ef4444;font-weight:900;margin-left:.35rem}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">📐 Regra de Três</div><div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo, não decorando</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exemplos">💡 Exemplos</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Curso do zero</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Regra de Três sem mistério</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Regra de três resolve problemas do tipo "se isso, então quanto daquilo". Você vai aprender a identificar se as grandezas variam juntas ou ao contrário, e resolver qualquer questão com um método seguro.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">6</b><div class="text-xs text-indigo-200">tópicos de teoria</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">30</b><div class="text-xs text-indigo-200">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">resolução detalhada</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">🔬</b><div class="text-xs text-indigo-200">laboratório visual</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Como estudar:</b> leia a ideia, observe o desenho das setas, veja o exemplo resolvido na aba <b>Exemplos</b> e só depois tente os exercícios. O ponto mais importante é decidir se a regra é direta ou inversa — pratique bastante essa etapa.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O que é regra de três?</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">É um método para resolver problemas envolvendo <b>duas grandezas proporcionais</b> (por exemplo: horas trabalhadas e dinheiro ganho), quando conhecemos três valores e queremos descobrir o quarto.</p>
+   <div class="bg-indigo-50 rounded-xl p-4 mt-4 text-sm">"Se 3 operários constroem um muro em 12 dias, quantos dias levam 6 operários?" — clássico problema de regra de três.</div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Regra de três direta</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">As grandezas são <b>diretamente proporcionais</b>: quando uma <b>aumenta</b>, a outra também <b>aumenta</b> (na mesma proporção). As setas apontam para o <b>mesmo sentido</b>.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-sm text-center">
+    <div>horas <span class="arrow-up"></span> &nbsp;&nbsp; dinheiro <span class="arrow-up"></span></div>
+    <div class="mt-2">Mais horas trabalhadas → mais dinheiro ganho.</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">3. Regra de três inversa</h2>
+   <p class="mt-3 text-slate-600 leading-7">As grandezas são <b>inversamente proporcionais</b>: quando uma <b>aumenta</b>, a outra <b>diminui</b>. As setas apontam para <b>sentidos opostos</b>.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-sm text-center">
+    <div>operários <span class="arrow-up"></span> &nbsp;&nbsp; dias <span class="arrow-down"></span></div>
+    <div class="mt-2">Mais operários trabalhando → menos dias para terminar.</div>
+   </div>
+  </article>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. Como descobrir se é direta ou inversa</h2>
+   <p class="mt-3 text-slate-600 leading-7">Pergunte-se: "se eu <b>aumentar</b> a primeira grandeza, a segunda <b>aumenta</b> ou <b>diminui</b>?"</p>
+   <div class="grid sm:grid-cols-2 gap-3 mt-4 text-sm">
+    <div class="bg-emerald-50 rounded-xl p-4"><b>Aumenta junto → Direta</b><br>Ex: mais quilos de fruta, mais preço.</div>
+    <div class="bg-amber-50 rounded-xl p-4"><b>Diminui → Inversa</b><br>Ex: mais velocidade, menos tempo de viagem.</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <h2 class="text-2xl font-black">5. Passo a passo geral</h2>
+  <ol class="mt-4 space-y-3 text-sm list-decimal list-inside text-slate-700">
+   <li>Monte uma <b>tabela</b> com as duas grandezas, cada uma em uma coluna.</li>
+   <li>Identifique se a relação é <b>direta</b> ou <b>inversa</b>, desenhando as setas.</li>
+   <li>Se for <b>direta</b>, monte a proporção normalmente: \(\frac{a}{b}=\frac{c}{x}\).</li>
+   <li>Se for <b>inversa</b>, <b>inverta</b> uma das razões antes de igualar: \(\frac{a}{b}=\frac{x}{c}\).</li>
+   <li>Resolva usando produto dos meios pelos extremos.</li>
+  </ol>
+  <div class="paper rounded-2xl p-5 mt-6">
+   <div class="text-sm font-bold text-indigo-700 mb-3">EXEMPLO GUIADO (inversa)</div>
+   <div class="grid md:grid-cols-2 gap-4 text-sm">
+    <div class="step" data-step="1"><b>Situação:</b> 3 operários em 12 dias. Quantos dias levam 6 operários?</div>
+    <div class="step" data-step="2"><b>Setas:</b> operários ↑, dias ↓ → inversa.</div>
+    <div class="step" data-step="3"><b>Monte invertendo:</b> \(\frac{3}{6} = \frac{x}{12}\).</div>
+    <div class="step" data-step="4"><b>Resolva:</b> \(6x=36 \to x=6\) dias.</div>
+   </div>
+  </div>
+ </div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">6. Regra de três composta (introdução)</h2>
+  <p class="mt-3 text-slate-600 leading-7">Quando o problema envolve <b>três ou mais grandezas</b>, usamos a regra de três composta: analisamos cada grandeza separadamente em relação à grandeza desconhecida (direta ou inversa) e multiplicamos todas as razões de uma vez.</p>
+  <div class="bg-amber-50 rounded-xl p-4 mt-4 text-sm">Ex: "8 máquinas produzem 400 peças em 5 dias. Quantas peças produzem 4 máquinas em 10 dias?" — aqui há três grandezas: máquinas, dias e peças.</div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">Checklist para qualquer questão</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 text-sm">
+   <div class="bg-slate-50 rounded-xl p-4"><b>① Organize</b><br>Coloque as grandezas em colunas, com a incógnita por último.</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>② Classifique</b><br>Direta (setas iguais) ou inversa (setas opostas)?</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>③ Monte</b><br>Inverta a razão se for inversa.</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>④ Confira</b><br>O resultado faz sentido com a situação?</div>
+  </div>
+ </article>
+</section>
+
+<!-- EXEMPLOS -->
+<section id="sec-exemplos" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Exemplos resolvidos</span><h1 class="text-3xl font-black mt-2">Veja o raciocínio completo, passo a passo</h1><p class="text-slate-600 mt-2">Antes de tentar os exercícios, acompanhe estes modelos com atenção.</p></div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 1 — Regra de três direta</h2>
+  <p class="mt-2 text-slate-600">Se 5 kg de arroz custam R$ 20, quanto custam 8 kg?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Setas: quilos ↑, preço ↑ → direta.</div>
+   <div class="step" data-step="2">Monte: \(\frac{5}{8} = \frac{20}{x}\).</div>
+   <div class="step" data-step="3">Multiplique cruzado: \(5x = 8\times20=160\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(x=32\) reais.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 2 — Regra de três inversa</h2>
+  <p class="mt-2 text-slate-600">Um carro a 60 km/h faz uma viagem em 4 horas. Em quanto tempo faria a mesma viagem a 80 km/h?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Setas: velocidade ↑, tempo ↓ → inversa.</div>
+   <div class="step" data-step="2">Monte invertendo uma razão: \(\frac{60}{80} = \frac{x}{4}\).</div>
+   <div class="step" data-step="3">Multiplique cruzado: \(80x = 60\times4=240\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(x=3\) horas.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 3 — Identificando o tipo</h2>
+  <p class="mt-2 text-slate-600">10 pintores pintam uma casa em 6 dias. Se dobrarmos o número de pintores, o tempo aumenta ou diminui?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Mais pintores trabalhando ao mesmo tempo terminam mais rápido.</div>
+   <div class="step" data-step="2">Quando uma grandeza aumenta e a outra diminui, a relação é inversa.</div>
+   <div class="step" data-step="3"><b>Resposta:</b> o tempo diminui (relação inversa).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 4 — Direta com valores decimais</h2>
+  <p class="mt-2 text-slate-600">Uma torneira enche 15 litros em 3 minutos. Quantos litros enche em 7 minutos?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Setas: tempo ↑, litros ↑ → direta.</div>
+   <div class="step" data-step="2">Monte: \(\frac{3}{7} = \frac{15}{x}\).</div>
+   <div class="step" data-step="3">Multiplique cruzado: \(3x=7\times15=105\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(x=35\) litros.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 5 — Problema de operários (inversa)</h2>
+  <p class="mt-2 text-slate-600">3 pedreiros constroem um muro em 12 dias. Quantos dias levariam 4 pedreiros?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Setas: pedreiros ↑, dias ↓ → inversa.</div>
+   <div class="step" data-step="2">Monte invertendo: \(\frac{3}{4} = \frac{x}{12}\).</div>
+   <div class="step" data-step="3">Multiplique cruzado: \(4x=3\times12=36\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(x=9\) dias.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 6 — Regra de três composta</h2>
+  <p class="mt-2 text-slate-600">8 máquinas produzem 400 peças em 5 dias. Quantas peças produzem 4 máquinas em 10 dias?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Grandeza desconhecida: peças. Analise máquinas: menos máquinas → menos peças (direta). Analise dias: mais dias → mais peças (direta).</div>
+   <div class="step" data-step="2">Monte: \(\frac{400}{x} = \frac{8}{4} \times \frac{5}{10}\).</div>
+   <div class="step" data-step="3">Calcule o lado direito: \(\frac{8}{4}\times\frac{5}{10} = 2 \times 0{,}5 = 1\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(\frac{400}{x}=1 \to x=400\) peças.</div>
+  </div>
+ </article>
+</section>
+
+<!-- LAB -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Laboratório interativo</span><h1 class="text-3xl font-black mt-2">Resolva qualquer regra de três</h1><p class="text-slate-600 mt-2">Escolha o tipo, preencha os três valores conhecidos e veja o cálculo completo.</p></div>
+ <div class="bg-white rounded-2xl border p-6 shadow-sm">
+  <div class="flex flex-wrap gap-2 mb-5" id="tipo-select">
+   <button class="choice active rounded-xl border p-3 font-bold text-sm" data-tipo="direta" onclick="setTipo('direta')">Direta (setas no mesmo sentido)</button>
+   <button class="choice rounded-xl border p-3 font-bold text-sm" data-tipo="inversa" onclick="setTipo('inversa')">Inversa (setas opostas)</button>
+  </div>
+  <div class="grid sm:grid-cols-2 gap-6">
+   <div class="paper rounded-xl p-5">
+    <div class="grid grid-cols-2 gap-3 text-center text-sm font-bold text-indigo-700"><div id="lab-g1-label">Grandeza A</div><div id="lab-g2-label">Grandeza B</div></div>
+    <div class="grid grid-cols-2 gap-3 mt-3"><input id="lab-a1" value="3" class="border rounded-xl p-3 text-center"><input id="lab-b1" value="20" class="border rounded-xl p-3 text-center"></div>
+    <div class="grid grid-cols-2 gap-3 mt-3"><input id="lab-a2" value="5" class="border rounded-xl p-3 text-center"><input id="lab-b2" placeholder="x" class="border rounded-xl p-3 text-center"></div>
+    <button onclick="renderRegraTres()" class="mt-4 w-full bg-indigo-600 text-white rounded-xl py-3 font-bold">Resolver</button>
+   </div>
+   <div id="rt-out" class="paper rounded-xl p-5 text-sm"></div>
+  </div>
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span><h1 class="text-3xl font-black mt-2">30 exercícios com resolução</h1><p class="text-slate-600 mt-2">Tente primeiro. Quando quiser conferir, clique em <b>Visualizar resposta e resolução</b>.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 30</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-indigo-600 rounded-full" style="width:0%"></div></div></div></div></div>
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters"><button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button><button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 1 · Direta ou inversa?</button><button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 2 · Direta</button><button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 3 · Inversa</button><button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 4 · Problemas mistos</button><button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 5 · Composta</button><input id="search" placeholder="Buscar questão..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[180px]"></div></div>
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo de estudo de Regra de Três • Fórmulas renderizadas em notação matemática</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})}
+
+const sections=['teoria','exemplos','laboratorio','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises()}));
+
+let tipoAtual='direta';
+function setTipo(t){tipoAtual=t;document.querySelectorAll('#tipo-select .choice').forEach(b=>b.classList.toggle('active',b.dataset.tipo===t))}
+function renderRegraTres(){
+ const a1=parseFloat($('lab-a1').value),b1=parseFloat($('lab-b1').value),a2=parseFloat($('lab-a2').value);
+ if(isNaN(a1)||isNaN(b1)||isNaN(a2)||a1===0||a2===0){$('rt-out').innerHTML='<div class="warning rounded-xl p-4">Preencha os três primeiros valores com números válidos (diferentes de zero).</div>';return}
+ let x,html='';
+ if(tipoAtual==='direta'){
+  x=(a2*b1)/a1;
+  html=`<div class="step" data-step="1">Relação direta: as setas apontam para o mesmo sentido.</div><div class="step mt-3" data-step="2">Monte a proporção sem inverter: ${a1}/${a2} = ${b1}/x.</div><div class="step mt-3" data-step="3">Multiplique cruzado: ${a1} × x = ${a2} × ${b1} = ${(a2*b1).toFixed(2)}.</div><div class="step mt-3" data-step="4">x = ${(a2*b1).toFixed(2)} ÷ ${a1} = ${x.toFixed(2)}.</div>`;
+ } else {
+  x=(a1*b1)/a2;
+  html=`<div class="step" data-step="1">Relação inversa: as setas apontam para sentidos opostos.</div><div class="step mt-3" data-step="2">Inverta uma razão ao montar: ${a1}/${a2} = x/${b1}.</div><div class="step mt-3" data-step="3">Multiplique cruzado: ${a2} × x = ${a1} × ${b1} = ${(a1*b1).toFixed(2)}.</div><div class="step mt-3" data-step="4">x = ${(a1*b1).toFixed(2)} ÷ ${a2} = ${x.toFixed(2)}.</div>`;
+ }
+ $('rt-out').innerHTML=html+`<div class="success rounded-xl p-4 mt-4 text-center font-bold">Resultado: ${Number(x.toFixed(3))}</div>`;
+}
+
+// ===== EXERCÍCIOS =====
+function mi(s){return '\\('+s+'\\)'}
+const exercisesData = [
+ // Nível 1 — Direta ou inversa? (1-6)
+ {id:1,level:1,title:"Nível 1: Direta ou inversa?",question:"Quanto mais quilos de carne você compra, mais você paga. Essa relação é direta ou inversa?",answer:"direta",accept:["direta"],steps:[["1","Quando uma grandeza aumenta, a outra também aumenta."],["2","Isso caracteriza uma relação direta."]]},
+ {id:2,level:1,title:"Nível 1: Direta ou inversa?",question:"Quanto maior a velocidade de um carro, menor o tempo da viagem. Essa relação é direta ou inversa?",answer:"inversa",accept:["inversa"],steps:[["1","Quando uma grandeza aumenta, a outra diminui."],["2","Isso caracteriza uma relação inversa."]]},
+ {id:3,level:1,title:"Nível 1: Direta ou inversa?",question:"Quanto mais operários trabalhando, menos dias para terminar uma obra. Direta ou inversa?",answer:"inversa",accept:["inversa"],steps:[["1","Mais operários → menos dias necessários."],["2","Relação inversa."]]},
+ {id:4,level:1,title:"Nível 1: Direta ou inversa?",question:"Quanto mais horas você trabalha, mais dinheiro você ganha (por hora fixa). Direta ou inversa?",answer:"direta",accept:["direta"],steps:[["1","Mais horas → mais dinheiro."],["2","Relação direta."]]},
+ {id:5,level:1,title:"Nível 1: Direta ou inversa?",question:"Quanto maior o número de máquinas, menor o tempo de produção (mesma quantidade de peças). Direta ou inversa?",answer:"inversa",accept:["inversa"],steps:[["1","Mais máquinas → menos tempo."],["2","Relação inversa."]]},
+ {id:6,level:1,title:"Nível 1: Direta ou inversa?",question:"Quanto maior a quantidade de litros de tinta, maior a área pintada. Direta ou inversa?",answer:"direta",accept:["direta"],steps:[["1","Mais tinta → mais área pintada."],["2","Relação direta."]]},
+ // Nível 2 — Regra de três direta (7-12)
+ {id:7,level:2,title:"Nível 2: Regra de três direta",question:"Se 5 kg de arroz custam R$ 20, quanto custam 8 kg?",answer:"32",accept:["32"],tolerance:0.01,steps:[["1","Direta: 5/8 = 20/x."],["2","5x=8×20=160."],["3","x=32."]]},
+ {id:8,level:2,title:"Nível 2: Regra de três direta",question:"Uma torneira enche 15 litros em 3 minutos. Quantos litros enche em 7 minutos?",answer:"35",accept:["35"],tolerance:0.01,steps:[["1","Direta: 3/7 = 15/x."],["2","3x=7×15=105."],["3","x=35."]]},
+ {id:9,level:2,title:"Nível 2: Regra de três direta",question:"Um carro percorre 240 km com 20 litros de gasolina. Quantos km percorre com 15 litros?",answer:"180",accept:["180"],tolerance:0.01,steps:[["1","Direta: 20/15 = 240/x."],["2","20x=15×240=3600."],["3","x=180."]]},
+ {id:10,level:2,title:"Nível 2: Regra de três direta",question:"3 camisetas custam R$ 90. Quanto custam 7 camisetas?",answer:"210",accept:["210"],tolerance:0.01,steps:[["1","Direta: 3/7 = 90/x."],["2","3x=7×90=630."],["3","x=210."]]},
+ {id:11,level:2,title:"Nível 2: Regra de três direta",question:"Em 4 horas, uma máquina produz 200 peças. Quantas peças produz em 10 horas?",answer:"500",accept:["500"],tolerance:0.01,steps:[["1","Direta: 4/10 = 200/x."],["2","4x=10×200=2000."],["3","x=500."]]},
+ {id:12,level:2,title:"Nível 2: Regra de três direta",question:"Uma receita para 4 pessoas usa 300 g de farinha. Quantos gramas para 10 pessoas?",answer:"750",accept:["750"],tolerance:0.01,steps:[["1","Direta: 4/10 = 300/x."],["2","4x=10×300=3000."],["3","x=750."]]},
+ // Nível 3 — Regra de três inversa (13-18)
+ {id:13,level:3,title:"Nível 3: Regra de três inversa",question:"3 pedreiros constroem um muro em 12 dias. Quantos dias levam 4 pedreiros?",answer:"9",accept:["9"],tolerance:0.01,steps:[["1","Inversa: 3/4 = x/12."],["2","4x=3×12=36."],["3","x=9."]]},
+ {id:14,level:3,title:"Nível 3: Regra de três inversa",question:"Um carro a 60 km/h faz uma viagem em 4 horas. Em quanto tempo faria a 80 km/h?",answer:"3",accept:["3"],tolerance:0.01,steps:[["1","Inversa: 60/80 = x/4."],["2","80x=60×4=240."],["3","x=3."]]},
+ {id:15,level:3,title:"Nível 3: Regra de três inversa",question:"8 torneiras enchem uma piscina em 6 horas. Quantas horas levariam 12 torneiras?",answer:"4",accept:["4"],tolerance:0.01,steps:[["1","Inversa: 8/12 = x/6."],["2","12x=8×6=48."],["3","x=4."]]},
+ {id:16,level:3,title:"Nível 3: Regra de três inversa",question:"10 máquinas produzem uma encomenda em 9 dias. Quantos dias levariam 6 máquinas?",answer:"15",accept:["15"],tolerance:0.01,steps:[["1","Inversa: 10/6 = x/9."],["2","6x=10×9=90."],["3","x=15."]]},
+ {id:17,level:3,title:"Nível 3: Regra de três inversa",question:"5 costureiras fazem um lote de roupas em 8 dias. Quantos dias levam 4 costureiras?",answer:"10",accept:["10"],tolerance:0.01,steps:[["1","Inversa: 5/4 = x/8."],["2","4x=5×8=40."],["3","x=10."]]},
+ {id:18,level:3,title:"Nível 3: Regra de três inversa",question:"Um trabalho é feito por 6 pessoas em 20 dias. Em quantos dias 15 pessoas fariam o mesmo trabalho?",answer:"8",accept:["8"],tolerance:0.01,steps:[["1","Inversa: 6/15 = x/20."],["2","15x=6×20=120."],["3","x=8."]]},
+ // Nível 4 — Problemas mistos (19-24)
+ {id:19,level:4,title:"Nível 4: Problemas mistos",question:"2 pintores pintam uma casa em 10 dias. Quantos dias levariam 5 pintores (mesmo ritmo)?",answer:"4",accept:["4"],tolerance:0.01,steps:[["1","Mais pintores → menos dias: inversa."],["2","2/5 = x/10 → 5x=2×10=20 → x=4."]]},
+ {id:20,level:4,title:"Nível 4: Problemas mistos",question:"Se 4 litros de tinta pintam 60 m², quantos m² pintam 6 litros?",answer:"90",accept:["90"],tolerance:0.01,steps:[["1","Mais tinta → mais área: direta."],["2","4/6 = 60/x → 4x=6×60=360 → x=90."]]},
+ {id:21,level:4,title:"Nível 4: Problemas mistos",question:"12 operários fazem uma obra em 15 dias. Quantos operários fariam em 9 dias (mesmo ritmo)?",answer:"20",accept:["20"],tolerance:0.01,steps:[["1","Menos dias → mais operários: inversa."],["2","12/x = 9/15 → 12×15=9x → x=20."]]},
+ {id:22,level:4,title:"Nível 4: Problemas mistos",question:"Um trem a 90 km/h faz um percurso em 2 horas. A que velocidade faria o mesmo percurso em 3 horas?",answer:"60",accept:["60"],tolerance:0.01,steps:[["1","Mais tempo → menos velocidade: inversa."],["2","90/x = 3/2 → 90×2=3x → x=60."]]},
+ {id:23,level:4,title:"Nível 4: Problemas mistos",question:"Uma impressora imprime 150 páginas em 5 minutos. Quantas páginas imprime em 12 minutos (mesmo ritmo)?",answer:"360",accept:["360"],tolerance:0.01,steps:[["1","Mais tempo → mais páginas: direta."],["2","5/12 = 150/x → 5x=12×150=1800 → x=360."]]},
+ {id:24,level:4,title:"Nível 4: Problemas mistos",question:"6 caminhões transportam uma carga em 8 viagens cada. Quantas viagens fariam 4 caminhões (mesma carga total)?",answer:"12",accept:["12"],tolerance:0.01,steps:[["1","Menos caminhões → mais viagens: inversa."],["2","6/4 = x/8 → 4x=6×8=48 → x=12."]]},
+ // Nível 5 — Regra de três composta (25-30)
+ {id:25,level:5,title:"Nível 5: Regra de três composta",question:"8 máquinas produzem 400 peças em 5 dias. Quantas peças produzem 4 máquinas em 10 dias?",answer:"400",accept:["400"],tolerance:0.01,steps:[["1","Máquinas: menos máquinas → menos peças (direta em relação a peças)."],["2","Dias: mais dias → mais peças (direta)."],["3","400/x = (8/4)×(5/10) = 2×0,5=1 → x=400."]]},
+ {id:26,level:5,title:"Nível 5: Regra de três composta",question:"6 torneiras enchem uma caixa de 900 L em 5 horas. Quantos litros 3 torneiras enchem em 8 horas?",answer:"720",accept:["720"],tolerance:0.01,steps:[["1","Torneiras: menos torneiras → menos litros (direta)."],["2","Horas: mais horas → mais litros (direta)."],["3","900/x = (6/3)×(5/8) = 2×0,625=1,25 → x=900÷1,25=720."]]},
+ {id:27,level:5,title:"Nível 5: Regra de três composta",question:"5 operários trabalhando 8 horas por dia fazem uma obra em 12 dias. Trabalhando 6 horas por dia, quantos dias levariam os mesmos 5 operários?",answer:"16",accept:["16"],tolerance:0.01,steps:[["1","Horas por dia e dias: menos horas por dia → mais dias necessários (inversa)."],["2","12/x = 6/8 → 12×8=6x → x=16."]]},
+ {id:28,level:5,title:"Nível 5: Regra de três composta",question:"12 máquinas, trabalhando 10 horas por dia, produzem uma encomenda em 6 dias. Quantos dias levariam 8 máquinas trabalhando 10 horas por dia?",answer:"9",accept:["9"],tolerance:0.01,steps:[["1","Menos máquinas → mais dias (inversa)."],["2","6/x = 8/12 → 6×12=8x → x=9."]]},
+ {id:29,level:5,title:"Nível 5: Regra de três composta",question:"4 pedreiros constroem 2 muros em 10 dias. Quantos dias levam 8 pedreiros para construir 4 muros?",answer:"10",accept:["10"],tolerance:0.01,steps:[["1","Pedreiros: mais pedreiros → menos dias (inversa em relação a dias)."],["2","Muros: mais muros → mais dias (direta)."],["3","10/x = (8/4)×(2/4) = 2×0,5=1 → x=10."]]},
+ {id:30,level:5,title:"Nível 5: Regra de três composta",question:"10 costureiras fazem 200 camisas em 4 dias. Quantas camisas fazem 5 costureiras em 8 dias?",answer:"200",accept:["200"],tolerance:0.01,steps:[["1","Costureiras: menos costureiras → menos camisas (direta)."],["2","Dias: mais dias → mais camisas (direta)."],["3","200/x = (10/5)×(4/8) = 2×0,5=1 → x=200."]]}
+];
+
+function normalize(s){return String(s).trim().toLowerCase().replace(/\s+/g,'').replace(/\./g,',')}
+function checkAnswer(ex,raw){
+ const v=normalize(raw);
+ const accepted=(ex.accept||[ex.answer]).map(normalize);
+ if(accepted.includes(v))return true;
+ if(ex.tolerance!=null){
+  const num=parseFloat(v.replace(',','.'));
+  const target=parseFloat(normalize(ex.answer).replace(',','.'));
+  if(!isNaN(num)&&!isNaN(target)&&Math.abs(num-target)<=ex.tolerance)return true;
+ }
+ return false;
+}
+let solved=new Set(JSON.parse(localStorage.getItem('r3Solved')||'[]'));let currentLevel='all';
+function renderExercises(){
+ const q=($('search').value||'').toLowerCase();
+ let list=exercisesData.filter(e=>(currentLevel==='all'||e.level==currentLevel)&&(q===''||(`questão ${e.id} ${e.title}`).toLowerCase().includes(q)));
+ $('exercise-list').innerHTML=list.map(ex=>{const done=solved.has(ex.id);
+  return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm">
+   <div class="flex justify-between gap-3"><span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700">Questão ${ex.id}</span><span class="text-xs text-slate-400">${ex.title}</span></div>
+   <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-6 text-center text-base">${ex.question}</div>
+   <div class="flex gap-2 mt-4"><input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm" placeholder="Sua resposta"><button onclick="check(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Conferir</button></div>
+   <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+   <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-indigo-700 hover:underline">👁 Visualizar resposta e resolução</button>
+   <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+    <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução completa</div>
+    ${ex.steps.map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+    <div class="success rounded-xl p-4 text-center font-bold">Resposta: ${ex.answer}</div>
+   </div>
+  </article>`}).join('');
+ $('progress-text').textContent=`${solved.size} / ${exercisesData.length}`;
+ $('progress-bar').style.width=Math.round(100*solved.size/exercisesData.length)+'%';
+ renderAll();
+}
+function check(id){
+ const ex=exercisesData.find(x=>x.id===id),raw=$('answer-'+id).value,fb=$('feedback-'+id);
+ if(checkAnswer(ex,raw)){solved.add(id);localStorage.setItem('r3Solved',JSON.stringify([...solved]));fb.className='text-sm font-bold mt-2 text-emerald-600';fb.textContent='✓ Correto! Muito bem.'}
+ else{fb.className='text-sm font-bold mt-2 text-red-600';fb.textContent='✗ Ainda não. Revise os passos e tente novamente.'}
+ renderExercises();
+}
+function toggleSol(id){$('solution-'+id).classList.toggle('hidden')}
+document.querySelectorAll('.level-btn').forEach(b=>b.onclick=()=>{currentLevel=b.dataset.level;document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderExercises()});
+$('search').addEventListener('input',renderExercises);
+
+window.addEventListener('DOMContentLoaded',()=>{renderAll();});
+</script>
+</body>
+</html>

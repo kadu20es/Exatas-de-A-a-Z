@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trigonometria — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#4f46e5;background:#eef2ff;color:#312e81}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  
+  /* Canvas Styling */
+  #lab-canvas {
+      width: 100%;
+      height: 350px;
+      background-image: linear-gradient(#f1f5f9 1px, transparent 1px), linear-gradient(90deg, #f1f5f9 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-position: center bottom;
+      border-radius: 1rem;
+      border: 2px solid #e2e8f0;
+      background-color: white;
+  }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">📐 Trigonometria</div><div class="text-[11px] text-slate-500 hidden sm:block">Dominando ângulos e triângulos</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Simulador</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Resolvedor</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">A Magia das Proporções</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Seno, Cosseno e Tangente</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">A trigonometria nasceu da observação das estrelas e da construção das pirâmides. Ela estuda a relação perfeita que existe entre os ângulos de um triângulo e o tamanho dos seus lados.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">4</b><div class="text-xs text-indigo-200">fórmulas chave</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-indigo-200">exercícios práticos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">tabela de ângulos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">📐</b><div class="text-xs text-indigo-200">simulador dinâmico</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Regra de Ouro:</b> A trigonometria básica só funciona no <b>Triângulo Retângulo</b> (aquele que tem um ângulo de 90°). Antes de qualquer conta, você precisa identificar quem é a Hipotenusa e quem são os Catetos!</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O Teorema de Pitágoras</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Antes de usar os ângulos, lembre-se da regra suprema dos lados. O quadrado da Hipotenusa (o maior lado, de frente para o ângulo de 90°) é igual à soma dos quadrados dos Catetos.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center font-bold text-lg text-indigo-900">
+    \[ a^2 = b^2 + c^2 \]
+   </div>
+   <div class="mt-4 text-sm text-slate-600 bg-slate-50 p-3 rounded-lg border">
+    Use Pitágoras <b>apenas</b> quando você tiver dois lados e quiser descobrir o terceiro, sem se importar com os outros ângulos.
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Nomeando os Catetos</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">A Hipotenusa é sempre fixa. Mas os catetos recebem um "sobrenome" dependendo do ângulo de referência (o ângulo que você está olhando, ex: $\alpha$).</p>
+   <ul class="mt-4 space-y-3 text-sm text-slate-700">
+    <li class="bg-rose-50 p-3 rounded-lg border border-rose-100"><b>Cateto Oposto (C.O.):</b> É o lado que está "de frente" para o ângulo. Ele não toca no ângulo.</li>
+    <li class="bg-emerald-50 p-3 rounded-lg border border-emerald-100"><b>Cateto Adjacente (C.A.):</b> É o lado que "toca" no ângulo, formando-o junto com a hipotenusa.</li>
+   </ul>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 grid place-items-center font-black text-xl">S</span><h2 class="text-2xl font-black">3. A Fórmula SOH CAH TOA</h2></div>
+  <p class="mt-3 text-slate-600">Este é o feitiço mais famoso da matemática. É um mnemônico (truque de memória) para você nunca mais esquecer as três razões trigonométricas.</p>
+  
+  <div class="grid md:grid-cols-3 gap-4 mt-5">
+   <div class="paper rounded-xl p-4 text-center">
+    <div class="font-black text-2xl text-rose-700 mb-1">SOH</div>
+    <div class="text-sm font-bold text-slate-500">Seno = Oposto / Hipotenusa</div>
+    <div class="mt-3 text-lg">\[ \sin(\theta) = \frac{\text{C.O.}}{\text{Hip.}} \]</div>
+   </div>
+   <div class="paper rounded-xl p-4 text-center">
+    <div class="font-black text-2xl text-emerald-700 mb-1">CAH</div>
+    <div class="text-sm font-bold text-slate-500">Cosseno = Adjacente / Hipot.</div>
+    <div class="mt-3 text-lg">\[ \cos(\theta) = \frac{\text{C.A.}}{\text{Hip.}} \]</div>
+   </div>
+   <div class="paper rounded-xl p-4 text-center">
+    <div class="font-black text-2xl text-indigo-700 mb-1">TOA</div>
+    <div class="text-sm font-bold text-slate-500">Tangente = Oposto / Adjacente</div>
+    <div class="mt-3 text-lg">\[ \tan(\theta) = \frac{\text{C.O.}}{\text{C.A.}} \]</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. Tabela de Ângulos Notáveis</h2>
+   <p class="mt-3 text-slate-600 text-sm">Os ângulos de 30°, 45° e 60° aparecem em 90% das provas. Você precisa decorá-los! O truque da música ajuda: "1, 2, 3... 3, 2, 1... tudo sobre 2, raiz onde não tem 1".</p>
+   <div class="overflow-x-auto mt-4">
+    <table class="w-full text-center border-collapse">
+        <thead>
+            <tr class="bg-slate-100 text-slate-700">
+                <th class="p-2 border font-bold">Ângulo</th>
+                <th class="p-2 border font-bold text-rose-700">Seno</th>
+                <th class="p-2 border font-bold text-emerald-700">Cosseno</th>
+                <th class="p-2 border font-bold text-indigo-700">Tangente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="p-2 border font-black bg-slate-50">30°</td>
+                <td class="p-2 border text-lg">\[\frac{1}{2}\]</td>
+                <td class="p-2 border text-lg">\[\frac{\sqrt{3}}{2}\]</td>
+                <td class="p-2 border text-lg">\[\frac{\sqrt{3}}{3}\]</td>
+            </tr>
+            <tr>
+                <td class="p-2 border font-black bg-slate-50">45°</td>
+                <td class="p-2 border text-lg">\[\frac{\sqrt{2}}{2}\]</td>
+                <td class="p-2 border text-lg">\[\frac{\sqrt{2}}{2}\]</td>
+                <td class="p-2 border text-lg">\[1\]</td>
+            </tr>
+            <tr>
+                <td class="p-2 border font-black bg-slate-50">60°</td>
+                <td class="p-2 border text-lg">\[\frac{\sqrt{3}}{2}\]</td>
+                <td class="p-2 border text-lg">\[\frac{1}{2}\]</td>
+                <td class="p-2 border text-lg">\[\sqrt{3}\]</td>
+            </tr>
+        </tbody>
+    </table>
+   </div>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">5. Dicas de Resolução</h2>
+   <p class="mt-3 text-slate-600">Como saber qual fórmula usar no problema?</p>
+   <ul class="mt-4 space-y-3 text-sm text-slate-700 list-decimal list-inside">
+    <li class="bg-slate-50 p-3 rounded border">Leia o problema e identifique o <b>ângulo dado</b>.</li>
+    <li class="bg-slate-50 p-3 rounded border">Veja qual lado você <b>já tem o valor</b> (ex: a Hipotenusa é 10).</li>
+    <li class="bg-slate-50 p-3 rounded border">Veja qual lado o problema <b>quer descobrir</b> (ex: quer o Cateto Oposto, X).</li>
+    <li class="bg-slate-50 p-3 rounded border">Escolha a fórmula que une essas três coisas. (Se tem Oposto e Hipotenusa, use SOH $\to$ Seno).</li>
+   </ul>
+  </article>
+ </div>
+</section>
+
+<!-- LAB (Simulador) -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Geometria Dinâmica</span>
+  <h1 class="text-3xl font-black mt-2">Simulador de Triângulo Retângulo</h1>
+  <p class="text-slate-600 mt-2">Mova o controle deslizante para alterar o ângulo \(\theta\). Observe como os catetos mudam de tamanho enquanto a hipotenusa permanece fixa (R=100), alterando os valores de Seno, Cosseno e Tangente.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[300px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col gap-6">
+   
+   <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl text-center">
+    <div class="font-bold text-slate-500 text-xs uppercase mb-1">Ângulo Atual (\(\theta\))</div>
+    <div id="lab-angle-display" class="font-black text-4xl text-indigo-900">30°</div>
+   </div>
+
+   <div>
+    <label class="font-bold text-sm block mb-2">Ajustar Ângulo:</label>
+    <input id="lab-slider-angle" type="range" min="1" max="89" value="30" class="w-full accent-indigo-600">
+    <div class="flex justify-between text-[10px] text-slate-400 mt-1"><span>1°</span><span>89°</span></div>
+   </div>
+
+   <div class="mt-auto space-y-3 pt-4 border-t">
+    <div class="bg-rose-50 p-3 rounded-lg border border-rose-100 flex justify-between items-center">
+        <span class="font-bold text-rose-800 text-sm">Seno (SOH)</span>
+        <span id="lab-val-sin" class="font-mono font-black text-rose-700">0.500</span>
+    </div>
+    <div class="bg-emerald-50 p-3 rounded-lg border border-emerald-100 flex justify-between items-center">
+        <span class="font-bold text-emerald-800 text-sm">Cosseno (CAH)</span>
+        <span id="lab-val-cos" class="font-mono font-black text-emerald-700">0.866</span>
+    </div>
+    <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-100 flex justify-between items-center">
+        <span class="font-bold text-indigo-800 text-sm">Tangente (TOA)</span>
+        <span id="lab-val-tan" class="font-mono font-black text-indigo-700">0.577</span>
+    </div>
+   </div>
+
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-4 shadow-sm relative">
+   <canvas id="lab-canvas"></canvas>
+   <div class="mt-3 flex justify-center gap-4 text-xs font-bold flex-wrap">
+    <span class="flex items-center gap-1 text-slate-600"><span class="w-3 h-3 bg-slate-800 inline-block"></span> Hipotenusa (Fixa = 100)</span>
+    <span class="flex items-center gap-1 text-rose-600"><span class="w-3 h-3 bg-rose-500 inline-block"></span> Cateto Oposto</span>
+    <span class="flex items-center gap-1 text-emerald-600"><span class="w-3 h-3 bg-emerald-500 inline-block"></span> Cateto Adjacente</span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Calculadora Didática</span>
+  <h1 class="text-3xl font-black mt-2">Resolvedor Trigonométrico</h1>
+  <p class="text-slate-600 mt-2">Preencha os dados que você possui sobre o triângulo retângulo e a ferramenta descobrirá o lado que falta, mostrando a conta passo a passo.</p>
+ </div>
+ 
+ <div class="max-w-4xl mx-auto">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   
+   <div class="mb-6">
+    <label class="font-bold text-sm block mb-2 text-slate-700">O que você deseja descobrir?</label>
+    <select id="tool-mode" class="w-full border-2 border-slate-200 rounded-xl p-3 bg-slate-50 font-bold text-indigo-900 outline-none focus:border-indigo-500 transition" onchange="updateToolUI()">
+        <option value="pitagoras">Teorema de Pitágoras (Tenho 2 lados)</option>
+        <option value="trig">Razões Trigonométricas (Tenho 1 Ângulo e 1 Lado)</option>
+    </select>
+   </div>
+
+   <!-- Modo Pitágoras -->
+   <div id="tool-ui-pitagoras" class="grid sm:grid-cols-3 gap-4 items-end bg-slate-50 border p-5 rounded-xl">
+    <div>
+        <label class="text-xs font-bold text-slate-500 uppercase">Hipotenusa (a)</label>
+        <input id="t-pit-a" type="number" placeholder="Deixe vazio se for X" class="w-full border-2 p-3 rounded-xl mt-1">
+    </div>
+    <div>
+        <label class="text-xs font-bold text-slate-500 uppercase">Cateto 1 (b)</label>
+        <input id="t-pit-b" type="number" placeholder="Deixe vazio se for X" class="w-full border-2 p-3 rounded-xl mt-1">
+    </div>
+    <div>
+        <label class="text-xs font-bold text-slate-500 uppercase">Cateto 2 (c)</label>
+        <input id="t-pit-c" type="number" placeholder="Deixe vazio se for X" class="w-full border-2 p-3 rounded-xl mt-1">
+    </div>
+    <div class="col-span-3 text-xs text-rose-600 font-bold">Aviso: Preencha exatamente 2 campos e deixe 1 vazio (o X que deseja descobrir).</div>
+   </div>
+
+   <!-- Modo Trig -->
+   <div id="tool-ui-trig" class="hidden grid sm:grid-cols-3 gap-4 items-end bg-slate-50 border p-5 rounded-xl">
+    <div>
+        <label class="text-xs font-bold text-slate-500 uppercase">Ângulo de Ref (°)</label>
+        <input id="t-trig-ang" type="number" placeholder="Ex: 30" class="w-full border-2 p-3 rounded-xl mt-1">
+    </div>
+    <div>
+        <label class="text-xs font-bold text-slate-500 uppercase">Lado Conhecido</label>
+        <select id="t-trig-side-type" class="w-full border-2 p-3 rounded-xl mt-1 bg-white">
+            <option value="hip">Hipotenusa</option>
+            <option value="opp">Cateto Oposto</option>
+            <option value="adj">Cateto Adjacente</option>
+        </select>
+    </div>
+    <div>
+        <label class="text-xs font-bold text-slate-500 uppercase">Valor do Lado</label>
+        <input id="t-trig-side-val" type="number" placeholder="Ex: 10" class="w-full border-2 p-3 rounded-xl mt-1">
+    </div>
+    <div class="col-span-3">
+        <label class="text-xs font-bold text-slate-500 uppercase">O que descobrir?</label>
+        <select id="t-trig-find" class="w-full border-2 p-3 rounded-xl mt-1 bg-white">
+            <option value="opp">Cateto Oposto</option>
+            <option value="adj">Cateto Adjacente</option>
+            <option value="hip">Hipotenusa</option>
+        </select>
+    </div>
+   </div>
+   
+   <button onclick="solveTool()" class="mt-6 w-full bg-indigo-600 text-white rounded-xl py-4 font-black text-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">Gerar Resolução</button>
+   <div id="tool-out" class="paper rounded-xl p-6 mt-6 hidden space-y-5"></div>
+  </div>
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div>
+    <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span>
+    <h1 class="text-3xl font-black mt-2">100 Exercícios Classificados</h1>
+    <p class="text-slate-600 mt-2 text-sm">Responda o valor solicitado (use ponto para decimais, arredondando para 2 casas se necessário). Para raízes inexatas nos exercícios, siga as instruções do enunciado.</p>
+   </div>
+   <div class="min-w-[210px]">
+    <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+    <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden">
+     <div id="progress-bar" class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width:0%"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L1: Pitágoras</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L2: Identificar Razões</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L3: Ângulos Notáveis</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L4: Problemas (Sombra/Escada)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L5: Desafios Inversos</button>
+   <input id="search" placeholder="Buscar..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[150px] outline-none focus:border-indigo-500">
+  </div>
+ </div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+
+</main>
+<footer class="border-t bg-white mt-8">
+ <div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">
+  Material didático interativo • Fórmulas renderizadas com KaTeX
+ </div>
+</footer>
+
+<script>
+// Utils & KaTeX Config
+const $ = id => document.getElementById(id);
+const mathInline = latex => String.raw`\(${latex}\)`;
+const mathDisplay = latex => String.raw`\[${latex}\]`;
+function formatNum(n) { return Number.isInteger(n) ? n.toString() : n.toFixed(2); }
+
+function renderMathIn(element) {
+  if (window.renderMathInElement) {
+    renderMathInElement(element, { delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '\\[', right: '\\]', display: true},
+      {left: '\\(', right: '\\)', display: false}
+    ] });
+  }
+}
+function renderAll() { document.querySelectorAll('body').forEach(el => renderMathIn(el)); }
+
+// Tabs
+const sections = ['teoria', 'laboratorio', 'ferramentas', 'exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => 
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.tab;
+    sections.forEach(s => $(`sec-${s}`).classList.toggle('hidden', s !== t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    if (t === 'exercicios') renderExercises();
+    if (t === 'laboratorio') { resizeCanvas(); drawLab(); }
+  })
+);
+
+
+// --- LABORATÓRIO (CANVAS) ---
+const canvas = $('lab-canvas');
+const ctx = canvas.getContext('2d');
+let labAngle = 30;
+const HYP_LEN = 200; // Fixed hypotenuse visual length for scaling
+
+function resizeCanvas() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+}
+window.addEventListener('resize', () => { if(!$('sec-laboratorio').classList.contains('hidden')) { resizeCanvas(); drawLab(); } });
+
+function drawLab() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Bottom center anchor point
+    const originX = 50; 
+    const originY = canvas.height - 50;
+    
+    const rad = labAngle * Math.PI / 180;
+    
+    // Calculate sides based on fixed hypotenuse visual length
+    const adjLen = HYP_LEN * Math.cos(rad);
+    const oppLen = HYP_LEN * Math.sin(rad);
+    
+    const pTopX = originX + adjLen;
+    const pTopY = originY - oppLen;
+    const pRightX = originX + adjLen;
+    const pRightY = originY;
+
+    // Draw Right Angle Square
+    ctx.beginPath();
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 1;
+    let sqSize = 15;
+    ctx.moveTo(pRightX - sqSize, pRightY);
+    ctx.lineTo(pRightX - sqSize, pRightY - sqSize);
+    ctx.lineTo(pRightX, pRightY - sqSize);
+    ctx.stroke();
+
+    // Draw Adjacente (Base)
+    ctx.beginPath();
+    ctx.moveTo(originX, originY);
+    ctx.lineTo(pRightX, pRightY);
+    ctx.strokeStyle = '#10b981'; // Emerald
+    ctx.lineWidth = 4;
+    ctx.stroke();
+
+    // Draw Oposto (Altura)
+    ctx.beginPath();
+    ctx.moveTo(pRightX, pRightY);
+    ctx.lineTo(pTopX, pTopY);
+    ctx.strokeStyle = '#f43f5e'; // Rose
+    ctx.lineWidth = 4;
+    ctx.stroke();
+
+    // Draw Hipotenusa
+    ctx.beginPath();
+    ctx.moveTo(originX, originY);
+    ctx.lineTo(pTopX, pTopY);
+    ctx.strokeStyle = '#1e293b'; // Slate 800
+    ctx.lineWidth = 4;
+    ctx.stroke();
+
+    // Draw Angle Arc
+    ctx.beginPath();
+    ctx.arc(originX, originY, 40, 0, -rad, true);
+    ctx.strokeStyle = '#4f46e5';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    
+    // Angle Text
+    ctx.fillStyle = '#4f46e5';
+    ctx.font = 'bold 16px sans-serif';
+    ctx.fillText(`${labAngle}°`, originX + 50, originY - 15);
+    
+    // Update labels UI
+    $('lab-val-sin').innerText = Math.sin(rad).toFixed(3);
+    $('lab-val-cos').innerText = Math.cos(rad).toFixed(3);
+    $('lab-val-tan').innerText = (labAngle === 90) ? '∞' : Math.tan(rad).toFixed(3);
+}
+
+$('lab-slider-angle').addEventListener('input', (e) => {
+    labAngle = parseInt(e.target.value);
+    $('lab-angle-display').innerText = `${labAngle}°`;
+    drawLab();
+});
+
+// Init Lab values
+window.addEventListener('DOMContentLoaded', () => {
+    resizeCanvas();
+    drawLab();
+});
+
+
+// --- RESOLVEDOR (Ferramentas) ---
+function updateToolUI() {
+    let mode = $('tool-mode').value;
+    $('tool-ui-pitagoras').classList.toggle('hidden', mode !== 'pitagoras');
+    $('tool-ui-trig').classList.toggle('hidden', mode !== 'trig');
+}
+
+function solveTool() {
+    let mode = $('tool-mode').value;
+    const out = $('tool-out');
+    out.classList.remove('hidden');
+    let html = '';
+    let step = 1;
+    
+    if (mode === 'pitagoras') {
+        let a = $('t-pit-a').value;
+        let b = $('t-pit-b').value;
+        let c = $('t-pit-c').value;
+        
+        let emptyCount = (a==='') + (b==='') + (c==='');
+        if (emptyCount !== 1) {
+            return out.innerHTML = `<div class="warning p-3 rounded-lg font-bold">Por favor, preencha exatamente 2 valores e deixe 1 vazio (como X).</div>`;
+        }
+        
+        html += `<div class="font-black text-center text-xl pb-4 border-b"> Teorema de Pitágoras: ${mathInline(`a^2 = b^2 + c^2`)} </div>`;
+        
+        if (a === '') { // Quer descobrir Hipotenusa
+            b = parseFloat(b); c = parseFloat(c);
+            let b2 = b*b; let c2 = c*c; let sum = b2+c2; let res = Math.sqrt(sum);
+            
+            html += `<div class="step mt-4" data-step="${step++}"><b>Substituindo na fórmula:</b> Não temos a hipotenusa (a).<br>
+                     ${mathDisplay(`x^2 = ${b}^2 + ${c}^2`)}</div>`;
+            html += `<div class="step mt-4" data-step="${step++}"><b>Calculando os quadrados:</b><br>
+                     ${mathDisplay(`x^2 = ${b2} + ${c2}`)}</div>`;
+            html += `<div class="step mt-4" data-step="${step++}"><b>Somando:</b><br>
+                     ${mathDisplay(`x^2 = ${sum}`)}</div>`;
+            html += `<div class="step mt-4" data-step="${step++}"><b>Extraindo a raiz:</b><br>
+                     ${mathDisplay(`x = \\sqrt{${sum}} = \\mathbf{${formatNum(res)}}`)}</div>`;
+        } else { // Quer descobrir um cateto
+            a = parseFloat(a); 
+            let cateto_conhecido = b !== '' ? parseFloat(b) : parseFloat(c);
+            
+            if (cateto_conhecido >= a) {
+                return out.innerHTML = `<div class="warning p-3 rounded-lg font-bold">Erro lógico: A hipotenusa deve ser o maior lado! (${a} não é maior que ${cateto_conhecido}).</div>`;
+            }
+            
+            let a2 = a*a; let cat2 = cateto_conhecido*cateto_conhecido; let diff = a2 - cat2; let res = Math.sqrt(diff);
+            
+            html += `<div class="step mt-4" data-step="${step++}"><b>Substituindo na fórmula:</b> A hipotenusa é sempre isolada de um lado.<br>
+                     ${mathDisplay(`${a}^2 = x^2 + ${cateto_conhecido}^2`)}</div>`;
+            html += `<div class="step mt-4" data-step="${step++}"><b>Calculando os quadrados:</b><br>
+                     ${mathDisplay(`${a2} = x^2 + ${cat2}`)}</div>`;
+            html += `<div class="step mt-4" data-step="${step++}"><b>Isolando o x:</b> Passamos o ${cat2} subtraindo.<br>
+                     ${mathDisplay(`x^2 = ${a2} - ${cat2} = ${diff}`)}</div>`;
+            html += `<div class="step mt-4" data-step="${step++}"><b>Extraindo a raiz:</b><br>
+                     ${mathDisplay(`x = \\sqrt{${diff}} = \\mathbf{${formatNum(res)}}`)}</div>`;
+        }
+        
+    } else { // Modo Trig
+        let ang = parseFloat($('t-trig-ang').value);
+        let knownType = $('t-trig-side-type').value;
+        let knownVal = parseFloat($('t-trig-side-val').value);
+        let findType = $('t-trig-find').value;
+        
+        if(isNaN(ang) || isNaN(knownVal)) return out.innerHTML = `<div class="warning p-3 rounded-lg font-bold">Preencha o ângulo e o valor do lado conhecido.</div>`;
+        if (knownType === findType) return out.innerHTML = `<div class="warning p-3 rounded-lg font-bold">Você não pode procurar pelo mesmo lado que já conhece!</div>`;
+        
+        html += `<div class="font-black text-center text-xl pb-4 border-b"> SOH CAH TOA (Ângulo: ${ang}°) </div>`;
+        
+        // Decide formula
+        let formula = ''; let trigName = ''; let trigVal = 0;
+        let rad = ang * Math.PI / 180;
+        
+        if ((knownType === 'opp' && findType === 'hip') || (knownType === 'hip' && findType === 'opp')) {
+            formula = 'SOH'; trigName = '\\sin'; trigVal = Math.sin(rad);
+            html += `<div class="step mt-4" data-step="${step++}"><b>Escolhendo a fórmula:</b> Lados envolvidos são Cateto Oposto e Hipotenusa. Usamos <b>Seno (SOH)</b>.<br>
+                     ${mathDisplay(`\\sin(${ang}^\\circ) = \\frac{\\text{Oposto}}{\\text{Hipotenusa}}`)}</div>`;
+        } else if ((knownType === 'adj' && findType === 'hip') || (knownType === 'hip' && findType === 'adj')) {
+            formula = 'CAH'; trigName = '\\cos'; trigVal = Math.cos(rad);
+            html += `<div class="step mt-4" data-step="${step++}"><b>Escolhendo a fórmula:</b> Lados envolvidos são Cateto Adjacente e Hipotenusa. Usamos <b>Cosseno (CAH)</b>.<br>
+                     ${mathDisplay(`\\cos(${ang}^\\circ) = \\frac{\\text{Adjacente}}{\\text{Hipotenusa}}`)}</div>`;
+        } else {
+            formula = 'TOA'; trigName = '\\tan'; trigVal = Math.tan(rad);
+            html += `<div class="step mt-4" data-step="${step++}"><b>Escolhendo a fórmula:</b> Lados envolvidos são Cateto Oposto e Adjacente. Usamos <b>Tangente (TOA)</b>.<br>
+                     ${mathDisplay(`\\tan(${ang}^\\circ) = \\frac{\\text{Oposto}}{\\text{Adjacente}}`)}</div>`;
+        }
+        
+        let tValStr = trigVal.toFixed(4);
+        html += `<div class="step mt-4" data-step="${step++}"><b>Calculando o valor trigonométrico:</b><br>
+                 ${mathInline(`${trigName}(${ang}^\\circ) \\approx ${tValStr}`)}</div>`;
+                 
+        // Solving
+        let ans = 0;
+        if (knownType === 'hip') { // Hip in denominator. Opp/Adj in numerator.
+            ans = trigVal * knownVal;
+            html += `<div class="step mt-4" data-step="${step++}"><b>Substituindo e Resolvendo:</b><br>
+                     ${mathDisplay(`${tValStr} = \\frac{x}{${knownVal}}`)}
+                     Multiplicando cruzado:<br>
+                     ${mathDisplay(`x = ${tValStr} \\times ${knownVal} = \\mathbf{${formatNum(ans)}}`)}</div>`;
+        } else if (findType === 'hip') { // Hip in denominator (x). Opp/Adj in numerator known.
+            ans = knownVal / trigVal;
+            html += `<div class="step mt-4" data-step="${step++}"><b>Substituindo e Resolvendo:</b><br>
+                     ${mathDisplay(`${tValStr} = \\frac{${knownVal}}{x}`)}
+                     O x troca de lugar com o valor:<br>
+                     ${mathDisplay(`x = \\frac{${knownVal}}{${tValStr}} = \\mathbf{${formatNum(ans)}}`)}</div>`;
+        } else if (knownType === 'opp') { // TOA: Opp in num (known), Adj in den (x)
+            ans = knownVal / trigVal;
+            html += `<div class="step mt-4" data-step="${step++}"><b>Substituindo e Resolvendo:</b><br>
+                     ${mathDisplay(`${tValStr} = \\frac{${knownVal}}{x}`)}
+                     O x troca de lugar com o valor:<br>
+                     ${mathDisplay(`x = \\frac{${knownVal}}{${tValStr}} = \\mathbf{${formatNum(ans)}}`)}</div>`;
+        } else if (knownType === 'adj') { // TOA: Opp in num (x), Adj in den (known)
+            ans = trigVal * knownVal;
+            html += `<div class="step mt-4" data-step="${step++}"><b>Substituindo e Resolvendo:</b><br>
+                     ${mathDisplay(`${tValStr} = \\frac{x}{${knownVal}}`)}
+                     Multiplicando cruzado:<br>
+                     ${mathDisplay(`x = ${tValStr} \\times ${knownVal} = \\mathbf{${formatNum(ans)}}`)}</div>`;
+        }
+    }
+    
+    out.innerHTML = html;
+    renderMathIn(out);
+}
+
+// --- GERADOR DE EXERCÍCIOS ---
+const E = [];
+let exId = 1;
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+function pushEx(lvl, title, text, ansStr, steps) {
+    E.push({ id: exId++, level: lvl, title, text, ans: ansStr.toString(), steps });
+}
+
+// Triplas Pitagóricas para exercícios limpos
+const triples = [
+    [3,4,5], [5,12,13], [8,15,17], [7,24,25], [9,40,41], [6,8,10], [9,12,15], [12,16,20], [15,20,25]
+];
+
+// L1: Pitágoras (20 ex)
+for(let i=0; i<20; i++) {
+    let t = triples[rand(0, triples.length-1)];
+    let scale = rand(1, 3);
+    let c1 = t[0]*scale, c2 = t[1]*scale, hip = t[2]*scale;
+    
+    let isHip = Math.random() > 0.5;
+    if (isHip) {
+        let st = [
+            `Usando Pitágoras: ${mathInline(`a^2 = b^2 + c^2`)}`,
+            `Temos os catetos, falta a hipotenusa: ${mathInline(`x^2 = ${c1}^2 + ${c2}^2`)}`,
+            `${mathInline(`x^2 = ${c1*c1} + ${c2*c2} = ${c1*c1 + c2*c2}`)}`,
+            `${mathInline(`x = \\sqrt{${c1*c1 + c2*c2}} = ${hip}`)}`
+        ];
+        pushEx(1, "Descubra a Hipotenusa", `Um triângulo retângulo possui catetos medindo <b>${c1} cm</b> e <b>${c2} cm</b>. Qual a medida da sua hipotenusa?`, hip, st);
+    } else {
+        let st = [
+            `Usando Pitágoras: ${mathInline(`a^2 = b^2 + c^2`)}`,
+            `Temos a hipotenusa e um cateto: ${mathInline(`${hip}^2 = x^2 + ${c2}^2`)}`,
+            `${mathInline(`${hip*hip} = x^2 + ${c2*c2}`)}`,
+            `${mathInline(`x^2 = ${hip*hip} - ${c2*c2} = ${c1*c1}`)}`,
+            `${mathInline(`x = \\sqrt{${c1*c1}} = ${c1}`)}`
+        ];
+        pushEx(1, "Descubra o Cateto", `Em um triângulo retângulo, a hipotenusa mede <b>${hip} cm</b> e um dos catetos mede <b>${c2} cm</b>. Qual a medida do outro cateto?`, c1, st);
+    }
+}
+
+// L2: Identificar Razões (20 ex)
+for(let i=0; i<20; i++) {
+    let t = triples[rand(0, 5)]; // manter menores para frações simples
+    let c1 = t[0], c2 = t[1], hip = t[2];
+    
+    let type = rand(1,3); // 1:sin, 2:cos, 3:tan
+    let ans; let name; let formula;
+    
+    if(type===1) {
+        ans = (c1/hip).toFixed(2); name = "Seno"; formula = `\\sin(\\alpha) = \\frac{\\text{Cateto Oposto}}{\\text{Hipotenusa}} = \\frac{${c1}}{${hip}}`;
+    } else if(type===2) {
+        ans = (c2/hip).toFixed(2); name = "Cosseno"; formula = `\\cos(\\alpha) = \\frac{\\text{Cateto Adjacente}}{\\text{Hipotenusa}} = \\frac{${c2}}{${hip}}`;
+    } else {
+        ans = (c1/c2).toFixed(2); name = "Tangente"; formula = `\\tan(\\alpha) = \\frac{\\text{Cateto Oposto}}{\\text{Cateto Adjacente}} = \\frac{${c1}}{${c2}}`;
+    }
+    
+    let st = [
+        `Identifique as partes: Em relação ao ângulo \(\\alpha\), o Oposto é ${c1}, o Adjacente é ${c2} e a Hipotenusa é ${hip}.`,
+        `Aplicando a fórmula do ${name}: ${mathDisplay(formula)}`,
+        `Dividindo: ${ans}`
+    ];
+    pushEx(2, "Razões Básicas (SOH CAH TOA)", `Um triângulo tem Cateto Oposto a \(\\alpha\) medindo <b>${c1}</b>, Cateto Adjacente medindo <b>${c2}</b> e Hipotenusa <b>${hip}</b>. Calcule o valor do <b>${name}</b> de \(\\alpha\) (em decimal, arredonde para 2 casas).`, parseFloat(ans), st);
+}
+
+// L3: Ângulos Notáveis (30, 45, 60) (20 ex)
+const notaveis = [
+    {ang: 30, sin: 0.5, cos: 0.866, tan: 0.577, s_txt: '1/2', c_txt: '\\sqrt{3}/2', t_txt: '\\sqrt{3}/3'},
+    {ang: 45, sin: 0.707, cos: 0.707, tan: 1, s_txt: '\\sqrt{2}/2', c_txt: '\\sqrt{2}/2', t_txt: '1'},
+    {ang: 60, sin: 0.866, cos: 0.5, tan: 1.732, s_txt: '\\sqrt{3}/2', c_txt: '1/2', t_txt: '\\sqrt{3}'}
+];
+for(let i=0; i<20; i++) {
+    let n = notaveis[rand(0,2)];
+    // Escolher um cenário limpo matematicamente
+    if(n.ang === 30) {
+        let hip = rand(4, 20)*2; // par
+        let ans = hip/2;
+        let st = [
+            `Queremos o Cateto Oposto e temos a Hipotenusa. Usamos <b>Seno (SOH)</b>.`,
+            `${mathInline(`\\sin(30^\\circ) = \\frac{\\text{Oposto}}{\\text{Hipotenusa}}`)}`,
+            `Sabemos da tabela que ${mathInline(`\\sin(30^\\circ) = 1/2`)}.`,
+            `${mathInline(`\\frac{1}{2} = \\frac{x}{${hip}} \\implies 2x = ${hip} \\implies x = ${ans}`)}`
+        ];
+        pushEx(3, "Ângulo de 30°", `Em um triângulo retângulo, a hipotenusa mede <b>${hip} m</b>. Qual é a medida do cateto <b>oposto</b> ao ângulo de <b>30°</b>?`, ans, st);
+    } else if (n.ang === 60) {
+        let hip = rand(4, 20)*2; // par
+        let ans = hip/2;
+        let st = [
+            `Queremos o Cateto Adjacente e temos a Hipotenusa. Usamos <b>Cosseno (CAH)</b>.`,
+            `${mathInline(`\\cos(60^\\circ) = \\frac{\\text{Adjacente}}{\\text{Hipotenusa}}`)}`,
+            `Sabemos da tabela que ${mathInline(`\\cos(60^\\circ) = 1/2`)}.`,
+            `${mathInline(`\\frac{1}{2} = \\frac{x}{${hip}} \\implies 2x = ${hip} \\implies x = ${ans}`)}`
+        ];
+        pushEx(3, "Ângulo de 60°", `Em um triângulo retângulo, a hipotenusa mede <b>${hip} m</b>. Qual é a medida do cateto <b>adjacente</b> ao ângulo de <b>60°</b>?`, ans, st);
+    } else { // 45
+        let adj = rand(5, 25);
+        let ans = adj; // In 45deg, opp = adj
+        let st = [
+            `Queremos o Cateto Oposto e temos o Cateto Adjacente. Usamos <b>Tangente (TOA)</b>.`,
+            `${mathInline(`\\tan(45^\\circ) = \\frac{\\text{Oposto}}{\\text{Adjacente}}`)}`,
+            `Sabemos da tabela que ${mathInline(`\\tan(45^\\circ) = 1`)}.`,
+            `${mathInline(`1 = \\frac{x}{${adj}} \\implies x = ${ans}`)}`
+        ];
+        pushEx(3, "Ângulo de 45°", `Um triângulo retângulo isósceles tem um ângulo de 45°. Se o seu cateto adjacente mede <b>${adj} m</b>, qual a medida do cateto <b>oposto</b>?`, ans, st);
+    }
+}
+
+// L4: Problemas de Texto (20 ex)
+for(let i=0; i<20; i++) {
+    let type = rand(1,2);
+    if(type===1) { // Escada (Hip) e Parede (Opp)
+        let ang = 30;
+        let hip = rand(6, 12)*2;
+        let ans = hip/2;
+        let st = [
+            `A escada encostada é a <b>Hipotenusa</b> (${hip}m). A altura na parede é o <b>Cateto Oposto</b>.`,
+            `Fórmula: ${mathInline(`\\sin(30^\\circ) = \\frac{Opp}{Hip}`)}`,
+            `${mathInline(`0.5 = \\frac{x}{${hip}} \\implies x = ${hip} \\times 0.5 = ${ans}`)}`
+        ];
+        pushEx(4, "Problema da Escada", `Uma escada de <b>${hip} metros</b> de comprimento está apoiada em uma parede, formando um ângulo de <b>30°</b> com o chão. Qual é a <b>altura</b> atingida pela escada na parede?`, ans, st);
+    } else { // Sombra (Adj) e Prédio (Opp)
+        let ang = 45;
+        let adj = rand(10, 50);
+        let ans = adj;
+        let st = [
+            `A sombra no chão é o <b>Cateto Adjacente</b> (${adj}m). A altura do prédio é o <b>Cateto Oposto</b>.`,
+            `Fórmula: ${mathInline(`\\tan(45^\\circ) = \\frac{Opp}{Adj}`)}`,
+            `${mathInline(`1 = \\frac{x}{${adj}} \\implies x = ${ans}`)}`
+        ];
+        pushEx(4, "Problema da Sombra", `Um prédio projeta uma sombra de <b>${adj} metros</b> no chão quando os raios solares formam um ângulo de <b>45°</b>. Qual a <b>altura</b> do prédio?`, ans, st);
+    }
+}
+
+// L5: Desafios inversos (Trig usando decimaissão pura)
+for(let i=0; i<20; i++) {
+    let isCos = i % 2 === 0;
+    let ang = rand(20, 70);
+    let val = rand(10, 50);
+    
+    if (isCos) {
+        let rad = ang * Math.PI / 180;
+        let cos = Math.cos(rad);
+        let ans = val / cos;
+        let st = [
+            `Temos o Adjacente (${val}) e queremos a Hipotenusa. Usamos <b>CAH</b>.`,
+            `${mathInline(`\\cos(${ang}^\\circ) = \\frac{${val}}{x}`)}`,
+            `${mathInline(`${cos.toFixed(4)} = \\frac{${val}}{x} \\implies x = \\frac{${val}}{${cos.toFixed(4)}}`)}`,
+            `Resultado: ${ans.toFixed(2)}`
+        ];
+        pushEx(5, "Descobrir Hipotenusa", `Sabendo que \(\\cos(${ang}^\\circ) \\approx ${cos.toFixed(4)}\). O cateto adjacente a este ângulo mede <b>${val}</b>. Calcule a medida da <b>Hipotenusa</b>. (Arredonde para 2 casas).`, parseFloat(ans.toFixed(2)), st);
+    } else {
+        let rad = ang * Math.PI / 180;
+        let sin = Math.sin(rad);
+        let ans = val / sin;
+        let st = [
+            `Temos o Oposto (${val}) e queremos a Hipotenusa. Usamos <b>SOH</b>.`,
+            `${mathInline(`\\sin(${ang}^\\circ) = \\frac{${val}}{x}`)}`,
+            `${mathInline(`${sin.toFixed(4)} = \\frac{${val}}{x} \\implies x = \\frac{${val}}{${sin.toFixed(4)}}`)}`,
+            `Resultado: ${ans.toFixed(2)}`
+        ];
+        pushEx(5, "Descobrir Hipotenusa", `Sabendo que \(\\sin(${ang}^\\circ) \\approx ${sin.toFixed(4)}\). O cateto oposto a este ângulo mede <b>${val}</b>. Calcule a medida da <b>Hipotenusa</b>. (Arredonde para 2 casas).`, parseFloat(ans.toFixed(2)), st);
+    }
+}
+
+let solved = new Set(JSON.parse(localStorage.getItem('trigSolved') || '[]'));
+let currentLevel = 'all';
+
+function renderExercises() {
+  const q = ($('search').value || '').toLowerCase();
+  let list = E.filter(e => 
+    (currentLevel === 'all' || e.level == currentLevel) && 
+    (q === '' || (`questão ${e.id} ${e.title} ${e.text}`).toLowerCase().includes(q))
+  );
+  
+  $('exercise-list').innerHTML = list.map(ex => {
+    const done = solved.has(ex.id);
+    
+    return `
+    <article class="bg-white rounded-2xl border ${done ? 'border-emerald-400 shadow-emerald-100' : 'border-slate-200'} p-5 shadow-sm transition-all hover:shadow-md flex flex-col justify-between">
+      <div>
+          <div class="flex justify-between gap-3 mb-3">
+            <span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 whitespace-nowrap">Questão ${ex.id}</span>
+            <span class="text-xs text-slate-400 text-right font-bold uppercase tracking-wide">${ex.title}</span>
+          </div>
+          <div class="text-slate-700 leading-relaxed min-h-[60px] text-sm">
+            ${ex.text}
+          </div>
+      </div>
+      <div class="mt-4">
+          <div class="flex gap-2">
+            <input id="ans-${ex.id}" type="number" step="0.01" class="flex-1 border-2 border-slate-200 focus:border-indigo-500 outline-none rounded-xl px-4 py-2 text-sm font-bold" placeholder="Digite apenas o número...">
+            <button onclick="checkAnswer(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-5 py-2 text-sm font-black hover:bg-indigo-700 transition">Conferir</button>
+          </div>
+          <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-[1.5rem]"></div>
+          
+          <button onclick="toggleSol(${ex.id})" class="mt-3 text-xs font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-800 transition">👁 Ver Passo a Passo</button>
+          
+          <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+            <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução</div>
+            ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+            <div class="success rounded-xl p-3 text-center font-black mt-4">
+              Resposta Oficial: ${ex.ans}
+            </div>
+          </div>
+      </div>
+    </article>`;
+  }).join('');
+  
+  $('progress-text').textContent = `${solved.size} / 100`;
+  $('progress-bar').style.width = (solved.size) + '%';
+  renderAll();
+}
+
+function checkAnswer(id) {
+  const ex = E.find(x => x.id === id);
+  const rawAns = $(`ans-${id}`).value;
+  const fb = $(`fb-${id}`);
+  
+  if (rawAns.trim() === '') {
+    fb.className = 'text-sm font-bold mt-2 text-amber-600';
+    fb.textContent = '⚠ Digite um valor antes de conferir.';
+    return;
+  }
+  
+  let userVal = parseFloat(rawAns.replace(',', '.'));
+  // Aceitar margem de erro por arredondamento
+  let isCorrect = Math.abs(userVal - parseFloat(ex.ans)) < 0.05; 
+  
+  if (isCorrect) {
+    solved.add(id);
+    localStorage.setItem('trigSolved', JSON.stringify([...solved]));
+    fb.className = 'text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent = '✓ Exato! O raciocínio está perfeito.';
+  } else {
+    fb.className = 'text-sm font-bold mt-2 text-rose-600';
+    fb.textContent = '✗ Opa, não bateu. Identifique corretamente quem é cateto e hipotenusa!';
+  }
+  renderExercises();
+}
+
+function toggleSol(id) { $(`sol-${id}`).classList.toggle('hidden'); }
+
+// Filtros
+document.querySelectorAll('.level-btn').forEach(b => b.onclick = () => {
+  currentLevel = b.dataset.level;
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.remove('active', 'bg-indigo-600', 'text-white'));
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.add('bg-slate-100'));
+  
+  b.classList.add('active');
+  b.classList.remove('bg-slate-100');
+  renderExercises();
+});
+$('search').addEventListener('input', renderExercises);
+
+// Init
+window.addEventListener('DOMContentLoaded', () => {
+  updateToolUI();
+  renderAll();
+  resizeCanvas();
+  drawLab();
+});
+</script>
+</body>
+</html>

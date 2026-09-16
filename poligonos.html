@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geometria Plana — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#4f46e5;background:#eef2ff;color:#312e81}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  
+  /* Canvas do Laboratório */
+  #lab-canvas {
+      width: 100%;
+      height: 300px;
+      background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-position: center center;
+      border-radius: 1rem;
+      border: 2px solid #e2e8f0;
+  }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">📐 Geometria Plana</div><div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo, não decorando</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Construtor</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Resolvedor</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">O Espaço em 2D</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Área e Perímetro</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Geometria não é sobre decorar dezenas de fórmulas. É sobre entender como as formas se conectam. Sabia que a fórmula do triângulo existe porque ele é literalmente metade de um retângulo?</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">2</b><div class="text-xs text-indigo-200">conceitos vitais</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-indigo-200">exercícios práticos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">fórmulas visuais</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">📐</b><div class="text-xs text-indigo-200">construtor dinâmico</div></div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <div class="tip rounded-2xl p-5 shadow-sm h-full flex flex-col justify-center">
+    <h3 class="font-black text-lg text-amber-900 mb-2">Perímetro (O Contorno)</h3>
+    <p class="text-amber-800 text-sm">Imagine que você vai colocar uma <b>cerca</b> ao redor de um terreno. O perímetro é a soma de todas as bordas (lados) da figura. É medido em unidades simples (cm, m).</p>
+  </div>
+  <div class="success rounded-2xl p-5 shadow-sm h-full flex flex-col justify-center">
+    <h3 class="font-black text-lg text-emerald-900 mb-2">Área (A Superfície)</h3>
+    <p class="text-emerald-800 text-sm">Imagine que você vai colocar <b>piso</b> ou grama no chão. A área mede o preenchimento interno da figura. É medida em "quadradinhos" (cm², m²).</p>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">Retângulo e Quadrado</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">A base de tudo. Para saber quantos "quadradinhos" cabem dentro de um retângulo, basta multiplicar a quantidade de quadradinhos da base pela altura.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center font-bold text-lg text-indigo-900">
+    Área = Base &times; Altura<br>
+    \[ A = b \cdot h \]
+   </div>
+   <div class="mt-4 text-sm text-slate-600 bg-slate-50 p-3 rounded-lg border">
+    <b>O Quadrado:</b> É só um retângulo onde a base e a altura são iguais. Logo, \( A = L \cdot L = L^2 \).
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">O Segredo do Triângulo</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Se você desenhar um retângulo e cortá-lo exatamente na diagonal, você terá dois triângulos idênticos. É por isso que a fórmula do triângulo é a do retângulo dividida por 2!</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center font-bold text-lg text-indigo-900">
+    \[ A = \frac{b \cdot h}{2} \]
+   </div>
+   <div class="mt-4 text-sm text-slate-600 bg-slate-50 p-3 rounded-lg border">
+    <b>Perímetro:</b> Basta somar os 3 lados (\(a + b + c\)). A altura (h) não entra na conta do perímetro, pois fica dentro da figura!
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black text-xl">O</span><h2 class="text-2xl font-black">3. O Círculo e o famoso Pi (\(\pi\))</h2></div>
+  <p class="mt-3 text-slate-600">O círculo não tem lados retos, então as fórmulas dependem do <b>Raio (r)</b> (a distância do centro até a borda). O Pi (\(\pi \approx 3.14\)) é a "cola" mágica que traduz o raio em círculos perfeitos.</p>
+  
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div>
+    <h3 class="font-bold text-rose-700 bg-rose-50 p-2 rounded-lg inline-block px-3">Comprimento (Perímetro)</h3>
+    <p class="text-sm mt-3 text-slate-600">É o tamanho da linha que contorna o círculo. Se você cortasse e esticasse a linha, o tamanho seria:</p>
+    <div class="paper rounded-xl p-4 mt-3 text-center text-lg font-black text-rose-900">
+     \[ C = 2 \cdot \pi \cdot r \]
+    </div>
+   </div>
+   <div>
+    <h3 class="font-bold text-rose-700 bg-rose-50 p-2 rounded-lg inline-block px-3">Área (Preenchimento)</h3>
+    <p class="text-sm mt-3 text-slate-600">O espaço interno depende do raio elevado ao quadrado (porque estamos falando em 2D).</p>
+    <div class="paper rounded-xl p-4 mt-3 text-center text-lg font-black text-rose-900">
+     \[ A = \pi \cdot r^2 \]
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. O Paralelogramo e Trapézio</h2>
+   <p class="mt-3 text-slate-600">O <b>Paralelogramo</b> é um retângulo "empurrado" de lado. Se você cortar a ponta e colar do outro lado, ele vira um retângulo normal. Logo: <b>\( A = b \cdot h \)</b>.</p>
+   <div class="bg-slate-50 p-4 rounded-xl border mt-3 text-sm">
+    O <b>Trapézio</b> (tem uma base maior e uma menor) tira a média das duas bases e multiplica pela altura:
+    <div class="text-center mt-2 font-bold text-base">\[ A = \frac{(B + b) \cdot h}{2} \]</div>
+   </div>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">5. Cuidado com as Unidades</h2>
+   <p class="mt-3 text-slate-600">Você só pode calcular área ou perímetro se todas as medidas estiverem na <b>mesma unidade</b>.</p>
+   <ul class="mt-3 space-y-2 text-sm text-slate-700 list-disc list-inside">
+    <li>Se a base está em <b>cm</b> e a altura em <b>m</b>, converta um dos dois antes!</li>
+    <li>1 metro (m) = 100 centímetros (cm)</li>
+    <li>Perímetro o resultado é "cm".</li>
+    <li>Área o resultado SEMPRE leva o quadrado "cm²".</li>
+   </ul>
+  </article>
+ </div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm mt-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-purple-100 text-purple-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Polígonos Regulares (Ângulos e Diagonais)</h2></div>
+  <p class="mt-4 text-slate-600 leading-7">Um polígono é regular quando todos os seus lados e ângulos são iguais (ex: pentágono, hexágono). Duas propriedades muito cobradas dependem apenas do número de lados (<b>n</b>): a <b>Soma dos Ângulos Internos (\(S_i\))</b> e o <b>Número de Diagonais (\(d\))</b>.</p>
+  <div class="grid md:grid-cols-2 gap-4 mt-4">
+   <div class="bg-slate-50 p-4 rounded-xl border">
+    <div class="font-bold text-indigo-900 text-center mb-2">Soma dos Ângulos Internos</div>
+    <div class="text-center font-bold text-lg text-purple-700">\[ S_i = (n - 2) \cdot 180^\circ \]</div>
+   </div>
+   <div class="bg-slate-50 p-4 rounded-xl border">
+    <div class="font-bold text-indigo-900 text-center mb-2">Número de Diagonais</div>
+    <div class="text-center font-bold text-lg text-purple-700">\[ d = \frac{n \cdot (n - 3)}{2} \]</div>
+   </div>
+  </div>
+ </article>
+</section>
+
+<!-- LAB -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Simulador 2D</span>
+  <h1 class="text-3xl font-black mt-2">Construtor de Formas</h1>
+  <p class="text-slate-600 mt-2">Selecione uma figura geométrica e ajuste suas dimensões. O laboratório desenha a forma em escala e calcula instantaneamente a Área e o Perímetro.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[300px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col gap-6">
+   
+   <div>
+    <h3 class="font-bold text-sm mb-3 text-slate-500 uppercase tracking-widest">1. Escolha a Forma</h3>
+    <select id="lab-shape" class="w-full border-2 border-indigo-200 bg-indigo-50 text-indigo-900 font-bold rounded-xl p-3 outline-none focus:border-indigo-500">
+        <option value="rect">Retângulo / Quadrado</option>
+        <option value="tri">Triângulo Retângulo</option>
+        <option value="circle">Círculo</option>
+        <option value="poly">Polígono Regular</option>
+    </select>
+   </div>
+
+   <div id="lab-controls" class="space-y-5">
+    <!-- Controles injetados via JS dependendo da forma -->
+   </div>
+   
+   <div class="bg-slate-50 border p-4 rounded-xl mt-auto">
+     <div class="text-xs font-bold text-slate-400 uppercase">Considerações</div>
+     <div class="text-xs text-slate-600 mt-1" id="lab-note">A malha ao fundo ajuda a visualizar a proporção (cada quadrado = 1 unidade).</div>
+   </div>
+
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   
+   <canvas id="lab-canvas"></canvas>
+
+   <div class="grid grid-cols-2 gap-4 mt-6">
+    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-center">
+        <div id="lab-box1-title" class="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-1">Área (Preenchimento)</div>
+        <div class="text-3xl font-black text-emerald-700" id="lab-res-area">0 u²</div>
+        <div class="text-xs text-emerald-600 mt-1" id="lab-math-area"></div>
+    </div>
+    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
+        <div id="lab-box2-title" class="text-xs font-bold uppercase tracking-widest text-amber-600 mb-1">Perímetro (Contorno)</div>
+        <div class="text-3xl font-black text-amber-700" id="lab-res-per">0 u</div>
+        <div class="text-xs text-amber-600 mt-1" id="lab-math-per"></div>
+    </div>
+   </div>
+
+  </div>
+ </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Calculadora Didática</span>
+  <h1 class="text-3xl font-black mt-2">Resolvedor Passo a Passo</h1>
+  <p class="text-slate-600 mt-2">Insira as medidas do seu problema geométrico e a ferramenta mostrará a fórmula e o cálculo detalhado.</p>
+ </div>
+ 
+ <div class="max-w-3xl mx-auto">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   
+   <div class="mb-6">
+    <label class="font-bold text-sm block mb-2 text-slate-700">Qual figura você quer resolver?</label>
+    <select id="tool-type" class="w-full border-2 border-slate-200 rounded-xl p-3 bg-slate-50 font-bold text-indigo-900 outline-none focus:border-indigo-500 transition">
+        <option value="rect">Retângulo / Quadrado</option>
+        <option value="tri">Triângulo (Área)</option>
+        <option value="circ">Círculo (Área e Comprimento)</option>
+        <option value="poly">Polígonos (Ângulos e Diagonais)</option>
+    </select>
+   </div>
+
+   <div id="tool-inputs-container" class="grid sm:grid-cols-2 gap-4 items-center bg-slate-50 border p-5 rounded-xl">
+    <!-- Os inputs mudam baseados no select. O JS vai cuidar disso. -->
+   </div>
+   
+   <button onclick="solveTool()" class="mt-6 w-full bg-indigo-600 text-white rounded-xl py-4 font-black text-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">Resolver com Fórmulas</button>
+   <div id="tool-out" class="paper rounded-xl p-6 mt-6 hidden space-y-4"></div>
+  </div>
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div>
+    <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span>
+    <h1 class="text-3xl font-black mt-2">100 Exercícios Classificados</h1>
+    <p class="text-slate-600 mt-2 text-sm">Pratique o cálculo de área e perímetro. Para círculos, considere sempre <b>\(\pi = 3\)</b> (para focar no raciocínio inteiro). Use ponto para casas decimais.</p>
+   </div>
+   <div class="min-w-[210px]">
+    <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+    <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden">
+     <div id="progress-bar" class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width:0%"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L1: Retângulos</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L2: Triângulos</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L3: Círculos (π=3)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L4: Polígonos</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L5: Problemas Inversos</button>
+   <input id="search" placeholder="Buscar..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[150px] outline-none focus:border-indigo-500">
+  </div>
+ </div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+
+</main>
+<footer class="border-t bg-white mt-8">
+ <div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">
+  Material didático de matemática plana • Fórmulas renderizadas com KaTeX
+ </div>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const mathInline = latex => `\\(${latex}\\)`;
+const mathDisplay = latex => `\\[${latex}\\]`;
+function formatNum(n) { return Number.isInteger(n) ? n.toString() : n.toFixed(2); }
+
+function renderMathIn(element) {
+  if (window.renderMathInElement) {
+    renderMathInElement(element, { delimiters: [{left: '\\[', right: '\\]', display: true}, {left: '\\(', right: '\\)', display: false}] });
+  }
+}
+function renderAll() { document.querySelectorAll('body').forEach(el => renderMathIn(el)); }
+
+// Abas
+const sections = ['teoria', 'laboratorio', 'ferramentas', 'exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => 
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.tab;
+    sections.forEach(s => $(`sec-${s}`).classList.toggle('hidden', s !== t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    if (t === 'exercicios') renderExercises();
+    if (t === 'laboratorio') { setupLab(); drawLabShape(); }
+  })
+);
+
+// --- LABORATÓRIO (Construtor) ---
+const canvas = $('lab-canvas');
+const ctx = canvas.getContext('2d');
+let labState = { shape: 'rect', b: 10, h: 5, r: 5, n: 5, l: 5 };
+
+function setupLab() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    
+    const shape = $('lab-shape').value;
+    labState.shape = shape;
+    
+    let html = '';
+    if (shape === 'rect' || shape === 'tri') {
+        html = `
+        <div><label class="font-bold text-sm block mb-2">Base (b): <span id="lab-val-b" class="text-indigo-600">10</span> u</label>
+        <input id="lab-slide-b" type="range" min="1" max="25" value="${labState.b}" class="w-full accent-indigo-600"></div>
+        <div><label class="font-bold text-sm block mb-2">Altura (h): <span id="lab-val-h" class="text-indigo-600">5</span> u</label>
+        <input id="lab-slide-h" type="range" min="1" max="25" value="${labState.h}" class="w-full accent-indigo-600"></div>`;
+        $('lab-note').innerText = shape === 'tri' ? "Visualizando um triângulo retângulo. A área é exatamente a metade do retângulo." : "Se base e altura forem iguais, forma-se um Quadrado perfeito.";
+    } else if (shape === 'circle') {
+        html = `
+        <div><label class="font-bold text-sm block mb-2">Raio (r): <span id="lab-val-r" class="text-indigo-600">5</span> u</label>
+        <input id="lab-slide-r" type="range" min="1" max="15" value="${labState.r}" class="w-full accent-indigo-600"></div>`;
+        $('lab-note').innerText = "Considere π ≈ 3.1415... na malha visual. O raio é a distância do centro até a borda.";
+    } else if (shape === 'poly') {
+        html = `
+        <div><label class="font-bold text-sm block mb-2">Nº de Lados (n): <span id="lab-val-n" class="text-indigo-600">${labState.n}</span></label>
+        <input id="lab-slide-n" type="range" min="3" max="12" value="${labState.n}" class="w-full accent-indigo-600"></div>
+        <div><label class="font-bold text-sm block mb-2">Tamanho do Lado: <span id="lab-val-l" class="text-indigo-600">${labState.l}</span> u</label>
+        <input id="lab-slide-l" type="range" min="1" max="15" value="${labState.l}" class="w-full accent-indigo-600"></div>`;
+        $('lab-note').innerText = "Desenhando um Polígono Regular. Focaremos nos cálculos de Ângulos e Diagonais, que dependem do número de lados.";
+    }
+    
+    $('lab-controls').innerHTML = html;
+    
+    // Add listeners to new sliders
+    if($('lab-slide-b')) $('lab-slide-b').addEventListener('input', (e) => { labState.b = +e.target.value; $('lab-val-b').innerText = labState.b; drawLabShape(); });
+    if($('lab-slide-h')) $('lab-slide-h').addEventListener('input', (e) => { labState.h = +e.target.value; $('lab-val-h').innerText = labState.h; drawLabShape(); });
+    if($('lab-slide-r')) $('lab-slide-r').addEventListener('input', (e) => { labState.r = +e.target.value; $('lab-val-r').innerText = labState.r; drawLabShape(); });
+    if($('lab-slide-n')) $('lab-slide-n').addEventListener('input', (e) => { labState.n = +e.target.value; $('lab-val-n').innerText = labState.n; drawLabShape(); });
+    if($('lab-slide-l')) $('lab-slide-l').addEventListener('input', (e) => { labState.l = +e.target.value; $('lab-val-l').innerText = labState.l; drawLabShape(); });
+}
+
+$('lab-shape').addEventListener('change', () => { setupLab(); drawLabShape(); });
+window.addEventListener('resize', () => { if(!$('sec-laboratorio').classList.contains('hidden')) { setupLab(); drawLabShape(); } });
+
+function drawLabShape() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const scale = 10; // 1 unit = 10px (base visual scale, adjust to fit)
+    const cw = canvas.width / 2;
+    const ch = canvas.height / 2;
+    
+    ctx.fillStyle = 'rgba(99, 102, 241, 0.4)'; // Indigo-500 with opacity
+    ctx.strokeStyle = '#4f46e5'; // Indigo-600
+    ctx.lineWidth = 3;
+    
+    let area = 0, per = 0;
+    let box1Title = $('lab-box1-title');
+    let box2Title = $('lab-box2-title');
+    
+    if (labState.shape === 'rect') {
+        box1Title.innerText = "Área (Preenchimento)";
+        box2Title.innerText = "Perímetro (Contorno)";
+        let w = labState.b * scale;
+        let h = labState.h * scale;
+        // Center the rectangle
+        ctx.beginPath();
+        ctx.rect(cw - w/2, ch - h/2, w, h);
+        ctx.fill(); ctx.stroke();
+        
+        area = labState.b * labState.h;
+        per = 2 * (labState.b + labState.h);
+        $('lab-math-area').innerText = `${labState.b} × ${labState.h}`;
+        $('lab-math-per').innerText = `${labState.b} + ${labState.h} + ${labState.b} + ${labState.h}`;
+        
+    } else if (labState.shape === 'tri') {
+        let w = labState.b * scale;
+        let h = labState.h * scale;
+        // Draw right triangle from center-ish
+        ctx.beginPath();
+        ctx.moveTo(cw - w/2, ch + h/2); // bottom left
+        ctx.lineTo(cw + w/2, ch + h/2); // bottom right
+        ctx.lineTo(cw - w/2, ch - h/2); // top left
+        ctx.closePath();
+        ctx.fill(); ctx.stroke();
+        
+        // Visual ghost of the other half
+        ctx.beginPath();
+        ctx.moveTo(cw + w/2, ch + h/2); // bottom right
+        ctx.lineTo(cw + w/2, ch - h/2); // top right
+        ctx.lineTo(cw - w/2, ch - h/2); // top left
+        ctx.strokeStyle = 'rgba(99, 102, 241, 0.3)';
+        ctx.setLineDash([5, 5]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        
+        let hyp = Math.sqrt(labState.b**2 + labState.h**2);
+        area = (labState.b * labState.h) / 2;
+        per = labState.b + labState.h + hyp;
+        $('lab-math-area').innerText = `(${labState.b} × ${labState.h}) / 2`;
+        $('lab-math-per').innerText = `${labState.b} + ${labState.h} + Hipotenusa(${hyp.toFixed(1)})`;
+        
+    } else if (labState.shape === 'circle') {
+        box1Title.innerText = "Área (Preenchimento)";
+        box2Title.innerText = "Perímetro (Contorno)";
+        let r = labState.r * scale;
+        ctx.beginPath();
+        ctx.arc(cw, ch, r, 0, 2 * Math.PI);
+        ctx.fill(); ctx.stroke();
+        
+        // Draw radius line
+        ctx.beginPath();
+        ctx.moveTo(cw, ch);
+        ctx.lineTo(cw + r, ch);
+        ctx.strokeStyle = '#312e81';
+        ctx.stroke();
+        
+        area = Math.PI * (labState.r**2);
+        per = 2 * Math.PI * labState.r;
+        $('lab-math-area').innerText = `π × ${labState.r}²`;
+        $('lab-math-per').innerText = `2 × π × ${labState.r}`;
+    } else if (labState.shape === 'poly') {
+        box1Title.innerText = "Soma dos Ângulos Internos";
+        box2Title.innerText = "Nº de Diagonais";
+        let n = labState.n;
+        let l = labState.l * scale;
+        let R = l / (2 * Math.sin(Math.PI / n)); 
+        
+        ctx.beginPath();
+        for (let i = 0; i < n; i++) {
+            let angle = (i * 2 * Math.PI / n) - Math.PI/2;
+            let px = cw + R * Math.cos(angle);
+            let py = ch + R * Math.sin(angle);
+            if (i === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.fill(); ctx.stroke();
+        
+        let si = (n - 2) * 180;
+        let d = (n * (n - 3)) / 2;
+        
+        $('lab-res-area').innerText = `${si}°`;
+        $('lab-res-per').innerText = `${d}`;
+        $('lab-math-area').innerText = `(${n} - 2) × 180°`;
+        $('lab-math-per').innerText = `(${n} × (${n} - 3)) / 2`;
+        return; 
+    }
+    
+    $('lab-res-area').innerText = `${formatNum(area)} u²`;
+    $('lab-res-per').innerText = `${formatNum(per)} u`;
+}
+
+// --- FERRAMENTAS (Resolvedor) ---
+function updateToolInputs() {
+    let type = $('tool-type').value;
+    let container = $('tool-inputs-container');
+    let html = '';
+    
+    if (type === 'rect') {
+        html = `
+        <div><label class="text-xs font-bold text-slate-500 uppercase">Base (b)</label><input id="t-b" type="number" class="w-full border-2 p-3 rounded-xl"></div>
+        <div><label class="text-xs font-bold text-slate-500 uppercase">Altura (h)</label><input id="t-h" type="number" class="w-full border-2 p-3 rounded-xl"></div>`;
+    } else if (type === 'tri') {
+        html = `
+        <div><label class="text-xs font-bold text-slate-500 uppercase">Base (b)</label><input id="t-b" type="number" class="w-full border-2 p-3 rounded-xl"></div>
+        <div><label class="text-xs font-bold text-slate-500 uppercase">Altura (h)</label><input id="t-h" type="number" class="w-full border-2 p-3 rounded-xl"></div>`;
+    } else if (type === 'circ') {
+        html = `
+        <div class="col-span-2"><label class="text-xs font-bold text-slate-500 uppercase">Raio (r)</label><input id="t-r" type="number" class="w-full border-2 p-3 rounded-xl"></div>`;
+    } else if (type === 'poly') {
+        html = `
+        <div class="col-span-2"><label class="text-xs font-bold text-slate-500 uppercase">Nº de Lados (n)</label><input id="t-n" type="number" min="3" class="w-full border-2 p-3 rounded-xl"></div>`;
+    }
+    container.innerHTML = html;
+}
+
+$('tool-type').addEventListener('change', updateToolInputs);
+
+function solveTool() {
+    let type = $('tool-type').value;
+    let out = $('tool-out');
+    out.classList.remove('hidden');
+    let html = '';
+    let step = 1;
+    
+    if (type === 'rect') {
+        let b = parseFloat($('t-b').value);
+        let h = parseFloat($('t-h').value);
+        if(isNaN(b) || isNaN(h)) return out.innerHTML = `<div class="warning p-3 rounded-lg font-bold">Preencha base e altura.</div>`;
+        
+        let area = b * h;
+        let per = 2 * (b + h);
+        
+        html += `<div class="step" data-step="${step++}"><b>Fórmula da Área:</b> ${mathInline(`A = b \\times h`)}</div>`;
+        html += `<div class="step" data-step="${step++}"><b>Cálculo da Área:</b> ${mathInline(`A = ${b} \\times ${h} = \\mathbf{${formatNum(area)}}`)} u²</div>`;
+        html += `<div class="step" data-step="${step++}"><b>Fórmula do Perímetro:</b> ${mathInline(`P = 2b + 2h`)} (ou soma dos 4 lados).</div>`;
+        html += `<div class="step" data-step="${step++}"><b>Cálculo do Perímetro:</b> ${mathInline(`P = ${b} + ${h} + ${b} + ${h} = \\mathbf{${formatNum(per)}}`)} u</div>`;
+        
+    } else if (type === 'tri') {
+        let b = parseFloat($('t-b').value);
+        let h = parseFloat($('t-h').value);
+        if(isNaN(b) || isNaN(h)) return out.innerHTML = `<div class="warning p-3 rounded-lg font-bold">Preencha base e altura.</div>`;
+        
+        let area = (b * h) / 2;
+        
+        html += `<div class="step" data-step="${step++}"><b>Fórmula da Área:</b> ${mathInline(`A = \\frac{b \\times h}{2}`)}</div>`;
+        html += `<div class="step" data-step="${step++}"><b>Multiplicação:</b> ${mathInline(`${b} \\times ${h} = ${formatNum(b*h)}`)}</div>`;
+        html += `<div class="step" data-step="${step++}"><b>Divisão (Metade do Retângulo):</b> ${mathInline(`\\frac{${formatNum(b*h)}}{2} = \\mathbf{${formatNum(area)}}`)} u²</div>`;
+        
+    } else if (type === 'circ') {
+        let r = parseFloat($('t-r').value);
+        if(isNaN(r)) return out.innerHTML = `<div class="warning p-3 rounded-lg font-bold">Preencha o raio.</div>`;
+        
+        html += `<div class="bg-slate-50 p-3 rounded text-sm text-slate-600 mb-4">Nota: O resultado abaixo é mantido exato (em função de π) e aproximado considerando π ≈ 3.14.</div>`;
+        
+        html += `<div class="step" data-step="${step++}"><b>Fórmula da Área:</b> ${mathInline(`A = \\pi \\cdot r^2`)}</div>`;
+        html += `<div class="step" data-step="${step++}"><b>Cálculo Exato:</b> ${mathInline(`A = \\pi \\cdot ${r}^2 = \\mathbf{${formatNum(r**2)}\\pi}`)} u² <br><span class="text-xs text-slate-500">Aproximado: ${formatNum(Math.PI * r**2)} u²</span></div>`;
+        
+        html += `<div class="step" data-step="${step++}"><b>Fórmula do Perímetro (Comprimento):</b> ${mathInline(`C = 2 \\cdot \\pi \\cdot r`)}</div>`;
+        html += `<div class="step" data-step="${step++}"><b>Cálculo Exato:</b> ${mathInline(`C = 2 \\cdot \\pi \\cdot ${r} = \\mathbf{${formatNum(2*r)}\\pi}`)} u <br><span class="text-xs text-slate-500">Aproximado: ${formatNum(2 * Math.PI * r)} u</span></div>`;
+    } else if (type === 'poly') {
+        let n = parseInt($('t-n').value);
+        if(isNaN(n) || n < 3) return out.innerHTML = `<div class="warning p-3 rounded-lg font-bold">O polígono deve ter pelo menos 3 lados.</div>`;
+        
+        let si = (n - 2) * 180;
+        let d = (n * (n - 3)) / 2;
+        
+        html += `<div class="step" data-step="${step++}"><b>Soma dos Ângulos Internos:</b> A fórmula é ${mathInline(`S_i = (n - 2) \\times 180^\\circ`)}</div>`;
+        html += `<div class="step" data-step="${step++}"><b>Cálculo (S_i):</b> ${mathInline(`S_i = (${n} - 2) \\times 180 = ${n-2} \\times 180 = \\mathbf{${si}^\\circ}`)}</div>`;
+        html += `<div class="step" data-step="${step++}"><b>Número de Diagonais:</b> A fórmula é ${mathInline(`d = \\frac{n(n - 3)}{2}`)}</div>`;
+        html += `<div class="step" data-step="${step++}"><b>Cálculo (d):</b> ${mathInline(`d = \\frac{${n}(${n} - 3)}{2} = \\frac{${n} \\times ${n-3}}{2} = \\mathbf{${d}}`)} diagonais.</div>`;
+    }
+    
+    out.innerHTML = html;
+    renderMathIn(out);
+}
+
+// --- EXERCÍCIOS GERAÇÃO ---
+const E = [];
+let exId = 1;
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function pushEx(lvl, title, textHtml, ansVal, stepsHtml) {
+    E.push({ id: exId++, level: lvl, title, text: textHtml, ansNum: ansVal, steps: stepsHtml });
+}
+
+// L1 (1-20): Retângulos (Área e Perímetro)
+for(let i=0; i<20; i++) {
+    let isArea = i % 2 === 0;
+    let b = rand(3, 20);
+    let h = rand(2, 15);
+    
+    if (isArea) {
+        let ans = b * h;
+        let text = `Um retângulo possui base de <b>${b} m</b> e altura de <b>${h} m</b>. Qual é a sua <b>área</b> em m²?`;
+        let steps = [
+            `A fórmula da área de um retângulo é multiplicar a base pela altura: ${mathInline(`A = b \\times h`)}.`,
+            `Cálculo: ${mathInline(`${b} \\times ${h} = ${ans}`)}.`
+        ];
+        pushEx(1, "Área de Retângulo", text, ans, steps);
+    } else {
+        let ans = 2 * (b + h);
+        let text = `Um terreno retangular tem frente (base) de <b>${b} m</b> e lateral (altura) de <b>${h} m</b>. Qual é o <b>perímetro</b> total em metros?`;
+        let steps = [
+            `O perímetro é a soma de todos os 4 lados do retângulo. (Duas bases e duas alturas).`,
+            `Cálculo: ${mathInline(`P = ${b} + ${h} + ${b} + ${h}`)}`,
+            `Resultado: ${mathInline(`P = ${ans}`)}.`
+        ];
+        pushEx(1, "Perímetro de Retângulo", text, ans, steps);
+    }
+}
+
+// L2 (21-40): Triângulos
+for(let i=0; i<20; i++) {
+    let isArea = i % 2 === 0;
+    if (isArea) {
+        let b = rand(4, 20);
+        let h = rand(4, 18);
+        // Ensure even area for simplicity if possible, or just float
+        let ans = (b * h) / 2;
+        let text = `Um triângulo tem base medindo <b>${b} cm</b> e altura de <b>${h} cm</b>. Calcule a sua <b>área</b>.`;
+        let steps = [
+            `O triângulo é metade de um retângulo. A fórmula é ${mathInline(`A = \\frac{b \\times h}{2}`)}.`,
+            `Multiplicando base e altura: ${mathInline(`${b} \\times ${h} = ${b*h}`)}.`,
+            `Dividindo pela metade: ${mathInline(`\\frac{${b*h}}{2} = ${ans}`)}.`
+        ];
+        pushEx(2, "Área do Triângulo", text, ans, steps);
+    } else {
+        // Perimeter given 3 sides
+        let a = rand(5, 15);
+        let b = rand(5, 15);
+        let c = rand(5, 15); // Could be invalid triangle technically but fine for perimeter exercise
+        let ans = a + b + c;
+        let text = `Um triângulo qualquer possui lados medindo <b>${a} m</b>, <b>${b} m</b> e <b>${c} m</b>. Qual é o seu <b>perímetro</b>?`;
+        let steps = [
+            `O perímetro de um triângulo é simplesmente a soma dos contornos de seus três lados.`,
+            `Cálculo: ${mathInline(`${a} + ${b} + ${c} = ${ans}`)}.`
+        ];
+        pushEx(2, "Perímetro do Triângulo", text, ans, steps);
+    }
+}
+
+// L3 (41-60): Círculos (pi = 3)
+for(let i=0; i<20; i++) {
+    let isArea = i % 2 === 0;
+    let r = rand(2, 12);
+    
+    if (isArea) {
+        let ans = 3 * (r * r);
+        let text = `Calcule a <b>área</b> de um círculo que tem o raio igual a <b>${r} m</b>. <br><span class="text-xs font-bold text-rose-600">(Considere π = 3 para o cálculo)</span>`;
+        let steps = [
+            `A fórmula da área circular é ${mathInline(`A = \\pi \\cdot r^2`)}.`,
+            `Primeiro calcule o raio ao quadrado: ${mathInline(`${r}^2 = ${r} \\times ${r} = ${r*r}`)}.`,
+            `Substituindo o Pi por 3: ${mathInline(`A = 3 \\times ${r*r} = ${ans}`)}.`
+        ];
+        pushEx(3, "Área do Círculo", text, ans, steps);
+    } else {
+        let ans = 2 * 3 * r;
+        let text = `Qual é o <b>comprimento (perímetro)</b> de uma pista circular cujo raio é <b>${r} m</b>? <br><span class="text-xs font-bold text-rose-600">(Considere π = 3)</span>`;
+        let steps = [
+            `A fórmula do comprimento é ${mathInline(`C = 2 \\cdot \\pi \\cdot r`)}.`,
+            `Substituindo os valores: ${mathInline(`C = 2 \\times 3 \\times ${r}`)}.`,
+            `Cálculo final: ${mathInline(`6 \\times ${r} = ${ans}`)}.`
+        ];
+        pushEx(3, "Comprimento do Círculo", text, ans, steps);
+    }
+}
+
+// L4 (61-80): Polígonos (Ângulos e Diagonais)
+for(let i=0; i<20; i++) {
+    let type = rand(1, 2); // 1 = Si, 2 = Diagonals
+    let n = rand(4, 15);
+    
+    if (type === 1) {
+        let ans = (n - 2) * 180;
+        let text = `Qual é a <b>soma dos ângulos internos</b> de um polígono regular com <b>${n} lados</b>? (Digite apenas o número, sem o símbolo de graus)`;
+        let steps = [
+            `A fórmula da soma dos ângulos é ${mathInline(`S_i = (n - 2) \\times 180^\\circ`)}.`,
+            `Como o polígono tem ${n} lados, substituímos n = ${n}: ${mathInline(`S_i = (${n} - 2) \\times 180`)}.`,
+            `Cálculo final: ${mathInline(`${n-2} \\times 180 = ${ans}`)}.`
+        ];
+        pushEx(4, "Ângulos do Polígono", text, ans, steps);
+    } else {
+        let ans = (n * (n - 3)) / 2;
+        let text = `Quantas <b>diagonais</b> possui um polígono de <b>${n} lados</b>?`;
+        let steps = [
+            `A fórmula para calcular diagonais é ${mathInline(`d = \\frac{n(n - 3)}{2}`)}.`,
+            `Substituindo n = ${n}: ${mathInline(`d = \\frac{${n}(${n} - 3)}{2}`)}.`,
+            `Calculando: ${mathInline(`\\frac{${n} \\times ${n-3}}{2} = \\frac{${n * (n-3)}}{2} = ${ans}`)}.`
+        ];
+        pushEx(4, "Diagonais do Polígono", text, ans, steps);
+    }
+}
+
+// L5 (81-100): Problemas Inversos
+for(let i=0; i<20; i++) {
+    let type = rand(1, 3); // 1 = ret area->side, 2 = tri area->height, 3 = circ area->r
+    
+    if (type === 1) {
+        let h = rand(4, 15);
+        let b = rand(4, 15);
+        let area = b * h;
+        let text = `Um retângulo possui área total de <b>${area} m²</b>. Sabendo que a sua base mede <b>${b} m</b>, qual é a medida da <b>altura</b>?`;
+        let steps = [
+            `Se ${mathInline(`A = b \\times h`)}, e temos a área e a base, usamos a operação inversa (divisão).`,
+            `Fica: ${mathInline(`${area} = ${b} \\times h`)}.`,
+            `Passando dividindo: ${mathInline(`h = \\frac{${area}}{${b}} = ${h}`)}.`
+        ];
+        pushEx(4, "Reverso: Altura do Retângulo", text, h, steps);
+    } else if (type === 2) {
+        let b = rand(4, 12);
+        let h = rand(4, 12);
+        let area = (b * h) / 2;
+        let text = `Um triângulo tem área de <b>${area} cm²</b> e base de <b>${b} cm</b>. Qual a medida da sua <b>altura</b>?`;
+        let steps = [
+            `Fórmula: ${mathInline(`A = \\frac{b \\times h}{2}`)}.`,
+            `Substituindo: ${mathInline(`${area} = \\frac{${b} \\times h}{2}`)}.`,
+            `Passe o 2 multiplicando: ${mathInline(`${area} \\times 2 = ${b} \\times h \\implies ${area*2} = ${b}h`)}.`,
+            `Passe o ${b} dividindo: ${mathInline(`h = \\frac{${area*2}}{${b}} = ${h}`)}.`
+        ];
+        pushEx(5, "Reverso: Altura do Triângulo", text, h, steps);
+    } else {
+        let r = rand(2, 9);
+        let area = 3 * (r * r); // pi = 3
+        let text = `A área de um círculo é <b>${area} m²</b>. Qual é a medida do seu <b>raio</b>? <br><span class="text-xs font-bold text-rose-600">(Considere π = 3)</span>`;
+        let steps = [
+            `Fórmula: ${mathInline(`A = \\pi \\cdot r^2`)}. Com π = 3, temos ${mathInline(`${area} = 3 \\cdot r^2`)}.`,
+            `Passe o 3 dividindo: ${mathInline(`r^2 = \\frac{${area}}{3} \\implies r^2 = ${area/3}`)}.`,
+            `Ache a raiz quadrada: ${mathInline(`r = \\sqrt{${area/3}} = ${r}`)}.`
+        ];
+        pushEx(5, "Reverso: Raio do Círculo", text, r, steps);
+    }
+}
+
+let solved = new Set(JSON.parse(localStorage.getItem('geoSolved') || '[]'));
+let currentLevel = 'all';
+
+function renderExercises() {
+  const q = ($('search').value || '').toLowerCase();
+  let list = E.filter(e => 
+    (currentLevel === 'all' || e.level == currentLevel) && 
+    (q === '' || (`questão ${e.id} ${e.title} ${e.text}`).toLowerCase().includes(q))
+  );
+  
+  $('exercise-list').innerHTML = list.map(ex => {
+    const done = solved.has(ex.id);
+    
+    return `
+    <article class="bg-white rounded-2xl border ${done ? 'border-emerald-400 shadow-emerald-100' : 'border-slate-200'} p-5 shadow-sm transition-all hover:shadow-md flex flex-col justify-between">
+      <div>
+          <div class="flex justify-between gap-3 mb-3">
+            <span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 whitespace-nowrap">Questão ${ex.id}</span>
+            <span class="text-xs text-slate-400 text-right font-bold uppercase tracking-wide">${ex.title}</span>
+          </div>
+          <div class="text-slate-700 leading-relaxed min-h-[60px]">
+            ${ex.text}
+          </div>
+      </div>
+      <div class="mt-4">
+          <div class="flex gap-2">
+            <input id="ans-${ex.id}" type="number" step="0.01" class="flex-1 border-2 border-slate-200 focus:border-indigo-500 outline-none rounded-xl px-4 py-2 text-sm font-bold" placeholder="Digite apenas o número...">
+            <button onclick="checkAnswer(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-5 py-2 text-sm font-black hover:bg-indigo-700 transition">Conferir</button>
+          </div>
+          <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-[1.5rem]"></div>
+          
+          <button onclick="toggleSol(${ex.id})" class="mt-3 text-xs font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-800 transition">👁 Ver Passo a Passo</button>
+          
+          <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+            <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução</div>
+            ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+            <div class="success rounded-xl p-3 text-center font-black mt-4">
+              Resposta: ${formatNum(ex.ansNum)}
+            </div>
+          </div>
+      </div>
+    </article>`;
+  }).join('');
+  
+  $('progress-text').textContent = `${solved.size} / 100`;
+  $('progress-bar').style.width = (solved.size) + '%';
+  renderAll();
+}
+
+function checkAnswer(id) {
+  const ex = E.find(x => x.id === id);
+  const rawAns = $(`ans-${id}`).value;
+  const fb = $(`fb-${id}`);
+  
+  if (rawAns.trim() === '') {
+    fb.className = 'text-sm font-bold mt-2 text-amber-600';
+    fb.textContent = '⚠ Digite um valor antes de conferir.';
+    return;
+  }
+  
+  let userVal = parseFloat(rawAns.replace(',', '.'));
+  let isCorrect = Math.abs(userVal - ex.ansNum) < 0.05; // Margem para float no triângulo
+  
+  if (isCorrect) {
+    solved.add(id);
+    localStorage.setItem('geoSolved', JSON.stringify([...solved]));
+    fb.className = 'text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent = '✓ Exato! Ótimo trabalho espacial.';
+  } else {
+    fb.className = 'text-sm font-bold mt-2 text-rose-600';
+    fb.textContent = '✗ Opa, o valor não é esse. Revise a fórmula da forma!';
+  }
+  renderExercises();
+}
+
+function toggleSol(id) { $(`sol-${id}`).classList.toggle('hidden'); }
+
+// Filtros
+document.querySelectorAll('.level-btn').forEach(b => b.onclick = () => {
+  currentLevel = b.dataset.level;
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.remove('active', 'bg-indigo-600', 'text-white'));
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.add('bg-slate-100'));
+  
+  b.classList.add('active');
+  b.classList.remove('bg-slate-100');
+  renderExercises();
+});
+$('search').addEventListener('input', renderExercises);
+
+// Inicialização
+window.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+  updateToolInputs();
+});
+</script>
+</body>
+</html>

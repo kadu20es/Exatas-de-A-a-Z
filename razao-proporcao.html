@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Razão e Proporção — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#4f46e5;background:#eef2ff;color:#312e81}
+  canvas{max-width:100%}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .sticky-mini{position:sticky;top:74px;z-index:20}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  .grid-paper{background-image:linear-gradient(#e5e7eb 1px,transparent 1px),linear-gradient(90deg,#e5e7eb 1px,transparent 1px);background-size:28px 28px}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">⚖️ Razão e Proporção</div><div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo, não decorando</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exemplos">💡 Exemplos</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Curso do zero</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Razão e Proporção sem mistério</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Comparar quantidades é algo que fazemos o tempo todo: receitas, mapas, misturas. Você vai aprender a ler uma razão, reconhecer uma proporção e resolver problemas com confiança.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">6</b><div class="text-xs text-indigo-200">tópicos de teoria</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">30</b><div class="text-xs text-indigo-200">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">resolução detalhada</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">🔬</b><div class="text-xs text-indigo-200">laboratório visual</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Como estudar:</b> leia a ideia, observe o desenho, veja o exemplo resolvido na aba <b>Exemplos</b> e só depois tente os exercícios. O segredo da proporção é uma única regra — depois de entendê-la, você resolve qualquer questão.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O que é uma razão?</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Razão é uma <b>comparação entre duas quantidades</b> por meio de uma divisão. A razão entre a e b (com b diferente de zero) se escreve \(a:b\) ou \(\frac{a}{b}\), e se lê "a está para b".</p>
+   <div class="my-5 flex justify-center"><div id="visual-razao"></div></div>
+   <div class="bg-indigo-50 rounded-xl p-4 text-sm">Numa turma com 12 meninos e 8 meninas, a razão entre meninos e meninas é \(12:8\), que simplifica para \(3:2\).</div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Razões equivalentes</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Assim como frações, uma razão pode ser simplificada ou ampliada <b>multiplicando ou dividindo os dois termos pelo mesmo número</b>, sem mudar o que ela representa.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[3:2 = 6:4 = 9:6 = 12:8\]</div>
+   <div class="success rounded-xl p-4 mt-4 text-sm">Todas essas razões representam a mesma comparação: "1,5 vezes mais do primeiro que do segundo".</div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <h2 class="text-2xl font-black">3. O que é uma proporção?</h2>
+  <p class="mt-3 text-slate-600 leading-7">Proporção é uma <b>igualdade entre duas razões</b>. Se \(\frac{a}{b}=\frac{c}{d}\), dizemos que a, b, c e d formam uma proporção, lida como "a está para b assim como c está para d".</p>
+  <div class="paper rounded-2xl p-5 mt-4 text-center text-xl">\[\frac{2}{3} = \frac{4}{6}\]</div>
+  <div class="grid sm:grid-cols-2 gap-3 mt-4 text-sm">
+   <div class="bg-slate-50 rounded-xl p-4"><b>Meios:</b> os termos do meio (b e c).</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>Extremos:</b> os termos das pontas (a e d).</div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. Propriedade fundamental</h2>
+   <p class="mt-3 text-slate-600 leading-7">Em toda proporção, o <b>produto dos meios é igual ao produto dos extremos</b>. É a ferramenta mais usada para resolver proporções com um termo desconhecido.</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="step" data-step="1">\(\frac{2}{3} = \frac{x}{9}\)</div>
+    <div class="step" data-step="2">Multiplique cruzado: \(2 \times 9 = 3 \times x\).</div>
+    <div class="step" data-step="3">\(18 = 3x \to x = 6\).</div>
+   </div>
+  </article>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">5. Divisão proporcional</h2>
+   <p class="mt-3 text-slate-600 leading-7">Dividir um valor em partes proporcionais a números dados: some os números dados, descubra quanto vale "uma parte" e multiplique pelos números de cada pessoa/grupo.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-sm">
+    <b>Exemplo:</b> Dividir 100 em partes proporcionais a 2 e 3.<br>
+    Some: \(2+3=5\) partes. Cada parte vale \(100 \div 5 = 20\).<br>
+    Primeira parte: \(2\times20=40\). Segunda parte: \(3\times20=60\).
+   </div>
+  </article>
+ </div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">6. Escalas: razão no dia a dia</h2>
+  <p class="mt-3 text-slate-600 leading-7">Uma escala de mapa como \(1:50000\) é uma razão: cada 1 cm no mapa representa 50.000 cm (500 m) na realidade. Para resolver problemas de escala, monte uma proporção entre "mapa" e "realidade".</p>
+  <div class="bg-amber-50 rounded-xl p-4 mt-4 text-sm">Se 3 cm no mapa representam 1,5 km na realidade, a escala é \(3\text{ cm} : 150000\text{ cm} = 1:50000\).</div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">Checklist para qualquer questão</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 text-sm">
+   <div class="bg-slate-50 rounded-xl p-4"><b>① Identifique</b><br>É razão, proporção ou divisão proporcional?</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>② Monte</b><br>Escreva as razões na mesma ordem dos termos.</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>③ Resolva</b><br>Use o produto dos meios pelos extremos.</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>④ Confira</b><br>O resultado é coerente com o enunciado?</div>
+  </div>
+ </article>
+</section>
+
+<!-- EXEMPLOS -->
+<section id="sec-exemplos" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Exemplos resolvidos</span><h1 class="text-3xl font-black mt-2">Veja o raciocínio completo, passo a passo</h1><p class="text-slate-600 mt-2">Antes de tentar os exercícios, acompanhe estes modelos com atenção.</p></div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 1 — Simplificar uma razão</h2>
+  <p class="mt-2 text-slate-600">Simplifique a razão 15:20.</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Encontre um divisor comum: 5 divide 15 e 20.</div>
+   <div class="step" data-step="2">Divida os dois termos: \(15\div5=3\) e \(20\div5=4\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> 3:4.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 2 — Verificar se é proporção</h2>
+  <p class="mt-2 text-slate-600">As razões 4:6 e 10:15 formam uma proporção?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Multiplique cruzado: \(4\times15=60\) e \(6\times10=60\).</div>
+   <div class="step" data-step="2">Os produtos são iguais.</div>
+   <div class="step" data-step="3"><b>Resposta:</b> sim, formam uma proporção.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 3 — Resolver uma proporção</h2>
+  <p class="mt-2 text-slate-600">Encontre x em \(\frac{5}{8} = \frac{x}{40}\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Multiplique cruzado: \(5\times40 = 8\times x\).</div>
+   <div class="step" data-step="2">\(200 = 8x\).</div>
+   <div class="step" data-step="3">Isole x: \(x = 200 \div 8 = 25\).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 4 — Divisão proporcional</h2>
+  <p class="mt-2 text-slate-600">Divida 90 em partes proporcionais a 4 e 5.</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Some os números: \(4+5=9\) partes.</div>
+   <div class="step" data-step="2">Valor de cada parte: \(90\div9=10\).</div>
+   <div class="step" data-step="3">Primeira parte: \(4\times10=40\). Segunda parte: \(5\times10=50\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> 40 e 50 (soma confere: \(40+50=90\)).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 5 — Problema de receita</h2>
+  <p class="mt-2 text-slate-600">Uma receita usa 2 xícaras de farinha para 3 ovos. Quantos ovos são necessários para 8 xícaras de farinha?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Monte a proporção: \(\frac{2}{3} = \frac{8}{x}\).</div>
+   <div class="step" data-step="2">Multiplique cruzado: \(2x = 3\times8=24\).</div>
+   <div class="step" data-step="3">\(x = 24 \div 2 = 12\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> 12 ovos.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 6 — Escala de mapa</h2>
+  <p class="mt-2 text-slate-600">Um mapa tem escala 1:100000. Uma distância no mapa mede 4 cm. Qual a distância real, em km?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Monte a proporção: \(\frac{1}{100000} = \frac{4}{x}\).</div>
+   <div class="step" data-step="2">\(x = 4 \times 100000 = 400000\) cm.</div>
+   <div class="step" data-step="3">Transforme em km: \(400000 \text{ cm} = 4\text{ km}\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> 4 km.</div>
+  </div>
+ </article>
+</section>
+
+<!-- LAB -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Laboratório visual</span><h1 class="text-3xl font-black mt-2">Veja a razão em blocos coloridos</h1><p class="text-slate-600 mt-2">Mova os controles e observe como a razão entre dois valores aparece visualmente.</p></div>
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <label class="font-bold text-sm">Primeiro termo (a): <span id="lab-a-label" class="text-indigo-600">3</span></label><input id="lab-a" type="range" min="1" max="12" value="3" class="w-full mt-3">
+   <label class="font-bold text-sm block mt-6">Segundo termo (b): <span id="lab-b-label" class="text-indigo-600">2</span></label><input id="lab-b" type="range" min="1" max="12" value="2" class="w-full mt-3">
+  </div>
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h3 class="font-black text-center">Blocos proporcionais</h3>
+   <div id="blocks" class="flex flex-col gap-3 mt-6"></div>
+   <div class="border-t mt-6 pt-5 text-center"><div id="lab-razao" class="text-3xl font-black"></div><div id="lab-info" class="mt-4 grid sm:grid-cols-3 gap-2 text-sm"></div></div>
+  </div>
+ </div>
+ <div class="bg-indigo-950 text-white rounded-2xl p-6"><h2 class="font-black text-xl">Resolvedor de proporção</h2><p class="text-indigo-200 text-sm mt-1">Digite três valores conhecidos; deixe o quarto como "x" (o campo em branco será calculado).</p>
+  <div class="grid sm:grid-cols-5 gap-3 mt-4 items-center text-center">
+   <input id="pr-a" value="2" class="rounded-xl px-3 py-2 text-slate-900">
+   <span class="font-black">/</span>
+   <input id="pr-b" value="3" class="rounded-xl px-3 py-2 text-slate-900">
+   <span class="font-black">=</span>
+   <div class="flex gap-2"><input id="pr-c" value="4" class="rounded-xl px-3 py-2 text-slate-900 w-full"><span class="font-black self-center">/</span><input id="pr-d" placeholder="x" class="rounded-xl px-3 py-2 text-slate-900 w-full"></div>
+  </div>
+  <button onclick="renderProporcao()" class="mt-4 bg-white text-indigo-900 rounded-xl py-2 px-6 font-bold">Resolver</button>
+  <div id="pr-out" class="mt-4 text-slate-900"></div>
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span><h1 class="text-3xl font-black mt-2">30 exercícios com resolução</h1><p class="text-slate-600 mt-2">Tente primeiro. Quando quiser conferir, clique em <b>Visualizar resposta e resolução</b>.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 30</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-indigo-600 rounded-full" style="width:0%"></div></div></div></div></div>
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters"><button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button><button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 1 · Razões</button><button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 2 · É proporção?</button><button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 3 · Achar x</button><button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 4 · Divisão proporcional</button><button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 5 · Problemas</button><input id="search" placeholder="Buscar questão..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[180px]"></div></div>
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo de estudo de Razão e Proporção • Fórmulas renderizadas em notação matemática</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})}
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1}
+
+const sections=['teoria','exemplos','laboratorio','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises();if(t==='laboratorio')updateLab()}));
+
+function drawIntroBlocks(containerId){const el=$(containerId);el.innerHTML='';const c=document.createElement('canvas');c.width=260;c.height=90;el.appendChild(c);const ctx=c.getContext('2d');const cell=24;for(let i=0;i<3;i++){ctx.fillStyle='#6366f1';ctx.fillRect(10+i*(cell+4),15,cell,cell);ctx.strokeStyle='#4338ca';ctx.strokeRect(10+i*(cell+4),15,cell,cell)}for(let i=0;i<2;i++){ctx.fillStyle='#f59e0b';ctx.fillRect(10+i*(cell+4),55,cell,cell);ctx.strokeStyle='#b45309';ctx.strokeRect(10+i*(cell+4),55,cell,cell)}ctx.fillStyle='#243044';ctx.font='bold 13px sans-serif';ctx.fillText('3 : 2',180,45)}
+drawIntroBlocks('visual-razao');
+
+function updateLab(){
+ const a=+$('lab-a').value,b=+$('lab-b').value;
+ $('lab-a-label').textContent=a;$('lab-b-label').textContent=b;
+ const g=gcd(a,b);
+ $('blocks').innerHTML='';
+ const rowA=document.createElement('div');rowA.className='flex gap-2 items-center';
+ rowA.innerHTML='<span class="w-6 text-xs font-bold text-indigo-700">A</span>'+Array.from({length:a}).map(()=>'<div class="w-8 h-8 rounded bg-indigo-500"></div>').join('');
+ const rowB=document.createElement('div');rowB.className='flex gap-2 items-center';
+ rowB.innerHTML='<span class="w-6 text-xs font-bold text-amber-700">B</span>'+Array.from({length:b}).map(()=>'<div class="w-8 h-8 rounded bg-amber-500"></div>').join('');
+ $('blocks').appendChild(rowA);$('blocks').appendChild(rowB);
+ $('lab-razao').innerHTML=`${a} : ${b}`;
+ $('lab-info').innerHTML=`<div class="bg-slate-50 rounded-xl p-3"><b>Simplificada</b><br>${a/g} : ${b/g}</div><div class="bg-slate-50 rounded-xl p-3"><b>Como fração</b><br>${a}/${b}</div><div class="bg-slate-50 rounded-xl p-3"><b>Como decimal</b><br>${(a/b).toFixed(2)}</div>`;
+}
+$('lab-a').addEventListener('input',updateLab);$('lab-b').addEventListener('input',updateLab);
+
+function renderProporcao(){
+ const fields=['pr-a','pr-b','pr-c','pr-d'];
+ const vals=fields.map(f=>$(f).value.trim());
+ const emptyIdx=vals.findIndex(v=>v==='');
+ if(emptyIdx===-1){$('pr-out').innerHTML='<div class="warning rounded-xl p-4">Deixe um dos quatro campos em branco para calcular.</div>';return}
+ const nums=vals.map(v=>v===''?null:parseFloat(v));
+ if(nums.filter(n=>n!==null).some(isNaN)){$('pr-out').innerHTML='<div class="warning rounded-xl p-4">Digite números válidos nos outros três campos.</div>';return}
+ const [a,b,c,d]=nums;
+ let result,eq;
+ if(emptyIdx===0){result=(b*c)/d;eq=`a × ${d} = ${b} × ${c} → a = ${(b*c).toFixed(2)} ÷ ${d} = ${result.toFixed(2)}`}
+ else if(emptyIdx===1){result=(a*d)/c;eq=`${a} × ${d} = b × ${c} → b = ${(a*d).toFixed(2)} ÷ ${c} = ${result.toFixed(2)}`}
+ else if(emptyIdx===2){result=(a*d)/b;eq=`${a} × ${d} = ${b} × c → c = ${(a*d).toFixed(2)} ÷ ${b} = ${result.toFixed(2)}`}
+ else{result=(b*c)/a;eq=`${a} × d = ${b} × ${c} → d = ${(b*c).toFixed(2)} ÷ ${a} = ${result.toFixed(2)}`}
+ $('pr-out').innerHTML=`<div class="step" data-step="1">Multiplique cruzado (produto dos meios = produto dos extremos).</div><div class="step mt-3" data-step="2">${eq}</div><div class="success rounded-xl p-4 mt-3 text-center font-bold">Valor encontrado: ${Number(result.toFixed(3))}</div>`;
+}
+
+// ===== EXERCÍCIOS =====
+function mi(s){return '\\('+s+'\\)'}
+const exercisesData = [
+ // Nível 1 — Razões (1-6)
+ {id:1,level:1,title:"Nível 1: Razões",question:"Simplifique a razão 15:20.",answer:"3/4",accept:["3/4","3:4"],steps:[["1","Encontre um divisor comum: 5 divide 15 e 20."],["2","15÷5=3 e 20÷5=4."],["3","Resposta: 3:4."]]},
+ {id:2,level:1,title:"Nível 1: Razões",question:"Simplifique a razão 24:36.",answer:"2/3",accept:["2/3","2:3"],steps:[["1","Divisor comum: 12 divide 24 e 36."],["2","24÷12=2 e 36÷12=3."],["3","Resposta: 2:3."]]},
+ {id:3,level:1,title:"Nível 1: Razões",question:"Numa turma há 18 meninas e 12 meninos. Qual a razão simplificada entre meninas e meninos?",answer:"3/2",accept:["3/2","3:2"],steps:[["1","Razão: 18:12."],["2","Divida por 6: 18÷6=3 e 12÷6=2."],["3","Resposta: 3:2."]]},
+ {id:4,level:1,title:"Nível 1: Razões",question:"Escreva como fração simplificada a razão de 8 para 10.",answer:"4/5",accept:["4/5"],steps:[["1","8:10 = 8/10."],["2","Simplifique dividindo por 2: 4/5."],["3","Resposta: 4/5."]]},
+ {id:5,level:1,title:"Nível 1: Razões",question:"Qual razão é equivalente a 2:5, com o segundo termo igual a 15?",answer:"6/15",accept:["6/15","6:15"],steps:[["1","15 ÷ 5 = 3 (fator de ampliação)."],["2","Multiplique o primeiro termo por 3: 2×3=6."],["3","Resposta: 6:15."]]},
+ {id:6,level:1,title:"Nível 1: Razões",question:"Simplifique a razão 45:27.",answer:"5/3",accept:["5/3","5:3"],steps:[["1","Divisor comum: 9 divide 45 e 27."],["2","45÷9=5 e 27÷9=3."],["3","Resposta: 5:3."]]},
+ // Nível 2 — É proporção? (7-12)
+ {id:7,level:2,title:"Nível 2: É proporção?",question:"As razões 4:6 e 10:15 formam uma proporção? (sim/não)",answer:"sim",accept:["sim","s"],steps:[["1","Multiplique cruzado: 4×15=60 e 6×10=60."],["2","Os produtos são iguais."],["3","Resposta: sim."]]},
+ {id:8,level:2,title:"Nível 2: É proporção?",question:"As razões 3:5 e 9:20 formam uma proporção? (sim/não)",answer:"não",accept:["não","nao","n"],steps:[["1","Multiplique cruzado: 3×20=60 e 5×9=45."],["2","Os produtos são diferentes (60≠45)."],["3","Resposta: não."]]},
+ {id:9,level:2,title:"Nível 2: É proporção?",question:"As razões 7:2 e 21:6 formam uma proporção? (sim/não)",answer:"sim",accept:["sim","s"],steps:[["1","Multiplique cruzado: 7×6=42 e 2×21=42."],["2","Os produtos são iguais."],["3","Resposta: sim."]]},
+ {id:10,level:2,title:"Nível 2: É proporção?",question:"As razões 5:8 e 15:25 formam uma proporção? (sim/não)",answer:"não",accept:["não","nao","n"],steps:[["1","Multiplique cruzado: 5×25=125 e 8×15=120."],["2","Os produtos são diferentes."],["3","Resposta: não."]]},
+ {id:11,level:2,title:"Nível 2: É proporção?",question:"As razões 6:9 e 8:12 formam uma proporção? (sim/não)",answer:"sim",accept:["sim","s"],steps:[["1","Multiplique cruzado: 6×12=72 e 9×8=72."],["2","Os produtos são iguais."],["3","Resposta: sim."]]},
+ {id:12,level:2,title:"Nível 2: É proporção?",question:"As razões 2:3 e 5:9 formam uma proporção? (sim/não)",answer:"não",accept:["não","nao","n"],steps:[["1","Multiplique cruzado: 2×9=18 e 3×5=15."],["2","Os produtos são diferentes."],["3","Resposta: não."]]},
+ // Nível 3 — Achar x (13-18)
+ {id:13,level:3,title:"Nível 3: Achar x",question:"Encontre x: "+mi("\\frac{2}{3} = \\frac{x}{9}"),answer:"6",accept:["6"],tolerance:0.01,steps:[["1","Multiplique cruzado: 2×9=3×x."],["2","18=3x."],["3","x=6."]]},
+ {id:14,level:3,title:"Nível 3: Achar x",question:"Encontre x: "+mi("\\frac{5}{8} = \\frac{x}{40}"),answer:"25",accept:["25"],tolerance:0.01,steps:[["1","Multiplique cruzado: 5×40=8×x."],["2","200=8x."],["3","x=25."]]},
+ {id:15,level:3,title:"Nível 3: Achar x",question:"Encontre x: "+mi("\\frac{x}{4} = \\frac{15}{20}"),answer:"3",accept:["3"],tolerance:0.01,steps:[["1","Multiplique cruzado: x×20=4×15."],["2","20x=60."],["3","x=3."]]},
+ {id:16,level:3,title:"Nível 3: Achar x",question:"Encontre x: "+mi("\\frac{7}{x} = \\frac{21}{9}"),answer:"3",accept:["3"],tolerance:0.01,steps:[["1","Multiplique cruzado: 7×9=x×21."],["2","63=21x."],["3","x=3."]]},
+ {id:17,level:3,title:"Nível 3: Achar x",question:"Encontre x: "+mi("\\frac{3}{7} = \\frac{18}{x}"),answer:"42",accept:["42"],tolerance:0.01,steps:[["1","Multiplique cruzado: 3×x=7×18."],["2","3x=126."],["3","x=42."]]},
+ {id:18,level:3,title:"Nível 3: Achar x",question:"Encontre x: "+mi("\\frac{9}{4} = \\frac{x}{16}"),answer:"36",accept:["36"],tolerance:0.01,steps:[["1","Multiplique cruzado: 9×16=4×x."],["2","144=4x."],["3","x=36."]]},
+ // Nível 4 — Divisão proporcional (19-24)
+ {id:19,level:4,title:"Nível 4: Divisão proporcional",question:"Divida 90 em partes proporcionais a 4 e 5. Qual a menor parte?",answer:"40",accept:["40"],tolerance:0.01,steps:[["1","Some: 4+5=9 partes."],["2","Cada parte vale 90÷9=10."],["3","Menor parte: 4×10=40."]]},
+ {id:20,level:4,title:"Nível 4: Divisão proporcional",question:"Divida 60 em partes proporcionais a 1 e 2. Qual a maior parte?",answer:"40",accept:["40"],tolerance:0.01,steps:[["1","Some: 1+2=3 partes."],["2","Cada parte vale 60÷3=20."],["3","Maior parte: 2×20=40."]]},
+ {id:21,level:4,title:"Nível 4: Divisão proporcional",question:"Divida 100 em partes proporcionais a 2 e 3. Qual a menor parte?",answer:"40",accept:["40"],tolerance:0.01,steps:[["1","Some: 2+3=5 partes."],["2","Cada parte vale 100÷5=20."],["3","Menor parte: 2×20=40."]]},
+ {id:22,level:4,title:"Nível 4: Divisão proporcional",question:"Divida 120 em partes proporcionais a 1, 2 e 3. Qual a maior parte?",answer:"60",accept:["60"],tolerance:0.01,steps:[["1","Some: 1+2+3=6 partes."],["2","Cada parte vale 120÷6=20."],["3","Maior parte: 3×20=60."]]},
+ {id:23,level:4,title:"Nível 4: Divisão proporcional",question:"Divida 200 em partes proporcionais a 3 e 7. Qual a menor parte?",answer:"60",accept:["60"],tolerance:0.01,steps:[["1","Some: 3+7=10 partes."],["2","Cada parte vale 200÷10=20."],["3","Menor parte: 3×20=60."]]},
+ {id:24,level:4,title:"Nível 4: Divisão proporcional",question:"Dois sócios investiram na razão 2:3 e o lucro foi de R$ 500. Quanto recebe o sócio da parte maior?",answer:"300",accept:["300"],tolerance:0.01,steps:[["1","Some: 2+3=5 partes."],["2","Cada parte vale 500÷5=100."],["3","Parte maior: 3×100=300."]]},
+ // Nível 5 — Problemas (25-30)
+ {id:25,level:5,title:"Nível 5: Problemas",question:"Uma receita usa 2 xícaras de farinha para 3 ovos. Quantos ovos para 8 xícaras?",answer:"12",accept:["12"],tolerance:0.01,steps:[["1","Monte: 2/3 = 8/x."],["2","2x=3×8=24."],["3","x=12."]]},
+ {id:26,level:5,title:"Nível 5: Problemas",question:"Um carro percorre 300 km com 20 litros de combustível. Quantos km percorre com 30 litros (mesma razão)?",answer:"450",accept:["450"],tolerance:0.01,steps:[["1","Monte: 300/20 = x/30."],["2","20x=300×30=9000."],["3","x=450."]]},
+ {id:27,level:5,title:"Nível 5: Problemas",question:"Um mapa tem escala 1:50000. Uma distância no mapa mede 3 cm. Qual a distância real, em metros?",answer:"1500",accept:["1500"],tolerance:0.01,steps:[["1","3 cm reais = 3×50000=150000 cm."],["2","Transforme em metros: 150000 cm = 1500 m."],["3","Resposta: 1500 m."]]},
+ {id:28,level:5,title:"Nível 5: Problemas",question:"Uma mistura tem água e suco na razão 5:1. Se há 25 litros de água, quantos litros de suco há?",answer:"5",accept:["5"],tolerance:0.01,steps:[["1","Monte: 5/1 = 25/x."],["2","5x=25."],["3","x=5."]]},
+ {id:29,level:5,title:"Nível 5: Problemas",question:"Três amigos dividem R$ 240 proporcionalmente a suas idades: 8, 10 e 12 anos. Quanto recebe o mais novo?",answer:"64",accept:["64"],tolerance:0.01,steps:[["1","Some as idades: 8+10+12=30 partes."],["2","Cada parte vale 240÷30=8."],["3","Mais novo (8 anos): 8×8=64."]]},
+ {id:30,level:5,title:"Nível 5: Problemas",question:"Em uma planta baixa com escala 1:100, um cômodo mede 5 cm de comprimento no desenho. Qual o comprimento real, em metros?",answer:"5",accept:["5"],tolerance:0.01,steps:[["1","5 cm reais = 5×100=500 cm."],["2","Transforme em metros: 500 cm = 5 m."],["3","Resposta: 5 m."]]}
+];
+
+function normalize(s){return String(s).trim().toLowerCase().replace(/\s+/g,'').replace(/\./g,',')}
+function checkAnswer(ex,raw){
+ const v=normalize(raw);
+ const accepted=(ex.accept||[ex.answer]).map(normalize);
+ if(accepted.includes(v))return true;
+ if(ex.tolerance!=null){
+  const num=parseFloat(v.replace(',','.'));
+  const target=parseFloat(normalize(ex.answer).replace(',','.'));
+  if(!isNaN(num)&&!isNaN(target)&&Math.abs(num-target)<=ex.tolerance)return true;
+ }
+ return false;
+}
+let solved=new Set(JSON.parse(localStorage.getItem('razSolved')||'[]'));let currentLevel='all';
+function renderExercises(){
+ const q=($('search').value||'').toLowerCase();
+ let list=exercisesData.filter(e=>(currentLevel==='all'||e.level==currentLevel)&&(q===''||(`questão ${e.id} ${e.title}`).toLowerCase().includes(q)));
+ $('exercise-list').innerHTML=list.map(ex=>{const done=solved.has(ex.id);
+  return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm">
+   <div class="flex justify-between gap-3"><span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700">Questão ${ex.id}</span><span class="text-xs text-slate-400">${ex.title}</span></div>
+   <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-6 text-center text-lg">${ex.question}</div>
+   <div class="flex gap-2 mt-4"><input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm" placeholder="Sua resposta"><button onclick="check(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Conferir</button></div>
+   <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+   <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-indigo-700 hover:underline">👁 Visualizar resposta e resolução</button>
+   <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+    <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução completa</div>
+    ${ex.steps.map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+    <div class="success rounded-xl p-4 text-center font-bold">Resposta: ${ex.answer}</div>
+   </div>
+  </article>`}).join('');
+ $('progress-text').textContent=`${solved.size} / ${exercisesData.length}`;
+ $('progress-bar').style.width=Math.round(100*solved.size/exercisesData.length)+'%';
+ renderAll();
+}
+function check(id){
+ const ex=exercisesData.find(x=>x.id===id),raw=$('answer-'+id).value,fb=$('feedback-'+id);
+ if(checkAnswer(ex,raw)){solved.add(id);localStorage.setItem('razSolved',JSON.stringify([...solved]));fb.className='text-sm font-bold mt-2 text-emerald-600';fb.textContent='✓ Correto! Muito bem.'}
+ else{fb.className='text-sm font-bold mt-2 text-red-600';fb.textContent='✗ Ainda não. Revise os passos e tente novamente.'}
+ renderExercises();
+}
+function toggleSol(id){$('solution-'+id).classList.toggle('hidden')}
+document.querySelectorAll('.level-btn').forEach(b=>b.onclick=()=>{currentLevel=b.dataset.level;document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderExercises()});
+$('search').addEventListener('input',renderExercises);
+
+window.addEventListener('DOMContentLoaded',()=>{updateLab();renderAll();});
+</script>
+</body>
+</html>

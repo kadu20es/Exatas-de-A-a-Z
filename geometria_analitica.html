@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geometria Analítica — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  /* Paleta Rose / Rubi para Geometria Analítica */
+  :root {--ink:#4c0519; --paper:#fff1f2; --line:#fecdd3; --accent:#e11d48; --accent-light:#ffe4e6;}
+  body {background:#fdf2f8; color:var(--ink);}
+  .tab-btn.active {color:var(--accent); border-bottom-color:var(--accent); font-weight:800;}
+  
+  /* Padrão de Plano Cartesiano Suave no Fundo */
+  .paper {
+    background: var(--paper);
+    background-image: 
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    border: 1px solid #fda4af;
+    box-shadow: 0 8px 24px rgba(225, 29, 72, 0.08);
+  }
+  
+  .step {
+    position:relative; padding:1rem 1rem 1rem 3.2rem; 
+    border:1px solid #e2e8f0; border-radius:1rem; background:white;
+  }
+  .step::before {
+    content:attr(data-step); position:absolute; left:1rem; top:1rem; 
+    width:1.65rem; height:1.65rem; border-radius:999px; 
+    background:var(--accent-light); color:var(--accent); 
+    font-weight:800; display:grid; place-items:center; font-size:.8rem;
+  }
+  
+  canvas {max-width:100%; touch-action: none;}
+  .level-btn.active {background:var(--accent); color:white;}
+  .exercise-solution {animation:fade .2s ease;}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  
+  .tip {border-left:4px solid #f59e0b; background:#fffbeb;}
+  .success {border-left:4px solid #10b981; background:#ecfdf5;}
+  .warning {border-left:4px solid #ef4444; background:#fef2f2;}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-rose-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+    <div class="font-black text-lg sm:text-xl text-rose-900">📐 Geometria Analítica</div>
+    <div class="text-[11px] text-slate-500 hidden sm:block">A união perfeita entre Álgebra e Geometria</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🗺️ Plano Interativo</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">⚙️ Calculadoras</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-rose-950 via-rose-900 to-fuchsia-950 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-rose-300">Curso Completo</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">O GPS da Matemática</h1>
+  <p class="mt-4 max-w-3xl text-rose-100 leading-7">Antes de Descartes, a geometria era feita com réguas e compassos sem números. Ele criou o Plano Cartesiano e permitiu que descrevêssemos pontos, retas e curvas usando equações. Descubra a lógica geométrica por trás de cada fórmula.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">10</b><div class="text-xs text-rose-300">passos lógicos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-rose-300">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-rose-300">macetes e intuição</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">🗺️</b><div class="text-xs text-rose-300">mapa interativo</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm">
+  <b>O maior segredo da G.A.:</b> NUNCA resolva um exercício de Geometria Analítica de cabeça fechada. <b>Faça um rascunho do plano cartesiano!</b> Desenhar os pontos e a reta no papel te salva de errar fórmulas gigantes.
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">A Distância é o Pitágoras!</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Como medir a distância \(d\) entre dois pontos \(A(x_A, y_A)\) e \(B(x_B, y_B)\)? Basta fechar um triângulo retângulo imaginário entre eles!</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg font-bold text-rose-900">
+    \[ d^2 = (\Delta x)^2 + (\Delta y)^2 \]
+   </div>
+   <p class="mt-4 text-sm text-slate-600">A variação em x (\(\Delta x = x_B - x_A\)) é a base do triângulo. A variação em y (\(\Delta y = y_B - y_A\)) é a altura. A distância é apenas a hipotenusa.</p>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Ponto Médio (Rachar a Conta)</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Para encontrar exatamente o meio do caminho entre dois pontos, basta tirar a <b>Média Aritmética</b> de suas coordenadas. Simples assim!</p>
+   <div class="bg-slate-50 rounded-xl p-4 mt-4 text-center">
+    \[ x_m = \frac{x_A + x_B}{2} \quad \text{e} \quad y_m = \frac{y_A + y_B}{2} \]
+   </div>
+   <div class="text-xs mt-3 text-slate-500">
+    <b>Exemplo:</b> O meio entre A(2, 4) e B(8, 10). Em X: (2+8)/2 = 5. Em Y: (4+10)/2 = 7. O ponto médio é M(5, 7).
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-rose-900 text-white rounded-2xl border shadow-sm p-6 sm:p-10">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-800 text-rose-100 grid place-items-center font-black">3</span><h2 class="text-3xl font-black">O Coeficiente Angular (\(m\))</h2></div>
+  <p class="mt-4 text-rose-100 text-lg leading-relaxed">A coisa mais importante de uma reta é a sua <b>inclinação</b>. Chamamos isso de Coeficiente Angular (\(m\)). Pense nisso como uma rampa: <i>"Para cada passo que dou para o lado, quantos passos eu subo?"</i></p>
+  
+  <div class="grid md:grid-cols-2 gap-6 mt-6">
+      <div class="bg-white text-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden text-center">
+       <div class="text-sm text-slate-500 font-bold uppercase tracking-wide">Cálculo pela Rampa (Pontos)</div>
+       <p class="mt-3 text-sm">A altura da rampa dividida pelo comprimento da rampa.</p>
+       <div class="mt-3 text-xl font-bold text-rose-700">\[ m = \frac{\Delta y}{\Delta x} = \frac{y_B - y_A}{x_B - x_A} \]</div>
+      </div>
+
+      <div class="bg-white text-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden text-center">
+       <div class="text-sm text-slate-500 font-bold uppercase tracking-wide">Cálculo pelo Ângulo (Trigonometria)</div>
+       <p class="mt-3 text-sm">Se a questão te der o ângulo \(\alpha\) que a reta faz com o chão, o \(m\) é simplesmente a tangente!</p>
+       <div class="mt-3 text-xl font-bold text-rose-700">\[ m = \tan(\alpha) \]</div>
+      </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">A Equação Fundamental (Yoyô-Michô)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">Para criar a equação de qualquer reta, você só precisa de duas coisas: <b>Um ponto inicial \((x_0, y_0)\) e a inclinação \(m\)</b>. Jogue-os nesta fórmula mágica:</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    \[ y - y_0 = m(x - x_0) \]
+   </div>
+   <p class="text-sm mt-3 text-slate-500">Daqui, você pode isolar o Y para ter a equação <b>Reduzida</b> (\(y = mx + n\)) ou passar tudo para um lado para ter a equação <b>Geral</b> (\(Ax + By + C = 0\)).</p>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Retas Paralelas e Perpendiculares</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">Tudo se resume à inclinação (\(m\)) de cada reta.</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="step" data-step="||"><b>Paralelas:</b> Têm a mesmíssima inclinação. Nunca se cruzam. <br> \(\implies m_1 = m_2\)</div>
+    <div class="step" data-step="⊥"><b>Perpendiculares:</b> Formam 90 graus (cruz). A inclinação é invertida e com sinal trocado! <br> \(\implies m_1 \cdot m_2 = -1\)</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <div class="space-y-6">
+    <article class="bg-white rounded-2xl border p-6 shadow-sm border-l-4 border-l-rose-500">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">Distância Ponto à Reta</h2></div>
+     <p class="mt-3 text-slate-600 text-sm">O menor caminho de um Ponto até uma Reta é uma queda livre formando 90 graus. A fórmula exige que a reta esteja na forma <b>GERAL (\(Ax + By + C = 0\))</b>.</p>
+     <div class="paper rounded-xl p-3 mt-3 text-center">
+      \[ d = \frac{|A x_0 + B y_0 + C|}{\sqrt{A^2 + B^2}} \]
+     </div>
+     <div class="text-xs text-slate-500 mt-2">Dica: O denominador é um Pitágoras apenas com os coeficientes A e B da reta.</div>
+    </article>
+  </div>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black">7</span><h2 class="text-xl font-black">A Circunferência (O Laço)</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">Uma circunferência é formada por todos os pontos que estão à mesma distância (Raio \(R\)) de um ponto fixo (Centro \(C(a,b)\)). É o Pitágoras de novo!</p>
+   <div class="bg-slate-50 rounded-xl p-4 mt-3 text-center text-rose-900 font-bold">
+    \[ (x - a)^2 + (y - b)^2 = R^2 \]
+   </div>
+   <div class="text-sm mt-3 text-slate-600">
+    Se o centro for a origem \((0,0)\), a equação fica enxuta: \(x^2 + y^2 = R^2\).
+   </div>
+  </article>
+ </div>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-rose-600">Desenhe Geometria</span>
+   <h1 class="text-3xl font-black mt-2">O Plano Interativo</h1>
+   <p class="text-slate-600 mt-2">Escolha uma ferramenta e clique no quadro quadriculado para ver os conceitos matemáticos ganharem vida. Observe as equações sendo formadas na tela.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[280px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   <h3 class="font-bold text-lg mb-4 text-center border-b pb-2">Ferramentas</h3>
+   
+   <div class="space-y-2 flex-1">
+      <button onclick="setLabMode('segment')" id="btn-mode-segment" class="w-full text-left px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 font-bold text-sm transition border-2 border-transparent focus:border-rose-500">📏 Ponto Médio & Distância</button>
+      <button onclick="setLabMode('line')" id="btn-mode-line" class="w-full text-left px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 font-bold text-sm transition border-2 border-transparent focus:border-rose-500">📈 Equação da Reta</button>
+      <button onclick="setLabMode('circle')" id="btn-mode-circle" class="w-full text-left px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 font-bold text-sm transition border-2 border-transparent focus:border-rose-500">⭕ Circunferência (C, R)</button>
+   </div>
+   
+   <div class="mt-4 pt-4 border-t">
+       <button onclick="clearLab()" class="w-full text-center text-xs font-bold text-slate-500 hover:text-red-500 p-2">Limpar Plano</button>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col relative">
+    <div class="flex-1 relative overflow-hidden bg-slate-50 border rounded-xl shadow-inner cursor-crosshair h-[400px]">
+        <canvas id="lab-canvas" width="600" height="400" class="w-full h-full"></canvas>
+    </div>
+    <div class="mt-4 border-t pt-4">
+        <h3 class="font-bold text-rose-900 mb-2">Análise Matemática:</h3>
+        <div id="lab-result-panel" class="text-sm bg-rose-50 p-4 rounded-xl border border-rose-100 min-h-[80px] flex items-center justify-center font-mono">
+            Selecione uma ferramenta e faça os cliques necessários no plano.
+        </div>
+    </div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-rose-600">Assistentes Analíticos</span>
+   <h1 class="text-3xl font-black mt-2">Calculadoras Passo a Passo</h1>
+   <p class="text-slate-600 mt-2">Insira as coordenadas dos pontos e deixe os assistentes montarem todo o roteiro matemático para você.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  
+  <!-- Calculadora de Distância e Ponto Médio -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Distância e Ponto Médio</h2>
+   <p class="text-xs text-slate-500 mb-4">A partir de dois pontos A e B.</p>
+   
+   <div class="grid grid-cols-2 gap-4 font-mono text-sm">
+      <div class="bg-slate-50 p-3 rounded-lg border">
+          <div class="font-bold text-center mb-2">Ponto A</div>
+          <div class="flex items-center gap-2">X: <input id="t1-xa" type="number" value="1" class="border rounded p-1 w-full text-center"></div>
+          <div class="flex items-center gap-2 mt-2">Y: <input id="t1-ya" type="number" value="2" class="border rounded p-1 w-full text-center"></div>
+      </div>
+      <div class="bg-slate-50 p-3 rounded-lg border">
+          <div class="font-bold text-center mb-2">Ponto B</div>
+          <div class="flex items-center gap-2">X: <input id="t1-xb" type="number" value="4" class="border rounded p-1 w-full text-center"></div>
+          <div class="flex items-center gap-2 mt-2">Y: <input id="t1-yb" type="number" value="6" class="border rounded p-1 w-full text-center"></div>
+      </div>
+   </div>
+   <button onclick="calcDistMid()" class="w-full mt-4 bg-rose-600 hover:bg-rose-700 transition text-white rounded-xl py-2 font-bold text-sm">Analisar Pontos</button>
+   <div id="tool1-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+  <!-- Calculadora da Equação da Reta -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Encontrar a Equação da Reta</h2>
+   <p class="text-xs text-slate-500 mb-4">A partir de dois pontos que pertencem a ela.</p>
+   
+   <div class="grid grid-cols-2 gap-4 font-mono text-sm">
+      <div class="bg-slate-50 p-3 rounded-lg border">
+          <div class="font-bold text-center mb-2">Ponto 1</div>
+          <div class="flex items-center gap-2">X: <input id="t2-xa" type="number" value="0" class="border rounded p-1 w-full text-center"></div>
+          <div class="flex items-center gap-2 mt-2">Y: <input id="t2-ya" type="number" value="2" class="border rounded p-1 w-full text-center"></div>
+      </div>
+      <div class="bg-slate-50 p-3 rounded-lg border">
+          <div class="font-bold text-center mb-2">Ponto 2</div>
+          <div class="flex items-center gap-2">X: <input id="t2-xb" type="number" value="3" class="border rounded p-1 w-full text-center"></div>
+          <div class="flex items-center gap-2 mt-2">Y: <input id="t2-yb" type="number" value="11" class="border rounded p-1 w-full text-center"></div>
+      </div>
+   </div>
+   <button onclick="calcLineEq()" class="w-full mt-4 bg-pink-600 hover:bg-pink-700 transition text-white rounded-xl py-2 font-bold text-sm">Gerar Equações (Reduzida/Geral)</button>
+   <div id="tool2-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+     <div>
+       <span class="text-xs font-bold uppercase tracking-widest text-rose-600">Treino progressivo</span>
+       <h1 class="text-3xl font-black mt-2">100 Exercícios Dinâmicos</h1>
+       <p class="text-slate-600 mt-2">Responda com números inteiros, decimais ou frações simples (ex: <code>-1/2</code>). Algumas distâncias darão valores inteiros (trios pitagóricos) de propósito para facilitar o cálculo mental!</p>
+     </div>
+     <div class="min-w-[210px]">
+       <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+       <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-rose-600 rounded-full transition-all duration-500" style="width:0%"></div></div>
+     </div>
+   </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 1 (Ponto Médio)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 2 (Distância)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 3 (Coef. Angular)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 4 (Retas)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 5 (Circunferências)</button>
+   <button data-level="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 6 (Paralelas/Perpendiculares)</button>
+  </div>
+ </div>
+ 
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo educacional de Matemática • Renderizado com KaTeX</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function mathInline(latex){return String.raw`\(${latex}\)`}
+function mathDisplay(latex){return String.raw`\[${latex}\]`}
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Simplificador de Frações para os Tools
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1}
+function simplifyFrac(n,d){
+    if (d === 0) return "Indefinido";
+    if (n === 0) return "0";
+    if (d < 0) { n = -n; d = -d; }
+    const g = gcd(n,d);
+    n = n/g; d = d/g;
+    if (d === 1) return `${n}`;
+    return `\\frac{${n}}{${d}}`;
+}
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+    const t=btn.dataset.tab;
+    sections.forEach(s => $('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active',b===btn));
+    if(t==='exercicios') renderExercises();
+    if(t==='laboratorio') redrawLab();
+}));
+
+let labMode = 'segment'; // 'segment', 'line', 'circle'
+let labClicks = [];
+const canvas = $('lab-canvas');
+const ctx = canvas.getContext('2d');
+const scale = 20; // 20 pixels por unidade cartesiana
+let cx, cy; // Centro do canvas em pixels
+
+function initCanvas() {
+    canvas.width = canvas.parentElement.clientWidth;
+    canvas.height = canvas.parentElement.clientHeight;
+    cx = canvas.width / 2;
+    cy = canvas.height / 2;
+}
+
+window.addEventListener('resize', () => {
+    if (!$('sec-laboratorio').classList.contains('hidden')) {
+        initCanvas();
+        redrawLab();
+    }
+});
+
+function setLabMode(mode) {
+    labMode = mode;
+    labClicks = [];
+    ['segment', 'line', 'circle'].forEach(m => {
+        let btn = $('btn-mode-' + m);
+        if(m === mode) {
+            btn.classList.add('border-rose-500', 'bg-rose-50');
+            btn.classList.remove('border-transparent');
+        } else {
+            btn.classList.remove('border-rose-500', 'bg-rose-50');
+            btn.classList.add('border-transparent');
+        }
+    });
+    $('lab-result-panel').innerHTML = "Modo alterado. Clique no plano.";
+    redrawLab();
+}
+
+function clearLab() {
+    labClicks = [];
+    $('lab-result-panel').innerHTML = "Plano limpo. Selecione e clique.";
+    redrawLab();
+}
+
+// Converte Pixel para Coordenada Matemática
+function p2m(px, py) {
+    return { x: Math.round((px - cx) / scale), y: Math.round((cy - py) / scale) };
+}
+// Converte Coordenada Matemática para Pixel
+function m2p(mx, my) {
+    return { x: cx + (mx * scale), y: cy - (my * scale) };
+}
+
+canvas.addEventListener('mousedown', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const px = e.clientX - rect.left;
+    const py = e.clientY - rect.top;
+    const mathPt = p2m(px, py);
+    
+    if (labClicks.length >= 2) labClicks = []; // Reset se já tiver 2 pontos
+    labClicks.push(mathPt);
+    redrawLab();
+    updateLabPanel();
+});
+
+function drawGrid() {
+    ctx.clearRect(0,0, canvas.width, canvas.height);
+    ctx.strokeStyle = '#f1f5f9'; ctx.lineWidth = 1;
+    // Verticais
+    for(let i=cx % scale; i<canvas.width; i+=scale) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,canvas.height); ctx.stroke(); }
+    // Horizontais
+    for(let i=cy % scale; i<canvas.height; i+=scale) { ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(canvas.width,i); ctx.stroke(); }
+    
+    // Eixos X e Y
+    ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,canvas.height); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0,cy); ctx.lineTo(canvas.width,cy); ctx.stroke();
+    
+    // Labels dos eixos
+    ctx.fillStyle = '#475569'; ctx.font = '12px sans-serif';
+    ctx.fillText('X', canvas.width - 15, cy - 10);
+    ctx.fillText('Y', cx + 10, 15);
+}
+
+function drawPoint(pt, label, color) {
+    const px = m2p(pt.x, pt.y);
+    ctx.beginPath(); ctx.arc(px.x, px.y, 4, 0, 2*Math.PI);
+    ctx.fillStyle = color; ctx.fill();
+    ctx.strokeStyle = 'white'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = color; ctx.font = 'bold 12px sans-serif';
+    ctx.fillText(`${label}(${pt.x}, ${pt.y})`, px.x + 8, px.y - 8);
+}
+
+function redrawLab() {
+    drawGrid();
+    if (labClicks.length > 0) drawPoint(labClicks[0], 'A', '#be123c');
+    
+    if (labClicks.length === 2) {
+        const p1 = labClicks[0];
+        const p2 = labClicks[1];
+        
+        if (labMode === 'segment') {
+            drawPoint(p2, 'B', '#1d4ed8');
+            const px1 = m2p(p1.x, p1.y);
+            const px2 = m2p(p2.x, p2.y);
+            // Draw segment
+            ctx.beginPath(); ctx.moveTo(px1.x, px1.y); ctx.lineTo(px2.x, px2.y);
+            ctx.strokeStyle = '#fb7185'; ctx.lineWidth = 3; ctx.stroke();
+            // Draw Midpoint
+            const mx = (p1.x + p2.x)/2; const my = (p1.y + p2.y)/2;
+            drawPoint({x: mx, y: my}, 'M', '#10b981');
+        } 
+        else if (labMode === 'line') {
+            drawPoint(p2, 'B', '#1d4ed8');
+            // Extend the line to edges
+            const dx = p2.x - p1.x;
+            const dy = p2.y - p1.y;
+            if (dx === 0 && dy === 0) return; // Same point
+            
+            // To draw infinite line, take a large multiplier
+            const pStart = { x: p1.x - dx*50, y: p1.y - dy*50 };
+            const pEnd = { x: p1.x + dx*50, y: p1.y + dy*50 };
+            const pxStart = m2p(pStart.x, pStart.y);
+            const pxEnd = m2p(pEnd.x, pEnd.y);
+            
+            ctx.beginPath(); ctx.moveTo(pxStart.x, pxStart.y); ctx.lineTo(pxEnd.x, pxEnd.y);
+            ctx.strokeStyle = '#e11d48'; ctx.lineWidth = 2; ctx.stroke();
+        }
+        else if (labMode === 'circle') {
+            const dx = p2.x - p1.x; const dy = p2.y - p1.y;
+            const rPx = Math.sqrt(dx*dx + dy*dy) * scale;
+            const pxCenter = m2p(p1.x, p1.y);
+            
+            ctx.beginPath(); ctx.arc(pxCenter.x, pxCenter.y, rPx, 0, 2*Math.PI);
+            ctx.fillStyle = 'rgba(225, 29, 72, 0.1)'; ctx.fill();
+            ctx.strokeStyle = '#e11d48'; ctx.lineWidth = 2; ctx.stroke();
+            
+            // Radius line
+            const pxEdge = m2p(p2.x, p2.y);
+            ctx.beginPath(); ctx.moveTo(pxCenter.x, pxCenter.y); ctx.lineTo(pxEdge.x, pxEdge.y);
+            ctx.strokeStyle = '#fb7185'; ctx.lineWidth = 2; ctx.setLineDash([5,5]); ctx.stroke();
+            ctx.setLineDash([]);
+            drawPoint(p2, 'P', '#1d4ed8');
+        }
+    }
+}
+
+function updateLabPanel() {
+    const panel = $('lab-result-panel');
+    if (labClicks.length < 2) {
+        panel.innerHTML = `Ponto 1: (${labClicks[0].x}, ${labClicks[0].y}). Aguardando 2º clique...`;
+        return;
+    }
+    
+    const p1 = labClicks[0]; const p2 = labClicks[1];
+    let html = '';
+    
+    if (labMode === 'segment') {
+        const dx = p2.x - p1.x; const dy = p2.y - p1.y;
+        const dSq = dx*dx + dy*dy;
+        const d = Math.sqrt(dSq);
+        const mx = (p1.x + p2.x)/2; const my = (p1.y + p2.y)/2;
+        html = `<div>Distância: ${mathInline(`d = \\sqrt{${dSq}} \\approx ${d.toFixed(2)}`)}</div>
+                <div class="mt-2 text-emerald-700">Ponto Médio: ${mathInline(`M(${mx}, ${my})`)}</div>`;
+    } 
+    else if (labMode === 'line') {
+        const dx = p2.x - p1.x; const dy = p2.y - p1.y;
+        if (dx === 0) {
+            html = `<div class="text-rose-700">Reta Vertical! Equação: ${mathInline(`x = ${p1.x}`)}</div>`;
+        } else {
+            const m = dy/dx;
+            const n = p1.y - m*p1.x;
+            const signN = n >= 0 ? '+' : '';
+            html = `<div>Coef. Angular (m): ${mathInline(`m = ${simplifyFrac(dy, dx)}`)}</div>
+                    <div class="mt-2 text-rose-700">Eq. Reduzida: ${mathInline(`y = ${m !== 1 ? simplifyFrac(dy, dx) : ''}x ${n!==0 ? signN + n : ''}`)}</div>`;
+        }
+    }
+    else if (labMode === 'circle') {
+        const dx = p2.x - p1.x; const dy = p2.y - p1.y;
+        const rSq = dx*dx + dy*dy;
+        const r = Math.sqrt(rSq);
+        const signX = p1.x > 0 ? '-' : '+';
+        const signY = p1.y > 0 ? '-' : '+';
+        const absX = Math.abs(p1.x); const absY = Math.abs(p1.y);
+        
+        let termX = p1.x !== 0 ? `(x ${signX} ${absX})^2` : `x^2`;
+        let termY = p1.y !== 0 ? `(y ${signY} ${absY})^2` : `y^2`;
+        
+        html = `<div>Centro: ${mathInline(`C(${p1.x}, ${p1.y})`)} | Raio: ${mathInline(`R = \\sqrt{${rSq}} \\approx ${r.toFixed(2)}`)}</div>
+                <div class="mt-2 text-rose-700">Eq. Reduzida: ${mathDisplay(`${termX} + ${termY} = ${rSq}`)}</div>`;
+    }
+    panel.innerHTML = html;
+    renderAll();
+}
+
+function calcDistMid() {
+    const xa = parseFloat($('t1-xa').value); const ya = parseFloat($('t1-ya').value);
+    const xb = parseFloat($('t1-xb').value); const yb = parseFloat($('t1-yb').value);
+    const out = $('tool1-out');
+    
+    if(isNaN(xa)||isNaN(ya)||isNaN(xb)||isNaN(yb)) return;
+    
+    const dx = xb - xa; const dy = yb - ya;
+    const dSq = dx*dx + dy*dy;
+    const d = Math.sqrt(dSq);
+    const mx = (xa+xb)/2; const my = (ya+yb)/2;
+    
+    out.classList.remove('hidden');
+    out.innerHTML = `
+      <div class="step" data-step="1">Variação: ${mathInline(`\\Delta x = (${xb}) - (${xa}) = ${dx}`)} e ${mathInline(`\\Delta y = (${yb}) - (${ya}) = ${dy}`)}.</div>
+      <div class="step mt-3" data-step="2">Pitágoras (Distância): ${mathDisplay(`d = \\sqrt{(${dx})^2 + (${dy})^2} = \\sqrt{${dSq}} \\approx ${d.toFixed(2)}`)}</div>
+      <div class="step mt-3" data-step="3">Ponto Médio (Média X e Média Y): ${mathDisplay(`M = \\left(\\frac{${xa} + ${xb}}{2}, \\frac{${ya} + ${yb}}{2}\\right) = (${mx}, ${my})`)}</div>
+    `;
+    renderAll();
+}
+
+function calcLineEq() {
+    const xa = parseFloat($('t2-xa').value); const ya = parseFloat($('t2-ya').value);
+    const xb = parseFloat($('t2-xb').value); const yb = parseFloat($('t2-yb').value);
+    const out = $('tool2-out');
+    
+    if(isNaN(xa)||isNaN(ya)||isNaN(xb)||isNaN(yb)) return;
+    out.classList.remove('hidden');
+
+    const dx = xb - xa; const dy = yb - ya;
+    
+    if(dx === 0) {
+        out.innerHTML = `<div class="warning rounded p-4">A reta é vertical (paralela ao eixo Y). Não possui coeficiente angular. A equação é simplesmente ${mathInline(`x = ${xa}`)}.</div>`;
+        return renderAll();
+    }
+    
+    const mStr = simplifyFrac(dy, dx);
+    const m = dy/dx;
+    const n = ya - m*xa;
+    const signN = n >= 0 ? '+' : '';
+    
+    // Eq Geral: Ax + By + C = 0. Transformando de y = (dy/dx)x + n  => dx*y = dy*x + dx*n => dy*x - dx*y + dx*n = 0
+    let A = dy; let B = -dx; let C = dx * n;
+    // Simplificar coeficientes da geral se possivel
+    let g = gcd(gcd(A,B), C);
+    if(A < 0) g = -g; // Manter X positivo na geral por estética
+    A = A/g; B = B/g; C = C/g;
+    
+    let signB = B > 0 ? '+' : '';
+    let signC = C > 0 ? '+' : '';
+    
+    out.innerHTML = `
+      <div class="step" data-step="1">Calcular a inclinação (m): ${mathDisplay(`m = \\frac{\\Delta y}{\\Delta x} = \\frac{${yb} - (${ya})}{${xb} - (${xa})} = \\frac{${dy}}{${dx}} = ${mStr}`)}</div>
+      <div class="step mt-3" data-step="2">Jogar na equação Yoyô-Michô usando o Ponto 1: ${mathDisplay(`y - (${ya}) = ${mStr} \\cdot (x - (${xa}))`)}</div>
+      <div class="step mt-3" data-step="3">Isolar Y para ter a Equação Reduzida: ${mathDisplay(`y = ${mStr}x ${signN} ${n}`)}</div>
+      <div class="success rounded-xl p-4 mt-4 font-bold text-center">
+        E a Equação Geral (passando tudo pra um lado e tirando frações):<br>
+        ${mathDisplay(`${A}x ${B!==0 ? signB + B + 'y' : ''} ${C!==0 ? signC + C : ''} = 0`)}
+      </div>
+    `;
+    renderAll();
+}
+
+// Format: id | level | title | question (escaped LaTeX) | answer | type
+const rawExercises = [
+  // Nível 1: Ponto Médio e Noções (1-15)
+  "1|1|Ponto Médio|Qual a coordenada x do ponto médio de A(0, 0) e B(4, 8)?|2|num",
+  "2|1|Ponto Médio|Qual a coordenada y do ponto médio de A(0, 0) e B(4, 8)?|4|num",
+  "3|1|Ponto Médio|Qual a coordenada x do ponto médio de A(2, 5) e B(8, 5)?|5|num",
+  "4|1|Ponto Médio|Qual a coordenada y do ponto médio de A(-2, 10) e B(2, -4)?|3|num",
+  "5|1|Ponto Médio|A(0,0) é o ponto médio entre B(-2, -2) e C(x, y). Qual o valor de x?|2|num",
+  "6|1|Ponto Médio|M(5,5) é o ponto médio de A(0,0) e B(x,y). Qual o valor de y?|10|num",
+  "7|1|Quadrante|O ponto (-2, 5) está em qual quadrante? (Digite apenas o número: 1, 2, 3 ou 4)|2|num",
+  "8|1|Quadrante|O ponto (3, -1) está em qual quadrante?|4|num",
+  "9|1|Ponto no Eixo|O ponto (0, 5) pertence ao eixo das Abscissas (X) ou Ordenadas (Y)? (Digite X ou Y)|Y|str",
+  "10|1|Ponto Médio Fracionário|Ponto médio de A(1, 2) e B(2, 4). Coordenada x em fração (ex: 3/2).|3/2|frac",
+  "11|1|Ponto Médio|Média das ordenadas (y) de (10, 20) e (-10, -20).|0|num",
+  "12|1|Centro de Gravidade|Triângulo de vértices (0,0), (6,0) e (0,6). O baricentro G(x,y) é a média dos 3 pontos. Qual o x?|2|num",
+  "13|1|Simetria|Qual o valor de x para o ponto simétrico de (3, 5) em relação à origem (0,0)?|-3|num",
+  "14|1|Simetria|Ponto simétrico de (2, 4) em relação ao eixo X. Qual o novo Y?|-4|num",
+  "15|1|Média Pura|Dois pontos na reta horizontal y=3: A(1,3) e B(9,3). Qual a distância entre eles?|8|num",
+
+  // Nível 2: Distância entre dois pontos (Pitagóricos para facilitar contas mentais) (16-35)
+  "16|2|Distância|Qual a distância entre a origem (0,0) e o ponto (3, 4)?|5|num",
+  "17|2|Distância|Qual a distância entre (0,0) e (6, 8)?|10|num",
+  "18|2|Distância|Qual a distância entre (0,0) e (5, 12)?|13|num",
+  "19|2|Distância|Qual a distância entre (1, 1) e (4, 5)? (Dica: dx=3, dy=4)|5|num",
+  "20|2|Distância|Qual a distância entre (-2, -1) e (6, 5)? (Dica: dx=8, dy=6)|10|num",
+  "21|2|Distância|Qual a distância entre (0, 15) e (8, 0)?|17|num",
+  "22|2|Distância|Qual a distância entre (2, 2) e (10, 8)?|10|num",
+  "23|2|Distância|Distância entre (1, 3) e (1, 10). (Mesma abscissa!)|7|num",
+  "24|2|Distância|Distância entre (-5, 4) e (5, 4). (Mesma ordenada!)|10|num",
+  "25|2|Distância ao Quadrado|Se A(1,2) e B(2,5), a raiz não é exata. Qual o quadrado da distância \\(d^2\\)?|10|num",
+  "26|2|Distância ao Quadrado|A(0,0) e B(3,3). Qual o valor de \\(d^2\\)?|18|num",
+  "27|2|Perímetro|Triângulo (0,0), (3,0) e (0,4). Lados medem 3, 4 e 5. Qual o perímetro?|12|num",
+  "28|2|Alinhamento|Se A, B e C estão na mesma reta e d(A,B)=3, d(B,C)=4, qual a distância d(A,C) se B está no meio?|7|num",
+  "29|2|Incógnita na Distância|A distância de (0,0) a (x, 4) é 5. Qual o valor positivo de x?|3|num",
+  "30|2|Incógnita na Distância|A distância de (1,2) a (1, y) é 8. Qual o maior valor para y?|10|num",
+  "31|2|Quadrado Numérico|Qual a área do quadrado cujo lado liga os pontos (0,0) a (2,2)? (A = d²)|8|num",
+  "32|2|Raio|O centro de um círculo é (0,0) e passa por (6,8). Qual o raio?|10|num",
+  "33|2|Raio|Centro em (1,1) passando por (4,5). Qual o raio?|5|num",
+  "34|2|Distância|Origem ao ponto (-5, -12). Qual a distância?|13|num",
+  "35|2|Distância|Qual a distância de (2, 0) a (2, 20)?|20|num",
+
+  // Nível 3: Coeficiente Angular (m) (36-55)
+  "36|3|Coeficiente Angular|Qual o 'm' da reta que liga (0,0) a (2,4)?|2|num",
+  "37|3|Coeficiente Angular|Qual o 'm' da reta que liga (0,0) a (3,9)?|3|num",
+  "38|3|Coeficiente Angular|Reta por (1,2) e (3,6). Qual o valor de m?|2|num",
+  "39|3|Coeficiente Angular|Reta por (0,5) e (5,0). Qual o valor de m?|-1|num",
+  "40|3|Coeficiente Angular|Reta por (2,1) e (4,1). Qual o valor de m?|0|num",
+  "41|3|Coeficiente Angular|Reta por (1,1) e (4,10). Qual o valor de m?|3|num",
+  "42|3|Coeficiente Angular Fracionário|Reta por (0,0) e (4,2). Qual o valor de m? (Fração, ex: 1/2)|1/2|frac",
+  "43|3|Coeficiente Angular Fracionário|Reta por (1,1) e (4,3). Qual o m? (Fração)|2/3|frac",
+  "44|3|Ângulo|Se a reta faz 45º com o eixo X, qual o valor de m? (Dica: tg 45º)|1|num",
+  "45|3|Ângulo|Se a reta faz 135º com o eixo X, qual o valor de m?|-1|num",
+  "46|3|Descobrir Ponto|Se a reta passa por (0,0), tem m=2 e passa por (3, y). Qual o y?|6|num",
+  "47|3|Descobrir Ponto|Reta tem m=3. Passa por (1,3) e (2, y). Qual o y?|6|num",
+  "48|3|Equação|Na equação y = 5x - 2, qual é o coeficiente angular?|5|num",
+  "49|3|Equação|Na equação 2y = 8x + 4, qual é o m? (Isole o y primeiro!)|4|num",
+  "50|3|Equação Geral|Na reta 3x + y - 5 = 0, qual o valor de m?|-3|num",
+  "51|3|Equação Geral|Na reta x - y + 2 = 0, qual o m?|1|num",
+  "52|3|Colinearidade|Se 3 pontos são colineares, o 'm' de AB é igual ao 'm' de BC. A(0,0), B(1,2), C(2,y). Qual o y?|4|num",
+  "53|3|Colinearidade|A(1,1), B(2,3), C(3,y). Qual o y para serem colineares?|5|num",
+  "54|3|Sinal|Reta desce para a direita. O coeficiente m é Positivo (P) ou Negativo (N)?|N|str",
+  "55|3|Vertical|A reta entre (2,1) e (2,5) é vertical. Como chamamos o m? (Digite Indefinido)|Indefinido|str",
+
+  // Nível 4: Equação da Reta (56-70)
+  "56|4|Coeficiente Linear|A reta y = 2x + 3 cruza o eixo Y em qual valor?|3|num",
+  "57|4|Coeficiente Linear|A reta que passa por (0, 5) tem coeficiente linear (n) igual a quanto?|5|num",
+  "58|4|Equação Reduzida|Reta com m=2 passando por (0,1). Qual o n na eq y=mx+n?|1|num",
+  "59|4|Yoyô-Michô|A reta passa por (1,3) com m=2. Se x=2, qual o valor de y? (y-3 = 2(2-1))|5|num",
+  "60|4|Yoyô-Michô|Reta passa por (2,5) com m=1. Equação reduzida y = x + n. Qual o n?|3|num",
+  "61|4|Intercepto X|Onde a reta y = 2x - 8 corta o eixo X? (Faça y=0)|4|num",
+  "62|4|Intercepto X|Onde a reta 3x + y - 12 = 0 corta o eixo X?|4|num",
+  "63|4|Dois Pontos|Reta passa por (0,2) e (2,6). O m é 2. Qual o coeficiente n?|2|num",
+  "64|4|Dois Pontos|Reta por (0,0) e (5,5). Qual a equação? y = x. Qual o n?|0|num",
+  "65|4|Forma Geral|Reta y = 2x + 1 escrita como 2x - y + C = 0. Qual o valor de C?|1|num",
+  "66|4|Área do Triângulo|Reta y = -x + 4 forma um triângulo com os eixos. Corta X em 4 e Y em 4. Qual a área do triângulo?|8|num",
+  "67|4|Pertence à Reta|O ponto (2, K) pertence à reta y = 3x - 1. Qual o valor de K?|5|num",
+  "68|4|Pertence à Reta|O ponto (K, 7) pertence à reta y = 2x + 1. Qual o valor de K?|3|num",
+  "69|4|Bissetriz|A reta bissetriz dos quadrantes ímpares é y = x. Qual o seu m?|1|num",
+  "70|4|Bissetriz Par|A reta bissetriz dos quadrantes pares é y = -x. Qual o seu m?|-1|num",
+
+  // Nível 5: Circunferência (71-85)
+  "71|5|Raio Base|Qual o raio da circunferência \\(x^2 + y^2 = 25\\)?|5|num",
+  "72|5|Raio Base|Qual o raio da circunferência \\(x^2 + y^2 = 100\\)?|10|num",
+  "73|5|Raio Exato|Qual o quadrado do raio (\\(R^2\\)) da circunferência \\(x^2 + y^2 = 17\\)?|17|num",
+  "74|5|Centro Origem|Qual a coordenada x do centro de \\(x^2 + y^2 = 9\\)?|0|num",
+  "75|5|Centro Deslocado|Qual a coordenada x do centro de \\((x-2)^2 + y^2 = 16\\)?|2|num",
+  "76|5|Centro Deslocado|Qual a coordenada y do centro de \\(x^2 + (y-5)^2 = 4\\)?|5|num",
+  "77|5|Centro Sinal|Qual a coord x do centro de \\((x+3)^2 + (y-1)^2 = 9\\)? (Lembre: a fórmula tem menos!)|-3|num",
+  "78|5|Centro Sinal|Qual a coord y do centro de \\((x-4)^2 + (y+2)^2 = 1\\)?|-2|num",
+  "79|5|Pertence ao Círculo|O ponto (3,0) pertence a \\(x^2 + y^2 = 9\\)? (1 para sim, 0 para não)|1|num",
+  "80|5|Pertence ao Círculo|O ponto (0,4) pertence a \\(x^2 + y^2 = 16\\)? (1=sim, 0=não)|1|num",
+  "81|5|Equação Geral|Desenvolvendo \\((x-1)^2\\) obtemos \\(x^2 - 2x + 1\\). Qual o coeficiente de x?|-2|num",
+  "82|5|Identificando Centro|Na equação geral \\(x^2 + y^2 - 4x - 6y + ... = 0\\), o x_centro é metade de -4 com sinal trocado. Qual é?|2|num",
+  "83|5|Identificando Centro|Na eq \\(x^2 + y^2 - 8x + 2y - 1 = 0\\). Qual a coordenada x do centro?|4|num",
+  "84|5|Área|Círculo de equação \\(x^2 + y^2 = 16\\). O raio é 4. Qual o fator que multiplica Pi na Área? (Dica: R²)|16|num",
+  "85|5|Distância ao Centro|Ponto A(0,5) e círculo de centro (0,0) e raio 3. O ponto está fora, dentro ou na linha? (Digite fora)|fora|str",
+
+  // Nível 6: Misto, Paralelas/Perpendiculares, Distância Ponto-Reta (86-100)
+  "86|6|Retas Paralelas|Reta r tem m=4. Reta s é paralela. Qual o m de s?|4|num",
+  "87|6|Retas Paralelas|r: y = 2x+1. s: y = Kx+5 são paralelas. Qual K?|2|num",
+  "88|6|Retas Perpendiculares|Reta r tem m=2. Reta s é perpendicular. Qual o m de s? (fração ex: -1/2)|-1/2|frac",
+  "89|6|Retas Perpendiculares|r: y = 3x. s é perpendicular. Qual o m de s? (fração)|-1/3|frac",
+  "90|6|Retas Perpendiculares|r tem m = -1/4. s é perpendicular a r. Qual o m de s?|4|num",
+  "91|6|Distância Ponto-Reta|Reta 3x + 4y - 10 = 0. Ponto (0,0). O denominador é raiz(3²+4²) = 5. O numerador é |-10|=10. Distância?|2|num",
+  "92|6|Distância Ponto-Reta|Reta 4x - 3y - 15 = 0. Ponto (0,0). Distância? (Numerador 15, Denominador 5)|3|num",
+  "93|6|Reta Tangente|Um círculo de centro (0,0) é tangente à reta x=3. Qual o raio?|3|num",
+  "94|6|Interseção Retas|Onde se cruzam y = x e y = 2x - 4? (Iguale as equações). Qual o x?|4|num",
+  "95|6|Interseção Retas|Se x=4 na questão anterior, qual o y da interseção?|4|num",
+  "96|6|Pontos de Cruzamento|Reta y = x cruza círculo \\(x^2 + y^2 = 8\\). Qual o x positivo? (Dica: x² + x² = 8)|2|num",
+  "97|6|Ponto Médio e Círculo|A e B são extremidades de um diâmetro de um círculo. A(0,0) e B(6,8). O centro é o ponto médio. Qual a distância de C à origem (raio)?|5|num",
+  "98|6|Reta Horizontal|Reta passa por (2,5) e é perpendicular ao eixo Y. A equação é y = ?|5|num",
+  "99|6|Reta Vertical|Reta passa por (3,8) e é perpendicular ao eixo X. A equação é x = ?|3|num",
+  "100|6|Desafio Distância|Um quadrado tem vértices opostos em (0,0) e (4,4). A diagonal mede raiz(32). Qual a área do quadrado? (Dica: Área = D² / 2)|16|num"
+];
+
+// Processando o raw de exercícios
+const E = rawExercises.map(line => {
+  const p = line.split('|');
+  return { id: parseInt(p[0]), level: parseInt(p[1]), title: p[2], q: p[3], ans: p[4], type: p[5] };
+});
+
+function solutionSteps(ex){
+  const S=[];
+  if(ex.level === 1){
+    S.push(['1','O ponto médio é a média aritmética das coordenadas.']);
+    S.push(['2','Para encontrar o X do meio, some os valores X dos dois pontos e divida por 2.']);
+    S.push(['3','Faça o mesmo para Y se necessário. Se envolver quadrantes, rascunhe o eixo.']);
+  }
+  else if(ex.level === 2){
+    S.push(['1','Pense em um triângulo retângulo onde os catetos são as diferenças (Delta X e Delta Y).']);
+    S.push(['2','A distância é a hipotenusa: Teorema de Pitágoras!']);
+  }
+  else if(ex.level === 3){
+    S.push(['1','O Coeficiente Angular (m) é a inclinação da reta.']);
+    S.push(['2','Divida a variação de Y (altura) pela variação de X (base).']);
+  }
+  else if(ex.level === 4){
+    S.push(['1','Lembre-se da equação Reduzida: y = mx + n.']);
+    S.push(['2','O "m" é a inclinação e o "n" é onde a reta cruza o eixo Y.']);
+    S.push(['3','Se precisar de um ponto específico, use a equação Yoyô-Michô: y - y0 = m(x - x0).']);
+  }
+  else if(ex.level === 5){
+    S.push(['1','A equação fundamental da circunferência é (x-a)² + (y-b)² = R².']);
+    S.push(['2','O centro é C(a,b) e o raio é a raiz quadrada do número isolado. Cuidado com as trocas de sinais!']);
+  }
+  else {
+    S.push(['1','Retas Paralelas possuem o mesmo "m". Retas perpendiculares invertem e trocam o sinal de "m".']);
+    S.push(['2','Para distância ponto à reta, certifique-se de que a reta está na equação Geral (Ax + By + C = 0).']);
+    S.push(['3','Use as coordenadas do ponto para substituir X e Y no numerador da fórmula.']);
+  }
+  return S;
+}
+
+let solved=new Set(JSON.parse(localStorage.getItem('gaSolved')||'[]'));
+let currentLevel='all';
+
+function renderExercises(){
+  const q = $('search') ? $('search').value.toLowerCase() : '';
+  let list = E.filter(e=>(currentLevel==='all'||e.level==currentLevel)&&(q===''||(`questão ${e.id} ${e.title}`).toLowerCase().includes(q)));
+  
+  $('exercise-list').innerHTML=list.map(ex=>{
+    const done=solved.has(ex.id);
+    // Aplicar KaTeX de escape de expressões nas strings \( \)
+    let formattedQ = ex.q;
+    
+    return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm">
+      <div class="flex justify-between gap-3">
+        <span class="text-xs font-black px-2.5 py-1 rounded-full bg-rose-50 text-rose-700">Questão ${ex.id}</span>
+        <span class="text-xs text-slate-400">${ex.title}</span>
+      </div>
+      <div class="text-sm font-bold text-slate-700 mt-4 leading-relaxed">${formattedQ}</div>
+      <div class="flex gap-2 mt-4">
+        <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none" placeholder="Sua resposta">
+        <button onclick="check(${ex.id})" class="bg-rose-600 hover:bg-rose-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+      </div>
+      <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+      <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-rose-700 hover:underline">👁 Ver Dica</button>
+      
+      <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+        <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Linha de Raciocínio</div>
+        ${solutionSteps(ex).map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+        <div class="success rounded-xl p-4 text-center font-bold">Resposta correta: ${ex.type === 'frac' || ex.type === 'num' ? mathInline(ex.ans) : ex.ans}</div>
+      </div>
+    </article>`
+  }).join('');
+  
+  $('progress-text').textContent=`${solved.size} / 100`;
+  $('progress-bar').style.width=(solved.size)+'%';
+  renderAll(); // Renders the newly added KaTeX elements
+}
+
+function parseUserAnswer(ans) {
+  return ans.trim().replace(/\s+/g, '').replace(',', '.').toLowerCase();
+}
+
+function check(id){
+  const ex = E.find(x=>x.id===id);
+  const raw = $('answer-'+id).value;
+  const user = parseUserAnswer(raw);
+  const fb = $('feedback-'+id);
+  
+  let ok = false;
+  if (user === ex.ans.toLowerCase()) {
+    ok = true;
+  } else if (ex.type === 'frac' && ex.ans.includes('/')) {
+    let parts = ex.ans.split('/');
+    if(parseFloat(user) === (parseFloat(parts[0]) / parseFloat(parts[1]))) {
+      ok = true;
+    }
+  }
+
+  if(ok){
+    solved.add(id);
+    localStorage.setItem('gaSolved',JSON.stringify([...solved]));
+    fb.className='text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent='✓ Certo! Boa visualização geométrica.';
+  }else{
+    fb.className='text-sm font-bold mt-2 text-red-600';
+    fb.textContent='✗ Tente novamente. Que tal rascunhar o plano?';
+  }
+  renderExercises();
+}
+
+function toggleSol(id){ $('solution-'+id).classList.toggle('hidden'); }
+
+document.querySelectorAll('.level-btn').forEach(b=>{
+  b.onclick=()=>{
+    currentLevel=b.dataset.level;
+    document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderExercises();
+  }
+});
+
+// Inicialização Global
+window.addEventListener('DOMContentLoaded',()=>{
+  initCanvas();
+  redrawLab();
+  renderAll(); // Aplica o KaTeX no carregamento inicial da página (Teoria/Ferramentas)
+});
+</script>
+</body>
+</html>

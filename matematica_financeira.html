@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matemática Financeira — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  /* Paleta Wealth/Gold: Ouro, Âmbar e Esmeralda Escura */
+  :root {--ink:#451a03; --paper:#fffbeb; --line:#fde68a; --accent:#d97706; --accent-light:#fef3c7; --bank:#064e3b;}
+  body {background:#fdfcf8; color:var(--ink);}
+  .tab-btn.active {color:var(--accent); border-bottom-color:var(--accent); font-weight:800;}
+  
+  /* Padrão de Grade Bancária/Contábil */
+  .paper {
+    background: var(--paper);
+    background-image: 
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    border: 1px solid #fcd34d;
+    box-shadow: 0 8px 24px rgba(217, 119, 6, 0.08);
+  }
+  
+  .step {
+    position:relative; padding:1rem 1rem 1rem 3.2rem; 
+    border:1px solid #e2e8f0; border-radius:1rem; background:white;
+  }
+  .step::before {
+    content:attr(data-step); position:absolute; left:1rem; top:1rem; 
+    width:1.65rem; height:1.65rem; border-radius:999px; 
+    background:var(--accent-light); color:var(--accent); 
+    font-weight:800; display:grid; place-items:center; font-size:.8rem;
+  }
+  
+  canvas {max-width:100%; touch-action: none;}
+  .level-btn.active {background:var(--accent); color:white;}
+  .exercise-solution {animation:fade .2s ease;}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  
+  .tip {border-left:4px solid #f59e0b; background:#fffbeb;}
+  .success {border-left:4px solid #10b981; background:#ecfdf5;}
+  .warning {border-left:4px solid #ef4444; background:#fef2f2;}
+  
+  /* Destaques Financeiros */
+  .money { font-family: monospace; font-weight: bold; color: #064e3b; }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+    <div class="font-black text-lg sm:text-xl text-amber-900">💰 Matemática Financeira</div>
+    <div class="text-[11px] text-slate-500 hidden sm:block">A ciência de multiplicar (ou proteger) o seu dinheiro</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">📈 Gráfico dos Juros</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">⚙️ Calculadoras</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-amber-900 via-amber-700 to-emerald-950 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-amber-300">Curso Completo</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">O Segredo do Dinheiro no Tempo</h1>
+  <p class="mt-4 max-w-3xl text-amber-50 leading-7">Albert Einstein supostamente chamou os juros compostos de "A 8ª maravilha do mundo". Quem entende, ganha; quem não entende, paga. A Matemática Financeira não trata apenas de números, mas de como o tempo afeta o valor da moeda.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">10</b><div class="text-xs text-amber-300">passos práticos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-amber-300">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-amber-300">sem decorar fórmulas</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">📈</b><div class="text-xs text-amber-300">simulador de juros</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm">
+  <b>A Regra de Ouro:</b> O segredo absoluto para dominar a matemática financeira é dominar o <b>Fator de Multiplicação</b>. Pare de calcular porcentagens e somar depois. Multiplique direto!
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">A Porcentagem é uma Fração</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">O símbolo $\%$ significa literalmente "dividido por 100". Sempre transforme a porcentagem num número decimal (taxa unitária $i$) antes de fazer qualquer conta.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg font-bold text-amber-900">
+    \[ 20\% = \frac{20}{100} = 0,20 \quad \text{(Taxa } i) \]
+   </div>
+   <p class="mt-4 text-sm text-slate-600">A partir de agora, se a taxa de juros é 5%, você usará o número $0,05$ nas contas.</p>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">O Fator de Multiplicação</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">Se um tênis custa R$ 100 e vai aumentar 20%, a maioria calcula: $20\% \text{ de } 100 = 20$. Depois soma: $100 + 20 = 120$. <b>Não faça isso!</b> O tênis inteiro é $100\%$ ($1,00$). Se vai aumentar $20\%$ ($0,20$), o novo valor é $120\%$ ($1,20$).</p>
+   <div class="grid grid-cols-2 gap-2 mt-4 text-sm font-bold text-center">
+    <div class="bg-emerald-50 text-emerald-900 p-3 rounded border border-emerald-200">
+        <b>Fator de Aumento</b><br>
+        \[ F_a = 1 + i \]
+        Ex: Aumento de 15% $\rightarrow$ Multiplica por $1,15$
+    </div>
+    <div class="bg-red-50 text-red-900 p-3 rounded border border-red-200">
+        <b>Fator de Desconto</b><br>
+        \[ F_d = 1 - i \]
+        Ex: Desconto de 15% $\rightarrow$ Multiplica por $0,85$
+    </div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-amber-900 text-white rounded-2xl border shadow-sm p-6 sm:p-10 mt-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-amber-800 text-amber-100 grid place-items-center font-black">3</span><h2 class="text-3xl font-black">Porcentagens Sucessivas</h2></div>
+  <p class="mt-4 text-amber-100 text-lg leading-relaxed">Se uma loja dá 10% de desconto num dia e 10% no outro, o desconto total <b>NÃO</b> é 20%. O segundo desconto incide sobre um valor que já está menor. É por isso que usamos fatores de multiplicação encadeados!</p>
+  
+  <div class="bg-white text-slate-800 rounded-2xl p-6 mt-6 shadow-xl relative text-center">
+   <div class="text-sm text-slate-500 font-bold uppercase tracking-wide">A Regra da Cesta de Fatores</div>
+   <div class="text-xl mt-3 font-bold">\[ \text{Valor Final} = \text{Valor Inicial} \times F_1 \times F_2 \times F_3 \dots \]</div>
+   <p class="mt-4 text-sm text-left border-t pt-3">
+       <b>Exemplo Prático:</b> Um produto de R$ 100 sofre um aumento de 20% e depois um desconto de 20%.<br>
+       <span class="font-mono bg-slate-100 px-2 py-1 rounded">100 × 1,20 × 0,80 = 96</span><br>
+       Ele não voltou para 100! Ele perdeu valor, pois o desconto de 20% foi calculado sobre 120 e não sobre 100.
+   </p>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Juros Simples ($J$)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">Nos Juros Simples, o dinheiro cresce como uma escada perfeita. Os juros são calculados <b>apenas sobre o Capital Inicial ($C$)</b> e nunca sobre os juros passados.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center font-bold text-lg">
+    \[ J = C \cdot i \cdot t \]
+   </div>
+   <div class="space-y-2 mt-4 text-sm">
+       <div>$C =$ Capital (o dinheiro inicial)</div>
+       <div>$i =$ Taxa de juros (sempre em decimal!)</div>
+       <div>$t =$ Tempo (meses, anos)</div>
+       <div class="text-xs text-red-600 font-bold border-t pt-2 mt-2">Cuidado: A taxa ($i$) e o tempo ($t$) precisam estar na mesma unidade de medida!</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm border-l-4 border-l-amber-500">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Montante ($M$)</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">O Montante é a "montanha de dinheiro" no final. É simplesmente o que você aplicou (Capital) somado aos Juros que renderam.</p>
+   <div class="bg-slate-50 rounded-xl p-3 mt-3 text-center font-bold text-lg">
+       \[ M = C + J \]
+   </div>
+   <p class="mt-3 text-sm text-slate-600">Juntando com a fórmula do juros simples, podemos escrever o Montante assim:</p>
+   <div class="text-center font-bold mt-2">\[ M = C \cdot (1 + i \cdot t) \]</div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <div class="space-y-6">
+    <article class="bg-white rounded-2xl border p-6 shadow-sm border-l-4 border-l-emerald-500">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">Juros Compostos (A Bola de Neve)</h2></div>
+     <p class="mt-3 text-slate-600 text-sm">Na vida real (bancos, empréstimos, investimentos), usam-se juros compostos. Aqui, são <b>"juros sobre juros"</b>. Lembra dos aumentos sucessivos? É o mesmo princípio: o Fator de Aumento ($1+i$) é multiplicado por ele mesmo $t$ vezes!</p>
+     <div class="paper rounded-xl p-4 mt-3 text-center text-emerald-900 font-bold text-lg">
+      \[ M = C \cdot (1 + i)^t \]
+     </div>
+     <div class="text-xs text-slate-500 mt-2">Perceba que o tempo $t$ foi para o expoente. O crescimento é exponencial, explodindo no longo prazo!</div>
+    </article>
+    
+    <article class="bg-white rounded-2xl border p-6 shadow-sm">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 grid place-items-center font-black">7</span><h2 class="text-xl font-black">Equivalência de Taxas</h2></div>
+     <div class="text-sm mt-3 text-slate-600">
+         Nos juros simples, se a taxa é de 1% ao mês, em um ano (12 meses) ela será exatamente $12 \times 1\% = 12\%$ ao ano. São taxas proporcionais.<br><br>
+         <b>Nos Juros Compostos, NÃO multiplique!</b> O crescimento compõe. Para achar a taxa anual equivalente ($i_a$) de uma mensal ($i_m$), igualamos os fatores:
+         <div class="text-center font-bold mt-2">\[ (1 + i_a) = (1 + i_m)^{12} \]</div>
+     </div>
+    </article>
+  </div>
+
+  <article class="bg-slate-900 text-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-slate-800 text-amber-400 grid place-items-center font-black">8</span><h2 class="text-2xl font-black text-amber-400">Inflação e Taxa Real</h2></div>
+   <p class="mt-3 text-slate-300 text-sm">A Inflação ($I$) é o ladrão invisível do seu dinheiro. Se seu dinheiro no banco rendeu 10% no ano (Taxa Aparente, $i_a$), mas a inflação foi de 6%, seu ganho real ($i_r$) não foi 4% ($10 - 6$).</p>
+   <p class="mt-3 text-slate-300 text-sm">Novamente, nada se soma ou subtrai, tudo se multiplica. A fórmula exata da relação de Fisher é:</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center text-amber-900 font-bold">
+    \[ (1 + i_a) = (1 + i_r) \cdot (1 + I) \]
+   </div>
+   <p class="text-sm text-slate-300 mt-4"><b>O que isso significa?</b><br> O crescimento que você viu no banco ($i_a$) é o resultado do crescimento real do seu poder de compra ($i_r$) multiplicado pela desvalorização do dinheiro ($I$).</p>
+  </article>
+ </div>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-amber-600">Simulador de Crescimento</span>
+   <h1 class="text-3xl font-black mt-2">Gráfico dos Juros</h1>
+   <p class="text-slate-600 mt-2">Altere o capital inicial, a taxa de juros e o tempo. Observe como os Juros Simples (linha reta) e os Juros Compostos (curva exponencial) se comportam de maneira muito diferente no longo prazo.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   <h3 class="font-bold text-lg mb-4 text-center border-b pb-2">Controles da Aplicação</h3>
+   
+   <div class="space-y-6 flex-1">
+      <div>
+        <label class="font-bold text-sm text-slate-700">Capital Inicial ($C$): <span class="text-emerald-700">R$ <span id="lab-val-c">1000</span></span></label>
+        <input type="range" id="lab-input-c" min="100" max="10000" step="100" value="1000" class="w-full mt-2 accent-emerald-600">
+      </div>
+      <div>
+        <label class="font-bold text-sm text-slate-700">Taxa Mensal ($i$): <span class="text-emerald-700"><span id="lab-val-i">5</span>% ao mês</span></label>
+        <input type="range" id="lab-input-i" min="1" max="20" step="1" value="5" class="w-full mt-2 accent-emerald-600">
+      </div>
+      <div>
+        <label class="font-bold text-sm text-slate-700">Tempo ($t$): <span class="text-emerald-700"><span id="lab-val-t">24</span> meses</span></label>
+        <input type="range" id="lab-input-t" min="1" max="60" step="1" value="24" class="w-full mt-2 accent-emerald-600">
+      </div>
+
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4">
+          <div class="text-center font-black text-lg mb-3">Montante Final ($M$)</div>
+          <div class="space-y-2 text-sm font-mono">
+              <div class="flex justify-between items-center text-blue-700 border-b pb-1">
+                  <span>Juros Simples:</span> 
+                  <b id="lab-simples-out">R$ 2200,00</b>
+              </div>
+              <div class="flex justify-between items-center text-red-700 pt-1">
+                  <span>Juros Compostos:</span> 
+                  <b id="lab-compostos-out">R$ 3225,10</b>
+              </div>
+          </div>
+      </div>
+   </div>
+   
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col relative items-center justify-center h-[500px]">
+    <div class="absolute top-4 left-6 flex gap-4 text-xs font-bold font-mono bg-white/80 p-2 rounded shadow backdrop-blur z-10">
+        <div class="flex items-center gap-1"><div class="w-3 h-3 bg-blue-500 rounded-full"></div> Simples</div>
+        <div class="flex items-center gap-1"><div class="w-3 h-3 bg-red-500 rounded-full"></div> Compostos</div>
+    </div>
+    <canvas id="lab-canvas" width="600" height="400" class="bg-slate-50 border rounded-xl shadow-inner w-full h-full"></canvas>
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-amber-600">Assistentes Financeiros</span>
+   <h1 class="text-3xl font-black mt-2">Calculadoras Passo a Passo</h1>
+   <p class="text-slate-600 mt-2">Use estas ferramentas para desvendar cálculos de porcentagem sucessiva e projetar investimentos em Juros Compostos.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  
+  <!-- Calculadora Descontos Sucessivos -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Aumentos e Descontos</h2>
+   <p class="text-xs text-slate-500 mb-4">Veja como fatores se comportam em sequência.</p>
+   
+   <div class="space-y-3 font-mono text-sm">
+      <div class="flex items-center gap-2">Valor Inicial (R$): <input id="tool-val-ini" type="number" value="100" class="border rounded p-2 w-full text-right bg-slate-50"></div>
+      
+      <div class="grid grid-cols-2 gap-2 mt-2">
+          <div class="border rounded p-2 text-center bg-emerald-50 border-emerald-200">
+              <label class="block text-xs font-bold text-emerald-800 mb-1">Aumento 1 (%)</label>
+              <input id="tool-aug1" type="number" value="20" class="w-full text-center border rounded p-1">
+          </div>
+          <div class="border rounded p-2 text-center bg-red-50 border-red-200">
+              <label class="block text-xs font-bold text-red-800 mb-1">Desconto 2 (%)</label>
+              <input id="tool-desc2" type="number" value="20" class="w-full text-center border rounded p-1">
+          </div>
+      </div>
+   </div>
+
+   <button onclick="calcSucessivosTool()" class="w-full mt-4 bg-amber-600 hover:bg-amber-700 transition text-white rounded-xl py-3 font-bold text-sm">Calcular Efeito Final</button>
+   <div id="tool-suc-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+  <!-- Calculadora Juros Compostos -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Juros Compostos</h2>
+   <p class="text-xs text-slate-500 mb-4">A fórmula da bola de neve em detalhes.</p>
+   
+   <div class="space-y-3 font-mono text-sm">
+      <div class="flex items-center justify-between"><span>Capital ($C$):</span> <input id="tool-jc-c" type="number" value="1000" class="border rounded p-1 w-24 text-right"></div>
+      <div class="flex items-center justify-between"><span>Taxa ($i$ em %):</span> <input id="tool-jc-i" type="number" value="10" class="border rounded p-1 w-24 text-right"></div>
+      <div class="flex items-center justify-between"><span>Tempo ($t$):</span> <input id="tool-jc-t" type="number" value="3" class="border rounded p-1 w-24 text-right"></div>
+   </div>
+   
+   <button onclick="calcCompostosTool()" class="w-full mt-5 bg-emerald-700 hover:bg-emerald-800 transition text-white rounded-xl py-3 font-bold text-sm">Projetar Montante</button>
+   <div id="tool-jc-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+     <div>
+       <span class="text-xs font-bold uppercase tracking-widest text-amber-600">Treino progressivo</span>
+       <h1 class="text-3xl font-black mt-2">100 Exercícios Dinâmicos</h1>
+       <p class="text-slate-600 mt-2">Digite o valor numérico exato ou arredondado com duas casas decimais. Utilize ponto ou vírgula para as casas decimais (ex: <code>1500.50</code> ou <code>1,25</code>).</p>
+     </div>
+     <div class="min-w-[210px]">
+       <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+       <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-amber-600 rounded-full transition-all duration-500" style="width:0%"></div></div>
+     </div>
+   </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 1 (Porcentagem)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 2 (Fatores)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 3 (Juros Simples)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 4 (Juros Compostos)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 5 (Equivalência)</button>
+   <button data-level="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 6 (Inflação/Desafios)</button>
+  </div>
+ </div>
+ 
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material educacional interativo de Matemática Financeira • Renderizado com KaTeX</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function mathInline(latex){return String.raw`\(${latex}\)`}
+function mathDisplay(latex){return String.raw`\[${latex}\]`}
+
+// Custom render to only process math inside delimiters to prevent text corruption
+function renderAll(){
+    document.querySelectorAll('body').forEach(el=>{
+        if(window.renderMathInElement) renderMathInElement(el,{
+            delimiters:[
+                {left: '$$', right: '$$', display: true},
+                {left: '\\[', right: '\\]', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false}
+            ]
+        });
+    });
+}
+
+// Formatters
+function fmtM(val) { return "R$ " + val.toFixed(2).replace('.', ','); }
+function fmtN(val) { return val.toString().replace('.', ','); }
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+    const t=btn.dataset.tab;
+    sections.forEach(s => $('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active',b===btn));
+    if(t==='exercicios') renderExercises();
+    if(t==='laboratorio') initLab();
+}));
+
+// --- LABORATÓRIO (Gráfico Simples vs Composto) ---
+let labInited = false;
+function initLab() {
+  if(!labInited) {
+    ['lab-input-c', 'lab-input-i', 'lab-input-t'].forEach(id => {
+       $(id).addEventListener('input', updateLab);
+    });
+    // Add resize listener to redraw canvas properly
+    window.addEventListener('resize', updateLab);
+    labInited = true;
+  }
+  updateLab();
+}
+
+function updateLab() {
+  // Only process if tab is visible
+  if($('sec-laboratorio').classList.contains('hidden')) return;
+
+  const C = parseFloat($('lab-input-c').value);
+  const i_perc = parseFloat($('lab-input-i').value);
+  const t = parseInt($('lab-input-t').value);
+  
+  $('lab-val-c').innerText = C;
+  $('lab-val-i').innerText = i_perc;
+  $('lab-val-t').innerText = t;
+
+  const i = i_perc / 100;
+  
+  // Calculate finals
+  const M_simp = C * (1 + (i * t));
+  const M_comp = C * Math.pow(1 + i, t);
+  
+  $('lab-simples-out').innerText = fmtM(M_simp);
+  $('lab-compostos-out').innerText = fmtM(M_comp);
+
+  drawLabCanvas(C, i, t, M_comp);
+}
+
+function drawLabCanvas(C, i, t, maxM) {
+  const c = $('lab-canvas');
+  const container = c.parentElement;
+  
+  // Adjust canvas physical size to fit container width but keep fixed height internally
+  c.width = container.clientWidth - 48; // padding
+  c.height = container.clientHeight - 48; 
+
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+  
+  // Margins
+  const mLeft = 60, mBottom = 40, mTop = 20, mRight = 20;
+  const gW = w - mLeft - mRight;
+  const gH = h - mTop - mBottom;
+  
+  ctx.clearRect(0,0,w,h);
+  
+  // Grid Lines
+  ctx.strokeStyle = '#f1f5f9'; ctx.lineWidth = 1;
+  const stepsY = 5;
+  for(let j=0; j<=stepsY; j++) {
+      let y = mTop + (j * (gH/stepsY));
+      ctx.beginPath(); ctx.moveTo(mLeft, y); ctx.lineTo(w - mRight, y); ctx.stroke();
+      // Y Labels (Money)
+      ctx.fillStyle = '#64748b'; ctx.font = '10px sans-serif'; ctx.textAlign = 'right';
+      let valY = maxM - (j * ((maxM - C)/stepsY)) || 0;
+      if(j===stepsY) valY = C; // baseline is C, not 0, to zoom in on growth
+      ctx.fillText(Math.round(valY), mLeft - 10, y + 4);
+  }
+  
+  const stepsX = Math.min(t, 12); // avoid crowding
+  for(let j=0; j<=stepsX; j++) {
+      let x = mLeft + (j * (gW/stepsX));
+      ctx.beginPath(); ctx.moveTo(x, mTop); ctx.lineTo(x, h - mBottom); ctx.stroke();
+      // X Labels (Time)
+      ctx.fillStyle = '#64748b'; ctx.textAlign = 'center';
+      let valX = Math.round(j * (t/stepsX));
+      ctx.fillText(valX, x, h - mBottom + 15);
+  }
+
+  // Axes
+  ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(mLeft, mTop); ctx.lineTo(mLeft, h - mBottom); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(mLeft, h - mBottom); ctx.lineTo(w - mRight, h - mBottom); ctx.stroke();
+
+  // Draw Functions
+  function getX(month) { return mLeft + (month/t) * gW; }
+  function getY(money) { return mTop + gH - ((money - C) / (maxM - C)) * gH; }
+
+  // Simple Interest (Blue)
+  ctx.beginPath();
+  ctx.moveTo(getX(0), getY(C));
+  for(let m=1; m<=t; m++) {
+      let money = C * (1 + (i * m));
+      ctx.lineTo(getX(m), getY(money));
+  }
+  ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 3; ctx.stroke();
+
+  // Compound Interest (Red)
+  ctx.beginPath();
+  ctx.moveTo(getX(0), getY(C));
+  for(let m=1; m<=t; m++) {
+      let money = C * Math.pow(1 + i, m);
+      ctx.lineTo(getX(m), getY(money));
+  }
+  ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 3; ctx.stroke();
+}
+
+// --- FERRAMENTAS ---
+function calcSucessivosTool() {
+    const valIni = parseFloat($('tool-val-ini').value);
+    const a1 = parseFloat($('tool-aug1').value);
+    const d2 = parseFloat($('tool-desc2').value);
+    const out = $('tool-suc-out');
+    
+    if(isNaN(valIni)||isNaN(a1)||isNaN(d2)) return;
+    
+    const i1 = a1/100;
+    const i2 = d2/100;
+    const f1 = 1 + i1;
+    const f2 = 1 - i2;
+    
+    const fFinal = f1 * f2;
+    const valFinal = valIni * fFinal;
+    const mudanca = (fFinal - 1) * 100;
+    const txtMudanca = mudanca > 0 ? `Aumento efetivo de ${fmtN(Math.abs(mudanca))}%` : 
+                       mudanca < 0 ? `Desconto efetivo de ${fmtN(Math.abs(mudanca))}%` : `Sem alteração final (0%)`;
+
+    out.innerHTML = `
+      <div class="step" data-step="1">Encontre o Fator de Aumento 1: ${mathInline(`F_1 = 1 + ${fmtN(i1)} = ${fmtN(f1)}`)}</div>
+      <div class="step mt-3" data-step="2">Encontre o Fator de Desconto 2: ${mathInline(`F_2 = 1 - ${fmtN(i2)} = ${fmtN(f2)}`)}</div>
+      <div class="step mt-3" data-step="3">Multiplique os fatores (Cesta de Fatores): ${mathInline(`F_{\\text{final}} = ${fmtN(f1)} \\times ${fmtN(f2)} = ${fmtN(fFinal)}`)}</div>
+      <div class="step mt-3" data-step="4">Multiplique pelo Valor Inicial: ${mathInline(`${fmtN(valIni)} \\times ${fmtN(fFinal)} = ${fmtN(valFinal)}`)}</div>
+      <div class="success rounded-xl p-4 mt-4 font-bold text-center">
+        Resumo: O valor passa a ser ${fmtM(valFinal)}.<br><br>
+        <span class="text-amber-700">Equivalência: ${txtMudanca} em relação ao valor original.</span>
+      </div>
+    `;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+function calcCompostosTool() {
+    const C = parseFloat($('tool-jc-c').value);
+    const i_perc = parseFloat($('tool-jc-i').value);
+    const t = parseFloat($('tool-jc-t').value);
+    const out = $('tool-jc-out');
+    
+    if (isNaN(C) || isNaN(i_perc) || isNaN(t)) return;
+
+    const i = i_perc/100;
+    const basePow = 1 + i;
+    const pot = Math.pow(basePow, t);
+    const M = C * pot;
+    const J = M - C;
+    
+    out.innerHTML = `
+      <div class="step" data-step="1">Escreva a fórmula do Montante Composto: ${mathDisplay(`M = C \\cdot (1 + i)^t`)}</div>
+      <div class="step mt-3" data-step="2">Substitua a taxa em decimal: ${mathInline(`i = ${fmtN(i_perc)}\\% = ${fmtN(i)}`)}. Fator Base: ${mathInline(`(1 + ${fmtN(i)}) = ${fmtN(basePow)}`)}.</div>
+      <div class="step mt-3" data-step="3">Eleve ao tempo $t=${t}$: ${mathDisplay(`(${fmtN(basePow)})^{${t}} \\approx ${fmtN(pot.toFixed(4))}`)}</div>
+      <div class="step mt-3" data-step="4">Multiplique pelo Capital Inicial: ${mathDisplay(`M = ${C} \\cdot ${fmtN(pot.toFixed(4))} \\approx ${M.toFixed(2)}`)}</div>
+      <div class="success rounded-xl p-4 mt-4 font-bold text-center text-emerald-800">
+        Montante Final ($M$): ${fmtM(M)}<br>
+        Juros Rendidos ($J$): ${fmtM(J)}
+      </div>
+    `;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+// --- EXERCÍCIOS DATA ---
+// 100 Exercícios categorizados
+// Format: id|level|title|question_expr_or_text|answer|type|hint
+const rawExercises = [
+  // L1: Porcentagem Básica (1-15)
+  "1|1|Fração em %|Qual a porcentagem equivalente à fração $\\frac{1}{2}$? (Escreva só o número)|50|basic|Metade do todo.",
+  "2|1|Fração em %|Qual a porcentagem equivalente à fração $\\frac{1}{4}$?|25|basic|Um quarto de 100.",
+  "3|1|Fração em %|Qual a porcentagem equivalente à fração $\\frac{3}{4}$?|75|basic|3 vezes 25%.",
+  "4|1|Fração em %|Qual a porcentagem equivalente à fração $\\frac{1}{10}$?|10|basic|Divide 100 por 10.",
+  "5|1|Porcentagem Simples|Calcule 10% de 500.|50|basic|Corte um zero.",
+  "6|1|Porcentagem Simples|Calcule 20% de 150.|30|basic|O dobro de 10%.",
+  "7|1|Porcentagem Simples|Calcule 50% de 44.|22|basic|Metade do valor.",
+  "8|1|Porcentagem Simples|Calcule 5% de 200.|10|basic|Metade de 10%.",
+  "9|1|Porcentagem Simples|Calcule 1% de 3500.|35|basic|Corte dois zeros.",
+  "10|1|Porcentagem Simples|Calcule 15% de 200.|30|basic|10% + 5%.",
+  "11|1|Qual a %|Se 20 alunos de 80 faltaram, qual a porcentagem de faltas?|25|perc_find|20/80 = 1/4 = 0,25.",
+  "12|1|Qual a %|O lucro foi 30 sobre um custo de 300. Qual a taxa de lucro em %?|10|perc_find|30/300 = 1/10.",
+  "13|1|Cálculo Reverso|Se 10% de X é 40, qual é o valor total de X?|400|perc_rev|Se 10% é 40, 100% é 10 vezes isso.",
+  "14|1|Cálculo Reverso|Se 50% de X é 125, qual é o valor total de X?|250|perc_rev|Se 50% é 125, o total é o dobro.",
+  "15|1|Taxa Unitária|Escreva 45% na forma decimal (taxa unitária $i$).|0.45|basic|Divide por 100.",
+
+  // L2: Fatores de Multiplicação (16-35)
+  "16|2|Fator de Aumento|Um produto aumentou 10%. Qual o fator de multiplicação?|1.10|factor|1 + 0,10.",
+  "17|2|Fator de Aumento|A inflação foi de 5%. Qual o fator que atualiza os preços?|1.05|factor|1 + 0,05.",
+  "18|2|Fator de Aumento|O aluguel subiu 25%. Qual o Fator de Aumento?|1.25|factor|1 + 0,25.",
+  "19|2|Fator de Desconto|Uma loja deu 20% de desconto. Qual o Fator de Multiplicação para achar o preço final?|0.80|factor|1 - 0,20.",
+  "20|2|Fator de Desconto|O carro desvalorizou 15%. Qual o fator?|0.85|factor|1 - 0,15.",
+  "21|2|Fator de Desconto|Liquidação de 50%. Fator de Desconto?|0.50|factor|1 - 0,50.",
+  "22|2|Lendo o Fator|Multipliquei o preço por 1,30. Qual foi o aumento em %?|30|factor_rev|1,30 - 1 = 0,30 = 30%.",
+  "23|2|Lendo o Fator|Multipliquei o preço por 1,08. Qual foi a taxa de aumento em %?|8|factor_rev|1,08 - 1 = 0,08 = 8%.",
+  "24|2|Lendo o Fator|Multipliquei o preço por 0,90. Qual foi o desconto em %?|10|factor_rev|1 - 0,90 = 0,10 = 10%.",
+  "25|2|Lendo o Fator|Multipliquei por 0,75. Qual foi o desconto em %?|25|factor_rev|1 - 0,75 = 0,25.",
+  "26|2|Aumento Sucessivo|Aumentou 10% e depois aumentou 10%. Qual o Fator de Multiplicação Final (Cesta)?|1.21|suc|1,10 * 1,10.",
+  "27|2|Aumento Sucessivo Real|No exercício anterior (Aum 10% e 10%), o aumento total equivalente em % foi de quanto?|21|suc|1,21 - 1 = 0,21.",
+  "28|2|Desconto Sucessivo|Descontou 10% e depois 10%. Qual o Fator Final?|0.81|suc|0,90 * 0,90.",
+  "29|2|Desconto Sucessivo Real|No exercício anterior, o desconto total equivalente em % foi de?|19|suc|1 - 0,81 = 0,19.",
+  "30|2|Misto Sucessivo|Aumentou 20%, depois descontou 20%. Qual o Fator Final?|0.96|suc|1,20 * 0,80.",
+  "31|2|Misto Real|Se uma ação sobe 20% num dia e cai 20% no outro, ela acumula perda de quantos %?|4|suc|1 - 0,96 = 0,04 = 4%.",
+  "32|2|Misto Múltiplo|Desconto de 50% seguido de aumento de 50%. Qual o Fator Final?|0.75|suc|0,50 * 1,50.",
+  "33|2|Aplicação Fator|Um livro de R$ 50 aumentou 10% e depois 20%. Qual o preço final? (Use a cesta de fatores)|66|suc|50 * 1,10 * 1,20.",
+  "34|2|Aplicação Fator|Uma TV de R$ 1000 teve desconto de 10% e depois mais 10%. Preço final?|810|suc|1000 * 0,90 * 0,90.",
+  "35|2|Fator Fixo|Se a inflação mensal for fixa em 1%, qual o fator acumulado em 2 meses?|1.0201|suc|1,01 * 1,01.",
+
+  // L3: Juros Simples (36-55)
+  "36|3|Fórmula Juros Simples|Capital 1000, Taxa 10% a.m., Tempo 2 meses. Qual o JUROS ($J$)?|200|simp|1000 * 0,10 * 2.",
+  "37|3|Fórmula Juros Simples|C=500, i=5% a.m., t=3 meses. $J = ?$|75|simp|500 * 0,05 * 3.",
+  "38|3|Fórmula Juros Simples|C=2000, i=2% a.m., t=5 meses. $J = ?$|200|simp|2000 * 0,02 * 5.",
+  "39|3|Montante Simples|C=1000, i=10% a.m., t=2 meses. Qual o MONTANTE ($M$)?|1200|simp_m|1000 + 200.",
+  "40|3|Montante Simples|C=100, i=1% a.m., t=10 meses. $M = ?$|110|simp_m|100 + (100 * 0,01 * 10).",
+  "41|3|Tempo Conversão|C=1000, i=10% ao ano, t=2 anos. $J = ?$|200|simp|Unidades batem. 1000 * 0,10 * 2.",
+  "42|3|Tempo Conversão|C=1000, i=1% ao mês, t=1 ano. (Lembre: 1 ano = 12 meses). $J = ?$|120|simp|1000 * 0,01 * 12.",
+  "43|3|Tempo Conversão|C=500, i=24% ao ano, aplicada por 1 mês. Em J. Simples, qual a taxa mensal? (Divida por 12)|2|simp_equiv|Taxa simples é proporcional.",
+  "44|3|Descobrindo Capital|Juros Simples de 100 reais rendidos em 2 meses a 10% a.m. Qual foi o Capital?|500|simp_rev|100 = C * 0,10 * 2 -> C = 100 / 0,20.",
+  "45|3|Descobrindo Capital|Montante de 1200 gerado após 2 meses a 10% a.m. (Fator simples = 1 + it = 1,20). C=?|1000|simp_rev|1200 / 1,20.",
+  "46|3|Descobrindo Taxa|Apliquei 100 e tirei 120 após 2 meses. Quanto rendeu de Juros em valor financeiro?|20|simp_rev|120 - 100.",
+  "47|3|Descobrindo Taxa|No exercício anterior (J=20, C=100, t=2), qual foi a taxa mensal ($i$) em %?|10|simp_rev|20 = 100 * i * 2 -> 20 = 200i.",
+  "48|3|Descobrindo Tempo|Apliquei 1000 a 5% a.m. e quero gerar 150 de juros. Quantos meses ($t$) preciso esperar?|3|simp_rev|150 = 1000 * 0,05 * t -> 150 = 50t.",
+  "49|3|Descobrindo Tempo|Apliquei 200 a 10% a.m. Quero que o Montante seja 260. Tempo em meses?|3|simp_rev|J=60. 60 = 200 * 0,10 * t.",
+  "50|3|Juros Constantes|No J.S., se rendeu 50 reais no 1º mês, quanto renderá APENAS no 2º mês?|50|simp_teo|Juros Simples é fixo e linear.",
+  "51|3|Dobrar o Capital|Em J. Simples, a taxa é 10% a.m. Em quantos meses o capital dobra? (Dica: M = 2C, logo J = C)|10|simp_teo|C = C * 0,10 * t -> t = 1/0,10.",
+  "52|3|Dobrar o Capital|Em J. Simples, a taxa é 5% a.m. Em quantos meses o capital dobra?|20|simp_teo|1 / 0,05.",
+  "53|3|Juros Diários|Empréstimo de 1000, a 1% ao DIA. Juros totais em 30 dias?|300|simp|1000 * 0,01 * 30.",
+  "54|3|Cheque Especial|Usou R$ 500 do cheque especial por 10 dias. Taxa 0,2% ao dia simples. Juros a pagar?|10|simp|500 * 0,002 * 10.",
+  "55|3|Atraso de Conta|Conta R$ 100. Multa fixa (Juros Simples) de 2% ao mês. Atrasou 3 meses. Valor total a pagar ($M$)?|106|simp_m|100 * (1 + 0,02*3).",
+
+  // L4: Juros Compostos (56-75)
+  "56|4|Fórmula Compostos|C=1000, i=10% a.m., t=2 meses. Qual o Montante ($M$)? (Dica: $1000 \\times 1,10^2$)|1210|comp|1000 * 1,21.",
+  "57|4|Fórmula Compostos|C=100, i=20% a.m., t=2 meses. Montante? (Dica: $100 \\times 1,20^2$)|144|comp|100 * 1,44.",
+  "58|4|Fórmula Compostos|C=2000, i=10% a.m., t=2 meses. Montante?|2420|comp|2000 * 1,21.",
+  "59|4|Apenas os Juros|Se apliquei 1000 a 10% a.m. por 2 meses e o montante foi 1210, qual foi o juros TOTAL gerado?|210|comp|M - C.",
+  "60|4|Apenas os Juros|Se no Juros Simples o juros total (10% em 2m) foi 200, quanto os Juros Compostos renderam A MAIS na questão anterior?|10|comp_teo|210 (Comp) - 200 (Simples).",
+  "61|4|Terceiro Mês|C=1000, i=10% a.m., t=3 meses. Qual o Montante? (Dica: $1,10^3 = 1,331$)|1331|comp|1000 * 1,331.",
+  "62|4|Terceiro Mês|C=100, i=10% a.m., t=3 meses. Juros totais gerados?|33.10|comp|133,10 - 100.",
+  "63|4|Potência Zero|Em t=0, aplico 500 reais. Qual o montante?|500|comp|Qualquer coisa elevado a zero é 1.",
+  "64|4|Potência 1|No 1º mês, Juros Simples e Compostos dão o MESMO resultado. Se C=100, i=5%, qual o montante no mês 1?|105|comp|100 * 1,05^1.",
+  "65|4|Decaimento|Juros compostos também valem para desvalorização (i negativo). C=1000, i=-10% a.m. Montante após 2m? (Dica: Cesta $0,9^2$)|810|comp|1000 * 0,81.",
+  "66|4|Fator|Qual o Fator de Crescimento total ($F=(1+i)^t$) para i=10% e t=2?|1.21|comp|1,1^2.",
+  "67|4|Fator Reverso|Se o Montante é o dobro do Capital, qual é o valor do Fator $(1+i)^t$?|2|comp_rev|Se M = 2C, 2C = C * Fator.",
+  "68|4|Descobrir Capital|Se o Montante final foi R$ 121, e a taxa 10% a.m. por 2 meses ($1,1^2 = 1,21$). Qual foi o Capital inicial?|100|comp_rev|C = M / 1,21.",
+  "69|4|Descobrir Capital|Montante = 144, i=20% a.m., t=2. Capital? ($1,2^2 = 1,44$)|100|comp_rev|144 / 1,44.",
+  "70|4|Empréstimo Rápido|Pegou 500 no cartão. Taxa 10% a.m. Não pagou nada. Dívida após 2 meses?|605|comp|500 * 1,21.",
+  "71|4|Cartão de Crédito|Pegou 1000. Cartão cobra 10% a.m. composto. Dívida após 3 meses? ($1,1^3=1,331$)|1331|comp|1000 * 1,331.",
+  "72|4|Rentabilidade|Uma ação rendeu 20% no ano 1 e 20% no ano 2. Rendeu 40% no total? (Digite a rentabilidade REAL em %)|44|comp|1,44 - 1 = 44%.",
+  "73|4|Rentabilidade|Fundo rendeu 10% ano 1, caiu 10% ano 2. Rentabilidade acumulada foi 0%? (Digite o fator final)|0.99|comp|1,1 * 0,9 = 0,99 (caiu 1%).",
+  "74|4|Juros compostos fracionados|C=1000, i=21% ao ano. Qual o montante após meio ano (t=0.5)? Lembre que $1,21^{0,5} = \\sqrt{1,21} = 1,1$.|1100|comp|1000 * 1,1.",
+  "75|4|Dobrar aprox|Pela 'Regra do 72', dividindo 72 pela taxa em %, acha-se o tempo em Juros Compostos pra dobrar. Se i=12% a.a., dobra em quantos anos aprox?|6|comp_teo|72 / 12 = 6.",
+
+  // L5: Equivalência de Taxas e Inflação (76-90)
+  "76|5|Taxa Equivalente (S x C)|J.S: Taxa de 2% a.m. equivale a qual taxa anual (12 meses) no Juros Simples?|24|equiv_s|2 * 12.",
+  "77|5|Equivalência Composta|J.C: Se um fator mensal é 1,10 (10%). O fator semestral (6 meses) é $1,10^6$. Quanto é $1,10^2$ exato?|1.21|equiv_c|1,1 * 1,1.",
+  "78|5|Equivalência Composta|Se o fator de 1 mês é 1,20 (20%). Qual o aumento equivalente em 2 meses em %?|44|equiv_c|1,44 - 1.",
+  "79|5|Equivalência Inversa|Se a taxa composta em 2 meses resultou num Fator de 1,21, qual foi o fator mensal? (Dica: $\\sqrt{1,21}$)|1.10|equiv_c|Tira a raiz quadrada.",
+  "80|5|Inflação - Fator|Se a inflação do ano foi 10%, o Fator de Inflação ($1+I$) é?|1.10|inf|1 + 0,10.",
+  "81|5|Rendimento Real Prático|Se seu dinheiro rendeu 21% no ano (Fator 1,21) e a inflação foi 10% (Fator 1,10). O Fator de Rendimento Real ($1+i_r$) é $1,21 / 1,10$. Calcule isso.|1.10|inf|1,21 / 1,10 = 1,10.",
+  "82|5|Taxa Real em %|No exercício anterior (Fator Real = 1,10), qual a Taxa Real de ganho em %?|10|inf|1,10 - 1 = 0,10 = 10%.",
+  "83|5|Falso Ganho|Aplicação rendeu 5%. Inflação foi 5%. Fator Aparente = 1,05. Fator Inflação = 1,05. Fator Real = 1,05 / 1,05 = ?|1|inf|1 = Sem crescimento real (0%).",
+  "84|5|Perda de Compra|Dinheiro guardado no colchão (Rendimento 0%, Fator 1). Inflação 25% (Fator 1,25). Fator Real = $1 / 1,25 = 0,80$. Quanto % do poder de compra você perdeu?|20|inf|1 - 0,80 = 20% de perda.",
+  "85|5|Aumento Salarial|Sindicato conseguiu aumento de 10% (1,1). Inflação foi 10% (1,1). Ganho real em %?|0|inf|1,1 / 1,1 = 1.",
+  "86|5|Ganho acima da Inflação|Quero ganho real de 10% (1,10) num ano que a inflação será 20% (1,20). Qual fator aparente eu preciso no banco? ($1,10 \\times 1,20$)|1.32|inf|1,32.",
+  "87|5|Taxa Aparente Exigida|No ex. anterior (Fator 1,32), o banco precisa me pagar quantos % no ano?|32|inf|32%.",
+  "88|5|Desvalorização da Moeda|Se a inflação foi de 100% (Fator 2). $1 / 2 = 0,5$. Seu dinheiro vale metade. Quantos % ele desvalorizou?|50|inf|1 - 0,5 = 50%.",
+  "89|5|Proporção Nominal|Taxa nominal de 12% a.a. capitalizada mensalmente significa dividir 12 por 12. Qual a taxa mensal em %?|1|equiv_s|12 / 12 = 1%.",
+  "90|5|Nominal vs Efetiva|Taxa de 1% a.m. (fator 1,01). A efetiva anual não é 12%, é $1,01^{12} \\approx 1,1268$. Qual a efetiva anual aproximada em %?|12.68|equiv_c|12,68%.",
+
+  // L6: Desafios e Situações do Cotidiano (91-100)
+  "91|6|Desconto à Vista|Carro R$ 10.000. À vista 10% desconto. Preço final?|9000|chal|10000 * 0,9.",
+  "92|6|Juros Embutidos|Um fogão é R$ 1000 à vista. A prazo são 2 parcelas de 600 (Total 1200). Quanto a loja cobrou a mais em $R\\$$ de juros totais?|200|chal|1200 - 1000.",
+  "93|6|Aumento Triplo|Uber Dinâmico: Aumentou 20%, depois a chuva fez subir mais 50%. Fator total ($1,2 \\times 1,5$)?|1.80|chal|1,80 (80% a mais).",
+  "94|6|Preço Antigo|Uma calça custa 120 COM o aumento já aplicado de 20% (Fator 1,2). Qual era o preço sem o aumento? (Divida)|100|chal|120 / 1,2.",
+  "95|6|Desconto Enganoso|Aumentar o preço em 50% para a Black Friday, e depois dar 50% de desconto. Fator final? ($1,5 \\times 0,5$)|0.75|chal|Fica 25% mais barato que o original, não volta ao mesmo preço.",
+  "96|6|Salário Líquido|Salário Bruto 2000. Imposto tira 10%. Convênio tira 5% do BRUTO. (Dica: soma as % antes, pois ambas são sobre o Bruto = 15%). Salário Liquido?|1700|chal|2000 * 0,85.",
+  "97|6|Rendimento Diário|Caderneta de poupança rende aprox. 0,5% a.m. Fator de 1 mês é 1,005. Se aplicar 10.000, quanto rende de Juros num mês?|50|chal|10000 * 0,005.",
+  "98|6|Financiamento Casa|Se uma casa de 100.000 é financiada a Juros Simples (hipotético) a 1% a.m. por 10 anos (120 meses). Total de Juros?|120000|chal|100000 * 0,01 * 120 = 120.000 (Pagou mais de outra casa só em juros).",
+  "99|6|Recuperação de Perda|Fundo caiu 50% (fator 0,5). Para voltar ao original (fator 1), preciso multiplicar o saldo atual por qual Fator?|2|chal|1 / 0,5 = 2. Precisa de 100% de aumento para recuperar queda de 50%.",
+  "100|6|A Magia Exponencial|Investir 100 por 50 anos a 10% a.a ($1,1^{50} \\approx 117$). O Montante aproximado seria?|11700|chal|100 * 117."
+];
+
+const E = rawExercises.map(line => {
+  const p = line.split('|');
+  // Format math correctly, but avoid replacing the curly braces in basic percentage equations if any
+  let q = p[3].replace(/\\?\{/g, '\\{').replace(/\\?\}/g, '\\}');
+  return { id: parseInt(p[0]), level: parseInt(p[1]), title: p[2], q: q, ans: p[4], type: p[5], hint: p[6] };
+});
+
+function solutionSteps(ex){
+  const S=[];
+  if(ex.type==='basic'){
+    S.push(['1','Lembre-se que porcentagem (%) é o mesmo que dividir por 100.']);
+    S.push(['2',`Cálculo prático: ${ex.hint}`]);
+    S.push(['3',`O resultado simplificado é $${ex.ans}$.`]);
+  }
+  else if(ex.type==='perc_find'){
+    S.push(['1','Para achar a porcentagem, divida a "Parte" pelo "Todo".']);
+    S.push(['2',`Multiplique o decimal por 100 para achar a %. ${ex.hint}`]);
+  }
+  else if(ex.type==='perc_rev'){
+    S.push(['1','Use a regra de três lógica: Se X% equivale a Y, então 100% equivale a Z.']);
+    S.push(['2',`${ex.hint}`]);
+  }
+  else if(ex.type==='factor'){
+    S.push(['1','O Fator de Multiplicação é a base de tudo. O inteiro sempre vale 1 ($100\\%$).']);
+    S.push(['2',`Aumento soma à base 1 ($1 + i$). Desconto subtrai da base 1 ($1 - i$).`]);
+    S.push(['3',`Cálculo: ${ex.hint}`]);
+  }
+  else if(ex.type==='factor_rev'){
+    S.push(['1','O que excede 1 é o aumento. O que falta para 1 é o desconto.']);
+    S.push(['2',`Transforme a diferença de volta para % multiplicando por 100: ${ex.hint}`]);
+  }
+  else if(ex.type==='suc'){
+    S.push(['1','Porcentagens sucessivas NUNCA devem ser somadas. Multiplique os Fatores de Multiplicação.']);
+    S.push(['2',`Construa a "Cesta de Fatores": ${ex.hint}`]);
+    S.push(['3',`Resultado Final (Fator Final ou Valor): $${ex.ans}$.`]);
+  }
+  else if(ex.type==='simp' || ex.type==='simp_m'){
+    S.push(['1','Juros Simples crescem em linha reta. A fórmula dos Juros é $J = C \\cdot i \\cdot t$.']);
+    if(ex.type==='simp_m') S.push(['2','Lembre-se que o Montante é a soma do Capital com os Juros ($M = C + J$).']);
+    S.push(['3',`Substituindo os valores: ${ex.hint}`]);
+  }
+  else if(ex.type==='simp_equiv' || ex.type==='simp_rev' || ex.type==='simp_teo'){
+    S.push(['1','Domine a propriedade proporcional e linear dos Juros Simples.']);
+    S.push(['2',`Raciocínio: ${ex.hint}`]);
+  }
+  else if(ex.type==='comp' || ex.type==='comp_rev'){
+    S.push(['1','Juros Compostos rolam como uma bola de neve. A fórmula do Montante é $M = C \\cdot (1+i)^t$.']);
+    S.push(['2',`Use o Fator de Multiplicação elevado ao tempo: ${ex.hint}`]);
+    S.push(['3',`Valor isolado: $${ex.ans}$.`]);
+  }
+  else if(ex.type==='inf' || ex.type==='equiv_c' || ex.type==='equiv_s'){
+    S.push(['1','Relacionamento de Taxas. Taxa Real vs Aparente usa a fórmula: $(1+i_a) = (1+i_r) \\cdot (1+I)$.']);
+    S.push(['2','Taxas compostas equivalentes: iguale os fatores no mesmo período.']);
+    S.push(['3',`No problema: ${ex.hint}`]);
+  }
+  else {
+    S.push(['1','Este é um problema do cotidiano que usa os conceitos base (Fatores, Regra do E/Multiplicação).']);
+    S.push(['2',`A lógica principal aqui é: ${ex.hint}.`]);
+    S.push(['3',`Resultado da situação: $${ex.ans}$.`]);
+  }
+  return S;
+}
+
+let solved = new Set(JSON.parse(localStorage.getItem('finSolved')||'[]'));
+let currentLevel = 'all';
+
+function renderExercises(){
+  let list = E.filter(e => (currentLevel==='all' || e.level == currentLevel));
+  
+  $('exercise-list').innerHTML=list.map(ex=>{
+    const done = solved.has(ex.id);
+    return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between gap-3">
+          <span class="text-xs font-black px-2.5 py-1 rounded-full bg-amber-100 text-amber-800">Q. ${ex.id}</span>
+          <span class="text-xs font-bold text-slate-400">${ex.title}</span>
+        </div>
+        <div class="text-sm font-bold text-slate-700 mt-4 leading-relaxed">${ex.q}</div>
+      </div>
+      
+      <div class="mt-4">
+        <div class="flex gap-2">
+          <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none font-mono" placeholder="Ex: 10 ou 1.15">
+          <button onclick="check(${ex.id})" class="bg-amber-600 hover:bg-amber-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+        </div>
+        <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px]"></div>
+        <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-amber-700 hover:underline">👁 Ver Resolução Guiada</button>
+        
+        <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+          <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Passo a Passo</div>
+          ${solutionSteps(ex).map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+          <div class="success rounded-xl p-3 mt-2 text-center font-bold">Gabarito: ${ex.ans}</div>
+        </div>
+      </div>
+    </article>`
+  }).join('');
+  
+  $('progress-text').textContent=`${solved.size} / 100`;
+  $('progress-bar').style.width=(solved.size)+'%';
+  renderAll(); // Renders the KaTeX elements inside the questions
+}
+
+function parseUser(v) {
+  // Allow comma or dot for decimals
+  v = v.trim().replace(/\s+/g, '').replace(',', '.');
+  if(v==='') return null;
+  return parseFloat(v);
+}
+
+function check(id){
+  const ex = E.find(x=>x.id===id);
+  const raw = $('answer-'+id).value;
+  const user = parseUser(raw);
+  const fb = $('feedback-'+id);
+  
+  if (user === null || isNaN(user)) {
+      fb.className='text-sm font-bold mt-2 text-red-600';
+      fb.textContent='Insira um número válido (ex: 20 ou 1.25).';
+      return;
+  }
+
+  const ansFloat = parseFloat(ex.ans);
+  
+  // Accept slight rounding differences just in case (margin of error 0.01)
+  if (Math.abs(user - ansFloat) <= 0.011) {
+    solved.add(id);
+    localStorage.setItem('finSolved',JSON.stringify([...solved]));
+    fb.className='text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent='✓ Certo! Entendimento financeiro impecável.';
+  } else {
+    fb.className='text-sm font-bold mt-2 text-red-600';
+    fb.textContent='✗ Incorreto. Analise os fatores e a taxa e tente de novo.';
+  }
+  renderExercises();
+}
+
+function toggleSol(id){ $('solution-'+id).classList.toggle('hidden'); }
+
+document.querySelectorAll('.level-btn').forEach(b=>{
+  b.onclick = () => {
+    currentLevel = b.dataset.level;
+    document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderExercises();
+  }
+});
+
+// Inicialização Global
+window.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+  initLab();
+});
+</script>
+</body>
+</html>

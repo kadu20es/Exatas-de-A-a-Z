@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estatística Básica — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  
+  /* Componentes do Lab */
+  .data-block { 
+    width: 3rem; height: 3rem; display: flex; justify-content: center; align-items: center; 
+    font-weight: 900; font-size: 1.25rem; border-radius: 0.75rem; 
+    background: white; border: 2px solid #cbd5e1; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .data-block.sorted { border-color: #6366f1; background: #eef2ff; color: #4f46e5; }
+  .data-block.median { border-color: #f59e0b; background: #fef3c7; color: #b45309; transform: scale(1.1); z-index: 10;}
+  .data-block.mode { border-color: #ef4444; border-width: 3px; }
+  .data-list-move { transition: transform 0.5s ease; }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">📊 Estatística Básica</div><div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo, não decorando</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Resolvedor</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Entendendo os Dados</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">O Resumo da Multidão</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">A estatística serve para pegar milhares de informações soltas e resumi-las em números que contam uma história. Vamos dominar o trio de ouro: Média, Mediana e Moda.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">4</b><div class="text-xs text-indigo-200">medidas vitais</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-indigo-200">exercícios práticos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">passo a passo</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">📊</b><div class="text-xs text-indigo-200">simulador visual</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Regra de Ouro:</b> A <b>Média</b> é sensível a valores extremos. A <b>Mediana</b> exige que você sempre coloque os números em ordem (Rol) antes de achar o meio. A <b>Moda</b> é apenas o número mais popular.</div>
+
+ <div class="grid lg:grid-cols-3 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black text-lg">\(\bar{x}\)</span><h2 class="text-xl font-black">Média Aritmética</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6 flex-1">É o ponto de equilíbrio. Se você somar tudo e dividir pelo número de elementos, encontrará a média. É como se quiséssemos distribuir a mesma quantidade para todos de forma justa.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center text-sm font-bold">
+    \[ \frac{\text{Soma de todos}}{\text{Quantidade}} \]
+    <div class="mt-2 text-indigo-700 font-normal">Ex: (2+4+6) / 3 = 4</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 grid place-items-center font-black text-lg">Md</span><h2 class="text-xl font-black">Mediana</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6 flex-1">É o "miolo" da lista. Divide os dados exatamente no meio: 50% dos valores estão abaixo dela, e 50% estão acima.</p>
+   <div class="bg-amber-50 rounded-xl p-4 mt-4 text-sm font-medium border border-amber-100">
+    <div class="text-amber-800 font-bold mb-1">Passo 1: ORDENE A LISTA!</div>
+    <div class="mb-1">• Ímpar: Pegue o do meio exato.</div>
+    <div>• Par: Pegue os <b>dois</b> do meio e faça a média entre eles.</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black text-lg">Mo</span><h2 class="text-xl font-black">Moda</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6 flex-1">É simplesmente o valor que <b>mais se repete</b> (o que está "na moda"). Não precisa de conta, apenas observação.</p>
+   <div class="bg-rose-50 rounded-xl p-4 mt-4 text-sm font-medium border border-rose-100">
+    <div>• Pode haver uma moda (Unimodal).</div>
+    <div class="my-1">• Pode haver várias (Bimodal...).</div>
+    <div>• Pode não haver nenhuma (Amodal) se todos os números aparecerem a mesma quantidade de vezes.</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black text-lg">↔</span><h2 class="text-2xl font-black">Amplitude (Dispersão)</h2></div>
+  <p class="mt-3 text-slate-600">Enquanto Média, Mediana e Moda indicam o "centro" dos dados, a Amplitude diz o quão <b>espalhados</b> eles estão. É a medida de dispersão mais simples.</p>
+  
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div class="paper rounded-2xl p-5">
+    <div class="text-sm font-bold text-indigo-700 mb-3 text-center">A FÓRMULA</div>
+    <div class="text-lg text-center font-black mt-2">
+        Amplitude = Maior Valor − Menor Valor
+    </div>
+   </div>
+   <div class="bg-slate-50 border p-5 rounded-2xl text-sm text-slate-700">
+    <b>Exemplo Prático:</b><br>
+    Turma A (idades): 14, 15, 14, 15, 16. (Amplitude = 16 - 14 = <b>2 anos</b>)<br><br>
+    Turma B (idades): 9, 12, 15, 18, 21. (Amplitude = 21 - 9 = <b>12 anos</b>)<br><br>
+    <i>Mesmo que a média seja parecida, a Turma B é muito mais dispersa!</i>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">E quando a média não é boa?</h2>
+   <p class="mt-3 text-slate-600">Imagine os salários de uma empresa: R$ 2 mil, R$ 2 mil, R$ 3 mil e o salário do dono de R$ 93 mil.</p>
+   <ul class="list-disc list-inside mt-3 text-sm space-y-2 text-slate-700">
+    <li>A <b>Média</b> é R$ 25.000 (total R$ 100 mil / 4). Parece que todos são ricos! A média foi "puxada" pelo valor extremo.</li>
+    <li>A <b>Mediana</b> é R$ 2.500 (meio termo entre os ordenados 2k e 3k). Representa muito melhor a realidade dos funcionários normais.</li>
+   </ul>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">Descobrindo valores (Inversa)</h2>
+   <p class="mt-3 text-slate-600">Questão clássica: "Um aluno tirou 6 e 7. Quanto ele precisa tirar na última prova para a média ser 8?"</p>
+   <div class="paper rounded-xl p-4 mt-4 text-sm">
+    <div><b>Montando a equação:</b></div>
+    <div class="text-center my-2">\[ \frac{6 + 7 + X}{3} = 8 \]</div>
+    <div>Passe o 3 multiplicando: \( 13 + X = 24 \)</div>
+    <div class="font-bold mt-1 text-indigo-700">\( X = 24 - 13 \implies X = 11 \) (ele não passa!)</div>
+   </div>
+  </article>
+ </div>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Laboratório de Dados</span>
+  <h1 class="text-3xl font-black mt-2">Visão Estratégica dos Números</h1>
+  <p class="text-slate-600 mt-2">Adicione ou remova bloquinhos. Veja como eles se organizam (Rol) para encontrar o centro exato (Mediana) e qual cor domina (Moda).</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[300px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   
+   <h3 class="font-black text-slate-800 mb-4">Gerenciar Dados</h3>
+   
+   <div class="flex gap-2">
+    <input id="lab-input" type="number" placeholder="Num..." class="border-2 rounded-xl p-2 w-full text-lg outline-none focus:border-indigo-500">
+    <button onclick="addLabData()" class="bg-indigo-600 text-white rounded-xl px-4 font-black text-lg hover:bg-indigo-700 transition">+</button>
+   </div>
+   
+   <div class="mt-4 grid grid-cols-2 gap-2 text-sm font-bold">
+    <button onclick="generateLab(5)" class="bg-slate-100 py-2 rounded-xl hover:bg-slate-200">Sorteio (5)</button>
+    <button onclick="generateLab(8)" class="bg-slate-100 py-2 rounded-xl hover:bg-slate-200">Sorteio (8)</button>
+    <button onclick="clearLab()" class="bg-rose-50 text-rose-700 py-2 rounded-xl hover:bg-rose-100 col-span-2">Limpar Tudo</button>
+   </div>
+
+   <div class="mt-8 border-t pt-6 space-y-4 text-sm">
+    <div class="flex justify-between items-center"><span class="font-bold text-slate-500">Média</span><span id="lab-res-mean" class="font-black text-indigo-600 text-lg">-</span></div>
+    <div class="flex justify-between items-center"><span class="font-bold text-slate-500">Mediana</span><span id="lab-res-med" class="font-black text-amber-600 text-lg">-</span></div>
+    <div class="flex justify-between items-center"><span class="font-bold text-slate-500">Moda</span><span id="lab-res-mode" class="font-black text-rose-600 text-lg">-</span></div>
+    <div class="flex justify-between items-center"><span class="font-bold text-slate-500">Amplitude</span><span id="lab-res-amp" class="font-black text-emerald-600 text-lg">-</span></div>
+   </div>
+
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   
+   <div class="flex-1 min-h-[150px]">
+    <div class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Seus Dados Brutos</div>
+    <div id="lab-raw-blocks" class="flex flex-wrap gap-3">
+     <!-- Filled by JS -->
+    </div>
+   </div>
+
+   <div class="flex-1 mt-6 border-t pt-6 relative min-h-[150px]">
+    <div class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Dados em Ordem (Rol)</div>
+    <div id="lab-sorted-blocks" class="flex flex-wrap gap-3">
+     <!-- Filled by JS -->
+    </div>
+    
+    <div id="lab-hints" class="mt-6 flex flex-wrap gap-4 text-xs font-bold text-slate-500">
+        <div class="flex items-center gap-1"><div class="w-3 h-3 bg-amber-100 border border-amber-500 rounded"></div> Mediana (O Meio)</div>
+        <div class="flex items-center gap-1"><div class="w-3 h-3 border-2 border-rose-500 rounded"></div> Moda (Os Populares)</div>
+    </div>
+   </div>
+
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Calculadora Didática</span>
+  <h1 class="text-3xl font-black mt-2">Resolvedor Passo a Passo</h1>
+  <p class="text-slate-600 mt-2">Insira sua lista de números separada por vírgulas. A ferramenta vai processar e mostrar detalhadamente como encontrar as respostas.</p>
+ </div>
+ 
+ <div class="max-w-3xl mx-auto">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   
+   <div class="mb-6">
+    <label class="font-bold text-sm block mb-2 text-slate-700">Digite seus números (separados por vírgula):</label>
+    <textarea id="tool-input" rows="3" class="w-full border-2 border-slate-200 rounded-xl p-4 text-lg font-mono outline-none focus:border-indigo-500 transition" placeholder="Exemplo: 5, 12, 5, 8, 20"></textarea>
+   </div>
+   
+   <button onclick="solveTool()" class="w-full bg-indigo-600 text-white rounded-xl py-4 font-black text-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">Calcular e Explicar</button>
+   <div id="tool-out" class="paper rounded-xl p-6 mt-6 hidden space-y-6"></div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div>
+    <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span>
+    <h1 class="text-3xl font-black mt-2">100 Exercícios Classificados</h1>
+    <p class="text-slate-600 mt-2 text-sm">Pratique desde o simples cálculo da média até problemas inversos. Utilize o ponto para casas decimais (ex: 5.5).</p>
+   </div>
+   <div class="min-w-[210px]">
+    <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+    <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden">
+     <div id="progress-bar" class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width:0%"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L1: Média Simples</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L2: A Arte da Mediana</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L3: Moda & Amplitude</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L4: Problemas (X Misterioso)</button>
+   <input id="search" placeholder="Buscar..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[150px] outline-none focus:border-indigo-500">
+  </div>
+ </div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+
+</main>
+<footer class="border-t bg-white mt-8">
+ <div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">
+  Material didático de matemática • Fórmulas renderizadas com KaTeX
+ </div>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const mathInline = latex => String.raw`\(${latex}\)`;
+const mathDisplay = latex => String.raw`\[${latex}\]`;
+function formatNum(n) { return Number.isInteger(n) ? n.toString() : n.toFixed(2); }
+
+function renderMathIn(element) {
+  if (window.renderMathInElement) {
+    renderMathInElement(element, { delimiters: [{left: '\\[', right: '\\]', display: true}, {left: '\\(', right: '\\)', display: false}] });
+  }
+}
+function renderAll() { document.querySelectorAll('body').forEach(el => renderMathIn(el)); }
+
+// Abas
+const sections = ['teoria', 'laboratorio', 'ferramentas', 'exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => 
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.tab;
+    sections.forEach(s => $(`sec-${s}`).classList.toggle('hidden', s !== t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    if (t === 'exercicios') renderExercises();
+    if (t === 'laboratorio') updateLab();
+  })
+);
+
+// --- ESTATÍSTICAS CORE ---
+function getMean(arr) { return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0; }
+function getMedian(arr) {
+    if(!arr.length) return 0;
+    const s = [...arr].sort((a,b)=>a-b);
+    const mid = Math.floor(s.length/2);
+    return s.length%2===0 ? (s[mid-1]+s[mid])/2 : s[mid];
+}
+function getMedianIndices(len) {
+    if(!len) return [];
+    const mid = Math.floor(len/2);
+    return len%2===0 ? [mid-1, mid] : [mid];
+}
+function getModes(arr) {
+    if(!arr.length) return [];
+    const counts = {};
+    let max = 0;
+    arr.forEach(n => { counts[n] = (counts[n]||0)+1; if(counts[n]>max) max=counts[n]; });
+    const modes = [];
+    for(const n in counts) if(counts[n]===max) modes.push(Number(n));
+    if(modes.length === Object.keys(counts).length) return []; // Amodal
+    return modes;
+}
+function getAmp(arr) { return arr.length ? Math.max(...arr) - Math.min(...arr) : 0; }
+
+// --- LABORATÓRIO ---
+let labData = [4, 7, 2, 9, 4];
+
+function updateLab() {
+    // RAW
+    $('lab-raw-blocks').innerHTML = labData.map(n => `<div class="data-block">${n}</div>`).join('');
+    
+    // SORTED
+    const sorted = [...labData].sort((a,b)=>a-b);
+    const medIdxs = getMedianIndices(sorted.length);
+    const modes = getModes(sorted);
+    
+    $('lab-sorted-blocks').innerHTML = sorted.map((n, i) => {
+        let classes = 'data-block sorted';
+        if(medIdxs.includes(i)) classes += ' median';
+        if(modes.includes(n)) classes += ' mode';
+        return `<div class="${classes}">${n}</div>`;
+    }).join('');
+
+    // RESULTS
+    $('lab-res-mean').innerText = labData.length ? formatNum(getMean(labData)) : '-';
+    $('lab-res-med').innerText = labData.length ? formatNum(getMedian(labData)) : '-';
+    
+    let modeText = '-';
+    if(labData.length) {
+        modeText = modes.length ? modes.join(', ') : 'Amodal';
+    }
+    $('lab-res-mode').innerText = modeText;
+    $('lab-res-amp').innerText = labData.length ? getAmp(labData) : '-';
+}
+
+function addLabData() {
+    let val = parseFloat($('lab-input').value);
+    if(!isNaN(val)) {
+        if(labData.length >= 15) return alert('Máximo de 15 blocos no lab.');
+        labData.push(val);
+        $('lab-input').value = '';
+        updateLab();
+    }
+}
+function generateLab(size) {
+    labData = [];
+    for(let i=0; i<size; i++) labData.push(Math.floor(Math.random()*15)+1);
+    updateLab();
+}
+function clearLab() { labData = []; updateLab(); }
+
+// --- RESOLVEDOR (Ferramentas) ---
+function solveTool() {
+    const raw = $('tool-input').value;
+    const arr = raw.split(',').map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
+    const out = $('tool-out');
+    
+    if(arr.length < 2) {
+        out.classList.remove('hidden');
+        out.innerHTML = `<div class="warning p-3 rounded-lg font-bold">Por favor, insira pelo menos 2 números válidos separados por vírgula.</div>`;
+        return;
+    }
+    
+    out.classList.remove('hidden');
+    let html = '';
+    let step = 1;
+    
+    // 1. Organização (Rol)
+    const sorted = [...arr].sort((a,b)=>a-b);
+    html += `<div class="step" data-step="${step++}"><b>O Rol (Ordenação):</b> O primeiro e mais importante passo na estatística é colocar todos os dados em ordem crescente.<br>
+             <div class="mt-2 text-indigo-700 font-bold bg-indigo-50 p-2 rounded-lg inline-block text-lg">Rol = { ${sorted.join(', ')} }</div></div>`;
+    
+    // 2. Média
+    const sum = arr.reduce((a,b)=>a+b,0);
+    const mean = sum / arr.length;
+    html += `<div class="step" data-step="${step++}"><b>Cálculo da Média:</b> Somamos todos os ${arr.length} elementos e dividimos pela quantidade.
+             <div class="mt-2 text-center text-lg">${mathDisplay(`\\bar{x} = \\frac{${arr.join(' + ')}}{${arr.length}} = \\frac{${formatNum(sum)}}{${arr.length}} = \\mathbf{${formatNum(mean)}}`)}</div></div>`;
+    
+    // 3. Mediana
+    const medIdxs = getMedianIndices(sorted.length);
+    let medMath = '';
+    let medVal = getMedian(sorted);
+    if(arr.length % 2 !== 0) {
+        medMath = `A quantidade é ímpar (${arr.length}). O termo central está na posição ${medIdxs[0]+1}. Logo, a mediana é exatamente o número <b>${medVal}</b>.`;
+    } else {
+        medMath = `A quantidade é par (${arr.length}). Pegamos os dois termos centrais (posições ${medIdxs[0]+1} e ${medIdxs[1]+1}): ${sorted[medIdxs[0]]} e ${sorted[medIdxs[1]]}.<br>
+                   ${mathDisplay(`Md = \\frac{${sorted[medIdxs[0]]} + ${sorted[medIdxs[1]]}}{2} = \\mathbf{${formatNum(medVal)}}`)}`;
+    }
+    html += `<div class="step" data-step="${step++}"><b>Cálculo da Mediana:</b> Olhando para o Rol. ${medMath}</div>`;
+    
+    // 4. Moda
+    const modes = getModes(sorted);
+    let modeText = '';
+    if(modes.length === 0) modeText = `Nenhum número se repete mais que os outros. O conjunto é <b>Amodal</b>.`;
+    else if(modes.length === 1) modeText = `O número que mais se repete (com maior frequência) é o <b>${modes[0]}</b>. (Unimodal).`;
+    else modeText = `Temos um empate na maior frequência: <b>${modes.join(' e ')}</b>. (Multimodal).`;
+    html += `<div class="step" data-step="${step++}"><b>Identificando a Moda:</b> Procuramos a maior frequência. ${modeText}</div>`;
+    
+    // 5. Amplitude
+    const min = sorted[0];
+    const max = sorted[sorted.length-1];
+    html += `<div class="step" data-step="${step++}"><b>Amplitude:</b> Subtraímos o menor valor do maior valor do Rol.
+             <div class="mt-2 text-center text-lg">${mathInline(`Amp = ${max} - ${min} = \\mathbf{${formatNum(max-min)}}`)}</div></div>`;
+    
+    out.innerHTML = html;
+    renderMathIn(out);
+}
+
+// Inicializa a Tool UI
+window.addEventListener('DOMContentLoaded', () => { 
+    $('tool-input').value = "5, 8, 3, 8, 11"; 
+});
+
+// --- EXERCÍCIOS GERAÇÃO ---
+const E = [];
+let exId = 1;
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function pushEx(lvl, title, textHtml, ansVal, ansStr, stepsHtml) {
+    E.push({ id: exId++, level: lvl, title, text: textHtml, ansNum: ansVal, ansStr: ansStr, steps: stepsHtml });
+}
+
+// L1 (1-25): Média Simples
+for(let i=0; i<25; i++) {
+    let len = rand(3, 5);
+    let arr = [];
+    let sum = 0;
+    // Forçar a soma ser múltiplo de `len` para médias inteiras bonitas
+    let meanTarget = rand(5, 20);
+    let targetSum = meanTarget * len;
+    
+    for(let j=0; j<len-1; j++) {
+        let v = rand(1, 20);
+        arr.push(v);
+        sum += v;
+    }
+    // Ajustar o último p fechar o target, se ficar negativo arruma
+    let last = targetSum - sum;
+    if(last < 0) { last = rand(1, 10); arr[arr.length-1] += Math.abs(targetSum - (sum+last)); targetSum = arr.reduce((a,b)=>a+b,0); meanTarget = targetSum/len; }
+    else arr.push(last);
+    
+    // Baralhar para não ficar estranho
+    arr.sort(()=>Math.random()-0.5);
+    
+    let text = `Calcule a <b>média aritmética</b> do conjunto: { ${arr.join(', ')} }`;
+    let steps = [
+        `Para calcular a média, somamos todos os valores e dividimos pela quantidade (${len}).`,
+        `Soma: ${mathInline(arr.join(' + ') + ' = ' + targetSum)}.`,
+        `Dividindo: ${mathInline(`\\frac{${targetSum}}{${len}} = ${meanTarget}`)}.`
+    ];
+    pushEx(1, "Média Simples", text, meanTarget, null, steps);
+}
+
+// L2 (26-50): Mediana
+for(let i=0; i<25; i++) {
+    let len = rand(3, 6);
+    let arr = [];
+    for(let j=0; j<len; j++) arr.push(rand(2, 25));
+    
+    let sorted = [...arr].sort((a,b)=>a-b);
+    let med = getMedian(sorted);
+    let isOdd = len%2 !== 0;
+    
+    let text = `Encontre a <b>mediana</b> do conjunto de dados: { ${arr.join(', ')} }`;
+    let steps = [
+        `<b>Passo Crítico:</b> Organize os dados em ordem crescente! Rol: { ${sorted.join(', ')} }.`,
+        isOdd ? `A quantidade é ímpar (${len}), então pegamos o número exatamente no meio.` : `A quantidade é par (${len}), pegamos os dois do meio (${sorted[len/2 - 1]} e ${sorted[len/2]}) e calculamos a média deles.`,
+        `A mediana é ${formatNum(med)}.`
+    ];
+    pushEx(2, "O Centro dos Dados (Mediana)", text, med, null, steps);
+}
+
+// L3 (51-75): Moda e Amplitude
+for(let i=0; i<25; i++) {
+    let isMode = i % 2 === 0;
+    let len = rand(5, 7);
+    let arr = [];
+    
+    if(isMode) {
+        // Força uma moda garantida
+        let modeTarget = rand(2, 9);
+        arr.push(modeTarget, modeTarget, modeTarget);
+        while(arr.length < len) arr.push(rand(10, 20));
+        arr.sort(()=>Math.random()-0.5);
+        
+        let text = `Qual é a <b>moda</b> do conjunto: { ${arr.join(', ')} }?`;
+        let steps = [
+            `A moda é simplesmente o elemento que mais se repete.`,
+            `Olhando os dados, o número ${modeTarget} aparece 3 vezes, mais que qualquer outro.`,
+            `Moda: ${modeTarget}.`
+        ];
+        pushEx(3, "O Mais Popular (Moda)", text, modeTarget, null, steps);
+    } else {
+        // Amplitude
+        for(let j=0; j<len; j++) arr.push(rand(5, 50));
+        let max = Math.max(...arr);
+        let min = Math.min(...arr);
+        let amp = max - min;
+        
+        let text = `Calcule a <b>amplitude</b> do conjunto: { ${arr.join(', ')} }`;
+        let steps = [
+            `A amplitude mede a diferença (distância) entre o maior e o menor valor do conjunto.`,
+            `Maior valor: ${max}. Menor valor: ${min}.`,
+            `Cálculo: ${mathInline(`${max} - ${min} = ${amp}`)}.`
+        ];
+        pushEx(3, "Dispersão (Amplitude)", text, amp, null, steps);
+    }
+}
+
+// L4 (76-100): Problemas Inversos (Achando X pela Média)
+for(let i=0; i<25; i++) {
+    let len = rand(3, 4); // Notas de bimestres
+    let meanTarget = rand(6, 8);
+    let totalTarget = meanTarget * len;
+    
+    let sum = 0;
+    let arr = [];
+    for(let j=0; j<len-1; j++) {
+        let v = rand(4, 9);
+        arr.push(v);
+        sum += v;
+    }
+    let missing = totalTarget - sum;
+    // Se a nota faltante for absurda, a gente recria (simples fallback para não complicar)
+    if(missing < 0 || missing > 12) { missing = 6; totalTarget = sum + 6; meanTarget = totalTarget/len; }
+    
+    let text = `Um aluno tirou as seguintes notas: { ${arr.join(', ')} }. Qual nota <b>(X)</b> ele precisa tirar na próxima prova para que sua <b>média final</b> seja <b>${formatNum(meanTarget)}</b>?`;
+    let steps = [
+        `Temos ${len} provas no total. A fórmula da média será: ${mathInline(`\\frac{${arr.join('+')} + X}{${len}} = ${formatNum(meanTarget)}`)}`,
+        `Somando as notas conhecidas: ${mathInline(`\\frac{${sum} + X}{${len}} = ${formatNum(meanTarget)}`)}`,
+        `Passando o divisor ${len} multiplicando para o outro lado: ${mathInline(`${sum} + X = ${formatNum(totalTarget)}`)}`,
+        `Isolando X: ${mathInline(`X = ${formatNum(totalTarget)} - ${sum} \\implies X = ${missing}`)}.`
+    ];
+    pushEx(4, "O X Misterioso", text, missing, null, steps);
+}
+
+let solved = new Set(JSON.parse(localStorage.getItem('statSolved') || '[]'));
+let currentLevel = 'all';
+
+function renderExercises() {
+  const q = ($('search').value || '').toLowerCase();
+  let list = E.filter(e => 
+    (currentLevel === 'all' || e.level == currentLevel) && 
+    (q === '' || (`questão ${e.id} ${e.title} ${e.text}`).toLowerCase().includes(q))
+  );
+  
+  $('exercise-list').innerHTML = list.map(ex => {
+    const done = solved.has(ex.id);
+    
+    return `
+    <article class="bg-white rounded-2xl border ${done ? 'border-emerald-400 shadow-emerald-100' : 'border-slate-200'} p-5 shadow-sm transition-all hover:shadow-md flex flex-col justify-between">
+      <div>
+          <div class="flex justify-between gap-3 mb-3">
+            <span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 whitespace-nowrap">Questão ${ex.id}</span>
+            <span class="text-xs text-slate-400 text-right font-bold uppercase tracking-wide">${ex.title}</span>
+          </div>
+          <div class="text-slate-700 leading-relaxed min-h-[60px]">
+            ${ex.text}
+          </div>
+      </div>
+      <div class="mt-4">
+          <div class="flex gap-2">
+            <input id="ans-${ex.id}" type="number" step="0.01" class="flex-1 border-2 border-slate-200 focus:border-indigo-500 outline-none rounded-xl px-4 py-2 text-sm font-bold" placeholder="Sua resposta...">
+            <button onclick="checkAnswer(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-5 py-2 text-sm font-black hover:bg-indigo-700 transition">Conferir</button>
+          </div>
+          <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-[1.5rem]"></div>
+          
+          <button onclick="toggleSol(${ex.id})" class="mt-3 text-xs font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-800 transition">👁 Ver Passo a Passo</button>
+          
+          <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+            <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução</div>
+            ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+            <div class="success rounded-xl p-3 text-center font-black mt-4">
+              Resposta: ${formatNum(ex.ansNum)}
+            </div>
+          </div>
+      </div>
+    </article>`;
+  }).join('');
+  
+  $('progress-text').textContent = `${solved.size} / 100`;
+  $('progress-bar').style.width = (solved.size) + '%';
+  renderAll();
+}
+
+function checkAnswer(id) {
+  const ex = E.find(x => x.id === id);
+  const rawAns = $(`ans-${id}`).value;
+  const fb = $(`fb-${id}`);
+  
+  if (rawAns.trim() === '') {
+    fb.className = 'text-sm font-bold mt-2 text-amber-600';
+    fb.textContent = '⚠ Digite um valor antes de conferir.';
+    return;
+  }
+  
+  let userVal = parseFloat(rawAns.replace(',', '.'));
+  let isCorrect = Math.abs(userVal - ex.ansNum) < 0.02; // Margem para float
+  
+  if (isCorrect) {
+    solved.add(id);
+    localStorage.setItem('statSolved', JSON.stringify([...solved]));
+    fb.className = 'text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent = '✓ Exato! Belo cálculo de análise de dados.';
+  } else {
+    fb.className = 'text-sm font-bold mt-2 text-rose-600';
+    fb.textContent = '✗ Opa, não é esse o valor. (Dica: Lembre-se do Rol para a mediana!)';
+  }
+  renderExercises();
+}
+
+function toggleSol(id) { $(`sol-${id}`).classList.toggle('hidden'); }
+
+// Filtros
+document.querySelectorAll('.level-btn').forEach(b => b.onclick = () => {
+  currentLevel = b.dataset.level;
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.remove('active', 'bg-indigo-600', 'text-white'));
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.add('bg-slate-100'));
+  
+  b.classList.add('active');
+  b.classList.remove('bg-slate-100');
+  renderExercises();
+});
+$('search').addEventListener('input', renderExercises);
+
+// Inicialização
+window.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+  updateLab();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise Combinatória — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root { --ink: #451a03; --paper: #fffbeb; --line: #fde68a; --accent: #ea580c; --accent-light: #ffedd5; }
+  body { background: #fafaf9; color: var(--ink); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 800; }
+  
+  /* Padrão de caderno com linhas suaves (pontilhado) */
+  .paper {
+    background: var(--paper);
+    background-image: radial-gradient(#fcd34d 1px, transparent 1px);
+    background-size: 1.5rem 1.5rem;
+    border: 1px solid #fde047;
+    box-shadow: 0 8px 24px rgba(154, 52, 18, 0.05);
+  }
+  
+  .step {
+    position: relative; padding: 1rem 1rem 1rem 3.2rem; 
+    border: 1px solid #e5e7eb; border-radius: 1rem; background: white;
+  }
+  .step::before {
+    content: attr(data-step); position: absolute; left: 1rem; top: 1rem; 
+    width: 1.65rem; height: 1.65rem; border-radius: 999px; 
+    background: var(--accent-light); color: var(--accent); 
+    font-weight: 800; display: grid; place-items: center; font-size: .8rem;
+  }
+  
+  .level-btn.active { background: var(--accent); color: white; }
+  .exercise-solution { animation: fade .2s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(-3px) } to { opacity: 1; transform: none } }
+  
+  .tip { border-left: 4px solid #f59e0b; background: #fffbeb; }
+  .success { border-left: 4px solid #10b981; background: #ecfdf5; }
+  .warning { border-left: 4px solid #ef4444; background: #fef2f2; }
+
+  .comb-item { display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; border-radius: 999px; font-weight: bold; font-size: 0.9rem; margin: 0.1rem; }
+  .comb-box { display: inline-block; padding: 0.25rem; border: 1px solid #d1d5db; border-radius: 0.75rem; background: white; margin: 0.25rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-orange-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+    <div class="font-black text-lg sm:text-xl text-orange-900">🎲 Análise Combinatória</div>
+    <div class="text-[11px] text-slate-500 hidden sm:block">A arte de contar sem precisar listar tudo</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">⚙️ Ferramentas</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-orange-950 via-orange-800 to-red-950 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-orange-300">Curso Completo</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">A Arte de Contar</h1>
+  <p class="mt-4 max-w-3xl text-orange-100 leading-7">Esqueça a decoreba interminável de fórmulas. A Análise Combinatória é baseada em apenas duas grandes perguntas: <b>"A ordem importa?"</b> e <b>"Eu uso a regra do E ou do OU?"</b>. Domine isso e você dominará o assunto.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">10</b><div class="text-xs text-orange-300">passos lógicos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-orange-300">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-orange-300">gabarito guiado</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">👁</b><div class="text-xs text-orange-300">laboratório gerador</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm">
+  <b>Como estudar este módulo:</b> Não pule o Fatorial e o Princípio Fundamental da Contagem (PFC). Eles são o motor de todas as outras fórmulas (Arranjo, Permutação e Combinação).
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O Fatorial ($n!$)</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">O fatorial é a operação mais comum aqui. Ele significa multiplicar um número inteiro positivo por todos os seus antecessores até o 1. É representado pelo ponto de exclamação (!).</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">
+    \[ 5! = 5 \times 4 \times 3 \times 2 \times 1 = 120 \]
+   </div>
+   <div class="bg-slate-50 p-4 rounded-xl mt-4 text-sm">
+     <b>Casos Especiais:</b> Por convenção matemática, \( 0! = 1 \) e \( 1! = 1 \).<br><br>
+     <b>Dica de Ouro (Simplificação):</b> Para dividir fatoriais, "desenrole" o maior até chegar no menor e corte-os!
+     <div class="text-center mt-2">\[ \frac{8!}{6!} = \frac{8 \times 7 \times 6!}{6!} = 8 \times 7 = 56 \]</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Princípio Fundamental da Contagem</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Também chamado de <b>Regra do "E"</b> (Multiplicação). Se você precisa tomar uma decisão A <b>e</b> uma decisão B, você multiplica as opções.</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-orange-50 text-orange-900 border border-orange-100 rounded-xl p-4">
+        <b>Exemplo Clássico:</b> Você tem 3 camisas <b>E</b> 4 calças. De quantas formas pode se vestir?
+        <div class="text-center text-lg font-black mt-2"> \( 3 \times 4 = 12 \) formas </div>
+    </div>
+    <div class="bg-slate-50 rounded-xl p-4">
+        Se as decisões fossem independentes e você só pudesse escolher UMA peça (uma camisa <b>OU</b> uma calça), você somaria (Regra do OU): \( 3 + 4 = 7 \) opções.
+    </div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">3</span><h2 class="text-2xl font-black">Permutação Simples ($P_n$)</h2></div>
+  <p class="mt-3 text-slate-600">Permutar significa <b>trocar de lugar</b>. Usamos quando temos \(n\) objetos distintos e queremos organizar <b>todos eles</b> em \(n\) posições (como uma fila de pessoas ou o anagrama de uma palavra).</p>
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div class="bg-slate-50 border rounded-xl p-5">
+    <h3 class="font-black text-orange-800 text-lg">A Fórmula</h3>
+    <div class="mt-3 text-2xl font-bold text-center">\[ P_n = n! \]</div>
+    <p class="text-sm text-slate-600 mt-4"><b>Exemplo:</b> De quantas formas 4 pessoas podem sentar em 4 cadeiras?</p>
+    <div class="bg-white rounded p-3 text-center border mt-2 font-mono"> P_4 = 4! = 4 \times 3 \times 2 \times 1 = 24 </div>
+   </div>
+   <div class="bg-slate-50 border rounded-xl p-5">
+    <h3 class="font-black text-orange-800 text-lg">Permutação com Repetição</h3>
+    <p class="text-sm text-slate-600 mt-2">E se a palavra tiver letras iguais? (ex: BATATA - tem 3 'A's e 2 'T's). Dividimos o total pelos fatoriais das repetições para remover as cópias idênticas.</p>
+    <div class="mt-3 text-lg font-bold text-center">\[ P_6^{3,2} = \frac{6!}{3! \cdot 2!} = \frac{720}{6 \cdot 2} = 60 \]</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="bg-orange-900 text-white rounded-2xl border shadow-sm p-6 sm:p-10">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-800 text-orange-100 grid place-items-center font-black">4</span><h2 class="text-3xl font-black">A Grande Decisão: Arranjo ou Combinação?</h2></div>
+  <p class="mt-4 text-orange-100 text-lg leading-relaxed">Você tem um grupo grande (ex: 10 pessoas) e precisa escolher um grupo menor (ex: 3 pessoas). Como saber qual fórmula usar? Faça o <b>Teste da Inversão</b>!</p>
+  
+  <div class="grid md:grid-cols-2 gap-6 mt-6">
+      <div class="bg-white text-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+       <div class="absolute top-0 left-0 w-full h-1 bg-red-500"></div>
+       <h3 class="text-2xl font-black text-red-600 mb-2">A ORDEM IMPORTA</h3>
+       <div class="text-sm text-slate-500 font-bold uppercase tracking-wide">É um Arranjo ($A$)</div>
+       <p class="mt-3 text-sm">Escolher "Ana" e depois "Beto" é diferente de escolher "Beto" e depois "Ana".</p>
+       <ul class="list-disc list-inside mt-3 text-sm font-bold text-slate-700">
+           <li>Senhas (123 é diferente de 321)</li>
+           <li>Pódio (1º, 2º e 3º lugar)</li>
+           <li>Cargos (Presidente e Vice)</li>
+           <li>Placas de carro</li>
+       </ul>
+      </div>
+
+      <div class="bg-white text-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+       <div class="absolute top-0 left-0 w-full h-1 bg-emerald-500"></div>
+       <h3 class="text-2xl font-black text-emerald-600 mb-2">A ORDEM NÃO IMPORTA</h3>
+       <div class="text-sm text-slate-500 font-bold uppercase tracking-wide">É uma Combinação ($C$)</div>
+       <p class="mt-3 text-sm">O grupo formado por "Ana e Beto" é exatamente o mesmo grupo formado por "Beto e Ana".</p>
+       <ul class="list-disc list-inside mt-3 text-sm font-bold text-slate-700">
+           <li>Comissões e Equipes</li>
+           <li>Sorteios (Mega-Sena)</li>
+           <li>Salada de frutas (Maçã e Banana)</li>
+           <li>Grupos de estudo</li>
+       </ul>
+      </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Arranjo Simples ($A_{n,p}$)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">Usado para organizar \(p\) elementos escolhidos a partir de um total de \(n\) elementos, onde a <b>ordem importa</b>.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    \[ A_{n,p} = \frac{n!}{(n-p)!} \]
+   </div>
+   <div class="bg-slate-50 rounded-xl p-4 mt-4 text-sm">
+       <b>Exemplo:</b> Uma corrida de 10 carros. Quantos pódios (1º, 2º, 3º) diferentes podem existir?
+       <div class="text-center mt-2">
+           \[ A_{10,3} = \frac{10!}{(10-3)!} = \frac{10!}{7!} = 10 \cdot 9 \cdot 8 = 720 \]
+       </div>
+       <div class="text-xs text-orange-600 font-bold mt-2 text-center">* Dica: É o mesmo que usar o PFC: 10 opções pro 1º $\times$ 9 pro 2º $\times$ 8 pro 3º.</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">Combinação Simples ($C_{n,p}$)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">Usado para escolher um grupo de \(p\) elementos a partir de um total de \(n\) elementos, onde a <b>ordem NÃO importa</b>.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    \[ C_{n,p} = \frac{n!}{p!(n-p)!} \]
+   </div>
+   <div class="bg-slate-50 rounded-xl p-4 mt-4 text-sm">
+       <b>Por que tem esse $p!$ extra embaixo?</b> Ele serve para "apagar" as cópias! (Apaga a diferença entre AB e BA).<br><br>
+       <b>Exemplo:</b> Formar uma dupla com 5 alunos.
+       <div class="text-center mt-1">
+           \[ C_{5,2} = \frac{5!}{2!(5-2)!} = \frac{5!}{2! \cdot 3!} = \frac{5 \cdot 4 \cdot 3!}{2 \cdot 1 \cdot 3!} = 10 \]
+       </div>
+   </div>
+  </article>
+ </div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">7</span><h2 class="text-xl font-black">Checklist de Sobrevivência</h2></div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 text-sm">
+   <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 text-orange-900">
+     <b>① Vou usar todos os elementos?</b><br>Se sim (ex: embaralhar letras de uma palavra), use Permutação. Lembre de dividir se houver repetição.
+   </div>
+   <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 text-orange-900">
+     <b>② Vou escolher apenas alguns?</b><br>Faça o teste: Troque a ordem de dois escolhidos. A natureza do que foi formado mudou?
+   </div>
+   <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 text-orange-900">
+     <b>③ Mudou = Arranjo (ou PFC)</b><br>A ordem das escolhas criou um resultado distinto (senhas, posições). Use \(A_{n,p}\).
+   </div>
+   <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 text-orange-900">
+     <b>④ Não Mudou = Combinação</b><br>A ordem não afetou o resultado final (equipes, sucos, sorteios). Use \(C_{n,p}\).
+   </div>
+  </div>
+ </article>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-orange-600">O Gerador Visual</span>
+   <h1 class="text-3xl font-black mt-2">Por que Arranjo é maior que Combinação?</h1>
+   <p class="text-slate-600 mt-2">Escolha um grupo total de itens (\(N\)) e quantos você quer selecionar (\(P\)). Compare visualmente todas as possibilidades geradas para ver a diferença prática entre Ordem Importante vs Ordem Não Importante.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="space-y-4">
+       <div>
+           <label class="font-bold text-sm block">Elementos Disponíveis (N): <span id="lab-n-val" class="text-orange-600">4</span></label>
+           <input type="range" id="lab-n" min="2" max="6" value="4" class="w-full mt-2 accent-orange-600">
+           <div id="lab-elements" class="flex gap-1 mt-2 text-xl"></div>
+       </div>
+       <div>
+           <label class="font-bold text-sm block">Tamanho da Escolha (P): <span id="lab-p-val" class="text-orange-600">2</span></label>
+           <input type="range" id="lab-p" min="1" max="4" value="2" class="w-full mt-2 accent-orange-600">
+       </div>
+       <div class="pt-4 border-t border-slate-100">
+           <div class="bg-red-50 p-3 rounded-lg border border-red-100 mb-2">
+               <div class="text-xs font-bold text-red-800 uppercase">Arranjo ($A_{n,p}$)</div>
+               <div id="lab-arr-count" class="text-xl font-black text-red-600">0</div>
+           </div>
+           <div class="bg-emerald-50 p-3 rounded-lg border border-emerald-100">
+               <div class="text-xs font-bold text-emerald-800 uppercase">Combinação ($C_{n,p}$)</div>
+               <div id="lab-com-count" class="text-xl font-black text-emerald-600">0</div>
+           </div>
+       </div>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm h-[500px] overflow-y-auto flex flex-col">
+    <div class="grid grid-cols-2 gap-4 h-full">
+        <div class="border-r pr-4">
+            <h3 class="font-bold text-center text-red-700 mb-4 sticky top-0 bg-white py-2 border-b">Arranjos (A ≠ B)</h3>
+            <div id="lab-arr-box" class="flex flex-wrap justify-center gap-1"></div>
+        </div>
+        <div class="pl-2">
+            <h3 class="font-bold text-center text-emerald-700 mb-4 sticky top-0 bg-white py-2 border-b">Combinações (A = B)</h3>
+            <div id="lab-com-box" class="flex flex-wrap justify-center gap-1"></div>
+        </div>
+    </div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-orange-600">Assistentes de Cálculo</span>
+   <h1 class="text-3xl font-black mt-2">Soluções Passo a Passo</h1>
+   <p class="text-slate-600 mt-2">Compreenda como as divisões fatoriais acontecem "por debaixo dos panos".</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Simplificador de Fatoriais</h2>
+   <p class="text-xs text-slate-500 mb-4">Calcula e simplifica expressões do tipo \( \frac{N!}{M!} \).</p>
+   
+   <div class="flex items-center gap-4 mb-4">
+       <div class="flex-1 text-center">
+           <input id="tool-fat-n" type="number" min="0" max="15" value="8" class="w-full text-center text-lg font-bold border-b-2 border-slate-300 focus:border-orange-500 outline-none">
+           <div class="h-1 bg-slate-800 my-1"></div>
+           <input id="tool-fat-m" type="number" min="0" max="15" value="5" class="w-full text-center text-lg font-bold border-b-2 border-slate-300 focus:border-orange-500 outline-none">
+       </div>
+       <button onclick="calcToolFat()" class="bg-orange-600 hover:bg-orange-700 text-white rounded-xl px-6 py-3 font-bold transition">Simplificar</button>
+   </div>
+   <div id="tool-fat-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Arranjo & Combinação</h2>
+   <p class="text-xs text-slate-500 mb-4">Veja a aplicação completa da fórmula para $A_{n,p}$ ou $C_{n,p}$.</p>
+   
+   <div class="grid grid-cols-[auto_1fr_auto_1fr] items-center gap-2 mb-4 font-bold">
+      <select id="tool-ac-type" class="p-2 border rounded-xl bg-slate-50 text-lg">
+          <option value="A">Arranjo (A)</option>
+          <option value="C">Combinação (C)</option>
+      </select>
+      <input id="tool-ac-n" type="number" min="1" max="20" value="10" placeholder="n" class="w-full border rounded-xl p-2 text-center text-lg"> 
+      <span class="text-xl">,</span>
+      <input id="tool-ac-p" type="number" min="1" max="20" value="3" placeholder="p" class="w-full border rounded-xl p-2 text-center text-lg">
+   </div>
+   <button onclick="calcToolAC()" class="w-full bg-slate-800 hover:bg-slate-900 transition text-white rounded-xl py-3 font-bold">Calcular Fórmula</button>
+   <div id="tool-ac-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+     <div>
+       <span class="text-xs font-bold uppercase tracking-widest text-orange-600">Treino progressivo</span>
+       <h1 class="text-3xl font-black mt-2">100 Exercícios com Resolução</h1>
+       <p class="text-slate-600 mt-2">Dica: Se o número for muito grande (ex: $10!$), responda apenas o valor numérico reduzido se for possível, ou use as dicas de resolução.</p>
+     </div>
+     <div class="min-w-[210px]">
+       <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+       <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-orange-600 rounded-full transition-all duration-500" style="width:0%"></div></div>
+     </div>
+   </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 1 (Fatorial)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 2 (PFC)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 3 (Permutações)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 4 (Arranjos)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 5 (Combinações)</button>
+   <button data-level="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 6 (Desafios)</button>
+  </div>
+ </div>
+ 
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo educacional de Matemática • Renderizado com KaTeX</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function mathInline(latex){return String.raw`\(${latex}\)`}
+function mathDisplay(latex){return String.raw`\[${latex}\]`}
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Utils Fatorial
+function fat(n) { if (n === 0 || n === 1) return 1; let r = 1; for(let i = 2; i <= n; i++) r *= i; return r; }
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+    const t=btn.dataset.tab;
+    sections.forEach(s => $('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active',b===btn));
+    if(t==='exercicios') renderExercises();
+    if(t==='laboratorio') initLab();
+}));
+
+// --- LABORATÓRIO VISUAL ---
+let labInited = false;
+const colors = ['bg-blue-500', 'bg-red-500', 'bg-emerald-500', 'bg-amber-500', 'bg-purple-500', 'bg-pink-500'];
+const labels = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+function initLab() {
+  if(!labInited) {
+    $('lab-n').addEventListener('input', () => {
+        let n = parseInt($('lab-n').value);
+        let p = parseInt($('lab-p').value);
+        if(p > n) $('lab-p').value = n; // P não pode ser maior que N
+        updateLab();
+    });
+    $('lab-p').addEventListener('input', () => {
+        let n = parseInt($('lab-n').value);
+        let p = parseInt($('lab-p').value);
+        if(p > n) $('lab-p').value = n; // P não pode ser maior que N
+        updateLab();
+    });
+    labInited = true;
+  }
+  updateLab();
+}
+
+function getCombinations(arr, k) {
+    let i, j, combs, head, tailcombs;
+    if (k > arr.length || k <= 0) return [];
+    if (k === arr.length) return [arr];
+    if (k === 1) {
+        combs = [];
+        for (i = 0; i < arr.length; i++) combs.push([arr[i]]);
+        return combs;
+    }
+    combs = [];
+    for (i = 0; i < arr.length - k + 1; i++) {
+        head = arr.slice(i, i + 1);
+        tailcombs = getCombinations(arr.slice(i + 1), k - 1);
+        for (j = 0; j < tailcombs.length; j++) combs.push(head.concat(tailcombs[j]));
+    }
+    return combs;
+}
+
+function getPermutations(arr, k) {
+    let result = [];
+    function permute(curr, remaining) {
+        if (curr.length === k) { result.push(curr); return; }
+        for (let i = 0; i < remaining.length; i++) {
+            permute(curr.concat([remaining[i]]), remaining.slice(0, i).concat(remaining.slice(i + 1)));
+        }
+    }
+    permute([], arr);
+    return result;
+}
+
+function updateLab() {
+    let n = parseInt($('lab-n').value);
+    let p = parseInt($('lab-p').value);
+    $('lab-n-val').innerText = n;
+    $('lab-p-val').innerText = p;
+
+    let elementsHtml = '';
+    let arr = [];
+    for(let i=0; i<n; i++) {
+        elementsHtml += `<div class="comb-item text-white ${colors[i]} shadow-sm">${labels[i]}</div>`;
+        arr.push({l: labels[i], c: colors[i]});
+    }
+    $('lab-elements').innerHTML = elementsHtml;
+
+    // Calcular Arrays
+    let combinations = getCombinations(arr, p);
+    let arrangements = getPermutations(arr, p);
+
+    $('lab-com-count').innerText = combinations.length;
+    $('lab-arr-count').innerText = arrangements.length;
+
+    function renderBox(items) {
+        return items.map(group => {
+            let inner = group.map(x => `<div class="comb-item text-white text-xs w-6 h-6 ${x.c}">${x.l}</div>`).join('');
+            return `<div class="comb-box flex">${inner}</div>`;
+        }).join('');
+    }
+
+    $('lab-com-box').innerHTML = renderBox(combinations);
+    $('lab-arr-box').innerHTML = renderBox(arrangements);
+}
+
+// --- FERRAMENTAS ---
+function calcToolFat() {
+    let n = parseInt($('tool-fat-n').value);
+    let m = parseInt($('tool-fat-m').value);
+    let out = $('tool-fat-out');
+    
+    if (isNaN(n) || isNaN(m) || n < 0 || m < 0) {
+        out.innerHTML = '<div class="warning rounded p-3">Valores inválidos (n e m devem ser >= 0).</div>';
+        out.classList.remove('hidden'); return;
+    }
+
+    let maior = Math.max(n, m);
+    let menor = Math.min(n, m);
+    
+    let parts = [];
+    for(let i = maior; i > menor; i--) parts.push(i);
+    
+    let prod = 1;
+    parts.forEach(x => prod *= x);
+    
+    let html = '';
+    if(n === m) {
+        html = `
+        <div class="step" data-step="1">A expressão é ${mathInline(`\\frac{${n}!}{${m}!}`)}.</div>
+        <div class="step mt-3" data-step="2">Como são iguais, o resultado da divisão é simplesmente 1.</div>
+        <div class="success p-4 rounded-xl mt-4 font-bold text-center text-lg">Resultado: 1</div>
+        `;
+    } else if (n > m) {
+        html = `
+        <div class="step" data-step="1">A expressão é ${mathInline(`\\frac{${n}!}{${m}!}`)}.</div>
+        <div class="step mt-3" data-step="2">O maior é ${n}!. Vamos desenrolá-o até chegar ao ${m}!.</div>
+        <div class="step mt-3" data-step="3">${mathDisplay(`\\frac{${parts.join(' \\times ')} \\times ${m}!}{${m}!}`)}</div>
+        <div class="step mt-3" data-step="4">Cortando os fatoriais iguais, sobra apenas: ${mathInline(parts.join(' \\times '))}.</div>
+        <div class="success p-4 rounded-xl mt-4 font-bold text-center text-lg">Resultado: ${prod}</div>
+        `;
+    } else { // m > n
+        html = `
+        <div class="step" data-step="1">A expressão é ${mathInline(`\\frac{${n}!}{${m}!}`)}. O maior está embaixo.</div>
+        <div class="step mt-3" data-step="2">Desenrolando o ${m}! debaixo até o ${n}!.</div>
+        <div class="step mt-3" data-step="3">${mathDisplay(`\\frac{${n}!}{${parts.join(' \\times ')} \\times ${n}!}`)}</div>
+        <div class="step mt-3" data-step="4">Cortando, sobra ${mathInline(`1`)} no numerador: ${mathInline(`\\frac{1}{${parts.join(' \\times ')}}`)}.</div>
+        <div class="success p-4 rounded-xl mt-4 font-bold text-center text-lg">Resultado: ${mathInline(`\\frac{1}{${prod}}`)}</div>
+        `;
+    }
+    
+    out.innerHTML = html;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+function calcToolAC() {
+    let t = $('tool-ac-type').value;
+    let n = parseInt($('tool-ac-n').value);
+    let p = parseInt($('tool-ac-p').value);
+    let out = $('tool-ac-out');
+
+    if (isNaN(n) || isNaN(p) || n <= 0 || p <= 0) return;
+    if (p > n) {
+        out.innerHTML = '<div class="warning rounded p-3">O valor de p não pode ser maior que n (você não pode escolher mais itens do que o total disponível).</div>';
+        out.classList.remove('hidden'); return;
+    }
+
+    let html = '';
+    let dif = n - p;
+
+    if (t === 'A') {
+        let ans = fat(n) / fat(dif);
+        html = `
+        <div class="step" data-step="1">Fórmula do Arranjo: ${mathDisplay(`A_{${n},${p}} = \\frac{${n}!}{(${n}-${p})!} = \\frac{${n}!}{${dif}!}`)}</div>
+        <div class="step mt-3" data-step="2">Isso significa "Desenrolar o ${n} apenas ${p} vezes".</div>
+        <div class="success p-4 rounded-xl mt-4 font-bold text-center text-lg">A = ${ans}</div>
+        `;
+    } else {
+        let ans = fat(n) / (fat(p) * fat(dif));
+        html = `
+        <div class="step" data-step="1">Fórmula da Combinação: ${mathDisplay(`C_{${n},${p}} = \\frac{${n}!}{${p}!(${n}-${p})!} = \\frac{${n}!}{${p}! \\cdot ${dif}!}`)}</div>
+        <div class="step mt-3" data-step="2">O maior fatorial embaixo é ${Math.max(p, dif)}!. Vamos cortar o numerador com ele.</div>
+        <div class="step mt-3" data-step="3">O outro fatorial do denominador divide o resultado.</div>
+        <div class="success p-4 rounded-xl mt-4 font-bold text-center text-lg">C = ${ans}</div>
+        `;
+    }
+
+    out.innerHTML = html;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+// --- 100 EXERCÍCIOS DENSAMENTE FORMATADOS ---
+// Formato: id|level|title|expression|answer|type|question_text
+
+const rawExercises = [
+  // NÍVEL 1: Fatorial (1 a 15)
+  "1|1|Fatorial Simples|3!|6|fat|Qual o valor de \\(3!\\)?",
+  "2|1|Fatorial Simples|4!|24|fat|Qual o valor de \\(4!\\)?",
+  "3|1|Fatorial Simples|5!|120|fat|Qual o valor de \\(5!\\)?",
+  "4|1|Fatorial Simples|6!|720|fat|Qual o valor de \\(6!\\)?",
+  "5|1|Convenção|0!|1|fat|Qual o valor de \\(0!\\)?",
+  "6|1|Convenção|1!|1|fat|Qual o valor de \\(1!\\)?",
+  "7|1|Soma de Fatoriais|3! + 2!|8|fat|Qual o resultado da soma?",
+  "8|1|Soma de Fatoriais|4! + 0!|25|fat|Lembre-se do valor de \\(0!\\).",
+  "9|1|Subtração de Fatoriais|5! - 4!|96|fat|Calcule a diferença.",
+  "10|1|Divisão Simples|\\frac{5!}{4!}|5|fat_div|Simplifique.",
+  "11|1|Divisão Simples|\\frac{6!}{5!}|6|fat_div|Simplifique.",
+  "12|1|Divisão Simples|\\frac{10!}{9!}|10|fat_div|Simplifique.",
+  "13|1|Simplificação Clássica|\\frac{7!}{5!}|42|fat_div|Dica: Pare no 5! e corte.",
+  "14|1|Simplificação Clássica|\\frac{8!}{6!}|56|fat_div|Dica: Desenrole até o 6!.",
+  "15|1|Expressão Mista|\\frac{4! \\times 3!}{2!}|72|fat_mix|Calcule com calma.",
+
+  // NÍVEL 2: Princípio Fundamental da Contagem (PFC) (16 a 30)
+  "16|2|Roupas|3 \\text{ blusas} \\times 2 \\text{ calças}|6|pfc|De quantas formas se vestir usando 1 de cada?",
+  "17|2|Lanches|4 \\text{ pães} \\times 3 \\text{ queijos}|12|pfc|Quantos sanduíches possíveis?",
+  "18|2|Trajetos|A \\to B (3 \\text{ rotas}), B \\to C (4 \\text{ rotas})|12|pfc|Quantas formas de ir de A até C?",
+  "19|2|Dados|2 \\text{ dados de 6 faces}|36|pfc|Quantos resultados possíveis ao jogar 2 dados?",
+  "20|2|Moedas|3 \\text{ moedas (cara/coroa)}|8|pfc|Quantos resultados possíveis? (Dica: 2x2x2)",
+  "21|2|Placas Antigas|3 \\text{ letras} (26) \\times 4 \\text{ números} (10)|175760000|pfc|Opcional: Apenas entenda o princípio (26^3 * 10^4).",
+  "22|2|Senha de Banco|4 \\text{ dígitos numéricos (0-9)}|10000|pfc|Pode repetir. Quantas senhas possíveis?",
+  "23|2|Senha sem repetição|4 \\text{ dígitos numéricos distintos}|5040|pfc|Dica: 10 x 9 x 8 x 7.",
+  "24|2|Cadeiras|5 \\text{ pessoas em } 2 \\text{ cadeiras}|20|pfc|Quantas formas diferentes? (5x4)",
+  "25|2|Restaurante|5 \\text{ pratos} \\times 4 \\text{ bebidas} \\times 3 \\text{ doces}|60|pfc|Quantas refeições completas?",
+  "26|2|Questões VF|10 \\text{ questões de Verdadeiro/Falso}|1024|pfc|Quantos gabaritos possíveis? (2^10)",
+  "27|2|Questões Múltipla|5 \\text{ questões de 4 alternativas}|1024|pfc|Quantos gabaritos possíveis? (4^5)",
+  "28|2|Pintura|Bandeira de 3 listras com 5 cores|60|pfc|Cores adjacentes diferentes (5 x 4 x 4).",
+  "29|2|Regra do OU|3 \\text{ camisas OU } 4 \\text{ regatas}|7|pfc|De quantas formas escolher UMA peça de cima?",
+  "30|2|Filmes|2 \\text{ de ação, } 3 \\text{ de comédia}|5|pfc|Quantas formas de escolher exatamente UM filme para ver hoje?",
+
+  // NÍVEL 3: Permutação (31 a 50)
+  "31|3|Permutação Básica|P_3|6|perm|Quantas formas de alinhar 3 pessoas?",
+  "32|3|Permutação Básica|P_4|24|perm|Quantas formas de alinhar 4 pessoas?",
+  "33|3|Permutação Básica|P_5|120|perm|Quantos anagramas tem a palavra LIVRO?",
+  "34|3|Permutação Básica|P_6|720|perm|Quantos anagramas tem a palavra CANETA?",
+  "35|3|Fila|Fila de 7 pessoas|5040|perm|Calcule \\(7!\\).",
+  "36|3|Anagrama com Restrição|LIVRO (começa com L)|24|perm_rest|Fixe o L e permute o resto (\\(4!\\)).",
+  "37|3|Anagrama com Restrição|BRASIL (termina em L)|120|perm_rest|Fixe o L no fim e permute as outras (\\(5!\\)).",
+  "38|3|Letras Juntas (Bloco)|AMIGO (A e M juntos)|48|perm_rest|Trate AM como um bloco: \\(4! \\times 2!\\).",
+  "39|3|Letras Juntas (Bloco)|LIVRO (L, I, V juntos)|36|perm_rest|Bloco LIV: \\(3! \\times 3!\\).",
+  "40|3|Repetição|P_4^{2}|12|perm_rep|Anagramas de BOLO (2 'O's). (4! / 2!)",
+  "41|3|Repetição|P_5^{2}|60|perm_rep|Anagramas de PRATA (2 'A's). (5! / 2!)",
+  "42|3|Repetição|P_5^{3}|20|perm_rep|Anagramas de ARARA (3 'A's, 2 'R's). (5! / (3! 2!))",
+  "43|3|Repetição|P_6^{3}|120|perm_rep|Anagramas de BATATA (3 'A's, 2 'T's).",
+  "44|3|Repetição|P_6^{2,2}|180|perm_rep|Anagramas de MACACA (3 'A's, 2 'C's).", // Ops, MACACA tem 6 letras, 3 A, 2 C, 1 M -> 6! / (3!*2!) = 720 / 12 = 60
+  "45|3|Repetição Simplificada|P_7^{3,2,2}|210|perm_rep|Anagramas de BANANAS (3 A, 2 N). (7! / (3!*2!))", // 7! / (3!2!) = 5040 / 12 = 420. Corrigido para 420 abaixo.
+  "46|3|Permutação Circular|PC_3|2|perm_circ|Roda de 3 pessoas. Formula: \\((n-1)!\\)",
+  "47|3|Permutação Circular|PC_4|6|perm_circ|Roda de 4 pessoas.",
+  "48|3|Permutação Circular|PC_5|24|perm_circ|Roda de 5 pessoas.",
+  "49|3|Permutação Circular|PC_6|120|perm_circ|Mesa redonda com 6 cadeiras.",
+  "50|3|Mesa com casal|PC_6 (casal junto)|48|perm_circ|Trate o casal como 1 (PC_5) * permuta casal (2!).",
+
+  // NÍVEL 4: Arranjos (Ordem Importa) (51 a 70)
+  "51|4|Fórmula Direta|A_{4,2}|12|arr|Calcule.",
+  "52|4|Fórmula Direta|A_{5,2}|20|arr|Calcule.",
+  "53|4|Fórmula Direta|A_{6,2}|30|arr|Calcule.",
+  "54|4|Fórmula Direta|A_{7,3}|210|arr|Calcule.",
+  "55|4|Fórmula Direta|A_{5,3}|60|arr|Calcule.",
+  "56|4|Fórmula Direta|A_{10,2}|90|arr|Calcule.",
+  "57|4|Pódio|10 \\text{ atletas, Top } 3|720|arr|De quantas formas formar o pódio?",
+  "58|4|Diretoria|8 \\text{ pessoas, } 2 \\text{ cargos (Pres, Sec)}|56|arr|Quantas diretorias possíveis?",
+  "59|4|Senhas|5 \\text{ números, senha de } 3 \\text{ distintos}|60|arr|Quantas senhas possíveis?",
+  "60|4|Bandeiras|7 \\text{ cores para } 3 \\text{ listras}|210|arr|Listras de cores diferentes.",
+  "61|4|Fotografia|6 \\text{ amigos para } 4 \\text{ lugares no sofá}|360|arr|A ordem no sofá importa.",
+  "62|4|Músicas|10 \\text{ músicas, escolher } 3 \\text{ em ordem}|720|arr|Montar playlist importa a ordem.",
+  "63|4|Fórmula Direta|A_{8,2}|56|arr|Calcule.",
+  "64|4|Fórmula Direta|A_{4,3}|24|arr|Calcule.",
+  "65|4|Fórmula Direta|A_{4,4}|24|arr|Note que \\(A_{n,n} = P_n\\).",
+  "66|4|Fórmula Direta|A_{5,1}|5|arr|Calcular.",
+  "67|4|Cadeados|Cadeado numérico de 3 discos (0-9)|1000|pfc|Cuidado! Cadeado tem reposição (não é arranjo simples).",
+  "68|4|Eleição|5 \\text{ candidatos, } 2 \\text{ vagas distintas}|20|arr|Prefeito e Vice.",
+  "69|4|Torneio|20 \\text{ times, } 1º \\text{ e } 2º|380|arr|Campeão e Vice.",
+  "70|4|Letras|Palavra de 4 letras usando A,B,C,D,E,F sem repetir|360|arr|\\(A_{6,4}\\)",
+
+  // NÍVEL 5: Combinações (Ordem Não Importa) (71 a 85)
+  "71|5|Fórmula Direta|C_{4,2}|6|comb|Calcule.",
+  "72|5|Fórmula Direta|C_{5,2}|10|comb|Calcule.",
+  "73|5|Fórmula Direta|C_{6,2}|15|comb|Calcule.",
+  "74|5|Fórmula Direta|C_{7,2}|21|comb|Calcule.",
+  "75|5|Fórmula Direta|C_{5,3}|10|comb|Calcule.",
+  "76|5|Fórmula Direta|C_{6,3}|20|comb|Calcule.",
+  "77|5|Fórmula Direta|C_{10,2}|45|comb|Calcule.",
+  "78|5|Equipes|De 8 alunos, formar grupo de 3|56|comb|A ordem no grupo não importa.",
+  "79|5|Suco|5 \\text{ frutas, vitamina de } 2|10|comb|A ordem das frutas na batedeira não altera a vitamina.",
+  "80|5|Aperto de mão|10 \\text{ pessoas, todos se cumprimentam}|45|comb|Cada cumprimento é uma dupla única \\(C_{10,2}\\).",
+  "81|5|Loteria mini|Sorteio de 2 números entre 6 possíveis|15|comb|Como na Mega-Sena.",
+  "82|5|Cartas|De 10 cartas, comprar 2|45|comb|A mão inicial de cartas.",
+  "83|5|Pontos|4 \\text{ pontos no plano (não colineares)}|6|comb|Quantas retas diferentes passam por eles? (Duplas).",
+  "84|5|Triângulos|5 \\text{ pontos no plano (não colineares)}|10|comb|Quantos triângulos? (Trincas).",
+  "85|5|Propriedade|C_{7,5}|21|comb|Dica: \\(C_{7,5} = C_{7,2}\\) (Propriedade das complementares).",
+
+  // NÍVEL 6: Desafios e Múltiplas Etapas (86 a 100)
+  "86|6|Misto - Arranjo ou Combinação?|Comissão de 4 pessoas de um grupo de 10|210|comb|Identifique e calcule.",
+  "87|6|Misto - Arranjo ou Combinação?|Senha de 4 dígitos sem repetir de 0-9|5040|arr|Identifique e calcule.",
+  "88|6|Grupos Separados|3 \\text{ homens (de 5) e } 2 \\text{ mulheres (de 4)}|60|mix|Calcule as combinações separadas e multiplique (Regra do E).",
+  "89|6|Grupos Separados|2 \\text{ médicos (de 4) e } 2 \\text{ enfermeiros (de 5)}|60|mix|\\(C_{4,2} \\times C_{5,2}\\)",
+  "90|6|Pelo menos um|Comissão de 3 (de 5H e 4M) com pelo menos 1M|74|mix|Dica: (Total de comissões) - (Comissões só de homens).",
+  "91|6|Casais|3 \\text{ casais em banco de 6 (casal sempre junto)}|48|perm_circ|\\(3! \\times 2^3\\).",
+  "92|6|Fórmula|C_{100,99}|100|comb|Escolher 99 é o mesmo que deixar 1 de fora.",
+  "93|6|Fórmula|C_{20,20}|1|comb|Quantos grupos com todos?",
+  "94|6|Fórmula|A_{5,5}|120|arr|Igual a \\(P_5\\).",
+  "95|6|Anagrama duplo|A e B juntos e C e D juntos (numa palavra de 6 letras)|144|mix|Permutação com vários blocos.",
+  "96|6|Combinação|C_{8,2} + C_{8,3}|84|mix|Some os valores.",
+  "97|6|Fatorial Eq|x! = 24|4|fat_eq|Qual o valor de x?",
+  "98|6|Fatorial Eq|(x+1)! = 120|4|fat_eq|Qual o valor de x?",
+  "99|6|Arranjo Eq|A_{x,2} = 12|4|arr_eq|Dica: \\(x(x-1) = 12\\).",
+  "100|6|Combinação Eq|C_{x,2} = 10|5|comb_eq|Dica: \\(x(x-1)/2 = 10\\)."
+];
+
+// Correção pontual de gabaritos problemáticos descritos nos comentários
+rawExercises[43] = "44|3|Repetição|P_6^{3,2}|60|perm_rep|Anagramas de MACACA (3 'A's, 2 'C's). (6! / (3!*2!))";
+rawExercises[44] = "45|3|Repetição Simplificada|P_7^{3,2}|420|perm_rep|Anagramas de BANANAS (3 A, 2 N). (7! / (3!*2!))";
+
+const E = rawExercises.map(line => {
+  const p = line.split('|');
+  return { id: parseInt(p[0]), level: parseInt(p[1]), title: p[2], expr: p[3], ans: p[4], type: p[5], q: p[6] };
+});
+
+function solutionSteps(ex){
+  const S=[];
+  if(ex.type.startsWith('fat')){
+    S.push(['1','O fatorial (n!) significa multiplicar o número por todos os menores que ele até o 1.']);
+    S.push(['2','Se for divisão, desenrole o maior fatorial de cima até encontrar o de baixo, para cancelar.']);
+    S.push(['3',`Resultado calculado: \\( ${ex.ans} \\).`]);
+  }
+  else if(ex.type === 'pfc'){
+    S.push(['1','Identifique as etapas independentes.']);
+    S.push(['2','Aplique a Regra do "E": se você tem que escolher uma blusa E uma calça, você multiplica.']);
+    S.push(['3',`A multiplicação das opções gera \\( ${ex.ans} \\).`]);
+  }
+  else if(ex.type.startsWith('perm')){
+    S.push(['1','Todos os elementos serão usados trocando de posição. É Permutação.']);
+    S.push(['2','Se houver restrição (como ficar junto), trate como um bloco único. Se for círculo, use \\( (n-1)! \\).']);
+    if(ex.type==='perm_rep') S.push(['3','Para repetições, divida o total pelo fatorial da quantidade de cada letra repetida.']);
+    S.push(['4',`Valor final: \\( ${ex.ans} \\).`]);
+  }
+  else if(ex.type.startsWith('arr')){
+    S.push(['1','Teste: A ordem importa? Sim (cargos, senhas, pódio). Logo, Arranjo.']);
+    S.push(['2','Fórmula: \\( A_{n,p} = \\frac{n!}{(n-p)!} \\) ou simplesmente faça os tracinhos do PFC.']);
+    S.push(['3',`Valor final: \\( ${ex.ans} \\).`]);
+  }
+  else if(ex.type.startsWith('comb')){
+    S.push(['1','Teste: A ordem importa? Não (equipes, sorteios). Logo, Combinação.']);
+    S.push(['2','Fórmula: \\( C_{n,p} = \\frac{n!}{p!(n-p)!} \\). O \\( p! \\) embaixo apaga as cópias repetidas.']);
+    S.push(['3',`Valor final: \\( ${ex.ans} \\).`]);
+  }
+  else {
+    S.push(['1','Este é um problema de múltiplas etapas ou interpretação reversa.']);
+    S.push(['2','Divida o problema, calcule cada pedaço e multiplique-os (se for a regra do E).']);
+    S.push(['3',`Gabarito final encontrado: \\( ${ex.ans} \\).`]);
+  }
+  return S;
+}
+
+let solved = new Set(JSON.parse(localStorage.getItem('combSolved')||'[]'));
+let currentLevel = 'all';
+
+function renderExercises(){
+  let list = E.filter(e => (currentLevel==='all' || e.level == currentLevel));
+  
+  $('exercise-list').innerHTML=list.map(ex=>{
+    const done = solved.has(ex.id);
+    return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between gap-3">
+          <span class="text-xs font-black px-2.5 py-1 rounded-full bg-orange-50 text-orange-700">Q. ${ex.id}</span>
+          <span class="text-xs text-slate-400">${ex.title}</span>
+        </div>
+        <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-4 text-center overflow-x-auto min-h-[80px] flex items-center justify-center">
+          ${mathDisplay(ex.expr)}
+        </div>
+        <div class="text-sm font-bold text-slate-600 mt-4">${ex.q}</div>
+      </div>
+      
+      <div class="mt-4">
+        <div class="flex gap-2">
+          <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none" placeholder="Sua resposta numérica">
+          <button onclick="check(${ex.id})" class="bg-orange-600 hover:bg-orange-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Verificar</button>
+        </div>
+        <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px]"></div>
+        <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-orange-700 hover:underline">👁 Ver Resolução Guiada</button>
+        
+        <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+          <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Passo a Passo</div>
+          ${solutionSteps(ex).map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+          <div class="success rounded-xl p-3 mt-2 text-center font-bold">Gabarito: ${mathInline(ex.ans)}</div>
+        </div>
+      </div>
+    </article>`
+  }).join('');
+  
+  $('progress-text').textContent=`${solved.size} / 100`;
+  $('progress-bar').style.width=(solved.size)+'%';
+  renderAll();
+}
+
+function check(id){
+  const ex = E.find(x=>x.id===id);
+  // Pega a resposta, limpa espaços.
+  const raw = $('answer-'+id).value.trim().replace(/\s+/g, '').replace(',', '.');
+  const fb = $('feedback-'+id);
+  
+  if (raw === ex.ans) {
+    solved.add(id);
+    localStorage.setItem('combSolved',JSON.stringify([...solved]));
+    fb.className='text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent='✓ Certo! Lógica impecável.';
+  } else {
+    fb.className='text-sm font-bold mt-2 text-red-600';
+    fb.textContent='✗ Incorreto. Reveja a contagem.';
+  }
+  renderExercises();
+}
+
+function toggleSol(id){ $('solution-'+id).classList.toggle('hidden'); }
+
+document.querySelectorAll('.level-btn').forEach(b=>{
+  b.onclick = () => {
+    currentLevel = b.dataset.level;
+    document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderExercises();
+  }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+});
+</script>
+</body>
+</html>

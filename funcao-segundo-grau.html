@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Função do 2º Grau — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#4f46e5;background:#eef2ff;color:#312e81}
+  canvas{max-width:100%}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .sticky-mini{position:sticky;top:74px;z-index:20}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  .grid-paper{background-image:linear-gradient(#e5e7eb 1px,transparent 1px),linear-gradient(90deg,#e5e7eb 1px,transparent 1px);background-size:28px 28px}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">🌙 Função do 2º Grau</div><div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo, não decorando</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exemplos">💡 Exemplos</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Curso do zero</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Função do 2º Grau sem mistério</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">A função do 2º grau aparece toda vez que algo cresce e depois diminui (ou vice-versa) — como a altura de uma bola lançada ao ar. Seu gráfico é sempre uma curva chamada parábola. Você vai aprender a ler a fórmula, encontrar raízes, vértice e resolver problemas com confiança.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">8</b><div class="text-xs text-indigo-200">tópicos de teoria</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">30</b><div class="text-xs text-indigo-200">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">resolução detalhada</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">🔬</b><div class="text-xs text-indigo-200">gráfico interativo</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Como estudar:</b> leia a ideia, observe o gráfico, veja o exemplo resolvido na aba <b>Exemplos</b> e só depois tente os exercícios. A fórmula de Bhaskara parece grande, mas é sempre o mesmo procedimento — pratique com calma até ela ficar natural.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O que é uma função do 2º grau?</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">É uma função que pode ser escrita na forma \(f(x) = ax^2+bx+c\), onde \(a\), \(b\) e \(c\) são números fixos e \(a\) nunca pode ser zero (senão o \(x^2\) desaparece e ela deixa de ser do 2º grau).</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[f(x) = x^2 - 4x + 3\]</div>
+   <div class="bg-indigo-50 rounded-xl p-4 mt-4 text-sm">Aqui, \(a=1\), \(b=-4\) e \(c=3\).</div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">O gráfico é uma parábola</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">O coeficiente \(a\) decide para qual lado a parábola "abre":</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-emerald-50 rounded-xl p-4"><b>a > 0 → concavidade para cima</b> (parece um "U"). A função tem um ponto de <b>mínimo</b>.</div>
+    <div class="bg-red-50 rounded-xl p-4"><b>a < 0 → concavidade para baixo</b> (parece um "∩"). A função tem um ponto de <b>máximo</b>.</div>
+   </div>
+   <div class="my-4 flex justify-center"><div id="visual-parabola"></div></div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <h2 class="text-2xl font-black">3. Calculando o valor de f(x)</h2>
+  <p class="mt-3 text-slate-600 leading-7">Assim como na função do 1º grau, basta <b>substituir x pelo número</b> e resolver as contas — só que agora com um termo ao quadrado.</p>
+  <div class="paper rounded-2xl p-5 mt-4">
+   <div class="text-sm font-bold text-indigo-700 mb-3">EXEMPLO GUIADO</div>
+   <div class="grid md:grid-cols-2 gap-4 text-sm">
+    <div class="step" data-step="1"><b>Função:</b> \(f(x)=x^2-4x+3\). Calcule \(f(5)\).</div>
+    <div class="step" data-step="2"><b>Substitua x por 5:</b> \(f(5)=5^2-4\times5+3\).</div>
+    <div class="step" data-step="3"><b>Resolva:</b> \(25-20+3\).</div>
+    <div class="step" data-step="4"><b>Resultado:</b> \(f(5)=8\).</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. O discriminante (Δ)</h2>
+   <p class="mt-3 text-slate-600 leading-7">O discriminante é um número calculado a partir de \(a\), \(b\) e \(c\) que revela <b>quantas raízes reais</b> a função tem, antes mesmo de calculá-las.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[\Delta = b^2 - 4ac\]</div>
+   <div class="grid gap-2 mt-4 text-sm">
+    <div class="bg-emerald-50 rounded-xl p-3"><b>Δ > 0:</b> duas raízes reais diferentes.</div>
+    <div class="bg-amber-50 rounded-xl p-3"><b>Δ = 0:</b> uma raiz real (raiz "dupla").</div>
+    <div class="bg-red-50 rounded-xl p-3"><b>Δ < 0:</b> nenhuma raiz real (a parábola não toca o eixo x).</div>
+   </div>
+  </article>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">5. Fórmula de Bhaskara</h2>
+   <p class="mt-3 text-slate-600 leading-7">Depois de calcular Δ, encontramos as raízes (onde a parábola cruza o eixo x) com a fórmula de Bhaskara.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[x = \frac{-b \pm \sqrt{\Delta}}{2a}\]</div>
+   <div class="warning rounded-xl p-4 mt-3 text-sm">O símbolo \(\pm\) significa que existem duas contas: uma somando a raiz de Δ, outra subtraindo.</div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <h2 class="text-2xl font-black">6. Exemplo completo de Bhaskara</h2>
+  <div class="paper rounded-2xl p-5 mt-4">
+   <div class="text-sm font-bold text-indigo-700 mb-3">Resolva: \(x^2-5x+6=0\)</div>
+   <div class="grid md:grid-cols-2 gap-4 text-sm">
+    <div class="step" data-step="1"><b>Identifique:</b> \(a=1,\ b=-5,\ c=6\).</div>
+    <div class="step" data-step="2"><b>Calcule Δ:</b> \(\Delta=(-5)^2-4\times1\times6=25-24=1\).</div>
+    <div class="step" data-step="3"><b>Aplique Bhaskara:</b> \(x=\frac{-(-5)\pm\sqrt{1}}{2\times1}=\frac{5\pm1}{2}\).</div>
+    <div class="step" data-step="4"><b>Duas raízes:</b> \(x'=\frac{5+1}{2}=3\) e \(x''=\frac{5-1}{2}=2\).</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">7. O vértice da parábola</h2>
+   <p class="mt-3 text-slate-600 leading-7">O vértice é o ponto mais alto (se a<0) ou mais baixo (se a>0) da parábola — é o ponto de máximo ou mínimo da função.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[x_v = \frac{-b}{2a} \qquad y_v = f(x_v)\]</div>
+   <div class="bg-indigo-50 rounded-xl p-4 mt-3 text-sm">Também é comum calcular \(y_v = \frac{-\Delta}{4a}\), sem precisar substituir na função.</div>
+  </article>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">8. Eixo de simetria</h2>
+   <p class="mt-3 text-slate-600 leading-7">A parábola é <b>simétrica</b> em relação a uma linha vertical que passa pelo vértice: a reta \(x = x_v\). Os dois "lados" da parábola são espelhados nessa linha — inclusive as duas raízes, quando existem, ficam à mesma distância de \(x_v\).</p>
+   <div class="bg-amber-50 rounded-xl p-4 mt-4 text-sm">Em \(x^2-5x+6=0\), as raízes são 2 e 3. O eixo de simetria é \(x_v=\frac{2+3}{2}=2{,}5\) — exatamente no meio.</div>
+  </article>
+ </div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">Checklist para qualquer questão</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 text-sm">
+   <div class="bg-slate-50 rounded-xl p-4"><b>① Identifique</b><br>a, b e c da função.</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>② Decida o que calcular</b><br>Valor de f(x), Δ, raízes ou vértice?</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>③ Substitua com calma</b><br>Cuidado com sinais negativos ao elevar ao quadrado.</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>④ Confira</b><br>O sinal de a bate com máximo/mínimo?</div>
+  </div>
+ </article>
+</section>
+
+<!-- EXEMPLOS -->
+<section id="sec-exemplos" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Exemplos resolvidos</span><h1 class="text-3xl font-black mt-2">Veja o raciocínio completo, passo a passo</h1><p class="text-slate-600 mt-2">Antes de tentar os exercícios, acompanhe estes modelos com atenção.</p></div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 1 — Calcular f(x)</h2>
+  <p class="mt-2 text-slate-600">Dada \(f(x)=2x^2-3x+1\), calcule \(f(2)\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Substitua x por 2: \(f(2)=2\times2^2-3\times2+1\).</div>
+   <div class="step" data-step="2">Calcule a potência primeiro: \(2\times4-6+1\).</div>
+   <div class="step" data-step="3">\(8-6+1=3\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(f(2)=3\).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 2 — Calcular o discriminante</h2>
+  <p class="mt-2 text-slate-600">Calcule Δ para \(f(x)=x^2-2x-3\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Identifique: \(a=1,\ b=-2,\ c=-3\).</div>
+   <div class="step" data-step="2">\(\Delta=(-2)^2-4\times1\times(-3)\).</div>
+   <div class="step" data-step="3">\(4+12=16\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(\Delta=16\) (duas raízes reais).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 3 — Encontrar as raízes</h2>
+  <p class="mt-2 text-slate-600">Resolva \(x^2-2x-3=0\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Já sabemos (exemplo anterior) que \(\Delta=16\).</div>
+   <div class="step" data-step="2">Bhaskara: \(x=\frac{-(-2)\pm\sqrt{16}}{2\times1}=\frac{2\pm4}{2}\).</div>
+   <div class="step" data-step="3">Duas contas: \(x'=\frac{2+4}{2}=3\) e \(x''=\frac{2-4}{2}=-1\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> raízes 3 e -1.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 4 — Coordenadas do vértice</h2>
+  <p class="mt-2 text-slate-600">Encontre o vértice de \(f(x)=x^2-4x+3\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Calcule \(x_v\): \(x_v=\frac{-(-4)}{2\times1}=\frac{4}{2}=2\).</div>
+   <div class="step" data-step="2">Calcule \(y_v\) substituindo: \(f(2)=2^2-4\times2+3\).</div>
+   <div class="step" data-step="3">\(4-8+3=-1\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> vértice em \((2,-1)\), que é um ponto de mínimo (pois a=1>0).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 5 — Delta negativo (sem raízes reais)</h2>
+  <p class="mt-2 text-slate-600">Quantas raízes reais tem \(f(x)=x^2+x+1\)?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Identifique: \(a=1,\ b=1,\ c=1\).</div>
+   <div class="step" data-step="2">\(\Delta=1^2-4\times1\times1=1-4=-3\).</div>
+   <div class="step" data-step="3">Como \(\Delta<0\), não há raízes reais.</div>
+   <div class="step" data-step="4"><b>Resposta:</b> nenhuma raiz real — a parábola não toca o eixo x.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 6 — Problema de altura máxima</h2>
+  <p class="mt-2 text-slate-600">A altura de uma bola, em metros, é dada por \(h(t)=-5t^2+20t\), onde t é o tempo em segundos. Em que instante a bola atinge a altura máxima, e qual é essa altura?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">O instante da altura máxima é o vértice: \(t_v=\frac{-20}{2\times(-5)}=\frac{-20}{-10}=2\).</div>
+   <div class="step" data-step="2">Calcule a altura substituindo: \(h(2)=-5\times2^2+20\times2\).</div>
+   <div class="step" data-step="3">\(-5\times4+40=-20+40=20\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> aos 2 segundos, atingindo 20 metros de altura.</div>
+  </div>
+ </article>
+</section>
+
+<!-- LAB -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Laboratório visual</span><h1 class="text-3xl font-black mt-2">Veja a parábola se transformar</h1><p class="text-slate-600 mt-2">Mova os controles de a, b e c e observe como a curva, o vértice e as raízes mudam.</p></div>
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <label class="font-bold text-sm">a: <span id="lab-a-label" class="text-indigo-600">1</span></label><input id="lab-a" type="range" min="-3" max="3" step="0.5" value="1" class="w-full mt-3">
+   <label class="font-bold text-sm block mt-6">b: <span id="lab-b-label" class="text-indigo-600">-4</span></label><input id="lab-b" type="range" min="-8" max="8" step="1" value="-4" class="w-full mt-3">
+   <label class="font-bold text-sm block mt-6">c: <span id="lab-c-label" class="text-indigo-600">3</span></label><input id="lab-c" type="range" min="-8" max="8" step="1" value="3" class="w-full mt-3">
+   <div id="lab-info" class="mt-6 space-y-2 text-sm"></div>
+  </div>
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h3 class="font-black text-center">Gráfico</h3>
+   <div id="graph" class="flex justify-center mt-4"></div>
+   <div class="border-t mt-6 pt-5 text-center"><div id="lab-formula" class="text-2xl font-black"></div></div>
+  </div>
+ </div>
+ <div class="bg-indigo-950 text-white rounded-2xl p-6"><h2 class="font-black text-xl">Calculadora de Bhaskara</h2><p class="text-indigo-200 text-sm mt-1">Digite a, b e c para ver Δ e as raízes, passo a passo.</p>
+  <div class="grid sm:grid-cols-4 gap-3 mt-4 items-center">
+   <input id="bh-a" value="1" class="rounded-xl px-3 py-2 text-slate-900 text-center" placeholder="a">
+   <input id="bh-b" value="-5" class="rounded-xl px-3 py-2 text-slate-900 text-center" placeholder="b">
+   <input id="bh-c" value="6" class="rounded-xl px-3 py-2 text-slate-900 text-center" placeholder="c">
+   <button onclick="renderBhaskara()" class="bg-white text-indigo-900 rounded-xl py-2 font-bold">Resolver</button>
+  </div>
+  <div id="bh-out" class="mt-4 text-slate-900"></div>
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span><h1 class="text-3xl font-black mt-2">30 exercícios com resolução</h1><p class="text-slate-600 mt-2">Tente primeiro. Quando quiser conferir, clique em <b>Visualizar resposta e resolução</b>.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 30</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-indigo-600 rounded-full" style="width:0%"></div></div></div></div></div>
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters"><button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button><button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 1 · Calcular f(x)</button><button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 2 · Discriminante</button><button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 3 · Raízes (Bhaskara)</button><button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 4 · Vértice</button><button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 5 · Problemas</button><input id="search" placeholder="Buscar questão..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[180px]"></div></div>
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo de estudo de Função do 2º Grau • Fórmulas renderizadas em notação matemática</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})}
+
+const sections=['teoria','exemplos','laboratorio','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises();if(t==='laboratorio')updateLab()}));
+
+// ===== Gráfico da parábola (canvas com eixos) =====
+function drawParabola(canvas,a,b,c,size){
+ const W=size,H=size,scale=W/12;
+ canvas.width=W;canvas.height=H;
+ const ctx=canvas.getContext('2d');
+ ctx.clearRect(0,0,W,H);
+ const cx=W/2,cy=H/2;
+ ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
+ for(let i=-6;i<=6;i++){
+  ctx.beginPath();ctx.moveTo(cx+i*scale,0);ctx.lineTo(cx+i*scale,H);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(0,cy+i*scale);ctx.lineTo(W,cy+i*scale);ctx.stroke();
+ }
+ ctx.strokeStyle='#64748b';ctx.lineWidth=2;
+ ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(W,cy);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,H);ctx.stroke();
+ ctx.fillStyle='#243044';ctx.font='11px sans-serif';
+ for(let i=-6;i<=6;i+=2){if(i===0)continue;ctx.fillText(String(i),cx+i*scale-4,cy+14);ctx.fillText(String(-i),cx+4,cy-i*scale+4)}
+ function toPx(x,y){return [cx+x*scale, cy-y*scale]}
+ // desenha a curva
+ ctx.strokeStyle='#4f46e5';ctx.lineWidth=3;ctx.beginPath();
+ let first=true;
+ for(let xi=-600;xi<=600;xi+=4){
+  const x=xi/100;
+  const y=a*x*x+b*x+c;
+  const [px,py]=toPx(x,y);
+  if(py<-50||py>H+50){first=true;continue}
+  if(first){ctx.moveTo(px,py);first=false}else{ctx.lineTo(px,py)}
+ }
+ ctx.stroke();
+ // vertice
+ if(a!==0){
+  const xv=-b/(2*a), yv=a*xv*xv+b*xv+c;
+  const [pvx,pvy]=toPx(xv,yv);
+  ctx.fillStyle='#f59e0b';ctx.beginPath();ctx.arc(pvx,pvy,5,0,7);ctx.fill();
+  // raizes
+  const delta=b*b-4*a*c;
+  if(delta>=0){
+   const sq=Math.sqrt(delta);
+   const r1=(-b+sq)/(2*a), r2=(-b-sq)/(2*a);
+   [r1,r2].forEach(r=>{const [prx,pry]=toPx(r,0);ctx.fillStyle='#10b981';ctx.beginPath();ctx.arc(prx,pry,5,0,7);ctx.fill()});
+  }
+ }
+ // intercepto y
+ const [pcx,pcy]=toPx(0,c);
+ ctx.fillStyle='#ec4899';ctx.beginPath();ctx.arc(pcx,pcy,4,0,7);ctx.fill();
+}
+function drawIntro(containerId){const el=$(containerId);el.innerHTML='';const c=document.createElement('canvas');el.appendChild(c);drawParabola(c,1,-4,3,240)}
+drawIntro('visual-parabola');
+
+function updateLab(){
+ const a=+$('lab-a').value,b=+$('lab-b').value,c=+$('lab-c').value;
+ $('lab-a-label').textContent=a;$('lab-b-label').textContent=b;$('lab-c-label').textContent=c;
+ $('graph').innerHTML='';const cv=document.createElement('canvas');$('graph').appendChild(cv);
+ if(a===0){$('graph').innerHTML='<div class="warning rounded-xl p-4 text-sm">Com a=0, deixa de ser uma função do 2º grau (vira uma reta).</div>'}
+ else drawParabola(cv,a,b,c,320);
+ const sinalB=b>=0?'+':'-',sinalC=c>=0?'+':'-';
+ $('lab-formula').innerHTML=`f(x) = ${a}x² ${sinalB} ${Math.abs(b)}x ${sinalC} ${Math.abs(c)}`;
+ if(a===0){$('lab-info').innerHTML='';renderAll();return}
+ const delta=b*b-4*a*c;
+ const xv=-b/(2*a), yv=a*xv*xv+b*xv+c;
+ let raizesTxt;
+ if(delta>0){const sq=Math.sqrt(delta);const r1=((-b+sq)/(2*a)).toFixed(2),r2=((-b-sq)/(2*a)).toFixed(2);raizesTxt=`${r1} e ${r2}`}
+ else if(delta===0){raizesTxt=`${(-b/(2*a)).toFixed(2)} (raiz dupla)`}
+ else raizesTxt='nenhuma raiz real';
+ $('lab-info').innerHTML=`<div class="bg-slate-50 rounded-xl p-3"><b>Concavidade:</b> ${a>0?'para cima (mínimo)':'para baixo (máximo)'}</div><div class="bg-slate-50 rounded-xl p-3"><b>Δ:</b> ${delta.toFixed(2)}</div><div class="bg-slate-50 rounded-xl p-3"><b>Vértice:</b> (${xv.toFixed(2)}, ${yv.toFixed(2)})</div><div class="bg-slate-50 rounded-xl p-3"><b>Raízes:</b> ${raizesTxt}</div><div class="bg-slate-50 rounded-xl p-3"><b>Corta eixo y em:</b> (0, ${c})</div>`;
+ renderAll();
+}
+$('lab-a').addEventListener('input',updateLab);$('lab-b').addEventListener('input',updateLab);$('lab-c').addEventListener('input',updateLab);
+
+function renderBhaskara(){
+ const a=parseFloat($('bh-a').value),b=parseFloat($('bh-b').value),c=parseFloat($('bh-c').value);
+ if([a,b,c].some(isNaN)||a===0){$('bh-out').innerHTML='<div class="warning rounded-xl p-4">Digite valores válidos, com a diferente de zero.</div>';return}
+ const delta=b*b-4*a*c;
+ let html=`<div class="step" data-step="1">Identifique: a=${a}, b=${b}, c=${c}.</div><div class="step mt-3" data-step="2">Calcule Δ: Δ = ${b}² − 4×${a}×${c} = ${(b*b).toFixed(2)} − ${(4*a*c).toFixed(2)} = ${delta.toFixed(2)}.</div>`;
+ if(delta<0){
+  html+=`<div class="warning rounded-xl p-4 mt-3">Como Δ < 0, não existem raízes reais.</div>`;
+ } else if(delta===0){
+  const x=(-b)/(2*a);
+  html+=`<div class="step mt-3" data-step="3">Como Δ = 0, há uma raiz dupla: x = −b ÷ 2a = ${(-b).toFixed(2)} ÷ ${(2*a).toFixed(2)}.</div><div class="success rounded-xl p-4 mt-3 text-center font-bold">x = ${x.toFixed(2)}</div>`;
+ } else {
+  const sq=Math.sqrt(delta);
+  const x1=(-b+sq)/(2*a), x2=(-b-sq)/(2*a);
+  html+=`<div class="step mt-3" data-step="3">Aplique Bhaskara: x = (−(${b}) ± √${delta.toFixed(2)}) ÷ (2×${a}) = (${(-b).toFixed(2)} ± ${sq.toFixed(2)}) ÷ ${(2*a).toFixed(2)}.</div><div class="success rounded-xl p-4 mt-3 text-center font-bold">x' = ${x1.toFixed(2)} &nbsp; e &nbsp; x'' = ${x2.toFixed(2)}</div>`;
+ }
+ $('bh-out').innerHTML=html;
+}
+
+// ===== EXERCÍCIOS =====
+function mi(s){return '\\('+s+'\\)'}
+const exercisesData = [
+ // Nível 1 — Calcular f(x) (1-6)
+ {id:1,level:1,title:"Nível 1: Calcular f(x)",question:"Dada "+mi("f(x)=x^2-3x+2")+", calcule "+mi("f(4)"),answer:"6",accept:["6"],steps:[["1","Substitua x por 4: f(4)=4²-3×4+2."],["2","16-12+2=6."],["3","Resposta: f(4)=6."]]},
+ {id:2,level:1,title:"Nível 1: Calcular f(x)",question:"Dada "+mi("f(x)=2x^2+x-1")+", calcule "+mi("f(2)"),answer:"9",accept:["9"],steps:[["1","Substitua x por 2: f(2)=2×2²+2-1."],["2","2×4+2-1=8+2-1=9."],["3","Resposta: f(2)=9."]]},
+ {id:3,level:1,title:"Nível 1: Calcular f(x)",question:"Dada "+mi("f(x)=-x^2+4x")+", calcule "+mi("f(1)"),answer:"3",accept:["3"],steps:[["1","Substitua x por 1: f(1)=-1²+4×1."],["2","-1+4=3."],["3","Resposta: f(1)=3."]]},
+ {id:4,level:1,title:"Nível 1: Calcular f(x)",question:"Dada "+mi("f(x)=x^2-9")+", calcule "+mi("f(0)"),answer:"-9",accept:["-9"],steps:[["1","Substitua x por 0: f(0)=0²-9."],["2","Resposta: f(0)=-9."]]},
+ {id:5,level:1,title:"Nível 1: Calcular f(x)",question:"Dada "+mi("f(x)=3x^2-2x+5")+", calcule "+mi("f(-1)"),answer:"10",accept:["10"],steps:[["1","Substitua x por -1: f(-1)=3×(-1)²-2×(-1)+5."],["2","3×1+2+5=3+2+5=10."],["3","Resposta: f(-1)=10."]]},
+ {id:6,level:1,title:"Nível 1: Calcular f(x)",question:"Dada "+mi("f(x)=x^2+5x+6")+", calcule "+mi("f(-2)"),answer:"0",accept:["0"],steps:[["1","Substitua x por -2: f(-2)=(-2)²+5×(-2)+6."],["2","4-10+6=0."],["3","Resposta: f(-2)=0."]]},
+ // Nível 2 — Discriminante (7-12)
+ {id:7,level:2,title:"Nível 2: Discriminante",question:"Calcule Δ para "+mi("f(x)=x^2-5x+6"),answer:"1",accept:["1"],steps:[["1","a=1, b=-5, c=6."],["2","Δ=(-5)²-4×1×6=25-24."],["3","Resposta: Δ=1."]]},
+ {id:8,level:2,title:"Nível 2: Discriminante",question:"Calcule Δ para "+mi("f(x)=x^2-4x+4"),answer:"0",accept:["0"],steps:[["1","a=1, b=-4, c=4."],["2","Δ=(-4)²-4×1×4=16-16."],["3","Resposta: Δ=0."]]},
+ {id:9,level:2,title:"Nível 2: Discriminante",question:"Calcule Δ para "+mi("f(x)=x^2+x+1"),answer:"-3",accept:["-3"],steps:[["1","a=1, b=1, c=1."],["2","Δ=1²-4×1×1=1-4."],["3","Resposta: Δ=-3."]]},
+ {id:10,level:2,title:"Nível 2: Discriminante",question:"Calcule Δ para "+mi("f(x)=2x^2-3x-2"),answer:"25",accept:["25"],steps:[["1","a=2, b=-3, c=-2."],["2","Δ=(-3)²-4×2×(-2)=9+16."],["3","Resposta: Δ=25."]]},
+ {id:11,level:2,title:"Nível 2: Discriminante",question:"Calcule Δ para "+mi("f(x)=x^2-2x-3"),answer:"16",accept:["16"],steps:[["1","a=1, b=-2, c=-3."],["2","Δ=(-2)²-4×1×(-3)=4+12."],["3","Resposta: Δ=16."]]},
+ {id:12,level:2,title:"Nível 2: Discriminante",question:"Calcule Δ para "+mi("f(x)=3x^2+2x+5"),answer:"-56",accept:["-56"],steps:[["1","a=3, b=2, c=5."],["2","Δ=2²-4×3×5=4-60."],["3","Resposta: Δ=-56."]]},
+ // Nível 3 — Raízes com Bhaskara (13-18)
+ {id:13,level:3,title:"Nível 3: Raízes (Bhaskara)",question:"Resolva "+mi("x^2-5x+6=0")+". Qual a menor raiz?",answer:"2",accept:["2"],steps:[["1","Δ=25-24=1."],["2","x=(5±1)/2."],["3","Raízes: 3 e 2. Menor: 2."]]},
+ {id:14,level:3,title:"Nível 3: Raízes (Bhaskara)",question:"Resolva "+mi("x^2-4x+4=0")+". Qual a raiz (única)?",answer:"2",accept:["2"],steps:[["1","Δ=16-16=0."],["2","x=(4±0)/2=4/2."],["3","Raiz dupla: 2."]]},
+ {id:15,level:3,title:"Nível 3: Raízes (Bhaskara)",question:"Resolva "+mi("x^2-2x-3=0")+". Qual a maior raiz?",answer:"3",accept:["3"],steps:[["1","Δ=4+12=16."],["2","x=(2±4)/2."],["3","Raízes: 3 e -1. Maior: 3."]]},
+ {id:16,level:3,title:"Nível 3: Raízes (Bhaskara)",question:"Resolva "+mi("x^2-x-6=0")+". Qual a maior raiz?",answer:"3",accept:["3"],steps:[["1","Δ=1+24=25."],["2","x=(1±5)/2."],["3","Raízes: 3 e -2. Maior: 3."]]},
+ {id:17,level:3,title:"Nível 3: Raízes (Bhaskara)",question:"Resolva "+mi("x^2+2x-8=0")+". Qual a menor raiz?",answer:"-4",accept:["-4"],steps:[["1","Δ=4+32=36."],["2","x=(-2±6)/2."],["3","Raízes: 2 e -4. Menor: -4."]]},
+ {id:18,level:3,title:"Nível 3: Raízes (Bhaskara)",question:"Resolva "+mi("2x^2-3x-2=0")+". Qual a maior raiz?",answer:"2",accept:["2"],steps:[["1","Δ=9+16=25."],["2","x=(3±5)/4."],["3","Raízes: 2 e -0,5. Maior: 2."]]},
+ // Nível 4 — Vértice (19-24)
+ {id:19,level:4,title:"Nível 4: Vértice",question:"Para "+mi("f(x)=x^2-4x+3")+", qual o valor de "+mi("x_v"),answer:"2",accept:["2"],steps:[["1","xv=-b/(2a)=-(-4)/(2×1)."],["2","Resposta: xv=2."]]},
+ {id:20,level:4,title:"Nível 4: Vértice",question:"Para "+mi("f(x)=x^2-4x+3")+", qual o valor de "+mi("y_v"),answer:"-1",accept:["-1"],steps:[["1","xv=2 (do exercício anterior)."],["2","yv=f(2)=4-8+3=-1."]]},
+ {id:21,level:4,title:"Nível 4: Vértice",question:"Para "+mi("f(x)=-x^2+6x-5")+", qual o valor de "+mi("x_v"),answer:"3",accept:["3"],steps:[["1","xv=-b/(2a)=-6/(2×(-1))."],["2","Resposta: xv=3."]]},
+ {id:22,level:4,title:"Nível 4: Vértice",question:"Para "+mi("f(x)=-x^2+6x-5")+", qual o valor de "+mi("y_v"),answer:"4",accept:["4"],steps:[["1","xv=3 (do exercício anterior)."],["2","yv=f(3)=-9+18-5=4."]]},
+ {id:23,level:4,title:"Nível 4: Vértice",question:"A função "+mi("f(x)=x^2-2x")+" tem ponto de máximo ou de mínimo?",answer:"mínimo",accept:["mínimo","minimo"],steps:[["1","a=1>0."],["2","Quando a>0, a parábola abre para cima e tem ponto de mínimo."]]},
+ {id:24,level:4,title:"Nível 4: Vértice",question:"Para "+mi("f(x)=-2x^2+8x-3")+", qual o valor de "+mi("x_v"),answer:"2",accept:["2"],steps:[["1","xv=-b/(2a)=-8/(2×(-2))."],["2","Resposta: xv=2."]]},
+ // Nível 5 — Problemas contextualizados (25-30)
+ {id:25,level:5,title:"Nível 5: Problemas",question:"A altura de um projétil é h(t)=-5t²+20t. Em que instante t (segundos) a altura é máxima?",answer:"2",accept:["2"],tolerance:0.01,steps:[["1","tv=-b/(2a)=-20/(2×(-5))."],["2","Resposta: t=2 segundos."]]},
+ {id:26,level:5,title:"Nível 5: Problemas",question:"Na mesma função h(t)=-5t²+20t, qual a altura máxima atingida (em metros)?",answer:"20",accept:["20"],tolerance:0.01,steps:[["1","h(2)=-5×4+20×2."],["2","-20+40=20."],["3","Resposta: 20 metros."]]},
+ {id:27,level:5,title:"Nível 5: Problemas",question:"A área de um terreno retangular é A(x)=-x²+20x. Qual valor de x maximiza a área?",answer:"10",accept:["10"],tolerance:0.01,steps:[["1","xv=-b/(2a)=-20/(2×(-1))."],["2","Resposta: x=10."]]},
+ {id:28,level:5,title:"Nível 5: Problemas",question:"O lucro de uma empresa é L(x)=-x²+40x-300. Para qual quantidade x o lucro é máximo?",answer:"20",accept:["20"],tolerance:0.01,steps:[["1","xv=-b/(2a)=-40/(2×(-1))."],["2","Resposta: x=20."]]},
+ {id:29,level:5,title:"Nível 5: Problemas",question:"Uma bola é lançada com h(t)=-t²+6t. Em que instante ela toca o chão novamente (maior raiz, h=0)?",answer:"6",accept:["6"],tolerance:0.01,steps:[["1","Iguale a zero: -t²+6t=0 → t(-t+6)=0."],["2","Raízes: t=0 e t=6."],["3","Resposta: t=6 (maior raiz, quando ela volta ao chão)."]]},
+ {id:30,level:5,title:"Nível 5: Problemas",question:"A função de custo é C(x)=x²-10x+50. Qual o valor mínimo do custo?",answer:"25",accept:["25"],tolerance:0.01,steps:[["1","xv=-b/(2a)=-(-10)/(2×1)=5."],["2","C(5)=25-50+50."],["3","Resposta: custo mínimo = 25."]]}
+];
+
+function normalize(s){return String(s).trim().toLowerCase().replace(/\s+/g,'').replace(/\./g,',')}
+function checkAnswer(ex,raw){
+ const v=normalize(raw);
+ const accepted=(ex.accept||[ex.answer]).map(normalize);
+ if(accepted.includes(v))return true;
+ if(ex.tolerance!=null){
+  const num=parseFloat(v.replace(',','.'));
+  const target=parseFloat(normalize(ex.answer).replace(',','.'));
+  if(!isNaN(num)&&!isNaN(target)&&Math.abs(num-target)<=ex.tolerance)return true;
+ }
+ return false;
+}
+let solved=new Set(JSON.parse(localStorage.getItem('f2Solved')||'[]'));let currentLevel='all';
+function renderExercises(){
+ const q=($('search').value||'').toLowerCase();
+ let list=exercisesData.filter(e=>(currentLevel==='all'||e.level==currentLevel)&&(q===''||(`questão ${e.id} ${e.title}`).toLowerCase().includes(q)));
+ $('exercise-list').innerHTML=list.map(ex=>{const done=solved.has(ex.id);
+  return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm">
+   <div class="flex justify-between gap-3"><span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700">Questão ${ex.id}</span><span class="text-xs text-slate-400">${ex.title}</span></div>
+   <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-6 text-center text-base">${ex.question}</div>
+   <div class="flex gap-2 mt-4"><input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm" placeholder="Sua resposta"><button onclick="check(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Conferir</button></div>
+   <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+   <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-indigo-700 hover:underline">👁 Visualizar resposta e resolução</button>
+   <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+    <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução completa</div>
+    ${ex.steps.map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+    <div class="success rounded-xl p-4 text-center font-bold">Resposta: ${ex.answer}</div>
+   </div>
+  </article>`}).join('');
+ $('progress-text').textContent=`${solved.size} / ${exercisesData.length}`;
+ $('progress-bar').style.width=Math.round(100*solved.size/exercisesData.length)+'%';
+ renderAll();
+}
+function check(id){
+ const ex=exercisesData.find(x=>x.id===id),raw=$('answer-'+id).value,fb=$('feedback-'+id);
+ if(checkAnswer(ex,raw)){solved.add(id);localStorage.setItem('f2Solved',JSON.stringify([...solved]));fb.className='text-sm font-bold mt-2 text-emerald-600';fb.textContent='✓ Correto! Muito bem.'}
+ else{fb.className='text-sm font-bold mt-2 text-red-600';fb.textContent='✗ Ainda não. Revise os passos e tente novamente.'}
+ renderExercises();
+}
+function toggleSol(id){$('solution-'+id).classList.toggle('hidden')}
+document.querySelectorAll('.level-btn').forEach(b=>b.onclick=()=>{currentLevel=b.dataset.level;document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderExercises()});
+$('search').addEventListener('input',renderExercises);
+
+window.addEventListener('DOMContentLoaded',()=>{updateLab();renderAll();});
+</script>
+</body>
+</html>

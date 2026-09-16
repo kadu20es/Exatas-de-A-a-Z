@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cálculo Algébrico — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+
+  /* Blocos Algébricos (Lab) */
+  .tile { display: inline-flex; justify-content: center; align-items: center; font-weight: black; color: white; border-radius: 6px; margin: 4px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  .tile-x2-pos { width: 64px; height: 64px; background: #3b82f6; font-size: 1.2rem; }
+  .tile-x2-neg { width: 64px; height: 64px; background: #ef4444; font-size: 1.2rem; }
+  .tile-x-pos { width: 32px; height: 64px; background: #10b981; font-size: 1rem; }
+  .tile-x-neg { width: 32px; height: 64px; background: #f97316; font-size: 1rem; }
+  .tile-1-pos { width: 32px; height: 32px; background: #eab308; color: #713f12; font-size: 0.9rem; }
+  .tile-1-neg { width: 32px; height: 32px; background: #a855f7; font-size: 0.9rem; }
+  
+  @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  .tile.annihilate { animation: shrinkOut 0.4s ease forwards; }
+  @keyframes shrinkOut { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0); opacity: 0; } }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">🔤 Cálculo Algébrico</div><div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo as letras e números</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Agrupador Visual</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Resolvedor</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Quando a matemática ganha letras</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Monômios e Polinômios</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Na álgebra, as letras não são um bicho de sete cabeças; elas são apenas "caixas vazias" aguardando um número. Aprender a organizar e calcular essas caixas torna tudo mais fácil.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">6</b><div class="text-xs text-indigo-200">regras de ouro</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-indigo-200">exercícios práticos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">foco na lógica</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">🧩</b><div class="text-xs text-indigo-200">blocos visuais</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Regra Absoluta:</b> Na adição e subtração, você só junta "maçãs com maçãs" (termos iguais). Na multiplicação, todo mundo pode se misturar usando as leis das potências.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">A Anatomia de um Monômio</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6 flex-1">Um monômio é um "bloco único" formado pela multiplicação entre números e letras. Não possui sinais de $+$ ou $-$ no meio dele.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-2xl font-black text-indigo-900">
+    \[ -5x^2y \]
+   </div>
+   <div class="grid grid-cols-2 gap-3 mt-4 text-sm">
+    <div class="bg-rose-50 rounded-xl p-3 border border-rose-100"><b>Coeficiente ($-5$):</b> A parte numérica, incluindo o sinal. Diz "quantas" vezes você tem aquilo.</div>
+    <div class="bg-emerald-50 rounded-xl p-3 border border-emerald-100"><b>Parte Literal ($x^2y$):</b> As letras e seus expoentes. É a "identidade" do termo.</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Termos Semelhantes</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6 flex-1">Termos só são <b>semelhantes</b> se possuírem a <b>MESMA parte literal</b> (as exatas mesmas letras com os mesmos expoentes). Só podemos somar ou subtrair termos semelhantes.</p>
+   <div class="bg-slate-50 rounded-xl p-4 mt-4 border text-sm">
+    <div class="flex justify-between items-center border-b pb-2 mb-2">
+        <span class="font-bold text-emerald-700">✓ $3x^2$ e $-7x^2$</span>
+        <span class="text-slate-500">São semelhantes.</span>
+    </div>
+    <div class="flex justify-between items-center border-b pb-2 mb-2">
+        <span class="font-bold text-rose-700">✗ $4x$ e $4x^2$</span>
+        <span class="text-slate-500">Diferentes (expoente mudou).</span>
+    </div>
+    <div class="flex justify-between items-center">
+        <span class="font-bold text-rose-700">✗ $2ab$ e $2a$</span>
+        <span class="text-slate-500">Diferentes (falta o 'b').</span>
+    </div>
+   </div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 grid place-items-center font-black text-xl">+</span><h2 class="text-xl font-black">Soma e Subtração</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Para somar polinômios, você agrupa os termos que são semelhantes. <b>Soma-se os coeficientes e repete-se a parte literal.</b></p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    <div class="text-sm font-bold text-slate-500 mb-2">Exemplo:</div>
+    <div class="text-lg">\[ (5x^2 - 3x) + (2x^2 + 7x) \]</div>
+    <div class="text-sm text-indigo-600 mt-2">Agrupando os parecidos:</div>
+    <div class="text-lg">\[ (5x^2 + 2x^2) + (-3x + 7x) \]</div>
+    <div class="text-xl font-black mt-2">\[ 7x^2 + 4x \]</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black text-xl">&times;</span><h2 class="text-xl font-black">Multiplicação de Monômios</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Aqui todo mundo se mistura. Você multiplica <b>Número com Número</b> e <b>Letra com Letra</b> (somando os expoentes das letras iguais, pela regra das potências).</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    <div class="text-sm font-bold text-slate-500 mb-2">Exemplo:</div>
+    <div class="text-lg">\[ (-3x^2y) \cdot (4x^3y^5) \]</div>
+    <div class="text-sm text-indigo-600 mt-2">Números: $(-3 \cdot 4) = -12$ <br> Letra X: $(x^2 \cdot x^3) = x^{2+3} = x^5$ <br> Letra Y: $(y^1 \cdot y^5) = y^{1+5} = y^6$</div>
+    <div class="text-xl font-black mt-2">\[ -12x^5y^6 \]</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <h2 class="text-2xl font-black">A Propriedade Distributiva (O Chuveirinho)</h2>
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div>
+    <p class="text-sm text-slate-600">Quando um monômio está colado num parêntese (um polinômio), ele precisa multiplicar <b>todos os termos</b> que estão lá dentro.</p>
+    <div class="paper rounded-xl p-5 mt-4 text-center text-sm">
+      <div class="font-bold text-slate-500 mb-2">Multiplicação: Monômio $\times$ Polinômio</div>
+      \[ 2x \cdot (3x^2 - 5x + 4) \]
+      <div class="mt-3 text-left bg-white p-3 rounded border space-y-1">
+        <div>$2x \cdot 3x^2 = \mathbf{6x^3}$</div>
+        <div>$2x \cdot (-5x) = \mathbf{-10x^2}$</div>
+        <div>$2x \cdot 4 = \mathbf{8x}$</div>
+      </div>
+      <div class="mt-3 font-black text-lg text-indigo-700">\[ 6x^3 - 10x^2 + 8x \]</div>
+    </div>
+   </div>
+   <div>
+    <p class="text-sm text-slate-600">Se forem dois parênteses se multiplicando (Binômio $\times$ Binômio), <b>todos do primeiro multiplicam todos do segundo</b>.</p>
+    <div class="paper rounded-xl p-5 mt-4 text-center text-sm">
+      <div class="font-bold text-slate-500 mb-2">Binômio $\times$ Binômio</div>
+      \[ (x + 2) \cdot (x + 3) \]
+      <div class="mt-3 text-left bg-white p-3 rounded border space-y-1">
+        <div>$x \cdot x = \mathbf{x^2}$ e $x \cdot 3 = \mathbf{3x}$</div>
+        <div>$2 \cdot x = \mathbf{2x}$ e $2 \cdot 3 = \mathbf{6}$</div>
+      </div>
+      <div class="mt-3 font-black text-lg text-indigo-700">\[ x^2 + 5x + 6 \]</div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- LAB (Agrupador Visual) -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Laboratório de Termos</span>
+  <h1 class="text-3xl font-black mt-2">Agrupador de Blocos Algébricos</h1>
+  <p class="text-slate-600 mt-2">Adicione blocos positivos e negativos na tela. Ao clicar em "Agrupar", os opostos se anulam (ex: $+x$ e $-x$ somem) e o que sobra forma o polinômio reduzido.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[280px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h3 class="font-bold text-slate-800 mb-4 text-sm uppercase tracking-widest border-b pb-2">Adicionar Peças</h3>
+   
+   <div class="grid grid-cols-2 gap-2">
+    <button onclick="addTile('x2', 1)" class="bg-blue-100 text-blue-800 border-2 border-blue-300 font-bold py-2 rounded-xl hover:bg-blue-200 transition">+ x²</button>
+    <button onclick="addTile('x2', -1)" class="bg-red-100 text-red-800 border-2 border-red-300 font-bold py-2 rounded-xl hover:bg-red-200 transition">- x²</button>
+    
+    <button onclick="addTile('x', 1)" class="bg-emerald-100 text-emerald-800 border-2 border-emerald-300 font-bold py-2 rounded-xl hover:bg-emerald-200 transition">+ x</button>
+    <button onclick="addTile('x', -1)" class="bg-orange-100 text-orange-800 border-2 border-orange-300 font-bold py-2 rounded-xl hover:bg-orange-200 transition">- x</button>
+    
+    <button onclick="addTile('num', 1)" class="bg-yellow-100 text-yellow-800 border-2 border-yellow-300 font-bold py-2 rounded-xl hover:bg-yellow-200 transition">+ 1</button>
+    <button onclick="addTile('num', -1)" class="bg-purple-100 text-purple-800 border-2 border-purple-300 font-bold py-2 rounded-xl hover:bg-purple-200 transition">- 1</button>
+   </div>
+
+   <div class="mt-6 pt-4 border-t space-y-2">
+    <button onclick="simplifyLab()" class="w-full bg-indigo-600 text-white font-black py-3 rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">✨ Agrupar Termos</button>
+    <button onclick="clearLab()" class="w-full bg-slate-100 text-slate-600 font-bold py-2 rounded-xl hover:bg-slate-200 transition">Limpar Mesa</button>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   
+   <div class="flex-1 min-h-[250px] bg-slate-50 rounded-xl border-2 border-dashed p-4 flex flex-wrap content-start gap-1" id="lab-board">
+     <div class="text-slate-400 font-bold text-center w-full mt-10">Mesa Vazia. Adicione peças ao lado.</div>
+   </div>
+
+   <div class="mt-6 border-t pt-4 text-center">
+    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Expressão Algébrica Equivalente</div>
+    <div id="lab-expr" class="text-3xl font-black text-indigo-700 min-h-[40px]">0</div>
+   </div>
+
+  </div>
+ </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Calculadora Didática</span>
+  <h1 class="text-3xl font-black mt-2">Resolvedor de Polinômios</h1>
+  <p class="text-slate-600 mt-2">Defina os coeficientes de dois polinômios e escolha a operação para ver o passo a passo da resolução.</p>
+ </div>
+ 
+ <div class="max-w-4xl mx-auto">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   
+   <div class="grid md:grid-cols-[1fr_auto_1fr] gap-6 items-center">
+    
+    <!-- Polinômio P(x) -->
+    <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-5 text-center">
+     <div class="font-black text-indigo-800 mb-3 uppercase text-sm">Polinômio P(x)</div>
+     <div class="flex items-center justify-center gap-1 text-sm font-bold text-slate-700">
+      <input id="p-a" type="number" value="3" class="w-14 p-2 text-center rounded border"> x² +
+      <input id="p-b" type="number" value="-2" class="w-14 p-2 text-center rounded border"> x +
+      <input id="p-c" type="number" value="5" class="w-14 p-2 text-center rounded border">
+     </div>
+    </div>
+
+    <!-- Operação -->
+    <div class="text-center">
+     <select id="poly-op" class="bg-slate-800 text-white font-black text-xl p-3 rounded-xl shadow-lg border-none outline-none">
+      <option value="+">Somar (+)</option>
+      <option value="-">Subtrair (-)</option>
+      <option value="*">Multiplicar (*)</option>
+     </select>
+    </div>
+
+    <!-- Polinômio Q(x) -->
+    <div class="bg-emerald-50 border border-emerald-100 rounded-2xl p-5 text-center">
+     <div class="font-black text-emerald-800 mb-3 uppercase text-sm">Polinômio Q(x)</div>
+     <div class="flex items-center justify-center gap-1 text-sm font-bold text-slate-700">
+      <input id="q-a" type="number" value="1" class="w-14 p-2 text-center rounded border"> x² +
+      <input id="q-b" type="number" value="4" class="w-14 p-2 text-center rounded border"> x +
+      <input id="q-c" type="number" value="-1" class="w-14 p-2 text-center rounded border">
+     </div>
+    </div>
+
+   </div>
+   
+   <button onclick="solvePolys()" class="mt-8 w-full bg-indigo-600 text-white rounded-xl py-4 font-black text-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">Mostrar Resolução</button>
+   <div id="tool-out" class="paper rounded-xl p-6 mt-6 hidden space-y-4"></div>
+  </div>
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div>
+    <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span>
+    <h1 class="text-3xl font-black mt-2">100 Exercícios Classificados</h1>
+    <p class="text-slate-600 mt-2 text-sm">Para polinômios, digite a resposta agrupada e em ordem de grau. <b>Exemplo: <span class="font-mono text-indigo-600">2x^2-3x+5</span></b>. Não use espaços e não digite $1x$ (use apenas $x$).</p>
+   </div>
+   <div class="min-w-[210px]">
+    <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+    <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden">
+     <div id="progress-bar" class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width:0%"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L1: Valor Numérico</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L2: Redução (Soma/Sub)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L3: Multiplicação Monômios</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L4: Distributiva</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L5: Divisão Monômio</button>
+   <input id="search" placeholder="Buscar..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[150px] outline-none focus:border-indigo-500">
+  </div>
+ </div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+
+</main>
+<footer class="border-t bg-white mt-8">
+ <div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">
+  Material didático de matemática algébrica • Fórmulas renderizadas com KaTeX
+ </div>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const mathInline = latex => String.raw`\(${latex}\)`;
+const mathDisplay = latex => String.raw`\[${latex}\]`;
+
+function renderMathIn(element) {
+  if (window.renderMathInElement) {
+    renderMathInElement(element, { delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '\\[', right: '\\]', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false}
+    ] });
+  }
+}
+function renderAll() { document.querySelectorAll('body').forEach(el => renderMathIn(el)); }
+
+// Abas
+const sections = ['teoria', 'laboratorio', 'ferramentas', 'exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => 
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.tab;
+    sections.forEach(s => $(`sec-${s}`).classList.toggle('hidden', s !== t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    if (t === 'exercicios') renderExercises();
+  })
+);
+
+// --- UTILITÁRIOS MATEMÁTICOS DE FORMATAÇÃO ---
+// Formata um termo algébrico cx^p
+function fmtTerm(c, exp, isFirst = false, isNumericAnswer = false) {
+    if (c === 0 && !isNumericAnswer) return "";
+    let str = "";
+    if (c < 0) {
+        str += isFirst ? "-" : " - ";
+    } else if (!isFirst) {
+        str += " + ";
+    }
+    
+    let absC = Math.abs(c);
+    
+    if (exp === 0) {
+        str += absC;
+    } else {
+        if (absC !== 1) str += absC;
+        if (exp === 1) str += "x";
+        else str += `x^${exp}`;
+    }
+    return str;
+}
+
+// Formata um polinômio a partir de objeto de termos: {2: a, 1: b, 0: c} -> ax^2 + bx + c
+function fmtPoly(coeffs) {
+    let exps = Object.keys(coeffs).map(Number).sort((a,b)=>b-a);
+    let str = "";
+    let isFirst = true;
+    for (let e of exps) {
+        let c = coeffs[e];
+        if (c !== 0) {
+            str += fmtTerm(c, e, isFirst);
+            isFirst = false;
+        }
+    }
+    return str === "" ? "0" : str;
+}
+
+// Formata um polinômio pego do gerador em string estrita p/ validação do usuário: ex: 2x^2-3x+5
+function strictPolyStr(coeffs) {
+    let str = fmtPoly(coeffs);
+    return str.replace(/\s+/g, '').replace(/\^/g, '^'); // remove espaços
+}
+
+
+// --- LABORATÓRIO (Agrupador) ---
+let labTiles = [];
+
+function addTile(type, val) {
+    labTiles.push({ type, val, id: Date.now() + Math.random() });
+    renderLab();
+}
+
+function clearLab() {
+    labTiles = [];
+    renderLab();
+}
+
+function simplifyLab() {
+    // Conta os líquidos
+    let net = { x2: 0, x: 0, num: 0 };
+    labTiles.forEach(t => { net[t.type] += t.val; });
+    
+    // Animação: adicione classe annihilate em todos e redesenha após 400ms
+    const board = $('lab-board');
+    const elements = board.querySelectorAll('.tile');
+    elements.forEach(el => el.classList.add('annihilate'));
+    
+    setTimeout(() => {
+        labTiles = [];
+        if(net.x2 > 0) for(let i=0; i<net.x2; i++) labTiles.push({type:'x2', val:1, id:Math.random()});
+        if(net.x2 < 0) for(let i=0; i<Math.abs(net.x2); i++) labTiles.push({type:'x2', val:-1, id:Math.random()});
+        if(net.x > 0) for(let i=0; i<net.x; i++) labTiles.push({type:'x', val:1, id:Math.random()});
+        if(net.x < 0) for(let i=0; i<Math.abs(net.x); i++) labTiles.push({type:'x', val:-1, id:Math.random()});
+        if(net.num > 0) for(let i=0; i<net.num; i++) labTiles.push({type:'num', val:1, id:Math.random()});
+        if(net.num < 0) for(let i=0; i<Math.abs(net.num); i++) labTiles.push({type:'num', val:-1, id:Math.random()});
+        renderLab();
+    }, 350);
+}
+
+function renderLab() {
+    const board = $('lab-board');
+    if (labTiles.length === 0) {
+        board.innerHTML = '<div class="text-slate-400 font-bold text-center w-full mt-10">Mesa Vazia. Adicione peças ao lado.</div>';
+        $('lab-expr').innerHTML = "0";
+        return;
+    }
+    
+    let html = '';
+    let net = { x2: 0, x: 0, num: 0 };
+    
+    labTiles.forEach(t => {
+        net[t.type] += t.val;
+        let cName = `tile-${t.type}-${t.val > 0 ? 'pos' : 'neg'}`;
+        let label = t.type === 'x2' ? (t.val>0?'+x²':'-x²') : t.type === 'x' ? (t.val>0?'+x':'-x') : (t.val>0?'+1':'-1');
+        html += `<div class="tile ${cName}">${label}</div>`;
+    });
+    
+    board.innerHTML = html;
+    
+    // Build Expression
+    let expr = fmtPoly({2: net.x2, 1: net.x, 0: net.num});
+    $('lab-expr').innerHTML = mathInline(expr);
+    renderMathIn($('lab-expr'));
+}
+
+
+// --- FERRAMENTAS (Resolvedor Passo a Passo) ---
+function solvePolys() {
+    let P = { 
+        2: parseInt($('p-a').value) || 0, 
+        1: parseInt($('p-b').value) || 0, 
+        0: parseInt($('p-c').value) || 0 
+    };
+    let Q = { 
+        2: parseInt($('q-a').value) || 0, 
+        1: parseInt($('q-b').value) || 0, 
+        0: parseInt($('q-c').value) || 0 
+    };
+    let op = $('poly-op').value;
+    
+    let out = $('tool-out');
+    out.classList.remove('hidden');
+    let html = '';
+    let step = 1;
+    
+    let pStr = fmtPoly(P);
+    let qStr = fmtPoly(Q);
+    
+    html += `<div class="font-black text-center text-xl pb-4 border-b"> ${mathInline(`P(x) = ${pStr} \\quad \\text{e} \\quad Q(x) = ${qStr}`)} </div>`;
+    
+    if (op === '+' || op === '-') {
+        let isAdd = op === '+';
+        let opName = isAdd ? 'Soma' : 'Subtração';
+        
+        html += `<div class="step mt-4" data-step="${step++}"><b>Montando a ${opName}:</b> Coloque cada polinômio entre parênteses.<div class="mt-2 text-lg text-center">${mathDisplay(`(${pStr}) ${op} (${qStr})`)}</div></div>`;
+        
+        // Remove parenteses
+        let Qmod = {};
+        for (let k in Q) Qmod[k] = isAdd ? Q[k] : -Q[k];
+        let qmodStr = fmtPoly(Qmod);
+        if(!isAdd && qmodStr !== "0" && qmodStr[0] !== '-') qmodStr = '+' + qmodStr; // add plus if positive for display
+        else if (isAdd && qmodStr !== "0" && qmodStr[0] !== '-') qmodStr = '+' + qmodStr;
+        
+        html += `<div class="step mt-4" data-step="${step++}"><b>Removendo os Parênteses:</b> ${isAdd ? 'Na soma, basta remover.' : 'Na subtração, inverta TODOS os sinais do segundo polinômio (regra de sinais).'}<div class="mt-2 text-lg text-center bg-slate-50 p-2 rounded">${mathInline(`${pStr} \\mathbf{${qmodStr}}`)}</div></div>`;
+        
+        // Agrupando
+        let R = { 
+            2: P[2] + Qmod[2], 
+            1: P[1] + Qmod[1], 
+            0: P[0] + Qmod[0] 
+        };
+        let rStr = fmtPoly(R);
+        
+        html += `<div class="step mt-4" data-step="${step++}"><b>Agrupando Termos Semelhantes:</b> Junte $x^2$ com $x^2$, $x$ com $x$, número com número.<br>
+        $x^2$: $(${P[2]} ${isAdd?'+':'-'} ${Q[2]}) = ${R[2]}$<br>
+        $x$: $(${P[1]} ${isAdd?'+':'-'} ${Q[1]}) = ${R[1]}$<br>
+        Num: $(${P[0]} ${isAdd?'+':'-'} ${Q[0]}) = ${R[0]}$
+        </div>`;
+        
+        html += `<div class="success p-4 rounded-xl mt-6 text-center font-black text-2xl">Resultado Final: ${mathInline(rStr)}</div>`;
+        
+    } else if (op === '*') {
+        html += `<div class="step mt-4" data-step="${step++}"><b>Montando a Multiplicação:</b> Todo termo de P(x) multiplica todo termo de Q(x).<div class="mt-2 text-lg text-center">${mathDisplay(`(${pStr}) \\cdot (${qStr})`)}</div></div>`;
+        
+        let terms = [];
+        let R = {}; // powers up to 4
+        
+        let pKeys = Object.keys(P).map(Number).sort((a,b)=>b-a);
+        let qKeys = Object.keys(Q).map(Number).sort((a,b)=>b-a);
+        
+        let calcLines = "";
+        for(let pk of pKeys) {
+            if(P[pk] === 0) continue;
+            for(let qk of qKeys) {
+                if(Q[qk] === 0) continue;
+                let c = P[pk] * Q[qk];
+                let pwr = pk + qk;
+                R[pwr] = (R[pwr] || 0) + c;
+                let t1 = fmtTerm(P[pk], pk, true);
+                let t2 = fmtTerm(Q[qk], qk, true);
+                let tres = fmtTerm(c, pwr, true);
+                calcLines += `<div>$(${t1}) \\cdot (${t2}) = ${tres}$</div>`;
+            }
+        }
+        
+        html += `<div class="step mt-4" data-step="${step++}"><b>Distributiva (Chuveirinho):</b> Multiplique número com número, e some os expoentes das letras iguais.<div class="mt-2 text-sm bg-slate-50 p-3 rounded space-y-1">${calcLines}</div></div>`;
+        
+        let rStr = fmtPoly(R);
+        html += `<div class="step mt-4" data-step="${step++}"><b>Agrupando e Reduzindo:</b> Somamos os termos que ficaram com o mesmo expoente.<div class="mt-2 text-lg text-center">${mathInline(rStr)}</div></div>`;
+        
+        html += `<div class="success p-4 rounded-xl mt-6 text-center font-black text-2xl">Resultado Final: ${mathInline(rStr)}</div>`;
+    }
+    
+    out.innerHTML = html;
+    renderMathIn(out);
+}
+
+// --- GERADOR DE EXERCÍCIOS ---
+const E = [];
+let exId = 1;
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function randNZ(min, max) { let v = rand(min, max); return v === 0 ? 1 : v; }
+
+function pushEx(lvl, title, exprTex, correctStr, hint, stepsHtml) {
+    E.push({ id: exId++, level: lvl, title, expr: exprTex, ansStr: correctStr, hint: hint, steps: stepsHtml });
+}
+
+// L1 (1-20): Valor Numérico
+for(let i=0; i<20; i++) {
+    let a = rand(-4, 4);
+    let b = rand(-5, 5);
+    let c = rand(-10, 10);
+    if(a===0 && b===0) a = 1;
+    let xVal = rand(-3, 4);
+    
+    let polyStr = fmtPoly({2:a, 1:b, 0:c});
+    let ans = a*(xVal**2) + b*xVal + c;
+    
+    let termsSub = [];
+    if (a !== 0) termsSub.push(`${a}(${xVal})^2`);
+    if (b !== 0) termsSub.push( (b > 0 && termsSub.length > 0 ? '+' : '') + `${b}(${xVal})` );
+    if (c !== 0) termsSub.push( (c > 0 && termsSub.length > 0 ? '+' : '') + `${c}` );
+    
+    let termsEval = [];
+    let evalA = a * xVal**2;
+    let evalB = b * xVal;
+    if (a !== 0) termsEval.push(`${evalA}`);
+    if (b !== 0) termsEval.push( (evalB > 0 && termsEval.length > 0 ? '+' : '') + `${evalB}` );
+    if (c !== 0) termsEval.push( (c > 0 && termsEval.length > 0 ? '+' : '') + `${c}` );
+    
+    let st = [
+        `Substitua o $x$ pelo número indicado: $x = ${xVal}$.`,
+        `Expressão original: $${polyStr}$`,
+        `Substituindo: $${termsSub.join(' ')}$`,
+        `Resolvendo as potências e multiplicações: $${termsEval.join(' ')}$`,
+        `Somando tudo: $${ans}$`
+    ];
+    
+    pushEx(1, `Valor numérico para x = ${xVal}`, polyStr, ans.toString(), "Digite o valor final. Ex: 12", st);
+}
+
+// L2 (21-40): Redução de Termos (Soma/Sub)
+for(let i=0; i<20; i++) {
+    let a1 = randNZ(-6, 6), a2 = randNZ(-6, 6);
+    let b1 = rand(-6, 6), b2 = rand(-6, 6);
+    let isSamePow = Math.random() > 0.5;
+    
+    let poly1 = fmtPoly(isSamePow ? {2:a1, 1:b1} : {2:a1, 0:b1});
+    let poly2 = fmtPoly(isSamePow ? {2:a2, 1:b2} : {1:a2, 0:b2}); // mix them up
+    
+    let isAdd = Math.random() > 0.5;
+    let op = isAdd ? '+' : '-';
+    
+    let ansObj = {};
+    if(isSamePow) {
+        ansObj[2] = a1 + (isAdd ? a2 : -a2);
+        ansObj[1] = b1 + (isAdd ? b2 : -b2);
+    } else {
+        ansObj[2] = a1;
+        ansObj[1] = (isAdd ? a2 : -a2);
+        ansObj[0] = b1 + (isAdd ? b2 : -b2);
+    }
+    
+    let ansStr = strictPolyStr(ansObj);
+    if (ansStr === "0") { i--; continue; } // Evita resposta 0 pura para evitar confusão de formatação
+    
+    let st = [
+        `Escreva lado a lado e elimine os parênteses: $(${poly1}) ${op} (${poly2})$.`,
+        isAdd ? `O sinal de $+$ mantém os sinais do segundo polinômio.` : `O sinal de $-$ inverte TODOS os sinais do segundo polinômio.`,
+        `Agrupe os termos semelhantes (letras e expoentes iguais).`,
+        `Soma e subtrai coeficientes e repete a letra. Resposta: $${fmtPoly(ansObj)}$.`
+    ];
+    
+    pushEx(2, `Reduza os termos: (${poly1}) ${op} (${poly2})`, `(${poly1}) ${op} (${poly2})`, ansStr, "Ex: 2x^2-3x+5", st);
+}
+
+// L3 (41-60): Multiplicação Monômios
+for(let i=0; i<20; i++) {
+    let c1 = randNZ(-8, 8), c2 = randNZ(-8, 8);
+    let e1 = rand(1, 4), e2 = rand(1, 4);
+    
+    let ansC = c1 * c2;
+    let ansE = e1 + e2;
+    
+    let term1 = fmtTerm(c1, e1, true);
+    let term2 = fmtTerm(c2, e2, true);
+    let ansStr = strictPolyStr({ [ansE]: ansC });
+    
+    let st = [
+        `Na multiplicação de monômios, multiplicamos Número $\\cdot$ Número e Letra $\\cdot$ Letra.`,
+        `Números: $${c1} \\cdot ${c2} = ${ansC}$.`,
+        `Letras (propriedade das potências - some os expoentes): $x^{${e1}} \\cdot x^{${e2}} = x^{${e1}+${e2}} = x^{${ansE}}$.`,
+        `Juntando: $${fmtTerm(ansC, ansE, true)}$.`
+    ];
+    
+    pushEx(3, "Multiplique os Monômios", `(${term1}) \\cdot (${term2})`, ansStr, "Ex: -12x^5", st);
+}
+
+// L4 (61-80): Distributiva (Monômio x Binômio/Trinômio)
+for(let i=0; i<20; i++) {
+    let mc = randNZ(-5, 5);
+    let me = rand(1, 2);
+    let pa = randNZ(-4, 4), pb = randNZ(-5, 5), pc = rand(-5, 5);
+    
+    let mon = fmtTerm(mc, me, true);
+    let poly = fmtPoly({2:pa, 1:pb, 0:pc});
+    
+    let ansObj = {};
+    if(pa!==0) ansObj[2+me] = mc*pa;
+    if(pb!==0) ansObj[1+me] = mc*pb;
+    if(pc!==0) ansObj[0+me] = mc*pc;
+    
+    let ansStr = strictPolyStr(ansObj);
+    
+    let st = [
+        `O monômio de fora $(${mon})$ precisa multiplicar TODOS os termos dentro do parêntese (Regra do Chuveirinho).`,
+        pa!==0 ? `$(${mon}) \\cdot (${fmtTerm(pa,2,true)}) = ${fmtTerm(mc*pa, 2+me, true)}$` : '',
+        pb!==0 ? `$(${mon}) \\cdot (${fmtTerm(pb,1,true)}) = ${fmtTerm(mc*pb, 1+me, true)}$` : '',
+        pc!==0 ? `$(${mon}) \\cdot (${pc}) = ${fmtTerm(mc*pc, me, true)}$` : '',
+        `Juntando os resultados ordenados: $${fmtPoly(ansObj)}$`
+    ];
+    
+    pushEx(4, "Aplique a Distributiva", `${mon} \\cdot (${poly})`, ansStr, "Ex: 6x^3-4x^2", st);
+}
+
+// L5 (81-100): Divisão de Polinômio por Monômio
+for(let i=0; i<20; i++) {
+    // Para divisão dar exata e simples
+    let divC = randNZ(2, 5) * (Math.random()>0.5?1:-1);
+    let divE = rand(1, 2);
+    
+    let ansA = randNZ(-4, 4), ansB = randNZ(-5, 5);
+    let ansObj = {2: ansA, 1: ansB}; // Resposta será ax^2 + bx
+    
+    // Constrói o dividendo (ans * divisor)
+    let polyObj = {};
+    polyObj[2+divE] = ansA * divC;
+    polyObj[1+divE] = ansB * divC;
+    
+    let polyStr = fmtPoly(polyObj);
+    let divStr = fmtTerm(divC, divE, true);
+    let ansStr = strictPolyStr(ansObj);
+    
+    let st = [
+        `Divida CADA termo do polinômio pelo divisor $(${divStr})$.`,
+        `Divide-se Número por Número, e subtrai-se os expoentes das letras.`,
+        `Primeiro termo: $(${fmtTerm(ansA*divC, 2+divE, true)}) \\div (${divStr}) = ${fmtTerm(ansA, 2, true)}$.`,
+        `Segundo termo: $(${fmtTerm(ansB*divC, 1+divE, true)}) \\div (${divStr}) = ${fmtTerm(ansB, 1, true)}$.`,
+        `Juntando: $${fmtPoly(ansObj)}$`
+    ];
+    
+    pushEx(5, "Divida o Polinômio pelo Monômio", `\\frac{${polyStr}}{${divStr}}`, ansStr, "Ex: 2x^2-3x", st);
+}
+
+
+// --- LÓGICA DE INTERFACE DOS EXERCÍCIOS ---
+let solved = new Set(JSON.parse(localStorage.getItem('algSolved') || '[]'));
+let currentLevel = 'all';
+
+function renderExercises() {
+  const q = ($('search').value || '').toLowerCase();
+  let list = E.filter(e => 
+    (currentLevel === 'all' || e.level == currentLevel) && 
+    (q === '' || (`questão ${e.id} ${e.title}`).toLowerCase().includes(q))
+  );
+  
+  $('exercise-list').innerHTML = list.map(ex => {
+    const done = solved.has(ex.id);
+    let exprHtml = mathDisplay(ex.expr);
+    
+    return `
+    <article class="bg-white rounded-2xl border ${done ? 'border-emerald-400 shadow-emerald-100' : 'border-slate-200'} p-5 shadow-sm transition-all hover:shadow-md">
+      <div class="flex justify-between gap-3">
+        <span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 whitespace-nowrap">Questão ${ex.id}</span>
+        <span class="text-xs text-slate-400 text-right uppercase tracking-wide font-bold">${ex.title}</span>
+      </div>
+      <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-6 text-center text-xl overflow-x-auto min-h-[100px] flex items-center justify-center">
+        ${exprHtml}
+      </div>
+      <div class="flex gap-2 mt-4">
+        <input id="ans-${ex.id}" class="flex-1 border-2 border-slate-200 focus:border-indigo-500 outline-none rounded-xl px-4 py-2 text-sm font-mono" placeholder="${ex.hint}">
+        <button onclick="checkAnswer(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-5 py-2 text-sm font-black hover:bg-indigo-700 transition">Conferir</button>
+      </div>
+      <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-[1.5rem]"></div>
+      
+      <button onclick="toggleSol(${ex.id})" class="mt-3 text-xs font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-800 transition">👁 Passo a Passo</button>
+      
+      <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+        <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução</div>
+        ${ex.steps.filter(s=>s.trim()!=='').map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+      </div>
+    </article>`;
+  }).join('');
+  
+  $('progress-text').textContent = `${solved.size} / 100`;
+  $('progress-bar').style.width = (solved.size) + '%';
+  renderAll();
+}
+
+function normalizeUserAns(str) {
+    if (!str) return "";
+    str = str.toLowerCase().replace(/\s+/g, ''); // remove espaços e lowercase
+    str = str.replace(/\+1x/g, '+x').replace(/\-1x/g, '-x').replace(/^1x/, 'x'); // trata o "1x" que usuários gostam de digitar
+    str = str.replace(/\^1/g, ''); // caso o usuário digite x^1 ao invés de x
+    return str;
+}
+
+function checkAnswer(id) {
+  const ex = E.find(x => x.id === id);
+  const rawAns = $(`ans-${id}`).value;
+  const userVal = normalizeUserAns(rawAns);
+  const fb = $(`fb-${id}`);
+  
+  if (userVal === "") {
+    fb.className = 'text-sm font-bold mt-2 text-amber-600';
+    fb.textContent = '⚠ Digite sua resposta antes de conferir.';
+    return;
+  }
+  
+  // A resposta correta já é formatada rigorosamente (strictPolyStr já não tem espaços e omite 1x)
+  let correctNorm = ex.ansStr;
+  let isCorrect = (userVal === correctNorm);
+  
+  if (isCorrect) {
+    solved.add(id);
+    localStorage.setItem('algSolved', JSON.stringify([...solved]));
+    fb.className = 'text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent = '✓ Correto! Álgebra afiada.';
+  } else {
+    fb.className = 'text-sm font-bold mt-2 text-rose-600';
+    fb.textContent = '✗ Ops. Verifique os sinais, expoentes e a ordem das potências.';
+  }
+  renderExercises();
+}
+
+function toggleSol(id) { $(`sol-${id}`).classList.toggle('hidden'); }
+
+document.querySelectorAll('.level-btn').forEach(b => b.onclick = () => {
+  currentLevel = b.dataset.level;
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.remove('active', 'bg-indigo-600', 'text-white'));
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.add('bg-slate-100'));
+  
+  b.classList.add('active');
+  b.classList.remove('bg-slate-100');
+  renderExercises();
+});
+$('search').addEventListener('input', renderExercises);
+
+// Inicialização
+window.addEventListener('DOMContentLoaded', () => {
+  renderLab();
+  renderAll();
+});
+</script>
+</body>
+</html>

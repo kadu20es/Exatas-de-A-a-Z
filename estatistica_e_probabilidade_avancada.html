@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estatística e Probabilidade — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  /* Paleta Deep Blue / Cyan para Advanced Data Science/Math */
+  :root {--ink:#0f172a; --paper:#f8fafc; --line:#cbd5e1; --accent:#0284c7; --accent-light:#e0f2fe; --bayes:#0ea5e9; --normal:#6366f1;}
+  body {background:#f1f5f9; color:var(--ink); font-family: 'Inter', sans-serif;}
+  .tab-btn.active {color:var(--accent); border-bottom-color:var(--accent); font-weight:800;}
+  
+  /* Padrão Data Grid */
+  .paper {
+    background: var(--paper);
+    background-image: 
+      linear-gradient(rgba(203, 213, 225, 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(203, 213, 225, 0.4) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  }
+  
+  .step {
+    position:relative; padding:1rem 1rem 1rem 3.2rem; 
+    border:1px solid #e2e8f0; border-radius:1rem; background:white;
+  }
+  .step::before {
+    content:attr(data-step); position:absolute; left:1rem; top:1rem; 
+    width:1.65rem; height:1.65rem; border-radius:999px; 
+    background:var(--accent-light); color:var(--accent); 
+    font-weight:800; display:grid; place-items:center; font-size:.8rem;
+  }
+  
+  canvas {max-width:100%; touch-action: none;}
+  .level-btn.active {background:var(--accent); color:white;}
+  .exercise-solution {animation:fade .2s ease;}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  
+  .tip {border-left:4px solid #f59e0b; background:#fffbeb;}
+  .success {border-left:4px solid #10b981; background:#ecfdf5;}
+  .warning {border-left:4px solid #ef4444; background:#fef2f2;}
+  
+  /* Destacadores de Fórmula */
+  .math-box { display: inline-block; padding: 0.5rem 1rem; border-radius: 0.75rem; background: white; border: 1px solid #bae6fd; font-weight: bold; }
+</style>
+</head>
+<body class="min-h-screen">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-sky-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+    <div class="font-black text-lg sm:text-xl text-sky-900">🧬 Estatística & Probabilidade Avançada</div>
+    <div class="text-[11px] text-slate-500 hidden sm:block">A matemática da ciência de dados e dos vestibulares mais difíceis</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">📈 A Curva Normal</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">⚙️ Bayes & Binomial</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="binomial">📊 A Curva Binomial</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-slate-900 via-sky-900 to-indigo-950 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-sky-300">Nível Pré-Vestibular / Universitário</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Além da Moeda e do Dado</h1>
+  <p class="mt-4 max-w-3xl text-sky-100 leading-7">Na probabilidade básica, os dados eram limpos e isolados. No mundo real avançado, lidamos com eventos repetidos (Binomial), com evidências que mudam nossa percepção (Bayes) e com dados que se distribuem naturalmente em formato de sino (Curva Normal).</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">Bayes</b><div class="text-xs text-sky-300">ajustando as crenças</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">Z-Score</b><div class="text-xs text-sky-300">padronização total</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">Curva</b><div class="text-xs text-sky-300">o sino da natureza</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-sky-300">exercícios</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm">
+  <b>A Analogia do Galope:</b> Você ouve um galope do lado de fora da sua janela (no Brasil). Você acha que é um cavalo ou uma zebra? Seu cérebro grita "Cavalo!". Isso é porque você ajusta a probabilidade do som (evidência) com a probabilidade prévia de encontrar zebras na sua rua (quase zero). <b>Isso é o Teorema de Bayes!</b>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">1</span><h2 class="text-2xl font-black">Teorema de Bayes</h2></div>
+  <p class="mt-3 text-slate-600">Usamos Bayes quando sabemos o resultado final de algo e queremos descobrir a chance de ele ter vindo de uma origem específica. É inverter a probabilidade condicional.</p>
+  
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div class="bg-slate-50 border border-sky-100 rounded-xl p-5">
+    <h3 class="font-black text-sky-800 text-lg">O Paradoxo do Exame Médico</h3>
+    <p class="text-sm text-slate-600 mt-2">Uma doença rara afeta 1% da população. Um teste para ela acerta 90% das vezes (e dá falso positivo em 10% dos saudáveis). Se o seu teste deu POSITIVO, qual a chance real de você ter a doença?</p>
+    <p class="text-sm text-red-600 font-bold mt-2">90%? Errado!</p>
+    <p class="text-sm text-slate-600 mt-2">A maioria absoluta dos positivos vem do grupo de pessoas saudáveis (porque eles são 99% da população!). A chance real de você estar doente é de apenas ~8,3%. Bayes calcula exatamente isso.</p>
+   </div>
+   <div class="bg-slate-50 border border-sky-100 rounded-xl p-5 flex flex-col justify-center items-center">
+    <h3 class="font-black text-sky-800 text-lg mb-4">A Fórmula Monstro (Traduzida)</h3>
+    <div class="math-box text-center">\[ P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)} \]</div>
+    <div class="mt-4 text-xs text-slate-500 w-full">
+        <b>Traduzindo:</b><br>
+        A chance de [Estar Doente] DADO [Deu Positivo] é igual a: <br>
+        (Chance de dar positivo estando doente $\times$ Chance geral da doença) <br>
+        $\div$ (Chance TOTAL de dar positivo em qualquer pessoa).
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Árvore de Decisão</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-7">Para não ter que decorar o Teorema de Bayes, use a <b>Árvore de Probabilidade</b>. Multiplique as probabilidades seguindo os galhos (Regra do E) e some as pontas finais que representam o evento que você quer (Regra do OU).</p>
+   <div class="paper rounded-xl p-4 mt-4">
+    <div class="text-center font-bold text-sky-800">Caminho Favorável $\div$ Soma de Todos os Caminhos</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm border-l-4 border-l-indigo-500">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">3</span><h2 class="text-xl font-black">Probabilidade Binomial</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">Usada quando você repete um teste várias vezes (como jogar 10 moedas, ou chutar 5 questões) e só existem 2 resultados: <b>Sucesso ($p$)</b> ou <b>Fracasso ($q$)</b>.</p>
+   <div class="bg-slate-50 rounded-xl p-4 mt-3 text-center text-sm font-bold">
+       \[ P = \binom{n}{k} \cdot p^k \cdot q^{n-k} \]
+   </div>
+   <p class="mt-2 text-xs text-slate-500 text-center">A combinação $C_{n,k}$ existe porque a ordem dos sucessos e fracassos não importa!</p>
+  </article>
+ </div>
+
+ <div class="bg-indigo-900 text-white rounded-2xl border shadow-sm p-6 sm:p-10 mt-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-800 text-indigo-100 grid place-items-center font-black">4</span><h2 class="text-3xl font-black">A Curva Normal (Sino)</h2></div>
+  <p class="mt-4 text-indigo-100 text-lg leading-relaxed">Quando uma variável tem distribuição aproximadamente normal, seus valores se concentram em torno da média ($\mu$) e diminuem gradualmente para os lados, formando um sino. A <b>média</b> indica o centro e o <b>desvio padrão</b> ($\sigma$) indica o quanto os dados se espalham.</p>
+  
+  <div class="bg-white text-slate-800 rounded-2xl p-6 mt-6 shadow-xl relative text-center">
+   <div class="text-lg font-bold text-indigo-600 uppercase tracking-wide">A Regra de Ouro (Empírica): 68 - 95 - 99.7</div>
+   <div class="grid sm:grid-cols-3 gap-4 mt-5 text-sm font-bold">
+       <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100">
+           <div class="text-2xl text-indigo-600 mb-1">68%</div>
+           dos dados estão a até <b>1 Desvio Padrão</b> de distância da média (para mais ou para menos).
+       </div>
+       <div class="bg-indigo-100 p-4 rounded-xl border border-indigo-200">
+           <div class="text-2xl text-indigo-700 mb-1">95%</div>
+           dos dados estão a até <b>2 Desvios Padrões</b> de distância da média.
+       </div>
+       <div class="bg-indigo-200 p-4 rounded-xl border border-indigo-300">
+           <div class="text-2xl text-indigo-800 mb-1">99.7%</div>
+           dos dados englobam quase toda a curva (<b>3 Desvios Padrões</b>).
+       </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">O Escore Z (Z-Score)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">O Z-score é uma forma de <b>padronizar uma observação</b>. Ele responde à pergunta: <b>"Quantos desvios padrões este valor está acima ou abaixo da média?"</b>. Isso não significa que toda avaliação, inclusive a TRI do ENEM, seja simplesmente um Z-score.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    \[ Z = \frac{X - \mu}{\sigma} \]
+   </div>
+   <div class="bg-slate-50 p-3 rounded-xl mt-3 text-sm">
+       Se a média de altura é 170cm e o desvio é 10cm. Se você tem 180cm, seu Z é: $(180-170)/10 = 1$. Você está exatamente 1 desvio acima da média!
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">Valor Esperado (Esperança)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">A "Esperança" ou Valor Esperado ($E[X]$) representa a <b>média de longo prazo</b> de uma variável aleatória quando o mesmo experimento é repetido muitas vezes.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    \[ E[X] = \sum (x_i \cdot P(x_i)) \]
+   </div>
+   <div class="bg-slate-50 p-3 rounded-xl mt-3 text-sm">
+       Multiplique cada prêmio possível pela sua probabilidade de acontecer, e some tudo. Se der negativo, fuja do jogo, você vai perder dinheiro a longo prazo.
+   </div>
+  </article>
+ </div>
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+    <h2 class="text-xl font-black text-slate-900">🧭 Como saber qual ferramenta usar?</h2>
+    <p class="text-sm text-slate-600 mt-2">Antes de procurar uma fórmula, identifique o tipo de pergunta.</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 text-sm">
+      <div class="bg-sky-50 rounded-xl p-4 border border-sky-100"><b>Bayes</b><p class="mt-1 text-slate-600">Você conhece uma evidência e quer descobrir a probabilidade da causa.</p></div>
+      <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100"><b>Binomial</b><p class="mt-1 text-slate-600">Há várias tentativas, cada uma com sucesso/fracasso, e você conta sucessos.</p></div>
+      <div class="bg-violet-50 rounded-xl p-4 border border-violet-100"><b>Normal / Z</b><p class="mt-1 text-slate-600">Uma variável contínua é aproximadamente normal e você quer comparar posições ou áreas.</p></div>
+      <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100"><b>Esperança</b><p class="mt-1 text-slate-600">Você quer a média de longo prazo de resultados com probabilidades diferentes.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Simulador Estatístico</span>
+   <h1 class="text-3xl font-black mt-2">A Curva Normal de Gauss</h1>
+   <p class="text-slate-600 mt-2">Brinque com os controles. A <b>média</b> desloca o centro da curva; o <b>desvio padrão</b> altera sua dispersão. Em uma distribuição normal, a faixa central de ±1 desvio padrão contém aproximadamente <b>68%</b> dos valores.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   <h3 class="font-bold text-lg mb-4 text-center border-b pb-2">Controles da População</h3>
+   
+   <div class="space-y-6 flex-1">
+      <div>
+        <label class="font-bold text-sm text-slate-700 flex justify-between">Média ($\mu$): <span id="lab-val-mu" class="text-indigo-600">100</span></label>
+        <input type="range" id="lab-input-mu" min="50" max="150" value="100" class="w-full mt-2 accent-indigo-600">
+      </div>
+      <div>
+        <label class="font-bold text-sm text-slate-700 flex justify-between">Desvio Padrão ($\sigma$): <span id="lab-val-sigma" class="text-indigo-600">15</span></label>
+        <input type="range" id="lab-input-sigma" min="5" max="30" value="15" class="w-full mt-2 accent-indigo-600">
+      </div>
+
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-6">
+          <div class="text-center font-black text-sm uppercase tracking-wider text-slate-500 mb-3">Distribuição 68-95-99.7</div>
+          <div class="space-y-2 text-sm font-mono">
+              <div class="flex justify-between items-center text-indigo-700 border-b pb-1">
+                  <span>68% (±1$\sigma$)</span> <b id="lab-r1">85 a 115</b>
+              </div>
+              <div class="flex justify-between items-center text-indigo-800 border-b pb-1 pt-1">
+                  <span>95% (±2$\sigma$)</span> <b id="lab-r2">70 a 130</b>
+              </div>
+              <div class="flex justify-between items-center text-indigo-900 pt-1">
+                  <span>99.7% (±3$\sigma$)</span> <b id="lab-r3">55 a 145</b>
+              </div>
+          </div>
+      </div>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col relative items-center justify-center">
+    <canvas id="lab-canvas" width="600" height="350" class="bg-slate-50 border rounded-xl shadow-inner w-full h-auto"></canvas>
+  </div>
+ </div>
+</section>
+
+<section id="sec-binomial" class="hidden space-y-7">
+  <div class="bg-white rounded-3xl border p-7 shadow-sm">
+    <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Simulador Estatístico</span>
+    <h1 class="text-3xl font-black mt-2">A Curva Binomial</h1>
+    <p class="text-slate-600 mt-2">A distribuição binomial é <b>discreta</b>: em vez de uma curva contínua, ela mostra a probabilidade de obter 0, 1, 2, …, <i>n</i> sucessos.</p>
+    <div class="tip rounded-xl p-4 mt-4 text-sm">
+      <b>Checklist:</b> há um número fixo de tentativas (<i>n</i>), cada tentativa tem dois resultados, a probabilidade de sucesso (<i>p</i>) é a mesma em todas elas e as tentativas são independentes.
+    </div>
+  </div>
+
+  <div class="grid lg:grid-cols-[300px_1fr] gap-6">
+    <div class="bg-white rounded-2xl border p-6 shadow-sm">
+      <h3 class="font-bold text-lg mb-4 text-center border-b pb-2">Controles</h3>
+      <div class="space-y-5">
+        <div>
+          <label class="font-bold text-sm text-slate-700 flex justify-between">Tentativas (<i>n</i>) <span id="bin-val-n" class="text-indigo-600">10</span></label>
+          <input type="range" id="bin-input-n" min="1" max="30" value="10" class="w-full mt-2 accent-indigo-600">
+        </div>
+        <div>
+          <label class="font-bold text-sm text-slate-700 flex justify-between">Prob. de sucesso (<i>p</i>) <span id="bin-val-p" class="text-indigo-600">50%</span></label>
+          <input type="range" id="bin-input-p" min="0" max="100" value="50" class="w-full mt-2 accent-indigo-600">
+        </div>
+        <div>
+          <label class="font-bold text-sm text-slate-700 flex justify-between">Sucessos destacados (<i>k</i>) <span id="bin-val-k" class="text-indigo-600">5</span></label>
+          <input type="range" id="bin-input-k" min="0" max="10" value="5" class="w-full mt-2 accent-indigo-600">
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-3 mt-6">
+        <div class="bg-indigo-50 rounded-xl p-3 text-center border border-indigo-100"><div class="text-xs text-slate-500">Média</div><b id="bin-stat-mean">5.00</b></div>
+        <div class="bg-indigo-50 rounded-xl p-3 text-center border border-indigo-100"><div class="text-xs text-slate-500">Desvio padrão</div><b id="bin-stat-sd">1.58</b></div>
+      </div>
+      <div class="success rounded-xl p-4 mt-4 text-sm">
+        <div class="font-black">Probabilidade do destaque</div>
+        <div id="bin-stat-prob" class="text-xl font-black text-center mt-1">12.30%</div>
+        <div id="bin-stat-explain" class="text-xs mt-2 text-center">P(X = 5)</div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border p-6 shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <div><h3 class="font-black text-lg">Distribuição de X</h3><p class="text-xs text-slate-500">Cada barra representa a probabilidade de exatamente <i>k</i> sucessos.</p></div>
+        <div class="math-box">\[P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}\]</div>
+      </div>
+      <canvas id="bin-canvas" width="800" height="420" class="bg-slate-50 border rounded-xl shadow-inner w-full h-auto"></canvas>
+      <div class="bg-slate-50 rounded-xl p-4 mt-4 text-sm">
+        <b>Como ler:</b> a barra mais alta indica o número de sucessos mais provável. Ela não precisa coincidir exatamente com a média; o formato depende de <i>n</i> e <i>p</i>.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-sky-600">Assistentes Matemáticos Avançados</span>
+   <h1 class="text-3xl font-black mt-2">Calculadoras Passo a Passo</h1>
+   <p class="text-slate-600 mt-2">Use estas ferramentas para desconstruir e entender as fórmulas de Bayes e da Distribuição Binomial (Tentativas e Sucessos).</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  
+  <!-- Calculadora Bayes -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Teorema de Bayes</h2>
+   <p class="text-xs text-slate-500 mb-4">Insira as porcentagens originais para calcular $P(A|B)$.</p>
+   
+   <div class="space-y-3 text-sm">
+      <div class="flex items-center justify-between">
+          <span title="Ex: Frequência da Doença na população">Prob. de ser A, $P(A)$ (%):</span> 
+          <input id="tool-pa" type="number" value="1" min="0" max="100" step="0.1" class="border rounded p-1 w-20 text-right">
+      </div>
+      <div class="flex items-center justify-between">
+          <span title="Ex: O Teste acertou num doente">Prob. de B se A, $P(B|A)$ (%):</span> 
+          <input id="tool-pba" type="number" value="90" min="0" max="100" step="0.1" class="border rounded p-1 w-20 text-right">
+      </div>
+      <div class="flex items-center justify-between">
+          <span title="Ex: O Teste errou num saudável (Falso Positivo)">Prob. de B se Não A, $P(B|A^c)$ (%):</span> 
+          <input id="tool-pbn" type="number" value="10" min="0" max="100" step="0.1" class="border rounded p-1 w-20 text-right">
+      </div>
+   </div>
+
+   <button onclick="calcBayes()" class="w-full mt-5 bg-sky-600 hover:bg-sky-700 transition text-white rounded-xl py-3 font-bold text-sm">Inverter a Probabilidade</button>
+   <div id="tool-bayes-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+  <!-- Calculadora Binomial -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Probabilidade Binomial</h2>
+   <p class="text-xs text-slate-500 mb-4">Múltiplos testes idênticos de sucesso/fracasso.</p>
+   
+   <div class="space-y-3 text-sm">
+      <div class="flex items-center justify-between">
+          <span>Tentativas Totais ($n$):</span> 
+          <input id="tool-bin-n" type="number" value="5" min="1" max="20" class="border rounded p-1 w-20 text-right">
+      </div>
+      <div class="flex items-center justify-between">
+          <span>Sucessos Desejados ($k$):</span> 
+          <input id="tool-bin-k" type="number" value="3" min="0" max="20" class="border rounded p-1 w-20 text-right">
+      </div>
+      <div class="flex items-center justify-between border-t pt-2">
+          <span>Chance de Sucesso em 1, $p$ (%):</span> 
+          <input id="tool-bin-p" type="number" value="20" min="0" max="100" step="1" class="border rounded p-1 w-20 text-right bg-slate-50">
+      </div>
+   </div>
+   
+   <button onclick="calcBinomial()" class="w-full mt-5 bg-indigo-600 hover:bg-indigo-700 transition text-white rounded-xl py-3 font-bold text-sm">Calcular Combinações</button>
+   <div id="tool-bin-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+     <div>
+       <span class="text-xs font-bold uppercase tracking-widest text-sky-600">Treino intensivo</span>
+       <h1 class="text-3xl font-black mt-2">100 Exercícios com Resolução</h1>
+       <p class="text-slate-600 mt-2">Responda em números exatos, sejam inteiros, decimais (use ponto) ou frações (ex: <code>1/2</code> ou <code>0.5</code>).</p>
+     </div>
+     <div class="min-w-[210px]">
+       <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+       <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-sky-600 rounded-full transition-all duration-500" style="width:0%"></div></div>
+     </div>
+   </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 1 (Regras de Ouro)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 2 (Valor Esperado)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 3 (Binomial)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 4 (Bayes Simples)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 5 (Curva & Z-Score)</button>
+   <button data-level="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 6 (Desafios Vestibular)</button>
+  </div>
+ </div>
+ 
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo avançado de Estatística e Probabilidade • Renderizado com KaTeX</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function mathInline(latex){return String.raw`\(${latex}\)`}
+function mathDisplay(latex){return String.raw`\[${latex}\]`}
+
+function renderAll(){
+    document.querySelectorAll('body').forEach(el=>{
+        if(window.renderMathInElement) renderMathInElement(el,{
+            delimiters:[
+                {left: '$$', right: '$$', display: true},
+                {left: '\\[', right: '\\]', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false}
+            ]
+        });
+    });
+}
+
+function fat(n) {
+  if (!Number.isInteger(n) || n < 0) return NaN;
+  let r = 1;
+  for (let i = 2; i <= n; i++) r *= i;
+  return r;
+}
+function comb(n, k) {
+  if (!Number.isInteger(n) || !Number.isInteger(k) || k < 0 || k > n) return 0;
+  k = Math.min(k, n - k);
+  let r = 1;
+  for (let i = 1; i <= k; i++) r = r * (n - k + i) / i;
+  return Math.round(r);
+}
+function binomialPmf(n, k, p) {
+  if (k < 0 || k > n || p < 0 || p > 1) return 0;
+  if (p === 0) return k === 0 ? 1 : 0;
+  if (p === 1) return k === n ? 1 : 0;
+  return comb(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);
+}
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','binomial','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+    const t=btn.dataset.tab;
+    sections.forEach(s => $('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active',b===btn));
+    if(t==='exercicios') renderExercises();
+    if(t==='laboratorio') initLab();
+    if(t==='binomial') initBinomial();
+}));
+
+let labInited = false;
+function initLab() {
+  if(!labInited) {
+    ['lab-input-mu', 'lab-input-sigma'].forEach(id => {
+       $(id).addEventListener('input', updateLab);
+    });
+    window.addEventListener('resize', updateLab);
+    labInited = true;
+  }
+  updateLab();
+}
+
+function updateLab() {
+  if($('sec-laboratorio').classList.contains('hidden')) return;
+
+  const mu = parseFloat($('lab-input-mu').value);
+  const sigma = parseFloat($('lab-input-sigma').value);
+  
+  $('lab-val-mu').innerText = mu;
+  $('lab-val-sigma').innerText = sigma;
+
+  $('lab-r1').innerText = `${mu - sigma} a ${mu + sigma}`;
+  $('lab-r2').innerText = `${mu - 2*sigma} a ${mu + 2*sigma}`;
+  $('lab-r3').innerText = `${mu - 3*sigma} a ${mu + 3*sigma}`;
+
+  drawNormalCurve(mu, sigma);
+}
+
+function drawNormalCurve(mu, sigma) {
+  const c = $('lab-canvas');
+  const container = c.parentElement;
+  const cssW = Math.max(280, container.clientWidth - 48);
+  const cssH = 350;
+  const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+  c.style.width = cssW + 'px';
+  c.style.height = cssH + 'px';
+  c.width = Math.round(cssW * dpr);
+  c.height = Math.round(cssH * dpr);
+
+  const ctx = c.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const w = cssW, h = cssH;
+  const mLeft = 44, mBottom = 42, mTop = 20, mRight = 20;
+  const gW = w - mLeft - mRight, gH = h - mTop - mBottom;
+  ctx.clearRect(0, 0, w, h);
+
+  const minX = 0, maxX = 200;
+  const getX = val => mLeft + ((val - minX) / (maxX - minX)) * gW;
+  const pdf = x => (1 / (sigma * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow((x - mu) / sigma, 2));
+  const maxPdf = 1 / (sigma * Math.sqrt(2 * Math.PI));
+  const getY = val => mTop + gH - (val / maxPdf) * (gH * 0.88);
+
+  ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(mLeft, mTop + gH); ctx.lineTo(w - mRight, mTop + gH); ctx.stroke();
+  ctx.fillStyle = '#64748b'; ctx.font = '11px sans-serif'; ctx.textAlign = 'center';
+  for (let v = 0; v <= 200; v += 25) {
+    const xPos = getX(v);
+    ctx.beginPath(); ctx.moveTo(xPos, mTop + gH); ctx.lineTo(xPos, mTop + gH + 5); ctx.stroke();
+    ctx.fillText(v, xPos, mTop + gH + 18);
+  }
+
+  const startX1 = Math.max(minX, mu - sigma), endX1 = Math.min(maxX, mu + sigma);
+  if (startX1 < endX1) {
+    ctx.beginPath(); ctx.moveTo(getX(startX1), mTop + gH);
+    for (let x = startX1; x <= endX1; x += 0.5) ctx.lineTo(getX(x), getY(pdf(x)));
+    ctx.lineTo(getX(endX1), mTop + gH); ctx.closePath();
+    ctx.fillStyle = 'rgba(99, 102, 241, 0.3)'; ctx.fill();
+  }
+
+  ctx.beginPath();
+  for (let x = minX; x <= maxX; x += 0.5) {
+    const py = getY(pdf(x));
+    if (x === minX) ctx.moveTo(getX(x), py); else ctx.lineTo(getX(x), py);
+  }
+  ctx.strokeStyle = '#4f46e5'; ctx.lineWidth = 3; ctx.stroke();
+
+  const muX = getX(mu);
+  ctx.beginPath(); ctx.moveTo(muX, mTop); ctx.lineTo(muX, mTop + gH);
+  ctx.strokeStyle = '#312e81'; ctx.lineWidth = 2; ctx.setLineDash([5,5]); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle = '#312e81'; ctx.font = 'bold 12px sans-serif'; ctx.fillText(`μ = ${mu}`, muX, mTop + 14);
+}
+
+
+let binInited = false;
+function initBinomial() {
+  if (!binInited) {
+    ['bin-input-n', 'bin-input-p', 'bin-input-k'].forEach(id => $(id).addEventListener('input', updateBinomial));
+    window.addEventListener('resize', () => {
+      if (!$('sec-binomial').classList.contains('hidden')) updateBinomial();
+    });
+    binInited = true;
+  }
+  updateBinomial();
+}
+function updateBinomial() {
+  if ($('sec-binomial').classList.contains('hidden')) return;
+  const n = parseInt($('bin-input-n').value, 10);
+  const p = parseInt($('bin-input-p').value, 10) / 100;
+  const k = Math.min(parseInt($('bin-input-k').value, 10), n);
+  $('bin-input-k').max = n; $('bin-input-k').value = k;
+  $('bin-val-n').textContent = n; $('bin-val-p').textContent = `${Math.round(p * 100)}%`; $('bin-val-k').textContent = k;
+  const q = 1 - p, mean = n * p, sd = Math.sqrt(n * p * q), prob = binomialPmf(n, k, p);
+  $('bin-stat-mean').textContent = mean.toFixed(2);
+  $('bin-stat-sd').textContent = sd.toFixed(2);
+  $('bin-stat-prob').textContent = `${(prob * 100).toFixed(2)}%`;
+  $('bin-stat-explain').textContent = `P(X = ${k})`;
+  drawBinomialCurve(n, p, k);
+}
+function drawBinomialCurve(n, p, selectedK) {
+  const c = $('bin-canvas'), container = c.parentElement;
+  const cssW = Math.max(300, container.clientWidth), cssH = 420;
+  const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+  c.style.width = cssW + 'px'; c.style.height = cssH + 'px';
+  c.width = Math.round(cssW * dpr); c.height = Math.round(cssH * dpr);
+  const ctx = c.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,cssW,cssH);
+  const left=48,right=20,top=28,bottom=58,plotW=cssW-left-right,plotH=cssH-top-bottom;
+  const values=Array.from({length:n+1},(_,k)=>binomialPmf(n,k,p)), maxP=Math.max(...values,0.01);
+  const step=plotW/(n+1), barW=Math.max(5,step*0.72), xFor=k=>left+step*k+step/2, yFor=v=>top+plotH-(v/maxP)*(plotH*0.86);
+  ctx.strokeStyle='#cbd5e1'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(left,top+plotH); ctx.lineTo(cssW-right,top+plotH); ctx.stroke();
+  values.forEach((prob,k)=>{
+    const x=xFor(k), y=yFor(prob), h=top+plotH-y;
+    ctx.fillStyle=k===selectedK?'#4f46e5':'#a5b4fc'; ctx.fillRect(x-barW/2,y,barW,h);
+    if(n<=20 || k%2===0){ctx.fillStyle='#475569';ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText(k,x,top+plotH+18);}
+    if(k===selectedK){ctx.fillStyle='#312e81';ctx.font='bold 11px sans-serif';ctx.fillText(`${(prob*100).toFixed(1)}%`,x,Math.max(16,y-8));}
+  });
+  ctx.fillStyle='#475569';ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.fillText('número de sucessos (X)',left+plotW/2,cssH-14);
+  ctx.save();ctx.translate(14,top+plotH/2);ctx.rotate(-Math.PI/2);ctx.fillText('probabilidade',0,0);ctx.restore();
+}
+
+function calcBayes() {
+    let pa = parseFloat($('tool-pa').value)/100;
+    let pba = parseFloat($('tool-pba').value)/100;
+    let pbn = parseFloat($('tool-pbn').value)/100;
+    const out = $('tool-bayes-out');
+    
+    if(isNaN(pa)||isNaN(pba)||isNaN(pbn)) return;
+    
+    let p_not_a = 1 - pa;
+    
+    // Caminho da Doença e Positivo
+    let path_a_b = pa * pba;
+    // Caminho Saudável e Positivo
+    let path_na_b = p_not_a * pbn;
+    // Total Positivos
+    let total_b = path_a_b + path_na_b;
+    
+    let p_a_given_b = 0;
+    if(total_b > 0) p_a_given_b = path_a_b / total_b;
+
+    out.innerHTML = `
+      <div class="step" data-step="1">Encontre o Ramo Favorável ($A \cap B$): ${mathDisplay(`P(A) \\cdot P(B|A) = ${(pa).toFixed(4)} \\times ${(pba).toFixed(4)} = ${(path_a_b).toFixed(4)}`)}</div>
+      <div class="step mt-3" data-step="2">Encontre o Ramo "Falso" ($A^c \cap B$): ${mathDisplay(`P(A^c) \\cdot P(B|A^c) = ${(p_not_a).toFixed(4)} \\times ${(pbn).toFixed(4)} = ${(path_na_b).toFixed(4)}`)}</div>
+      <div class="step mt-3" data-step="3">Some os Ramos para achar o Denominador, $P(B)$: ${mathDisplay(`${(path_a_b).toFixed(4)} + ${(path_na_b).toFixed(4)} = ${(total_b).toFixed(4)}`)}</div>
+      <div class="success rounded-xl p-4 mt-4 text-center">
+        Probabilidade Invertida, $P(A|B)$: <br><br>
+        <span class="text-xl font-bold">${mathInline(`\\frac{${(path_a_b).toFixed(4)}}{${(total_b).toFixed(4)}} \\approx ${(p_a_given_b * 100).toFixed(2)}\\%`)}</span>
+      </div>
+    `;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+function calcBinomial() {
+    let n = parseInt($('tool-bin-n').value);
+    let k = parseInt($('tool-bin-k').value);
+    let p_perc = parseFloat($('tool-bin-p').value);
+    const out = $('tool-bin-out');
+    
+    if (isNaN(n) || isNaN(k) || isNaN(p_perc) || k > n || k < 0) return;
+
+    let p = p_perc / 100;
+    let q = 1 - p;
+    
+    let combinacao = comb(n, k);
+    let prob_sucessos = Math.pow(p, k);
+    let prob_fracassos = Math.pow(q, n - k);
+    
+    let final = combinacao * prob_sucessos * prob_fracassos;
+
+    out.innerHTML = `
+      <div class="step" data-step="1">Escreva a Fórmula: ${mathDisplay(`P(X=k) = \\binom{n}{k} \\cdot p^k \\cdot q^{n-k}`)}</div>
+      <div class="step mt-3" data-step="2">Calcule as Combinações das posições ($C_{n,k}$): ${mathDisplay(`\\binom{${n}}{${k}} = \\frac{${n}!}{${k}!(${n}-${k})!} = ${combinacao}`)}</div>
+      <div class="step mt-3" data-step="3">A chance de ${k} sucessos: ${mathDisplay(`(${p.toFixed(2)})^{${k}} \\approx ${prob_sucessos.toFixed(4)}`)}</div>
+      <div class="step mt-3" data-step="4">A chance de ${n-k} fracassos: ${mathDisplay(`(${q.toFixed(2)})^{${n-k}} \\approx ${prob_fracassos.toFixed(4)}`)}</div>
+      <div class="success rounded-xl p-4 mt-4 font-bold text-center text-indigo-800">
+        Multiplicando tudo: <br><br>
+        <span class="text-xl">${combinacao} $\\times$ ${prob_sucessos.toFixed(4)} $\\times$ ${prob_fracassos.toFixed(4)} $\\approx$ ${(final * 100).toFixed(2)}%</span>
+      </div>
+    `;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+// Format: id|level|title|question_expr_or_text|answer|type|hint
+const rawExercises = [
+  // L1: Regras Base e Intuição (1-15)
+  "1|1|Probabilidade Condicional Básica|Numa caixa há 5 bolas azuis e 5 vermelhas. Se tirei uma bola e NÃO olhei, qual a chance de ser azul?|1/2|basic|P(A) original.",
+  "2|1|Redução de Espaço|Dado lançado. Sabendo que o número é ímpar (1,3,5), qual a chance de ser 5?|1/3|cond|Espaço = {1,3,5}.",
+  "3|1|Redução de Espaço|Cartas (52). Sabendo que é uma carta de Copas (13), qual a chance de ser o Ás de Copas?|1/13|cond|Universo reduzido a 13.",
+  "4|1|Regra do E (Independente)|Jogar 2 dados. Chance de 6 no primeiro E 6 no segundo?|1/36|and|1/6 * 1/6",
+  "5|1|Regra do E (Sem Reposição)|Urna com 2 Brancas, 2 Pretas. Puxar 2 sem rep. Branca E Preta (ordem fixa)?|1/6|and_no_rep|(2/4) * (2/3) = 4/12",
+  "6|1|Regra do OU (Soma)|Probabilidade de tirar 1 (1/6) OU 2 (1/6) no dado?|1/3|or|1/6 + 1/6",
+  "7|1|Regra do OU (Interseção)|Dado: Prob de ser Maior que 3 (4,5,6) OU ser Par (2,4,6)?|2/3|or_int|3/6 + 3/6 - 2/6 (pois 4 e 6 repetem)",
+  "8|1|Complementar|Em 100 parafusos, 2 defeituosos. Chance de puxar um PERFEITO?|49/50|comp|98/100 = 49/50",
+  "9|1|Pelo menos um|2 moedas. Chance de pelo menos 1 cara? (1 - chance zero caras)|3/4|comp|1 - (1/2 * 1/2)",
+  "10|1|Soma 100%|Se a chance de chover é 0.2, e nevar é 0.1 (mutuamente excludentes). Qual a chance de sol?|0.7|comp|1 - (0.2+0.1)",
+  "11|1|Produto Regra Geral|Se P(A) = 0.5, P(B dado A) = 0.4. Qual P(A e B)?|0.2|prod|0.5 * 0.4",
+  "12|1|Fórmula Condicional|Se P(A e B) = 0.1 e P(B) = 0.5, qual P(A dado B)?|1/5|cond_form|0.1 / 0.5 = 1/5",
+  "13|1|Lógica de Independentes|A e B são independentes. P(A)=0.3, P(B)=0.4. P(A e B)?|0.12|prod|0.3 * 0.4",
+  "14|1|Lógica Mutuamente Exclusivos|A e B são mut. exclusivos. P(A)=0.3, P(B)=0.4. P(A e B)?|0|prod|Não podem ocorrer juntos.",
+  "15|1|Lógica Mutuamente Exclusivos|A e B são mut. exclusivos. P(A)=0.3, P(B)=0.4. P(A ou B)?|0.7|or|0.3 + 0.4",
+
+  // L2: Valor Esperado (16-30)
+  "16|2|Esperança 1|Um dado rende R$6 se cair 6, R$0 nos outros. Quanto você espera ganhar em média por jogada?|1|ev|6 * (1/6) + 0",
+  "17|2|Esperança Moeda|Se der cara ganha 10. Coroa perde 10. E[X]?|0|ev|10*(0.5) - 10*(0.5)",
+  "18|2|Esperança Seguro|Carro roubado (p=0.01) paga 10000. Custo da seguradora esperado por carro?|100|ev|10000 * 0.01",
+  "19|2|Loteria justa?|Bilhete R$2. Prêmio R$100. Chance 1%. Valor esperado LÍQUIDO?|-1|ev|(100 * 0.01) - 2",
+  "20|2|Jogo cassino|Roleta (1 a 36). Aposta em 1 número. Paga 36. Prob = 1/36. Valor esperado BRUTO?|1|ev|36 * (1/36)",
+  "21|2|Dado Viciado|Dado onde o 6 tem 50% de chance. Os outros dividem igual (10% cada). Qual a média E[X] (esperança)?|4.5|ev|6*0.5 + (1+2+3+4+5)*0.1 = 3 + 1.5",
+  "22|2|Múltiplos Prêmios|Rifa de 1000 números. 1 prêmio de R$500, 2 prêmios de R$100. E[X] bruto por bilhete?|0.7|ev|(500*1 + 100*2) / 1000",
+  "23|2|Lucro Variável|Venda: 30% chance de lucro 1000. 70% chance de prejuízo 200. E[X]?|160|ev|0.3*1000 - 0.7*200",
+  "24|2|Atirador|Acerta 20% e ganha 5 pts. Erra 80% e perde 1 pt. E[X] por tiro?|0.2|ev|5*0.2 - 1*0.8 = 1 - 0.8",
+  "25|2|Propriedade Linearidade|Se E[X] = 5. Qual E[2X]?|10|ev|2 * E[X]",
+  "26|2|Propriedade Constante|Se E[X] = 5. Qual E[X + 3]?|8|ev|E[X] + 3",
+  "27|2|Duas Variáveis|E[X]=2, E[Y]=3. E[X+Y]?|5|ev|2+3",
+  "28|2|Portas de Monty Hall|3 portas. 1 prêmio. Você escolhe. E[X] de acertar sem trocar?|1/3|ev|1/3",
+  "29|2|Portas de Monty Hall|E[X] de acertar TROCANDO de porta (Monty Hall)?|2/3|ev|2/3",
+  "30|2|Falácia do Apostador|Moeda deu 5 caras seguidas. Qual a E[X] de cara no próximo lançamento?|1/2|ev|Independente",
+
+  // L3: Probabilidade Binomial (31-45)
+  "31|3|Binomial Simples|Jogar 3 moedas. Prob de exatamente 2 caras? (C(3,2) * (1/2)^2 * (1/2)^1)|3/8|bin|3 * 1/8",
+  "32|3|Binomial Simples|Jogar 4 moedas. Prob de 2 caras? (C(4,2) * 1/16)|3/8|bin|6/16 = 3/8",
+  "33|3|Binomial Família|4 filhos. Prob de 1 menino e 3 meninas? (C(4,1) * (1/2)^4)|1/4|bin|4/16 = 1/4",
+  "34|3|Chute na Prova|5 questões V/F (p=1/2). Prob de acertar todas?|1/32|bin|1/32",
+  "35|3|Chute Exato|5 V/F. Prob de acertar exatamente 4? (C(5,4) * 1/32)|5/32|bin|5/32",
+  "36|3|Chute Múltipla Escolha|3 questões, 5 opções (p=1/5, q=4/5). Prob de acertar todas 3?|1/125|bin|(1/5)^3",
+  "37|3|Chute Múltipla Escolha|3 questões, 5 opções. Prob de ERRAR TODAS?|64/125|bin|(4/5)^3",
+  "38|3|Atirador|Acerta 80% (p=4/5). Atira 2x. Prob de acertar 1 e errar 1? (C(2,1) * 4/5 * 1/5)|8/25|bin|2 * 4/25",
+  "39|3|Dados|Rolar dado 3x. Prob de cair o '6' exatamente 1 vez? (C(3,1) * (1/6)^1 * (5/6)^2)|25/72|bin|3 * (25/216)",
+  "40|3|Qualidade|Máquina faz 10% defeito (p=0.1). Pega 2 peças. Prob das 2 serem defeituosas?|0.01|bin|(0.1)^2",
+  "41|3|Qualidade|Mesma máquina (p=0.1). 2 peças. Prob de EXATAMENTE 1 defeituosa? (2 * 0.1 * 0.9)|0.18|bin|0.18",
+  "42|3|Sem Fórmula (Pelo Menos)|3 moedas. Prob de PELO MENOS 1 cara? (1 - P(0 caras))|7/8|bin|1 - 1/8",
+  "43|3|Pelo Menos|Atirador p=1/2. Atira 3x. Prob de acertar pelo menos 1?|7/8|bin|1 - 1/8",
+  "44|3|Média de Binomial|Se jogo moeda 10 vezes. Valor esperado (média) de caras? E=n*p|5|ev|10 * 0.5",
+  "45|3|Média Binomial|Atirador (p=0.2). Atira 100x. Quantos acertos esperados?|20|ev|100 * 0.2",
+
+  // L4: Bayes Básico e Árvores (46-60)
+  "46|4|Urnas (A/B)|Urna A (prob 1/2) tem 100% bolas Pretas. Urna B (prob 1/2) tem 100% bolas Brancas. Puxei Preta. Qual chance de ter vindo de A?|1|bayes|Certeza absoluta.",
+  "47|4|Dois caminhos|Urna A (1/2) tem 2 Brancas/2 Pretas. Urna B (1/2) tem 4 Brancas/0 Pretas. Qual P(Branca)?|3/4|tree|1/4 + 1/2 = 3/4",
+  "48|4|Bayes Simples|Na questão anterior (P(Branca)=3/4), se puxei Branca, qual chance de vir da Urna A (caminho A = 1/4)?|1/3|bayes|(1/4) / (3/4)",
+  "49|4|Bayes Simples 2|E a chance de ter vindo de B (caminho B = 1/2)?|2/3|bayes|(1/2) / (3/4)",
+  "50|4|Fábrica Peças|Maq1 faz 60% com 1% erro. Maq2 faz 40% com 2% erro. Prob de DEFEITO total?|0.014|tree|0.6*0.01 + 0.4*0.02 = 0.006 + 0.008 = 0.014",
+  "51|4|Bayes Fábrica|Na fábrica acima, peça tem defeito. Chance de vir da Maq1?|3/7|bayes|0.006 / 0.014",
+  "52|4|Previsão Chuva|Previsão diz chuva (acerta 80%). Realidade chove 10% dos dias. Prob Chove & Diz Chuva?|0.08|tree|0.1 * 0.8",
+  "53|4|Falso Positivo|Realidade: 90% sol. Previsão erra (diz chuva) em 10% do sol. Prob Sol & Diz Chuva?|0.09|tree|0.9 * 0.1",
+  "54|4|Bayes Chuva|Total de avisos 'Vai Chover' = 0.08 + 0.09 = 0.17. Se avisou, qual chance de chover real?|8/17|bayes|0.08 / 0.17",
+  "55|4|Bayes Doença Rara|1% doente. Teste acerta 100% no doente. 10% de falso positivo no sadio. Prob(Total Positivo)?|0.109|tree|0.01*1 + 0.99*0.1 = 0.01 + 0.099",
+  "56|4|Bayes Doença Rara|Deu positivo. Qual chance de estar doente (1% / 10.9%)?|10/109|bayes|0.010 / 0.109",
+  "57|4|Moeda Falsa|Saco com 1 moeda normal e 1 de Duas Caras. Puxei 1 sem ver, deu Cara. Chance de ser a Moeda Falsa?|2/3|bayes|Normal (1/2*1/2=1/4). Falsa (1/2*1=2/4). Total = 3/4. Falsa/Total = 2/3.",
+  "58|4|Taxi Azul e Verde|85% taxis Verdes, 15% Azuis. Testemunha acerta 80%. Disse Azul. Prob de ser Azul?|12/29|bayes|Azul&Acerta (0.15*0.8=0.12). Verde&Erra (0.85*0.2=0.17). Total=0.29.",
+  "59|4|Spam|Email é spam (20%). Contém 'Grátis' (50% nos spams, 10% nos normais). P('Grátis') total?|0.18|tree|0.2*0.5 + 0.8*0.1 = 0.10 + 0.08",
+  "60|4|Bayes Spam|Se tem 'Grátis', chance de ser spam?|5/9|bayes|0.10 / 0.18",
+
+  // L5: Curva Normal, Z-Score (61-80)
+  "61|5|Regra Empírica|Média 100, DP 15. Qual a chance de um valor cair entre 85 e 115?|68|norm|±1 DP = 68%",
+  "62|5|Regra Empírica|Média 100, DP 15. Qual a chance de cair entre 70 e 130?|95|norm|±2 DP = 95%",
+  "63|5|Regra Empírica|Qual a chance de estar EXATAMENTE na média ou abaixo dela (P(X <= 100))?|50|norm|A curva é simétrica, metade abaixo, metade acima.",
+  "64|5|Z-Score Fórmula|Média 50, DP 10. Valor 70. Qual o Z-score?|2|zscore|(70-50)/10",
+  "65|5|Z-Score Fórmula|Média 50, DP 10. Valor 40. Qual o Z-score?|-1|zscore|(40-50)/10",
+  "66|5|Metades da Curva|Média 100, DP 15. Chance de estar entre 100 e 115? (Metade de 68%)|34|norm|68 / 2",
+  "67|5|Cauda Maior|Chance de ser MAIOR que 115? (Se 50% é >100, e 34% está entre 100 e 115)|16|norm|50 - 34",
+  "68|5|Cauda Menor|Média 100, DP 15. Chance de ser MENOR que 70? (Se 95% está entre 70 e 130, sobram 5% nas DUAS pontas)|2.5|norm|5 / 2",
+  "69|5|Z-Score Vestibular|Sua nota: 800. Média Geral: 600. DP: 100. Seu Z-Score?|2|zscore|(800-600)/100",
+  "70|5|Revertendo Z|Média 20, DP 5. O valor que tem Z-Score = 3?|35|zscore|X = Média + Z*DP = 20 + 15",
+  "71|5|Distribuição Variância|Se o DP é 5, qual a Variância?|25|norm|DP = Raiz(Var), então Var = 5^2",
+  "72|5|Variância Transformação|Variância=10. Se somar 5 em todos os dados, qual a nova Variância?|10|prop|Somar não afeta dispersão.",
+  "73|5|DP Transformação|DP=4. Se multiplicar tudo por 3, qual o novo DP?|12|prop|DP multiplica pelo fator.",
+  "74|5|Soma de Normais|X tem E[X]=10, Y tem E[Y]=20. E[X+Y]?|30|ev|Soma das esperanças.",
+  "75|5|Aproximação Binomial->Normal|Moeda 100 vezes (p=0.5). Qual a Média esperada?|50|ev|100 * 0.5",
+  "76|5|Aproximação DP|Fórmula DP Binomial: Raiz(n*p*q). Moeda 100x. DP? (Raiz de 100*0.5*0.5)|5|norm|Raiz(25)",
+  "77|5|Erro Padrão Médio|Média Pop é 50, DP Pop é 20. Amostra de n=100. Qual o Erro Padrão (DP/Raiz(n))?|2|norm|20/10",
+  "78|5|Intervalo Confiança Aprox|Se Erro Padrão = 2. Margem para 95% confiança (±2 Desvios)?|4|norm|2 * 2",
+  "79|5|Simetria Normal|A Assimetria (Skewness) de uma Normal Perfeita é?|0|norm|Simetria perfeita = 0.",
+  "80|5|Amplitude vs DP|Em uma normal, qual a distância aproximada em DPs entre o mínimo e máximo extremo praticamente possíveis? (±3DP)|6|norm|3 pra cima, 3 pra baixo = 6 DPs.",
+
+  // L6: Desafios ENEM / Universitário (81-100)
+  "81|6|Gêmeos Bayes|1/3 dos gêmeos são Idênticos (mesmo sexo). 2/3 são Fraternos (50% chance de mesmo sexo). Você teve gêmeos meninos. Chance de serem Idênticos?|1/2|bayes|Idên(1/3*1). Frat(2/3*1/2=1/3). Total meninos = 2/3. Idên/Total = 1/2.",
+  "82|6|Monty Hall 100 portas|100 portas. 1 carro. Você escolhe 1. Apresentador abre 98 portas erradas. Chance de ganhar TROCANDO?|99/100|bayes|Você tem 1/100, o resto focado na outra é 99/100.",
+  "83|6|Adivinhação Binomial|ENEM: 90 questões. 5 opções (chute=1/5). Quantos acertos esperados?|18|ev|90 / 5",
+  "84|6|Loteria E[X] Negativo|MegaSena: Prob 1 em 50M. Prêmio 100M. Bilhete R$5. E[X] por bilhete?|-3|ev|(100M/50M) - 5 = 2 - 5",
+  "85|6|Falha Sistema|3 Servidores. P(Cair) de cada = 0.1. Prob do sistema CAIR TOTALMENTE (todos 3 caem)?|0.001|and|(0.1)^3",
+  "86|6|Falha Sistema Redundante|Qual a Prob do sistema CONTINUAR ONLINE (pelo menos 1 servidor vivo)?|0.999|comp|1 - 0.001",
+  "87|6|Senha 4 digitos|Permutações de 4 dígitos usando 0 a 9. Prob de adivinhar de primeira?|1/10000|basic|10^4 = 10000. 1/10000.",
+  "88|6|Anagramas Probabilidade|Palavra BANANA. Embaralhar aleatório. Qual a chance de terminar com A? (Fixa o A no final = 5! / (2!2!) = 30. Total = 6!/(3!2!) = 60).|1/2|basic|30/60",
+  "89|6|Problema dos Aniversários|Grupo de 3 pessoas. Prob de TODOS FIZEREM ANO EM DIAS DIFERENTES? (365/365 * 364/365 * 363/365). (Fração aprox).|132132/133225|basic|A conta brutal.",
+  "90|6|Interseção Independente|A e B independentes. P(A)=1/2, P(A U B)=3/4. Qual P(B)? (P(AUB) = P(A)+P(B)-P(A)P(B))|1/2|or_rule|3/4 = 1/2 + x - 1/2x -> 1/4 = 1/2x -> x=1/2.",
+  "91|6|União Mut. Excl.|A e B mut. exclusivos. P(A)=0.2, P(B)=0.3. P(A U B)?|0.5|or|0.2 + 0.3",
+  "92|6|Distribuição de Poisson|Média de 2 carros por minuto. Qual a Variância numa Poisson? (Propriedade: Var = Média)|2|prop|Média = Variância na Poisson.",
+  "93|6|Markov Simplificado|Choveu hoje. P(Chover amanhã dado que choveu hoje) = 0.6. Qual P(Sol amanhã dado que choveu hoje)?|0.4|comp|1 - 0.6",
+  "94|6|Soma Variâncias|X e Y independentes. Var(X)=3, Var(Y)=4. Var(X+Y)?|7|prop|Soma as variâncias (se indep).",
+  "95|6|Teste Qualidade Enem|1000 celulares. 5% bateria ruim. 2% tela ruim. 1% ambos. P(Só Bateria Ruim)?|0.04|or|0.05 - 0.01",
+  "96|6|Caminhada Aleatória|Bêbado: 1 passo Esq (50%), 1 passo Dir (50%). Após 2 passos, chance de estar no ZERO inicial? (E-D ou D-E)|1/2|bin|2 * 0.5 * 0.5",
+  "97|6|Probabilidade Contínua|Sorteio número real entre 0 e 10. Qual a P(X = 5 exato)?|0|norm|Em contínua, ponto exato é 0.",
+  "98|6|Soma 100|P(X) = k*x para x=1,2,3,4. Qual o valor de k? (Soma prob = 1). (k+2k+3k+4k = 1)|1/10|ev|10k=1",
+  "99|6|Lei Grandes Números|Joguei moeda 1 milhão de vezes. Deu cara 50.1%. Isso fere a teoria (50%)? (1=Sim, 0=Não)|0|norm|Flutuação normal na LGN empírica.",
+  "100|6|Máximo do Bayes|Qual o maior valor que P(A dado B) pode assumir?|1|bayes|Certeza máxima 100%."
+];
+
+// O Regex para formatar os arrays com Chaves { } para LaTeX, sem engolir acentos
+const E = rawExercises.map(line => {
+  const p = line.split('|');
+  let qText = p[3].replace(/\{/g, '\\( \\{').replace(/\}/g, '\\} \\)'); // Formatando chaves de conjuntos
+  return { id: parseInt(p[0]), level: parseInt(p[1]), title: p[2], q: qText, ans: p[4], type: p[5], hint: p[6] };
+});
+
+function solutionSteps(ex){
+  const S=[];
+  if(ex.type==='basic'){
+    S.push(['1','Lembre-se da base: $\\frac{\\text{Quero}}{\\text{Total}}$.']);
+    S.push(['2',`Desenvolvimento lógico: ${mathInline(ex.hint)}`]);
+  }
+  else if(ex.type==='cond' || ex.type==='cond_reduce'){
+    S.push(['1','Ocorreu uma Condição! Seu Espaço Amostral (Denominador) precisa ser reduzido apenas para os casos que atendem à condição.']);
+    S.push(['2',`No novo cenário reduzido: ${mathInline(ex.hint)}`]);
+  }
+  else if(ex.type==='and'){
+    S.push(['1','Regra do E (Eventos em sequência).']);
+    S.push(['2','Multiplique as frações dos eventos separados. Cuidado para ver se a reposição afeta o 2º evento.']);
+    S.push(['3',`Conta: ${mathInline(ex.hint)}`]);
+  }
+  else if(ex.type==='or'){
+    S.push(['1','Regra do OU (Soma).']);
+    S.push(['2',`Some as probabilidades: ${mathInline(ex.hint)}`]);
+  }
+  else if(ex.type==='tree' || ex.type==='bayes'){
+    S.push(['1','Monte a Árvore de Probabilidade mentalmente. Qual o caminho da doença/sucesso e o da saúde/fracasso?']);
+    S.push(['2',`Se pedir Total, some as pontas: ${mathInline(ex.hint)}`]);
+    if(ex.type==='bayes') S.push(['3','Para inverter (Bayes), pegue o Ramo Específico e divida pelo Total.']);
+  }
+  else if(ex.type==='bin'){
+    S.push(['1','Distribuição Binomial. Escolha a Combinação e multiplique pelos Sucessos e Fracassos.']);
+    S.push(['2',`Cálculo da fórmula: ${mathInline(ex.hint)}`]);
+  }
+  else if(ex.type==='norm' || ex.type==='zscore'){
+    S.push(['1','Lembre da Curva de Gauss (Sino) ou da fórmula do Escore-Z.']);
+    S.push(['2',`Aplicação da regra Empírica / Padronização: ${mathInline(ex.hint)}`]);
+  }
+  else if(ex.type==='ev'){
+    S.push(['1','Valor Esperado (Média Ponderada da vida). Multiplique o "Prêmio" pela "Chance" e some tudo.']);
+    S.push(['2',`Cálculo de E[X]: ${mathInline(ex.hint)}`]);
+  }
+  else {
+    S.push(['1','Raciocínio lógico e interpretação de propriedades estatísticas.']);
+    S.push(['2',`Resolução direta: ${mathInline(ex.hint)}`]);
+  }
+  return S;
+}
+
+let solved = new Set();
+try {
+  const saved = JSON.parse(localStorage.getItem('advStatsSolved') || '[]');
+  if (Array.isArray(saved)) saved.forEach(id => solved.add(Number(id)));
+} catch (e) {
+  localStorage.removeItem('advStatsSolved');
+}
+let currentLevel = 'all';
+
+function renderExercises(){
+  let list = E.filter(e => (currentLevel==='all' || e.level == currentLevel));
+  
+  $('exercise-list').innerHTML=list.map(ex=>{
+    const done = solved.has(ex.id);
+    return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between gap-3">
+          <span class="text-xs font-black px-2.5 py-1 rounded-full bg-sky-50 text-sky-700">Q. ${ex.id}</span>
+          <span class="text-xs text-slate-400">${ex.title}</span>
+        </div>
+        <div class="text-sm font-bold text-slate-700 mt-4 leading-relaxed">${ex.q}</div>
+      </div>
+      
+      <div class="mt-4">
+        <div class="flex gap-2">
+          <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:border-sky-500 focus:ring-1 focus:ring-sky-500 outline-none font-mono" placeholder="Sua resposta (ex: 1/2 ou 0.5)">
+          <button onclick="check(${ex.id})" class="bg-sky-600 hover:bg-sky-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+        </div>
+        <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px]"></div>
+        <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-sky-700 hover:underline">👁 Ver Resolução Guiada</button>
+        
+        <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+          <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Passo a Passo</div>
+          ${solutionSteps(ex).map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+          <div class="success rounded-xl p-3 mt-2 text-center font-bold">Gabarito esperado: ${ex.ans}</div>
+        </div>
+      </div>
+    </article>`
+  }).join('');
+  
+  updateProgress();
+  renderAll();
+}
+
+function parseUser(v) { return String(v).trim().replace(/\s+/g, '').toLowerCase(); }
+function fractionToNumber(v) {
+  const m = String(v).match(/^(-?\d+(?:\.\d+)?)\/(-?\d+(?:\.\d+)?)$/);
+  if (!m || Number(m[2]) === 0) return NaN;
+  return Number(m[1]) / Number(m[2]);
+}
+function answersMatch(user, ans) {
+  const u=fractionToNumber(user), a=fractionToNumber(ans), un=Number(user), an=Number(ans);
+  if(Number.isFinite(u)&&Number.isFinite(a)) return Math.abs(u-a)<1e-9;
+  if(Number.isFinite(u)&&Number.isFinite(an)) return Math.abs(u-an)<1e-9;
+  if(Number.isFinite(un)&&Number.isFinite(a)) return Math.abs(un-a)<1e-9;
+  if(Number.isFinite(un)&&Number.isFinite(an)) return Math.abs(un-an)<1e-9;
+  return user===ans;
+}
+function updateProgress() {
+  $('progress-text').textContent=`${solved.size} / 100`;
+  $('progress-bar').style.width=`${Math.min(100, solved.size)}%`;
+}
+function check(id){
+  const ex=E.find(x=>x.id===id), input=$('answer-'+id), fb=$('feedback-'+id);
+  if(!ex||!input||!fb) return;
+  if(input.value.trim()===''){fb.className='text-sm font-bold mt-2 text-red-600';fb.textContent='Insira uma resposta válida.';return;}
+  const user=parseUser(input.value), ans=parseUser(ex.ans);
+  if(answersMatch(user,ans)){
+    solved.add(id); localStorage.setItem('advStatsSolved',JSON.stringify([...solved]));
+    fb.className='text-sm font-bold mt-2 text-emerald-600'; fb.textContent='✓ Certo! Você identificou a relação correta.';
+    const card=input.closest('article'); if(card){card.classList.remove('border-slate-200');card.classList.add('border-emerald-400');}
+  } else {
+    fb.className='text-sm font-bold mt-2 text-red-600'; fb.textContent='✗ Ainda não. Use a resolução guiada como pista e tente novamente.';
+  }
+  updateProgress();
+}
+
+function toggleSol(id){ $('solution-'+id).classList.toggle('hidden'); }
+
+document.querySelectorAll('.level-btn').forEach(b=>{
+  b.onclick = () => {
+    currentLevel = b.dataset.level;
+    document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderExercises();
+  }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+  updateProgress();
+});
+</script>
+</body>
+</html>

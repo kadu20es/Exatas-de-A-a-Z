@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudando Números Decimais | Guia Interativo</title>
+    <style>
+        /* Estilos inspirados em card e contraste das citações */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f7fb; /* Fundo suave */
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+        header {
+            background-color: #4f46e5; /* Indigo forte, cor de destaque */
+            color: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+        .section-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid #6366f1; /* Destaque lateral */
+        }
+        h2 {
+            color: #4f46e5;
+            border-bottom: 2px dashed #ccc;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .step, .principio {
+            background-color: #eef2ff; /* Azul claro para passos */
+            padding: 15px;
+            border-left: 3px solid #4f46e5;
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+        /* Estilo para o Lab Interativo */
+        #laboratorio input[type="number"], #laboratorio button {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 80px;
+        }
+        #resultadoLab {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            min-height: 30px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>💡 Módulo de Estudo Interativo</h1>
+        <h2>Números Decimais: Desvendando o Valor Posicional</h2>
+        <p style="font-size: 1.2em;">Paciência e revisão são suas melhores ferramentas! Vamos aprender passo a passo.</p>
+    </header>
+
+    <!-- ========================================= -->
+    <!-- SEÇÃO 1: TEORIA (CONCEITO) - Inspirado na Citação 3 -->
+    <!-- ========================================= -->
+    <div class="section-card" id="teoria">
+        <h2>📘 1. O que são Números Decimais? (A Teoria)</h2>
+        
+        <h3>🤔 Por que isso é importante?</h3>
+        <p>Os números decimais nos ajudam a medir o mundo real: dinheiro, altura, tempo. Eles representam partes de um inteiro.</p>
+        
+        <h3>💸 A Analogia do Dinheiro (O Segredo!)</h3>
+        <div class="principio">
+            <p>Imagine que você tem <strong>R$ 1,00</strong>. O número **1** é o real completo (unidade). Os centavos são as casas decimais.</p>
+            <p style="font-size: 1.5em; color: #dc2626;">&nbsp;&nbsp; R$ 1,<strong>50</strong></p>
+            <p>Isso significa: **1** Real (Unidades) e **50** centavos (Décimos e Centésimos).</p>
+        </div>
+
+        <h3>🔢 Valor Posicional é tudo!</h3>
+        <ul>
+            <li><strong>À esquerda da vírgula:</strong> São os números inteiros (unidades, dezenas...).</li>
+            <li><strong>À direita da vírgula:</strong> Os valores diminuem em frações (décimos $\frac{1}{10}$, centésimos $\frac{1}{100}$). <strong>A VÍRGULA É O PONTO DE ALINHAMENTO!</strong></li>
+        </ul>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- SEÇÃO 2: EXEMPLOS GUIADOS (OPERAÇÕES) - Inspirado nas Citações 2 e 3 -->
+    <!-- ========================================= -->
+    <div class="section-card" id="exemplo">
+        <h2>➕ 2. Operando com Decimais (Exemplos Guiados)</h2>
+        <p>O maior erro é esquecer de alinhar a vírgula! Lembre-se: o alinhamento do ponto separa as casas.</p>
+
+        <h3>📚 Exemplo 1: Soma</h3>
+        <div class="step">
+            <strong>Problema:</strong> <span style="font-size: 1.2em;">3,5 + 10,75 = ?</span>
+            <ol>
+                <li>**Passo 1 (Alinhamento):** Coloque as vírgulas umas embaixo das outras. Preencha os espaços vazios com zero para ajudar a visualizar ($\text{3,5} \rightarrow 3,5\mathbf{0}$).</li>
+                <li><strong>Passo 2 (A Soma):</strong> Some normalmente (comece da direita). $$ \begin{matrix} & 10, & 7 \\ + & 3, & 5\mathbf{0} \\ \hline & 14, & 20 \end{matrix} $$</li>
+                <li><strong>Resultado:</strong> 14,20 ou simplesmente 14,2.</li>
+            </ol>
+        </div>
+
+         <h3>📚 Exemplo 2: Subtração</h3>
+        <div class="step">
+             <strong>Problema:</strong> <span style="font-size: 1.2em;">8,3 - 5,12 = ?</span>
+            <ol>
+                <li>**Passo 1 (Alinhamento):** Alinhe as vírgulas e complete com zero ($8,3 \rightarrow 8,3\mathbf{0}$).</li>
+                <li>**Passo 2 (A Subtração):** $$ \begin{matrix} & 8, & 3\mathbf{0} \\ - & 5, & 12 \\ \hline & 3, & 18 \end{matrix} $$</li>
+                <li><strong>Resultado:</strong> 3,18.</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- SEÇÃO 3: LABORATÓRIO INTERATIVO (PRÁTICA) - Novo Componente -->
+    <!-- ========================================= -->
+    <div class="section-card" id="laboratorio">
+        <h2>🛠️ 3. Laboratório de Prática (Mão na Massa!)</h2>
+        <p>Use esta área para fixar o alinhamento e a operação.</p>
+
+        <h4>Soma Simples:</h4>
+        <div style="margin-bottom: 20px;">
+            <span style="font-size: 1.5em;">3,4 + 2,5 =</span>
+            <input type="number" id="numA" placeholder="3,4">
+            <span>+</span>
+            <input type="number" id="numB" placeholder="2,5">
+            <button onclick="calcularSoma()">Calcular</button>
+        </div>
+
+        <h4>Subtração Simples:</h4>
+         <div>
+            <span style="font-size: 1.5em;">7,9 - 3,2 =</span>
+            <input type="number" id="numC" placeholder="7,9">
+             <span>-</span>
+            <input type="number" id="numD" placeholder="3,2">
+            <button onclick="calcularSubtracao()">Calcular</button>
+        </div>
+
+        
+
+
+        <!-- ========================================= -->
+        <!-- NOVO: MULTIPLICAÇÃO -->
+        <!-- ========================================= -->
+         <h4 style="margin-top: 20px;">&times; Multiplicação (Atenção ao Z!)</h4>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span>${numE},</span> <input type="number" id="numE" placeholder="Ex: 3,4">
+            <span>&times;</span>
+            <span>${numF},</span> <input type="number" id="numF" placeholder="Ex: 2,5">
+            <button onclick="calcularMultiplicacao()">Calcular</button>
+        </div>
+
+         <!-- ========================================= -->
+         <!-- NOVO: DIVISÃO -->
+         <!-- ========================================= -->
+         <h4 style="margin-top: 20px;">&divide; Divisão (Cuidado com o Zero!)</h4>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span>${numG},</span> <input type="number" id="numG" placeholder="Ex: 7,9">
+            <span>&divide;</span>
+            <span>${numH},</span> <input type="number" id="numH" placeholder="Ex: 3,2">
+            <button onclick="calcularDivisao()">Calcular</button>
+        </div>
+
+        <div id="resultadoLab" style="margin-top: 20px; padding: 15px; border: 2px dashed #6366f1;">
+            Resultado aparecerá aqui após clicar nos botões.
+        </div>
+
+
+    </div>
+
+     
+
+    <!-- ========================================= -->
+    <!-- SEÇÃO 4: EXERCÍCIOS (AVALIAÇÃO) - Inspirado na Citação 1 -->
+    <!-- ========================================= -->
+    <div class="section-card" id="exercicios">
+        <h2>✅ 4. Hora dos Exercícios!</h2>
+        <p>Não olhe o exemplo antes de tentar. Lembre-se do passo a passo: Alinhar $\rightarrow$ Somar/Subtrair.</p>
+
+        <h3>❓ Desafio Rápido (Sem ajuda)</h3>
+        <ol>
+            <li>Qual é o resultado de 5,2 + 1,08?</li>
+            <li>Se você comprou algo por R$ 12,50 e pagou com uma nota de R$ 20,00, quanto recebeu de troco?</li>
+        </ol>
+
+        <h3>🧠 Dica de Estudo (Retomada do Procedimento)</h3>
+        <p style="padding: 10px; background-color: #fffbe8; border-left: 4px solid orange;">💡 Se você travar em um exercício, não tente adivinhar. Volte imediatamente para a seção de "Exemplos Guiados" e refaça o problema lá até conseguir fazer sem pensar.</p>
+    </div>
+
+    <script>
+        // ===========================================
+        // JAVASCRIPT PARA A INTERATIVIDADE (LABORATÓRIO)
+        // ===========================================
+
+        // ===========================================
+// JAVASCRIPT PARA A INTERATIVIDADE (LABORATÓRIO) - ATUALIZADO
+// ===========================================
+
+function calcularSoma() {
+    const numA = parseFloat(document.getElementById('numA').value);
+    const numB = parseFloat(document.getElementById('numB').value);
+    const resultadoDiv = document.getElementById('resultadoLab');
+    let resultado;
+
+    if (isNaN(numA) || isNaN(numB)) {
+        resultadoDiv.innerHTML = "⚠️ Por favor, preencha os dois campos para calcular a soma.";
+        return;
+    }
+    
+    resultado = numA + numB;
+    // Usa toFixed(2).replace(/\.?0+$/, "") para garantir duas casas decimais se necessário, mas remover zeros finais.
+    resultadoDiv.innerHTML = `✅ O resultado de ${numA} + ${numB} é: <strong style="font-size: 1.5em;">${resultado.toFixed(2).replace(/\.?0+$/, "")}</strong>`;
+}
+
+function calcularSubtracao() {
+    const numC = parseFloat(document.getElementById('numC').value);
+    const numD = parseFloat(document.getElementById('numD').value);
+    const resultadoDiv = document.getElementById('resultadoLab');
+    let resultado;
+
+     if (isNaN(numC) || isNaN(numD)) {
+        resultadoDiv.innerHTML = "⚠️ Por favor, preencha os dois campos para calcular a subtração.";
+        return;
+    }
+    
+    resultado = numC - numD;
+    resultadoDiv.innerHTML = `✅ O resultado de ${numC} - ${numD} é: <strong style="font-size: 1.5em;">${Math.abs(resultado).toFixed(2).replace(/\.?0+$/, "")}</strong>`; // Math.abs para evitar negativo em display
+}
+
+// =========================================
+// NOVO: FUNÇÃO DE MULTIPLICAÇÃO
+// =========================================
+function calcularMultiplicacao() {
+    const numE = parseFloat(document.getElementById('numE').value);
+    const numF = parseFloat(document.getElementById('numF').value);
+    const resultadoDiv = document.getElementById('resultadoLab');
+    let resultado;
+
+    if (isNaN(numE) || isNaN(numF)) {
+        resultadoDiv.innerHTML = "⚠️ Por favor, preencha os dois campos para calcular a multiplicação.";
+        return;
+    }
+    
+    resultado = numE * numF;
+    // Multiplicação pode resultar em muitas casas decimais, mas o foco é mostrar a precisão.
+    resultadoDiv.innerHTML = `✅ O resultado de ${numE} x ${numF} é: <strong style="font-size: 1.5em;">${resultado.toFixed(3).replace(/\.?0+$/, "")}</strong>`;
+}
+
+// =========================================
+// NOVO: FUNÇÃO DE DIVISÃO (Mais Complexa, deve ser tratada com cuidado)
+// =========================================
+function calcularDivisao() {
+    const numG = parseFloat(document.getElementById('numG').value);
+    const numH = parseFloat(document.getElementById('numH').value);
+    const resultadoDiv = document.getElementById('resultadoLab');
+    let resultado;
+
+    if (isNaN(numG) || isNaN(numH)) {
+        resultadoDiv.innerHTML = "⚠️ Por favor, preencha os dois campos para calcular a divisão.";
+        return;
+    }
+
+    if (numH === 0) {
+         resultadoDiv.innerHTML = `<strong style="color: red;">🛑 Erro! Divisão por zero não é definida.</strong>`;
+         return;
+    }
+
+    resultado = numG / numH;
+    // Para divisões, exibimos com precisão para simular a necessidade de continuação/aproximação
+    resultadoDiv.innerHTML = `✅ O resultado de ${numG} ÷ ${numH} é: <strong style="font-size: 1.5em;">${result.toFixed(3).replace(/\.?0+$/, "")}</strong>`;
+}
+
+// Adicione também a chamada dessas novas funções aos botões no HTML!
+
+    </script>
+</body>
+</html>

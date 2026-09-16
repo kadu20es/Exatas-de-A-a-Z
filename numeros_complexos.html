@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Números Complexos — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  /* Paleta Cósmica: Fúcsia e Roxo Profundo */
+  :root {--ink:#4a044e; --paper:#fdf4ff; --line:#f5d0fe; --accent:#c026d3; --accent-light:#fae8ff;}
+  body {background:#faf5ff; color:var(--ink);}
+  .tab-btn.active {color:var(--accent); border-bottom-color:var(--accent); font-weight:800;}
+  
+  /* Padrão de Grade Complexa (Argand-Gauss) no fundo */
+  .paper {
+    background: var(--paper);
+    background-image: 
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    border: 1px solid #f0abfc;
+    box-shadow: 0 8px 24px rgba(192, 38, 211, 0.08);
+  }
+  
+  .step {
+    position:relative; padding:1rem 1rem 1rem 3.2rem; 
+    border:1px solid #e2e8f0; border-radius:1rem; background:white;
+  }
+  .step::before {
+    content:attr(data-step); position:absolute; left:1rem; top:1rem; 
+    width:1.65rem; height:1.65rem; border-radius:999px; 
+    background:var(--accent-light); color:var(--accent); 
+    font-weight:800; display:grid; place-items:center; font-size:.8rem;
+  }
+  
+  canvas {max-width:100%; touch-action: none;}
+  .level-btn.active {background:var(--accent); color:white;}
+  .exercise-solution {animation:fade .2s ease;}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  
+  .tip {border-left:4px solid #f59e0b; background:#fffbeb;}
+  .success {border-left:4px solid #10b981; background:#ecfdf5;}
+  .warning {border-left:4px solid #ef4444; background:#fef2f2;}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-fuchsia-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+    <div class="font-black text-lg sm:text-xl text-fuchsia-900">🌌 Números Complexos</div>
+    <div class="text-[11px] text-slate-500 hidden sm:block">A expansão final do universo numérico</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🗺️ Plano Argand-Gauss</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">⚙️ Calculadoras</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-fuchsia-950 via-fuchsia-900 to-purple-950 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-fuchsia-300">Curso Completo</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Além dos Números Reais</h1>
+  <p class="mt-4 max-w-3xl text-fuchsia-100 leading-7">Por séculos, matemáticos travavam ao tentar resolver raízes quadradas de números negativos, como \(x^2 + 1 = 0\). Até que alguém teve uma ideia brilhante: "E se a gente apenas <i>inventar</i> um número que, elevado ao quadrado, dê -1?". Nascia aí a Unidade Imaginária (\(i\)).</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">10</b><div class="text-xs text-fuchsia-300">passos lógicos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-fuchsia-300">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-fuchsia-300">Álgebra & Trigonometria</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">🗺️</b><div class="text-xs text-fuchsia-300">Plano Dinâmico</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm">
+  <b>O grande segredo geométrico:</b> Multiplicar qualquer número por \(i\) no plano cartesiano não é um bicho de sete cabeças. É apenas <b>girar a reta em 90 graus</b> no sentido anti-horário! Entender isso muda tudo.
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-fuchsia-100 text-fuchsia-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">A Unidade Imaginária (\(i\))</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">A base de todo este módulo é uma única definição. Aceite-a e o resto da matemática funcionará perfeitamente:</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-2xl font-bold text-fuchsia-900">
+    \[ i^2 = -1 \quad \text{ou} \quad i = \sqrt{-1} \]
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-fuchsia-100 text-fuchsia-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">O Ciclo das Potências de \(i\)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">As potências de \(i\) se repetem num ciclo vicioso de 4 resultados: <b>\(i, -1, -i, 1\)</b>. Para saber o valor de potências altas (como \(i^{2026}\)), basta dividir o expoente por 4 e olhar para o <b>resto</b>.</p>
+   <div class="grid grid-cols-2 gap-2 mt-4 text-sm font-bold text-center">
+    <div class="bg-slate-50 p-2 rounded border">Resto 0 \(\implies i^0 = 1\)</div>
+    <div class="bg-slate-50 p-2 rounded border">Resto 1 \(\implies i^1 = i\)</div>
+    <div class="bg-slate-50 p-2 rounded border">Resto 2 \(\implies i^2 = -1\)</div>
+    <div class="bg-slate-50 p-2 rounded border">Resto 3 \(\implies i^3 = -i\)</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-fuchsia-900 text-white rounded-2xl border shadow-sm p-6 sm:p-10 mt-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-fuchsia-800 text-fuchsia-100 grid place-items-center font-black">3</span><h2 class="text-3xl font-black">A Forma Algébrica (\(z = a + bi\))</h2></div>
+  <p class="mt-4 text-fuchsia-100 text-lg leading-relaxed">Um Número Complexo genérico (\(z\)) é sempre um "casal". Ele possui duas partes que não se misturam (como água e óleo): a <b>Parte Real</b> (que não tem \(i\)) e a <b>Parte Imaginária</b> (o número que acompanha o \(i\)).</p>
+  
+  <div class="bg-white text-slate-800 rounded-2xl p-6 mt-6 shadow-xl relative text-center">
+   <div class="text-3xl font-bold">\[ z = \textcolor{#2563eb}{a} + \textcolor{#dc2626}{b}i \]</div>
+   <div class="flex justify-center gap-10 mt-4 text-sm font-bold">
+       <div class="text-blue-600">Re(z) = \(a\) <br> (Parte Real)</div>
+       <div class="text-red-600">Im(z) = \(b\) <br> (Parte Imaginária)</div>
+   </div>
+   <div class="mt-4 text-sm text-slate-500 text-left border-t pt-3">
+       <b>Cuidado:</b> A parte imaginária é apenas o número \(b\), <b>não</b> inclua a letra \(i\) na resposta! Por exemplo, em \(z = 3 + 5i\), \(Im(z) = 5\).
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-fuchsia-100 text-fuchsia-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Operações Algébricas</h2></div>
+   <div class="space-y-4 mt-4 text-sm">
+    <div class="step" data-step="+"><b>Soma e Subtração:</b> Junte maçãs com maçãs, bananas com bananas. Parte Real com Parte Real, Imaginária com Imaginária.<br>\( (2 + 3i) + (4 + 1i) = 6 + 4i \)</div>
+    <div class="step" data-step="×"><b>Multiplicação:</b> Faça o chuveirinho (distributiva). E o segredo final: sempre que aparecer um \(i^2\), troque-o imediatamente por \(-1\).</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm border-l-4 border-l-fuchsia-500">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-fuchsia-100 text-fuchsia-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Divisão e o Conjugado</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">Matemáticos odeiam \(i\) no denominador de uma fração. Para eliminá-lo, multiplicamos em cima e embaixo pelo <b>Conjugado</b> do denominador.</p>
+   <div class="bg-slate-50 rounded-xl p-3 mt-3 text-sm">
+       <b>O que é o Conjugado (\(\bar{z}\))?</b><br>
+       Basta inverter o sinal <b>Apenas</b> da parte imaginária!<br>
+       Se \( z = 4 + 3i \implies \bar{z} = 4 - 3i \).
+   </div>
+   <p class="mt-2 text-xs text-fuchsia-700 font-bold text-center">Multiplicar \(z\) pelo seu conjugado (\(z \cdot \bar{z}\)) sempre elimina o \(i\), resultando em \(a^2 + b^2\).</p>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <div class="space-y-6">
+    <article class="bg-white rounded-2xl border p-6 shadow-sm">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-fuchsia-100 text-fuchsia-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">Plano de Argand-Gauss</h2></div>
+     <p class="mt-3 text-slate-600 text-sm">Se o número possui 2 eixos (\(a\) e \(b\)), podemos desenhá-lo! O eixo X vira o <b>Eixo Real</b> e o eixo Y vira o <b>Eixo Imaginário</b>. Um número complexo se torna um ponto (ou vetor) no gráfico.</p>
+     <div class="flex justify-center mt-3"><span class="px-3 py-1 bg-fuchsia-100 text-fuchsia-800 rounded-lg text-sm font-bold">Ponto Afixo: \( P(a, b) \)</span></div>
+    </article>
+    
+    <article class="bg-white rounded-2xl border p-6 shadow-sm">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-fuchsia-100 text-fuchsia-700 grid place-items-center font-black">7</span><h2 class="text-xl font-black">Módulo e Argumento</h2></div>
+     <div class="text-sm mt-3 text-slate-600">
+         <b>Módulo (\(\rho\) ou \(|z|\)):</b> A distância do ponto até a origem. Basta usar Pitágoras! <br> \( \rho = \sqrt{a^2 + b^2} \).<br><br>
+         <b>Argumento (\(\theta\)):</b> O ângulo que esse vetor faz com o eixo X. <br> \(\sin \theta = \frac{b}{\rho}\) e \(\cos \theta = \frac{a}{\rho}\).
+     </div>
+    </article>
+  </div>
+
+  <article class="bg-fuchsia-950 text-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-fuchsia-800 text-fuchsia-100 grid place-items-center font-black">8</span><h2 class="text-2xl font-black text-fuchsia-100">A Forma Trigonométrica</h2></div>
+   <p class="mt-3 text-fuchsia-200 text-sm">Uma vez que você descobre o tamanho da reta (Módulo \(\rho\)) e sua inclinação (Argumento \(\theta\)), você pode escrever o número complexo usando Seno e Cosseno!</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center text-slate-900 font-bold">
+    \[ z = \rho \cdot (\cos \theta + i \cdot \sin \theta) \]
+   </div>
+   <p class="text-sm text-fuchsia-200 mt-4"><b>O Super Poder (Fórmula de Moivre):</b><br> Calcular \((1+i)^{10}\) na forma algébrica dá muito trabalho. Na forma trigonométrica é instantâneo: eleva-se o módulo e <b>multiplica-se o ângulo</b>!</p>
+   <div class="text-center font-bold mt-2">
+       \[ z^n = \rho^n \cdot (\cos(n\theta) + i\sin(n\theta)) \]
+   </div>
+  </article>
+ </div>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-fuchsia-600">Geometria Complexa</span>
+   <h1 class="text-3xl font-black mt-2">O Plano de Argand-Gauss</h1>
+   <p class="text-slate-600 mt-2">Altere a Parte Real (\(a\)) e a Parte Imaginária (\(b\)) para ver o Número Complexo mover-se no plano. O tamanho da linha (Módulo) e a inclinação (Argumento) serão calculados automaticamente.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   <h3 class="font-bold text-lg mb-4 text-center border-b pb-2">Controles do Número (\(z\))</h3>
+   
+   <div class="space-y-6 flex-1">
+      <div>
+        <label class="font-bold text-sm text-blue-700">Parte Real (\(a\)): <span id="lab-val-a">3</span></label>
+        <input type="range" id="lab-input-a" min="-10" max="10" value="3" class="w-full mt-2 accent-blue-600">
+      </div>
+      <div>
+        <label class="font-bold text-sm text-red-700">Parte Imaginária (\(b\)): <span id="lab-val-b">4</span></label>
+        <input type="range" id="lab-input-b" min="-10" max="10" value="4" class="w-full mt-2 accent-red-600">
+      </div>
+
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4">
+          <div class="text-center font-black text-xl mb-3">\( z = \) <span id="lab-z-str">3 + 4i</span></div>
+          <div class="space-y-2 text-sm">
+              <div class="flex justify-between"><span>Módulo (\(\rho\)):</span> <b id="lab-mod">5.00</b></div>
+              <div class="flex justify-between"><span>Argumento (\(\theta\)):</span> <b id="lab-arg">53.1°</b></div>
+              <div class="flex justify-between text-xs text-slate-500 mt-2 pt-2 border-t"><span>Radiano:</span> <span id="lab-rad">0.93 rad</span></div>
+          </div>
+      </div>
+   </div>
+   
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col relative items-center justify-center">
+    <canvas id="lab-canvas" width="500" height="500" class="bg-slate-50 border rounded-xl shadow-inner max-w-full h-auto"></canvas>
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-fuchsia-600">Assistentes Matemáticos</span>
+   <h1 class="text-3xl font-black mt-2">Calculadoras Passo a Passo</h1>
+   <p class="text-slate-600 mt-2">Use estas calculadoras para desvendar o ciclo das potências de \(i\) e resolver as difíceis divisões algébricas.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  
+  <!-- Calculadora Divisão -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Divisão de Complexos</h2>
+   <p class="text-xs text-slate-500 mb-4">Calcula \(\frac{z_1}{z_2}\) usando o conjugado.</p>
+   
+   <div class="flex items-center gap-2 mb-2 font-mono bg-slate-50 p-2 rounded border">
+       <span class="font-bold w-8">\(z_1 =\)</span>
+       <input id="d-a" type="number" value="3" class="w-16 border rounded text-center p-1"><span>+</span>
+       <input id="d-b" type="number" value="2" class="w-16 border rounded text-center p-1"><span>\(i\)</span>
+   </div>
+   <div class="flex items-center gap-2 mb-4 font-mono bg-slate-50 p-2 rounded border">
+       <span class="font-bold w-8">\(z_2 =\)</span>
+       <input id="d-c" type="number" value="1" class="w-16 border rounded text-center p-1"><span>+</span>
+       <input id="d-d" type="number" value="-1" class="w-16 border rounded text-center p-1"><span>\(i\)</span>
+   </div>
+
+   <button onclick="calcDivTool()" class="w-full mt-2 bg-fuchsia-600 hover:bg-fuchsia-700 transition text-white rounded-xl py-3 font-bold text-sm">Dividir Passo a Passo</button>
+   <div id="tool-div-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+  <!-- Calculadora Potência i -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">O Ciclo de \(i\)</h2>
+   <p class="text-xs text-slate-500 mb-4">Descubra o valor de potências elevadas, como \(i^{2026}\).</p>
+   
+   <div class="flex items-end justify-center gap-1 font-mono text-3xl font-bold py-6">
+       <span>\(i\)</span>
+       <input id="p-exp" type="number" value="2026" min="0" class="border-b-2 border-slate-300 focus:border-fuchsia-500 w-32 text-center outline-none text-xl mb-4">
+   </div>
+   
+   <button onclick="calcPowTool()" class="w-full mt-4 bg-purple-700 hover:bg-purple-800 transition text-white rounded-xl py-3 font-bold text-sm">Revelar Potência</button>
+   <div id="tool-pow-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+     <div>
+       <span class="text-xs font-bold uppercase tracking-widest text-fuchsia-600">Treino progressivo</span>
+       <h1 class="text-3xl font-black mt-2">100 Exercícios Dinâmicos</h1>
+       <p class="text-slate-600 mt-2">Digite sua resposta na forma simples, como <code>2+3i</code>, <code>-i</code>, ou <code>5</code>. Para raízes inexatas nos últimos níveis, siga as dicas!</p>
+     </div>
+     <div class="min-w-[210px]">
+       <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+       <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-fuchsia-600 rounded-full transition-all duration-500" style="width:0%"></div></div>
+     </div>
+   </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 1 (Potências de i)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 2 (Álgebra Básica)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 3 (Divisão/Conjugado)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 4 (Módulo/Geometria)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 5 (Trigonometria)</button>
+   <button data-level="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 6 (Desafios)</button>
+  </div>
+ </div>
+ 
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo educacional de Matemática • Renderizado com KaTeX</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function mathInline(latex){return String.raw`\(${latex}\)`}
+function mathDisplay(latex){return String.raw`\[${latex}\]`}
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Formatação Básica de Complexos
+function formatCpx(a, b) {
+    if (a === 0 && b === 0) return "0";
+    if (a === 0) return b === 1 ? "i" : b === -1 ? "-i" : `${b}i`;
+    if (b === 0) return `${a}`;
+    let bStr = b === 1 ? "+i" : b === -1 ? "-i" : b > 0 ? `+${b}i` : `${b}i`;
+    return `${a}${bStr}`;
+}
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+    const t=btn.dataset.tab;
+    sections.forEach(s => $('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active',b===btn));
+    if(t==='exercicios') renderExercises();
+    if(t==='laboratorio') initLab();
+}));
+
+// --- LABORATÓRIO (Argand-Gauss) ---
+let labInited = false;
+function initLab() {
+  if(!labInited) {
+    ['lab-input-a', 'lab-input-b'].forEach(id => {
+       $(id).addEventListener('input', updateLab);
+    });
+    labInited = true;
+  }
+  updateLab();
+}
+
+function updateLab() {
+  const a = parseFloat($('lab-input-a').value);
+  const b = parseFloat($('lab-input-b').value);
+  
+  $('lab-val-a').innerText = a;
+  $('lab-val-b').innerText = b;
+  $('lab-z-str').innerText = formatCpx(a, b);
+
+  const mod = Math.sqrt(a*a + b*b);
+  $('lab-mod').innerText = mod.toFixed(2);
+
+  let rad = Math.atan2(b, a);
+  if (rad < 0) rad += 2 * Math.PI; // Argumento de 0 a 2pi
+  const deg = rad * (180 / Math.PI);
+  
+  $('lab-rad').innerText = rad.toFixed(2) + " rad";
+  $('lab-arg').innerText = deg.toFixed(1) + "°";
+
+  drawLabCanvas(a, b, mod, rad);
+}
+
+function drawLabCanvas(a, b, mod, rad) {
+  const c = $('lab-canvas');
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+  const cx = w/2, cy = h/2;
+  const scale = 20; // Pixels por unidade
+  
+  ctx.clearRect(0,0,w,h);
+  
+  // Grade
+  ctx.strokeStyle = '#f1f5f9'; ctx.lineWidth = 1;
+  for(let i=0; i<=w; i+=scale) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,h); ctx.stroke(); }
+  for(let i=0; i<=h; i+=scale) { ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(w,i); ctx.stroke(); }
+
+  // Eixos
+  ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,h); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0,cy); ctx.lineTo(w,cy); ctx.stroke();
+
+  ctx.fillStyle = '#64748b'; ctx.font = '12px sans-serif';
+  ctx.fillText('Re', w - 20, cy - 10);
+  ctx.fillText('Im', cx + 10, 20);
+
+  if (a===0 && b===0) return;
+
+  const px = cx + a * scale;
+  const py = cy - b * scale;
+
+  // Arco do Argumento
+  ctx.beginPath();
+  ctx.arc(cx, cy, 30, 0, -rad, rad < Math.PI); // desenha em anti-horário (canvas o y inverte, então o angulo inverte o sinal)
+  ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 2; ctx.stroke();
+
+  // Traçado tracejado do Ponto
+  ctx.beginPath();
+  ctx.moveTo(px, cy); ctx.lineTo(px, py);
+  ctx.lineTo(cx, py);
+  ctx.setLineDash([5, 5]); ctx.strokeStyle = '#cbd5e1'; ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Vetor (Módulo)
+  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, py);
+  ctx.strokeStyle = '#c026d3'; ctx.lineWidth = 3; ctx.stroke();
+
+  // Ponto Afixo
+  ctx.beginPath(); ctx.arc(px, py, 5, 0, 2*Math.PI);
+  ctx.fillStyle = '#c026d3'; ctx.fill();
+  
+  // Label do ponto
+  ctx.fillStyle = '#4a044e'; ctx.font = 'bold 14px sans-serif';
+  ctx.fillText(`P(${a}, ${b})`, px + 8, py - 8);
+}
+
+// --- FERRAMENTAS ---
+function calcPowTool() {
+    const exp = parseInt($('p-exp').value);
+    const out = $('tool-pow-out');
+    if(isNaN(exp) || exp < 0) return;
+    
+    const rem = exp % 4;
+    let ansStr = '';
+    if (rem === 0) ansStr = '1';
+    else if (rem === 1) ansStr = 'i';
+    else if (rem === 2) ansStr = '-1';
+    else if (rem === 3) ansStr = '-i';
+
+    out.innerHTML = `
+      <div class="step" data-step="1">Para calcular ${mathInline(`i^{${exp}}`)}, divida o expoente por 4.</div>
+      <div class="step mt-3" data-step="2">A divisão ${mathInline(`${exp} \\div 4`)} deixa <b>Resto ${rem}</b>.</div>
+      <div class="step mt-3" data-step="3">O ciclo de \(i\) nos diz que ${mathInline(`i^{${exp}} = i^{${rem}}`)}.</div>
+      <div class="success rounded-xl p-4 mt-4 text-center text-lg font-bold">\[ i^{${exp}} = ${ansStr} \]</div>
+    `;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+function calcDivTool() {
+    const a = parseFloat($('d-a').value)||0; const b = parseFloat($('d-b').value)||0;
+    const c = parseFloat($('d-c').value)||0; const d = parseFloat($('d-d').value)||0;
+    const out = $('tool-div-out');
+    
+    if (c === 0 && d === 0) {
+        out.innerHTML = '<div class="warning rounded p-4">Não é possível dividir por zero.</div>';
+        out.classList.remove('hidden'); return;
+    }
+
+    const z1Str = formatCpx(a,b);
+    const z2Str = formatCpx(c,d);
+    const conjStr = formatCpx(c, -d);
+    
+    const denom = (c*c) + (d*d);
+    const rReal = (a*c) - (b*-d); // a*c + b*d (pois i^2 = -1)
+    const rImag = (a*-d) + (b*c); 
+    
+    // String formatação manual
+    let rR = a*c + b*d;
+    let rI = b*c - a*d;
+    
+    out.innerHTML = `
+      <div class="step" data-step="1"><b>1. Escreva a fração:</b> ${mathDisplay(`\\frac{${z1Str}}{${z2Str}}`)}</div>
+      <div class="step mt-3" data-step="2"><b>2. Ache o Conjugado do Denominador:</b> Troque o sinal do meio: \(${conjStr}\).</div>
+      <div class="step mt-3" data-step="3"><b>3. Multiplique em Cima e Embaixo:</b> ${mathDisplay(`\\frac{(${z1Str}) \\cdot (${conjStr})}{(${z2Str}) \\cdot (${conjStr})}`)}</div>
+      <div class="step mt-3" data-step="4">
+        <b>O Denominador (Mágica):</b> \((c^2 + d^2) = ${c}^2 + ${d}^2 = ${c*c} + ${d*d} = ${denom}\) <br><br>
+        <b>O Numerador (Chuveirinho):</b> <br>
+        Parte Real: \(${a}\\cdot${c} - (${b})\\cdot(${d})\\cdot i^2 = ${a*c} + ${b*d} = ${rR}\) <br>
+        Parte Imag: \(${a}\\cdot(${-d})i + ${b}\\cdot${c}i = ${-a*d}i + ${b*c}i = ${rI}i\)
+      </div>
+      <div class="success rounded-xl p-4 mt-4 text-center font-bold">
+        Resultado Final: ${mathDisplay(`\\frac{${rR}}{${denom}} ${rI >= 0 ? '+' : '-'} \\frac{${Math.abs(rI)}}{${denom}}i`)}
+      </div>
+    `;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+// --- EXERCÍCIOS DATA ---
+// Format: id|level|title|question_expr_or_text|answer|type|hint
+const rawExercises = [
+  // L1: Potências de i (1-15)
+  "1|1|Potências de i|Qual o valor de \\(i^2\\)?|-1|basic|Definição da unidade imaginária.",
+  "2|1|Potências de i|Qual o valor de \\(i^3\\)?|-i|basic|\\(i^2 \\cdot i = -1 \\cdot i\\).",
+  "3|1|Potências de i|Qual o valor de \\(i^4\\)?|1|basic|A cada múltiplo de 4, o ciclo zera.",
+  "4|1|Potências de i|Qual o valor de \\(i^5\\)?|i|basic|Resto da divisão de 5 por 4 é 1.",
+  "5|1|Potências de i|Qual o valor de \\(i^{10}\\)?|-1|basic|Resto da divisão de 10 por 4 é 2. Logo, \\(i^2\\).",
+  "6|1|Potências de i|Qual o valor de \\(i^{15}\\)?|-i|basic|Resto de 15 por 4 é 3. Logo, \\(i^3\\).",
+  "7|1|Potências de i|Qual o valor de \\(i^{20}\\)?|1|basic|20 é múltiplo de 4. Resto 0.",
+  "8|1|Potências de i|Qual o valor de \\(i^{21}\\)?|i|basic|Resto 1.",
+  "9|1|Potências de i|Qual o valor de \\(i^{100}\\)?|1|basic|100 é múltiplo de 4.",
+  "10|1|Potências de i|Qual o valor de \\(i^{102}\\)?|-1|basic|Resto 2.",
+  "11|1|Potências de i|Soma simples: \\(i^2 + i^4\\)?|0|basic|\\(-1 + 1\\).",
+  "12|1|Potências de i|Soma simples: \\(i + i^2 + i^3 + i^4\\)?|0|basic|A soma de 4 potências consecutivas é sempre 0.",
+  "13|1|Potências de i|Qual o valor de \\(i^{50}\\)?|-1|basic|Resto de 50/4 é 2.",
+  "14|1|Potências de i|Qual o valor de \\(2i^2\\)?|-2|basic|\\(2 \\cdot (-1)\\).",
+  "15|1|Potências de i|Qual o valor de \\((2i)^2\\)?|-4|basic|\\(4 \\cdot i^2\\).",
+
+  // L2: Álgebra Básica (16-35)
+  "16|2|Parte Real|Para \\(z = 3 - 4i\\), qual a parte real?|3|basic|O número sem o i.",
+  "17|2|Parte Imaginária|Para \\(z = 5 - 2i\\), qual a parte imaginária?|-2|basic|O número colado no i (com o sinal).",
+  "18|2|Soma de Complexos|Calcule \\((2 + 3i) + (1 + 4i)\\).|3+7i|basic|Soma real com real, imag com imag.",
+  "19|2|Soma de Complexos|Calcule \\((-1 + 5i) + (4 - 2i)\\).|3+3i|basic|Real: -1+4. Imag: 5-2.",
+  "20|2|Soma de Complexos|Calcule \\((5) + (3i)\\).|5+3i|basic|Não se misturam.",
+  "21|2|Subtração|Calcule \\((5 + 4i) - (2 + i)\\).|3+3i|basic|Cuidado com o sinal de menos distribuído.",
+  "22|2|Subtração|Calcule \\((1 + i) - (1 - i)\\).|2i|basic|\\(1-1=0\\) e \\(i - (-i) = 2i\\).",
+  "23|2|Subtração|Calcule \\((3 - 2i) - (3 + 2i)\\).|-4i|basic|Real anula. Fica \\(-2i - 2i\\).",
+  "24|2|Multiplicação Simples|Calcule \\(2 \\cdot (3 + 4i)\\).|6+8i|basic|Distribua o 2.",
+  "25|2|Multiplicação por i|Calcule \\(i \\cdot (2 + 3i)\\).|-3+2i|basic|\\(2i + 3i^2\\). Lembre que \\(i^2 = -1\\).",
+  "26|2|Multiplicação por i|Calcule \\(-i \\cdot (1 - i)\\).|-1-i|basic|\\(-i + i^2\\).",
+  "27|2|Produto (Chuveirinho)|Calcule \\((1 + i)(1 + 2i)\\).|-1+3i|basic|\\(1 + 2i + i + 2i^2 = 1 + 3i - 2\\).",
+  "28|2|Produto (Chuveirinho)|Calcule \\((2 + i)(2 - i)\\).|5|basic|Note que é Produto Notável: \\(a^2 - b^2i^2 = 4 + 1\\).",
+  "29|2|Produto (Chuveirinho)|Calcule \\((3 + 2i)(1 - i)\\).|5-i|basic|\\(3 - 3i + 2i - 2i^2 = 3 - i + 2\\).",
+  "30|2|Potência Quadrada|Calcule \\((1 + i)^2\\).|2i|basic|Produto notável: \\(1^2 + 2i + i^2 = 1 + 2i - 1\\).",
+  "31|2|Potência Quadrada|Calcule \\((1 - i)^2\\).|-2i|basic|\\(1 - 2i + i^2\\).",
+  "32|2|Igualdade|Se \\(x + yi = 4 - 3i\\), qual o valor de x?|4|basic|Igualdade real.",
+  "33|2|Igualdade|Se \\(2x + 4i = 6 + yi\\), qual o valor de y?|4|basic|Igualdade imaginária.",
+  "34|2|Igualdade|Se \\((x) + (y+1)i = 0\\), qual o valor de y?|-1|basic|Parte imag deve ser 0.",
+  "35|2|Álgebra Mista|Calcule \\((2+i) + i(3-i)\\).|3+4i|basic|Resolva a multiplicação primeiro: \\(3i - i^2 = 1+3i\\). Depois some com \\(2+i\\).",
+
+  // L3: Conjugado e Divisão (36-55)
+  "36|3|Conjugado|Qual o conjugado de \\(z = 3 + 4i\\)?|3-4i|basic|Troque apenas o sinal da parte imaginária.",
+  "37|3|Conjugado|Qual o conjugado de \\(z = 5 - i\\)?|5+i|basic|Troque o sinal do i.",
+  "38|3|Conjugado|Qual o conjugado de \\(z = 7i\\)?|-7i|basic|A parte real é 0.",
+  "39|3|Conjugado|Qual o conjugado de \\(z = 8\\)?|8|basic|Números reais não mudam no conjugado.",
+  "40|3|Conjugado de Conjugado|Qual o conjugado do conjugado de \\(1+i\\)?|1+i|basic|Volta ao original.",
+  "41|3|Soma com Conjugado|Sendo \\(z = 2+3i\\), calcule \\(z + \\bar{z}\\).|4|basic|A parte imaginária se cancela.",
+  "42|3|Subtração com Conjugado|Sendo \\(z = 2+3i\\), calcule \\(z - \\bar{z}\\).|6i|basic|A parte real se cancela.",
+  "43|3|Produto Conjugado|Calcule \\((4+3i)(4-3i)\\).|25|basic|\\(a^2 + b^2 = 16 + 9\\).",
+  "44|3|Produto Conjugado|Calcule \\((1+i)(1-i)\\).|2|basic|\\(1^2 + 1^2\\).",
+  "45|3|Produto Conjugado|Calcule \\((2-5i)(2+5i)\\).|29|basic|\\(4 + 25\\).",
+  "46|3|Inverso Multiplicativo|Qual o valor do denominador real na divisão \\(1 / (1+i)\\)?|2|basic|Multiplica por \\(1-i\\). Denom = 2.",
+  "47|3|Divisão Básica|Calcule \\(2 / i\\).|-2i|basic|Multiplique em cima e embaixo por \\(-i\\).",
+  "48|3|Divisão|Calcule \\( (1+i) / (1-i) \\).|i|basic|Ao multiplicar por \\(1+i\\) em cima e embaixo, temos \\(2i / 2\\).",
+  "49|3|Divisão|Calcule \\( (1-i) / (1+i) \\).|-i|basic|O inverso do exercício anterior.",
+  "50|3|Divisão Lógica|Qual a parte real de \\( (4+2i) / 2 \\)?|2|basic|Divide ambos por 2.",
+  "51|3|Divisão Mista|Calcule \\( (3+i) / i \\).|1-3i|basic|Multiplica por \\(-i\\): \\(-3i - i^2\\).",
+  "52|3|Divisão por Real|Calcule \\( (6+8i) / 2 \\).|3+4i|basic|Distributiva da divisão.",
+  "53|3|Produto e Divisão|Qual o valor de \\( (z \\cdot \\bar{z}) / |z|^2 \\) para qualquer \\(z \\neq 0\\)?|1|basic|Ambos são iguais a \\(a^2+b^2\\).",
+  "54|3|Simplificação|Simplifique \\( i^{10} / i^5 \\).|i|basic|\\(i^5\\). O resto de 5/4 é 1.",
+  "55|3|Expressão Conjugado|Se \\(z = 1+i\\), qual a parte real de \\(i \\cdot \\bar{z}\\)?|1|basic|\\(\\bar{z} = 1-i\\). Vezes i: \\(i - i^2 = 1+i\\).",
+
+  // L4: Módulo, Plano Argand-Gauss (56-75)
+  "56|4|Módulo Simples|Qual o módulo de \\(z = 3 + 4i\\)?|5|basic|Pitágoras: \\(\\sqrt{3^2 + 4^2}\\).",
+  "57|4|Módulo|Qual o módulo de \\(z = 6 - 8i\\)?|10|basic|\\(\\sqrt{36 + 64} = 10\\).",
+  "58|4|Módulo Incompleto|Qual o módulo de \\(z = 5i\\)?|5|basic|A distância de 5 no eixo y é 5.",
+  "59|4|Módulo Incompleto|Qual o módulo de \\(z = -7\\)?|7|basic|Distância é sempre positiva.",
+  "60|4|Módulo de Raízes|Qual o módulo de \\(z = 1 + \\sqrt{3}i\\)?|2|basic|\\(\\sqrt{1^2 + (\\sqrt{3})^2} = \\sqrt{1+3}\\).",
+  "61|4|Módulo de Raízes|Qual o módulo de \\(z = \\sqrt{2} + \\sqrt{2}i\\)?|2|basic|\\(\\sqrt{2+2} = \\sqrt{4}\\).",
+  "62|4|Módulo de 1+i|Qual o módulo ao quadrado de \\(z = 1 + i\\)?|2|basic|Módulo é \\(\\sqrt{2}\\).",
+  "63|4|Distância no Plano|A distância da origem ao ponto P(-3, 4) no plano imaginário é?|5|basic|Igual ao módulo.",
+  "64|4|Quadrante|O número \\(-2 + 5i\\) está em qual quadrante? (1, 2, 3 ou 4)|2|basic|Real neg (esq), Imag pos (cima).",
+  "65|4|Quadrante|O número \\(-3 - 3i\\) está em qual quadrante?|3|basic|Ambos negativos (esq, baixo).",
+  "66|4|Eixos|O número \\(4i\\) pertence a qual eixo? (Real ou Imaginario)|Imaginario|text|Não tem parte real.",
+  "67|4|Propriedade do Módulo|Sendo \\(|z| = 4\\), qual o valor de \\(|z^2|\\)?|16|basic|O módulo do quadrado é o quadrado do módulo.",
+  "68|4|Ponto Médio|Qual o ponto médio (escreva na forma complexa) entre \\(2+2i\\) e \\(4+4i\\)?|3+3i|basic|Média das partes reais e imaginárias.",
+  "69|4|Rotação (Visual)|Multiplicar o número Real '1' por 'i' gera qual número?|i|basic|Ele girou 90° para cima no plano.",
+  "70|4|Rotação Dupla|Multiplicar '1' por 'i' duas vezes gera qual número?|-1|basic|180° de giro. \\(i^2\\).",
+  "71|4|Simetria|Qual a relação geométrica do Conjugado? Ele reflete sobre o eixo X ou Y? (Digite X ou Y)|X|text|A parte imaginária inverte (cima vira baixo).",
+  "72|4|Círculo Unitário|Se \\(z = a+bi\\) tem módulo 1, qual o valor de \\(a^2 + b^2\\)?|1|basic|Definição de módulo.",
+  "73|4|Argumento Básico|Qual o argumento em graus de \\(z = 1+i\\)? (digite só o número)|45|basic|Triângulo isósceles positivo.",
+  "74|4|Argumento de Eixo|Qual o argumento em graus de \\(z = i\\)?|90|basic|Aponta para cima no eixo Y.",
+  "75|4|Argumento de Eixo|Qual o argumento em graus de \\(z = -1\\)?|180|basic|Aponta para a esquerda no eixo X.",
+
+  // L5: Trigonometria (76-90)
+  "76|5|Conversão Trig->Alg|Qual o valor de \\( 2(\\cos 90^{\\circ} + i\\sin 90^{\\circ}) \\)?|2i|basic|Cosseno é 0, Seno é 1.",
+  "77|5|Conversão Trig->Alg|Qual o valor de \\( 4(\\cos 180^{\\circ} + i\\sin 180^{\\circ}) \\)?|-4|basic|Cosseno é -1, Seno é 0.",
+  "78|5|Conversão Trig->Alg|Qual o valor de \\( 5(\\cos 0^{\\circ} + i\\sin 0^{\\circ}) \\)?|5|basic|Cos 0 = 1.",
+  "79|5|Conversão Trig->Alg|Qual o valor de \\( 2(\\cos 270^{\\circ} + i\\sin 270^{\\circ}) \\)?|-2i|basic|Seno é -1.",
+  "80|5|Identificando Módulo|Na forma trigonométrica \\(z = 7(\\cos 45^{\\circ} + i\\sin 45^{\\circ})\\), qual é o módulo?|7|basic|É o número fora do parêntese.",
+  "81|5|Identificando Argumento|Na mesma forma trigonométrica (acima), qual o argumento em graus?|45|basic|O ângulo nos trigonométricos.",
+  "82|5|Multiplicação Trig (Módulo)|Se \\(|z_1| = 2\\) e \\(|z_2| = 3\\), qual o módulo de \\(z_1 \\cdot z_2\\)?|6|basic|Na multiplicação, multiplicamos os módulos.",
+  "83|5|Multiplicação Trig (Ângulo)|Se \\(arg(z_1) = 30^{\\circ}\\) e \\(arg(z_2) = 40^{\\circ}\\), qual o argumento de \\(z_1 \\cdot z_2\\)?|70|basic|Na multiplicação, somamos os ângulos.",
+  "84|5|Divisão Trig (Ângulo)|Se \\(arg(z_1) = 100^{\\circ}\\) e \\(arg(z_2) = 40^{\\circ}\\), qual o argumento de \\(z_1 / z_2\\)?|60|basic|Na divisão, subtraímos os ângulos.",
+  "85|5|Fórmula de Moivre (Módulo)|Se \\(z = 2(\\cos 10^{\\circ} + i\\sin 10^{\\circ})\\), qual o módulo de \\(z^3\\)?|8|basic|\\(2^3\\).",
+  "86|5|Fórmula de Moivre (Ângulo)|No mesmo z anterior, qual o argumento de \\(z^3\\) em graus?|30|basic|Multiplicamos o ângulo por 3.",
+  "87|5|Moivre Completo|Calcule \\( (\\cos 90^{\\circ} + i\\sin 90^{\\circ})^2 \\) em forma algébrica.|-1|basic|Argumento vira 180°. Cos 180° = -1.",
+  "88|5|Moivre Oposto|Qual o argumento em graus de \\(1/z\\) se \\(arg(z) = 45^{\\circ}\\)? (Argumento principal positivo)|315|basic|Inverter inverte o sinal do angulo (-45° = 315°).",
+  "89|5|Conversão Simples|Seja \\(z = 1 + \\sqrt{3}i\\). O módulo é 2. Qual o seno do argumento? (Digite raiz de 3 sobre 2 como R3/2)|R3/2|text|Seno = b/mod.",
+  "90|5|Identidade de Euler|A famosa equação de Euler diz que \\(e^{i\\pi} + 1 = \\)?|0|basic|\\(e^{i\\pi}\\) é -1.",
+
+  // L6: Equações e Desafios (91-100)
+  "91|6|Equação Raiz|Quais são as soluções para \\(x^2 = -9\\)? (Digite 3i e -3i como '3i, -3i')|3i,-3i|text|Raiz de negativo ganha i.",
+  "92|6|Equação Biquadrada|Na eq. \\(x^2 + 4 = 0\\), o produto das raízes complexas é?|4|basic|\\((2i)(-2i) = -4i^2 = 4\\).",
+  "93|6|Equação Linear|Resolva \\(iz + 2 = 0\\) para z.|2i|basic|\\(iz = -2 \\implies z = -2/i = 2i\\).",
+  "94|6|Soma Infinita Geométrica|Calcule \\(i + i^2 + i^3 + \\dots + i^{100}\\).|0|basic|Ciclos perfeitos de 4 se anulam (100 é div por 4).",
+  "95|6|Igualdade em Equação|Se \\(z^2 = i\\), o módulo de \\(z\\) é?|1|basic|A raiz de 1 é 1.",
+  "96|6|Potência Famosa|Calcule \\((1+i)^{10}\\). Dica: faça \\(((1+i)^2)^5\\).|32i|basic|\\((2i)^5 = 32 i^5 = 32i\\).",
+  "97|6|Polinômio|Se \\(z=i\\) é raiz de um polinômio com coeficientes reais, qual a outra raiz obrigatória?|-i|basic|O conjugado sempre acompanha nas raízes.",
+  "98|6|Módulo Geométrico|Qual é a equação do círculo de raio 5 centrado na origem? (Use modulo: |z| = ?)|5|basic|A distância de todos os pontos à origem é 5.",
+  "99|6|Rotação Prática|Um vetor aponta para P(3,1). Se o multiplicarmos por \\(i\\), para onde ele aponta? (Formato: a+bi)|-1+3i|basic|Gira 90°. Multiplicar dá \\(-1+3i\\).",
+  "100|6|A Magia do -1|Existe algum número real que seja solução de equações complexas? (S ou N)|S|text|O próprio corpo dos Reais está contido nos Complexos."
+];
+
+const E = rawExercises.map(line => {
+  const p = line.split('|');
+  return { id: parseInt(p[0]), level: parseInt(p[1]), title: p[2], q: p[3], ans: p[4], type: p[5], hint: p[6] };
+});
+
+function solutionSteps(ex){
+  const S=[];
+  if(ex.type==='basic'){
+    S.push(['1','O princípio principal a aplicar é o entendimento do ciclo do \(i\) ou da álgebra básica de complexos.']);
+    S.push(['2',`Desenvolvendo matematicamente: ${ex.hint}`]);
+  }
+  else {
+    S.push(['1','Leia atentamente a teoria e compreenda a resposta visual ou textual requisitada.']);
+    S.push(['2',`Raciocínio: ${ex.hint}`]);
+  }
+  return S;
+}
+
+let solved = new Set(JSON.parse(localStorage.getItem('cpxSolved')||'[]'));
+let currentLevel = 'all';
+
+function renderExercises(){
+  let list = E.filter(e => (currentLevel==='all' || e.level == currentLevel));
+  
+  $('exercise-list').innerHTML=list.map(ex=>{
+    const done = solved.has(ex.id);
+    return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between gap-3">
+          <span class="text-xs font-black px-2.5 py-1 rounded-full bg-fuchsia-50 text-fuchsia-700">Q. ${ex.id}</span>
+          <span class="text-xs text-slate-400">${ex.title}</span>
+        </div>
+        <div class="text-sm font-bold text-slate-700 mt-4 leading-relaxed">${ex.q}</div>
+      </div>
+      
+      <div class="mt-4">
+        <div class="flex gap-2">
+          <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:border-fuchsia-500 focus:ring-1 focus:ring-fuchsia-500 outline-none font-mono" placeholder="Ex: 2+3i ou 5">
+          <button onclick="check(${ex.id})" class="bg-fuchsia-600 hover:bg-fuchsia-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+        </div>
+        <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px]"></div>
+        <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-fuchsia-700 hover:underline">👁 Ver Resolução Guiada</button>
+        
+        <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+          <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Passo a Passo</div>
+          ${solutionSteps(ex).map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+          <div class="success rounded-xl p-3 mt-2 text-center font-bold text-fuchsia-900">Gabarito esperado: ${ex.ans}</div>
+        </div>
+      </div>
+    </article>`
+  }).join('');
+  
+  $('progress-text').textContent=`${solved.size} / 100`;
+  $('progress-bar').style.width=(solved.size)+'%';
+  renderAll();
+}
+
+function normalizeInput(str) {
+    return str.replace(/\s+/g, '').toLowerCase();
+}
+
+function check(id){
+  const ex = E.find(x=>x.id===id);
+  const raw = $('answer-'+id).value;
+  const fb = $('feedback-'+id);
+  
+  if (raw.trim() === '') {
+    fb.className='text-sm font-bold mt-2 text-red-600';
+    fb.textContent='Insira uma resposta válida.';
+    return;
+  }
+
+  const user = normalizeInput(raw);
+  const ans = normalizeInput(ex.ans);
+
+  // Comparações de frações (1/2 vs 0.5) nas respostas textuais
+  let ok = (user === ans);
+  
+  if(!ok && (ans === '1/2' && user === '0.5')) ok = true;
+  if(!ok && (ans === '-1/2' && user === '-0.5')) ok = true;
+  if(!ok && (ans === '3i,-3i' && user === '-3i,3i')) ok = true; // ordem da questao 91
+
+  if (ok) {
+    solved.add(id);
+    localStorage.setItem('cpxSolved',JSON.stringify([...solved]));
+    fb.className='text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent='✓ Certo! Domínio absoluto.';
+  } else {
+    fb.className='text-sm font-bold mt-2 text-red-600';
+    fb.textContent='✗ Incorreto. Analise os sinais ou simplifique o i.';
+  }
+  renderExercises();
+}
+
+function toggleSol(id){ $('solution-'+id).classList.toggle('hidden'); }
+
+document.querySelectorAll('.level-btn').forEach(b=>{
+  b.onclick = () => {
+    currentLevel = b.dataset.level;
+    document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderExercises();
+  }
+});
+
+// Inicialização Global
+window.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+  initLab();
+});
+</script>
+</body>
+</html>

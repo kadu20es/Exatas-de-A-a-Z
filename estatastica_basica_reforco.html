@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estatística Básica — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {--ink:#064e3b; --paper:#f0fdf4; --line:#bbf7d0; --accent:#10b981; --accent-light:#d1fae5;}
+  body {background:#f8fafc; color:var(--ink);}
+  .tab-btn.active {color:var(--accent); border-bottom-color:var(--accent); font-weight:800;}
+  
+  /* Padrão de grade de caderno (planilha) */
+  .paper {
+    background: var(--paper);
+    background-image: 
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    border: 1px solid #86efac;
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.05);
+  }
+  
+  .step {
+    position:relative; padding:1rem 1rem 1rem 3.2rem; 
+    border:1px solid #e2e8f0; border-radius:1rem; background:white;
+  }
+  .step::before {
+    content:attr(data-step); position:absolute; left:1rem; top:1rem; 
+    width:1.65rem; height:1.65rem; border-radius:999px; 
+    background:var(--accent-light); color:var(--accent); 
+    font-weight:800; display:grid; place-items:center; font-size:.8rem;
+  }
+  
+  canvas {max-width:100%; touch-action: none;}
+  .level-btn.active {background:var(--accent); color:white;}
+  .exercise-solution {animation:fade .2s ease;}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  
+  .tip {border-left:4px solid #f59e0b; background:#fffbeb;}
+  .success {border-left:4px solid #10b981; background:#ecfdf5;}
+  .warning {border-left:4px solid #ef4444; background:#fef2f2;}
+
+  /* Tabela Estilo Planilha */
+  .data-table th { background: #d1fae5; color: #064e3b; font-weight: 800; padding: 0.5rem; border: 1px solid #a7f3d0;}
+  .data-table td { padding: 0.5rem; border: 1px solid #a7f3d0; text-align: center; background: white;}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-emerald-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+    <div class="font-black text-lg sm:text-xl text-emerald-900">📊 Estatística Básica</div>
+    <div class="text-[11px] text-slate-500 hidden sm:block">A matemática dos dados e tendências</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">⚙️ Ferramentas</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-emerald-950 via-emerald-800 to-teal-950 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-emerald-300">Curso Completo</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Dando sentido aos dados</h1>
+  <p class="mt-4 max-w-3xl text-emerald-100 leading-7"><comment-tag id="1">Na Era da Informação, quem sabe ler dados tem o poder. A Estatística nos ajuda a encontrar o "ponto de equilíbrio" e a entender o quão espalhadas estão as informações. Não decore fórmulas, entenda a intuição.</comment-tag id="1" text="Para tornar o guia mais didático, é ótimo começar com um cenário com o qual o aluno se identifique. Mostrar a 'dor' que a estatística resolve gera interesse imediato.
+
+Substitua por:
+'Imagine tentar entender o desempenho de uma turma escolar olhando para uma lista bagunçada de 40 notas diferentes. É confuso, certo? A Estatística serve exatamente para resumir essa multidão de dados soltos em um ou dois números fáceis de entender. Neste módulo, não vamos apenas decorar fórmulas, vamos entender a intuição por trás delas.'" type="suggestion"></p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">10</b><div class="text-xs text-emerald-300">passos lógicos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-emerald-300">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-emerald-300">gabarito decimal</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">👁</b><div class="text-xs text-emerald-300">laboratório visual</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm">
+  <b>Como estudar este módulo:</b> Toda análise estatística começa com a organização. A primeira coisa a fazer quando você recebe uma lista de números é <b>colocá-los em ordem crescente</b>. Isso salva você de erros bobos na Mediana.
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">1</span><h2 class="text-2xl font-black">As Medidas de Tendência Central</h2></div>
+  <p class="mt-3 text-slate-600">O cérebro humano odeia listas longas de números. Nós precisamos resumir uma multidão de dados em um único número representativo. É aí que entram os três "M"s da Estatística: <b>Média, Moda e Mediana</b>.</p>
+  
+  <div class="grid lg:grid-cols-3 gap-6 mt-5">
+   <div class="bg-slate-50 border border-emerald-100 rounded-xl p-5">
+    <h3 class="font-black text-emerald-800 text-lg">A Média Aritmética (\(\bar{x}\))</h3>
+    <p class="text-sm text-slate-600 mt-2"><comment-tag id="2">É a divisão justa. Soma-se tudo e divide-se pela quantidade de itens.</comment-tag id="2" text="Aqui podemos usar a clássica analogia da pizzaria, que todos entendem instantaneamente e fixa o conceito de que a média é um nivelamento.
+
+Substitua por:
+'É a divisão justa. Pense em rachar a conta da pizzaria: soma-se todo o valor gasto e divide-se pela quantidade de amigos, para que todos paguem igual. A média nivela os dados.'" type="suggestion"></p>
+    <div class="mt-3 text-center bg-white p-2 rounded border">\[ \bar{x} = \frac{\Sigma x_i}{n} \]</div>
+    <div class="text-xs mt-3 text-slate-500">Ex: \(\{2, 4, 6\}\) \(\rightarrow\) Média \(= \frac{12}{3} = 4\)</div>
+   </div>
+   <div class="bg-slate-50 border border-emerald-100 rounded-xl p-5">
+    <h3 class="font-black text-emerald-800 text-lg">A Moda (\(Mo\))</h3>
+    <p class="text-sm text-slate-600 mt-2">É o valor "pop", o que mais se repete no conjunto de dados.</p>
+    <div class="mt-3 text-sm text-emerald-900 font-bold bg-white p-3 rounded border text-center">O que está na moda?</div>
+    <div class="text-xs mt-3 text-slate-500">Ex: \(\{1, \mathbf{3}, \mathbf{3}, 5\}\) \(\rightarrow\) Moda \(= 3\). (Pode ser bimodal se houver dois vencedores).</div>
+   </div>
+   <div class="bg-slate-50 border border-emerald-100 rounded-xl p-5">
+    <h3 class="font-black text-emerald-800 text-lg">A Mediana (\(Md\))</h3>
+    <p class="text-sm text-slate-600 mt-2"><comment-tag id="3">É o número que fica exatamente no meio da fila <b>organizada</b>.</comment-tag id="3" text="Para reforçar por que a organização é importante, a analogia visual da altura funciona muito bem.
+
+Substitua por:
+'É o número central. Pense em alinhar 5 amigos do mais baixo para o mais alto: a mediana é a altura exata do amigo que ficou no meio da fila <b>organizada</b>.'" type="suggestion"></p>
+    <div class="mt-3 text-sm text-emerald-900 font-bold bg-white p-3 rounded border text-center">Coloque em Ordem!</div>
+    <div class="text-xs mt-3 text-slate-500">Ex: \(\{1, 5, \mathbf{8}, 9, 10\}\) \(\rightarrow\) Mediana \(= 8\). Se for par, faça a média dos dois centrais.</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">O Perigo da Média (Outliers)</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">A média aritmética sofre de um defeito grave: ela é facilmente "puxada" por valores absurdos (chamados de discrepantes ou <i>outliers</i>).</p>
+   <div class="paper rounded-xl p-4 mt-4 text-sm">
+    <p>Imagine 4 pessoas que ganham R$ 1.000 e 1 pessoa que ganha R$ 96.000 num bar.</p>
+    <p class="mt-2 font-bold text-center">A Média salarial do bar é R$ 20.000!</p>
+    <p class="mt-2 text-emerald-800">Mas isso é ilusório. Nesse caso, a <b>Mediana</b> (R$ 1.000) representa muito melhor a realidade financeira da maioria daquele grupo.</p>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">3</span><h2 class="text-xl font-black">A Média Ponderada</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Às vezes, alguns números são "mais importantes" que outros. Chamamos essa importância de <b>Peso</b>. É o que acontece nas notas escolares.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    \[ \bar{x}_p = \frac{\text{Nota}_1 \cdot \text{Peso}_1 + \text{Nota}_2 \cdot \text{Peso}_2}{\text{Soma dos Pesos}} \]
+   </div>
+   <div class="mt-4 text-xs text-slate-500">
+    Se Matemática tem peso 3 e Arte tem peso 1, é como se a nota de Matemática entrasse 3 vezes na soma total.
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-emerald-900 text-white rounded-2xl border shadow-sm p-6 sm:p-10">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-800 text-emerald-100 grid place-items-center font-black">4</span><h2 class="text-3xl font-black">O que é a Dispersão? (Variância)</h2></div>
+  <p class="mt-4 text-emerald-100 text-lg leading-relaxed">Ter uma média igual não significa ter o mesmo comportamento. Um aluno que tira notas <b>{5, 5, 5}</b> é estável (média 5). Outro que tira <b>{10, 0, 5}</b> é instável (mas a média também é 5!). Precisamos medir essa "bagunça".</p>
+  
+  <div class="grid md:grid-cols-[1fr_auto_1fr] gap-4 mt-6 items-center">
+      <div class="bg-white text-slate-800 rounded-2xl p-5 shadow-xl relative overflow-hidden">
+       <div class="text-sm text-slate-500 font-bold uppercase tracking-wide">Passo 1: Variância (\(V\) ou \(\sigma^2\))</div>
+       <p class="mt-3 text-sm leading-relaxed"><comment-tag id="4">Calculamos a distância de cada nota até a média, elevamos ao quadrado (para matar os negativos) e fazemos a média disso.</comment-tag id="4" text="Muitos alunos não entendem por que o cálculo da Variância eleva tudo ao quadrado. Explicar o motivo prático da 'soma dar zero' tira o aspecto decoreba da fórmula matemática.
+
+Substitua por:
+'Calculamos a distância de cada nota até a média. Como existem distâncias positivas e negativas, se apenas somarmos tudo, elas vão se cancelar dando zero! Para resolver isso, elevamos cada distância ao quadrado (eliminando o sinal de menos) e só então fazemos a média dessas distâncias.'" type="suggestion"></p>
+       <div class="text-center font-bold mt-2">\[ V = \frac{\Sigma (x_i - \bar{x})^2}{n} \]</div>
+      </div>
+      <div class="text-3xl text-emerald-300 font-black text-center"> \(\rightarrow\) </div>
+      <div class="bg-white text-slate-800 rounded-2xl p-5 shadow-xl relative overflow-hidden border-2 border-emerald-500">
+       <div class="text-sm text-emerald-600 font-bold uppercase tracking-wide">Passo 2: Desvio Padrão (\(DP\) ou \(\sigma\))</div>
+       <p class="mt-3 text-sm leading-relaxed">Como a Variância elevou tudo ao quadrado, os valores ficaram inflados. Nós tiramos a <b>Raiz Quadrada</b> para voltar ao normal!</p>
+       <div class="text-center font-bold mt-2 text-emerald-700">\[ DP = \sqrt{V} \]</div>
+      </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Amplitude</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">É a medida de dispersão mais simples, rápida (e menos confiável) do mundo. Basta pegar o maior valor e subtrair o menor.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    \[ \text{Amplitude} = X_{\text{Máximo}} - X_{\text{Mínimo}} \]
+   </div>
+   <div class="bg-slate-50 rounded-xl p-4 mt-4 text-sm">
+       Exemplo: Temperaturas no deserto foram \(\{5^\circ, 15^\circ, 40^\circ\}\).<br> Amplitude = \(40 - 5 = 35^\circ\).
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">Tabela de Frequência</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">Quando há muitos dados repetidos, usamos tabelas. A <b>Frequência Absoluta</b> é quantas vezes o número apareceu. Funciona exatamente como uma <b>Média Ponderada</b>!</p>
+   <div class="mt-4">
+       <table class="w-full data-table text-sm">
+           <tr><th>Nota (\(x\))</th><th>Frequência (\(f\))</th></tr>
+           <tr><td>7</td><td>4 alunos</td></tr>
+           <tr><td>8</td><td>6 alunos</td></tr>
+       </table>
+       <div class="text-xs text-center mt-2 text-slate-500">Média \(= \frac{(7 \times 4) + (8 \times 6)}{4 + 6} = 7,6\)</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <div class="space-y-6">
+    <article class="bg-white rounded-2xl border p-6 shadow-sm">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">7</span><h2 class="text-xl font-black">O que o DP significa?</h2></div>
+     <p class="mt-3 text-slate-600 text-sm"><comment-tag id="5">Um <b>Desvio Padrão baixo</b> (próximo a zero) significa que os dados estão grudadinhos perto da média (alta regularidade). Um <b>Desvio Padrão alto</b> significa dados espalhados e imprevisíveis.</comment-tag id="5" text="A analogia do atirador ou alvo é a melhor para explicar a diferença de Desvios Padrões de maneira muito didática.
+
+Substitua por:
+'Pense em um atirador de flechas: um <b>Desvio Padrão baixo</b> (próximo a zero) significa que ele acerta as flechas quase sempre coladas umas nas outras (alta regularidade). Um <b>Desvio Padrão alto</b> significa que as flechas estão muito espalhadas pelo alvo (imprevisível e inconstante).'" type="suggestion"></p>
+    </article>
+
+    <article class="bg-white rounded-2xl border p-6 shadow-sm border-l-4 border-l-emerald-500">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">8</span><h2 class="text-xl font-black">Propriedade Mágica</h2></div>
+     <p class="mt-3 text-slate-600 text-sm">Se você <b>somar</b> 2 em todas as notas da turma, a Média sobe 2, mas o <b>Desvio Padrão não muda</b> (os dados andaram juntos, a distância entre eles continuou a mesma!).</p>
+    </article>
+  </div>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">9</span><h2 class="text-xl font-black">Checklist para Exercícios</h2></div>
+   <div class="grid grid-cols-1 gap-3 mt-4 text-sm">
+    <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4 text-emerald-900">
+      <b>① Pediu Mediana?</b><br>PARE TUDO e coloque em ordem crescente (rol). Conte quantos são. Se for ímpar, pegue o do meio. Se for par, some os dois do meio e divida por 2.
+    </div>
+    <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4 text-emerald-900">
+      <b>② Tem Variância?</b><br>1) Ache a média. 2) Subtraia a média de todos os números. 3) Eleve os resultados ao quadrado. 4) Calcule a média desses quadrados.
+    </div>
+    <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4 text-emerald-900">
+      <b>③ Leitura de Gráfico?</b><br>Encontre a Frequência Total (soma do eixo Y) antes de tentar calcular a média ponderada.
+    </div>
+   </div>
+  </article>
+ </div>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Simulador de Dispersão</span>
+   <h1 class="text-3xl font-black mt-2">Laboratório de Dados</h1>
+   <p class="text-slate-600 mt-2">Adicione números ao conjunto. A linha verde marca a Média. A área cinza ao redor marca o Desvio Padrão. Veja como valores extremos distorcem o gráfico.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h3 class="font-bold text-lg mb-4 text-center">Entrada de Dados</h3>
+   
+   <div class="flex gap-2">
+       <input type="number" id="lab-input" class="w-full border rounded-xl p-2 text-center" placeholder="Ex: 5" onkeypress="if(event.key==='Enter') addData()">
+       <button onclick="addData()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 rounded-xl transition">+</button>
+   </div>
+   
+   <div id="lab-data-list" class="flex flex-wrap gap-2 mt-4 min-h-[50px] p-2 bg-slate-50 border rounded-xl">
+       <!-- Numeros aqui -->
+   </div>
+   
+   <button onclick="clearData()" class="w-full mt-4 text-xs font-bold text-slate-500 hover:text-red-500 transition">Limpar Tudo</button>
+
+   <div class="pt-4 border-t mt-4 space-y-3 text-sm">
+       <div class="flex justify-between border-b pb-1"><span>Total (N):</span> <b id="lab-n">0</b></div>
+       <div class="flex justify-between border-b pb-1"><span>Média:</span> <b id="lab-mean">0.00</b></div>
+       <div class="flex justify-between border-b pb-1"><span>Moda:</span> <b id="lab-mode">-</b></div>
+       <div class="flex justify-between border-b pb-1"><span>Mediana:</span> <b id="lab-median">0.00</b></div>
+       <div class="flex justify-between border-b pb-1"><span>Variância:</span> <b id="lab-var">0.00</b></div>
+       <div class="flex justify-between text-emerald-700"><span>Desvio Padrão:</span> <b id="lab-sd">0.00</b></div>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col items-center justify-center relative overflow-hidden h-[400px]">
+    <canvas id="lab-canvas" width="600" height="300" class="bg-slate-50 border rounded-xl shadow-inner w-full h-full object-contain"></canvas>
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Assistentes Matemáticos</span>
+   <h1 class="text-3xl font-black mt-2">Calculadoras Passo a Passo</h1>
+   <p class="text-slate-600 mt-2">Use estas calculadoras para entender a mecânica por trás da Média Ponderada e do terrível cálculo de Variância.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Média Ponderada</h2>
+   <p class="text-xs text-slate-500 mb-4">Insira o Valor e o seu Peso.</p>
+   
+   <div id="tool-pond-inputs" class="space-y-2 mb-4 max-h-[150px] overflow-y-auto pr-2">
+       <div class="flex gap-2">
+           <input type="number" class="val-input w-full border rounded p-2 text-sm" placeholder="Valor" value="7">
+           <input type="number" class="peso-input w-full border rounded p-2 text-sm bg-slate-50" placeholder="Peso" value="3">
+       </div>
+       <div class="flex gap-2">
+           <input type="number" class="val-input w-full border rounded p-2 text-sm" placeholder="Valor" value="8">
+           <input type="number" class="peso-input w-full border rounded p-2 text-sm bg-slate-50" placeholder="Peso" value="2">
+       </div>
+   </div>
+   
+   <div class="flex gap-2">
+       <button onclick="addPondRow()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl py-2 font-bold text-sm transition">+ Adicionar Linha</button>
+       <button onclick="calcPond()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 transition text-white rounded-xl py-2 font-bold text-sm">Calcular</button>
+   </div>
+   <div id="tool-pond-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Passo a Passo da Variância</h2>
+   <p class="text-xs text-slate-500 mb-4">Insira os números separados por vírgula para ver a tabela.</p>
+   
+   <input id="tool-var-input" type="text" class="w-full border rounded-xl p-3 font-mono text-sm" placeholder="Ex: 2, 4, 6, 8" value="2, 4, 6">
+   
+   <button onclick="calcVarTool()" class="w-full mt-4 bg-teal-700 hover:bg-teal-800 transition text-white rounded-xl py-3 font-bold text-sm">Desmontar Variância</button>
+   <div id="tool-var-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+     <div>
+       <span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Treino progressivo</span>
+       <h1 class="text-3xl font-black mt-2">100 Exercícios com Resolução</h1>
+       <p class="text-slate-600 mt-2">Responda usando <b>ponto ou vírgula</b> para decimais. Exemplo: <code>2.5</code> ou <code>2,5</code>.</p>
+     </div>
+     <div class="min-w-[210px]">
+       <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+       <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-emerald-600 rounded-full transition-all duration-500" style="width:0%"></div></div>
+     </div>
+   </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 1 (Moda e Mediana)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 2 (Média Simples)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 3 (Média Ponderada)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 4 (Variância/Disp.)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 5 (Tabelas)</button>
+   <button data-level="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 6 (Desafios)</button>
+  </div>
+ </div>
+ 
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo educacional de Matemática • Renderizado com KaTeX</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function mathInline(latex){return String.raw`\(${latex}\)`}
+function mathDisplay(latex){return String.raw`\[${latex}\]`}
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Utils
+function round(num, places = 2) { return Number(Math.round(num + "e" + places) + "e-" + places); }
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const t=btn.dataset.tab;
+        sections.forEach(s => $('sec-'+s).classList.toggle('hidden',s!==t));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active',b===btn));
+        if(t==='exercicios') renderExercises();
+        if(t==='laboratorio') redrawLab();
+    })
+});
+
+// === LABORATÓRIO VISUAL ===
+let labData = [2, 4, 4, 6];
+
+function updateLabStats() {
+    let sorted = [...labData].sort((a,b)=>a-b);
+    let n = sorted.length;
+    $('lab-n').innerText = n;
+    
+    if(n === 0) {
+        $('lab-mean').innerText = '0.00';
+        $('lab-median').innerText = '0.00';
+        $('lab-mode').innerText = '-';
+        $('lab-var').innerText = '0.00';
+        $('lab-sd').innerText = '0.00';
+        return {n:0};
+    }
+
+    // Mean
+    let sum = sorted.reduce((a,b)=>a+b, 0);
+    let mean = sum / n;
+    $('lab-mean').innerText = mean.toFixed(2);
+
+    // Median
+    let median = 0;
+    if(n % 2 === 0) {
+        median = (sorted[n/2 - 1] + sorted[n/2]) / 2;
+    } else {
+        median = sorted[Math.floor(n/2)];
+    }
+    $('lab-median').innerText = median.toFixed(2);
+
+    // Mode
+    let counts = {};
+    sorted.forEach(x => counts[x] = (counts[x]||0)+1);
+    let maxCount = Math.max(...Object.values(counts));
+    let modes = Object.keys(counts).filter(k => counts[k] === maxCount);
+    if (modes.length === n || maxCount === 1) $('lab-mode').innerText = 'Amodal';
+    else $('lab-mode').innerText = modes.join(', ');
+
+    // Variance & StdDev (População)
+    let sumSq = sorted.reduce((a,b) => a + Math.pow(b - mean, 2), 0);
+    let variance = sumSq / n;
+    let sd = Math.sqrt(variance);
+    $('lab-var').innerText = variance.toFixed(2);
+    $('lab-sd').innerText = sd.toFixed(2);
+
+    return {n, mean, sd, maxV: Math.max(...sorted), minV: Math.min(...sorted)};
+}
+
+function redrawLab() {
+    let html = labData.map((x, i) => `<div class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1">${x} <span class="cursor-pointer text-red-500 ml-1 hover:text-red-700" onclick="removeData(${i})">×</span></div>`).join('');
+    if(labData.length === 0) html = '<div class="text-slate-400 text-sm">Nenhum dado inserido.</div>';
+    $('lab-data-list').innerHTML = html;
+
+    const stats = updateLabStats();
+    
+    const c = $('lab-canvas');
+    const ctx = c.getContext('2d');
+    const w = c.width, h = c.height;
+    ctx.clearRect(0,0,w,h);
+
+    if(stats.n === 0) return;
+
+    // Define X scale
+    let minX = Math.min(0, stats.minV - 2);
+    let maxX = Math.max(10, stats.maxV + 2);
+    let rangeX = maxX - minX;
+    
+    function getX(val) { return 40 + ((val - minX) / rangeX) * (w - 80); }
+
+    // Draw axis
+    ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(20, h-40); ctx.lineTo(w-20, h-40); ctx.stroke();
+
+    // Draw Std Dev shaded area
+    let sdStartX = getX(stats.mean - stats.sd);
+    let sdEndX = getX(stats.mean + stats.sd);
+    ctx.fillStyle = 'rgba(209, 250, 229, 0.5)'; // emerald-100
+    ctx.fillRect(sdStartX, 40, sdEndX - sdStartX, h-80);
+
+    // Draw Mean line
+    let meanX = getX(stats.mean);
+    ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2; ctx.setLineDash([5, 5]);
+    ctx.beginPath(); ctx.moveTo(meanX, 20); ctx.lineTo(meanX, h-40); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#064e3b'; ctx.font = 'bold 12px sans-serif';
+    ctx.fillText('Média', meanX - 15, 15);
+
+    // Draw points (dots)
+    let dotYBase = h - 60;
+    // Count repetitions to stack them
+    let counts = {};
+    [...labData].sort((a,b)=>a-b).forEach(val => {
+        counts[val] = (counts[val]||0) + 1;
+        let pX = getX(val);
+        let pY = dotYBase - (counts[val]-1) * 20; // stack up
+        
+        ctx.beginPath();
+        ctx.arc(pX, pY, 8, 0, 2*Math.PI);
+        ctx.fillStyle = '#064e3b';
+        ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        if(counts[val] === 1) { // label axis
+            ctx.fillStyle = '#64748b'; ctx.font = '12px sans-serif';
+            ctx.fillText(val, pX - 5, h-20);
+        }
+    });
+}
+
+function addData() {
+    const v = parseFloat($('lab-input').value);
+    if(!isNaN(v)) {
+        labData.push(v);
+        $('lab-input').value = '';
+        redrawLab();
+    }
+}
+function removeData(index) { labData.splice(index, 1); redrawLab(); }
+function clearData() { labData = []; redrawLab(); }
+
+// === FERRAMENTAS ===
+function addPondRow() {
+    const div = document.createElement('div');
+    div.className = 'flex gap-2';
+    div.innerHTML = `<input type="number" class="val-input w-full border rounded p-2 text-sm" placeholder="Valor"><input type="number" class="peso-input w-full border rounded p-2 text-sm bg-slate-50" placeholder="Peso">`;
+    $('tool-pond-inputs').appendChild(div);
+}
+
+function calcPond() {
+    const vals = document.querySelectorAll('.val-input');
+    const pesos = document.querySelectorAll('.peso-input');
+    let sumV = 0, sumP = 0;
+    let parts = [];
+    
+    for(let i=0; i<vals.length; i++) {
+        let v = parseFloat(vals[i].value);
+        let p = parseFloat(pesos[i].value);
+        if(!isNaN(v) && !isNaN(p)) {
+            sumV += (v * p);
+            sumP += p;
+            parts.push(`(${v} \\times ${p})`);
+        }
+    }
+    
+    if(sumP === 0) return;
+    
+    let html = `
+      <div class="step" data-step="1">Multiplique cada valor pelo seu peso e some: <br> ${mathDisplay(parts.join(' + ') + ` = ${sumV}`)}</div>
+      <div class="step mt-3" data-step="2">Some todos os pesos: <br> ${mathDisplay(`\\Sigma P = ${sumP}`)}</div>
+      <div class="step mt-3" data-step="3">Divida o total dos valores pela soma dos pesos: <br> ${mathDisplay(`\\bar{x}_p = \\frac{${sumV}}{${sumP}} = ${(sumV/sumP).toFixed(2)}`)}</div>
+    `;
+    $('tool-pond-out').innerHTML = html;
+    $('tool-pond-out').classList.remove('hidden');
+    renderAll();
+}
+
+function calcVarTool() {
+    const raw = $('tool-var-input').value;
+    const arr = raw.split(',').map(x => parseFloat(x.trim())).filter(x => !isNaN(x));
+    const out = $('tool-var-out');
+    
+    if(arr.length < 2) {
+        out.innerHTML = '<div class="warning rounded p-3">Insira pelo menos 2 números separados por vírgula.</div>';
+        out.classList.remove('hidden'); return;
+    }
+
+    const n = arr.length;
+    const mean = arr.reduce((a,b)=>a+b,0) / n;
+    
+    let tableHtml = `<table class="w-full data-table mt-3 text-sm"><tr><th>Dado (\(x_i\))</th><th>Diferença (\(x_i - \\bar{x}\))</th><th>Quadrado</th></tr>`;
+    
+    let sumSq = 0;
+    arr.forEach(x => {
+        let diff = x - mean;
+        let sq = diff * diff;
+        sumSq += sq;
+        tableHtml += `<tr><td>${x}</td><td>${diff.toFixed(2)}</td><td>${sq.toFixed(2)}</td></tr>`;
+    });
+    tableHtml += `</table>`;
+
+    const vari = sumSq / n;
+    const sd = Math.sqrt(vari);
+
+    let html = `
+      <div class="step" data-step="1">Encontre a Média: ${mathDisplay(`\\bar{x} = \\frac{\\text{Soma}}{${n}} = ${mean.toFixed(2)}`)}</div>
+      <div class="step mt-3" data-step="2">Monte a tabela subtraindo a média de cada número e elevando ao quadrado: ${tableHtml}</div>
+      <div class="step mt-3" data-step="3">Some a última coluna (soma dos quadrados): <b>${sumSq.toFixed(2)}</b></div>
+      <div class="step mt-3" data-step="4">A <b>Variância</b> é a média dessa soma: ${mathDisplay(`V = \\frac{${sumSq.toFixed(2)}}{${n}} = ${vari.toFixed(2)}`)}</div>
+      <div class="success rounded-xl p-4 mt-4 text-center font-bold text-emerald-800">Desvio Padrão ${mathDisplay(`DP = \\sqrt{${vari.toFixed(2)}} \\approx ${sd.toFixed(2)}`)}</div>
+    `;
+    
+    out.innerHTML = html;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+// === EXERCÍCIOS ===
+const rawExercises = [
+  // L1: Moda e Mediana (1 a 15)
+  "1|1|Moda Simples|Qual a moda de: \\{2, 3, 3, 5\\}?|3|moda|Identifique o número que mais se repete.",
+  "2|1|Moda Simples|Qual a moda de: \\{7, 8, 8, 9, 8\\}?|8|moda|Identifique o número que mais se repete.",
+  "3|1|Moda Bimodal|O conjunto \\{1, 1, 2, 2, 5\\} tem duas modas. Qual a soma delas?|3|moda|Ache as duas modas e some (1+2).",
+  "4|1|Amodal|O conjunto \\{4, 5, 6\\} tem moda? (Digite 0 para não)|0|moda|Nenhum repete, é amodal.",
+  "5|1|Mediana Ímpar|Qual a mediana de: \\{1, 3, 5\\}?|3|mediana|Já está em ordem, pegue o do meio.",
+  "6|1|Mediana Ímpar|Qual a mediana de: \\{9, 2, 7\\}?|7|mediana|Coloque em ordem: 2, 7, 9. O do meio é 7.",
+  "7|1|Mediana Ímpar|Qual a mediana de: \\{10, 5, 12, 1, 8\\}?|8|mediana|Ordem: 1, 5, 8, 10, 12.",
+  "8|1|Mediana Par|Qual a mediana de: \\{2, 4, 6, 8\\}?|5|mediana|Os do meio são 4 e 6. Média deles = 5.",
+  "9|1|Mediana Par|Qual a mediana de: \\{1, 10, 3, 8\\}?|5.5|mediana|Ordem: 1, 3, 8, 10. Média de 3 e 8 é 5.5.",
+  "10|1|Mediana Par|Qual a mediana de: \\{4, 4, 6, 10\\}?|5|mediana|Meio: 4 e 6. Média = 5.",
+  "11|1|Moda Letras|Um dado deu: 2, 2, 3, 4. Qual a moda?|2|moda|O 2 saiu mais vezes.",
+  "12|1|Mediana Zero|Qual a mediana de: \\{0, 0, 1, 5, 6\\}?|1|mediana|O do meio é 1.",
+  "13|1|Mediana Negativa|Qual a mediana de: \\{-5, -2, 0, 4, 8\\}?|0|mediana|O do meio é 0.",
+  "14|1|Moda vs Mediana|Conjunto: \\{2, 2, 5\\}. Qual a soma da moda com a mediana?|4|mix|Moda=2, Mediana=2. Soma=4.",
+  "15|1|Múltiplos no meio|Qual a mediana de: \\{5, 5, 5, 5\\}?|5|mediana|Todos são iguais.",
+
+  // L2: Média Simples (16 a 35)
+  "16|2|Média Básica|Média de \\{2, 4\\}|3|media|Soma (6) dividido por 2.",
+  "17|2|Média Básica|Média de \\{1, 3, 5\\}|3|media|Soma (9) dividido por 3.",
+  "18|2|Média Básica|Média de \\{10, 20, 30\\}|20|media|Soma (60) div 3.",
+  "19|2|Média Básica|Média de \\{2, 2, 2, 2\\}|2|media|Se são iguais, a média é o próprio número.",
+  "20|2|Média Básica|Média de \\{0, 10\\}|5|media|10/2 = 5.",
+  "21|2|Média com Negativos|Média de \\{-2, 0, 2\\}|0|media|Soma = 0. Média = 0.",
+  "22|2|Média Decimal|Média de \\{1.5, 2.5\\}|2|media|Soma = 4. Div 2 = 2.",
+  "23|2|Média Notas|Notas: 6, 7, 8 e 9. Qual a média?|7.5|media|Soma 30. 30/4 = 7.5.",
+  "24|2|Incógnita|A média de \\{2, x\\} é 5. Qual o valor de x?|8|eq|Soma tem que ser 10. 10 - 2 = 8.",
+  "25|2|Incógnita|A média de \\{4, 6, x\\} é 6. Qual o valor de x?|8|eq|Soma = 18. 4+6=10. x=8.",
+  "26|2|Incógnita|A média de 4 números é 10. A soma deles é?|40|eq|Média = Soma / N. Logo Soma = Média * N.",
+  "27|2|Retirando elemento|Soma de 3 números é 30 (média 10). Tira-se um 0. Qual a nova média dos 2 que sobraram?|15|eq|Soma continua 30, mas dividimos por 2.",
+  "28|2|Comparação|A média de \\{2, 8\\} é igual a moda de \\{5, 5, 9\\}? (1 para sim, 0 para não)|1|mix|Média=5. Moda=5.",
+  "29|2|Propriedade Média|A média de 5 números é 20. Se somar 2 a todos, qual a nova média?|22|prop|Se somar K a todos, a média sobe K.",
+  "30|2|Propriedade Média|A média de 10 números é 5. Se multiplicar todos por 3, qual a nova média?|15|prop|Se multiplicar todos por K, a média multiplica por K.",
+  "31|2|Outliers|Média de \\{1, 1, 1, 1, 96\\}|20|media|Soma = 100. 100/5 = 20.",
+  "32|2|Idades|Idades: 10, 12, 14. Média daqui a 5 anos?|17|prop|Média atual = 12. Daqui a 5 anos = 12+5.",
+  "33|2|Soma Total|A média de 20 alunos é 6. Qual a soma de todas as notas?|120|eq|20 * 6 = 120.",
+  "34|2|Médias combinadas|Turma A (10 alunos, média 6). Turma B (10 alunos, média 8). Média geral?|7|eq|Soma total = 60 + 80 = 140. 140/20 = 7.",
+  "35|2|Médias desiguais|Turma A (20 al, média 5). Turma B (10 al, média 8). Média geral?|6|eq|Soma = 100 + 80 = 180. 180/30 = 6.",
+
+  // L3: Média Ponderada (36 a 50)
+  "36|3|Média Ponderada|Valor 5 (peso 2), Valor 10 (peso 3). Média?|8|pond|((5*2) + (10*3)) / 5 = 40 / 5 = 8.",
+  "37|3|Média Ponderada|Valor 2 (peso 1), Valor 8 (peso 1). Média?|5|pond|Se os pesos são iguais, é igual à média simples.",
+  "38|3|Nota Escola|Trabalho (Peso 1) = 6. Prova (Peso 2) = 9. Média final?|8|pond|(6+18)/3 = 24/3 = 8.",
+  "39|3|Nota Escola|Teste (P1)=5, Prova (P2)=8, Exame (P2)=9. Média?|7.8|pond|(5+16+18)/5 = 39/5 = 7.8.",
+  "40|3|Frequência|Número 2 aparece 3 vezes. Número 4 aparece 2 vezes. Média?|2.8|pond|(6+8)/5 = 14/5 = 2.8.",
+  "41|3|Frequência|Salário 1000 (4 funcionários). Salário 2000 (1 func). Média?|1200|pond|6000 / 5 = 1200.",
+  "42|3|Pesos Fracionários|Nota 10 (peso 0.4) e Nota 5 (peso 0.6). Média?|7|pond|Soma dos pesos = 1.0. Logo: 4 + 3 = 7.",
+  "43|3|Pesos 100%|N1 vale 30% (Nota 8). N2 vale 70% (Nota 6). Média?|6.6|pond|0.3*8 + 0.7*6 = 2.4 + 4.2 = 6.6.",
+  "44|3|Incógnita Ponderada|N1=5 (P1). N2=x (P2). Média Final=7. Qual o x?|8|pond|(5+2x)/3 = 7 -> 5+2x=21 -> 2x=16.",
+  "45|3|Frequência Simples|Dois notas 6, uma nota 9. Média?|7|pond|21/3 = 7.",
+  "46|3|Frequência Simples|Três notas 4, duas notas 9. Média?|6|pond|30/5 = 6.",
+  "47|3|Moedas|3 moedas de 50 cent e 2 de 1 real(100). Valor médio (em centavos)?|70|pond|(150+200)/5 = 350/5 = 70.",
+  "48|3|Bimestre|Bim 1,2,3,4 (Pesos 1,1,2,2). Notas: 5, 5, 8, 8. Média?|7|pond|(5+5+16+16)/6 = 42/6 = 7.",
+  "49|3|Peso Oculto|Turma de meninos (média 6). Turma meninas (média 8). Média 7. Proporção é 1 para 1? (1=sim, 0=não)|1|pond|Se a média geral é a média aritmética exata das duas, os pesos são iguais.",
+  "50|3|Concurso|Português (P2) = 7, Mat (P3) = 8, Info (P1) = 6. Média?|7.33|pond|(14+24+6)/6 = 44/6 = 7.333... (use 7.33).",
+
+  // L4: Variância, Desvio Padrão e Amplitude (51 a 70)
+  "51|4|Amplitude|Qual a amplitude de: \\{1, 5, 10, 20\\}?|19|amp|Maior (20) - Menor (1).",
+  "52|4|Amplitude|Qual a amplitude de: \\{-5, 0, 5\\}?|10|amp|5 - (-5) = 10.",
+  "53|4|Distância à média|Conjunto \\{2, 6\\}. Média = 4. Qual o quadrado da diferença do 6 para a média?|4|var|Diferença = 2. Quadrado = 4.",
+  "54|4|Variância Exata|Qual a Variância (populacional) de \\{2, 6\\}?|4|var|Média=4. Sq: 4, 4. Soma=8. Var = 8/2 = 4.",
+  "55|4|Desvio Padrão|Se a Variância é 4, qual o Desvio Padrão?|2|var|Raiz quadrada da Variância.",
+  "56|4|Desvio Padrão|Se a Variância é 25, qual o DP?|5|var|Raiz de 25.",
+  "57|4|Variância Exata|Qual a Variância de \\{3, 3, 3\\}?|0|var|Se os dados são idênticos, não há dispersão.",
+  "58|4|Variância Exata|Qual a Variância de \\{1, 3, 5\\}?|2.67|var|Média=3. Sq: 4, 0, 4. Soma=8. Var=8/3 = 2.666... (use 2.67).",
+  "59|4|Variância Exata|Qual a Variância de \\{2, 4, 6, 8\\}?|5|var|Média=5. Sq: 9, 1, 1, 9. Soma=20. Var=20/4=5.",
+  "60|4|Variância Exata|Qual a Variância de \\{10, 10, 20, 20\\}?|25|var|Média=15. Sq: 25, 25, 25, 25. Soma=100. Var=100/4=25.",
+  "61|4|DP Exato|Qual o DP de \\{10, 10, 20, 20\\}?|5|var|Raiz da Variância (25) = 5.",
+  "62|4|Variância Exata|Qual a Variância de \\{-1, 1\\}?|1|var|Média=0. Sq: 1, 1. Soma=2. Var=2/2=1.",
+  "63|4|DP Propriedade|Variância de notas foi 4. O professor somou 2 pontos para todos. Qual a nova Variância?|4|prop|Somar constantes não altera a dispersão.",
+  "64|4|DP Propriedade|O DP de um conjunto é 3. Multiplicou-se todos os dados por 2. Qual o novo DP?|6|prop|Ao multiplicar por K, o DP multiplica por K.",
+  "65|4|Variância Propriedade|A Variância é 5. Multiplicou-se tudo por 2. Qual a nova variância?|20|prop|A Variância multiplica por K^2 (2^2 = 4). 5*4=20.",
+  "66|4|DP Negativo?|O Desvio Padrão pode ser negativo? (1 para sim, 0 para não)|0|var|Soma de quadrados é positiva. DP é sempre >= 0.",
+  "67|4|Dispersão Máxima|Em uma prova de 0 a 10 (apenas 2 alunos), qual a maior variância possível?|25|var|Maior distância da média. Notas 0 e 10. Média=5. Sq=25,25. Var=25.",
+  "68|4|Variância de 2 valores|Se temos x e y, e Amplitude é 10. Qual o DP?|5|var|Eles estão a dist 5 da média. DP = 5.",
+  "69|4|Soma dos Desvios|Qual a soma simples das diferenças (x - média) em qualquer conjunto?|0|var|A média balanceia perfeitamente os desvios, a soma SEM quadrados é sempre 0.",
+  "70|4|Variância Decimal|Qual a Variância de \\{0, 1, 2, 3, 4\\}?|2|var|Média=2. Sq: 4, 1, 0, 1, 4. Soma=10. Var=10/5=2.",
+
+  // L5: Tabelas, Gráficos e Agrupamentos (71 a 85)
+  "71|5|Tabela Moda|Valores (e Frequência): 2(5x), 3(8x), 4(2x). Moda?|3|tab|O 3 tem maior frequência (8).",
+  "72|5|Tabela Mediana|Mesma Tabela: 2(5x), 3(8x), 4(2x). Total=15. Mediana?|3|tab|Posição 8 da fila. Os 5 primeiros são '2'. Do 6º ao 13º é '3'.",
+  "73|5|Tabela Média|Mesma Tabela: Média?|2.8|tab|(10 + 24 + 8) / 15 = 42 / 15 = 2.8.",
+  "74|5|Gráfico Barras|3 barras: A=10, B=20, C=30. Média?|20|tab|(10+20+30)/3 = 20.",
+  "75|5|Total Frequência|Quantos dados existem se a tabela tem Freq: 2, 4, 4?|10|tab|Soma das frequências.",
+  "76|5|Ponto Médio Classe|Classe de alturas: [1.60, 1.70). Ponto médio?|1.65|tab|(1.60+1.70)/2.",
+  "77|5|Média Agrupada|Classe [0,2) tem Freq=3. Ponto médio é 1. Produto Freq*Meio?|3|tab|1 * 3 = 3.",
+  "78|5|Média Agrupada Geral|Classe [0,2) com f=2; Classe [2,4) com f=2. Média?|2|tab|Meios: 1 e 3. Ponderada: (2*1 + 2*3)/4 = 8/4 = 2.",
+  "79|5|Tabela Mediana Par|Freq: 1(2x), 2(2x). N=4. Mediana?|1.5|tab|Fila: 1, 1, 2, 2. Meio: (1+2)/2.",
+  "80|5|Gráfico Setores (Pizza)|Se a fatia de 90 graus vale 10 pessoas, o total (360 graus) é?|40|tab|90 é um quarto. 10 * 4 = 40.",
+  "81|5|Moda em Classes|Qual classe é modal? [0,2)f=5, [2,4)f=10, [4,6)f=1. Digite o ponto médio dela.|3|tab|Classe 2-4 tem f=10. Meio é 3.",
+  "82|5|Variância Tabela|Val(Freq): 0(1), 4(1). Média=2. Variância?|4|tab|Sq: (0-2)^2=4, (4-2)^2=4. Soma=8. 8/2=4.",
+  "83|5|Frequência Relativa|Freq Absoluta de 'A' = 10, Total = 50. Qual a freq relativa (em %)?|20|tab|10/50 = 0.20 = 20%.",
+  "84|5|Mediana vs Média Assimetrica|Em Salários onde a maioria ganha pouco, a Média costuma ser maior que a Mediana? (1=sim)|1|tab|Os ricos puxam a média para cima.",
+  "85|5|Gráfico de Linha|Dias (X), Vendas (Y). Valores Y: 4, 8, 12, 16. Média?|10|tab|(4+8+12+16)/4 = 40/4 = 10.",
+
+  // L6: Desafios e Enem (86 a 100)
+  "86|6|Desafio Falta 1|A média de 4 provas é 6. Quanto tirar na 5ª prova para a média subir para 7?|11|mix|Soma_atual = 24. Nova soma deve ser 5*7=35. 35-24 = 11.",
+  "87|6|Correção de Média|Média de 10 num era 5 (Soma 50). Descobriu-se que um '2' era na verdade '12' (+10). Nova média?|6|mix|Soma sobe 10, vai para 60. 60/10 = 6.",
+  "88|6|Moda e Média|O conjunto \\{2, x, 6\\} tem média 4. Qual a mediana?|4|mix|2+x+6 = 12 -> x=4. Conj={2,4,6}. Med=4.",
+  "89|6|Descarte Pior|Notas: 2, 8, 8. Média descartando a pior nota?|8|mix|Descarta 2. Fica 8 e 8. Média 8.",
+  "90|6|Variância Escalar|As notas 10, 10, 10 têm variância zero. E as notas 0, 0, 0?|0|mix|Constantes tem variância nula.",
+  "91|6|Interpolação|Mediana de 100 pessoas está entre a 50ª (nota 4) e a 51ª (nota 5).|4.5|mix|(4+5)/2.",
+  "92|6|Erro Mediana|O aluno A diz que mediana de 5, 2, 8 é 2. Qual o valor correto?|5|mix|Coloque em ordem: 2, 5, 8.",
+  "93|6|Aprovação|Média=(2*P1 + 3*P2)/5. P1=5. Quer média 6. Qual P2 mínimo?|6.67|mix|10 + 3*P2 = 30 -> 3*P2=20 -> P2=6.666...",
+  "94|6|Qual é maior?|Em \\{1, 2, 99\\}, qual é maior: média (digite 1) ou mediana (digite 2)?|1|mix|Média=34, Med=2.",
+  "95|6|Variância Transformada|Se Var(X) = 10. Var(2X) = ?|40|mix|Multiplica por 2^2=4. 10*4=40.",
+  "96|6|Desvio Padrão Transformado|Se DP(X) = 10. DP(2X) = ?|20|mix|Multiplica pelo modulo. 10*2=20.",
+  "97|6|Efeito Constante|Soma 5 em tudo. O DP muda? (0=não, 1=sim)|0|mix|Dispersão é inalterada por translação.",
+  "98|6|Pesos Equivalentes|Média de A(peso 2) e B(peso 2) é o mesmo que média simples de A e B? (1=sim, 0=não)|1|mix|Proporções iguais = média simples.",
+  "99|6|Mediana Robusta|Dado \\{1, 2, 3\\}, Med=2. Se o 3 virar 3000, Mediana muda? (0=não, 1=sim)|0|mix|A mediana é resistente a outliers no extremo.",
+  "100|6|Balanço Final|Um conjunto de 10 num tem média 0. O que podemos afirmar da soma?|0|mix|Média 0 só ocorre se a soma for 0."
+];
+
+const E = rawExercises.map(line => {
+  const p = line.split('|');
+  // Formatando os conjuntos numéricos para serem lidos pelo KaTeX sem afetar o texto da pergunta
+  let formattedQ = p[3].replace(/\\?\{/g, '\\( \\{').replace(/\\?\}/g, '\\} \\)');
+  return { id: parseInt(p[0]), level: parseInt(p[1]), title: p[2], q: formattedQ, ans: p[4], type: p[5], hint: p[6] };
+});
+
+function solutionSteps(ex){
+  const S=[];
+  if(ex.type==='moda'){
+    S.push(['1','A Moda é simplesmente o elemento que aparece com mais frequência no conjunto de dados.']);
+    S.push(['2',`No problema: ${ex.hint}`]);
+  }
+  else if(ex.type==='mediana'){
+    S.push(['1','Para achar a Mediana, a regra nº 1 é: <b>coloque os números em ordem crescente</b>.']);
+    S.push(['2','Se a quantidade de números for ímpar, pegue o do meio. Se for par, pegue os dois do meio e calcule a média deles.']);
+    S.push(['3',`No problema: ${ex.hint}`]);
+  }
+  else if(ex.type==='media'){
+    S.push(['1','A Média Simples é a soma de todos os valores dividida pela quantidade de valores.']);
+    S.push(['2',`Lógica: ${ex.hint}`]);
+  }
+  else if(ex.type==='pond' || ex.type==='tab'){
+    S.push(['1','Trata-se de uma Média Ponderada (ou Tabela de Frequências). Cada valor deve ser multiplicado pelo seu "peso" ou frequência.']);
+    S.push(['2','Some todos esses produtos.']);
+    S.push(['3','Divida a soma dos produtos pela soma total dos pesos (ou frequências).']);
+    S.push(['4',`Lógica: ${ex.hint}`]);
+  }
+  else if(ex.type==='var' || ex.type==='amp'){
+    S.push(['1','Estamos lidando com Medidas de Dispersão (o quão espalhados estão os dados).']);
+    if(ex.type === 'amp') S.push(['2','Amplitude é apenas o Maior menos o Menor.']);
+    else S.push(['2','Lembre-se do roteiro da Variância: ache a Média, ache a diferença de cada número para a média, eleve as diferenças ao quadrado e faça a média desses quadrados.']);
+    S.push(['3',`Lógica aplicada: ${ex.hint}`]);
+  }
+  else { // mix, eq, prop
+    S.push(['1','Este é um problema que exige interpretar propriedades ou montar uma pequena equação.']);
+    S.push(['2',`Raciocínio: ${ex.hint}`]);
+  }
+  return S;
+}
+
+let solved = new Set(JSON.parse(localStorage.getItem('statSolved')||'[]'));
+let currentLevel = 'all';
+
+function renderExercises(){
+  let list = E.filter(e => (currentLevel==='all' || e.level == currentLevel));
+  
+  $('exercise-list').innerHTML=list.map(ex=>{
+    const done = solved.has(ex.id);
+    return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between gap-3">
+          <span class="text-xs font-black px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700">Q. ${ex.id}</span>
+          <span class="text-xs text-slate-400">${ex.title}</span>
+        </div>
+        <div class="text-sm font-bold text-slate-700 mt-4 leading-relaxed">${ex.q}</div>
+      </div>
+      
+      <div class="mt-4">
+        <div class="flex gap-2">
+          <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none font-mono" placeholder="Ex: 2.5">
+          <button onclick="check(${ex.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+        </div>
+        <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px]"></div>
+        <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-emerald-700 hover:underline">👁 Ver Resolução Guiada</button>
+        
+        <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+          <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Passo a Passo</div>
+          ${solutionSteps(ex).map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+          <div class="success rounded-xl p-3 mt-2 text-center font-bold">Gabarito: ${ex.ans}</div>
+        </div>
+      </div>
+    </article>`
+  }).join('');
+  
+  $('progress-text').textContent=`${solved.size} / 100`;
+  $('progress-bar').style.width=(solved.size)+'%';
+  renderAll();
+}
+
+function check(id){
+  const ex = E.find(x=>x.id===id);
+  const raw = $('answer-'+id).value.trim().replace(',', '.');
+  const user = parseFloat(raw);
+  const fb = $('feedback-'+id);
+  
+  if (raw === '' || isNaN(user)) {
+    fb.className='text-sm font-bold mt-2 text-red-600';
+    fb.textContent='Insira um número válido.';
+    return;
+  }
+
+  const ans = parseFloat(ex.ans);
+  // Aceita uma margem de erro pequena para decimais
+  if (Math.abs(user - ans) < 0.02) {
+    solved.add(id);
+    localStorage.setItem('statSolved',JSON.stringify([...solved]));
+    fb.className='text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent='✓ Certo! Leitura de dados perfeita.';
+  } else {
+    fb.className='text-sm font-bold mt-2 text-red-600';
+    fb.textContent='✗ Incorreto. Reveja as contas.';
+  }
+  renderExercises();
+}
+
+function toggleSol(id){ $('solution-'+id).classList.toggle('hidden'); }
+
+document.querySelectorAll('.level-btn').forEach(b=>{
+  b.onclick = () => {
+    currentLevel = b.dataset.level;
+    document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderExercises();
+  }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+  redrawLab();
+});
+</script>
+</body>
+</html>

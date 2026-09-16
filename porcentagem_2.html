@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Porcentagem — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#4f46e5;background:#eef2ff;color:#312e81}
+  canvas{max-width:100%}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .sticky-mini{position:sticky;top:74px;z-index:20}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  .grid-paper{background-image:linear-gradient(#e5e7eb 1px,transparent 1px),linear-gradient(90deg,#e5e7eb 1px,transparent 1px);background-size:28px 28px}
+  .barwrap{background:#f1f5f9;border-radius:999px;overflow:hidden;height:28px;border:1px solid #e2e8f0}
+  .barfill{background:#6366f1;height:100%;transition:width .2s}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">💯 Porcentagem</div><div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo, não decorando</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exemplos">💡 Exemplos</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Curso do zero</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Porcentagem sem mistério</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Porcentagem está em todo lugar: descontos, aumentos, notícias, provas. Você vai entender o que "por cento" realmente significa e vai aprender a calcular qualquer porcentagem com segurança.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">7</b><div class="text-xs text-indigo-200">tópicos de teoria</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">30</b><div class="text-xs text-indigo-200">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">resolução detalhada</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">🔬</b><div class="text-xs text-indigo-200">laboratório visual</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Como estudar:</b> leia a ideia, observe o desenho, veja o exemplo resolvido na aba <b>Exemplos</b> e só depois tente os exercícios. Se travar em algum cálculo, volte para o procedimento — a prática vem com o tempo.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O que é porcentagem?</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">"Por cento" significa <b>"a cada 100"</b>. Quando dizemos 25%, estamos falando de 25 partes de um total dividido em 100 partes iguais. O símbolo % substitui a fração "sobre 100".</p>
+   <div class="my-5 flex justify-center"><div id="visual-25"></div></div>
+   <div class="bg-indigo-50 rounded-xl p-4 text-sm"><b>25% de uma pizza</b> = 25 fatias, se a pizza fosse cortada em 100 fatias iguais.</div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Porcentagem, fração e decimal</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Toda porcentagem pode ser escrita como fração de denominador 100, e toda fração de denominador 100 pode virar decimal dividindo por 100 (ou seja, andando a vírgula duas casas para a esquerda).</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[25\% = \frac{25}{100} = 0{,}25\]</div>
+   <div class="success rounded-xl p-4 mt-4 text-sm"><b>Atalho:</b> para transformar % em decimal, divida por 100. Para transformar decimal em %, multiplique por 100.</div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <h2 class="text-2xl font-black">3. Calculando a porcentagem de um valor</h2>
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div>
+    <h3 class="font-bold text-indigo-800">O jeito mais rápido</h3>
+    <p class="text-sm text-slate-600 mt-2 leading-7">Transforme a porcentagem em decimal e <b>multiplique pelo valor total</b>. É a forma mais direta e funciona sempre.</p>
+    <div class="paper rounded-xl p-5 mt-3 text-center">\[20\% \text{ de } 150 = 0{,}20 \times 150 = 30\]</div>
+   </div>
+   <div>
+    <h3 class="font-bold text-indigo-800">Pensando em partes de 100</h3>
+    <ol class="mt-3 space-y-2 text-sm list-decimal list-inside text-slate-700">
+     <li>Descubra quanto vale <b>1%</b> do total (divida o total por 100).</li>
+     <li>Multiplique esse valor pela porcentagem desejada.</li>
+    </ol>
+    <div class="paper rounded-xl p-5 mt-3 text-center text-sm">1% de 150 = 1,50 <br> 20% de 150 = 1,50 × 20 = 30</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. Aumento e desconto percentual</h2>
+   <p class="mt-3 text-slate-600 leading-7">Em vez de calcular a porcentagem e depois somar/subtrair, você pode calcular tudo em <b>um único passo</b> usando o fator multiplicativo.</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="step" data-step="1"><b>Aumento de 10%:</b> multiplique por \(1 + 0{,}10 = 1{,}10\).</div>
+    <div class="step" data-step="2"><b>Desconto de 10%:</b> multiplique por \(1 - 0{,}10 = 0{,}90\).</div>
+    <div class="step" data-step="3">Exemplo: um produto de R$ 200 com 10% de desconto custa \(200 \times 0{,}90 = 180\).</div>
+   </div>
+  </article>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">5. Quanto por cento um valor representa</h2>
+   <p class="mt-3 text-slate-600 leading-7">Para descobrir que porcentagem uma parte representa do todo, <b>divida a parte pelo todo</b> e multiplique por 100.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center">\[\frac{\text{parte}}{\text{todo}} \times 100\]</div>
+   <div class="bg-amber-50 rounded-xl p-4 mt-3 text-sm">Exemplo: 30 de um total de 120. \(\frac{30}{120}=0{,}25 \to 25\%\).</div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">6. Descobrindo o valor total</h2>
+   <p class="mt-3 text-slate-600 leading-7">Às vezes você sabe que uma parte corresponde a uma porcentagem, e quer descobrir o total. Divida a parte conhecida pela porcentagem (em decimal).</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="step" data-step="1">40 é 20% de quanto?</div>
+    <div class="step" data-step="2">Escreva: \(0{,}20 \times x = 40\).</div>
+    <div class="step" data-step="3">Isole x: \(x = 40 \div 0{,}20 = 200\).</div>
+   </div>
+  </article>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">7. Aumentos e descontos sucessivos</h2>
+   <p class="mt-3 text-slate-600 leading-7">Cuidado: dois aumentos de 10% <b>não somam</b> 20%. Cada porcentagem incide sobre o valor já alterado pela anterior.</p>
+   <div class="warning rounded-xl p-4 mt-4 text-sm">Um produto de R$ 100 aumenta 10% (fica R$ 110) e depois mais 10% (fica \(110 \times 1{,}10 = 121\)) — um aumento total de 21%, não 20%.</div>
+  </article>
+ </div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">Checklist para qualquer questão</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 text-sm">
+   <div class="bg-slate-50 rounded-xl p-4"><b>① Identifique</b><br>Você quer achar a parte, o total ou a porcentagem?</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>② Transforme</b><br>Escreva a porcentagem como decimal (÷100).</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>③ Monte a conta</b><br>Multiplicação, divisão ou fator (1±taxa)?</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>④ Confira</b><br>O resultado faz sentido com a situação?</div>
+  </div>
+ </article>
+</section>
+
+<!-- EXEMPLOS -->
+<section id="sec-exemplos" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Exemplos resolvidos</span><h1 class="text-3xl font-black mt-2">Veja o raciocínio completo, passo a passo</h1><p class="text-slate-600 mt-2">Antes de tentar os exercícios, acompanhe estes modelos com atenção.</p></div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 1 — Calcular a porcentagem de um valor</h2>
+  <p class="mt-2 text-slate-600">Calcule 30% de 250.</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Transforme 30% em decimal: \(30\% = 0{,}30\).</div>
+   <div class="step" data-step="2">Multiplique pelo valor: \(0{,}30 \times 250 = 75\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> 75.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 2 — Desconto</h2>
+  <p class="mt-2 text-slate-600">Uma calça custa R$ 120 e está com 15% de desconto. Qual o preço final?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Desconto de 15% → fator \(1 - 0{,}15 = 0{,}85\).</div>
+   <div class="step" data-step="2">Multiplique: \(120 \times 0{,}85 = 102\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> R$ 102,00.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 3 — Aumento</h2>
+  <p class="mt-2 text-slate-600">O salário de R$ 1.500 teve um aumento de 8%. Qual o novo salário?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Aumento de 8% → fator \(1 + 0{,}08 = 1{,}08\).</div>
+   <div class="step" data-step="2">Multiplique: \(1500 \times 1{,}08 = 1620\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> R$ 1.620,00.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 4 — Quantos % um valor representa</h2>
+  <p class="mt-2 text-slate-600">Em uma turma de 40 alunos, 8 foram de bicicleta. Que porcentagem isso representa?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Divida a parte pelo todo: \(\frac{8}{40} = 0{,}20\).</div>
+   <div class="step" data-step="2">Transforme em porcentagem multiplicando por 100: \(0{,}20 \times 100 = 20\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> 20%.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 5 — Descobrir o total</h2>
+  <p class="mt-2 text-slate-600">60 é 24% de quanto?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Monte a equação: \(0{,}24 \times x = 60\).</div>
+   <div class="step" data-step="2">Isole x dividindo: \(x = 60 \div 0{,}24\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> \(x = 250\).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 6 — Descontos sucessivos</h2>
+  <p class="mt-2 text-slate-600">Um produto de R$ 300 recebe dois descontos seguidos: primeiro 10%, depois mais 10% sobre o novo preço. Qual o preço final?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Primeiro desconto: \(300 \times 0{,}90 = 270\).</div>
+   <div class="step" data-step="2">Segundo desconto (sobre 270): \(270 \times 0{,}90 = 243\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> R$ 243,00 (desconto total de 19%, não 20%).</div>
+  </div>
+ </article>
+</section>
+
+<!-- LAB -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Laboratório visual</span><h1 class="text-3xl font-black mt-2">Veja a porcentagem em uma grade de 100</h1><p class="text-slate-600 mt-2">Mova os controles e observe como a porcentagem afeta o valor de um total.</p></div>
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <label class="font-bold text-sm">Porcentagem: <span id="lab-p-label" class="text-indigo-600">25</span>%</label><input id="lab-p" type="range" min="0" max="100" value="25" class="w-full mt-3">
+   <label class="font-bold text-sm block mt-6">Valor total: <span id="lab-v-label" class="text-indigo-600">200</span></label><input id="lab-v" type="range" min="0" max="1000" step="10" value="200" class="w-full mt-3">
+  </div>
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="grid md:grid-cols-2 gap-7 items-center">
+    <div><h3 class="font-black text-center">Grade de 100 quadrados</h3><div id="grid100" class="flex justify-center mt-4"></div></div>
+    <div>
+     <h3 class="font-black text-center">Barra proporcional</h3>
+     <div class="barwrap mt-6"><div id="barfill" class="barfill" style="width:25%"></div></div>
+     <div id="lab-calc" class="mt-6 text-sm space-y-2"></div>
+    </div>
+   </div>
+   <div class="border-t mt-6 pt-5 text-center"><div id="lab-result" class="text-3xl font-black"></div></div>
+  </div>
+ </div>
+ <div class="bg-indigo-950 text-white rounded-2xl p-6"><h2 class="font-black text-xl">Calculadora de aumento e desconto</h2><p class="text-indigo-200 text-sm mt-1">Digite o valor original e a taxa para ver o cálculo passo a passo.</p>
+  <div class="grid sm:grid-cols-4 gap-3 mt-4 items-center">
+   <input id="ad-valor" value="200" type="number" class="rounded-xl px-3 py-2 text-slate-900 text-center">
+   <input id="ad-taxa" value="10" type="number" class="rounded-xl px-3 py-2 text-slate-900 text-center">
+   <select id="ad-tipo" class="rounded-xl px-3 py-2 text-slate-900 text-center"><option value="aumento">Aumento</option><option value="desconto">Desconto</option></select>
+   <button onclick="renderAumentoDesconto()" class="bg-white text-indigo-900 rounded-xl py-2 font-bold">Calcular</button>
+  </div>
+  <div id="ad-out" class="mt-4 text-slate-900"></div>
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span><h1 class="text-3xl font-black mt-2">30 exercícios com resolução</h1><p class="text-slate-600 mt-2">Tente primeiro. Quando quiser conferir, clique em <b>Visualizar resposta e resolução</b>.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 30</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-indigo-600 rounded-full" style="width:0%"></div></div></div></div></div>
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters"><button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button><button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 1 · Conversões</button><button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 2 · % de um valor</button><button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 3 · Aumento/desconto</button><button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 4 · Descobrir %</button><button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 5 · Problemas</button><input id="search" placeholder="Buscar questão..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[180px]"></div></div>
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo de estudo de Porcentagem • Fórmulas renderizadas em notação matemática</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})}
+
+const sections=['teoria','exemplos','laboratorio','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises();if(t==='laboratorio')updateLab()}));
+
+function drawGrid100(canvas,filled){const ctx=canvas.getContext('2d'),size=180,cell=size/10;canvas.width=size;canvas.height=size;for(let r=0;r<10;r++){for(let c=0;c<10;c++){const idx=r*10+c;ctx.fillStyle=idx<filled?'#6366f1':'#f8fafc';ctx.fillRect(c*cell,r*cell,cell,cell);ctx.strokeStyle='#cbd5e1';ctx.strokeRect(c*cell,r*cell,cell,cell)}}}
+function drawIntroGrid(containerId,p){const el=$(containerId);el.innerHTML='';const c=document.createElement('canvas');el.appendChild(c);drawGrid100(c,p)}
+drawIntroGrid('visual-25',25);
+
+function updateLab(){
+ const p=+$('lab-p').value,v=+$('lab-v').value;
+ $('lab-p-label').textContent=p;$('lab-v-label').textContent=v;
+ $('grid100').innerHTML='';const c=document.createElement('canvas');$('grid100').appendChild(c);drawGrid100(c,p);
+ $('barfill').style.width=p+'%';
+ const resultado=(p/100*v);
+ $('lab-result').innerHTML=`${p}% de ${v} = ${Number(resultado.toFixed(2))}`;
+ $('lab-calc').innerHTML=`<div class="bg-slate-50 rounded-xl p-3"><b>Como decimal:</b> ${p}% = ${(p/100).toFixed(2)}</div><div class="bg-slate-50 rounded-xl p-3"><b>Como fração:</b> ${p}/100</div><div class="bg-slate-50 rounded-xl p-3"><b>Cálculo:</b> ${(p/100).toFixed(2)} × ${v} = ${Number(resultado.toFixed(2))}</div>`;
+}
+$('lab-p').addEventListener('input',updateLab);$('lab-v').addEventListener('input',updateLab);
+
+function renderAumentoDesconto(){
+ const v=parseFloat($('ad-valor').value),t=parseFloat($('ad-taxa').value),tipo=$('ad-tipo').value;
+ if(isNaN(v)||isNaN(t)){$('ad-out').innerHTML='<div class="warning rounded-xl p-4">Digite valores válidos.</div>';return}
+ const fator=tipo==='aumento'?(1+t/100):(1-t/100);
+ const resultado=v*fator;
+ $('ad-out').innerHTML=`<div class="step" data-step="1">${tipo==='aumento'?'Aumento':'Desconto'} de ${t}% → fator: 1 ${tipo==='aumento'?'+':'-'} ${(t/100).toFixed(2)} = ${fator.toFixed(2)}.</div><div class="step mt-3" data-step="2">Multiplique pelo valor: ${v} × ${fator.toFixed(2)} = ${resultado.toFixed(2)}.</div><div class="success rounded-xl p-4 mt-3 text-center font-bold">Resultado: ${resultado.toFixed(2)}</div>`;
+}
+
+// ===== EXERCÍCIOS =====
+function mi(s){return '\\('+s+'\\)'}
+const exercisesData = [
+ // Nível 1 — Conversões (1-6)
+ {id:1,level:1,title:"Nível 1: Conversões",question:"Escreva 40% como fração simplificada.",answer:"2/5",accept:["2/5"],steps:[["1","40% = 40/100."],["2","Simplifique dividindo por 20: 40÷20=2, 100÷20=5."],["3","Resposta: 2/5."]]},
+ {id:2,level:1,title:"Nível 1: Conversões",question:"Escreva 40% como decimal.",answer:"0,4",accept:["0,4","0.4","0,40","0.40"],tolerance:0.001,steps:[["1","Divida 40 por 100."],["2","40 ÷ 100 = 0,40."],["3","Resposta: 0,4."]]},
+ {id:3,level:1,title:"Nível 1: Conversões",question:"Escreva 0,08 como porcentagem.",answer:"8",accept:["8","8%"],steps:[["1","Multiplique por 100: 0,08 × 100 = 8."],["2","Resposta: 8%."]]},
+ {id:4,level:1,title:"Nível 1: Conversões",question:"Escreva "+mi("\\frac{3}{4}")+" como porcentagem.",answer:"75",accept:["75","75%"],steps:[["1","Transforme a fração em decimal: 3 ÷ 4 = 0,75."],["2","Multiplique por 100: 75%."],["3","Resposta: 75%."]]},
+ {id:5,level:1,title:"Nível 1: Conversões",question:"Escreva 125% como decimal.",answer:"1,25",accept:["1,25","1.25"],tolerance:0.001,steps:[["1","Divida 125 por 100."],["2","125 ÷ 100 = 1,25."],["3","Resposta: 1,25 (mais que o inteiro, pois passa de 100%)."]]},
+ {id:6,level:1,title:"Nível 1: Conversões",question:"Escreva 5% como fração simplificada.",answer:"1/20",accept:["1/20"],steps:[["1","5% = 5/100."],["2","Simplifique dividindo por 5: 5÷5=1, 100÷5=20."],["3","Resposta: 1/20."]]},
+ // Nível 2 — Porcentagem de um valor (7-12)
+ {id:7,level:2,title:"Nível 2: Porcentagem de um valor",question:"Calcule 30% de 250.",answer:"75",accept:["75"],tolerance:0.01,steps:[["1","30% = 0,30."],["2","0,30 × 250 = 75."],["3","Resposta: 75."]]},
+ {id:8,level:2,title:"Nível 2: Porcentagem de um valor",question:"Calcule 10% de 480.",answer:"48",accept:["48"],tolerance:0.01,steps:[["1","10% = 0,10."],["2","0,10 × 480 = 48."],["3","Resposta: 48."]]},
+ {id:9,level:2,title:"Nível 2: Porcentagem de um valor",question:"Calcule 50% de 90.",answer:"45",accept:["45"],tolerance:0.01,steps:[["1","50% é a metade: 90 ÷ 2."],["2","Resposta: 45."]]},
+ {id:10,level:2,title:"Nível 2: Porcentagem de um valor",question:"Calcule 25% de 360.",answer:"90",accept:["90"],tolerance:0.01,steps:[["1","25% é um quarto: 360 ÷ 4."],["2","Resposta: 90."]]},
+ {id:11,level:2,title:"Nível 2: Porcentagem de um valor",question:"Calcule 12% de 150.",answer:"18",accept:["18"],tolerance:0.01,steps:[["1","12% = 0,12."],["2","0,12 × 150 = 18."],["3","Resposta: 18."]]},
+ {id:12,level:2,title:"Nível 2: Porcentagem de um valor",question:"Calcule 1% de 850.",answer:"8,5",accept:["8,5","8.5"],tolerance:0.01,steps:[["1","1% = 0,01."],["2","0,01 × 850 = 8,5."],["3","Resposta: 8,5."]]},
+ // Nível 3 — Aumento e desconto (13-18)
+ {id:13,level:3,title:"Nível 3: Aumento e desconto",question:"Um produto de R$ 200 tem 10% de desconto. Qual o preço final?",answer:"180",accept:["180"],tolerance:0.01,steps:[["1","Fator de desconto: 1 - 0,10 = 0,90."],["2","200 × 0,90 = 180."],["3","Resposta: R$ 180,00."]]},
+ {id:14,level:3,title:"Nível 3: Aumento e desconto",question:"Um salário de R$ 1000 tem aumento de 5%. Qual o novo valor?",answer:"1050",accept:["1050"],tolerance:0.01,steps:[["1","Fator de aumento: 1 + 0,05 = 1,05."],["2","1000 × 1,05 = 1050."],["3","Resposta: R$ 1050,00."]]},
+ {id:15,level:3,title:"Nível 3: Aumento e desconto",question:"Um livro de R$ 80 tem 25% de desconto. Qual o preço final?",answer:"60",accept:["60"],tolerance:0.01,steps:[["1","Fator: 1 - 0,25 = 0,75."],["2","80 × 0,75 = 60."],["3","Resposta: R$ 60,00."]]},
+ {id:16,level:3,title:"Nível 3: Aumento e desconto",question:"Uma mercadoria de R$ 300 sofre aumento de 20%. Qual o novo preço?",answer:"360",accept:["360"],tolerance:0.01,steps:[["1","Fator: 1 + 0,20 = 1,20."],["2","300 × 1,20 = 360."],["3","Resposta: R$ 360,00."]]},
+ {id:17,level:3,title:"Nível 3: Aumento e desconto",question:"Um valor de R$ 500 recebe 15% de desconto. Quanto se pagou a menos, em reais?",answer:"75",accept:["75"],tolerance:0.01,steps:[["1","15% de 500 = 0,15 × 500."],["2","0,15 × 500 = 75."],["3","Resposta: R$ 75,00 a menos."]]},
+ {id:18,level:3,title:"Nível 3: Aumento e desconto",question:"Um produto de R$ 100 recebe dois descontos seguidos de 10% cada. Qual o preço final?",answer:"81",accept:["81"],tolerance:0.01,steps:[["1","Primeiro desconto: 100 × 0,90 = 90."],["2","Segundo desconto sobre 90: 90 × 0,90 = 81."],["3","Resposta: R$ 81,00 (não R$ 80,00!)."]]},
+ // Nível 4 — Descobrir a porcentagem (19-24)
+ {id:19,level:4,title:"Nível 4: Descobrir a porcentagem",question:"Que porcentagem 30 representa de 120?",answer:"25",accept:["25","25%"],tolerance:0.01,steps:[["1","Divida a parte pelo todo: 30 ÷ 120 = 0,25."],["2","Multiplique por 100: 25%."],["3","Resposta: 25%."]]},
+ {id:20,level:4,title:"Nível 4: Descobrir a porcentagem",question:"Em uma turma de 40 alunos, 8 foram de bicicleta. Que porcentagem isso representa?",answer:"20",accept:["20","20%"],tolerance:0.01,steps:[["1","8 ÷ 40 = 0,20."],["2","0,20 × 100 = 20%."],["3","Resposta: 20%."]]},
+ {id:21,level:4,title:"Nível 4: Descobrir a porcentagem",question:"60 é quantos por cento de 200?",answer:"30",accept:["30","30%"],tolerance:0.01,steps:[["1","60 ÷ 200 = 0,30."],["2","0,30 × 100 = 30%."],["3","Resposta: 30%."]]},
+ {id:22,level:4,title:"Nível 4: Descobrir a porcentagem",question:"45 é quantos por cento de 90?",answer:"50",accept:["50","50%"],tolerance:0.01,steps:[["1","45 ÷ 90 = 0,50."],["2","0,50 × 100 = 50%."],["3","Resposta: 50%."]]},
+ {id:23,level:4,title:"Nível 4: Descobrir a porcentagem",question:"40 é 20% de quanto?",answer:"200",accept:["200"],tolerance:0.01,steps:[["1","Monte: 0,20 × x = 40."],["2","x = 40 ÷ 0,20 = 200."],["3","Resposta: 200."]]},
+ {id:24,level:4,title:"Nível 4: Descobrir a porcentagem",question:"75 é 15% de quanto?",answer:"500",accept:["500"],tolerance:0.01,steps:[["1","Monte: 0,15 × x = 75."],["2","x = 75 ÷ 0,15 = 500."],["3","Resposta: 500."]]},
+ // Nível 5 — Problemas contextualizados (25-30)
+ {id:25,level:5,title:"Nível 5: Problemas",question:"Uma loja vende um tênis por R$ 250 com 20% de desconto à vista. Quanto custa à vista?",answer:"200",accept:["200"],tolerance:0.01,steps:[["1","Fator: 1 - 0,20 = 0,80."],["2","250 × 0,80 = 200."],["3","Resposta: R$ 200,00."]]},
+ {id:26,level:5,title:"Nível 5: Problemas",question:"Numa prova de 25 questões, um aluno acertou 20. Qual sua porcentagem de acerto?",answer:"80",accept:["80","80%"],tolerance:0.01,steps:[["1","20 ÷ 25 = 0,80."],["2","0,80 × 100 = 80%."],["3","Resposta: 80%."]]},
+ {id:27,level:5,title:"Nível 5: Problemas",question:"Um produto custa R$ 90 após 10% de desconto. Qual era o preço original?",answer:"100",accept:["100"],tolerance:0.01,steps:[["1","90 é 90% do preço original (100% - 10%)."],["2","Monte: 0,90 × x = 90 → x = 90 ÷ 0,90."],["3","Resposta: R$ 100,00."]]},
+ {id:28,level:5,title:"Nível 5: Problemas",question:"Uma cidade tinha 5000 habitantes e cresceu 4%. Quantos habitantes tem agora?",answer:"5200",accept:["5200"],tolerance:0.01,steps:[["1","Fator: 1 + 0,04 = 1,04."],["2","5000 × 1,04 = 5200."],["3","Resposta: 5200 habitantes."]]},
+ {id:29,level:5,title:"Nível 5: Problemas",question:"Em uma pesquisa com 300 pessoas, 45 preferem chocolate. Qual a porcentagem?",answer:"15",accept:["15","15%"],tolerance:0.01,steps:[["1","45 ÷ 300 = 0,15."],["2","0,15 × 100 = 15%."],["3","Resposta: 15%."]]},
+ {id:30,level:5,title:"Nível 5: Problemas",question:"Um salário de R$ 2000 sofreu um desconto de 8% (imposto). Qual o valor líquido recebido?",answer:"1840",accept:["1840"],tolerance:0.01,steps:[["1","Fator: 1 - 0,08 = 0,92."],["2","2000 × 0,92 = 1840."],["3","Resposta: R$ 1840,00."]]}
+];
+
+function normalize(s){return String(s).trim().toLowerCase().replace(/\s+/g,'').replace(/%/g,'').replace(/\./g,',')}
+function checkAnswer(ex,raw){
+ const v=normalize(raw);
+ const accepted=(ex.accept||[ex.answer]).map(normalize);
+ if(accepted.includes(v))return true;
+ if(ex.tolerance!=null){
+  const num=parseFloat(v.replace(',','.'));
+  const target=parseFloat(normalize(ex.answer).replace(',','.'));
+  if(!isNaN(num)&&!isNaN(target)&&Math.abs(num-target)<=ex.tolerance)return true;
+ }
+ return false;
+}
+let solved=new Set(JSON.parse(localStorage.getItem('pctSolved')||'[]'));let currentLevel='all';
+function renderExercises(){
+ const q=($('search').value||'').toLowerCase();
+ let list=exercisesData.filter(e=>(currentLevel==='all'||e.level==currentLevel)&&(q===''||(`questão ${e.id} ${e.title}`).toLowerCase().includes(q)));
+ $('exercise-list').innerHTML=list.map(ex=>{const done=solved.has(ex.id);
+  return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm">
+   <div class="flex justify-between gap-3"><span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700">Questão ${ex.id}</span><span class="text-xs text-slate-400">${ex.title}</span></div>
+   <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-6 text-center text-lg">${ex.question}</div>
+   <div class="flex gap-2 mt-4"><input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm" placeholder="Sua resposta"><button onclick="check(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Conferir</button></div>
+   <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+   <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-indigo-700 hover:underline">👁 Visualizar resposta e resolução</button>
+   <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+    <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução completa</div>
+    ${ex.steps.map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+    <div class="success rounded-xl p-4 text-center font-bold">Resposta: ${ex.answer}</div>
+   </div>
+  </article>`}).join('');
+ $('progress-text').textContent=`${solved.size} / ${exercisesData.length}`;
+ $('progress-bar').style.width=Math.round(100*solved.size/exercisesData.length)+'%';
+ renderAll();
+}
+function check(id){
+ const ex=exercisesData.find(x=>x.id===id),raw=$('answer-'+id).value,fb=$('feedback-'+id);
+ if(checkAnswer(ex,raw)){solved.add(id);localStorage.setItem('pctSolved',JSON.stringify([...solved]));fb.className='text-sm font-bold mt-2 text-emerald-600';fb.textContent='✓ Correto! Muito bem.'}
+ else{fb.className='text-sm font-bold mt-2 text-red-600';fb.textContent='✗ Ainda não. Revise os passos e tente novamente.'}
+ renderExercises();
+}
+function toggleSol(id){$('solution-'+id).classList.toggle('hidden')}
+document.querySelectorAll('.level-btn').forEach(b=>b.onclick=()=>{currentLevel=b.dataset.level;document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderExercises()});
+$('search').addEventListener('input',renderExercises);
+
+window.addEventListener('DOMContentLoaded',()=>{updateLab();renderAll();});
+</script>
+</body>
+</html>

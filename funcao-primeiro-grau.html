@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Função do 1º Grau — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#4f46e5;background:#eef2ff;color:#312e81}
+  canvas{max-width:100%}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .sticky-mini{position:sticky;top:74px;z-index:20}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  .grid-paper{background-image:linear-gradient(#e5e7eb 1px,transparent 1px),linear-gradient(90deg,#e5e7eb 1px,transparent 1px);background-size:28px 28px}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">📈 Função do 1º Grau</div><div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo, não decorando</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exemplos">💡 Exemplos</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Curso do zero</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Função do 1º Grau sem mistério</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Uma função do 1º grau descreve uma relação que muda sempre na mesma proporção — por isso seu gráfico é sempre uma reta. Você vai aprender a ler a fórmula, calcular valores, montar o gráfico e resolver problemas do dia a dia.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">8</b><div class="text-xs text-indigo-200">tópicos de teoria</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">30</b><div class="text-xs text-indigo-200">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">resolução detalhada</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">🔬</b><div class="text-xs text-indigo-200">gráfico interativo</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Como estudar:</b> leia a ideia, observe o gráfico, veja o exemplo resolvido na aba <b>Exemplos</b> e só depois tente os exercícios. Sempre que puder, desenhe a reta — visualizar ajuda muito a entender função.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O que é uma função do 1º grau?</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">É uma função que pode ser escrita na forma \(f(x) = ax + b\) (também escrita \(y=ax+b\)), onde \(a\) e \(b\) são números fixos (constantes) e \(a\) nunca pode ser zero.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[f(x) = 2x + 3\]</div>
+   <div class="bg-indigo-50 rounded-xl p-4 mt-4 text-sm">Aqui, \(a=2\) e \(b=3\). Essa fórmula diz: "pegue um número x, multiplique por 2 e some 3".</div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Os coeficientes a e b</h2></div>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-slate-50 rounded-xl p-4"><b>a — coeficiente angular:</b> controla a inclinação da reta (quão "íngreme" ela é) e se a função é crescente ou decrescente.</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>b — coeficiente linear:</b> é o valor de f(x) quando \(x=0\); é onde a reta corta o eixo vertical (eixo y).</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <h2 class="text-2xl font-black">3. Calculando o valor de f(x)</h2>
+  <p class="mt-3 text-slate-600 leading-7">Para calcular \(f(x)\) para um valor de x, basta <b>substituir x pelo número</b> na fórmula e resolver as contas.</p>
+  <div class="paper rounded-2xl p-5 mt-4">
+   <div class="text-sm font-bold text-indigo-700 mb-3">EXEMPLO GUIADO</div>
+   <div class="grid md:grid-cols-2 gap-4 text-sm">
+    <div class="step" data-step="1"><b>Função:</b> \(f(x)=2x+3\). Calcule \(f(4)\).</div>
+    <div class="step" data-step="2"><b>Substitua x por 4:</b> \(f(4) = 2\times4+3\).</div>
+    <div class="step" data-step="3"><b>Resolva:</b> \(8+3=11\).</div>
+    <div class="step" data-step="4"><b>Resultado:</b> \(f(4)=11\).</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. O gráfico é sempre uma reta</h2>
+   <p class="mt-3 text-slate-600 leading-7">Para desenhar o gráfico, você só precisa de <b>dois pontos</b> — dois pontos já determinam uma reta. Uma boa estratégia é calcular \(f(0)\) e \(f(1)\), ou usar o zero da função.</p>
+   <div class="my-4 flex justify-center"><div id="visual-line"></div></div>
+  </article>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">5. Coeficiente linear (b): onde corta o eixo y</h2>
+   <p class="mt-3 text-slate-600 leading-7">Quando \(x=0\): \(f(0) = a\times0+b = b\). Ou seja, a reta sempre passa pelo ponto \((0, b)\) — esse é o encontro da reta com o eixo vertical.</p>
+   <div class="bg-amber-50 rounded-xl p-4 mt-4 text-sm">Em \(f(x)=2x+3\), a reta passa pelo ponto \((0,3)\).</div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">6. Coeficiente angular (a): crescente ou decrescente</h2>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-emerald-50 rounded-xl p-4"><b>a > 0 → função crescente.</b> À medida que x aumenta, f(x) também aumenta. A reta "sobe" da esquerda para a direita.</div>
+    <div class="bg-red-50 rounded-xl p-4"><b>a < 0 → função decrescente.</b> À medida que x aumenta, f(x) diminui. A reta "desce" da esquerda para a direita.</div>
+   </div>
+   <div class="tip rounded-xl p-4 mt-3 text-sm"><b>Quanto maior o valor absoluto de a</b>, mais "inclinada" (íngreme) é a reta.</div>
+  </article>
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">7. Raiz (zero) da função</h2>
+   <p class="mt-3 text-slate-600 leading-7">A raiz é o valor de x que faz \(f(x)=0\) — é onde a reta cruza o eixo horizontal (eixo x). Para encontrá-la, iguale a função a zero e resolva a equação.</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="step" data-step="1">\(f(x)=2x+3=0\)</div>
+    <div class="step" data-step="2">\(2x=-3\)</div>
+    <div class="step" data-step="3">\(x=-\frac{3}{2}=-1{,}5\)</div>
+   </div>
+  </article>
+ </div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">8. Determinando a lei da função a partir de dois pontos</h2>
+  <p class="mt-3 text-slate-600 leading-7">Se você conhece dois pontos da reta, pode descobrir \(a\) e \(b\). Primeiro encontre \(a\) (a variação de y dividida pela variação de x), depois substitua um ponto para achar \(b\).</p>
+  <div class="paper rounded-2xl p-5 mt-4">
+   <div class="text-sm font-bold text-indigo-700 mb-3">EXEMPLO: pontos (1, 5) e (3, 9)</div>
+   <div class="grid md:grid-cols-2 gap-4 text-sm">
+    <div class="step" data-step="1"><b>Calcule a:</b> \(a=\frac{9-5}{3-1}=\frac{4}{2}=2\).</div>
+    <div class="step" data-step="2"><b>Substitua um ponto em f(x)=ax+b:</b> use (1,5): \(5=2\times1+b\).</div>
+    <div class="step" data-step="3"><b>Resolva:</b> \(5=2+b \to b=3\).</div>
+    <div class="step" data-step="4"><b>Resultado:</b> \(f(x)=2x+3\).</div>
+   </div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">Checklist para qualquer questão</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 text-sm">
+   <div class="bg-slate-50 rounded-xl p-4"><b>① Identifique</b><br>a e b na fórmula, ou calcule-os a partir dos dados.</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>② Decida o que calcular</b><br>Valor de f(x), raiz, ou a lei da função?</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>③ Substitua e resolva</b><br>Com calma, uma etapa de cada vez.</div>
+   <div class="bg-slate-50 rounded-xl p-4"><b>④ Confira</b><br>O sinal de a bate com crescente/decrescente?</div>
+  </div>
+ </article>
+</section>
+
+<!-- EXEMPLOS -->
+<section id="sec-exemplos" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Exemplos resolvidos</span><h1 class="text-3xl font-black mt-2">Veja o raciocínio completo, passo a passo</h1><p class="text-slate-600 mt-2">Antes de tentar os exercícios, acompanhe estes modelos com atenção.</p></div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 1 — Calcular f(x) para um valor dado</h2>
+  <p class="mt-2 text-slate-600">Dada \(f(x)=3x-4\), calcule \(f(2)\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Substitua x por 2: \(f(2)=3\times2-4\).</div>
+   <div class="step" data-step="2">Calcule: \(6-4=2\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> \(f(2)=2\).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 2 — Encontrar a raiz da função</h2>
+  <p class="mt-2 text-slate-600">Encontre a raiz de \(f(x)=4x-8\).</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Iguale a zero: \(4x-8=0\).</div>
+   <div class="step" data-step="2">Isole x: \(4x=8\).</div>
+   <div class="step" data-step="3">Divida: \(x=2\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> a raiz é \(x=2\).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 3 — Classificar crescente ou decrescente</h2>
+  <p class="mt-2 text-slate-600">A função \(f(x)=-2x+5\) é crescente ou decrescente?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Observe o coeficiente angular: \(a=-2\).</div>
+   <div class="step" data-step="2">Como \(a<0\), a função é decrescente.</div>
+   <div class="step" data-step="3"><b>Resposta:</b> decrescente.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 4 — Determinar a lei a partir de dois pontos</h2>
+  <p class="mt-2 text-slate-600">Uma reta passa pelos pontos (0, 1) e (2, 7). Encontre a lei da função.</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Calcule a: \(a=\frac{7-1}{2-0}=\frac{6}{2}=3\).</div>
+   <div class="step" data-step="2">Como (0,1) já dá o valor de b diretamente (x=0): \(b=1\).</div>
+   <div class="step" data-step="3"><b>Resposta:</b> \(f(x)=3x+1\).</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 5 — Problema de aluguel de carro</h2>
+  <p class="mt-2 text-slate-600">Uma locadora cobra R$ 50 fixos mais R$ 2 por km rodado. Escreva a lei da função e calcule o custo de rodar 80 km.</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Valor fixo é o b: \(b=50\). Valor por km é o a: \(a=2\).</div>
+   <div class="step" data-step="2">Lei da função: \(f(x)=2x+50\).</div>
+   <div class="step" data-step="3">Calcule \(f(80) = 2\times80+50 = 160+50\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> R$ 210,00.</div>
+  </div>
+ </article>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black text-indigo-800">Exemplo 6 — Encontrar x conhecendo f(x)</h2>
+  <p class="mt-2 text-slate-600">Dada \(f(x)=5x-3\), para qual valor de x temos \(f(x)=17\)?</p>
+  <div class="space-y-3 mt-4 text-sm">
+   <div class="step" data-step="1">Monte a equação: \(5x-3=17\).</div>
+   <div class="step" data-step="2">Isole x: \(5x=20\).</div>
+   <div class="step" data-step="3">Divida: \(x=4\).</div>
+   <div class="step" data-step="4"><b>Resposta:</b> \(x=4\).</div>
+  </div>
+ </article>
+</section>
+
+<!-- LAB -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Laboratório visual</span><h1 class="text-3xl font-black mt-2">Veja a reta se mover</h1><p class="text-slate-600 mt-2">Mova os controles de a e b e observe como a reta muda no gráfico.</p></div>
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <label class="font-bold text-sm">Coeficiente angular (a): <span id="lab-a-label" class="text-indigo-600">2</span></label><input id="lab-a" type="range" min="-5" max="5" step="0.5" value="2" class="w-full mt-3">
+   <label class="font-bold text-sm block mt-6">Coeficiente linear (b): <span id="lab-b-label" class="text-indigo-600">3</span></label><input id="lab-b" type="range" min="-10" max="10" step="1" value="3" class="w-full mt-3">
+   <div id="lab-info" class="mt-6 space-y-2 text-sm"></div>
+  </div>
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h3 class="font-black text-center">Gráfico</h3>
+   <div id="graph" class="flex justify-center mt-4"></div>
+   <div class="border-t mt-6 pt-5 text-center"><div id="lab-formula" class="text-2xl font-black"></div></div>
+  </div>
+ </div>
+ <div class="bg-indigo-950 text-white rounded-2xl p-6"><h2 class="font-black text-xl">Descubra a lei da função</h2><p class="text-indigo-200 text-sm mt-1">Digite dois pontos (x,y) da reta e veja o cálculo de a e b, passo a passo.</p>
+  <div class="grid sm:grid-cols-5 gap-3 mt-4 items-center text-center">
+   <div class="flex gap-2"><input id="pt-x1" value="1" class="rounded-xl px-3 py-2 text-slate-900 w-full" placeholder="x1"><input id="pt-y1" value="5" class="rounded-xl px-3 py-2 text-slate-900 w-full" placeholder="y1"></div>
+   <span class="font-black hidden sm:block">e</span>
+   <div class="flex gap-2 sm:col-span-2"><input id="pt-x2" value="3" class="rounded-xl px-3 py-2 text-slate-900 w-full" placeholder="x2"><input id="pt-y2" value="9" class="rounded-xl px-3 py-2 text-slate-900 w-full" placeholder="y2"></div>
+   <button onclick="renderLei()" class="bg-white text-indigo-900 rounded-xl py-2 font-bold">Calcular</button>
+  </div>
+  <div id="lei-out" class="mt-4 text-slate-900"></div>
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span><h1 class="text-3xl font-black mt-2">30 exercícios com resolução</h1><p class="text-slate-600 mt-2">Tente primeiro. Quando quiser conferir, clique em <b>Visualizar resposta e resolução</b>.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 30</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-indigo-600 rounded-full" style="width:0%"></div></div></div></div></div>
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters"><button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button><button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 1 · Calcular f(x)</button><button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 2 · Raiz da função</button><button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 3 · Crescente/decrescente</button><button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 4 · Lei da função</button><button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 5 · Problemas</button><input id="search" placeholder="Buscar questão..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[180px]"></div></div>
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo de estudo de Função do 1º Grau • Fórmulas renderizadas em notação matemática</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})}
+
+const sections=['teoria','exemplos','laboratorio','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises();if(t==='laboratorio')updateLab()}));
+
+// ===== Gráfico (canvas com eixos) =====
+function drawGraph(canvas,a,b,size){
+ const W=size,H=size,scale=W/12; // 12 unidades visiveis (-6 a 6)
+ canvas.width=W;canvas.height=H;
+ const ctx=canvas.getContext('2d');
+ ctx.clearRect(0,0,W,H);
+ const cx=W/2,cy=H/2;
+ // grade
+ ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
+ for(let i=-6;i<=6;i++){
+  ctx.beginPath();ctx.moveTo(cx+i*scale,0);ctx.lineTo(cx+i*scale,H);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(0,cy+i*scale);ctx.lineTo(W,cy+i*scale);ctx.stroke();
+ }
+ // eixos
+ ctx.strokeStyle='#64748b';ctx.lineWidth=2;
+ ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(W,cy);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,H);ctx.stroke();
+ ctx.fillStyle='#243044';ctx.font='11px sans-serif';
+ for(let i=-6;i<=6;i+=2){if(i===0)continue;ctx.fillText(String(i),cx+i*scale-4,cy+14);ctx.fillText(String(-i),cx+4,cy-i*scale+4)}
+ // reta y = a x + b, para x de -6 a 6
+ function toPx(x,y){return [cx+x*scale, cy-y*scale]}
+ const x1=-6,y1=a*x1+b, x2=6,y2=a*x2+b;
+ const [px1,py1]=toPx(x1,y1),[px2,py2]=toPx(x2,y2);
+ ctx.strokeStyle='#4f46e5';ctx.lineWidth=3;
+ ctx.beginPath();ctx.moveTo(px1,py1);ctx.lineTo(px2,py2);ctx.stroke();
+ // ponto (0,b)
+ const [pbx,pby]=toPx(0,b);
+ ctx.fillStyle='#f59e0b';ctx.beginPath();ctx.arc(pbx,pby,5,0,7);ctx.fill();
+ // raiz, se a != 0
+ if(a!==0){
+  const raiz=-b/a;
+  const [prx,pry]=toPx(raiz,0);
+  ctx.fillStyle='#10b981';ctx.beginPath();ctx.arc(prx,pry,5,0,7);ctx.fill();
+ }
+}
+function drawIntroLine(containerId){const el=$(containerId);el.innerHTML='';const c=document.createElement('canvas');el.appendChild(c);drawGraph(c,2,3,240)}
+drawIntroLine('visual-line');
+
+function updateLab(){
+ const a=+$('lab-a').value,b=+$('lab-b').value;
+ $('lab-a-label').textContent=a;$('lab-b-label').textContent=b;
+ $('graph').innerHTML='';const c=document.createElement('canvas');$('graph').appendChild(c);drawGraph(c,a,b,320);
+ const sinal=b>=0?'+':'-';
+ $('lab-formula').innerHTML=`f(x) = ${a}x ${sinal} ${Math.abs(b)}`;
+ let tipo = a>0?'crescente':(a<0?'decrescente':'constante (não é do 1º grau, pois a=0)');
+ let raizTxt = a!==0? Number((-b/a).toFixed(2)) : 'não existe (a=0)';
+ $('lab-info').innerHTML=`<div class="bg-slate-50 rounded-xl p-3"><b>Tipo:</b> ${tipo}</div><div class="bg-slate-50 rounded-xl p-3"><b>Corta o eixo y em:</b> (0, ${b})</div><div class="bg-slate-50 rounded-xl p-3"><b>Raiz (corta eixo x em):</b> x = ${raizTxt}</div>`;
+ renderAll();
+}
+$('lab-a').addEventListener('input',updateLab);$('lab-b').addEventListener('input',updateLab);
+
+function renderLei(){
+ const x1=parseFloat($('pt-x1').value),y1=parseFloat($('pt-y1').value),x2=parseFloat($('pt-x2').value),y2=parseFloat($('pt-y2').value);
+ if([x1,y1,x2,y2].some(isNaN)){$('lei-out').innerHTML='<div class="warning rounded-xl p-4">Digite números válidos nos quatro campos.</div>';return}
+ if(x1===x2){$('lei-out').innerHTML='<div class="warning rounded-xl p-4">Os dois pontos precisam ter valores de x diferentes.</div>';return}
+ const a=(y2-y1)/(x2-x1);
+ const b=y1-a*x1;
+ const sinal=b>=0?'+':'-';
+ $('lei-out').innerHTML=`<div class="step" data-step="1">Calcule a: a = (${y2} − ${y1}) ÷ (${x2} − ${x1}) = ${(y2-y1).toFixed(2)} ÷ ${(x2-x1).toFixed(2)} = ${a.toFixed(2)}.</div><div class="step mt-3" data-step="2">Substitua o ponto (${x1}, ${y1}) em f(x)=ax+b: ${y1} = ${a.toFixed(2)} × ${x1} + b.</div><div class="step mt-3" data-step="3">Isole b: b = ${y1} − ${(a*x1).toFixed(2)} = ${b.toFixed(2)}.</div><div class="success rounded-xl p-4 mt-3 text-center font-bold">f(x) = ${Number(a.toFixed(2))}x ${sinal} ${Math.abs(Number(b.toFixed(2)))}</div>`;
+}
+
+// ===== EXERCÍCIOS =====
+function mi(s){return '\\('+s+'\\)'}
+const exercisesData = [
+ // Nível 1 — Calcular f(x) (1-6)
+ {id:1,level:1,title:"Nível 1: Calcular f(x)",question:"Dada "+mi("f(x)=2x+3")+", calcule "+mi("f(4)"),answer:"11",accept:["11"],steps:[["1","Substitua x por 4: f(4)=2×4+3."],["2","8+3=11."],["3","Resposta: f(4)=11."]]},
+ {id:2,level:1,title:"Nível 1: Calcular f(x)",question:"Dada "+mi("f(x)=3x-4")+", calcule "+mi("f(2)"),answer:"2",accept:["2"],steps:[["1","Substitua x por 2: f(2)=3×2-4."],["2","6-4=2."],["3","Resposta: f(2)=2."]]},
+ {id:3,level:1,title:"Nível 1: Calcular f(x)",question:"Dada "+mi("f(x)=-x+5")+", calcule "+mi("f(3)"),answer:"2",accept:["2"],steps:[["1","Substitua x por 3: f(3)=-3+5."],["2","Resposta: f(3)=2."]]},
+ {id:4,level:1,title:"Nível 1: Calcular f(x)",question:"Dada "+mi("f(x)=5x")+", calcule "+mi("f(0)"),answer:"0",accept:["0"],steps:[["1","Substitua x por 0: f(0)=5×0."],["2","Resposta: f(0)=0."]]},
+ {id:5,level:1,title:"Nível 1: Calcular f(x)",question:"Dada "+mi("f(x)=4x+1")+", calcule "+mi("f(-2)"),answer:"-7",accept:["-7"],steps:[["1","Substitua x por -2: f(-2)=4×(-2)+1."],["2","-8+1=-7."],["3","Resposta: f(-2)=-7."]]},
+ {id:6,level:1,title:"Nível 1: Calcular f(x)",question:"Dada "+mi("f(x)=\\frac{1}{2}x+6")+", calcule "+mi("f(8)"),answer:"10",accept:["10"],steps:[["1","Substitua x por 8: f(8)=(1/2)×8+6."],["2","4+6=10."],["3","Resposta: f(8)=10."]]},
+ // Nível 2 — Raiz da função (7-12)
+ {id:7,level:2,title:"Nível 2: Raiz da função",question:"Encontre a raiz de "+mi("f(x)=4x-8"),answer:"2",accept:["2","x=2"],steps:[["1","Iguale a zero: 4x-8=0."],["2","4x=8."],["3","x=2."]]},
+ {id:8,level:2,title:"Nível 2: Raiz da função",question:"Encontre a raiz de "+mi("f(x)=2x+6"),answer:"-3",accept:["-3","x=-3"],steps:[["1","Iguale a zero: 2x+6=0."],["2","2x=-6."],["3","x=-3."]]},
+ {id:9,level:2,title:"Nível 2: Raiz da função",question:"Encontre a raiz de "+mi("f(x)=5x-15"),answer:"3",accept:["3","x=3"],steps:[["1","Iguale a zero: 5x-15=0."],["2","5x=15."],["3","x=3."]]},
+ {id:10,level:2,title:"Nível 2: Raiz da função",question:"Encontre a raiz de "+mi("f(x)=-3x+9"),answer:"3",accept:["3","x=3"],steps:[["1","Iguale a zero: -3x+9=0."],["2","-3x=-9."],["3","x=3."]]},
+ {id:11,level:2,title:"Nível 2: Raiz da função",question:"Encontre a raiz de "+mi("f(x)=6x"),answer:"0",accept:["0","x=0"],steps:[["1","Iguale a zero: 6x=0."],["2","x=0."]]},
+ {id:12,level:2,title:"Nível 2: Raiz da função",question:"Encontre a raiz de "+mi("f(x)=2x-5"),answer:"2,5",accept:["2,5","2.5","5/2"],tolerance:0.01,steps:[["1","Iguale a zero: 2x-5=0."],["2","2x=5."],["3","x=2,5."]]},
+ // Nível 3 — Crescente/decrescente (13-18)
+ {id:13,level:3,title:"Nível 3: Crescente ou decrescente",question:"A função "+mi("f(x)=-2x+5")+" é crescente ou decrescente?",answer:"decrescente",accept:["decrescente"],steps:[["1","Observe o coeficiente angular: a=-2."],["2","Como a<0, é decrescente."]]},
+ {id:14,level:3,title:"Nível 3: Crescente ou decrescente",question:"A função "+mi("f(x)=3x+1")+" é crescente ou decrescente?",answer:"crescente",accept:["crescente"],steps:[["1","Observe o coeficiente angular: a=3."],["2","Como a>0, é crescente."]]},
+ {id:15,level:3,title:"Nível 3: Crescente ou decrescente",question:"Qual é o coeficiente linear (b) de "+mi("f(x)=7x-2"),answer:"-2",accept:["-2"],steps:[["1","O coeficiente linear é o termo sem x."],["2","Resposta: b=-2."]]},
+ {id:16,level:3,title:"Nível 3: Crescente ou decrescente",question:"Em qual ponto a reta de "+mi("f(x)=4x+9")+" cruza o eixo y? (dê apenas o valor de y)",answer:"9",accept:["9"],steps:[["1","O cruzamento com o eixo y ocorre em x=0."],["2","f(0)=b=9."]]},
+ {id:17,level:3,title:"Nível 3: Crescente ou decrescente",question:"A função "+mi("f(x)=-x-3")+" é crescente ou decrescente?",answer:"decrescente",accept:["decrescente"],steps:[["1","Coeficiente angular: a=-1."],["2","Como a<0, é decrescente."]]},
+ {id:18,level:3,title:"Nível 3: Crescente ou decrescente",question:"Qual é o coeficiente angular (a) de "+mi("f(x)=-6x+2"),answer:"-6",accept:["-6"],steps:[["1","O coeficiente angular é o número que multiplica x."],["2","Resposta: a=-6."]]},
+ // Nível 4 — Lei da função (19-24)
+ {id:19,level:4,title:"Nível 4: Determinar a lei da função",question:"Uma reta passa pelos pontos (0,1) e (2,7). Qual o valor de a?",answer:"3",accept:["3"],steps:[["1","a = (7-1)/(2-0) = 6/2."],["2","Resposta: a=3."]]},
+ {id:20,level:4,title:"Nível 4: Determinar a lei da função",question:"Uma reta passa pelos pontos (1,5) e (3,9). Qual o valor de b?",answer:"3",accept:["3"],steps:[["1","a=(9-5)/(3-1)=4/2=2."],["2","Substitua (1,5): 5=2×1+b."],["3","b=5-2=3."]]},
+ {id:21,level:4,title:"Nível 4: Determinar a lei da função",question:"Uma reta passa por (0,-2) e (4,6). Qual o valor de a?",answer:"2",accept:["2"],steps:[["1","a=(6-(-2))/(4-0)=8/4."],["2","Resposta: a=2."]]},
+ {id:22,level:4,title:"Nível 4: Determinar a lei da função",question:"Uma reta passa por (2,3) e (4,-1). Qual o valor de a?",answer:"-2",accept:["-2"],steps:[["1","a=(-1-3)/(4-2)=-4/2."],["2","Resposta: a=-2."]]},
+ {id:23,level:4,title:"Nível 4: Determinar a lei da função",question:"Uma reta passa por (1,4) e (5,4). Qual o valor de a?",answer:"0",accept:["0"],steps:[["1","a=(4-4)/(5-1)=0/4."],["2","Resposta: a=0 (função constante, não é do 1º grau)."]]},
+ {id:24,level:4,title:"Nível 4: Determinar a lei da função",question:"Uma reta passa por (0,4) e (2,10). Qual o valor de b?",answer:"4",accept:["4"],steps:[["1","Quando x=0, f(x)=b diretamente."],["2","Resposta: b=4."]]},
+ // Nível 5 — Problemas contextualizados (25-30)
+ {id:25,level:5,title:"Nível 5: Problemas",question:"Uma locadora cobra R$ 50 fixos mais R$ 2 por km. Quanto custa rodar 80 km?",answer:"210",accept:["210"],tolerance:0.01,steps:[["1","Lei: f(x)=2x+50."],["2","f(80)=2×80+50=160+50."],["3","Resposta: R$ 210,00."]]},
+ {id:26,level:5,title:"Nível 5: Problemas",question:"Uma conta de água tem taxa fixa de R$ 20 mais R$ 3 por m³ consumido. Se a conta veio R$ 65, quantos m³ foram consumidos?",answer:"15",accept:["15"],tolerance:0.01,steps:[["1","Monte: 3x+20=65."],["2","3x=45."],["3","x=15 m³."]]},
+ {id:27,level:5,title:"Nível 5: Problemas",question:"Uma empresa vende um produto por R$ 30 e tem custo fixo de R$ 200. O lucro é dado por L(x)=30x-200. Quantas unidades precisa vender para não ter lucro nem prejuízo (lucro zero)?",answer:"6,67",accept:["6,67","6.67","20/3"],tolerance:0.05,steps:[["1","Iguale a zero: 30x-200=0."],["2","30x=200."],["3","x=200÷30≈6,67 unidades."]]},
+ {id:28,level:5,title:"Nível 5: Problemas",question:"Um táxi cobra bandeirada de R$ 6 mais R$ 2,50 por km. Escreva f(x) e calcule o custo de uma corrida de 10 km.",answer:"31",accept:["31"],tolerance:0.01,steps:[["1","Lei: f(x)=2,5x+6."],["2","f(10)=2,5×10+6=25+6."],["3","Resposta: R$ 31,00."]]},
+ {id:29,level:5,title:"Nível 5: Problemas",question:"Uma piscina tem 200 litros e é enchida a uma taxa de 15 litros por minuto, com a função V(t)=15t+200. Após quantos minutos a piscina terá 500 litros?",answer:"20",accept:["20"],tolerance:0.01,steps:[["1","Monte: 15t+200=500."],["2","15t=300."],["3","t=20 minutos."]]},
+ {id:30,level:5,title:"Nível 5: Problemas",question:"Um plano de celular custa R$ 40 fixos mais R$ 0,50 por minuto excedente. Se a conta foi de R$ 65, quantos minutos excedentes foram usados?",answer:"50",accept:["50"],tolerance:0.01,steps:[["1","Monte: 0,5x+40=65."],["2","0,5x=25."],["3","x=50 minutos."]]}
+];
+
+function normalize(s){return String(s).trim().toLowerCase().replace(/\s+/g,'').replace(/\./g,',')}
+function checkAnswer(ex,raw){
+ const v=normalize(raw);
+ const accepted=(ex.accept||[ex.answer]).map(normalize);
+ if(accepted.includes(v))return true;
+ if(ex.tolerance!=null){
+  const num=parseFloat(v.replace(',','.'));
+  const target=parseFloat(normalize(ex.answer).replace(',','.'));
+  if(!isNaN(num)&&!isNaN(target)&&Math.abs(num-target)<=ex.tolerance)return true;
+ }
+ return false;
+}
+let solved=new Set(JSON.parse(localStorage.getItem('funSolved')||'[]'));let currentLevel='all';
+function renderExercises(){
+ const q=($('search').value||'').toLowerCase();
+ let list=exercisesData.filter(e=>(currentLevel==='all'||e.level==currentLevel)&&(q===''||(`questão ${e.id} ${e.title}`).toLowerCase().includes(q)));
+ $('exercise-list').innerHTML=list.map(ex=>{const done=solved.has(ex.id);
+  return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm">
+   <div class="flex justify-between gap-3"><span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700">Questão ${ex.id}</span><span class="text-xs text-slate-400">${ex.title}</span></div>
+   <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-6 text-center text-base">${ex.question}</div>
+   <div class="flex gap-2 mt-4"><input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm" placeholder="Sua resposta"><button onclick="check(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Conferir</button></div>
+   <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+   <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-indigo-700 hover:underline">👁 Visualizar resposta e resolução</button>
+   <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+    <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução completa</div>
+    ${ex.steps.map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+    <div class="success rounded-xl p-4 text-center font-bold">Resposta: ${ex.answer}</div>
+   </div>
+  </article>`}).join('');
+ $('progress-text').textContent=`${solved.size} / ${exercisesData.length}`;
+ $('progress-bar').style.width=Math.round(100*solved.size/exercisesData.length)+'%';
+ renderAll();
+}
+function check(id){
+ const ex=exercisesData.find(x=>x.id===id),raw=$('answer-'+id).value,fb=$('feedback-'+id);
+ if(checkAnswer(ex,raw)){solved.add(id);localStorage.setItem('funSolved',JSON.stringify([...solved]));fb.className='text-sm font-bold mt-2 text-emerald-600';fb.textContent='✓ Correto! Muito bem.'}
+ else{fb.className='text-sm font-bold mt-2 text-red-600';fb.textContent='✗ Ainda não. Revise os passos e tente novamente.'}
+ renderExercises();
+}
+function toggleSol(id){$('solution-'+id).classList.toggle('hidden')}
+document.querySelectorAll('.level-btn').forEach(b=>b.onclick=()=>{currentLevel=b.dataset.level;document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderExercises()});
+$('search').addEventListener('input',renderExercises);
+
+window.addEventListener('DOMContentLoaded',()=>{updateLab();renderAll();});
+</script>
+</body>
+</html>

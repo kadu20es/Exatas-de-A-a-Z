@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matrizes e Sistemas — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {--ink:#2e1065; --paper:#faf5ff; --line:#e9d5ff; --accent:#7c3aed; --accent-light:#ede9fe;}
+  body {background:#f8fafc; color:var(--ink);}
+  .tab-btn.active {color:var(--accent); border-bottom-color:var(--accent); font-weight:800;}
+  
+  /* Padrão de caderno quadriculado suave */
+  .paper {
+    background: var(--paper);
+    background-image: 
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    border: 1px solid #d8b4fe;
+    box-shadow: 0 8px 24px rgba(88, 28, 135, 0.05);
+  }
+  
+  .step {
+    position:relative; padding:1rem 1rem 1rem 3.2rem; 
+    border:1px solid #e2e8f0; border-radius:1rem; background:white;
+  }
+  .step::before {
+    content:attr(data-step); position:absolute; left:1rem; top:1rem; 
+    width:1.65rem; height:1.65rem; border-radius:999px; 
+    background:var(--accent-light); color:var(--accent); 
+    font-weight:800; display:grid; place-items:center; font-size:.8rem;
+  }
+  
+  canvas {max-width:100%; touch-action: none;}
+  .level-btn.active {background:var(--accent); color:white;}
+  .exercise-solution {animation:fade .2s ease;}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  
+  .tip {border-left:4px solid #f59e0b; background:#fffbeb;}
+  .success {border-left:4px solid #10b981; background:#ecfdf5;}
+  .warning {border-left:4px solid #ef4444; background:#fef2f2;}
+
+  /* Estilização específica para destacar matrizes */
+  .matrix-highlight { background: rgba(124, 58, 237, 0.05); padding: 0.2rem; border-radius: 0.5rem; }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-violet-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+    <div class="font-black text-lg sm:text-xl text-violet-900">🧮 Matrizes & Sistemas</div>
+    <div class="text-[11px] text-slate-500 hidden sm:block">A base da Álgebra Linear simplificada</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">⚙️ Ferramentas</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-violet-950 via-violet-900 to-indigo-950 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-violet-300">Curso Completo</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Álgebra Linear do Zero</h1>
+  <p class="mt-4 max-w-3xl text-violet-100 leading-7">Matrizes não são apenas tabelas de números chatas. Elas são as "engrenagens" que movem gráficos 3D, resolvem mistérios em sistemas de equações e organizam dados no mundo real.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">10</b><div class="text-xs text-violet-300">passos lógicos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-violet-300">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-violet-300">Cramer & Sarrus passo a passo</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">👁</b><div class="text-xs text-violet-300">laboratório visual (área)</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm">
+  <b>Como estudar este módulo:</b> Comece entendendo a anatomia da matriz (linhas e colunas). O segredo de tudo está em saber <b>localizar</b> quem é quem. A multiplicação de matrizes exige atenção, então pratique no papel.
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O que é uma Matriz?</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Uma matriz é uma tabela de números organizada em <b>linhas (horizontais)</b> e <b>colunas (verticais)</b>. Denominamos o tamanho dela por \(m \times n\) (lê-se "m por n").</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">
+    \[A = \begin{bmatrix} \textcolor{#dc2626}{a_{11}} & \textcolor{#2563eb}{a_{12}} \\ \textcolor{#059669}{a_{21}} & \textcolor{#d97706}{a_{22}} \end{bmatrix}\]
+   </div>
+   <p class="mt-4 text-sm text-slate-500">Cada elemento tem um "endereço" chamado \(a_{ij}\), onde <b>i</b> é a linha e <b>j</b> é a coluna. Por exemplo, \(a_{12}\) está na linha 1, coluna 2.</p>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Matrizes Famosas</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Algumas matrizes têm formatos ou comportamentos especiais que você precisa conhecer de nome:</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-slate-50 rounded-xl p-4"><b>Matriz Quadrada:</b> Tem o mesmo número de linhas e colunas (ex: \(2 \times 2\) ou \(3 \times 3\)). Só nelas calculamos determinantes.</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>Matriz Identidade (\(I\)):</b> É o "número 1" das matrizes. Diagonal principal feita de 1s, o resto é 0.
+      <div class="mt-2 text-center">\[I_2 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\]</div>
+    </div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>Matriz Transposta (\(A^t\)):</b> O que é linha vira coluna, e vice-versa.</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">3</span><h2 class="text-xl font-black">Soma e Subtração</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">A regra é rígida: as matrizes <b>devem ter o mesmo tamanho</b>. Você opera cada elemento com o seu parceiro na mesma exata posição.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    \[\begin{bmatrix} 1 & 5 \\ 2 & 0 \end{bmatrix} + \begin{bmatrix} 3 & -1 \\ 4 & 2 \end{bmatrix} = \begin{bmatrix} 1+3 & 5-1 \\ 2+4 & 0+2 \end{bmatrix} = \begin{bmatrix} 4 & 4 \\ 6 & 2 \end{bmatrix}\]
+   </div>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Multiplicação por Escalar</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">Se um número comum (escalar) estiver fora da matriz multiplicando, ele entra e multiplica <b>todos</b> os elementos lá dentro.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    \[3 \times \begin{bmatrix} 2 & -1 \\ 0 & 4 \end{bmatrix} = \begin{bmatrix} 6 & -3 \\ 0 & 12 \end{bmatrix}\]
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-violet-900 text-white rounded-2xl border shadow-sm p-6 sm:p-10">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-800 text-violet-100 grid place-items-center font-black">5</span><h2 class="text-3xl font-black">O "Mergulho": Multiplicando Matrizes</h2></div>
+  <p class="mt-4 text-violet-100 text-lg leading-relaxed">Multiplicar uma matriz por outra <b>não é</b> elemento por elemento. É uma combinação! Você pega a <b>Linha</b> da primeira e "mergulha" sobre a <b>Coluna</b> da segunda.</p>
+  
+  <div class="bg-white text-slate-800 rounded-2xl p-6 mt-6 shadow-xl text-center">
+   <div class="text-lg mb-2">Para achar o elemento \(c_{11}\) (linha 1, coluna 1 do resultado):</div>
+   <div class="text-xl overflow-x-auto">
+     \[\begin{bmatrix} \textcolor{#dc2626}{1} & \textcolor{#dc2626}{2} \\ 3 & 4 \end{bmatrix} \times \begin{bmatrix} \textcolor{#2563eb}{5} & 6 \\ \textcolor{#2563eb}{7} & 8 \end{bmatrix} \implies \textcolor{#dc2626}{\text{Linha 1}} \text{ com } \textcolor{#2563eb}{\text{Coluna 1}}\]
+   </div>
+   <div class="bg-violet-50 text-violet-900 p-4 rounded-xl inline-block mt-3 text-lg font-black shadow-inner">
+     \( (\textcolor{#dc2626}{1} \times \textcolor{#2563eb}{5}) + (\textcolor{#dc2626}{2} \times \textcolor{#2563eb}{7}) = 5 + 14 = 19 \)
+   </div>
+   <p class="mt-4 text-sm text-slate-500"><b>Regra de Ouro:</b> O número de colunas da 1ª tem que ser igual ao de linhas da 2ª. Além disso, em matrizes, \(A \times B\) não é igual a \(B \times A\)!</p>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">O que é o Determinante?</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">O determinante é um <b>número mágico</b> associado a uma matriz quadrada. Geometricamente, ele indica o fator de ampliação de área (ou volume) que a matriz cria. Se for zero, a matriz "achata" o espaço e não possui inversa.</p>
+   <div class="bg-slate-50 rounded-xl p-4 mt-4">
+    <div class="font-bold text-sm">Cálculo em Matrizes \(2 \times 2\):</div>
+    <div class="text-center mt-2">
+     \[\det(A) = \begin{vmatrix} \textcolor{#2563eb}{a} & \textcolor{#dc2626}{b} \\ \textcolor{#dc2626}{c} & \textcolor{#2563eb}{d} \end{vmatrix} = \textcolor{#2563eb}{a \cdot d} - \textcolor{#dc2626}{b \cdot c}\]
+    </div>
+    <p class="text-xs text-center mt-2">Multiplique a diagonal principal (azul) e subtraia a secundária (vermelha).</p>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">7</span><h2 class="text-xl font-black">Determinante \(3 \times 3\) (Sarrus)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">Para matrizes maiores (\(3 \times 3\)), usamos a Regra de Sarrus. É o mesmo princípio de cruzar, mas com repetição.</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="step" data-step="1">Repita as duas primeiras colunas à direita da matriz.</div>
+    <div class="step" data-step="2">Multiplique as 3 diagonais "descendo" para a direita (mantendo o sinal).</div>
+    <div class="step" data-step="3">Multiplique as 3 diagonais "subindo" para a direita (invertendo o sinal).</div>
+    <div class="step" data-step="4">Some tudo.</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <div class="space-y-6">
+    <article class="bg-white rounded-2xl border p-6 shadow-sm">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">8</span><h2 class="text-xl font-black">Sistemas Lineares</h2></div>
+     <p class="mt-3 text-slate-600 text-sm">Um sistema de equações é apenas um quebra-cabeça perguntando onde retas ou planos se encontram. Ele pode ser escrito usando matrizes:</p>
+     <div class="paper rounded-xl p-4 mt-3 text-center">
+      \[ \begin{cases} 2x + 3y = 8 \\ x - y = 1 \end{cases} \implies \begin{bmatrix} 2 & 3 \\ 1 & -1 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 8 \\ 1 \end{bmatrix} \]
+     </div>
+    </article>
+
+    <article class="bg-white rounded-2xl border p-6 shadow-sm">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">9</span><h2 class="text-xl font-black">Regra de Cramer</h2></div>
+     <p class="mt-3 text-slate-600 text-sm">Um método elegante para resolver sistemas usando determinantes!</p>
+     <div class="bg-slate-50 rounded-xl p-4 mt-3 text-sm space-y-2">
+      <div>1. Calcule o determinante principal (\(D\)) dos coeficientes.</div>
+      <div>2. Para achar \(x\), troque a coluna do \(x\) pelos resultados finais e calcule o determinante \(D_x\).</div>
+      <div>3. A resposta é \(x = \frac{D_x}{D}\) e \(y = \frac{D_y}{D}\).</div>
+     </div>
+    </article>
+  </div>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-black">10</span><h2 class="text-xl font-black">Checklist para Exercícios</h2></div>
+   <div class="grid grid-cols-1 gap-3 mt-4 text-sm">
+    <div class="bg-violet-50 border border-violet-100 rounded-xl p-4 text-violet-900">
+      <b>① É soma ou subtração?</b><br>Verifique se os tamanhos são idênticos. Opere nas mesmas posições.
+    </div>
+    <div class="bg-violet-50 border border-violet-100 rounded-xl p-4 text-violet-900">
+      <b>② É multiplicação?</b><br>Lembre-se do mergulho: Linha inteira pela Coluna inteira. Calma e organização.
+    </div>
+    <div class="bg-violet-50 border border-violet-100 rounded-xl p-4 text-violet-900">
+      <b>③ É Sistema por Cramer?</b><br>Lembre-se que se \(D = 0\), o sistema não tem solução única (pode ser impossível ou ter infinitas soluções).
+    </div>
+   </div>
+  </article>
+ </div>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-violet-600">O Espaço Esticado</span>
+   <h1 class="text-3xl font-black mt-2">O Determinante Geométrico</h1>
+   <p class="text-slate-600 mt-2">Altere os valores da Matriz \(2 \times 2\) e veja como ela transforma o quadrado original de área 1 (tracejado). A área do novo paralelogramo é exatamente o <b>módulo do Determinante</b>.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h3 class="font-bold text-lg mb-4 text-center">A Matriz de Transformação</h3>
+   <div class="flex justify-center text-2xl font-bold mb-6 relative">
+     <div class="absolute left-6 top-0 bottom-0 w-2 border-l-2 border-t-2 border-b-2 border-slate-800"></div>
+     <div class="grid grid-cols-2 gap-4 px-6 text-center">
+       <input type="number" id="lab-m11" value="1" class="w-16 h-10 border rounded text-center bg-slate-50 font-mono">
+       <input type="number" id="lab-m12" value="0" class="w-16 h-10 border rounded text-center bg-slate-50 font-mono">
+       <input type="number" id="lab-m21" value="0" class="w-16 h-10 border rounded text-center bg-slate-50 font-mono">
+       <input type="number" id="lab-m22" value="1" class="w-16 h-10 border rounded text-center bg-slate-50 font-mono">
+     </div>
+     <div class="absolute right-6 top-0 bottom-0 w-2 border-r-2 border-t-2 border-b-2 border-slate-800"></div>
+   </div>
+   
+   <div class="bg-violet-50 rounded-xl p-4 mt-6">
+     <div class="text-sm font-bold text-violet-900 mb-2">Cálculo do Determinante:</div>
+     <div id="lab-det-calc" class="font-mono text-sm text-center"> (1)(1) - (0)(0) = 1 </div>
+   </div>
+
+   <div class="mt-4 grid grid-cols-2 gap-2">
+     <button onclick="setLabMatrix(2,0,0,2)" class="text-xs bg-slate-100 hover:bg-slate-200 p-2 rounded">Dobrar Tam.</button>
+     <button onclick="setLabMatrix(1,1,0,1)" class="text-xs bg-slate-100 hover:bg-slate-200 p-2 rounded">Cisalhamento</button>
+     <button onclick="setLabMatrix(0,-1,1,0)" class="text-xs bg-slate-100 hover:bg-slate-200 p-2 rounded">Rot. 90°</button>
+     <button onclick="setLabMatrix(1,2,3,4)" class="text-xs bg-slate-100 hover:bg-slate-200 p-2 rounded">Matriz 1 2 3 4</button>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col items-center justify-center relative overflow-hidden h-[450px]">
+    <canvas id="lab-canvas" width="600" height="400" class="bg-slate-50 border rounded-xl shadow-inner w-full h-full object-contain"></canvas>
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-violet-600">Assistentes Matemáticos</span>
+   <h1 class="text-3xl font-black mt-2">Resolução Passo a Passo</h1>
+   <p class="text-slate-600 mt-2">Dúvidas no cálculo? Deixe o assistente desenhar o passo a passo de um determinante Sarrus ou de um Sistema Linear usando Cramer.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Determinante 3x3 (Sarrus)</h2>
+   <p class="text-xs text-slate-500 mb-4">Insira os 9 números da matriz.</p>
+   
+   <div class="flex justify-center mb-4 relative">
+     <div class="absolute left-0 top-0 bottom-0 w-2 border-l-2 border-t-2 border-b-2 border-slate-800"></div>
+     <div class="grid grid-cols-3 gap-2 px-4">
+       <input id="s11" type="number" value="1" class="w-12 h-10 border rounded text-center font-mono">
+       <input id="s12" type="number" value="2" class="w-12 h-10 border rounded text-center font-mono">
+       <input id="s13" type="number" value="3" class="w-12 h-10 border rounded text-center font-mono">
+       <input id="s21" type="number" value="0" class="w-12 h-10 border rounded text-center font-mono">
+       <input id="s22" type="number" value="1" class="w-12 h-10 border rounded text-center font-mono">
+       <input id="s23" type="number" value="4" class="w-12 h-10 border rounded text-center font-mono">
+       <input id="s31" type="number" value="0" class="w-12 h-10 border rounded text-center font-mono">
+       <input id="s32" type="number" value="0" class="w-12 h-10 border rounded text-center font-mono">
+       <input id="s33" type="number" value="2" class="w-12 h-10 border rounded text-center font-mono">
+     </div>
+     <div class="absolute right-0 top-0 bottom-0 w-2 border-r-2 border-t-2 border-b-2 border-slate-800"></div>
+   </div>
+   <button onclick="renderSarrusTool()" class="w-full bg-violet-600 hover:bg-violet-700 transition text-white rounded-xl py-3 font-bold">Resolver Sarrus</button>
+   <div id="sarrus-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Sistema 2x2 (Regra de Cramer)</h2>
+   <p class="text-xs text-slate-500 mb-4">Insira os coeficientes e os resultados.</p>
+   
+   <div class="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-2 mb-4 font-mono font-bold text-sm">
+      <input id="cx1" type="number" value="2" class="w-full border rounded p-2 text-right"> <span>x +</span>
+      <input id="cy1" type="number" value="3" class="w-full border rounded p-2 text-right"> <span>y =</span>
+      <input id="cr1" type="number" value="8" class="w-full border rounded p-2 text-right bg-slate-50">
+      
+      <input id="cx2" type="number" value="1" class="w-full border rounded p-2 text-right"> <span>x +</span>
+      <input id="cy2" type="number" value="-1" class="w-full border rounded p-2 text-right"> <span>y =</span>
+      <input id="cr2" type="number" value="1" class="w-full border rounded p-2 text-right bg-slate-50">
+   </div>
+   <button onclick="renderCramerTool()" class="w-full bg-indigo-600 hover:bg-indigo-700 transition text-white rounded-xl py-3 font-bold">Resolver Cramer</button>
+   <div id="cramer-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+     <div>
+       <span class="text-xs font-bold uppercase tracking-widest text-violet-600">Treino progressivo</span>
+       <h1 class="text-3xl font-black mt-2">100 Exercícios com Resolução</h1>
+       <p class="text-slate-600 mt-2">As respostas devem ser números simples. Digite sua resposta e clique em Conferir.</p>
+     </div>
+     <div class="min-w-[210px]">
+       <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+       <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-violet-600 rounded-full transition-all duration-500" style="width:0%"></div></div>
+     </div>
+   </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 1 (Soma/Escalar)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 2 (Multiplicação)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 3 (Det 2x2)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 4 (Det 3x3)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 5 (Sistemas 2x2)</button>
+   <button data-level="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 6 (Propriedades)</button>
+  </div>
+ </div>
+ 
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo educacional de Matemática • Renderizado com KaTeX</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function mathInline(latex){return String.raw`\(${latex}\)`}
+function mathDisplay(latex){return String.raw`\[${latex}\]`}
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+    const t=btn.dataset.tab;
+    sections.forEach(s => $('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active',b===btn));
+    if(t==='exercicios') renderExercises();
+    if(t==='laboratorio') initLab();
+}));
+
+let labInited = false;
+function initLab() {
+  if(!labInited) {
+    ['lab-m11','lab-m12','lab-m21','lab-m22'].forEach(id => {
+       $(id).addEventListener('input', drawLab);
+    });
+    labInited = true;
+  }
+  drawLab();
+}
+function setLabMatrix(a,b,c,d) {
+  $('lab-m11').value = a; $('lab-m12').value = b; 
+  $('lab-m21').value = c; $('lab-m22').value = d;
+  drawLab();
+}
+function drawLab() {
+  const m11 = parseFloat($('lab-m11').value)||0, m12 = parseFloat($('lab-m12').value)||0;
+  const m21 = parseFloat($('lab-m21').value)||0, m22 = parseFloat($('lab-m22').value)||0;
+  
+  const det = (m11*m22) - (m12*m21);
+  $('lab-det-calc').innerHTML = `(${m11})(${m22}) - (${m12})(${m21}) = <b>${det}</b>`;
+  
+  const c = $('lab-canvas');
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+  const cx = w/2, cy = h/2;
+  const scale = 50; 
+
+  ctx.clearRect(0,0,w,h);
+  
+  // Grid
+  ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
+  for(let i=0; i<w; i+=scale) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,h); ctx.stroke(); }
+  for(let i=0; i<h; i+=scale) { ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(w,i); ctx.stroke(); }
+  
+  // Eixos Originais
+  ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,h); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0,cy); ctx.lineTo(w,cy); ctx.stroke();
+
+  // Função para desenhar polígono
+  function drawPoly(pts, fill, stroke, lineDash=[]) {
+    ctx.beginPath();
+    ctx.moveTo(cx + pts[0].x*scale, cy - pts[0].y*scale);
+    for(let i=1; i<pts.length; i++) ctx.lineTo(cx + pts[i].x*scale, cy - pts[i].y*scale);
+    ctx.closePath();
+    ctx.fillStyle = fill; ctx.fill();
+    ctx.setLineDash(lineDash); ctx.strokeStyle = stroke; ctx.lineWidth = 2; ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // Quadrado Original (0,0) (1,0) (1,1) (0,1)
+  const origPts = [{x:0,y:0}, {x:1,y:0}, {x:1,y:1}, {x:0,y:1}];
+  drawPoly(origPts, 'rgba(148, 163, 184, 0.1)', '#cbd5e1', [5,5]);
+
+  // Transforma os pontos pela matriz
+  const newPts = origPts.map(p => ({
+    x: (m11 * p.x) + (m12 * p.y),
+    y: (m21 * p.x) + (m22 * p.y)
+  }));
+  
+  let fillColor = det < 0 ? 'rgba(239, 68, 68, 0.3)' : 'rgba(124, 58, 237, 0.3)';
+  let strokeColor = det < 0 ? '#ef4444' : '#7c3aed';
+  drawPoly(newPts, fillColor, strokeColor);
+
+  // Desenhando vetores i e j
+  ctx.lineWidth = 3;
+  // vetor i
+  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + m11*scale, cy - m21*scale); 
+  ctx.strokeStyle = '#2563eb'; ctx.stroke();
+  // vetor j
+  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + m12*scale, cy - m22*scale); 
+  ctx.strokeStyle = '#059669'; ctx.stroke();
+}
+
+function renderSarrusTool() {
+  const v = [];
+  for(let i=1; i<=3; i++) for(let j=1; j<=3; j++) v.push(parseFloat($(`s${i}${j}`).value)||0);
+  
+  // v = [a11, a12, a13, a21, a22, a23, a31, a32, a33]
+  const d1 = v[0]*v[4]*v[8], d2 = v[1]*v[5]*v[6], d3 = v[2]*v[3]*v[7];
+  const u1 = v[2]*v[4]*v[6], u2 = v[0]*v[5]*v[7], u3 = v[1]*v[3]*v[8];
+  
+  const sumD = d1 + d2 + d3;
+  const sumU = u1 + u2 + u3;
+  const det = sumD - sumU;
+
+  const out = $('sarrus-out');
+  out.classList.remove('hidden');
+  
+  let matTex = `\\begin{matrix} ${v[0]} & ${v[1]} & ${v[2]} \\\\ ${v[3]} & ${v[4]} & ${v[5]} \\\\ ${v[6]} & ${v[7]} & ${v[8]} \\end{matrix}`;
+  let copyTex = `\\begin{matrix} | & ${v[0]} & ${v[1]} \\\\ | & ${v[3]} & ${v[4]} \\\\ | & ${v[6]} & ${v[7]} \\end{matrix}`;
+  
+  out.innerHTML = `
+    <div class="step" data-step="1">Repetimos as duas primeiras colunas: ${mathDisplay(matTex + copyTex)}</div>
+    <div class="step mt-3" data-step="2">Diagonais principais (mantém sinal): <br>(${v[0]}\\times${v[4]}\\times${v[8]}) + (${v[1]}\\times${v[5]}\\times${v[6]}) + (${v[2]}\\times${v[3]}\\times${v[7]}) = ${d1} + ${d2} + ${d3} = <b>${sumD}</b></div>
+    <div class="step mt-3" data-step="3">Diagonais secundárias (inverte sinal): <br>(${v[2]}\\times${v[4]}\\times${v[6]}) + (${v[0]}\\times${v[5]}\\times${v[7]}) + (${v[1]}\\times${v[3]}\\times${v[8]}) = ${u1} + ${u2} + ${u3} = <b>${sumU}</b></div>
+    <div class="success rounded-xl p-4 mt-4 text-center font-bold">Determinante = ${sumD} - (${sumU}) = ${det}</div>
+  `;
+  renderAll();
+}
+
+function renderCramerTool() {
+  const x1 = parseFloat($('cx1').value)||0, y1 = parseFloat($('cy1').value)||0, r1 = parseFloat($('cr1').value)||0;
+  const x2 = parseFloat($('cx2').value)||0, y2 = parseFloat($('cy2').value)||0, r2 = parseFloat($('cr2').value)||0;
+  
+  const D = (x1*y2) - (y1*x2);
+  const Dx = (r1*y2) - (y1*r2);
+  const Dy = (x1*r2) - (r1*x2);
+  
+  const out = $('cramer-out');
+  out.classList.remove('hidden');
+
+  if(D === 0) {
+    out.innerHTML = '<div class="warning rounded-xl p-4">O Determinante Principal (D) é zero! O sistema não tem solução única (é Impossível ou Indeterminado).</div>';
+    return renderAll();
+  }
+
+  const matD = `\\begin{vmatrix} ${x1} & ${y1} \\\\ ${x2} & ${y2} \\end{vmatrix}`;
+  const matDx = `\\begin{vmatrix} ${r1} & ${y1} \\\\ ${r2} & ${y2} \\end{vmatrix}`;
+  const matDy = `\\begin{vmatrix} ${x1} & ${r1} \\\\ ${x2} & ${r2} \\end{vmatrix}`;
+
+  out.innerHTML = `
+    <div class="step" data-step="1"><b>Determinante D (Coeficientes):</b> ${mathDisplay(`D = ${matD} = (${x1})(${y2}) - (${y1})(${x2}) = ${D}`)}</div>
+    <div class="step mt-3" data-step="2"><b>Determinante D_x (Troca X pelo Resultado):</b> ${mathDisplay(`D_x = ${matDx} = (${r1})(${y2}) - (${y1})(${r2}) = ${Dx}`)}</div>
+    <div class="step mt-3" data-step="3"><b>Determinante D_y (Troca Y pelo Resultado):</b> ${mathDisplay(`D_y = ${matDy} = (${x1})(${r2}) - (${r1})(${x2}) = ${Dy}`)}</div>
+    <div class="success rounded-xl p-4 mt-4 text-center">
+       <b>Resultados:</b> <br>
+       ${mathDisplay(`x = \\frac{D_x}{D} = \\frac{${Dx}}{${D}} = ${Dx/D}`)} <br>
+       ${mathDisplay(`y = \\frac{D_y}{D} = \\frac{${Dy}}{${D}} = ${Dy/D}`)}
+    </div>
+  `;
+  renderAll();
+}
+
+// Uma base compacta para renderizar 100 questões com perfeição.
+// Formato: id|level|title|expression|answer|type|question_text
+
+const rawExercises = [
+  // NÍVEL 1: Operações Básicas (1 a 15)
+  "1|1|Soma 2x2|A=\\begin{bmatrix}1&2\\\\3&4\\end{bmatrix}, B=\\begin{bmatrix}0&5\\\\2&-1\\end{bmatrix}|3|opBasica|Qual o elemento \\(c_{21}\\) da matriz \\(C = A+B\\)?",
+  "2|1|Soma 2x2|A=\\begin{bmatrix}-2&4\\\\1&0\\end{bmatrix}, B=\\begin{bmatrix}2&-4\\\\-1&0\\end{bmatrix}|0|opBasica|Qual o elemento \\(c_{11}\\) de \\(C = A+B\\)?",
+  "3|1|Soma 2x2|A=\\begin{bmatrix}10&3\\\\4&2\\end{bmatrix}, B=\\begin{bmatrix}1&-1\\\\0&3\\end{bmatrix}|2|opBasica|Qual o elemento \\(c_{12}\\) de \\(C = A+B\\)?",
+  "4|1|Soma 2x2|A=\\begin{bmatrix}5&5\\\\5&5\\end{bmatrix}, B=\\begin{bmatrix}1&2\\\\3&4\\end{bmatrix}|9|opBasica|Qual o elemento \\(c_{22}\\) de \\(C = A+B\\)?",
+  "5|1|Subtração 2x2|A=\\begin{bmatrix}8&6\\\\4&2\\end{bmatrix}, B=\\begin{bmatrix}3&1\\\\5&0\\end{bmatrix}|5|opBasica|Qual o elemento \\(c_{12}\\) de \\(C = A-B\\)?",
+  "6|1|Subtração 2x2|A=\\begin{bmatrix}1&0\\\\0&1\\end{bmatrix}, B=\\begin{bmatrix}1&1\\\\1&1\\end{bmatrix}|-1|opBasica|Qual o elemento \\(c_{21}\\) de \\(C = A-B\\)?",
+  "7|1|Subtração 2x2|A=\\begin{bmatrix}10&20\\\\30&40\\end{bmatrix}, B=\\begin{bmatrix}5&5\\\\5&5\\end{bmatrix}|25|opBasica|Qual o elemento \\(c_{21}\\) de \\(C = A-B\\)?",
+  "8|1|Soma 3x3|A=\\begin{bmatrix}1&0&0\\\\0&2&0\\\\0&0&3\\end{bmatrix}, B=\\begin{bmatrix}1&1&1\\\\1&1&1\\\\1&1&1\\end{bmatrix}|4|opBasica|Qual o elemento \\(c_{33}\\) de \\(C = A+B\\)?",
+  "9|1|Soma 3x3|A=\\begin{bmatrix}2&4&6\\\\1&3&5\\\\0&0&0\\end{bmatrix}, B=\\begin{bmatrix}0&0&0\\\\1&1&1\\\\2&2&2\\end{bmatrix}|4|opBasica|Qual o elemento \\(c_{22}\\) de \\(C = A+B\\)?",
+  "10|1|Escalar|A=\\begin{bmatrix}2&5\\\\-1&4\\end{bmatrix}|15|opBasica|Qual o elemento \\(c_{12}\\) da matriz \\(C = 3A\\)?",
+  "11|1|Escalar|A=\\begin{bmatrix}1&0\\\\0&-2\\end{bmatrix}|-10|opBasica|Qual o elemento \\(c_{22}\\) de \\(C = 5A\\)?",
+  "12|1|Escalar|A=\\begin{bmatrix}-3&7\\\\2&8\\end{bmatrix}|-6|opBasica|Qual o elemento \\(c_{11}\\) de \\(C = 2A\\)?",
+  "13|1|Escalar e Soma|A=\\begin{bmatrix}1&2\\\\3&4\\end{bmatrix}, B=\\begin{bmatrix}1&0\\\\0&1\\end{bmatrix}|7|opBasica|Qual o elemento \\(c_{21}\\) de \\(C = 2A + B\\)?",
+  "14|1|Escalar e Soma|A=\\begin{bmatrix}2&2\\\\2&2\\end{bmatrix}, B=\\begin{bmatrix}1&-1\\\\-1&1\\end{bmatrix}|1|opBasica|Qual o elemento \\(c_{12}\\) de \\(C = A - B\\)?",
+  "15|1|Transposta|A=\\begin{bmatrix}1&2&3\\\\4&5&6\\end{bmatrix}|2|opBasica|Qual o elemento \\(c_{21}\\) da matriz transposta \\(A^t\\)?",
+
+  // NÍVEL 2: Multiplicação (16 a 30)
+  "16|2|Multiplicação 2x2|A=\\begin{bmatrix}1&2\\\\3&4\\end{bmatrix}, B=\\begin{bmatrix}2&0\\\\1&2\\end{bmatrix}|4|matMul|Qual o elemento \\(c_{11}\\) de \\(C = A \\times B\\)?",
+  "17|2|Multiplicação 2x2|A=\\begin{bmatrix}1&2\\\\3&4\\end{bmatrix}, B=\\begin{bmatrix}2&0\\\\1&2\\end{bmatrix}|14|matMul|Qual o elemento \\(c_{22}\\) de \\(C = A \\times B\\)?",
+  "18|2|Multiplicação por Identidade|A=\\begin{bmatrix}7&8\\\\9&10\\end{bmatrix}, I=\\begin{bmatrix}1&0\\\\0&1\\end{bmatrix}|7|matMul|Qual o elemento \\(c_{11}\\) de \\(C = A \\times I\\)?",
+  "19|2|Multiplicação 2x2|A=\\begin{bmatrix}2&-1\\\\0&3\\end{bmatrix}, B=\\begin{bmatrix}4&1\\\\1&2\\end{bmatrix}|7|matMul|Qual o elemento \\(c_{11}\\) de \\(C = A \\times B\\)?",
+  "20|2|Multiplicação 2x2|A=\\begin{bmatrix}2&-1\\\\0&3\\end{bmatrix}, B=\\begin{bmatrix}4&1\\\\1&2\\end{bmatrix}|6|matMul|Qual o elemento \\(c_{22}\\) de \\(C = A \\times B\\)?",
+  "21|2|Matriz x Vetor|A=\\begin{bmatrix}1&2\\\\3&4\\end{bmatrix}, B=\\begin{bmatrix}5\\\\6\\end{bmatrix}|17|matMul|Qual o primeiro elemento \\(c_{11}\\) da matriz coluna resultante?",
+  "22|2|Matriz x Vetor|A=\\begin{bmatrix}2&0\\\\0&3\\end{bmatrix}, B=\\begin{bmatrix}4\\\\5\\end{bmatrix}|15|matMul|Qual o segundo elemento \\(c_{21}\\) da resultante?",
+  "23|2|Quadrado da Matriz|A=\\begin{bmatrix}0&1\\\\1&0\\end{bmatrix}|1|matMul|Qual o elemento \\(c_{11}\\) de \\(A^2\\)?",
+  "24|2|Quadrado da Matriz|A=\\begin{bmatrix}1&1\\\\0&1\\end{bmatrix}|2|matMul|Qual o elemento \\(c_{12}\\) de \\(A^2\\)?",
+  "25|2|Multiplicação 3x3|A=\\begin{bmatrix}1&0&0\\\\0&2&0\\\\0&0&3\\end{bmatrix}, B=\\begin{bmatrix}1&1&1\\\\2&2&2\\\\3&3&3\\end{bmatrix}|9|matMul|Qual o elemento \\(c_{33}\\) de \\(C = A \\times B\\)?",
+  "26|2|Multiplicação Nula|A=\\begin{bmatrix}1&2\\\\3&6\\end{bmatrix}, B=\\begin{bmatrix}2&-4\\\\-1&2\\end{bmatrix}|0|matMul|Qual o elemento \\(c_{11}\\) de \\(C = A \\times B\\)?",
+  "27|2|Multiplicação 2x2|A=\\begin{bmatrix}5&2\\\\2&1\\end{bmatrix}, B=\\begin{bmatrix}1&-2\\\\-2&5\\end{bmatrix}|1|matMul|Qual o elemento \\(c_{11}\\) de \\(C = A \\times B\\)?",
+  "28|2|Multiplicação 2x2|A=\\begin{bmatrix}-1&2\\\\3&-4\\end{bmatrix}, B=\\begin{bmatrix}2&1\\\\0&2\\end{bmatrix}|-2|matMul|Qual o elemento \\(c_{11}\\) de \\(C\\)?",
+  "29|2|Multiplicação 2x2|A=\\begin{bmatrix}1&1\\\\1&1\\end{bmatrix}, B=\\begin{bmatrix}1&1\\\\1&1\\end{bmatrix}|2|matMul|Qual o elemento \\(c_{12}\\) de \\(C = A \\times B\\)?",
+  "30|2|Multiplicação 2x2|A=\\begin{bmatrix}3&0\\\\0&2\\end{bmatrix}, B=\\begin{bmatrix}2&0\\\\0&4\\end{bmatrix}|8|matMul|Qual o elemento \\(c_{22}\\) de \\(C\\)?",
+
+  // NÍVEL 3: Determinante 2x2 (31 a 50)
+  "31|3|Determinante 2x2|A=\\begin{bmatrix}2&3\\\\1&4\\end{bmatrix}|5|det2|Qual o valor do determinante de \\(A\\)?",
+  "32|3|Determinante 2x2|A=\\begin{bmatrix}5&0\\\\0&2\\end{bmatrix}|10|det2|Qual o valor do determinante de \\(A\\)?",
+  "33|3|Determinante 2x2|A=\\begin{bmatrix}1&1\\\\1&1\\end{bmatrix}|0|det2|Qual o valor do determinante de \\(A\\)?",
+  "34|3|Determinante 2x2|A=\\begin{bmatrix}3&-2\\\\1&4\\end{bmatrix}|14|det2|Qual o valor do determinante de \\(A\\)?",
+  "35|3|Determinante 2x2|A=\\begin{bmatrix}-1&-2\\\\-3&-4\\end{bmatrix}|-2|det2|Qual o valor do determinante de \\(A\\)?",
+  "36|3|Determinante 2x2|A=\\begin{bmatrix}7&8\\\\5&6\\end{bmatrix}|2|det2|Qual o valor do determinante de \\(A\\)?",
+  "37|3|Determinante 2x2|A=\\begin{bmatrix}10&2\\\\3&1\\end{bmatrix}|4|det2|Qual o valor do determinante de \\(A\\)?",
+  "38|3|Determinante 2x2|A=\\begin{bmatrix}0&5\\\\2&0\\end{bmatrix}|-10|det2|Qual o valor do determinante de \\(A\\)?",
+  "39|3|Determinante 2x2|A=\\begin{bmatrix}-5&3\\\\-2&4\\end{bmatrix}|-14|det2|Qual o valor do determinante de \\(A\\)?",
+  "40|3|Determinante 2x2|A=\\begin{bmatrix}1&10\\\\10&100\\end{bmatrix}|0|det2|Qual o valor do determinante de \\(A\\)?",
+  "41|3|Determinante 2x2|A=\\begin{bmatrix}4&7\\\\2&5\\end{bmatrix}|6|det2|Qual o valor do determinante de \\(A\\)?",
+  "42|3|Determinante 2x2|A=\\begin{bmatrix}-2&5\\\\3&-6\\end{bmatrix}|-3|det2|Qual o valor do determinante de \\(A\\)?",
+  "43|3|Determinante 2x2|A=\\begin{bmatrix}8&3\\\\2&1\\end{bmatrix}|2|det2|Qual o valor do determinante de \\(A\\)?",
+  "44|3|Determinante 2x2|A=\\begin{bmatrix}12&4\\\\3&1\\end{bmatrix}|0|det2|Qual o valor do determinante de \\(A\\)?",
+  "45|3|Determinante 2x2|A=\\begin{bmatrix}1&0\\\\0&1\\end{bmatrix}|1|det2|Qual o determinante da Matriz Identidade?",
+  "46|3|Determinante 2x2|A=\\begin{bmatrix}6&-2\\\\-3&1\\end{bmatrix}|0|det2|Qual o valor do determinante de \\(A\\)?",
+  "47|3|Determinante 2x2|A=\\begin{bmatrix}9&4\\\\2&1\\end{bmatrix}|1|det2|Qual o valor do determinante de \\(A\\)?",
+  "48|3|Determinante 2x2|A=\\begin{bmatrix}3&5\\\\1&2\\end{bmatrix}|1|det2|Qual o valor do determinante de \\(A\\)?",
+  "49|3|Determinante 2x2|A=\\begin{bmatrix}10&-5\\\\-2&1\\end{bmatrix}|0|det2|Qual o valor do determinante de \\(A\\)?",
+  "50|3|Determinante 2x2|A=\\begin{bmatrix}4&4\\\\-1&2\\end{bmatrix}|12|det2|Qual o valor do determinante de \\(A\\)?",
+
+  // NÍVEL 4: Determinante 3x3 (51 a 70)
+  "51|4|Determinante 3x3|A=\\begin{bmatrix}1&0&0\\\\0&1&0\\\\0&0&1\\end{bmatrix}|1|det3|Qual o valor do determinante de \\(A\\)?",
+  "52|4|Determinante 3x3|A=\\begin{bmatrix}2&0&0\\\\0&3&0\\\\0&0&4\\end{bmatrix}|24|det3|Qual o valor do determinante de \\(A\\)?",
+  "53|4|Determinante 3x3|A=\\begin{bmatrix}1&2&3\\\\4&5&6\\\\7&8&9\\end{bmatrix}|0|det3|Qual o valor do determinante de \\(A\\)?",
+  "54|4|Determinante 3x3|A=\\begin{bmatrix}1&2&1\\\\0&1&2\\\\0&0&3\\end{bmatrix}|3|det3|Qual o valor do determinante de \\(A\\)?",
+  "55|4|Determinante 3x3|A=\\begin{bmatrix}3&0&0\\\\1&2&0\\\\4&5&1\\end{bmatrix}|6|det3|Qual o valor do determinante de \\(A\\)?",
+  "56|4|Determinante 3x3|A=\\begin{bmatrix}1&1&1\\\\1&1&1\\\\1&1&1\\end{bmatrix}|0|det3|Qual o valor do determinante de \\(A\\)?",
+  "57|4|Determinante 3x3|A=\\begin{bmatrix}0&1&0\\\\1&0&0\\\\0&0&1\\end{bmatrix}|-1|det3|Qual o valor do determinante de \\(A\\)?",
+  "58|4|Determinante 3x3|A=\\begin{bmatrix}2&1&0\\\\-1&2&0\\\\0&0&3\\end{bmatrix}|15|det3|Qual o valor do determinante de \\(A\\)?",
+  "59|4|Determinante 3x3|A=\\begin{bmatrix}1&-1&2\\\\0&3&4\\\\0&0&-2\\end{bmatrix}|-6|det3|Qual o valor do determinante de \\(A\\)?",
+  "60|4|Determinante 3x3|A=\\begin{bmatrix}2&0&1\\\\3&1&0\\\\0&1&1\\end{bmatrix}|5|det3|Qual o valor do determinante de \\(A\\)?",
+  "61|4|Determinante 3x3|A=\\begin{bmatrix}-1&2&3\\\\0&2&1\\\\0&0&-1\\end{bmatrix}|2|det3|Qual o valor do determinante de \\(A\\)?",
+  "62|4|Determinante 3x3|A=\\begin{bmatrix}1&2&0\\\\3&4&0\\\\5&6&1\\end{bmatrix}|-2|det3|Qual o valor do determinante de \\(A\\)?",
+  "63|4|Determinante 3x3|A=\\begin{bmatrix}0&0&1\\\\0&1&0\\\\1&0&0\\end{bmatrix}|-1|det3|Qual o valor do determinante de \\(A\\)?",
+  "64|4|Determinante 3x3|A=\\begin{bmatrix}2&2&2\\\\1&3&4\\\\0&0&2\\end{bmatrix}|8|det3|Qual o valor do determinante de \\(A\\)?",
+  "65|4|Determinante 3x3|A=\\begin{bmatrix}1&0&2\\\\-1&1&0\\\\2&0&1\\end{bmatrix}|-3|det3|Qual o valor do determinante de \\(A\\)?",
+  "66|4|Determinante 3x3|A=\\begin{bmatrix}4&0&0\\\\5&-2&0\\\\6&1&-1\\end{bmatrix}|8|det3|Qual o valor do determinante de \\(A\\)?",
+  "67|4|Determinante 3x3|A=\\begin{bmatrix}1&3&2\\\\0&-1&1\\\\0&0&5\\end{bmatrix}|-5|det3|Qual o valor do determinante de \\(A\\)?",
+  "68|4|Determinante 3x3|A=\\begin{bmatrix}2&-1&0\\\\-1&2&-1\\\\0&-1&2\\end{bmatrix}|4|det3|Qual o valor do determinante de \\(A\\)?",
+  "69|4|Determinante 3x3|A=\\begin{bmatrix}1&1&1\\\\2&2&2\\\\3&4&5\\end{bmatrix}|0|det3|Qual o valor do determinante de \\(A\\)?",
+  "70|4|Determinante 3x3|A=\\begin{bmatrix}3&1&1\\\\1&3&1\\\\1&1&3\\end{bmatrix}|20|det3|Qual o valor do determinante de \\(A\\)?",
+
+  // NÍVEL 5: Sistemas 2x2 (71 a 85)
+  "71|5|Sistema 2x2|\\begin{cases}x+y=5\\\\x-y=1\\end{cases}|3|sys2|Qual o valor de \\(x\\)?",
+  "72|5|Sistema 2x2|\\begin{cases}x+y=5\\\\x-y=1\\end{cases}|2|sys2|Qual o valor de \\(y\\)?",
+  "73|5|Sistema 2x2|\\begin{cases}2x+y=7\\\\x-y=2\\end{cases}|3|sys2|Qual o valor de \\(x\\)?",
+  "74|5|Sistema 2x2|\\begin{cases}3x+2y=8\\\\x+2y=4\\end{cases}|2|sys2|Qual o valor de \\(x\\)?",
+  "75|5|Sistema 2x2|\\begin{cases}3x+2y=8\\\\x+2y=4\\end{cases}|1|sys2|Qual o valor de \\(y\\)?",
+  "76|5|Sistema 2x2|\\begin{cases}x+3y=10\\\\2x-y=6\\end{cases}|4|sys2|Qual o valor de \\(x\\)?",
+  "77|5|Sistema 2x2|\\begin{cases}x+3y=10\\\\2x-y=6\\end{cases}|2|sys2|Qual o valor de \\(y\\)?",
+  "78|5|Sistema 2x2|\\begin{cases}4x-y=7\\\\x+y=3\\end{cases}|2|sys2|Qual o valor de \\(x\\)?",
+  "79|5|Sistema 2x2|\\begin{cases}2x-3y=-1\\\\x+y=2\\end{cases}|1|sys2|Qual o valor de \\(y\\)?",
+  "80|5|Sistema 2x2|\\begin{cases}5x-2y=4\\\\2x+y=7\\end{cases}|2|sys2|Qual o valor de \\(x\\)?",
+  "81|5|Sistema 2x2|\\begin{cases}-x+2y=0\\\\x+y=6\\end{cases}|4|sys2|Qual o valor de \\(x\\)?",
+  "82|5|Sistema 2x2|\\begin{cases}3x-y=5\\\\-x+2y=0\\end{cases}|2|sys2|Qual o valor de \\(x\\)?",
+  "83|5|Sistema 2x2|\\begin{cases}10x+5y=20\\\\x-y=2\\end{cases}|2|sys2|Qual o valor de \\(x\\)?",
+  "84|5|Sistema 2x2|\\begin{cases}x+y=0\\\\2x-y=6\\end{cases}|2|sys2|Qual o valor de \\(x\\)?",
+  "85|5|Sistema 2x2|\\begin{cases}7x-3y=11\\\\x+3y=13\\end{cases}|3|sys2|Qual o valor de \\(x\\)?",
+
+  // NÍVEL 6: Sistemas 3x3 e Propriedades (86 a 100)
+  "86|6|Sistema 3x3 Diagonal|\\begin{cases}x=1\\\\y=2\\\\z=3\\end{cases}|3|sys3|Qual o valor de \\(z\\)?",
+  "87|6|Sistema 3x3 Triangular|\\begin{cases}x+y+z=6\\\\y+z=5\\\\z=3\\end{cases}|2|sys3|Qual o valor de \\(y\\)?",
+  "88|6|Sistema 3x3 Triangular|\\begin{cases}2x+y+z=7\\\\y+z=3\\\\z=1\\end{cases}|2|sys3|Qual o valor de \\(x\\)?",
+  "89|6|Sistema 3x3|\\begin{cases}x+y+z=6\\\\x-y+z=2\\\\x+y-z=0\\end{cases}|3|sys3|Qual o valor de \\(z\\)?",
+  "90|6|Sistema 3x3|\\begin{cases}x+y+z=6\\\\x-y+z=2\\\\x+y-z=0\\end{cases}|2|sys3|Qual o valor de \\(y\\)?",
+  "91|6|Propriedade Det|\\text{Se } \\det(A) = 3 \\text{, quanto vale } \\det(A^t)?|3|prop|Digite o valor numérico.",
+  "92|6|Propriedade Det|\\text{Se A é } 2\\times2 \\text{ e } \\det(A)=5\\text{, ache } \\det(2A)|20|prop|Dica: \\(\\det(kA) = k^n \\det(A)\\). Digite o valor.",
+  "93|6|Propriedade Det|\\text{Se } \\det(A)=2 \\text{ e } \\det(B)=4 \\text{, ache } \\det(AB)|8|prop|Dica: \\(\\det(AB) = \\det(A) \\cdot \\det(B)\\). Digite o valor.",
+  "94|6|Equação com Det|\\begin{vmatrix} x & 2 \\\\ 3 & 4 \\end{vmatrix} = 10|4|eqDet|Encontre o valor de \\(x\\).",
+  "95|6|Equação com Det|\\begin{vmatrix} 2 & x \\\\ 1 & 3 \\end{vmatrix} = 0|6|eqDet|Encontre o valor de \\(x\\) para o det nulo.",
+  "96|6|Equação com Det|\\begin{vmatrix} x & x \\\\ 2 & 4 \\end{vmatrix} = 6|3|eqDet|Encontre o valor de \\(x\\).",
+  "97|6|Equação com Det|\\begin{vmatrix} x & 1 \\\\ 1 & x \\end{vmatrix} = 0|1|eqDet|Qual o valor positivo de \\(x\\)?",
+  "98|6|Sistema Impossível|\\begin{cases}x+y=2\\\\x+y=k\\end{cases}|2|prop|Para qual valor de \\(k\\) o sistema tem infinitas soluções?",
+  "99|6|Propriedade da Identidade|\\text{Matriz } I \\text{ é a Identidade } 3\\times3 \\text{. Ache } \\det(I)|1|prop|Digite o valor numérico.",
+  "100|6|Inversa|\\text{Se } \\det(A) = 4 \\text{, ache } \\det(A^{-1})|0.25|prop|Digite o valor em decimal (ex: 0.5)."
+];
+
+const E = rawExercises.map(line => {
+  const p = line.split('|');
+  return { id: parseInt(p[0]), level: parseInt(p[1]), title: p[2], expr: p[3], ans: p[4], type: p[5], q: p[6] };
+});
+
+function solutionSteps(ex){
+  const S=[];
+  if(ex.type==='opBasica'){
+    S.push(['1','Identifique o elemento correspondente em cada matriz. A posição \\(c_{ij}\\) depende de \\(a_{ij}\\) e \\(b_{ij}\\).']);
+    S.push(['2','Faça a operação matemática simples (soma, subtração ou multiplicação por número fora da matriz).']);
+    S.push(['3',`O resultado procurado é \\(${ex.ans}\\).`]);
+  }
+  else if(ex.type==='matMul'){
+    S.push(['1','Identifique a Linha da primeira matriz e a Coluna da segunda matriz.']);
+    S.push(['2','Multiplique o 1º com o 1º, o 2º com o 2º, e assim por diante. Depois some os resultados.']);
+    S.push(['3',`O resultado do cruzamento é \\(${ex.ans}\\).`]);
+  }
+  else if(ex.type==='det2'){
+    S.push(['1','Multiplique a diagonal principal (desce para a direita).']);
+    S.push(['2','Multiplique a diagonal secundária (sobe para a direita).']);
+    S.push(['3',`Subtraia a secundária da principal. Resultado: \\(${ex.ans}\\).`]);
+  }
+  else if(ex.type==='det3'){
+    S.push(['1','Copie as duas primeiras colunas à direita da matriz original (Regra de Sarrus).']);
+    S.push(['2','Calcule a soma das multiplicações das 3 diagonais principais.']);
+    S.push(['3','Calcule a soma das multiplicações das 3 diagonais secundárias.']);
+    S.push(['4',`Subtraia a soma secundária da soma principal. Resultado: \\(${ex.ans}\\).`]);
+  }
+  else if(ex.type.startsWith('sys')){
+    S.push(['1','Escreva o sistema na forma de matrizes ou prepare a Regra de Cramer.']);
+    S.push(['2','Calcule o Determinante Principal \\(D\\).']);
+    S.push(['3','Calcule o Determinante da variável desejada (\\(D_x\\), \\(D_y\\) ou \\(D_z\\)).']);
+    S.push(['4',`Divida para encontrar o valor: \\(${ex.ans}\\).`]);
+  }
+  else {
+    S.push(['1','Lembre-se das propriedades dos determinantes e matrizes.']);
+    S.push(['2',`A resolução direta leva ao valor \\(${ex.ans}\\).`]);
+  }
+  return S;
+}
+
+let solved = new Set(JSON.parse(localStorage.getItem('matSolved')||'[]'));
+let currentLevel = 'all';
+
+function renderExercises(){
+  let list = E.filter(e => (currentLevel==='all' || e.level == currentLevel));
+  
+  $('exercise-list').innerHTML=list.map(ex=>{
+    const done = solved.has(ex.id);
+    return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between gap-3">
+          <span class="text-xs font-black px-2.5 py-1 rounded-full bg-violet-50 text-violet-700">Q. ${ex.id}</span>
+          <span class="text-xs text-slate-400">${ex.title}</span>
+        </div>
+        <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-4 text-center overflow-x-auto min-h-[80px] flex items-center justify-center">
+          ${mathDisplay(ex.expr)}
+        </div>
+        <div class="text-sm font-bold text-slate-600 mt-4">${ex.q}</div>
+      </div>
+      
+      <div class="mt-4">
+        <div class="flex gap-2">
+          <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:border-violet-500 focus:ring-1 focus:ring-violet-500 outline-none" placeholder="Sua resposta (número)">
+          <button onclick="check(${ex.id})" class="bg-violet-600 hover:bg-violet-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Verificar</button>
+        </div>
+        <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px]"></div>
+        <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-violet-700 hover:underline">👁 Ver Dica / Resolução</button>
+        
+        <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+          <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Passo a Passo</div>
+          ${solutionSteps(ex).map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+          <div class="success rounded-xl p-3 mt-2 text-center font-bold">Gabarito: ${ex.ans}</div>
+        </div>
+      </div>
+    </article>`
+  }).join('');
+  
+  $('progress-text').textContent=`${solved.size} / 100`;
+  $('progress-bar').style.width=(solved.size)+'%';
+  renderAll();
+}
+
+function check(id){
+  const ex = E.find(x=>x.id===id);
+  // Pega a resposta, limpa espaços, troca vírgula por ponto.
+  const raw = $('answer-'+id).value.trim().replace(/\s+/g, '').replace(',', '.');
+  const fb = $('feedback-'+id);
+  
+  if (raw === ex.ans) {
+    solved.add(id);
+    localStorage.setItem('matSolved',JSON.stringify([...solved]));
+    fb.className='text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent='✓ Perfeito! Acertou na mosca.';
+  } else {
+    fb.className='text-sm font-bold mt-2 text-red-600';
+    fb.textContent='✗ Incorreto. Tente revisar as contas.';
+  }
+  renderExercises();
+}
+
+function toggleSol(id){ $('solution-'+id).classList.toggle('hidden'); }
+
+document.querySelectorAll('.level-btn').forEach(b=>{
+  b.onclick = () => {
+    currentLevel = b.dataset.level;
+    document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderExercises();
+  }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+});
+</script>
+</body>
+</html>

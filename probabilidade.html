@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Probabilidade — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root { --ink: #082f49; --paper: #f0f9ff; --line: #bae6fd; --accent: #0284c7; --accent-light: #e0f2fe; }
+  body { background: #f8fafc; color: var(--ink); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 800; }
+  
+  /* Padrão de fundo pontilhado/gradeado leve */
+  .paper {
+    background: var(--paper);
+    background-image: radial-gradient(#7dd3fc 1px, transparent 1px);
+    background-size: 1.5rem 1.5rem;
+    border: 1px solid #bae6fd;
+    box-shadow: 0 8px 24px rgba(2, 132, 199, 0.05);
+  }
+  
+  .step {
+    position: relative; padding: 1rem 1rem 1rem 3.2rem; 
+    border: 1px solid #e2e8f0; border-radius: 1rem; background: white;
+  }
+  .step::before {
+    content: attr(data-step); position: absolute; left: 1rem; top: 1rem; 
+    width: 1.65rem; height: 1.65rem; border-radius: 999px; 
+    background: var(--accent-light); color: var(--accent); 
+    font-weight: 800; display: grid; place-items: center; font-size: .8rem;
+  }
+  
+  .level-btn.active { background: var(--accent); color: white; }
+  .exercise-solution { animation: fade .2s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(-3px) } to { opacity: 1; transform: none } }
+  
+  .tip { border-left: 4px solid #f59e0b; background: #fffbeb; }
+  .success { border-left: 4px solid #10b981; background: #ecfdf5; }
+  .warning { border-left: 4px solid #ef4444; background: #fef2f2; }
+
+  /* Bolas da Urna */
+  .ball { width: 2.5rem; height: 2.5rem; border-radius: 999px; display: grid; place-items: center; font-weight: bold; color: white; box-shadow: inset -4px -4px 10px rgba(0,0,0,0.2), 2px 2px 5px rgba(0,0,0,0.1); }
+  .ball-red { background: #ef4444; }
+  .ball-blue { background: #3b82f6; }
+  .ball-green { background: #10b981; }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-sky-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+    <div class="font-black text-lg sm:text-xl text-sky-900">🎲 Probabilidade</div>
+    <div class="text-[11px] text-slate-500 hidden sm:block">A matemática da incerteza e do risco</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">⚙️ Ferramentas</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-sky-950 via-sky-800 to-blue-950 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-sky-300">Curso Completo</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">A Matemática da Sorte</h1>
+  <p class="mt-4 max-w-3xl text-sky-100 leading-7">Na probabilidade, prevemos o futuro usando frações. Se você entender a diferença entre o Universo das possibilidades e o Mundo do que você quer que aconteça, metade da matéria está dominada.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">10</b><div class="text-xs text-sky-300">passos lógicos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-sky-300">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-sky-300">resoluções em frações</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">👁</b><div class="text-xs text-sky-300">laboratório da urna</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm">
+  <b>Como estudar este módulo:</b> Toda questão de probabilidade se resume a uma divisão simples: <b>O que eu quero</b> dividido por <b>Tudo o que é possível</b>. A dificuldade real não é a probabilidade, é a contagem (Análise Combinatória)!
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">A Fórmula de Ouro</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">A fórmula mágica de Laplace nos diz que a Probabilidade de um evento \(A\) acontecer, escrita como \(P(A)\), é o número de casos favoráveis dividido pelo número de casos totais.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg font-bold">
+    \[ P(A) = \frac{n(A)}{n(\Omega)} = \frac{\text{Casos Favoráveis}}{\text{Total de Casos}} \]
+   </div>
+   <p class="mt-4 text-sm text-slate-500">O resultado será sempre uma fração (ou decimal) entre <b>0</b> (Impossível) e <b>1</b> (Certo ou 100%).</p>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Espaço Amostral (\(\Omega\))</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">O Espaço Amostral, representado pela letra grega Ômega (\(\Omega\)), é a <b>lista de tudo o que pode acontecer</b>. É o número que sempre vai no denominador da fração.</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-slate-50 rounded-xl p-4"><b>Um dado comum:</b> \(\Omega = \{1, 2, 3, 4, 5, 6\}\). Portanto, \(n(\Omega) = 6\).</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>Uma moeda comum:</b> \(\Omega = \{\text{Cara}, \text{Coroa}\}\). Portanto, \(n(\Omega) = 2\).</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>Um baralho padrão:</b> Contém 52 cartas no total. Logo, \(n(\Omega) = 52\).</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">3</span><h2 class="text-xl font-black">O que é o "Evento"?</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">O Evento (\(A\)) é exatamente <b>o que a questão perguntou</b>. É um pedaço (subconjunto) do espaço amostral.</p>
+   <div class="bg-sky-50 rounded-xl p-4 mt-4 text-sm">
+    <b>Exemplo:</b> Qual a probabilidade de tirar um número <b>PAR</b> no dado?<br><br>
+    1. O Universo (\(\Omega\)): \(\{1, 2, 3, 4, 5, 6\}\) (6 casos).<br>
+    2. O Evento (\(A\)): \(\{2, 4, 6\}\) (3 casos favoráveis).<br>
+    3. A Divisão: \(P(A) = \frac{3}{6} = \frac{1}{2}\) (ou 50%).
+   </div>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Probabilidade Complementar</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">A probabilidade de algo <b>NÃO</b> acontecer é o que falta para chegar em 1 (ou 100%). Denotamos por \(P(A^c)\) ou \(P(\overline{A})\).</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    \[ P(\text{NÃO chover}) = 1 - P(\text{chover}) \]
+   </div>
+   <div class="text-sm mt-3 text-slate-600">
+    Se a chance de chover é \(\frac{1}{5}\), a chance de não chover é \(1 - \frac{1}{5} = \frac{4}{5}\).
+   </div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">3</span><h2 class="text-xl font-black">O que é o "Evento"?</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">O Evento ($A$) é exatamente <b>o que a questão perguntou</b>. É um pedaço (subconjunto) do espaço amostral.</p>
+   <div class="bg-sky-50 rounded-xl p-4 mt-4 text-sm">
+    <b>Exemplo:</b> Qual a probabilidade de tirar um número <b>PAR</b> no dado?<br><br>
+    1. O Universo ($\Omega$): $\{1, 2, 3, 4, 5, 6\}$ (6 casos).<br>
+    2. O Evento ($A$): $\{2, 4, 6\}$ (3 casos favoráveis).<br>
+    3. A Divisão: $P(A) = \frac{3}{6} = \frac{1}{2}$ (ou 50%).
+   </div>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Probabilidade Complementar</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">A probabilidade de algo <b>NÃO</b> acontecer é o que falta para chegar em 1 (ou 100%). Denotamos por $P(A^c)$ ou $P(\overline{A})$.</p>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    \[ P(\text{NÃO chover}) = 1 - P(\text{chover}) \]
+   </div>
+   <div class="text-sm mt-3 text-slate-600">
+    Se a chance de chover é $\frac{1}{5}$, a chance de não chover é $1 - \frac{1}{5} = \frac{4}{5}$.
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-sky-900 text-white rounded-2xl border shadow-sm p-6 sm:p-10">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-800 text-sky-100 grid place-items-center font-black">5</span><h2 class="text-3xl font-black">A Regra do "OU" (Adição)</h2></div>
+  <p class="mt-4 text-sky-100 text-lg leading-relaxed">Quando a questão pede a probabilidade de um evento <b>OU</b> outro acontecer, nós <b>somamos</b> as probabilidades. Mas cuidado: se algo pertencer aos dois grupos ao mesmo tempo (interseção), você não pode contar ele duas vezes!</p>
+  
+  <div class="bg-white text-slate-800 rounded-2xl p-6 mt-6 shadow-xl text-center">
+   <div class="text-xl font-black text-sky-700 mb-2">\[ P(A \cup B) = P(A) + P(B) - P(A \cap B) \]</div>
+   <p class="text-sm text-slate-600 mt-4 text-left">
+    <b>Exemplo (Cartas):</b> Probabilidade de tirar um Rei <b>OU</b> uma carta de Copas.<br>
+    - Reis: \(\frac{4}{52}\)<br>
+    - Copas: \(\frac{13}{52}\)<br>
+    - Rei de Copas (contado duas vezes): \(\frac{1}{52}\)
+   </p>
+   <div class="bg-sky-50 text-sky-900 p-4 rounded-xl inline-block mt-3 text-lg font-black shadow-inner">
+     \(\frac{4}{52} + \frac{13}{52} - \frac{1}{52} = \frac{16}{52}\)
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">A Regra do "E" (Multiplicação)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">Quando queremos que o evento A aconteça <b>E DEPOIS</b> o evento B aconteça, nós <b>multiplicamos</b> as frações.</p>
+   <div class="bg-slate-50 rounded-xl p-4 mt-4">
+    <div class="text-center font-bold">\[ P(A \cap B) = P(A) \times P(B) \]</div>
+    <div class="text-xs text-center mt-2 text-slate-500">*Válido se forem eventos Independentes!</div>
+    <p class="text-sm mt-3 border-t pt-2">
+      <b>Exemplo:</b> Jogar duas moedas. Qual a chance de Cara <b>E</b> Cara?<br>
+      \(P(\text{Cara}) \times P(\text{Cara}) = \frac{1}{2} \times \frac{1}{2} = \frac{1}{4}\).
+    </p>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">7</span><h2 class="text-xl font-black">Eventos Independentes</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">Eventos são independentes quando o resultado de um <b>não afeta a memória</b> do outro. A moeda não tem memória!</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="step" data-step="!">Se uma família teve 3 meninas, qual a chance do quarto filho ser menina?</div>
+    <div class="success rounded-xl p-3 text-center font-bold">Continua sendo \(\frac{1}{2}\)! A biologia humana "reseta" o jogo.</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <div class="space-y-6">
+    <article class="bg-white rounded-2xl border p-6 shadow-sm border-l-4 border-l-red-500">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">8</span><h2 class="text-xl font-black">Probabilidade Condicional</h2></div>
+     <p class="mt-3 text-slate-600 text-sm">A palavra mágica aqui é <b>"SABENDO QUE..."</b>. Quando você já sabe que algo aconteceu no passado, o seu Espaço Amostral (Universo) encolhe!</p>
+     <div class="paper rounded-xl p-4 mt-3 text-center">
+      \[ P(A|B) = \frac{P(A \cap B)}{P(B)} \]
+     </div>
+     <div class="bg-slate-50 p-3 rounded-xl mt-3 text-sm">
+       <b>Macete de ouro:</b> Não use a fórmula! Se a questão diz "sabendo que saiu número PAR", apague os ímpares do seu cérebro. O seu novo Universo (\(\Omega\)) não é mais 6, é apenas 3 (2,4,6).
+     </div>
+    </article>
+
+    <article class="bg-white rounded-2xl border p-6 shadow-sm">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">9</span><h2 class="text-xl font-black">Sorteios Sem Reposição</h2></div>
+     <p class="mt-3 text-slate-600 text-sm">É a aplicação prática da condicional. Se eu tiro uma bola de uma urna e <b>não devolvo</b>, a urna foi modificada para o próximo sorteio!</p>
+    </article>
+  </div>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">10</span><h2 class="text-xl font-black">Checklist da Sobrevivência</h2></div>
+   <div class="grid grid-cols-1 gap-3 mt-4 text-sm">
+    <div class="bg-sky-50 border border-sky-100 rounded-xl p-4 text-sky-900">
+      <b>① Encontre o denominador rápido</b><br>Antes de pensar na complicação da questão, pergunte-se: "Quantos casos totais existem?". Ache o denominador e anote.
+    </div>
+    <div class="bg-sky-50 border border-sky-100 rounded-xl p-4 text-sky-900">
+      <b>② Tem a palavra OU?</b><br>Lembre-se de somar as frações. Cuidado extra com o "desconto" das interseções (o que repete).
+    </div>
+    <div class="bg-sky-50 border border-sky-100 rounded-xl p-4 text-sky-900">
+      <b>③ Tem a expressão "Pelo Menos Um"?</b><br>Use a Probabilidade Complementar! Faça 1 (100%) menos a probabilidade de "NENHUM" acontecer. É um atalho gigantesco.
+    </div>
+   </div>
+  </article>
+ </div>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-sky-600">O Simulador Condicional</span>
+   <h1 class="text-3xl font-black mt-2">A Urna da Sorte</h1>
+   <p class="text-slate-600 mt-2">Sorteios <b>com reposição</b> não alteram as probabilidades futuras. Sorteios <b>sem reposição</b> mudam a urna toda! Modifique as quantidades e veja a matemática acontecer.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h3 class="font-bold text-lg mb-4 text-center border-b pb-2">Conteúdo da Urna</h3>
+   
+   <div class="space-y-4">
+       <div class="flex items-center gap-3">
+           <div class="ball ball-red text-sm">V</div>
+           <input type="range" id="lab-red" min="0" max="10" value="4" class="w-full accent-red-500">
+           <span id="lab-red-val" class="font-bold w-6 text-center">4</span>
+       </div>
+       <div class="flex items-center gap-3">
+           <div class="ball ball-blue text-sm">A</div>
+           <input type="range" id="lab-blue" min="0" max="10" value="3" class="w-full accent-blue-500">
+           <span id="lab-blue-val" class="font-bold w-6 text-center">3</span>
+       </div>
+       <div class="flex items-center gap-3">
+           <div class="ball ball-green text-sm">G</div>
+           <input type="range" id="lab-green" min="0" max="10" value="0" class="w-full accent-emerald-500">
+           <span id="lab-green-val" class="font-bold w-6 text-center">0</span>
+       </div>
+   </div>
+   
+   <div class="bg-slate-50 p-3 rounded-lg border mt-6 text-center">
+       <div class="text-xs font-bold text-slate-500 uppercase">Total na Urna (\(\Omega\))</div>
+       <div id="lab-total" class="text-2xl font-black text-sky-700">7</div>
+   </div>
+
+   <div class="mt-6 border-t pt-4">
+      <div class="text-sm font-bold mb-2">Simular Sorteio Duplo:</div>
+      <button onclick="simulateDraw(false)" class="w-full text-sm bg-sky-100 hover:bg-sky-200 text-sky-800 p-2 rounded-lg font-bold mb-2 transition">Sortear 2 (Com Reposição)</button>
+      <button onclick="simulateDraw(true)" class="w-full text-sm bg-red-100 hover:bg-red-200 text-red-800 p-2 rounded-lg font-bold transition">Sortear 2 (SEM Reposição)</button>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col justify-between h-[500px]">
+    <div id="lab-urn-display" class="flex-1 flex flex-wrap content-start gap-2 bg-slate-100 rounded-xl p-4 border border-slate-200 overflow-y-auto mb-4">
+        <!-- Bolas renderizadas aqui -->
+    </div>
+    <div class="border-t pt-4">
+        <h3 class="font-bold text-sky-900 mb-2">Painel de Cálculo:</h3>
+        <div id="lab-result-panel" class="text-sm bg-sky-50 p-4 rounded-xl border border-sky-100 min-h-[120px] flex flex-col justify-center">
+            Mova os controles ou clique nos botões de sorteio para analisar a probabilidade de puxar duas bolas consecutivas da urna.
+        </div>
+    </div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-sky-600">Calculadoras Básicas</span>
+   <h1 class="text-3xl font-black mt-2">Assistente de União e Condicional</h1>
+   <p class="text-slate-600 mt-2">Insira os dados do problema para que o assistente mostre a modelagem da fórmula passo a passo.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">União de Eventos (Regra do OU)</h2>
+   <p class="text-xs text-slate-500 mb-4">Calcule \(P(A \cup B)\) a partir das partes (em frações).</p>
+   
+   <div class="space-y-3 font-mono text-sm">
+      <div class="flex items-center gap-2">P(A) = <input id="tool-pa" type="text" value="1/2" class="border rounded p-1 w-20 text-center" placeholder="a/b"></div>
+      <div class="flex items-center gap-2">P(B) = <input id="tool-pb" type="text" value="1/3" class="border rounded p-1 w-20 text-center" placeholder="a/b"></div>
+      <div class="flex items-center gap-2">P(A \(\cap\) B) = <input id="tool-pab" type="text" value="1/6" class="border rounded p-1 w-20 text-center" placeholder="a/b"></div>
+   </div>
+   <button onclick="calcUnion()" class="w-full mt-4 bg-sky-600 hover:bg-sky-700 transition text-white rounded-xl py-2 font-bold text-sm">Calcular \(P(A \cup B)\)</button>
+   <div id="tool-union-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Condicional (Teorema de Bayes)</h2>
+   <p class="text-xs text-slate-500 mb-4">Descubra \(P(A|B)\) informando a intersecção e o total de B.</p>
+   
+   <div class="space-y-3 font-mono text-sm">
+      <div class="flex items-center gap-2">P(B) = <input id="tool-pb-cond" type="text" value="2/5" class="border rounded p-1 w-20 text-center" placeholder="a/b"></div>
+      <div class="flex items-center gap-2">P(A \(\cap\) B) = <input id="tool-pab-cond" type="text" value="1/10" class="border rounded p-1 w-20 text-center" placeholder="a/b"></div>
+   </div>
+   <button onclick="calcCond()" class="w-full mt-4 bg-blue-600 hover:bg-blue-700 transition text-white rounded-xl py-2 font-bold text-sm">Calcular \(P(A|B)\)</button>
+   <div id="tool-cond-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+     <div>
+       <span class="text-xs font-bold uppercase tracking-widest text-sky-600">Treino progressivo</span>
+       <h1 class="text-3xl font-black mt-2">100 Exercícios em Fração</h1>
+       <p class="text-slate-600 mt-2">Para garantir exatidão, <b>todas as respostas devem ser em formato de fração irredutível</b> (ex: <code>1/2</code>, <code>3/4</code>). Não use decimais.</p>
+     </div>
+     <div class="min-w-[210px]">
+       <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+       <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-sky-600 rounded-full transition-all duration-500" style="width:0%"></div></div>
+     </div>
+   </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 1 (Moedas e Dados)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 2 (Bolas e Cartas)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 3 (Regra do OU)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 4 (Eventos Indep.)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 5 (Condicional)</button>
+   <button data-level="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 6 (Desafios)</button>
+  </div>
+ </div>
+ 
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo educacional de Matemática • Renderizado com KaTeX</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function mathInline(latex){return String.raw`\(${latex}\)`}
+function mathDisplay(latex){return String.raw`\[${latex}\]`}
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Frações úteis
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1}
+function simplifyFrac(n,d){const g=gcd(n,d);return {n:n/g,d:d/g}}
+function parseFracStr(str){
+    const parts = str.trim().split('/');
+    if(parts.length===2 && !isNaN(parts[0]) && !isNaN(parts[1])) return simplifyFrac(+parts[0], +parts[1]);
+    if(parts.length===1 && !isNaN(parts[0])) return {n:+parts[0], d:1};
+    return null;
+}
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+    const t=btn.dataset.tab;
+    sections.forEach(s => $('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active',b===btn));
+    if(t==='exercicios') renderExercises();
+    if(t==='laboratorio') initLab();
+}));
+
+let labInited = false;
+function initLab() {
+  if(!labInited) {
+    ['lab-red','lab-blue','lab-green'].forEach(id => {
+       $(id).addEventListener('input', updateUrn);
+    });
+    labInited = true;
+  }
+  updateUrn();
+}
+
+function updateUrn() {
+  const r = parseInt($('lab-red').value);
+  const b = parseInt($('lab-blue').value);
+  const g = parseInt($('lab-green').value);
+  
+  $('lab-red-val').innerText = r;
+  $('lab-blue-val').innerText = b;
+  $('lab-green-val').innerText = g;
+  
+  const total = r + b + g;
+  $('lab-total').innerText = total;
+
+  let html = '';
+  for(let i=0; i<r; i++) html += '<div class="ball ball-red">V</div>';
+  for(let i=0; i<b; i++) html += '<div class="ball ball-blue">A</div>';
+  for(let i=0; i<g; i++) html += '<div class="ball ball-green">G</div>';
+  
+  if(total === 0) html = '<div class="w-full text-center text-slate-400 py-10 font-bold">A urna está vazia.</div>';
+  
+  $('lab-urn-display').innerHTML = html;
+  $('lab-result-panel').innerHTML = 'Mova os controles ou clique nos botões de sorteio para analisar a probabilidade de puxar duas bolas consecutivas da urna.';
+}
+
+function simulateDraw(withoutRep) {
+    const r = parseInt($('lab-red').value);
+    const b = parseInt($('lab-blue').value);
+    const total = parseInt($('lab-total').innerText);
+    const panel = $('lab-result-panel');
+
+    if(total < 2 && withoutRep) {
+        panel.innerHTML = '<div class="text-red-600 font-bold">Coloque pelo menos 2 bolas na urna para sortear sem reposição.</div>';
+        return;
+    }
+    if(total === 0) return;
+
+    let html = `<div><b>Simulação: Qual a chance de tirar Vermelha seguida de Azul?</b></div>`;
+    
+    // Etapa 1
+    const frac1 = simplifyFrac(r, total);
+    html += `<div class="mt-2"><b>1º Sorteio (Vermelha):</b> \\(P(V_1) = \\frac{${r}}{${total}}\\)` ;
+    if(frac1.d !== total) html += ` \\( = \\frac{${frac1.n}}{${frac1.d}}\\)` ;
+    html += `</div>`;
+
+    // Etapa 2
+    let probB;
+    if (withoutRep) {
+        probB = simplifyFrac(b, total - 1);
+        html += `<div class="mt-2"><b>2º Sorteio (Azul) - Sem Reposição:</b> A urna agora tem ${total-1} bolas no total! O Espaço Amostral diminuiu. <br>\\(P(A_2 | V_1) = \\frac{${b}}{${total-1}}\\)` ;
+        if(probB.d !== total-1) html += ` \\( = \\frac{${probB.n}}{${probB.d}}\\)` ;
+        html += `</div>`;
+    } else {
+        probB = simplifyFrac(b, total);
+        html += `<div class="mt-2"><b>2º Sorteio (Azul) - Com Reposição:</b> A bola vermelha voltou para a urna. Evento Independente! <br>\\(P(A_2) = \\frac{${b}}{${total}}\\)` ;
+        if(probB.d !== total) html += ` \\( = \\frac{${probB.n}}{${probB.d}}\\)` ;
+        html += `</div>`;
+    }
+
+    // Regra do E
+    const finalN = frac1.n * probB.n;
+    const finalD = frac1.d * probB.d;
+    const finalFrac = simplifyFrac(finalN, finalD);
+    html += `<div class="mt-3 border-t border-sky-200 pt-2 font-bold text-sky-800">Chance Final (Regra do E):<br> \\(\\frac{${frac1.n}}{${frac1.d}} \\times \\frac{${probB.n}}{${probB.d}} = \\frac{${finalFrac.n}}{${finalFrac.d}}\\)</div>`;
+
+    panel.innerHTML = html;
+    renderAll();
+}
+
+function calcUnion() {
+    const paStr = $('tool-pa').value;
+    const pbStr = $('tool-pb').value;
+    const pabStr = $('tool-pab').value;
+    const out = $('tool-union-out');
+    
+    const pa = parseFracStr(paStr);
+    const pb = parseFracStr(pbStr);
+    const pab = parseFracStr(pabStr);
+
+    if(!pa || !pb || !pab) {
+        out.innerHTML = '<div class="warning p-3 rounded text-red-700">Erro: Use formato de fração válida (ex: 1/2, 2/5).</div>';
+        out.classList.remove('hidden'); return;
+    }
+
+    // A + B - (A e B)
+    // MMc
+    const m = pa.d * pb.d * pab.d; // Unoptimized LCM, simplify handles it later
+    const n_a = pa.n * (m / pa.d);
+    const n_b = pb.n * (m / pb.d);
+    const n_ab = pab.n * (m / pab.d);
+
+    const finalN = n_a + n_b - n_ab;
+    const finalFrac = simplifyFrac(finalN, m);
+
+    out.innerHTML = `
+      <div class="step" data-step="1">Fórmula: ${mathDisplay('P(A \\cup B) = P(A) + P(B) - P(A \\cap B)')}</div>
+      <div class="step mt-3" data-step="2">Substituindo: ${mathDisplay(`P(A \\cup B) = \\frac{${pa.n}}{${pa.d}} + \\frac{${pb.n}}{${pb.d}} - \\frac{${pab.n}}{${pab.d}}`)}</div>
+      <div class="step mt-3" data-step="3">Reduzindo e Somando (MMC): ${mathDisplay(`\\frac{${n_a} + ${n_b} - ${n_ab}}{${m}} = \\frac{${finalN}}{${m}}`)}</div>
+      <div class="success rounded-xl p-4 mt-4 text-center font-bold">Resultado Final Simplificado: ${mathDisplay(`\\frac{${finalFrac.n}}{${finalFrac.d}}`)}</div>
+    `;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+function calcCond() {
+    const pbStr = $('tool-pb-cond').value;
+    const pabStr = $('tool-pab-cond').value;
+    const out = $('tool-cond-out');
+    
+    const pb = parseFracStr(pbStr);
+    const pab = parseFracStr(pabStr);
+
+    if(!pb || !pab) {
+        out.innerHTML = '<div class="warning p-3 rounded text-red-700">Erro: Use formato de fração válida (ex: 1/2, 2/5).</div>';
+        out.classList.remove('hidden'); return;
+    }
+
+    // P(A|B) = P(A e B) / P(B)
+    const top = pab;
+    const bottom = pb;
+    
+    // divisão de frações: top * (invertida do bottom)
+    const finalN = top.n * bottom.d;
+    const finalD = top.d * bottom.n;
+    const finalFrac = simplifyFrac(finalN, finalD);
+
+    out.innerHTML = `
+      <div class="step" data-step="1">Fórmula: ${mathDisplay('P(A|B) = \\frac{P(A \\cap B)}{P(B)}')}</div>
+      <div class="step mt-3" data-step="2">Substituindo frações: ${mathDisplay(`P(A|B) = \\frac{\\frac{${top.n}}{${top.d}}}{\\frac{${bottom.n}}{${bottom.d}}}`)}</div>
+      <div class="step mt-3" data-step="3">Divisão de frações (mantém a primeira, multiplica pelo inverso da segunda): ${mathDisplay(`\\frac{${top.n}}{${top.d}} \\times \\frac{${bottom.d}}{${bottom.n}} = \\frac{${finalN}}{${finalD}}`)}</div>
+      <div class="success rounded-xl p-4 mt-4 text-center font-bold">Resultado Final Simplificado: ${mathDisplay(`\\frac{${finalFrac.n}}{${finalFrac.d}}`)}</div>
+    `;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+// Formato: id|level|title|question_text|answer|type|hint_expr
+
+const rawExercises = [
+  // NÍVEL 1: Moedas e Dados Básicos (1 a 15)
+  "1|1|Moeda Simples|Qual a probabilidade de jogar uma moeda e dar Cara?|1/2|basic|P(Cara)",
+  "2|1|Dado Simples|Qual a probabilidade de jogar um dado perfeito e sair o número 4?|1/6|basic|P(4)",
+  "3|1|Dado Simples|Qual a probabilidade de jogar um dado e sair um número par?|1/2|basic|P(Par)",
+  "4|1|Dado Simples|Qual a probabilidade de sair um número maior que 4 num dado de 6 faces?|1/3|basic|P(>4)",
+  "5|1|Dado Simples|Qual a probabilidade de sair um número ímpar no lançamento de um dado?|1/2|basic|P(Ímpar)",
+  "6|1|Dado Simples|Qual a probabilidade de sair um número menor que 3 no dado?|1/3|basic|P(<3)",
+  "7|1|Urna Pequena|Urna tem 2 bolas brancas e 3 pretas. Prob. de tirar branca?|2/5|basic|P(Branca)",
+  "8|1|Urna Pequena|Urna tem 2 bolas brancas e 3 pretas. Prob. de tirar preta?|3/5|basic|P(Preta)",
+  "9|1|Roleta Simples|Roleta de 8 fatias, 2 vermelhas. Probabilidade de parar na vermelha?|1/4|basic|P(Vermelho)",
+  "10|1|Sorteio Turma|Turma de 10 meninos e 15 meninas. Sorteio de aluno. Chance de menina?|3/5|basic|P(Menina)",
+  "11|1|Sorteio Turma|Turma de 20 pessoas, 5 usam óculos. Chance de sortear quem usa óculos?|1/4|basic|P(Óculos)",
+  "12|1|Dias da Semana|Sortear um dia da semana aleatório. Chance de começar com 'S' (Segunda, Sexta, Sábado)?|3/7|basic|P(Letra S)",
+  "13|1|Letras|Sorteio de letra da palavra MATEMATICA (10 letras, 3 'A's). Chance de tirar 'A'?|3/10|basic|P(Letra A)",
+  "14|1|Múltiplos|Sortear um número de 1 a 10. Chance de ser múltiplo de 3 (3,6,9)?|3/10|basic|P(Múltiplo 3)",
+  "15|1|Múltiplos|Sortear de 1 a 10. Chance de ser par?|1/2|basic|P(Par)",
+
+  // NÍVEL 2: Espaço Amostral Maior, Baralho, 2 Dados (16 a 30)
+  "16|2|Baralho 52 Cartas|Probabilidade de retirar um Ás num baralho padrão (52 cartas, 4 ases)?|1/13|basic|P(Ás)",
+  "17|2|Baralho 52 Cartas|Probabilidade de retirar uma carta de Copas (13 cartas num naipe)?|1/4|basic|P(Copas)",
+  "18|2|Baralho 52 Cartas|Probabilidade de retirar um Rei Vermelho (Ouros ou Copas)?|1/26|basic|P(Rei Vermelho)",
+  "19|2|Baralho 52 Cartas|Probabilidade de tirar uma figura (Valete, Dama, Rei de 4 naipes = 12 cartas)?|3/13|basic|P(Figura)",
+  "20|2|Dois Dados|Jogar dois dados. O espaço amostral é 36. Prob. de sair (6,6)?|1/36|basic|P(6 e 6)",
+  "21|2|Dois Dados|Jogar 2 dados. Quantos casos a SOMA dá 7? (1,6; 2,5; 3,4...). Probabilidade?|1/6|basic|P(Soma 7)",
+  "22|2|Dois Dados|Jogar 2 dados. Probabilidade da SOMA ser 2?|1/36|basic|P(Soma 2)",
+  "23|2|Dois Dados|Jogar 2 dados. Probabilidade de saírem números iguais? (1,1; 2,2...)|1/6|basic|P(Iguais)",
+  "24|2|Letras do Alfabeto|Sorteio de letra do alfabeto (26). Chance de ser vogal (5)?|5/26|basic|P(Vogal)",
+  "25|2|Duas Moedas|Jogar 2 moedas. (CC, CK, KC, KK). Chance de 2 Caras (CC)?|1/4|basic|P(CC)",
+  "26|2|Duas Moedas|Jogar 2 moedas. Chance de dar exatamente 1 Cara (CK ou KC)?|1/2|basic|P(1 Cara)",
+  "27|2|Três Moedas|Jogar 3 moedas. Espaço é 8. Chance de 3 Coroas?|1/8|basic|P(KKK)",
+  "28|2|Família|Casal planeja 2 filhos. Chance de menino e menina em qualquer ordem? (MM, MF, FM, FF)|1/2|basic|P(Casal misto)",
+  "29|2|Família|Casal planeja 3 filhos. Chance de todas meninas?|1/8|basic|P(FFF)",
+  "30|2|Bolas Numeradas|Urna com bolas 1 a 20. Chance de tirar primo (2,3,5,7,11,13,17,19)?|2/5|basic|P(Primo)",
+
+  // NÍVEL 3: Regra do OU e Complementar (31 a 45)
+  "31|3|União Simples|Cartas: Chance de tirar um Ás (4) OU um Rei (4)?|2/13|or_disj|P(A) + P(R)",
+  "32|3|União Simples|Urna 1 a 10. Chance de ser 2 OU 3?|1/5|or_disj|P(2) + P(3)",
+  "33|3|União Intersecção|Dado: Prob. de número Par (3/6) OU maior que 4 (2/6). (Nota: 6 é par e >4)|2/3|or_rule|P(Par) + P(>4) - P(Par \\cap >4)",
+  "34|3|União Intersecção|Cartas: Prob. de Ás (4/52) OU Copas (13/52). (Tem 1 Ás de copas)|4/13|or_rule|P(Ás) + P(Copas) - P(Ás de Copas)",
+  "35|3|União Intersecção|1 a 20. Ser múltiplo de 2 (10) OU múltiplo de 5 (4). (Comum: 10,20)|3/5|or_rule|P(M2) + P(M5) - P(M10)",
+  "36|3|União Intersecção|Num grupo de 100: 40 falam Ing, 30 Esp, 10 ambos. Prob. falar Ing OU Esp?|3/5|or_rule|P(I \\cup E)",
+  "37|3|União Intersecção|Baralho: Probabilidade de carta Preta (26) OU Figura (12). (Negras figuras = 6)|8/13|or_rule|P(P) + P(F) - P(P \\cap F)",
+  "38|3|União Simples|Roleta 1-12. Ser par (6) OU múltiplo de 5 (5,10). O 10 é comum.|7/12|or_rule|P(Par) + P(M5) - P(10)",
+  "39|3|Complementar|Chance de chover é 2/7. Chance de não chover?|5/7|comp|1 - 2/7",
+  "40|3|Complementar|Dado: chance de não sair 5.|5/6|comp|1 - 1/6",
+  "41|3|Complementar|Duas moedas: Prob de pelo menos 1 Cara. (1 - P(Zero Caras))|3/4|comp|1 - P(K,K)",
+  "42|3|Complementar|Dois dados: chance da soma NÃO ser 12.|35/36|comp|1 - P(6,6)",
+  "43|3|Complementar|3 moedas: Pelo menos uma cara (1 - P(todas coroas))|7/8|comp|1 - 1/8",
+  "44|3|Complementar|Em 10 peças, 2 com defeito. Retirar uma e não ser defeituosa?|4/5|comp|1 - 2/10",
+  "45|3|Regra do OU|Num grupo de 50: 10 amam café, 5 amam chá, 0 amam os dois. Chance amar um dos dois?|3/10|or_disj|P(C) + P(Ch)",
+
+  // NÍVEL 4: Regra do E - Independentes / Sorteio com Reposição (46 a 65)
+  "46|4|Regra do E (Moedas)|Moeda e Dado: Chance de dar Cara na moeda E 6 no dado? (1/2 * 1/6)|1/12|and_rule|P(C) \\times P(6)",
+  "47|4|Regra do E|Duas roletas de 4 cores (V,A,B,G). Girar ambas. Chance de V em ambas? (1/4 * 1/4)|1/16|and_rule|P(V) \\times P(V)",
+  "48|4|Com Reposição|Urna com 5 Brancas e 5 Pretas. Puxar duas com reposição. Chance das duas Brancas?|1/4|and_rule|(1/2) \\times (1/2)",
+  "49|4|Com Reposição|Urna 2 V e 3 A (Total 5). Puxar 2 com reposição. Chance V E V?|4/25|and_rule|(2/5) \\times (2/5)",
+  "50|4|Com Reposição|Baralho: Puxar uma, repor, puxar outra. Chance de Ás nas duas?|1/169|and_rule|(1/13) \\times (1/13)",
+  "51|4|Independentes|Atirador A acerta 1/2. B acerta 1/3. Ambos atiram. Chance de ambos acertarem?|1/6|and_rule|P(A) \\times P(B)",
+  "52|4|Independentes|Três moedas. Chance de Cara, Coroa, Cara (nessa ordem)? (1/2 * 1/2 * 1/2)|1/8|and_rule|1/2 \\times 1/2 \\times 1/2",
+  "53|4|Regra E + Complementar|Atirador A acerta 2/3. B acerta 1/4. Chance de AMBOS ERRAREM? (1/3 * 3/4)|1/4|and_rule|P(Errar_A) \\times P(Errar_B)",
+  "54|4|Dado e Moeda|Dado (maior que 4) E Moeda (Coroa). (1/3 * 1/2)|1/6|and_rule|(2/6) \\times (1/2)",
+  "55|4|Sem ordem específica|Duas moedas: Chance de dar resultados diferentes (Cara/Coroa ou Coroa/Cara). (1/2*1/2 + 1/2*1/2)|1/2|and_rule_sum|P(CK) + P(KC)",
+  "56|4|Urna com Reposição|4 Verdes, 6 Vermelhas. 2 sorteios com reposição. Verde E Vermelha (ordem fixa)? (4/10 * 6/10)|6/25|and_rule|(2/5) \\times (3/5)",
+  "57|4|Sinal|Sinal A fica verde 1/3 do tempo. Sinal B, 1/4. Pegar os 2 verdes?|1/12|and_rule|(1/3) \\times (1/4)",
+  "58|4|Sinal e Complementar|Sinais A(1/3 verde) e B(1/4 verde). Pegar ambos NÃO verdes? (2/3 * 3/4)|1/2|and_rule|(2/3) \\times (3/4)",
+  "59|4|3 dados|3 dados de 6 faces. Chance de dar 6 em todos?|1/216|and_rule|(1/6)^3",
+  "60|4|Misto de E|Atirador acerta 1/5. Atira 2x. Chance de acertar 1º e errar 2º? (1/5 * 4/5)|4/25|and_rule|(1/5) \\times (4/5)",
+  "61|4|Urna Reposição|Urna 1B, 2P. 2 Sorteios com Repos. Prob B e P (nessa ordem)? (1/3 * 2/3)|2/9|and_rule|(1/3) \\times (2/3)",
+  "62|4|Urna Reposição|Mesma Urna (1B, 2P). Prob P e P? (2/3 * 2/3)|4/9|and_rule|(2/3) \\times (2/3)",
+  "63|4|Cartas Repos|Puxar 2 cartas c/ reposição. Probabilidade de 2 ouros? (1/4 * 1/4)|1/16|and_rule|(1/4) \\times (1/4)",
+  "64|4|Loteria Simples|Urna com 10 bolas (0 a 9). Sorteio 3x c/ rep. Qual prob da senha ser 1-2-3?|1/1000|and_rule|(1/10)^3",
+  "65|4|Senhas|Senha 2 letras (A,B,C,D) repetíveis. Prob ser 'AA'?|1/16|and_rule|(1/4) \\times (1/4)",
+
+  // NÍVEL 5: Sem Reposição e Condicional Direta (66 a 85)
+  "66|5|Sem Reposição 1|Urna 2 B e 3 P (total 5). Duas sem reposição. B e depois P? (2/5 * 3/4)|3/10|cond_mul|(2/5) \\times (3/4)",
+  "67|5|Sem Reposição 1|Urna 3 V e 2 A (total 5). Duas sem reposição. V e V? (3/5 * 2/4)|3/10|cond_mul|(3/5) \\times (2/4)",
+  "68|5|Sem Reposição 1|Baralho (52). Duas cartas sem rep. Duas copas? (13/52 * 12/51)|1/17|cond_mul|(1/4) \\times (12/51)",
+  "69|5|Sem Reposição 1|Baralho (52). Puxar 2 sem rep. Ás e depois Ás? (4/52 * 3/51)|1/221|cond_mul|(1/13) \\times (3/51)",
+  "70|5|Caixa de bombons|10 bombons (6 morango, 4 coco). Comer 2. Coco e Coco? (4/10 * 3/9)|2/15|cond_mul|(4/10) \\times (3/9)",
+  "71|5|Caixa de bombons|Mesma (6 M, 4 C). Morango e depois Coco? (6/10 * 4/9)|4/15|cond_mul|(6/10) \\times (4/9)",
+  "72|5|Sorteio de Alunos|Turma (4M, 6F, total 10). Sortear 2 sem rep. Mulher e Homem (ordem fixa)? (6/10 * 4/9)|4/15|cond_mul|(6/10) \\times (4/9)",
+  "73|5|Condicional Reduzida|Dado: Sabe-se que deu PAR (2,4,6). Qual chance de ser o 4? Universo=3.|1/3|cond_reduce|P(4 \\text{ dado que é Par})",
+  "74|5|Condicional Reduzida|Dado: Sabe-se que é > 3 (4,5,6). Prob de ser Par (4,6)?|2/3|cond_reduce|P(\\text{Par} | >3)",
+  "75|5|Condicional Reduzida|Cartas: É preta. Prob ser o Ás de espadas? (Ás preto espadas=1, Cartas pretas=26)|1/26|cond_reduce|P(\\text{Ás Esp} | \\text{Preta})",
+  "76|5|Condicional Reduzida|Urna de 1 a 10. Sabe-se que é Ímpar (1,3,5,7,9). Prob ser Múltiplo de 3 (3,9)?|2/5|cond_reduce|P(M3 | \\text{Ímpar})",
+  "77|5|Dois dados cond.|Jogar 2 dados. SOMA deu 6 {(1,5),(2,4),(3,3),(4,2),(5,1)}. Prob de 3 no 1º dado?|1/5|cond_reduce|P(1^\\circ\\text{ ser 3} | \\text{Soma 6})",
+  "78|5|Dois dados cond.|2 dados. SOMA deu 7 (6 casos). Prob de o primeiro dado ser Par (2,5; 4,3; 6,1)?|1/2|cond_reduce|P(1^\\circ\\text{ Par} | \\text{Soma 7})",
+  "79|5|Tabela Cruzada|30 pessoas. 10 homens (4 com óculos), 20 mulheres (6 com óculos). Sorteou homem, prob usar óculos?|2/5|cond_reduce|4/10",
+  "80|5|Tabela Cruzada|Mesmo grupo (10 com óculos no total). Sorteou pessoa com óculos. Prob ser Mulher?|3/5|cond_reduce|6/10",
+  "81|5|Sem repetição longa|3 cartas sem rep. 3 Copas? (13/52 * 12/51 * 11/50)|11/850|cond_mul|(1/4) \\times (12/51) \\times (11/50)",
+  "82|5|Meias|Gaveta 2 meias pretas, 2 azuis. Puxar 2 no escuro sem rep. 2 pretas? (2/4 * 1/3)|1/6|cond_mul|(2/4) \\times (1/3)",
+  "83|5|Meias|Mesma gaveta. Puxar 2 pretas OU 2 azuis? P(2P) + P(2A) = 1/6 + 1/6.|1/3|or_disj|(1/6) + (1/6)",
+  "84|5|Condicional Fórmula|Se P(A e B) = 1/8 e P(B) = 1/2. Qual P(A|B)? (1/8 dividido por 1/2)|1/4|cond_form|(1/8) / (1/2)",
+  "85|5|Condicional Fórmula|Se P(A e B) = 2/15 e P(B) = 1/3. Qual P(A|B)?|2/5|cond_form|(2/15) / (1/3)",
+
+  // NÍVEL 6: Desafios e Teorema de Bayes Simples (86 a 100)
+  "86|6|Desafio Ordem|Urna 2 B e 3 P (total 5). 2 sem rep. Prob de bolas de CORES DIFERENTES? (B,P ou P,B = 2/5*3/4 + 3/5*2/4)|3/5|and_rule_sum|3/10 + 3/10",
+  "87|6|Desafio Ordem|2 dados. Prob da SOMA ser > 10? {(5,6), (6,5), (6,6)}|1/12|basic|3/36",
+  "88|6|Desafio Comb.|De 5 rapazes e 3 moças, escolher comissão de 2. Prob de ser rapaz e moça (combinatória ou árvore sem rep vezes 2).|15/28|and_rule_sum|2 \\times (5/8) \\times (3/7)",
+  "89|6|Pelo menos 1|Jogar 2 dados. Chance de ter PELO MENOS UM número 6. (1 - P(Nenhum 6) = 1 - 25/36)|11/36|comp|1 - (5/6)^2",
+  "90|6|Pelo menos 1|4 moedas. Chance de pelo menos 1 cara (1 - todas coroas 1/16).|15/16|comp|1 - (1/2)^4",
+  "91|6|Casais|3 casais (6 pessoas). Escolher 2. Prob de formar casal marido-esposa? (Escolher 1o(100%), o 2o tem q ser par(1/5)).|1/5|basic|(6/6) \\times (1/5)",
+  "92|6|Fábrica Bayes|Máq A faz 60% (1% def). Máq B 40% (2% def). Prob total defeito? (0.6*0.01 + 0.4*0.02 = 0.006+0.008=0.014=14/1000)|7/500|bayes_tot|(6/1000) + (8/1000)",
+  "93|6|Condicional Dado 2|2 dados lançados e são DIFERENTES. (30 casos). Chance soma ser 6? {(1,5), (2,4), (4,2), (5,1)} (O 3,3 não conta)|2/15|cond_reduce|4/30",
+  "94|6|Fábrica Bayes2|3 cofres. 1 tem ouro (prob 1/3). Outro ouro 1/2. Escolhe o de prob 1/3, abre e perde. Prob de ter nos outros?|2/3|basic|Complementar",
+  "95|6|Letras Anagrama|Palavra ROMA (4!). Embaralha. Prob de AMOR (1 anagrama de 24)?|1/24|basic|1 / 24",
+  "96|6|Desafio Anagrama|ROMA. Prob da primeira letra ser A? (Fixa A, permuta resto = 3! / 4!)|1/4|basic|6 / 24",
+  "97|6|Bingo|Saco 1-90. Puxa sem rep. 1ª é < 10 (9). Prob 2ª também ser < 10 (sobram 8 em 89)?|8/89|cond_reduce|8 / 89",
+  "98|6|Dado Viciado|Prob(Par) é dobro de Ímpar. Ímpar=x, Par=2x. 3x+3(2x)=1. Ímpar=1/9, Par=2/9. P(6)?|2/9|algebra|2/9",
+  "99|6|Roleta russa simulada|Tambor de 6 tiros, 1 bala. Gira e atira (sem bala). Puxa o cão e atira (GIRA DE NOVO). P(morrer)?|1/6|basic|Eventos Independentes!",
+  "100|6|Roleta s/ girar|Mesmo tambor(6). 1 bala. Atira, vazia (sobram 5). NÃO gira. Aperta de novo. P(morrer)?|1/5|cond_reduce|Espaço reduzido para 5",
+];
+
+const E = rawExercises.map(line => {
+  const p = line.split('|');
+  return { id: parseInt(p[0]), level: parseInt(p[1]), title: p[2], q: p[3], ans: p[4], type: p[5], hint: p[6] };
+});
+
+function solutionSteps(ex){
+  const S=[];
+  if(ex.type==='basic'){
+    S.push(['1','Encontre o total do Espaço Amostral (Denominador).']);
+    S.push(['2','Encontre o total de Casos Favoráveis, ou seja, o Evento (Numerador).']);
+    S.push(['3',`Divida: Favoráveis / Total = ${mathInline(`\\frac{${ex.ans}}{1}`.replace('/1','').replace('//','/'))}. O resultado simplificado é \\( ${ex.ans} \\).`]);
+  }
+  else if(ex.type.startsWith('or_')){
+    S.push(['1','Você precisa da Regra da Adição (OU). A probabilidade de um mais o outro.']);
+    S.push(['2','Verifique se há Interseção. Há casos que fazem parte dos dois grupos? Se sim, subtraia essa intersecção para não contar dobrado.']);
+    S.push(['3',`Fórmula da União aplicada: ${mathInline(ex.hint)}. Resultado final: \\( ${ex.ans} \\).`]);
+  }
+  else if(ex.type.startsWith('and_')){
+    S.push(['1','O problema exige que dois eventos aconteçam em sequência (Regra do E).']);
+    S.push(['2','Multiplique a probabilidade do 1º evento pela probabilidade do 2º.']);
+    if (ex.type === 'and_rule_sum') S.push(['3','Como a ordem não importa, calcule as duas ordens possíveis e some-as.']);
+    S.push(['4',`Lógica aplicada: ${mathInline(ex.hint)}. Resultado: \\( ${ex.ans} \\).`]);
+  }
+  else if(ex.type==='comp'){
+    S.push(['1','Este é um caso perfeito para Probabilidade Complementar (O que NÃO queremos).']);
+    S.push(['2','Calcule a probabilidade do evento indesejado.']);
+    S.push(['3',`Subtraia de 1 (100%): ${mathInline(ex.hint)}. Resultado: \\( ${ex.ans} \\).`]);
+  }
+  else if(ex.type.startsWith('cond_')){
+    if (ex.type === 'cond_reduce') {
+        S.push(['1','Atenção: A questão deu uma condição prévia ("Sabendo que...").']);
+        S.push(['2','Reduza seu Espaço Amostral (Denominador) apenas para os casos que atendem essa condição.']);
+        S.push(['3',`Com o novo universo, calcule a probabilidade: ${mathInline(ex.hint)} = \\( ${ex.ans} \\).`]);
+    } else {
+        S.push(['1','Evento sem reposição altera a probabilidade do próximo sorteio!']);
+        S.push(['2','Ao tirar uma carta ou bola, você tira 1 do total do denominador para o próximo sorteio, e tira 1 do numerador se puxou o mesmo tipo.']);
+        S.push(['3',`Multiplicando os sorteios seguidos: ${mathInline(ex.hint)} = \\( ${ex.ans} \\).`]);
+    }
+  }
+  else {
+    S.push(['1','Este é um desafio que mistura modelagem, regra do E, regra do OU ou interpretação profunda.']);
+    S.push(['2',`A lógica principal aqui é: ${mathInline(ex.hint)}.`]);
+    S.push(['3',`Resultado calculado de forma rigorosa: \\( ${ex.ans} \\).`]);
+  }
+  return S;
+}
+
+let solved = new Set(JSON.parse(localStorage.getItem('probSolved')||'[]'));
+let currentLevel = 'all';
+
+function renderExercises(){
+  let list = E.filter(e => (currentLevel==='all' || e.level == currentLevel));
+  
+  $('exercise-list').innerHTML=list.map(ex=>{
+    const done = solved.has(ex.id);
+    return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between gap-3">
+          <span class="text-xs font-black px-2.5 py-1 rounded-full bg-sky-50 text-sky-700">Q. ${ex.id}</span>
+          <span class="text-xs text-slate-400">${ex.title}</span>
+        </div>
+        <div class="text-sm font-bold text-slate-700 mt-4 leading-relaxed">${ex.q}</div>
+      </div>
+      
+      <div class="mt-4">
+        <div class="flex gap-2">
+          <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:border-sky-500 focus:ring-1 focus:ring-sky-500 outline-none font-mono" placeholder="Ex: 1/2">
+          <button onclick="check(${ex.id})" class="bg-sky-600 hover:bg-sky-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+        </div>
+        <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px]"></div>
+        <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-sky-700 hover:underline">👁 Ver Resolução Guiada</button>
+        
+        <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+          <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Passo a Passo</div>
+          ${solutionSteps(ex).map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+          <div class="success rounded-xl p-3 mt-2 text-center font-bold">Gabarito: ${mathInline(ex.ans)}</div>
+        </div>
+      </div>
+    </article>`
+  }).join('');
+  
+  $('progress-text').textContent=`${solved.size} / 100`;
+  $('progress-bar').style.width=(solved.size)+'%';
+  renderAll();
+}
+
+function parseUser(v) {
+  v = v.trim().replace(/\s+/g, '');
+  if(v==='') return null;
+  const m = v.match(/^(-?\d+)\/(\d+)$/);
+  if(m && +m[2] !== 0) return simplifyFrac(+m[1], +m[2]);
+  if(!isNaN(+v)) return simplifyFrac(Math.round(+v*10000), 10000); // Decimals edgecase handling
+  return null;
+}
+function same(a, bStr) {
+  if(!a) return false;
+  const b = parseFracStr(bStr);
+  if(!b) return false;
+  return (a.n * b.d === b.n * a.d);
+}
+
+function check(id){
+  const ex = E.find(x=>x.id===id);
+  const raw = $('answer-'+id).value;
+  const v = parseUser(raw);
+  const fb = $('feedback-'+id);
+  
+  if (same(v, ex.ans)) {
+    solved.add(id);
+    localStorage.setItem('probSolved',JSON.stringify([...solved]));
+    fb.className='text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent='✓ Certo! Lógica irretocável.';
+  } else {
+    fb.className='text-sm font-bold mt-2 text-red-600';
+    fb.textContent='✗ Incorreto. Use frações exatas e tente de novo.';
+  }
+  renderExercises();
+}
+
+function toggleSol(id){ $('solution-'+id).classList.toggle('hidden'); }
+
+document.querySelectorAll('.level-btn').forEach(b=>{
+  b.onclick = () => {
+    currentLevel = b.dataset.level;
+    document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderExercises();
+  }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+});
+</script>
+</body>
+</html>

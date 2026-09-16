@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equações de 1º Grau — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#4f46e5;background:#eef2ff;color:#312e81}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  
+  /* Balança CSS */
+  .scale-container { position: relative; width: 100%; max-width: 500px; margin: 2rem auto; padding-bottom: 2rem; }
+  .scale-beam { width: 100%; height: 12px; background: #94a3b8; border-radius: 6px; position: relative; z-index: 10; transition: transform 0.3s; }
+  .scale-base { width: 0; height: 0; border-left: 40px solid transparent; border-right: 40px solid transparent; border-bottom: 60px solid #475569; margin: 0 auto; margin-top: -6px; }
+  .plate-arm { position: absolute; top: 12px; width: 2px; height: 40px; background: #94a3b8; }
+  .plate-arm.left { left: 15%; }
+  .plate-arm.right { right: 15%; }
+  .plate { position: absolute; top: 52px; width: 120px; height: 10px; background: #cbd5e1; border-radius: 5px; transform: translateX(-50%); display: flex; justify-content: center; align-items: flex-end; padding-bottom: 10px; gap: 4px; flex-wrap: wrap; }
+  .plate.left { left: 15%; }
+  .plate.right { right: 15%; }
+  
+  .weight-x { width: 28px; height: 28px; background: #6366f1; color: white; font-weight: bold; border-radius: 4px; display: grid; place-items: center; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  .weight-1 { width: 20px; height: 20px; background: #fbbf24; color: #78350f; font-weight: bold; border-radius: 50%; display: grid; place-items: center; font-size: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">⚖️ Equações do 1º Grau</div><div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo, não decorando</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 A Balança</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Resolvedor</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Curso do zero</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">A arte de encontrar o X</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Resolver uma equação não é um passe de mágica de "passar pro outro lado". É simplesmente manter uma balança equilibrada até que o $x$ fique sozinho.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">8</b><div class="text-xs text-indigo-200">módulos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-indigo-200">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">resolução detalhada</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">⚖️</b><div class="text-xs text-indigo-200">balança virtual</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Regra de Ouro:</b> Uma equação é como uma balança em perfeito equilíbrio. Tudo que você faz de um lado (somar, subtrair, multiplicar ou dividir), <b>DEVE</b> fazer exatamente igual do outro lado para não desequilibrar.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O que é uma Equação?</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">É uma afirmação matemática de que duas coisas têm o mesmo valor. O sinal de igual (\(=\)) é o centro da balança. O seu único objetivo é deixar a letra (\(x\)) completamente sozinha de um dos lados.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-xl font-black">
+    \[ 2x + 3 = 11 \]
+   </div>
+   <div class="grid sm:grid-cols-2 gap-3 text-sm mt-4">
+    <div class="bg-indigo-50 rounded-xl p-4"><b>Membro Esquerdo</b><br>Tudo antes do sinal de igual (\(2x + 3\)).</div>
+    <div class="bg-amber-50 rounded-xl p-4"><b>Membro Direito</b><br>Tudo depois do sinal de igual (\(11\)).</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Soma e Subtração</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Para remover um número que está somando o \(x\), aplicamos a <b>operação inversa</b>: nós o subtraímos. Mas lembre-se: temos que subtrair dos dois lados!</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-sm sm:text-base">
+    <div>\( x + 5 = 12 \)</div>
+    <div class="text-slate-500 mt-2"><i>(Subtraia 5 de ambos os lados)</i></div>
+    <div>\( x + 5 \mathbf{- 5} = 12 \mathbf{- 5} \)</div>
+    <div class="font-black mt-2">\( x = 7 \)</div>
+   </div>
+   <div class="success rounded-xl p-4 mt-4 text-sm">É por isso que as pessoas dizem "passa pro outro lado com o sinal trocado". Na verdade, o \(5\) não viaja, você apenas subtraiu \(5\) de ambos os lados e ele sumiu do lado esquerdo.</div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">3. Multiplicação e Divisão</h2>
+   <p class="mt-3 text-slate-600">Se um número está colado no \(x\) (ex: \(3x\)), ele está multiplicando. A operação inversa é a divisão.</p>
+   <div class="space-y-3 mt-4">
+    <div class="step" data-step="1">Temos a equação: \( 3x = 15 \)</div>
+    <div class="step" data-step="2">O \(3\) multiplica o \(x\). Vamos dividir ambos os lados por 3.</div>
+    <div class="step" data-step="3">\( \frac{3x}{3} = \frac{15}{3} \)<br><br>No lado esquerdo, \(3 \div 3 = 1\), sobrando apenas \(1x\) (ou \(x\)).</div>
+    <div class="step" data-step="4">Resultado final: \( x = 5 \)</div>
+   </div>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. Letras dos dois lados</h2>
+   <p class="mt-3 text-slate-600">Se o \(x\) aparece nos dois pratos da balança, precisamos agrupá-los em um lado só. Trate os blocos de \(x\) da mesma forma que os números.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-sm text-center">
+    <div>\( 5x = 2x + 12 \)</div>
+    <div class="text-slate-500 mt-2"><i>(Remova 2x de ambos os lados)</i></div>
+    <div>\( 5x \mathbf{- 2x} = 2x - 2x + 12 \)</div>
+    <div>\( 3x = 12 \)</div>
+    <div class="text-slate-500 mt-2"><i>(Divida ambos por 3)</i></div>
+    <div class="font-black">\( x = 4 \)</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <h2 class="text-2xl font-black">5. Equações Completas Passo a Passo</h2>
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div>
+    <h3 class="font-bold text-indigo-800">Ordem de ataque:</h3>
+    <ol class="mt-3 space-y-2 text-sm list-decimal list-inside text-slate-700">
+     <li><b>Limpe:</b> Resolva parênteses (distributiva) e junte termos semelhantes do mesmo lado.</li>
+     <li><b>Agrupe os X:</b> Mova todos os termos com incógnita para um lado (geralmente o esquerdo).</li>
+     <li><b>Agrupe os Números:</b> Mova os números soltos para o outro lado.</li>
+     <li><b>Isole:</b> Divida ou multiplique para deixar o \(x\) sozinho com coeficiente 1.</li>
+    </ol>
+   </div>
+   <div class="paper rounded-2xl p-5">
+    <div class="text-sm font-bold text-indigo-700 mb-3">EXEMPLO PRÁTICO</div>
+    <div class="text-sm space-y-3">
+     <div>\( 4x - 5 = x + 7 \)</div>
+     <div><b>1.</b> Tirar o \(x\) da direita: Subtraia \(x\) de ambos os lados. <br>\( 3x - 5 = 7 \)</div>
+     <div><b>2.</b> Tirar o \(5\) da esquerda: Some \(5\) de ambos os lados. <br>\( 3x = 12 \)</div>
+     <div><b>3.</b> Isolar: Divida por 3. <br>\( x = 4 \)</div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">6. A Propriedade Distributiva</h2>
+   <p class="mt-3 text-slate-600">Se houver parênteses com um número multiplicando fora, o "chuveirinho" entra em ação. Multiplique o número de fora por <b>todos</b> os termos lá dentro.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-sm">
+    <div>\( 2(x + 4) = 18 \)</div>
+    <div class="text-slate-500 mt-2"><i>(Multiplique 2 por x e 2 por 4)</i></div>
+    <div>\( 2x + 8 = 18 \)</div>
+    <div class="text-slate-500 mt-2"><i>(Subtraia 8 dos dois lados)</i></div>
+    <div>\( 2x = 10 \implies x = 5 \)</div>
+   </div>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">7. Equações com Frações</h2>
+   <p class="mt-3 text-slate-600">Frações assustam? A dica de ouro é eliminá-las logo no início multiplicando <b>todos os termos</b> da equação pelo MMC dos denominadores.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-sm">
+    <div>\( \frac{x}{3} + 2 = 5 \)</div>
+    <div class="text-slate-500 mt-2"><i>(Multiplique tudo por 3)</i></div>
+    <div>\( \left(\frac{x}{3} \times 3\right) + (2 \times 3) = (5 \times 3) \)</div>
+    <div>\( x + 6 = 15 \)</div>
+    <div>\( x = 9 \)</div>
+   </div>
+  </article>
+ </div>
+</section>
+
+<!-- LAB -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Simulador Algébrico</span>
+  <h1 class="text-3xl font-black mt-2">A Balança das Equações</h1>
+  <p class="text-slate-600 mt-2">Uma equação verdadeira sempre está equilibrada. Aplique a mesma operação de ambos os lados para isolar o <span class="bg-indigo-600 text-white px-2 py-0.5 rounded">x</span> em um dos pratos.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[1fr_300px] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col justify-between">
+   
+   <div class="text-center font-black text-2xl text-indigo-900 mb-8" id="lab-eq-text">
+     3x + 2 = x + 6
+   </div>
+
+   <!-- Visual Balança -->
+   <div class="scale-container">
+    <div class="scale-beam" id="scale-beam">
+     <div class="plate-arm left"></div>
+     <div class="plate-arm right"></div>
+     
+     <div class="plate left" id="plate-left">
+       <!-- Elementos inseridos via JS -->
+     </div>
+     
+     <div class="plate right" id="plate-right">
+       <!-- Elementos inseridos via JS -->
+     </div>
+    </div>
+    <div class="scale-base"></div>
+   </div>
+   
+   <div id="lab-msg" class="text-center font-bold text-emerald-600 mt-4 min-h-[1.5rem]"></div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm space-y-6">
+   <div>
+    <h3 class="font-black text-slate-800 mb-3">Ações nos dois lados</h3>
+    <div class="grid grid-cols-2 gap-2 text-sm font-bold">
+     <button onclick="labAction('addX', 1)" class="bg-indigo-100 hover:bg-indigo-200 text-indigo-800 py-2 rounded-xl transition">Somar [x]</button>
+     <button onclick="labAction('addX', -1)" class="bg-rose-100 hover:bg-rose-200 text-rose-800 py-2 rounded-xl transition">Subtrair [x]</button>
+     <button onclick="labAction('addNum', 1)" class="bg-amber-100 hover:bg-amber-200 text-amber-800 py-2 rounded-xl transition">Somar (1)</button>
+     <button onclick="labAction('addNum', -1)" class="bg-rose-100 hover:bg-rose-200 text-rose-800 py-2 rounded-xl transition">Subtrair (1)</button>
+    </div>
+    <div class="flex gap-2 mt-2">
+      <input type="number" id="lab-div-val" value="2" min="2" max="10" class="border rounded-xl w-16 text-center">
+      <button onclick="labAction('divide')" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-2 px-4 rounded-xl flex-1 transition">Dividir ambos</button>
+    </div>
+   </div>
+   
+   <hr>
+   
+   <div>
+    <h3 class="font-black text-slate-800 mb-3">Novas Equações</h3>
+    <div class="space-y-2 text-sm font-bold">
+     <button onclick="loadLab(3, 2, 1, 6)" class="w-full bg-white border-2 hover:bg-slate-50 py-2 rounded-xl transition">3x + 2 = x + 6</button>
+     <button onclick="loadLab(4, 1, 2, 5)" class="w-full bg-white border-2 hover:bg-slate-50 py-2 rounded-xl transition">4x + 1 = 2x + 5</button>
+     <button onclick="loadLab(2, 6, 4, 0)" class="w-full bg-white border-2 hover:bg-slate-50 py-2 rounded-xl transition">2x + 6 = 4x</button>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Calculadora Didática</span>
+  <h1 class="text-3xl font-black mt-2">Resolvedor Passo a Passo</h1>
+  <p class="text-slate-600 mt-2">Insira os coeficientes para equações no formato <b>Ax + B = Cx + D</b> e veja a mágica acontecer.</p>
+ </div>
+ 
+ <div class="max-w-3xl mx-auto">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex flex-wrap items-center justify-center gap-3 text-xl font-black text-indigo-900 mt-4">
+    <input id="sl-a" type="number" value="5" class="border-2 border-indigo-200 bg-indigo-50 rounded-xl p-2 w-20 text-center">
+    <span>x</span>
+    <select id="sl-op1" class="border-2 border-slate-200 rounded-xl p-2 bg-white"><option value="1">+</option><option value="-1">−</option></select>
+    <input id="sl-b" type="number" value="3" class="border-2 border-slate-200 bg-slate-50 rounded-xl p-2 w-20 text-center">
+    
+    <span class="mx-2">=</span>
+    
+    <input id="sl-c" type="number" value="2" class="border-2 border-emerald-200 bg-emerald-50 rounded-xl p-2 w-20 text-center">
+    <span>x</span>
+    <select id="sl-op2" class="border-2 border-slate-200 rounded-xl p-2 bg-white"><option value="1">+</option><option value="-1" selected>−</option></select>
+    <input id="sl-d" type="number" value="9" class="border-2 border-slate-200 bg-slate-50 rounded-xl p-2 w-20 text-center">
+   </div>
+   
+   <button onclick="solveTool()" class="mt-8 w-full bg-indigo-600 text-white rounded-xl py-4 font-black text-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">Resolver Equação</button>
+   <div id="tool-out" class="paper rounded-xl p-6 mt-6 hidden space-y-4"></div>
+  </div>
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div>
+    <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span>
+    <h1 class="text-3xl font-black mt-2">100 Exercícios Classificados</h1>
+    <p class="text-slate-600 mt-2 text-sm">Responda o valor numérico de \(x\). Se a resposta for uma fração, use a barra (ex: <b>3/2</b> ou <b>-1/4</b>). Clique em conferir para testar.</p>
+   </div>
+   <div class="min-w-[210px]">
+    <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+    <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden">
+     <div id="progress-bar" class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width:0%"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 1 (Básico)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 2 (ax+b=c)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 3 (Ambos Lados)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 4 (Parênteses)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 5 (Frações)</button>
+   <input id="search" placeholder="Buscar questão..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[180px]">
+  </div>
+ </div>
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+
+</main>
+<footer class="border-t bg-white mt-8">
+ <div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">
+  Material interativo de equações de primeiro grau • Renderizado com KaTeX
+ </div>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const mathInline = latex => String.raw`\(${latex}\)`;
+const mathDisplay = latex => String.raw`\[${latex}\]`;
+
+function renderMathIn(element) {
+  if (window.renderMathInElement) {
+    renderMathInElement(element, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });
+  }
+}
+function renderAll() { document.querySelectorAll('body').forEach(el => renderMathIn(el)); }
+
+// Abas
+const sections = ['teoria', 'laboratorio', 'ferramentas', 'exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => 
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.tab;
+    sections.forEach(s => $(`sec-${s}`).classList.toggle('hidden', s !== t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    if (t === 'exercicios') renderExercises();
+    if (t === 'laboratorio') updateLabVisuals();
+  })
+);
+
+// Matemática Helpers (MDC/Simplificação para lidar com Frações nas respostas)
+function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { [a, b] = [b, a % b] } return a || 1; }
+function simplify(n, d) { 
+    if(d < 0) { n = -n; d = -d; } 
+    if(n === 0) return {n: 0, d: 1};
+    const g = gcd(n, d); 
+    return {n: n/g, d: d/g}; 
+}
+function formatFrac(frac) {
+    if (frac.d === 1) return String(frac.n);
+    if (frac.n === 0) return "0";
+    return `\\frac{${frac.n}}{${frac.d}}`;
+}
+
+// Formatação Bonita de Equações (Lida com coeficientes 1, -1, 0, sinais)
+function formatTerm(coeff, variable, isFirst) {
+    if (coeff === 0 && !isFirst) return "";
+    if (coeff === 0 && isFirst) return "0";
+    
+    let str = "";
+    if (coeff < 0) {
+        str += isFirst ? "-" : " - ";
+    } else if (!isFirst) {
+        str += " + ";
+    }
+    
+    let absVal = Math.abs(coeff);
+    if (variable) {
+        if (absVal !== 1) str += absVal;
+        str += variable;
+    } else {
+        str += absVal;
+    }
+    return str;
+}
+function formatEq(a, b, c, d) {
+    let left = formatTerm(a, 'x', true);
+    if (b !== 0 || a === 0) left += formatTerm(b, '', left === "");
+    if (left === "") left = "0";
+    
+    let right = formatTerm(c, 'x', true);
+    if (d !== 0 || c === 0) right += formatTerm(d, '', right === "");
+    if (right === "") right = "0";
+    
+    return `${left} = ${right}`;
+}
+
+// Estado do Laboratório
+let labState = { lx: 3, ln: 2, rx: 1, rn: 6 };
+
+function loadLab(a, b, c, d) {
+    labState = { lx: a, ln: b, rx: c, rn: d };
+    updateLabVisuals();
+    $('lab-msg').innerHTML = "";
+}
+
+function labAction(type, val) {
+    let s = labState;
+    let msg = "";
+    if (type === 'addX') {
+        if (val < 0 && (s.lx <= 0 || s.rx <= 0)) {
+            msg = "Não há bloquinhos [x] suficientes de ambos os lados para retirar.";
+        } else {
+            s.lx += val; s.rx += val;
+            msg = val > 0 ? "Você somou 1 bloco [x] de cada lado." : "Você retirou 1 bloco [x] de cada lado.";
+        }
+    } else if (type === 'addNum') {
+        if (val < 0 && (s.ln <= 0 || s.rn <= 0)) {
+            msg = "Não há unidades (1) suficientes de ambos os lados para retirar.";
+        } else {
+            s.ln += val; s.rn += val;
+            msg = val > 0 ? "Você somou 1 unidade (1) de cada lado." : "Você retirou 1 unidade (1) de cada lado.";
+        }
+    } else if (type === 'divide') {
+        let d = parseInt($('lab-div-val').value);
+        if (d <= 1 || isNaN(d)) { msg = "Divisor inválido."; }
+        else if (s.lx % d !== 0 || s.ln % d !== 0 || s.rx % d !== 0 || s.rn % d !== 0) {
+            msg = `Para usar a balança visual, todos os itens de ambos os lados devem ser divisíveis por ${d}.`;
+        } else {
+            s.lx /= d; s.ln /= d; s.rx /= d; s.rn /= d;
+            msg = `Você dividiu todas as quantidades por ${d}.`;
+        }
+    }
+    
+    updateLabVisuals();
+    if(msg) $('lab-msg').innerHTML = msg;
+    checkLabWin();
+}
+
+function checkLabWin() {
+    let s = labState;
+    if ((s.lx === 1 && s.ln === 0 && s.rx === 0 && s.rn >= 0) ||
+        (s.rx === 1 && s.rn === 0 && s.lx === 0 && s.ln >= 0)) {
+        let ans = s.lx === 1 ? s.rn : s.ln;
+        $('lab-msg').innerHTML = `🎉 Parabéns! Você isolou o x! Concluímos que <b>x = ${ans}</b>`;
+    }
+}
+
+function updateLabVisuals() {
+    let s = labState;
+    $('lab-eq-text').innerText = formatEq(s.lx, s.ln, s.rx, s.rn);
+    
+    // Desenhar esquerda
+    let lHtml = '';
+    for(let i=0; i<s.lx; i++) lHtml += '<div class="weight-x">x</div>';
+    for(let i=0; i<s.ln; i++) lHtml += '<div class="weight-1">1</div>';
+    $('plate-left').innerHTML = lHtml || '<div class="text-xs text-slate-400">Vazio</div>';
+    
+    // Desenhar direita
+    let rHtml = '';
+    for(let i=0; i<s.rx; i++) rHtml += '<div class="weight-x">x</div>';
+    for(let i=0; i<s.rn; i++) rHtml += '<div class="weight-1">1</div>';
+    $('plate-right').innerHTML = rHtml || '<div class="text-xs text-slate-400">Vazio</div>';
+}
+
+function solveTool() {
+    let a = parseInt($('sl-a').value);
+    let b = parseInt($('sl-b').value) * parseInt($('sl-op1').value);
+    let c = parseInt($('sl-c').value);
+    let d = parseInt($('sl-d').value) * parseInt($('sl-op2').value);
+    
+    if(isNaN(a)) a = 0; if(isNaN(b)) b = 0; if(isNaN(c)) c = 0; if(isNaN(d)) d = 0;
+
+    const out = $('tool-out');
+    out.classList.remove('hidden');
+    let html = '';
+    let stepCount = 1;
+
+    html += `<div class="font-black text-center text-xl pb-4 border-b"> ${mathInline(formatEq(a, b, c, d))} </div>`;
+
+    if (a === c) {
+        if (b === d) {
+            html += `<div class="step mt-4" data-step="1">Os lados são idênticos. Esta equação tem <b>infinitas soluções</b> (Identidade).</div>`;
+        } else {
+            html += `<div class="step mt-4" data-step="1">Se os coeficientes de x são iguais, ao tentar agrupá-los obteremos \(0x\). Como ${b} não é igual a ${d}, a equação é <b>impossível</b> (Sem solução).</div>`;
+        }
+        out.innerHTML = html;
+        renderMathIn(out);
+        return;
+    }
+
+    // Step 1: Move X to left (if C != 0)
+    if (c !== 0) {
+        html += `<div class="step mt-4" data-step="${stepCount++}">
+            <b>Isolando os x:</b> Subtraímos o termo que contém \(x\) do lado direito (\(${c < 0 ? c : '+'+c}x\)) de ambos os lados.
+            <div class="mt-2 bg-slate-50 p-3 rounded-lg text-center">
+            ${mathInline(`${formatTerm(a,'x',true)} \\mathbf{${c>0?'-':'+'} ${Math.abs(c)}x} ${formatTerm(b,'',false)} = ${formatTerm(c,'x',true)} \\mathbf{${c>0?'-':'+'} ${Math.abs(c)}x} ${formatTerm(d,'',false)}`)}
+            </div>
+        </div>`;
+        a = a - c;
+        c = 0;
+        html += `<div class="text-center font-bold text-indigo-700 my-2">Equação atualizada: ${mathInline(formatEq(a, b, c, d))}</div>`;
+    }
+
+    // Step 2: Move numbers to right (if B != 0)
+    if (b !== 0) {
+        html += `<div class="step mt-4" data-step="${stepCount++}">
+            <b>Agrupando os números:</b> Removemos o número do lado esquerdo (\(${b < 0 ? b : '+'+b}\)) aplicando a operação inversa de ambos os lados.
+            <div class="mt-2 bg-slate-50 p-3 rounded-lg text-center">
+            ${mathInline(`${formatTerm(a,'x',true)} ${formatTerm(b,'',false)} \\mathbf{${b>0?'-':'+'} ${Math.abs(b)}} = ${d} \\mathbf{${b>0?'-':'+'} ${Math.abs(b)}}`)}
+            </div>
+        </div>`;
+        d = d - b;
+        b = 0;
+        html += `<div class="text-center font-bold text-indigo-700 my-2">Equação atualizada: ${mathInline(formatEq(a, b, c, d))}</div>`;
+    }
+
+    // Step 3: Divide
+    if (a !== 1) {
+        html += `<div class="step mt-4" data-step="${stepCount++}">
+            <b>Isolando x por completo:</b> O número ${a} está multiplicando o \(x\). Vamos dividir ambos os lados por ${a}.
+            <div class="mt-2 bg-slate-50 p-3 rounded-lg text-center text-lg">
+            ${mathDisplay(`\\frac{${a}x}{${a}} = \\frac{${d}}{${a}}`)}
+            </div>
+        </div>`;
+    }
+
+    let finalFrac = simplify(d, a);
+    let finalStr = finalFrac.d === 1 ? String(finalFrac.n) : formatFrac(finalFrac);
+
+    html += `<div class="success p-4 rounded-xl mt-6 text-center font-black text-2xl">
+        Resultado Final: ${mathInline(`x = ${finalStr}`)}
+    </div>`;
+
+    out.innerHTML = html;
+    renderMathIn(out);
+}
+
+const E = [];
+let exId = 1;
+
+function pushEx(lvl, title, expr, a, b, c, d, stepsHtml) {
+    let num = d - b; let den = a - c;
+    let ansFrac = simplify(num, den);
+    E.push({ id: exId++, level: lvl, title, expr, ans: ansFrac, steps: stepsHtml });
+}
+
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+// Nível 1: x + b = c  ou  ax = d
+for (let i = 0; i < 20; i++) {
+    if (i % 2 === 0) { // x + b = c
+        let b = rand(2, 20) * (Math.random()>0.5?1:-1);
+        let c = rand(5, 30) * (Math.random()>0.5?1:-1);
+        let ans = c - b;
+        let st = [
+            `Temos um número somando/subtraindo o \(x\). Vamos aplicar a operação inversa.`,
+            `Se temos ${b>0?'+':''} ${b}, vamos ${b>0?'subtrair':'somar'} ${Math.abs(b)} dos dois lados.`,
+            `\( x = ${c} ${b>0?'-':'+'} ${Math.abs(b)} \)`,
+            `\( x = ${ans} \)`
+        ];
+        pushEx(1, "Básico (Soma/Sub)", formatEq(1, b, 0, c), 1, b, 0, c, st);
+    } else { // ax = d
+        let a = rand(2, 10) * (Math.random()>0.5?1:-1);
+        let ans = rand(2, 12) * (Math.random()>0.5?1:-1);
+        let d = a * ans; // Garante inteiro
+        let st = [
+            `O ${a} está colado no \(x\), ou seja, está multiplicando.`,
+            `Para remover, dividimos ambos os lados por ${a}.`,
+            `\( \\frac{${a}x}{${a}} = \\frac{${d}}{${a}} \)`,
+            `\( x = ${ans} \)`
+        ];
+        pushEx(1, "Básico (Mult/Div)", formatEq(a, 0, 0, d), a, 0, 0, d, st);
+    }
+}
+
+// Nível 2: ax + b = c
+for (let i = 0; i < 20; i++) {
+    let a = rand(2, 9);
+    let ans = rand(-10, 10);
+    let b = rand(-15, 15);
+    if(b===0) b = 5;
+    let c = a * ans + b;
+    let st = [
+        `Primeiro, lidamos com os números soltos. Vamos mover o ${b}.`,
+        `Subtraímos/Somamos ${Math.abs(b)} dos dois lados: \( ${a}x = ${c} ${b>0?'-':'+'} ${Math.abs(b)} \)`,
+        `Ficamos com \( ${a}x = ${c - b} \).`,
+        `Agora dividimos tudo por ${a}.`,
+        `\( x = ${ans} \)`
+    ];
+    pushEx(2, "Duas Etapas", formatEq(a, b, 0, c), a, b, 0, c, st);
+}
+
+// Nível 3: ax + b = cx + d
+for (let i = 0; i < 20; i++) {
+    let a = rand(2, 8);
+    let c = rand(1, 7);
+    if (a === c) a++;
+    let ans = rand(-8, 8);
+    let b = rand(-12, 12);
+    let d = (a * ans + b) - (c * ans); 
+    // Equação original: ax + b = cx + d  => a(ans)+b = c(ans)+d  => d = a*ans + b - c*ans
+    
+    let st = [
+        `Junte as letras: Remova \( ${c}x \) de ambos os lados.`,
+        `\( (${a} - ${c})x + ${b} = ${d} \implies ${a-c}x + ${b} = ${d} \)`,
+        `Agora, passe o número: ${b>0?'Subtraia':'Some'} ${Math.abs(b)} dos dois lados.`,
+        `\( ${a-c}x = ${d} ${b>0?'-':'+'} ${Math.abs(b)} \implies ${a-c}x = ${d-b} \)`,
+        `Divida por ${a-c}. Resultado: \( x = ${ans} \)`
+    ];
+    pushEx(3, "Variável de ambos os lados", formatEq(a, b, c, d), a, b, c, d, st);
+}
+
+// Nível 4: Parênteses a(x + k) = c
+for (let i = 0; i < 20; i++) {
+    let a = rand(2, 5);
+    let k = rand(-6, 6);
+    if (k===0) k = 2;
+    let ans = rand(-5, 5);
+    let c = a * (ans + k);
+    let expr = `${a}(x ${k>0?'+':'-'} ${Math.abs(k)}) = ${c}`;
+    
+    let ax = a; let b = a * k;
+    let st = [
+        `Aplique a distributiva (chuveirinho). Multiplique o ${a} por \(x\) e por ${k}.`,
+        `Fica: \( ${a}x ${b>0?'+':'-'} ${Math.abs(b)} = ${c} \).`,
+        `Agora resolva normalmente. ${b>0?'Subtraia':'Some'} ${Math.abs(b)} de ambos os lados.`,
+        `\( ${a}x = ${c - b} \)`,
+        `Dividindo por ${a}, obtemos \( x = ${ans} \).`
+    ];
+    pushEx(4, "Propriedade Distributiva", expr, ax, b, 0, c, st);
+}
+
+// Nível 5: Frações (x/a + b = c)
+for (let i = 0; i < 20; i++) {
+    let den = rand(2, 5);
+    let ans = rand(-10, 10) * den; // garante que a resposta vai ser ok para x/den
+    let b = rand(-10, 10);
+    let c = (ans / den) + b;
+    let expr = `\\frac{x}{${den}} ${b>0?'+':'-'} ${Math.abs(b)} = ${c}`;
+    
+    let st = [
+        `O número solto é o mais fácil. Vamos remover o ${b} primeiro.`,
+        `\( \\frac{x}{${den}} = ${c} ${b>0?'-':'+'} ${Math.abs(b)} \implies \\frac{x}{${den}} = ${c-b} \)`,
+        `O ${den} está dividindo o \(x\). Para isolar, multiplicamos AMBOS os lados por ${den}.`,
+        `\( x = ${c-b} \\times ${den} \)`,
+        `\( x = ${ans} \)`
+    ];
+    // hacky way to store this fraction logic using the regular solver objects (which assume integer Ax)
+    // we just manually inject this level. We won't use the standard A,B,C,D for checking, we check against `ans` directly.
+    E.push({ id: exId++, level: 5, title: "Com Frações", expr: expr, ans: {n: ans, d: 1}, steps: st });
+}
+
+
+let solved = new Set(JSON.parse(localStorage.getItem('eqSolved') || '[]'));
+let currentLevel = 'all';
+
+function renderExercises() {
+  const q = ($('search').value || '').toLowerCase();
+  let list = E.filter(e => 
+    (currentLevel === 'all' || e.level == currentLevel) && 
+    (q === '' || (`questão ${e.id} ${e.title}`).toLowerCase().includes(q))
+  );
+  
+  $('exercise-list').innerHTML = list.map(ex => {
+    const done = solved.has(ex.id);
+    let isMath = String(ex.expr).includes('\\') || String(ex.expr).includes('^');
+    let exprHtml = mathDisplay(ex.expr);
+    
+    return `
+    <article class="bg-white rounded-2xl border ${done ? 'border-emerald-400' : 'border-slate-200'} p-5 shadow-sm transition-all hover:shadow-md">
+      <div class="flex justify-between gap-3">
+        <span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700">Questão ${ex.id}</span>
+        <span class="text-xs text-slate-400 text-right">${ex.title}</span>
+      </div>
+      <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-6 text-center text-xl overflow-x-auto min-h-[100px] flex items-center justify-center">
+        ${exprHtml}
+      </div>
+      <div class="flex gap-2 mt-4">
+        <input id="ans-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm font-mono" placeholder="Ex: 5 ou -3/2">
+        <button onclick="checkAnswer(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold hover:bg-indigo-700 transition">Conferir</button>
+      </div>
+      <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-[1.5rem]"></div>
+      
+      <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-indigo-700 hover:underline">👁 Ver resolução</button>
+      
+      <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+        <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Passo a Passo</div>
+        ${ex.steps.map((s, idx) => `<div class="step mb-3" data-step="${idx+1}">${s}</div>`).join('')}
+        <div class="success rounded-xl p-4 text-center font-bold">
+          Resposta: ${mathInline(`x = ${formatFrac(ex.ans)}`)}
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+  
+  $('progress-text').textContent = `${solved.size} / 100`;
+  $('progress-bar').style.width = (solved.size) + '%';
+  renderAll();
+}
+
+function parseUserAnswer(v) {
+    v = v.trim().replace(/\s/g, '').replace(',', '.');
+    if(v === '') return null;
+    
+    // Testa fração a/b
+    let m = v.match(/^(-?\d+)\/(-?\d+)$/);
+    if(m && parseInt(m[2]) !== 0) {
+        return simplify(parseInt(m[1]), parseInt(m[2]));
+    }
+    // Testa decimal / inteiro
+    let num = parseFloat(v);
+    if(!isNaN(num)) {
+        // Converte decimal pra fração p checar
+        return simplify(Math.round(num * 1000000), 1000000);
+    }
+    return null;
+}
+
+function checkAnswer(id) {
+  const ex = E.find(x => x.id === id);
+  const rawAns = $(`ans-${id}`).value;
+  const userVal = parseUserAnswer(rawAns);
+  const fb = $(`fb-${id}`);
+  
+  if (!userVal) {
+    fb.className = 'text-sm font-bold mt-2 text-amber-600';
+    fb.textContent = '⚠ Formato inválido. Digite um número ou fração (ex: 3, -5, 1/2).';
+    return;
+  }
+  
+  // Como simplificamos tudo, basta comparar as frações equivalentes (multiplicação cruzada p garantir)
+  const isCorrect = (userVal.n * ex.ans.d === ex.ans.n * userVal.d);
+  
+  if (isCorrect) {
+    solved.add(id);
+    localStorage.setItem('eqSolved', JSON.stringify([...solved]));
+    fb.className = 'text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent = '✓ Correto! Genial.';
+  } else {
+    fb.className = 'text-sm font-bold mt-2 text-red-600';
+    fb.textContent = '✗ Opa, o x não é esse. Tente novamente ou veja a resolução.';
+  }
+  renderExercises();
+}
+
+function toggleSol(id) { $(`sol-${id}`).classList.toggle('hidden'); }
+
+// Filtros
+document.querySelectorAll('.level-btn').forEach(b => b.onclick = () => {
+  currentLevel = b.dataset.level;
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.remove('active', 'bg-indigo-600', 'text-white'));
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.add('bg-slate-100'));
+  
+  b.classList.add('active');
+  b.classList.remove('bg-slate-100');
+  renderExercises();
+});
+$('search').addEventListener('input', renderExercises);
+
+// Init
+window.addEventListener('DOMContentLoaded', () => {
+  updateLabVisuals();
+  renderAll();
+});
+</script>
+</body>
+</html>

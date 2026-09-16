@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notação Científica — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#4f46e5;background:#eef2ff;color:#312e81}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  
+  /* Animação do Laboratório */
+  .digit-box { display: inline-block; width: 1.8rem; text-align: center; font-family: monospace; font-size: 1.5rem; font-weight: bold; position: relative; }
+  .comma { color: #ef4444; font-weight: black; position: absolute; bottom: 0; left: -0.2rem; transform: translateX(-50%); transition: all 0.3s ease; font-size: 2rem; line-height: 0.5; z-index: 10; }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">🌌 Notação Científica</div><div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo, não decorando</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Calculadoras</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Curso do zero</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Dominando a Notação Científica</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Números no universo variam do microscópico (átomos) ao gigantesco (galáxias). Aprenda a escrever e operar com esses números sem se perder em zeros.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">8</b><div class="text-xs text-indigo-200">módulos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-indigo-200">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">resolução detalhada</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">🔬</b><div class="text-xs text-indigo-200">laboratório visual</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Como estudar:</b> Leia o conceito, visualize o exemplo, use o laboratório para testar a vírgula e, por fim, resolva os exercícios para fixar.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">A Estrutura</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">A notação científica transforma qualquer número em uma multiplicação de duas partes: um número base (mantissa) e uma potência de 10.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-xl">
+    \[ a \times 10^n \]
+   </div>
+   <div class="grid sm:grid-cols-2 gap-3 text-sm mt-4">
+    <div class="bg-indigo-50 rounded-xl p-4"><b>O número "a" (Mantissa)</b><br>Deve ser igual ou maior que 1 e menor que 10.<br><i>Ex: 3.5 (Correto), 35 (Errado).</i></div>
+    <div class="bg-amber-50 rounded-xl p-4"><b>O expoente "n"</b><br>É um número inteiro. Mostra quantas casas a vírgula andou.</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Números Grandes (Expoente Positivo)</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Para números maiores que 10, a vírgula anda para a <b>esquerda</b>. O expoente positivo indica quantas vezes o número foi multiplicado por 10.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[ 45.000 = 4.5 \times 10^4 \]</div>
+   <div class="success rounded-xl p-4 mt-4 text-sm"><b>Ideia:</b> O $10^4$ significa $10 \times 10 \times 10 \times 10 = 10.000$. Então, $4.5 \times 10.000 = 45.000$. O expoente é o número de "pulos" da vírgula até ficar atrás do 4.</div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">3. Números Pequenos (Expoente Negativo)</h2>
+   <p class="mt-3 text-slate-600">Para decimais menores que 1 (como 0.002), a vírgula anda para a <b>direita</b>. O expoente negativo indica divisão por 10.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[ 0.00032 = 3.2 \times 10^{-4} \]</div>
+   <div class="space-y-3 mt-4">
+    <div class="step" data-step="1">A vírgula sai do $0.00032$ e pula para a direita.</div>
+    <div class="step" data-step="2">Ela para entre o 3 e o 2 para criar o número $3.2$ (que está entre 1 e 10).</div>
+    <div class="step" data-step="3">Como pulou 4 casas para a direita, o expoente é $-4$.</div>
+   </div>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. Dica de Ouro: Esquerda vs Direita</h2>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-slate-50 rounded-xl p-4"><b>Transformando de Normal para Científica:</b><br>• Andou pra <b>ESQUERDA</b> $\leftarrow$ = Expoente <b>AUMENTA</b> (+)<br>• Andou pra <b>DIREITA</b> $\rightarrow$ = Expoente <b>DIMINUI</b> (-)</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>Tirando da Notação Científica (Desfazendo):</b><br>• Expoente <b>POSITIVO</b>: Empurre a vírgula para a <b>DIREITA</b>.<br>• Expoente <b>NEGATIVO</b>: Empurre a vírgula para a <b>ESQUERDA</b>.</div>
+   </div>
+   <div class="mt-4 text-center">\[ 2.5 \times 10^3 = 2500 \quad \text{(direita)} \]\[ 2.5 \times 10^{-3} = 0.0025 \quad \text{(esquerda)} \]</div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <h2 class="text-2xl font-black">5. Multiplicação e Divisão</h2>
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div>
+    <h3 class="font-bold text-indigo-800">Multiplicação</h3>
+    <p class="text-sm text-slate-600 mt-2">Multiplique os números base e <b>some</b> os expoentes (propriedade das potências de mesma base).</p>
+    <div class="paper rounded-xl p-5 mt-3 text-center text-sm">
+      \[ (2 \times 10^3) \times (4 \times 10^5) \]
+      \[ (2 \times 4) \times 10^{3+5} \]
+      \[ 8 \times 10^8 \]
+    </div>
+   </div>
+   <div>
+    <h3 class="font-bold text-indigo-800">Divisão</h3>
+    <p class="text-sm text-slate-600 mt-2">Divida os números base e <b>subtraia</b> os expoentes (de cima menos o de baixo).</p>
+    <div class="paper rounded-xl p-5 mt-3 text-center text-sm">
+      \[ \frac{8 \times 10^7}{2 \times 10^3} \]
+      \[ (8 \div 2) \times 10^{7-3} \]
+      \[ 4 \times 10^4 \]
+    </div>
+   </div>
+  </div>
+  <div class="warning rounded-xl p-4 mt-6 text-sm">
+    <b>Ajuste final:</b> Às vezes, após multiplicar, a resposta foge da regra (ex: $15 \times 10^4$). Você deve ajustar a vírgula! O $15$ vira $1.5$ (andou 1 para a esquerda), então soma 1 no expoente: $1.5 \times 10^5$.
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">6. Adição e Subtração</h2>
+   <p class="mt-3 text-slate-600">Você <b>não pode</b> somar diretamente se os expoentes forem diferentes. Pense nos expoentes como "unidades" diferentes (ex: não dá pra somar metros com centímetros sem converter).</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="step" data-step="1">Iguale os expoentes. Escolha o maior deles.</div>
+    <div class="step" data-step="2">Converta o outro número deslocando a vírgula.</div>
+    <div class="step" data-step="3">Some/Subtraia as mantissas e repita a potência de 10.</div>
+   </div>
+   <div class="paper rounded-xl p-5 mt-4 text-sm">
+    <b>Exemplo:</b> \( (3 \times 10^4) + (5 \times 10^3) \)<br>
+    Transforme \(10^3\) em \(10^4\) andando a vírgula do 5 para a esquerda: \(0.5 \times 10^4\).<br>
+    Agora some: \(3 + 0.5 = 3.5\). Resposta: \(3.5 \times 10^4\).
+   </div>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">7. Checklist para Exercícios</h2>
+   <div class="grid sm:grid-cols-2 gap-3 mt-4 text-sm">
+    <div class="bg-slate-50 rounded-xl p-4"><b>1. O "a" está certo?</b><br>Verifique se a mantissa está entre 1 e 9.999...</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>2. O expoente está certo?</b><br>Positivo = era número grande. Negativo = era número decimal pequeno.</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>3. Operação</b><br>Multiplicação soma expoente, Divisão subtrai.</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>4. Ajuste</b><br>Sempre olhe o resultado final. Se deu \(25 \times 10^3\), corrija para \(2.5 \times 10^4\).</div>
+   </div>
+  </article>
+ </div>
+</section>
+
+<!-- LAB -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Simulador de Vírgula</span>
+  <h1 class="text-3xl font-black mt-2">Veja a mágica do \(10^n\)</h1>
+  <p class="text-slate-600 mt-2">Altere a mantissa e o expoente e observe o que acontece com o número real.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <label class="font-bold text-sm">Mantissa (a): <span id="lab-mant-label" class="text-indigo-600">3.5</span></label>
+   <input id="lab-mant" type="range" min="10" max="99" value="35" class="w-full mt-3">
+   <div class="text-xs text-slate-500 mt-1">Valores entre 1.0 e 9.9</div>
+
+   <label class="font-bold text-sm block mt-6">Expoente (n): <span id="lab-exp-label" class="text-indigo-600">4</span></label>
+   <input id="lab-exp" type="range" min="-6" max="6" value="4" class="w-full mt-3">
+   <div class="text-xs text-slate-500 mt-1">Casos positivos e negativos</div>
+
+   <div class="grid grid-cols-2 gap-2 mt-6">
+    <button onclick="setLabValues(15, 0)" class="rounded-xl bg-slate-100 py-2 text-sm font-bold hover:bg-slate-200">Resetar (1.5)</button>
+    <button onclick="setLabValues(50, -3)" class="rounded-xl bg-slate-100 py-2 text-sm font-bold hover:bg-slate-200">Testar 0.005</button>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col justify-center items-center overflow-hidden">
+   <div class="text-center mb-8">
+     <div class="text-sm font-bold text-slate-400 uppercase tracking-widest">Notação Científica</div>
+     <div id="lab-sci-display" class="text-4xl sm:text-5xl font-black mt-2 text-indigo-700"></div>
+   </div>
+   
+   <div class="w-full border-t pt-8 text-center relative overflow-x-auto pb-6">
+     <div class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Número Real (Padrão)</div>
+     <!-- Fita de dígitos e vírgula móvel -->
+     <div id="lab-tape" class="relative inline-flex items-center min-w-[300px] justify-center px-4 py-4 bg-slate-50 border rounded-2xl shadow-inner">
+       <!-- Preenchido via JS -->
+     </div>
+   </div>
+   <div id="lab-explanation" class="mt-4 text-slate-600 text-sm max-w-md text-center bg-indigo-50 p-4 rounded-xl"></div>
+  </div>
+ </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Calculadoras de Apoio</span>
+  <h1 class="text-3xl font-black mt-2">Ferramentas de Conversão e Cálculo</h1>
+  <p class="text-slate-600 mt-2">Use estas calculadoras para conferir suas respostas e ver o passo a passo da transformação.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Conversor -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">Conversor Padrão ⇆ Científica</h2>
+   <p class="text-sm text-slate-500 mt-1">Digite um número normal (ex: 4500 ou 0.003) para converter.</p>
+   <div class="mt-4">
+    <input id="conv-input" type="text" placeholder="Ex: 0.0045 ou 4.5*10^-3" class="w-full border rounded-xl p-3 text-lg font-mono">
+   </div>
+   <button onclick="runConverter()" class="mt-3 w-full bg-indigo-600 text-white rounded-xl py-3 font-bold hover:bg-indigo-700 transition">Converter Número</button>
+   <div id="conv-out" class="paper rounded-xl p-5 mt-4 hidden"></div>
+  </div>
+
+  <!-- Operador -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">Operações com Notação</h2>
+   <div class="grid gap-2 mt-4 text-sm font-bold">
+    <div class="flex items-center gap-2">
+     <input id="op-m1" type="number" step="0.1" value="2.5" class="border rounded-xl p-2 w-20"> &times; 10 <sup class="text-xs">^</sup> 
+     <input id="op-e1" type="number" value="3" class="border rounded-xl p-2 w-16">
+    </div>
+    
+    <select id="op-sign" class="border rounded-xl p-2 w-24 my-1 mx-auto bg-slate-50 font-black text-lg">
+     <option value="*">&times; (Mult)</option>
+     <option value="/">&divide; (Div)</option>
+     <option value="+">+ (Soma)</option>
+     <option value="-">- (Sub)</option>
+    </select>
+    
+    <div class="flex items-center gap-2">
+     <input id="op-m2" type="number" step="0.1" value="4.0" class="border rounded-xl p-2 w-20"> &times; 10 <sup class="text-xs">^</sup> 
+     <input id="op-e2" type="number" value="2" class="border rounded-xl p-2 w-16">
+    </div>
+   </div>
+   <button onclick="runOpTool()" class="mt-4 w-full bg-emerald-600 text-white rounded-xl py-3 font-bold hover:bg-emerald-700 transition">Calcular Passo a Passo</button>
+   <div id="op-out" class="paper rounded-xl p-5 mt-4 hidden"></div>
+  </div>
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div>
+    <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span>
+    <h1 class="text-3xl font-black mt-2">100 Exercícios Classificados</h1>
+    <p class="text-slate-600 mt-2 text-sm">Responda no formato <b>3.2*10^4</b> ou <b>3.2x10^4</b>. Se for para formato padrão, digite os números (ex: <b>32000</b>).</p>
+   </div>
+   <div class="min-w-[210px]">
+    <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+    <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden">
+     <div id="progress-bar" class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width:0%"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 1 (Gdes)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 2 (Pqnos)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 3 (Voltar)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 4 (Mult/Div)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 5 (Soma/Sub)</button>
+   <input id="search" placeholder="Buscar questão..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[180px]">
+  </div>
+ </div>
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+
+</main>
+<footer class="border-t bg-white mt-8">
+ <div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">
+  Material interativo de notação científica • Algoritmos renderizados com KaTeX
+ </div>
+</footer>
+
+<script>
+// Utilitários
+const $ = id => document.getElementById(id);
+const mathInline = latex => String.raw`\(${latex}\)`;
+const mathDisplay = latex => String.raw`\[${latex}\]`;
+
+function renderMathIn(element) {
+  if (window.renderMathInElement) {
+    renderMathInElement(element, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });
+  }
+}
+function renderAll() {
+  document.querySelectorAll('body').forEach(el => renderMathIn(el));
+}
+
+// Navegação de Abas
+const sections = ['teoria', 'laboratorio', 'ferramentas', 'exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => 
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.tab;
+    sections.forEach(s => $(`sec-${s}`).classList.toggle('hidden', s !== t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    if (t === 'exercicios') renderExercises();
+    if (t === 'laboratorio') updateLab();
+  })
+);
+
+// Objeto base para notação científica
+class SciNum {
+  constructor(mantissa, exponent) {
+    this.m = mantissa;
+    this.e = exponent;
+    this.normalize();
+  }
+  normalize() {
+    if (this.m === 0) { this.e = 0; return; }
+    while (Math.abs(this.m) >= 10) { this.m /= 10; this.e++; }
+    while (Math.abs(this.m) < 1 && this.m !== 0) { this.m *= 10; this.e--; }
+    this.m = parseFloat(this.m.toFixed(5)); // Evita imprecisão de float
+  }
+  toLatex() { return `${this.m} \\times 10^{${this.e}}`; }
+  toString() { return `${this.m}*10^${this.e}`; }
+  toNumber() { return this.m * Math.pow(10, this.e); }
+}
+
+// Parser flexível para input do usuário
+// Aceita: "3.2*10^4", "3,2x10^4", "3.2e4", ou padrão "32000"
+function parseUserAnswer(ans) {
+  if (!ans) return null;
+  ans = ans.trim().toLowerCase().replace(/\s/g, '').replace(',', '.');
+  
+  // Tenta match de notação científica: mantissa * 10^ exp ou mantissa x 10^ exp ou mantissa e exp
+  const sciRegex = /^([-+]?[0-9]*\.?[0-9]+)(?:\*|x)10\^(-?[0-9]+)$/;
+  const eRegex = /^([-+]?[0-9]*\.?[0-9]+)e(-?[0-9]+)$/;
+  
+  let match = ans.match(sciRegex) || ans.match(eRegex);
+  if (match) {
+    let m = parseFloat(match[1]);
+    let e = parseInt(match[2]);
+    let obj = new SciNum(m, e);
+    // Não normaliza o input do usuário para fins de checagem, 
+    // mas retornamos o valor matemático bruto para comparar
+    return obj.toNumber(); 
+  }
+  
+  // Se for número padrão
+  let val = parseFloat(ans);
+  if (!isNaN(val)) return val;
+  
+  return null;
+}
+
+function setLabValues(mant, exp) {
+  $('lab-mant').value = mant;
+  $('lab-exp').value = exp;
+  updateLab();
+}
+
+function updateLab() {
+  const mSlider = +$('lab-mant').value; // 10 a 99 (representa 1.0 a 9.9)
+  let mantissa = mSlider / 10;
+  let exponent = +$('lab-exp').value;
+  
+  $('lab-mant-label').textContent = mantissa.toFixed(1);
+  $('lab-exp-label').textContent = exponent;
+  
+  // Display Math
+  const latexStr = mathDisplay(`${mantissa.toFixed(1)} \\times 10^{${exponent}}`);
+  $('lab-sci-display').innerHTML = latexStr;
+  renderMathIn($('lab-sci-display'));
+
+  // Fita de Dígitos e vírgula
+  const tape = $('lab-tape');
+  tape.innerHTML = '';
+  
+  let numStr = (mantissa * Math.pow(10, exponent)).toFixed(Math.max(0, -exponent + 2)); // Fix float issues
+  // Removendo zeros desnecessários à direita se decimal
+  if(numStr.includes('.')) {
+    numStr = numStr.replace(/0+$/, '').replace(/\.$/, '');
+  }
+  
+  let tapeHtml = '';
+  // Vamos construir a string de exibição com cuidado
+  const chars = numStr.split('');
+  chars.forEach((c, i) => {
+    if (c === '.') {
+      tapeHtml += `<span class="text-red-500 font-black text-3xl -mx-1">,</span>`;
+    } else {
+      tapeHtml += `<span class="digit-box">${c}</span>`;
+    }
+  });
+  tape.innerHTML = tapeHtml;
+
+  // Texto explicativo
+  let expl = "";
+  if (exponent > 0) {
+    expl = `A vírgula caminhou <b>${exponent} casas para a direita</b>. Cada casa multiplica o valor por 10.`;
+  } else if (exponent < 0) {
+    expl = `A vírgula caminhou <b>${Math.abs(exponent)} casas para a esquerda</b>. Cada casa divide o valor por 10.`;
+  } else {
+    expl = `Expoente é 0. O número se mantém igual, pois \(10^0 = 1\).`;
+  }
+  $('lab-explanation').innerHTML = expl;
+  renderMathIn($('lab-explanation'));
+}
+
+$('lab-mant').addEventListener('input', updateLab);
+$('lab-exp').addEventListener('input', updateLab);
+
+
+function runConverter() {
+  const raw = $('conv-input').value.trim().replace(',', '.');
+  if(!raw) return;
+  const out = $('conv-out');
+  out.classList.remove('hidden');
+  
+  // Verifica se o usuário digitou científica ou padrão
+  let isSci = raw.includes('*') || raw.includes('x') || raw.includes('^');
+  let steps = '';
+  
+  if (isSci) {
+    const val = parseUserAnswer(raw);
+    if(val === null) { out.innerHTML = `<div class="warning p-3 rounded-lg">Formato inválido. Use 3.2*10^4</div>`; return; }
+    
+    steps += `<div class="step" data-step="1">Você inseriu notação científica. Vamos converter para padrão.</div>`;
+    let match = raw.match(/^([-+]?[0-9]*\.?[0-9]+)(?:\*|x)10\^(-?[0-9]+)$/);
+    if(match) {
+      let e = parseInt(match[2]);
+      let m = parseFloat(match[1]);
+      steps += `<div class="step mt-3" data-step="2">O expoente é ${e}. Isso significa que a vírgula deve se mover ${Math.abs(e)} casas para a ${e > 0 ? '<b>direita</b>' : '<b>esquerda</b>'}.</div>`;
+      steps += `<div class="step mt-3" data-step="3">Deslocando a vírgula do ${m}, preenchendo com zeros se necessário, obtemos:</div>`;
+      steps += `<div class="success p-4 rounded-xl mt-4 text-center font-bold text-lg">Resultado: ${val}</div>`;
+    }
+  } else {
+    let num = parseFloat(raw);
+    if(isNaN(num)) { out.innerHTML = `<div class="warning p-3 rounded-lg">Número inválido.</div>`; return; }
+    
+    let original = num;
+    let exp = 0;
+    while(Math.abs(num) >= 10) { num /= 10; exp++; }
+    while(Math.abs(num) > 0 && Math.abs(num) < 1) { num *= 10; exp--; }
+    
+    num = parseFloat(num.toFixed(6));
+    
+    steps += `<div class="step" data-step="1">O número original é ${original}.</div>`;
+    steps += `<div class="step mt-3" data-step="2">A mantissa (número base) deve ficar entre 1 e 9.9. Movemos a vírgula até obter <b>${num}</b>.</div>`;
+    steps += `<div class="step mt-3" data-step="3">A vírgula moveu ${Math.abs(exp)} casas para a ${exp > 0 ? '<b>esquerda</b> (então expoente é positivo)' : '<b>direita</b> (então expoente é negativo)'}.</div>`;
+    steps += `<div class="success p-4 rounded-xl mt-4 text-center font-bold text-lg">Resultado: ${mathDisplay(`${num} \\times 10^{${exp}}`)}</div>`;
+  }
+  
+  out.innerHTML = steps;
+  renderMathIn(out);
+}
+
+function runOpTool() {
+  const m1 = parseFloat($('op-m1').value);
+  const e1 = parseInt($('op-e1').value);
+  const m2 = parseFloat($('op-m2').value);
+  const e2 = parseInt($('op-e2').value);
+  const sign = $('op-sign').value;
+  
+  const out = $('op-out');
+  out.classList.remove('hidden');
+  
+  let steps = '';
+  let finalM, finalE, num1 = new SciNum(m1, e1), num2 = new SciNum(m2, e2);
+  
+  if (sign === '*') {
+    finalM = m1 * m2;
+    finalE = e1 + e2;
+    steps += `<div class="step" data-step="1"><b>Multiplique as mantissas:</b> ${m1} &times; ${m2} = ${finalM.toFixed(4)}</div>`;
+    steps += `<div class="step mt-3" data-step="2"><b>Some os expoentes:</b> ${e1} + (${e2}) = ${finalE}</div>`;
+    steps += `<div class="step mt-3" data-step="3">Resultado intermediário: ${mathInline(`${finalM.toFixed(4)} \\times 10^{${finalE}}`)}</div>`;
+  } else if (sign === '/') {
+    finalM = m1 / m2;
+    finalE = e1 - e2;
+    steps += `<div class="step" data-step="1"><b>Divida as mantissas:</b> ${m1} &divide; ${m2} = ${finalM.toFixed(4)}</div>`;
+    steps += `<div class="step mt-3" data-step="2"><b>Subtraia os expoentes:</b> ${e1} - (${e2}) = ${finalE}</div>`;
+    steps += `<div class="step mt-3" data-step="3">Resultado intermediário: ${mathInline(`${finalM.toFixed(4)} \\times 10^{${finalE}}`)}</div>`;
+  } else if (sign === '+' || sign === '-') {
+    let diff = e1 - e2;
+    steps += `<div class="step" data-step="1">Para somar ou subtrair, os expoentes devem ser <b>iguais</b>. Atualmente são ${e1} e ${e2}.</div>`;
+    let newM1 = m1, newE1 = e1, newM2 = m2, newE2 = e2;
+    
+    if (e1 > e2) {
+      newM2 = m2 / Math.pow(10, diff);
+      newE2 = e1;
+      steps += `<div class="step mt-3" data-step="2">Igualando ao maior (${e1}): Ajustamos a segunda parte movendo a vírgula ${diff} casas para a esquerda. Fica ${newM2} &times; 10^${newE2}.</div>`;
+    } else if (e2 > e1) {
+      let d = e2 - e1;
+      newM1 = m1 / Math.pow(10, d);
+      newE1 = e2;
+      steps += `<div class="step mt-3" data-step="2">Igualando ao maior (${e2}): Ajustamos a primeira parte movendo a vírgula ${d} casas para a esquerda. Fica ${newM1} &times; 10^${newE1}.</div>`;
+    } else {
+      steps += `<div class="step mt-3" data-step="2">Os expoentes já são iguais (${e1}).</div>`;
+    }
+    
+    finalM = sign === '+' ? (newM1 + newM2) : (newM1 - newM2);
+    finalE = newE1; // ou newE2, iguais
+    steps += `<div class="step mt-3" data-step="3">Agora ${sign==='+'?'somamos':'subtraímos'} as mantissas: ${newM1} ${sign} ${newM2} = ${finalM.toFixed(4)} e mantemos a base $10^{${finalE}}$.</div>`;
+  }
+  
+  let result = new SciNum(finalM, finalE);
+  if (result.m !== parseFloat(finalM.toFixed(4)) || result.e !== finalE) {
+    steps += `<div class="step mt-3" data-step="4"><b>Ajuste de Notação:</b> Como a mantissa ${finalM.toFixed(4)} não está entre 1 e 10, ajustamos a vírgula. Nova mantissa: ${result.m}, Novo expoente: ${result.e}.</div>`;
+  }
+  
+  steps += `<div class="success p-4 rounded-xl mt-4 text-center font-bold text-lg">Resultado Final: ${mathDisplay(result.toLatex())}</div>`;
+  
+  out.innerHTML = steps;
+  renderMathIn(out);
+}
+
+const E = [];
+let exId = 1;
+
+// Helper to push exercise
+function createEx(level, title, exprTex, correctVal, ansFormatHint, solutionSteps) {
+  E.push({ id: exId++, level, title, expr: exprTex, ansVal: correctVal, hint: ansFormatHint, steps: solutionSteps });
+}
+
+// Nível 1 (1-20): Converter Normal (Grande) para Científica
+for (let i = 0; i < 20; i++) {
+  let m = Math.floor(Math.random() * 89 + 10) / 10; // 1.0 to 9.9
+  if(m === 10) m = 9.9;
+  let e = Math.floor(Math.random() * 5) + 3; // 10^3 to 10^7
+  let num = parseFloat((m * Math.pow(10, e)).toPrecision(10)); // evitar erro float
+  
+  createEx(
+    1, "Converter para Notação Científica",
+    num.toLocaleString('en-US').replace(/,/g, ''), // Display as normal number string
+    num, // valor matematico para validar
+    "Ex: 3.5*10^4",
+    [
+      ['1', `O número é ${num}. A vírgula está oculta no final.`],
+      ['2', `A mantissa deve ficar entre 1 e 10, então será ${m}.`],
+      ['3', `Para a vírgula ir do fim até o ${m}, ela anda ${e} casas para a ESQUERDA. Logo, expoente positivo ${e}.`]
+    ]
+  );
+}
+
+// Nível 2 (21-40): Converter Normal (Pequeno) para Científica
+for (let i = 0; i < 20; i++) {
+  let m = Math.floor(Math.random() * 89 + 10) / 10;
+  let e = -(Math.floor(Math.random() * 4) + 2); // -2 to -5
+  let num = parseFloat((m * Math.pow(10, e)).toPrecision(10));
+  
+  let numStr = num.toFixed(Math.abs(e) + 1);
+  createEx(
+    2, "Converter Decimal para Notação",
+    numStr,
+    num,
+    "Ex: 4.2*10^-3",
+    [
+      ['1', `O número é ${numStr}.`],
+      ['2', `A mantissa deve ficar entre 1 e 10, então será ${m}.`],
+      ['3', `Para a vírgula formar ${m}, ela precisa pular ${Math.abs(e)} casas para a DIREITA. Logo, expoente negativo ${e}.`]
+    ]
+  );
+}
+
+// Nível 3 (41-60): Converter Científica para Normal
+for (let i = 0; i < 20; i++) {
+  let m = Math.floor(Math.random() * 89 + 10) / 10;
+  let e = Math.floor(Math.random() * 7) - 3; // -3 to +3
+  if (e === 0) e = 2; // Evitar zero para dificultar um pouco
+  let num = parseFloat((m * Math.pow(10, e)).toPrecision(10));
+  
+  createEx(
+    3, "Tirar da Notação Científica",
+    `${m} \\times 10^{${e}}`,
+    num,
+    e > 0 ? "Ex: 4500" : "Ex: 0.045",
+    [
+      ['1', `A expressão é ${mathInline(`${m} \\times 10^{${e}}`)}.`],
+      ['2', `Como o expoente é ${e} (${e>0?'positivo':'negativo'}), movemos a vírgula ${Math.abs(e)} casas para a ${e>0?'DIREITA':'ESQUERDA'}.`],
+      ['3', `Completamos as casas vazias com zero, obtendo ${num}.`]
+    ]
+  );
+}
+
+// Nível 4 (61-80): Multiplicação e Divisão
+for (let i = 0; i < 20; i++) {
+  let isMult = i % 2 === 0;
+  let m1 = Math.floor(Math.random() * 50 + 10) / 10; // 1.0 to 6.0
+  let e1 = Math.floor(Math.random() * 8) - 4;
+  let m2 = Math.floor(Math.random() * 40 + 10) / 10; // 1.0 to 5.0
+  let e2 = Math.floor(Math.random() * 8) - 4;
+  
+  let val1 = m1 * Math.pow(10, e1);
+  let val2 = m2 * Math.pow(10, e2);
+  let finalVal = isMult ? (val1 * val2) : (val1 / val2);
+  
+  let expr = isMult ? `(${m1} \\times 10^{${e1}}) \\times (${m2} \\times 10^{${e2}})` : `\\frac{${m1} \\times 10^{${e1}}}{${m2} \\times 10^{${e2}}}`;
+  
+  let fm = isMult ? (m1 * m2) : (m1 / m2);
+  let fe = isMult ? (e1 + e2) : (e1 - e2);
+  
+  let steps = [
+    ['1', isMult ? `Multiplique as mantissas: ${m1} * ${m2} = ${fm.toFixed(2)}` : `Divida as mantissas: ${m1} / ${m2} = ${fm.toFixed(2)}`],
+    ['2', isMult ? `Some os expoentes: ${e1} + (${e2}) = ${fe}` : `Subtraia os expoentes: ${e1} - (${e2}) = ${fe}`],
+  ];
+  
+  let resObj = new SciNum(fm, fe);
+  if (resObj.m !== parseFloat(fm.toFixed(2))) {
+    steps.push(['3', `A mantissa ${fm.toFixed(2)} não está entre 1 e 10. Ajustando a vírgula para obter ${resObj.m} e mudando expoente para ${resObj.e}.`]);
+  }
+  
+  createEx(4, isMult ? "Multiplicação" : "Divisão", expr, finalVal, "Ex: 2.5*10^4", steps);
+}
+
+// Nível 5 (81-100): Soma e Subtração
+for (let i = 0; i < 20; i++) {
+  let isAdd = i % 2 === 0;
+  let baseE = Math.floor(Math.random() * 5) + 3;
+  let e1 = baseE;
+  let e2 = baseE - 1; // diferença de 1 grau para facilitar
+  
+  let m1 = Math.floor(Math.random() * 50 + 20) / 10;
+  let m2 = Math.floor(Math.random() * 50 + 20) / 10;
+  
+  let val1 = m1 * Math.pow(10, e1);
+  let val2 = m2 * Math.pow(10, e2);
+  let finalVal = isAdd ? (val1 + val2) : (val1 - val2);
+  
+  let expr = `(${m1} \\times 10^{${e1}}) ${isAdd ? '+' : '-'} (${m2} \\times 10^{${e2}})`;
+  
+  let m2Adj = m2 / 10; // pois diferença é 1
+  let fm = isAdd ? (m1 + m2Adj) : (m1 - m2Adj);
+  
+  let steps = [
+    ['1', `Para ${isAdd?'somar':'subtrair'}, os expoentes devem ser iguais. Escolha o maior: ${e1}.`],
+    ['2', `Ajuste a segunda expressão: a vírgula anda 1 casa pra esquerda para o expoente subir 1. Fica ${m2Adj} \\times 10^{${e1}}.`],
+    ['3', `Agora opere as mantissas: ${m1} ${isAdd?'+':'-'} ${m2Adj} = ${fm.toFixed(2)}.`],
+    ['4', `Juntando com a potência: ${fm.toFixed(2)} \\times 10^{${e1}}. (Ajuste se necessário).`]
+  ];
+  
+  createEx(5, isAdd ? "Adição" : "Subtração", expr, finalVal, "Ex: 4.5*10^5", steps);
+}
+
+
+let solved = new Set(JSON.parse(localStorage.getItem('sciSolved') || '[]'));
+let currentLevel = 'all';
+
+function renderExercises() {
+  const q = ($('search').value || '').toLowerCase();
+  let list = E.filter(e => 
+    (currentLevel === 'all' || e.level == currentLevel) && 
+    (q === '' || (`questão ${e.id} ${e.title}`).toLowerCase().includes(q))
+  );
+  
+  $('exercise-list').innerHTML = list.map(ex => {
+    const done = solved.has(ex.id);
+    // Para exercicios de conversão onde a expression é só número padrão, não usa latex display na expr
+    let isMath = String(ex.expr).includes('\\times');
+    let exprHtml = isMath ? mathDisplay(ex.expr + " = ?") : `<div class="font-mono tracking-wider font-bold text-3xl">${ex.expr} = ?</div>`;
+    
+    // Calcula answer final em latex e formatado pra exibir na solucao
+    let sciFinal = new SciNum(0,0);
+    let isZero = ex.ansVal === 0;
+    if(!isZero) {
+      let e = Math.floor(Math.log10(Math.abs(ex.ansVal)));
+      let m = ex.ansVal / Math.pow(10, e);
+      sciFinal = new SciNum(m, e);
+    }
+    
+    return `
+    <article class="bg-white rounded-2xl border ${done ? 'border-emerald-400' : 'border-slate-200'} p-5 shadow-sm transition-all hover:shadow-md">
+      <div class="flex justify-between gap-3">
+        <span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700">Questão ${ex.id}</span>
+        <span class="text-xs text-slate-400 text-right">${ex.title}</span>
+      </div>
+      <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-6 text-center text-xl overflow-x-auto min-h-[100px] flex items-center justify-center">
+        ${exprHtml}
+      </div>
+      <div class="flex gap-2 mt-4">
+        <input id="ans-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm font-mono" placeholder="${ex.hint}">
+        <button onclick="checkAnswer(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold hover:bg-indigo-700 transition">Conferir</button>
+      </div>
+      <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-[1.5rem]"></div>
+      
+      <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-indigo-700 hover:underline">👁 Visualizar passo a passo</button>
+      
+      <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+        <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução explicada</div>
+        ${ex.steps.map(s => `<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+        <div class="success rounded-xl p-4 text-center font-bold">
+          Formato Padrão: ${Number.isInteger(ex.ansVal) ? ex.ansVal.toLocaleString('en-US').replace(/,/g, '') : ex.ansVal} <br>
+          Notação: ${mathDisplay(sciFinal.toLatex())}
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+  
+  $('progress-text').textContent = `${solved.size} / 100`;
+  $('progress-bar').style.width = (solved.size) + '%';
+  renderAll(); // Renders MathJax/KaTeX again
+}
+
+function checkAnswer(id) {
+  const ex = E.find(x => x.id === id);
+  const rawAns = $(`ans-${id}`).value;
+  const userVal = parseUserAnswer(rawAns);
+  const fb = $(`fb-${id}`);
+  
+  if (userVal === null) {
+    fb.className = 'text-sm font-bold mt-2 text-amber-600';
+    fb.textContent = '⚠ Formato não reconhecido. Use números ou notação (Ex: 3.2*10^4)';
+    return;
+  }
+  
+  // Usamos uma pequena tolerância para aproximação de ponto flutuante
+  const errorMargin = Math.abs(ex.ansVal * 0.0001); 
+  const isCorrect = Math.abs(userVal - ex.ansVal) <= errorMargin || (userVal === 0 && ex.ansVal === 0);
+  
+  if (isCorrect) {
+    solved.add(id);
+    localStorage.setItem('sciSolved', JSON.stringify([...solved]));
+    fb.className = 'text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent = '✓ Correto! Excelente.';
+  } else {
+    fb.className = 'text-sm font-bold mt-2 text-red-600';
+    fb.textContent = '✗ Quase lá. Confira o expoente e a vírgula.';
+  }
+  renderExercises(); // Atualiza a borda e barra
+}
+
+function toggleSol(id) {
+  const el = $(`sol-${id}`);
+  el.classList.toggle('hidden');
+}
+
+// Filtros
+document.querySelectorAll('.level-btn').forEach(b => b.onclick = () => {
+  currentLevel = b.dataset.level;
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.remove('active', 'bg-indigo-600', 'text-white'));
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.add('bg-slate-100'));
+  
+  b.classList.add('active');
+  b.classList.remove('bg-slate-100');
+  renderExercises();
+});
+$('search').addEventListener('input', renderExercises);
+
+// Init
+window.addEventListener('DOMContentLoaded', () => {
+  updateLab();
+  renderAll();
+});
+</script>
+</body>
+</html>

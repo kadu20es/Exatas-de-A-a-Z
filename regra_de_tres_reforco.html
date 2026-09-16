@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regra de Três — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#4f46e5}
+  body{background:#fbf7ee;color:var(--ink)}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#e8e2d8 1px,transparent 1px);background-size:100% 2rem;border:1px solid #ddd5c8;box-shadow:0 8px 24px #2b21120d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#4f46e5;background:#eef2ff;color:#312e81}
+  .level-btn.active{background:#4f46e5;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  
+  /* Animações e componentes do Laboratório */
+  .bar-container { position: relative; height: 200px; width: 60px; background: #e2e8f0; border-radius: 12px; overflow: hidden; display: flex; align-items: flex-end; margin: 0 auto; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+  .bar-fill { width: 100%; border-radius: 0 0 12px 12px; transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s; }
+  .arrow-down::after { content: "↓"; font-size: 1.5rem; font-weight: bold; color: #4f46e5; }
+  .arrow-up::after { content: "↑"; font-size: 1.5rem; font-weight: bold; color: #ef4444; }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900">✖️ Regra de Três</div><div class="text-[11px] text-slate-500 hidden sm:block">Aprenda entendendo a lógica por trás das setas</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Resolvedor</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Dominando Proporções</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">O Segredo das Grandezas</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">A regra de três não é um passe de mágica de "multiplicar cruzado". É uma ferramenta lógica para descobrir valores desconhecidos quando comparamos coisas que crescem (ou diminuem) juntas.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">6</b><div class="text-xs text-indigo-200">tópicos essenciais</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-indigo-200">exercícios práticos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-200">soluções passo a passo</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">⚖️</b><div class="text-xs text-indigo-200">simulador de grandezas</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Regra de Ouro:</b> Antes de montar qualquer conta, você precisa se fazer a pergunta mágica: <i>"Se eu aumentar essa quantidade, a outra vai aumentar ou diminuir?"</i></div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">Diretamente Proporcionais</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Duas grandezas são DIRETAMENTE proporcionais quando <b>ambas aumentam ou diminuem juntas</b>. Se você dobra uma, a outra também dobra.</p>
+   <div class="bg-emerald-50 rounded-xl p-4 mt-4 text-sm text-emerald-900 border border-emerald-100">
+    <b>Exemplo clássico:</b> Quantidade e Preço.<br>
+    Se 2 kg de carne custam R$ 60, então 4 kg (o dobro) vão custar R$ 120 (o dobro).
+   </div>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    <div>Como resolver: <b>Multiplica-se cruzado (em X)</b></div>
+    \[ \frac{A_1}{B_1} = \frac{A_2}{B_2} \implies A_1 \cdot B_2 = B_1 \cdot A_2 \]
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Inversamente Proporcionais</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Duas grandezas são INVERSAMENTE proporcionais quando <b>uma aumenta e a outra diminui</b> na mesma proporção. Se dobrar uma, a outra cai pela metade.</p>
+   <div class="bg-rose-50 rounded-xl p-4 mt-4 text-sm text-rose-900 border border-rose-100">
+    <b>Exemplo clássico:</b> Velocidade e Tempo.<br>
+    Se a 50 km/h você leva 2 horas, a 100 km/h (o dobro da velocidade) você levará apenas 1 hora (metade do tempo).
+   </div>
+   <div class="paper rounded-xl p-4 mt-4 text-center">
+    <div>Como resolver: <b>Multiplica-se reto (em linha)</b></div>
+    \[ A_1 \cdot B_1 = A_2 \cdot B_2 \]
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <h2 class="text-2xl font-black">3. O Método das Setas (O Passo a Passo)</h2>
+  <p class="mt-3 text-slate-600">O método das setas ajuda a organizar a conta de forma visual, especialmente quando temos mais de duas grandezas. Siga estes 4 passos à risca:</p>
+  
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div>
+    <ol class="space-y-3 text-sm list-decimal list-inside text-slate-700 font-medium">
+     <li class="bg-slate-50 p-3 rounded-lg">Monte uma tabela com as grandezas (colunas).</li>
+     <li class="bg-slate-50 p-3 rounded-lg">Coloque uma <b>seta para baixo (↓) na coluna do X</b> (essa é a sua referência).</li>
+     <li class="bg-slate-50 p-3 rounded-lg">Compare a outra coluna com a coluna do X fazendo a pergunta lógica:
+        <ul class="list-disc list-inside mt-2 ml-4 text-slate-600 font-normal">
+            <li>Se forem Diretas (mais gera mais): ponha a seta na mesma direção (↓).</li>
+            <li>Se forem Inversas (mais gera menos): ponha a seta na direção oposta (↑).</li>
+        </ul>
+     </li>
+     <li class="bg-slate-50 p-3 rounded-lg">Monte a equação igualando as frações. <b>Inverta as frações que tiverem a seta apontando para cima (↑)</b>.</li>
+    </ol>
+   </div>
+   <div class="paper rounded-2xl p-5 text-sm">
+    <div class="font-bold text-indigo-700 mb-3 text-center">EXEMPLO PRÁTICO (INVERSA)</div>
+    <p><i>"3 operários fazem um muro em 10 dias. Quantos dias levarão 5 operários?"</i></p>
+    <div class="grid grid-cols-2 gap-4 mt-4 text-center font-bold">
+        <div>Operários<br><span class="text-rose-500 font-black text-xl">↑</span></div>
+        <div>Dias<br><span class="text-indigo-500 font-black text-xl">↓</span></div>
+        <div class="font-normal border-t pt-2">3</div>
+        <div class="font-normal border-t pt-2">10</div>
+        <div class="font-normal">5</div>
+        <div class="font-normal">x</div>
+    </div>
+    <div class="mt-4 text-center bg-white p-3 rounded border">
+        Como setas são opostas, invertemos a fração dos operários:
+        \[ \frac{5}{3} = \frac{10}{x} \implies 5x = 30 \implies x = 6 \]
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">4. Regra de Três Simples</h2>
+   <p class="mt-3 text-slate-600">É chamada de "simples" porque lida apenas com <b>duas grandezas</b> (duas colunas na sua tabela). Apenas uma comparação é feita com a coluna do X.</p>
+   <div class="mt-4 bg-indigo-50 rounded-xl p-4 text-sm text-indigo-900 font-medium">
+    Se a tabela ficou com setas (↓ ↓), as frações ficam como estão (Direta).<br><br>
+    Se a tabela ficou com setas (↑ ↓), a primeira fração vira de cabeça para baixo (Inversa).
+   </div>
+  </article>
+  
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="text-xl font-black">5. Regra de Três Composta</h2>
+   <p class="mt-3 text-slate-600">Aparece quando temos <b>3 ou mais grandezas</b>. O segredo é isolar a coluna do X e comparar ela individualmente com todas as outras colunas, ignorando as demais durante a comparação.</p>
+   <div class="mt-4 bg-amber-50 rounded-xl p-4 text-sm text-amber-900 border border-amber-100 font-medium">
+    <b>A Equação:</b> A fração do X fica sozinha de um lado da igualdade. Do outro lado, você multiplica todas as outras frações (invertendo apenas aquelas que tiverem setas contrárias à do X).
+   </div>
+  </article>
+ </div>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Simulador de Grandezas</span>
+  <h1 class="text-3xl font-black mt-2">O Equilíbrio das Proporções</h1>
+  <p class="text-slate-600 mt-2">Entenda visualmente a diferença entre grandezas diretamente proporcionais e inversamente proporcionais. Mova o controle da grandeza A e observe o que acontece com a grandeza B.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[300px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h3 class="font-black text-slate-800 mb-4">Escolha o Cenário</h3>
+   <div class="space-y-2">
+    <button onclick="setLabScenario('direta')" id="btn-scen-direta" class="w-full bg-emerald-100 text-emerald-800 border-2 border-emerald-300 font-bold py-2 px-4 rounded-xl transition text-left">
+        📈 Diretamente Proporcional<br><span class="text-xs font-normal">Ex: Maçãs compradas e Valor total</span>
+    </button>
+    <button onclick="setLabScenario('inversa')" id="btn-scen-inversa" class="w-full bg-slate-100 text-slate-600 border-2 border-transparent font-bold py-2 px-4 rounded-xl transition text-left hover:bg-slate-200">
+        📉 Inversamente Proporcional<br><span class="text-xs font-normal">Ex: Velocidade e Tempo de viagem</span>
+    </button>
+   </div>
+
+   <div class="mt-8">
+    <label class="font-bold text-sm block mb-2">Controle: <span id="lab-val-a-label" class="text-indigo-600">Grandeza A</span></label>
+    <input id="lab-slider" type="range" min="1" max="100" value="50" class="w-full accent-indigo-600">
+    <div class="flex justify-between text-xs text-slate-400 mt-1"><span>Mín</span><span>Máx</span></div>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col justify-center items-center relative overflow-hidden">
+   <!-- Visualização Direta -->
+   <div id="lab-view-direta" class="w-full h-full flex flex-col items-center justify-center">
+    <div class="text-center font-bold text-emerald-700 bg-emerald-50 px-4 py-2 rounded-full mb-8">
+        Se A cresce, B também cresce (A / B = constante)
+    </div>
+    <div class="flex items-end justify-center gap-12 w-full max-w-md h-[250px]">
+        <div class="flex flex-col items-center gap-2">
+            <div class="bar-container"><div id="bar-a-dir" class="bar-fill bg-indigo-500" style="height: 50%;"></div></div>
+            <div class="font-black text-lg">Grandeza A</div>
+            <div id="val-a-dir" class="text-xl font-mono">50</div>
+        </div>
+        <div class="text-4xl text-slate-300 font-light mb-10">/</div>
+        <div class="flex flex-col items-center gap-2">
+            <div class="bar-container"><div id="bar-b-dir" class="bar-fill bg-emerald-500" style="height: 50%;"></div></div>
+            <div class="font-black text-lg">Grandeza B</div>
+            <div id="val-b-dir" class="text-xl font-mono">50</div>
+        </div>
+        <div class="text-3xl text-slate-300 font-light mb-10">= <span id="const-dir" class="font-bold text-slate-500 text-2xl">1.0</span></div>
+    </div>
+   </div>
+
+   <!-- Visualização Inversa -->
+   <div id="lab-view-inversa" class="w-full h-full flex flex-col items-center justify-center hidden">
+    <div class="text-center font-bold text-rose-700 bg-rose-50 px-4 py-2 rounded-full mb-8">
+        Se A cresce, B diminui (A × B = constante)
+    </div>
+    <div class="flex items-end justify-center gap-12 w-full max-w-md h-[250px]">
+        <div class="flex flex-col items-center gap-2">
+            <div class="bar-container"><div id="bar-a-inv" class="bar-fill bg-indigo-500" style="height: 50%;"></div></div>
+            <div class="font-black text-lg">Grandeza A</div>
+            <div id="val-a-inv" class="text-xl font-mono">50</div>
+        </div>
+        <div class="text-4xl text-slate-300 font-light mb-10">×</div>
+        <div class="flex flex-col items-center gap-2">
+            <div class="bar-container"><div id="bar-b-inv" class="bar-fill bg-rose-500" style="height: 50%;"></div></div>
+            <div class="font-black text-lg">Grandeza B</div>
+            <div id="val-b-inv" class="text-xl font-mono">50</div>
+        </div>
+        <div class="text-3xl text-slate-300 font-light mb-10">= <span class="font-bold text-slate-500 text-2xl">2500</span></div>
+    </div>
+   </div>
+
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Calculadora Didática</span>
+  <h1 class="text-3xl font-black mt-2">Resolvedor Passo a Passo</h1>
+  <p class="text-slate-600 mt-2">Insira os valores da sua Regra de Três Simples, escolha a proporção e veja como montar as setas e a conta.</p>
+ </div>
+ 
+ <div class="max-w-3xl mx-auto">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   
+   <div class="flex justify-center gap-4 mb-6">
+    <label class="flex items-center gap-2 cursor-pointer bg-slate-50 p-3 rounded-xl border has-[:checked]:border-emerald-500 has-[:checked]:bg-emerald-50 transition">
+        <input type="radio" name="tool-type" value="direta" checked class="w-4 h-4 text-emerald-600">
+        <span class="font-bold">Diretamente Proporcional</span>
+    </label>
+    <label class="flex items-center gap-2 cursor-pointer bg-slate-50 p-3 rounded-xl border has-[:checked]:border-rose-500 has-[:checked]:bg-rose-50 transition">
+        <input type="radio" name="tool-type" value="inversa" class="w-4 h-4 text-rose-600">
+        <span class="font-bold">Inversamente Proporcional</span>
+    </label>
+   </div>
+
+   <div class="grid grid-cols-2 gap-4 text-center">
+    <div class="font-black text-indigo-900 border-b pb-2">Grandeza 1</div>
+    <div class="font-black text-indigo-900 border-b pb-2">Grandeza 2 (do X)</div>
+    
+    <div><input id="t-a1" type="number" placeholder="Ex: 2" class="w-full border-2 rounded-xl p-3 text-center text-lg bg-slate-50"></div>
+    <div><input id="t-b1" type="number" placeholder="Ex: 60" class="w-full border-2 rounded-xl p-3 text-center text-lg bg-slate-50"></div>
+    
+    <div><input id="t-a2" type="number" placeholder="Ex: 4" class="w-full border-2 rounded-xl p-3 text-center text-lg bg-slate-50"></div>
+    <div class="bg-indigo-100 border-2 border-indigo-200 rounded-xl p-3 text-center text-lg font-black text-indigo-700 flex items-center justify-center">X</div>
+   </div>
+   
+   <button onclick="solveTool()" class="mt-8 w-full bg-indigo-600 text-white rounded-xl py-4 font-black text-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">Calcular Valor de X</button>
+   <div id="tool-out" class="paper rounded-xl p-6 mt-6 hidden space-y-4"></div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div>
+    <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span>
+    <h1 class="text-3xl font-black mt-2">100 Exercícios Classificados</h1>
+    <p class="text-slate-600 mt-2 text-sm">Problemas práticos de Regra de Três Simples (Direta e Inversa) e Composta. Digite a resposta numérica (inteiro ou decimal com ponto) e confira.</p>
+   </div>
+   <div class="min-w-[210px]">
+    <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+    <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden">
+     <div id="progress-bar" class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width:0%"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L1: Simples Direta (Mat)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L2: Simples Inversa (Mat)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L3: Problemas Direta</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L4: Problemas Inversa</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">L5: Regra de Três Composta</button>
+   <input id="search" placeholder="Buscar..." class="border rounded-lg px-3 py-2 text-xs flex-1 min-w-[150px]">
+  </div>
+ </div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+
+</main>
+<footer class="border-t bg-white mt-8">
+ <div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">
+  Material interativo de matemática • Renderizado com KaTeX
+ </div>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const mathInline = latex => String.raw`\(${latex}\)`;
+const mathDisplay = latex => String.raw`\[${latex}\]`;
+
+function renderMathIn(element) {
+  if (window.renderMathInElement) {
+    renderMathInElement(element, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });
+  }
+}
+function renderAll() { document.querySelectorAll('body').forEach(el => renderMathIn(el)); }
+
+// Abas
+const sections = ['teoria', 'laboratorio', 'ferramentas', 'exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => 
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.tab;
+    sections.forEach(s => $(`sec-${s}`).classList.toggle('hidden', s !== t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    if (t === 'exercicios') renderExercises();
+  })
+);
+
+// Lab Logic
+let labMode = 'direta';
+function setLabScenario(mode) {
+    labMode = mode;
+    $('btn-scen-direta').className = mode === 'direta' ? 'w-full bg-emerald-100 text-emerald-800 border-2 border-emerald-300 font-bold py-2 px-4 rounded-xl transition text-left' : 'w-full bg-slate-100 text-slate-600 border-2 border-transparent font-bold py-2 px-4 rounded-xl transition text-left hover:bg-slate-200';
+    $('btn-scen-inversa').className = mode === 'inversa' ? 'w-full bg-rose-100 text-rose-800 border-2 border-rose-300 font-bold py-2 px-4 rounded-xl transition text-left' : 'w-full bg-slate-100 text-slate-600 border-2 border-transparent font-bold py-2 px-4 rounded-xl transition text-left hover:bg-slate-200';
+    
+    $('lab-view-direta').classList.toggle('hidden', mode !== 'direta');
+    $('lab-view-inversa').classList.toggle('hidden', mode !== 'inversa');
+    
+    updateLab();
+}
+
+$('lab-slider').addEventListener('input', updateLab);
+
+function updateLab() {
+    let valA = parseInt($('lab-slider').value); // 1 to 100
+    
+    if (labMode === 'direta') {
+        let valB = valA; // Constant A/B = 1 for simplicity in visualization
+        $('val-a-dir').innerText = valA;
+        $('val-b-dir').innerText = valB;
+        $('bar-a-dir').style.height = `${valA}%`;
+        $('bar-b-dir').style.height = `${valB}%`;
+    } else {
+        // Inverse: A * B = Constant (let's say 2500, so if A=50, B=50)
+        let constant = 2500;
+        let valB = Math.round(constant / valA);
+        
+        $('val-a-inv').innerText = valA;
+        $('val-b-inv').innerText = valB;
+        
+        // Cap heights for visual sanity
+        let hA = Math.min(100, Math.max(5, valA));
+        let hB = Math.min(100, Math.max(5, (valB / 100) * 50)); // Scale visual
+        
+        $('bar-a-inv').style.height = `${hA}%`;
+        $('bar-b-inv').style.height = `${Math.min(100, valB)}%`; // Simple percentage cap
+    }
+}
+
+function solveTool() {
+    let a1 = parseFloat($('t-a1').value);
+    let b1 = parseFloat($('t-b1').value);
+    let a2 = parseFloat($('t-a2').value);
+    let type = document.querySelector('input[name="tool-type"]:checked').value;
+    
+    const out = $('tool-out');
+    if (isNaN(a1) || isNaN(b1) || isNaN(a2)) {
+        out.classList.remove('hidden');
+        out.innerHTML = `<div class="warning p-3 rounded-lg font-bold">Por favor, preencha todos os três valores numéricos.</div>`;
+        return;
+    }
+    
+    out.classList.remove('hidden');
+    let html = '';
+    let step = 1;
+    let isDir = type === 'direta';
+    
+    html += `<div class="step" data-step="${step++}"><b>Tabela com Setas:</b> A coluna do X recebe seta para baixo. Como as grandezas são ${isDir ? 'Diretamente' : 'Inversamente'} Proporcionais, a seta da outra coluna será ${isDir ? 'igual (para baixo)' : 'oposta (para cima)'}.</div>`;
+    
+    html += `<div class="bg-slate-50 border rounded-xl p-4 my-4 flex justify-around text-center max-w-xs mx-auto">
+        <div>
+            <div class="font-bold text-slate-500 mb-2">Grad. 1</div>
+            <div class="${isDir ? 'text-indigo-600 arrow-down' : 'text-rose-600 arrow-up'}"></div>
+            <div class="mt-2 py-1 border-b border-slate-300">${a1}</div>
+            <div class="py-1">${a2}</div>
+        </div>
+        <div>
+            <div class="font-bold text-slate-500 mb-2">Grad. X</div>
+            <div class="text-indigo-600 arrow-down"></div>
+            <div class="mt-2 py-1 border-b border-slate-300">${b1}</div>
+            <div class="py-1 font-bold text-indigo-700">x</div>
+        </div>
+    </div>`;
+
+    if (isDir) {
+        html += `<div class="step" data-step="${step++}"><b>Equação:</b> As setas estão na mesma direção (↓ ↓). Mantemos as frações como estão e multiplicamos cruzado.
+        <div class="text-lg text-center mt-3">${mathDisplay(`\\frac{${a1}}{${a2}} = \\frac{${b1}}{x}`)}</div></div>`;
+        
+        let termX = a1;
+        let numProd = a2 * b1;
+        
+        html += `<div class="step" data-step="${step++}"><b>Multiplicando Cruzado:</b>
+        <div class="text-lg text-center mt-3">${mathDisplay(`${termX} \\cdot x = ${a2} \\cdot ${b1}`)}</div>
+        <div class="text-lg text-center">${mathDisplay(`${termX}x = ${numProd}`)}</div></div>`;
+        
+        let ans = numProd / termX;
+        ans = Number.isInteger(ans) ? ans : ans.toFixed(2);
+        
+        html += `<div class="step" data-step="${step++}"><b>Isolando o X:</b> Passamos o ${termX} dividindo.
+        <div class="text-lg text-center mt-3">${mathDisplay(`x = \\frac{${numProd}}{${termX}} \\implies \\mathbf{x = ${ans}}`)}</div></div>`;
+        
+        html += `<div class="success p-4 rounded-xl mt-4 text-center font-bold text-xl">Resultado: x = ${ans}</div>`;
+        
+    } else {
+        html += `<div class="step" data-step="${step++}"><b>Equação:</b> As setas estão opostas (↑ ↓). <b>Invertemos</b> a primeira fração e igualamos.
+        <div class="text-lg text-center mt-3">${mathDisplay(`\\frac{${a2}}{${a1}} = \\frac{${b1}}{x}`)}</div></div>`;
+        
+        let termX = a2;
+        let numProd = a1 * b1;
+        
+        html += `<div class="step" data-step="${step++}"><b>Multiplicando Cruzado na nova fração (ou multiplicando em linha na original):</b>
+        <div class="text-lg text-center mt-3">${mathDisplay(`${termX} \\cdot x = ${a1} \\cdot ${b1}`)}</div>
+        <div class="text-lg text-center">${mathDisplay(`${termX}x = ${numProd}`)}</div></div>`;
+        
+        let ans = numProd / termX;
+        ans = Number.isInteger(ans) ? ans : ans.toFixed(2);
+        
+        html += `<div class="step" data-step="${step++}"><b>Isolando o X:</b> Passamos o ${termX} dividindo.
+        <div class="text-lg text-center mt-3">${mathDisplay(`x = \\frac{${numProd}}{${termX}} \\implies \\mathbf{x = ${ans}}`)}</div></div>`;
+        
+        html += `<div class="success p-4 rounded-xl mt-4 text-center font-bold text-xl">Resultado: x = ${ans}</div>`;
+    }
+    
+    out.innerHTML = html;
+    renderMathIn(out);
+}
+
+const E = [];
+let exId = 1;
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+// Helper para criar exercícios
+function pushEx(lvl, title, textHtml, ansVal, stepsHtml) {
+    E.push({ id: exId++, level: lvl, title, text: textHtml, ans: ansVal, steps: stepsHtml });
+}
+
+// Nível 1 (1-20): Simples Direta (Matemática pura) - A1/A2 = B1/x
+for (let i = 0; i < 20; i++) {
+    let a1 = rand(2, 15);
+    let k = rand(2, 8); // Fator de proporção para dar inteiro
+    let a2 = a1 * k;
+    let b1 = rand(5, 30);
+    let ans = b1 * k;
+    
+    let text = `Resolva a proporção direta para achar o valor de x:<br> ${mathInline(`\\frac{${a1}}{${a2}} = \\frac{${b1}}{x}`)}`;
+    let steps = [
+        `Como é uma proporção direta (frações iguais), multiplicamos cruzado.`,
+        `\( ${a1} \\cdot x = ${a2} \\cdot ${b1} \)`,
+        `\( ${a1}x = ${a2 * b1} \)`,
+        `\( x = \\frac{${a2 * b1}}{${a1}} = ${ans} \)`
+    ];
+    pushEx(1, "Proporção Direta", text, ans, steps);
+}
+
+// Nível 2 (21-40): Simples Inversa (Matemática pura) - A1*B1 = A2*x
+for (let i = 0; i < 20; i++) {
+    let k = rand(2, 6);
+    let a2 = rand(2, 10);
+    let a1 = a2 * k; // A1 é múltiplo de A2
+    let ans = rand(5, 20); // Valor de x
+    let b1 = (a2 * ans) / a1; 
+    
+    // Garantir que B1 é inteiro recalculando.
+    ans = rand(2, 10) * a1; 
+    b1 = (a2 * ans) / a1;
+    
+    let text = `Estas grandezas são INVERSAMENTE proporcionais. Ache o x:<br> Grandeza A: ${a1} \(\\to\) ${a2}<br> Grandeza B: ${b1} \(\\to\) x`;
+    let steps = [
+        `Por serem inversas, se montarmos as frações, invertemos a primeira: \( \\frac{${a2}}{${a1}} = \\frac{${b1}}{x} \).`,
+        `Multiplicando cruzado: \( ${a2} \\cdot x = ${a1} \\cdot ${b1} \)`,
+        `\( ${a2}x = ${a1 * b1} \)`,
+        `\( x = \\frac{${a1 * b1}}{${a2}} = ${ans} \)`
+    ];
+    pushEx(2, "Proporção Inversa", text, ans, steps);
+}
+
+// Nível 3 (41-60): Problemas de Direta (Texto)
+const wordsDir = [
+    {n1: "kg de maçã", n2: "custam R$"}, {n1: "litros de tinta", n2: "pintam m²"}, 
+    {n1: "máquinas", n2: "produzem peças"}, {n1: "horas trabalhadas", n2: "rendem R$"}
+];
+for (let i = 0; i < 20; i++) {
+    let template = wordsDir[rand(0, wordsDir.length-1)];
+    let a1 = rand(2, 10);
+    let k = rand(2, 6);
+    let a2 = a1 * k;
+    let b1 = rand(15, 80);
+    let ans = b1 * k;
+    
+    let text = `Se ${a1} ${template.n1} ${template.n2} ${b1}, então ${a2} ${template.n1} ${template.n2} quanto?`;
+    let steps = [
+        `<b>Análise:</b> Se aumentamos os ${template.n1}, o(a) ${template.n2} também aumenta. Proporção <b>Direta</b>. (Setas ↓ ↓)`,
+        `Montamos: \( \\frac{${a1}}{${a2}} = \\frac{${b1}}{x} \)`,
+        `Multiplica cruzado: \( ${a1}x = ${a2} \\cdot ${b1} \)`,
+        `\( ${a1}x = ${a2 * b1} \\implies x = ${ans} \)`
+    ];
+    pushEx(3, "Problema Prático (Direta)", text, ans, steps);
+}
+
+// Nível 4 (61-80): Problemas de Inversa (Texto)
+const wordsInv = [
+    {n1: "operários", n2: "levam", n3: "dias para terminar"}, 
+    {n1: "torneiras iguais", n2: "enchem um tanque em", n3: "horas"}, 
+    {n1: "km/h de velocidade", n2: "gastam", n3: "horas na viagem"}
+];
+for (let i = 0; i < 20; i++) {
+    let template = wordsInv[rand(0, wordsInv.length-1)];
+    let k = rand(2, 5);
+    let a2 = rand(2, 8);
+    let a1 = a2 * k; 
+    let ans = rand(2, 10); // dias/horas novos
+    let b1 = ans * k; // dias/horas antigos (vai demorar mais se a1 for menor, espera, a1 é maior, entao b1 é menor. Ops.)
+    
+    // refazer lógica p/ garantir inteiros coerentes
+    // a1 * b1 = a2 * x
+    a1 = rand(2, 12);
+    b1 = rand(10, 40); // tempo inicial
+    let total = a1 * b1;
+    let divs = [];
+    for(let d=2; d<=total; d++) if(total%d===0 && d!==a1) divs.push(d);
+    a2 = divs[rand(0, Math.min(divs.length-1, 5))] || a1*2; // new operarios
+    ans = total / a2; // new tempo
+    
+    let text = `Se ${a1} ${template.n1} ${template.n2} ${b1} ${template.n3}, ${a2} ${template.n1} vão levar quanto tempo?`;
+    let steps = [
+        `<b>Análise:</b> Se temos MAIS ${template.n1}, levaremos MENOS tempo. Proporção <b>Inversa</b>. (Setas ↑ ↓)`,
+        `Montamos invertendo a primeira grandeza: \( \\frac{${a2}}{${a1}} = \\frac{${b1}}{x} \)`,
+        `Multiplica cruzado: \( ${a2}x = ${a1} \\cdot ${b1} \)`,
+        `\( ${a2}x = ${a1 * b1} \\implies x = ${ans} \)`
+    ];
+    pushEx(4, "Problema Prático (Inversa)", text, ans, steps);
+}
+
+// Nível 5 (81-100): Composta (3 grandezas)
+// Ex clássico: Operários (Inversa com Dias), Horas/Dia (Inversa com Dias), Muros/Peças (Direta com Dias)
+for (let i = 0; i < 20; i++) {
+    // Vamos usar: Maquinas(Inversa p/ dias) - Horas/dia (Inversa p/ dias) - Peças (Direta p/ dias) - Dias(X)
+    // Para simplificar gerador e garantir inteiros:
+    // Formula: (Maq1 * Hd1 * Dias1) / Pecas1 = (Maq2 * Hd2 * Dias2) / Pecas2
+    // Dias2 = (Maq1 * Hd1 * Dias1 * Pecas2) / (Maq2 * Hd2 * Pecas1)
+    
+    let isDirProblem = i % 2 === 0; 
+    let text, steps, ans;
+    
+    if (isDirProblem) {
+        // Pedreiros (Inv) - Dias (X) - Muros (Dir)
+        let p1 = 2, d1 = 10, m1 = 1;
+        let p2 = 4, m2 = 3;
+        // X = (p1 * d1 * m2) / (p2 * m1) = (2 * 10 * 3) / (4 * 1) = 60 / 4 = 15
+        
+        // Randomizar mantendo inteiros
+        p1 = rand(2, 6); d1 = rand(5, 15); m1 = rand(1, 3);
+        p2 = p1 * rand(2, 3); // dobrou/triplicou pedreiros
+        m2 = m1 * rand(2, 4); // dobrou/quadruplicou muros
+        
+        ans = (p1 * d1 * m2) / (p2 * m1);
+        if(!Number.isInteger(ans)) { ans = Math.round(ans); p2 = 1; m2 = (ans * p2 * m1)/(p1 * d1); } // Correção fallback, though rare needed in real gen, just force it.
+        // Forçando matemática pura para não quebrar:
+        ans = rand(5, 20); p1 = rand(2,5); d1 = rand(4,10); m1 = rand(1,3); m2 = rand(2,5);
+        p2 = (p1 * d1 * m2) / (ans * m1);
+        if(!Number.isInteger(p2)) { p2 = p1; ans = (p1*d1*m2)/(p2*m1); }
+        if(!Number.isInteger(ans)) { p1=2; d1=10; m1=1; p2=4; m2=3; ans=15; } // Hard fallback
+        
+        text = `(Composta) Se ${p1} pedreiros constroem ${m1} muros em ${d1} dias. Quantos dias ${p2} pedreiros levarão para construir ${m2} muros?`;
+        steps = [
+            `Temos 3 colunas: Pedreiros, Muros e Dias(X).`,
+            `Analisando com a coluna Dias (X ↓):<br>- Mais pedreiros = Menos dias (Inversa ↑).<br>- Mais muros = Mais dias (Direta ↓).`,
+            `Equação: Isola a fração do X e inverte a dos pedreiros:<br>\( \\frac{${d1}}{x} = \\frac{${p2}}{${p1}} \\cdot \\frac{${m1}}{${m2}} \)`,
+            `\( \\frac{${d1}}{x} = \\frac{${p2 * m1}}{${p1 * m2}} \implies ${p2*m1}x = ${d1 * p1 * m2} \implies x = ${ans} \)`
+        ];
+    } else {
+        // Maquinas (Inv) - Horas/dia (Inv) - Dias (X)
+        let m1 = 4, h1 = 8, d1 = 5; // Total de maq-horas: 4*8*5 = 160
+        let m2 = 8, h2 = 4; // x = 160 / (8*4) = 5
+        
+        m1 = rand(2, 6); h1 = rand(4, 10); d1 = rand(3, 12);
+        let work = m1 * h1 * d1;
+        let divs = [];
+        for(let j=2; j<=work; j++) if(work%j===0) divs.push(j);
+        m2 = divs[rand(1, divs.length/2)] || 2;
+        let rem = work/m2;
+        let divs2 = [];
+        for(let j=2; j<=rem; j++) if(rem%j===0) divs2.push(j);
+        h2 = divs2[Math.floor(divs2.length/2)] || 2;
+        ans = work / (m2 * h2);
+        
+        text = `(Composta) Se ${m1} máquinas, funcionando ${h1} horas por dia, fazem um lote em ${d1} dias. Quantos dias ${m2} máquinas levarão funcionando ${h2} horas por dia?`;
+        steps = [
+            `Temos 3 colunas: Máquinas, Horas/Dia e Dias(X).`,
+            `Analisando com a coluna Dias (X ↓):<br>- Mais máquinas = Menos dias (Inversa ↑).<br>- Mais horas/dia = Menos dias (Inversa ↑).`,
+            `Equação: Isola a fração do X e inverte as outras duas:<br>\( \\frac{${d1}}{x} = \\frac{${m2}}{${m1}} \\cdot \\frac{${h2}}{${h1}} \)`,
+            `\( \\frac{${d1}}{x} = \\frac{${m2 * h2}}{${m1 * h1}} \implies ${m2*h2}x = ${d1 * m1 * h1} \implies x = ${ans} \)`
+        ];
+    }
+    pushEx(5, "Regra de Três Composta", text, ans, steps);
+}
+
+
+let solved = new Set(JSON.parse(localStorage.getItem('rtSolved') || '[]'));
+let currentLevel = 'all';
+
+function renderExercises() {
+  const q = ($('search').value || '').toLowerCase();
+  let list = E.filter(e => 
+    (currentLevel === 'all' || e.level == currentLevel) && 
+    (q === '' || (`questão ${e.id} ${e.title} ${e.text}`).toLowerCase().includes(q))
+  );
+  
+  $('exercise-list').innerHTML = list.map(ex => {
+    const done = solved.has(ex.id);
+    
+    return `
+    <article class="bg-white rounded-2xl border ${done ? 'border-emerald-400 shadow-emerald-100' : 'border-slate-200'} p-5 shadow-sm transition-all hover:shadow-md flex flex-col justify-between">
+      <div>
+          <div class="flex justify-between gap-3 mb-3">
+            <span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 whitespace-nowrap">Questão ${ex.id}</span>
+            <span class="text-xs text-slate-400 text-right font-bold uppercase tracking-wide">${ex.title}</span>
+          </div>
+          <div class="text-slate-700 leading-relaxed min-h-[60px]">
+            ${ex.text}
+          </div>
+      </div>
+      <div class="mt-4">
+          <div class="flex gap-2">
+            <input id="ans-${ex.id}" type="number" step="0.01" class="flex-1 border-2 border-slate-200 focus:border-indigo-500 outline-none rounded-xl px-4 py-2 text-sm font-bold" placeholder="Digite o valor de x...">
+            <button onclick="checkAnswer(${ex.id})" class="bg-indigo-600 text-white rounded-xl px-5 py-2 text-sm font-black hover:bg-indigo-700 transition">Conferir</button>
+          </div>
+          <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-[1.5rem]"></div>
+          
+          <button onclick="toggleSol(${ex.id})" class="mt-3 text-xs font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-800 transition">👁 Ver Passo a Passo</button>
+          
+          <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+            <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Resolução</div>
+            ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+            <div class="success rounded-xl p-3 text-center font-black mt-4">
+              Resposta Final: x = ${ex.ans}
+            </div>
+          </div>
+      </div>
+    </article>`;
+  }).join('');
+  
+  $('progress-text').textContent = `${solved.size} / 100`;
+  $('progress-bar').style.width = (solved.size) + '%';
+  renderAll();
+}
+
+function checkAnswer(id) {
+  const ex = E.find(x => x.id === id);
+  const rawAns = $(`ans-${id}`).value;
+  const fb = $(`fb-${id}`);
+  
+  if (rawAns.trim() === '') {
+    fb.className = 'text-sm font-bold mt-2 text-amber-600';
+    fb.textContent = '⚠ Digite um valor antes de conferir.';
+    return;
+  }
+  
+  let userVal = parseFloat(rawAns.replace(',', '.'));
+  let isCorrect = Math.abs(userVal - ex.ans) < 0.01; // tolerance
+  
+  if (isCorrect) {
+    solved.add(id);
+    localStorage.setItem('rtSolved', JSON.stringify([...solved]));
+    fb.className = 'text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent = '✓ Correto! Lógica perfeita.';
+  } else {
+    fb.className = 'text-sm font-bold mt-2 text-rose-600';
+    fb.textContent = '✗ Ops, o valor não é esse. Revise as setas!';
+  }
+  renderExercises();
+}
+
+function toggleSol(id) { $(`sol-${id}`).classList.toggle('hidden'); }
+
+// Filtros
+document.querySelectorAll('.level-btn').forEach(b => b.onclick = () => {
+  currentLevel = b.dataset.level;
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.remove('active', 'bg-indigo-600', 'text-white'));
+  document.querySelectorAll('.level-btn').forEach(x => x.classList.add('bg-slate-100'));
+  
+  b.classList.add('active');
+  b.classList.remove('bg-slate-100');
+  renderExercises();
+});
+$('search').addEventListener('input', renderExercises);
+
+// Init
+window.addEventListener('DOMContentLoaded', () => {
+  setLabScenario('direta');
+  renderAll();
+});
+</script>
+</body>
+</html>

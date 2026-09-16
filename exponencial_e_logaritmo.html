@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exponencial e Logaritmo — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root{--ink:#243044;--paper:#fffdf8;--line:#e7dfd0;--accent:#0d9488}
+  body{background:#f4fbf9;color:var(--ink)}
+  .tab-btn.active{color:#0f766e;border-bottom-color:#0f766e;font-weight:800}
+  .paper{background:var(--paper);background-image:linear-gradient(#dcfce7 1px,transparent 1px);background-size:100% 2rem;border:1px solid #cce8d7;box-shadow:0 8px 24px #0d2b1c0d}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#ccfbf1;color:#0f766e;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .choice.active{border-color:#0d9488;background:#ccfbf1;color:#115e59}
+  canvas{max-width:100%}
+  .level-btn.active{background:#0d9488;color:white}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-teal-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-teal-900">📈 Exponencial & Log</div><div class="text-[11px] text-slate-500 hidden sm:block">Entenda a relação, não decore fórmulas</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Calculadoras</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-teal-950 via-teal-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-teal-200">Curso do zero</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Dominando Logaritmos</h1>
+  <p class="mt-4 max-w-3xl text-teal-100 leading-7">Logaritmo não é um bicho de sete cabeças. É apenas uma <b>pergunta disfarçada</b> sobre expoentes. Vamos aprender a ler essa linguagem matemática.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">10</b><div class="text-xs text-teal-200">passos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-teal-200">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-teal-200">resolução passo a passo</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">📈</b><div class="text-xs text-teal-200">gráfico interativo</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm"><b>Segredo do sucesso:</b> Não avance para os logaritmos sem ter certeza de que entendeu as potências. O logaritmo faz exatamente o caminho reverso da potenciação.</div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">O que é uma Potência?</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">A potenciação é uma forma rápida de escrever multiplicações repetidas do mesmo número. Se multiplicarmos o 2 por ele mesmo três vezes, escrevemos \(2^3\).</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg">\[\textcolor{#2563eb}{2}^{\textcolor{#dc2626}{3}} = \textcolor{#2563eb}{2} \times \textcolor{#2563eb}{2} \times \textcolor{#2563eb}{2} = \textcolor{#059669}{8}\]</div>
+   <div class="grid sm:grid-cols-3 gap-3 text-sm mt-4">
+    <div class="bg-blue-50 rounded-xl p-4 text-blue-900"><b>Base (2)</b><br>O número que será multiplicado.</div>
+    <div class="bg-red-50 rounded-xl p-4 text-red-900"><b>Expoente (3)</b><br>Quantas vezes a base aparece.</div>
+    <div class="bg-emerald-50 rounded-xl p-4 text-emerald-900"><b>Potência (8)</b><br>O resultado final.</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Expoentes Especiais</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Nem sempre o expoente é um número positivo simples. Veja o que acontece nos casos especiais:</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-slate-50 rounded-xl p-4"><b>Expoente Zero:</b> Qualquer número (exceto zero) elevado a 0 é 1.<br>\[5^0 = 1\]</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>Expoente Negativo:</b> Inverte a base. É o "oposto" de multiplicar.<br>\[2^{-3} = \frac{1}{2^3} = \frac{1}{8}\]</div>
+    <div class="bg-slate-50 rounded-xl p-4"><b>Expoente Fracionário:</b> Transforma a potência em uma raiz.<br>\[9^{\frac{1}{2}} = \sqrt{9} = 3\]</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-teal-900 text-white rounded-2xl border shadow-sm p-6 sm:p-10">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-800 text-teal-100 grid place-items-center font-black">3</span><h2 class="text-3xl font-black">O que é o Logaritmo?</h2></div>
+  <p class="mt-4 text-teal-100 text-lg leading-relaxed">O logaritmo é o <b>caçador de expoentes</b>. Enquanto na potência você tem a base e o expoente para descobrir o resultado, no logaritmo você tem a base e o resultado e precisa <b>descobrir o expoente</b>.</p>
+  
+  <div class="bg-white text-slate-800 rounded-2xl p-6 mt-6 shadow-xl text-center">
+   <p class="text-lg mb-4">Quando você lê a expressão:</p>
+   <div class="text-3xl font-bold">\[\log_{\textcolor{#2563eb}{2}} \textcolor{#059669}{8} = \textcolor{#dc2626}{?}\]</div>
+   <p class="text-lg mt-4 font-medium text-slate-500">Seu cérebro deve perguntar automaticamente:</p>
+   <div class="bg-amber-100 text-amber-900 p-4 rounded-xl inline-block mt-3 text-xl font-black shadow-inner">"A base <span class="text-blue-600">2</span> elevada a qual número resulta em <span class="text-emerald-600">8</span>?"</div>
+   <p class="mt-5 text-lg">Como \(\textcolor{#2563eb}{2}^{\textcolor{#dc2626}{3}} = \textcolor{#059669}{8}\), a resposta é <b>3</b>.<br>\[\log_{2} 8 = 3\]</p>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">O Ciclo Fundamental</h2></div>
+   <p class="mt-4 text-slate-600">A relação mais importante da matemática para este assunto é a conversão direta entre logaritmo e exponencial. Memorize este movimento cíclico:</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center">
+    <div class="text-2xl font-bold">\[\log_b a = c \iff b^c = a\]</div>
+   </div>
+   <div class="success rounded-xl p-4 mt-4 text-sm">
+    <b>A Regra do "Empurrão":</b> A base do logaritmo (o pequenininho) passa para o outro lado "empurrando" o resultado para o expoente.
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Condições de Existência</h2></div>
+   <p class="mt-4 text-slate-600">Os logaritmos não funcionam com qualquer número. Para calcular \(\log_b a\), três regras de ouro devem ser seguidas:</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="step" data-step="1"><b>Base positiva:</b> \(b > 0\). Não existe logaritmo de base negativa nos reais.</div>
+    <div class="step" data-step="2"><b>Base diferente de 1:</b> \(b \neq 1\). Se a base fosse 1, \(1^x\) daria sempre 1, não gerando outros números.</div>
+    <div class="step" data-step="3"><b>Logaritmando positivo:</b> \(a > 0\). O número do qual queremos extrair o logaritmo tem que ser maior que zero (não existe potência real de base positiva que dê resultado negativo).</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">6</span><h2 class="text-2xl font-black">Logaritmos Famosos</h2></div>
+  <p class="mt-3 text-slate-600">Dois logaritmos aparecem com tanta frequência que ganharam "apelidos" e notações especiais. Quando você não vir a base escrita, assuma um desses dois:</p>
+  <div class="grid lg:grid-cols-2 gap-6 mt-5">
+   <div class="bg-slate-50 border rounded-xl p-5">
+    <h3 class="font-black text-indigo-800 text-lg">Logaritmo Decimal</h3>
+    <div class="mt-3 text-2xl font-bold">\[\log 100 \implies \log_{10} 100\]</div>
+    <p class="text-sm text-slate-600 mt-4">Quando não houver base, <b>a base é 10</b>. É muito usado em cálculos de química (pH), som (decibéis) e terremotos (Escala Richter).</p>
+   </div>
+   <div class="bg-slate-50 border rounded-xl p-5">
+    <h3 class="font-black text-emerald-800 text-lg">Logaritmo Natural</h3>
+    <div class="mt-3 text-2xl font-bold">\[\ln x \implies \log_{e} x\]</div>
+    <p class="text-sm text-slate-600 mt-4">O "ln" significa logaritmo na base <b>e</b> (Número de Euler, \(e \approx 2.718\)). É a base universal do crescimento na biologia e economia.</p>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">7</span><h2 class="text-xl font-black">As 3 Propriedades de Ouro</h2></div>
+   <p class="mt-3 text-slate-600">Como o logaritmo "desce" um nível operacional (transforma potência em multiplicação), ele faz o mesmo com outras operações:</p>
+   <div class="space-y-4 mt-4">
+    <div class="border rounded-xl p-4">
+     <div class="text-xs font-bold text-slate-400 uppercase">1. Produto vira Soma</div>
+     <div class="font-bold text-lg mt-1">\[\log_b (x \cdot y) = \log_b x + \log_b y\]</div>
+    </div>
+    <div class="border rounded-xl p-4">
+     <div class="text-xs font-bold text-slate-400 uppercase">2. Divisão vira Subtração</div>
+     <div class="font-bold text-lg mt-1">\[\log_b \left(\frac{x}{y}\right) = \log_b x - \log_b y\]</div>
+    </div>
+    <div class="border rounded-xl p-4">
+     <div class="text-xs font-bold text-slate-400 uppercase">3. Potência vai para frente (Tombo)</div>
+     <div class="font-bold text-lg mt-1">\[\log_b (x^k) = k \cdot \log_b x\]</div>
+    </div>
+   </div>
+  </article>
+
+  <div class="space-y-6">
+    <article class="bg-white rounded-2xl border p-6 shadow-sm">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">8</span><h2 class="text-xl font-black">Mudança de Base</h2></div>
+     <p class="mt-3 text-slate-600 text-sm">E se a sua calculadora só tem logaritmo na base 10, mas você precisa de \(\log_2 7\)? Você divide o log do de cima pelo log do de baixo, na base que quiser (como a 10):</p>
+     <div class="paper rounded-xl p-4 mt-3 text-center">
+      \[\log_{\textcolor{#dc2626}{a}} \textcolor{#2563eb}{b} = \frac{\log_c \textcolor{#2563eb}{b}}{\log_c \textcolor{#dc2626}{a}} \implies \log_2 7 = \frac{\log 7}{\log 2}\]
+     </div>
+    </article>
+
+    <article class="bg-white rounded-2xl border p-6 shadow-sm">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">9</span><h2 class="text-xl font-black">Equações Exponenciais</h2></div>
+     <p class="mt-3 text-slate-600 text-sm">Se a incógnita \(x\) está no expoente (ex: \(2^x = 16\)), seu objetivo número um é <b>igualar as bases</b> dos dois lados.</p>
+     <div class="bg-slate-50 rounded-xl p-4 mt-3 text-sm">
+      <div class="font-bold">Passos:</div>
+      <div>1. Fatore o 16: \(16 = 2^4\).</div>
+      <div>2. Substitua: \(2^x = 2^4\).</div>
+      <div>3. Corte as bases: \(x = 4\).</div>
+     </div>
+    </article>
+  </div>
+ </div>
+
+ <article class="bg-white rounded-2xl border p-6 shadow-sm">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 grid place-items-center font-black">10</span><h2 class="text-xl font-black">Checklist para Exercícios</h2></div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 text-sm">
+   <div class="bg-teal-50 border border-teal-100 rounded-xl p-4 text-teal-900"><b>① É Equação?</b><br>Tente igualar as bases primeiro. Se não der, aplique log dos dois lados.</div>
+   <div class="bg-teal-50 border border-teal-100 rounded-xl p-4 text-teal-900"><b>② É Log simples?</b><br>Use a regra do empurrão: a base do log empurra o resultado e vira expoente.</div>
+   <div class="bg-teal-50 border border-teal-100 rounded-xl p-4 text-teal-900"><b>③ Tem operações?</b><br>Soma de logs vira produto; subtração vira divisão. Aplique de trás pra frente.</div>
+   <div class="bg-teal-50 border border-teal-100 rounded-xl p-4 text-teal-900"><b>④ Confira (C.E.)</b><br>Achou o \(x\)? Verifique se ele não deixa base ou logaritmando negativos ou zero.</div>
+  </div>
+ </article>
+</section>
+
+<!-- LAB -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-teal-600">Laboratório visual</span><h1 class="text-3xl font-black mt-2">A Dança das Curvas</h1><p class="text-slate-600 mt-2">Veja como a Exponencial e o Logaritmo são funções <b>inversas</b>. Uma é o reflexo da outra como num espelho (a linha tracejada \(y = x\)).</p></div>
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <label class="font-bold text-sm block">Base (\(a\)): <span id="lab-base-label" class="text-teal-600">2.0</span></label>
+   <input id="lab-base" type="range" min="0.2" max="5" step="0.1" value="2" class="w-full mt-3 accent-teal-600">
+   <p class="text-xs text-slate-500 mt-2">Deslize para ver o impacto da base nas funções. Tente valores menores que 1 e maiores que 1.</p>
+   
+   <div class="mt-8 space-y-4">
+    <div class="flex items-center gap-2">
+      <div class="w-4 h-4 rounded-full bg-blue-600"></div>
+      <div class="font-bold">Exponencial: \(f(x) = a^x\)</div>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="w-4 h-4 rounded-full bg-red-600"></div>
+      <div class="font-bold">Logarítmica: \(g(x) = \log_a x\)</div>
+    </div>
+   </div>
+
+   <div class="bg-slate-50 rounded-xl border p-4 mt-8">
+     <h3 class="font-bold text-sm text-center mb-3">Tabela de Valores (Reflexo)</h3>
+     <table class="w-full text-sm text-center">
+       <thead>
+         <tr class="text-slate-500 border-b"><th class="py-1">\(x\)</th><th class="py-1">\(a^x\)</th><th class="py-1">\(\log_a x\)</th></tr>
+       </thead>
+       <tbody id="lab-table" class="font-medium">
+       </tbody>
+     </table>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col items-center justify-center relative overflow-hidden">
+    <canvas id="lab-canvas" width="500" height="500" class="bg-slate-50 border rounded-xl shadow-inner max-w-full h-auto"></canvas>
+    <div class="absolute bottom-10 right-10 text-xs bg-white/80 p-2 rounded shadow backdrop-blur">Zoom 1:1</div>
+  </div>
+ </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-teal-600">Ferramentas pedagógicas</span><h1 class="text-3xl font-black mt-2">Calculadoras Passo a Passo</h1><p class="text-slate-600 mt-2">Solucione logaritmos numéricos e equações exponenciais básicas entendendo cada etapa.</p></div>
+ <div class="grid lg:grid-cols-2 gap-6">
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">Calculadora de Logaritmo</h2>
+   <p class="text-sm text-slate-500 mb-4">Calcula \(\log_b (x)\) por fatoração.</p>
+   <div class="grid grid-cols-2 gap-3 mt-4">
+    <div>
+     <label class="text-xs font-bold text-slate-500 uppercase">Base (b)</label>
+     <input id="calc-log-b" type="number" min="2" value="2" class="w-full border rounded-xl p-3 font-bold mt-1">
+    </div>
+    <div>
+     <label class="text-xs font-bold text-slate-500 uppercase">Logaritmando (x)</label>
+     <input id="calc-log-x" type="number" min="1" value="32" class="w-full border rounded-xl p-3 font-bold mt-1">
+    </div>
+   </div>
+   <button onclick="renderLogTool()" class="mt-4 w-full bg-teal-600 hover:bg-teal-700 transition text-white rounded-xl py-3 font-bold">Resolver Passo a Passo</button>
+   <div id="log-out" class="paper rounded-xl p-5 mt-4 hidden text-sm"></div>
+  </div>
+
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">Resolutor de Equação Exponencial</h2>
+   <p class="text-sm text-slate-500 mb-4">Encontra \(x\) para \(b^x = y\).</p>
+   <div class="grid grid-cols-[1fr_auto_1fr] items-end gap-3 mt-4">
+    <div>
+     <label class="text-xs font-bold text-slate-500 uppercase">Base (b)</label>
+     <div class="flex items-center"><input id="calc-eq-b" type="number" min="2" value="3" class="w-full border rounded-xl p-3 font-bold text-right"><span class="ml-1 text-lg font-bold">\(^x\)</span></div>
+    </div>
+    <div class="mb-3 text-xl font-bold">=</div>
+    <div>
+     <label class="text-xs font-bold text-slate-500 uppercase">Resultado (y)</label>
+     <input id="calc-eq-y" type="number" min="1" value="81" class="w-full border rounded-xl p-3 font-bold">
+    </div>
+   </div>
+   <button onclick="renderEqTool()" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 transition text-white rounded-xl py-3 font-bold">Encontrar X</button>
+   <div id="eq-out" class="paper rounded-xl p-5 mt-4 hidden text-sm"></div>
+  </div>
+
+ </div>
+</section>
+
+<!-- EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-teal-600">Treino progressivo</span><h1 class="text-3xl font-black mt-2">100 Exercícios com Resolução</h1><p class="text-slate-600 mt-2">Calcule mentalmente ou no papel. Digite apenas o valor final e clique em Conferir.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-teal-600 rounded-full transition-all duration-500" style="width:0%"></div></div></div></div></div>
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 1 (Potências)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 2 (Pot. Especiais)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 3 (Def. Log)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 4 (Prop. Log)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 5 (Eq. Exponencial)</button>
+   <button data-level="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nível 6 (Eq. Logarítmica)</button>
+  </div>
+ </div>
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo educacional de Matemática • Fórmulas renderizadas com KaTeX</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function mathInline(latex){return String.raw`\(${latex}\)`}
+function mathDisplay(latex){return String.raw`\[${latex}\]`}
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+    const t=btn.dataset.tab;
+    sections.forEach(s => $('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active',b===btn));
+    if(t==='exercicios') renderExercises();
+    if(t==='laboratorio') initLab();
+}));
+
+// Laboratório (Gráfico Exponencial vs Log)
+let labInited = false;
+function initLab() {
+  if(!labInited) {
+    $('lab-base').addEventListener('input', updateLab);
+    labInited = true;
+  }
+  updateLab();
+}
+
+function updateLab() {
+  const base = parseFloat($('lab-base').value);
+  $('lab-base-label').textContent = base.toFixed(1);
+  if(base === 1.0) {
+    // Evitar base 1
+    $('lab-base').value = 1.1; 
+    return updateLab();
+  }
+  drawGraph(base);
+  updateTable(base);
+}
+
+function drawGraph(a) {
+  const c = $('lab-canvas');
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+  const cx = w/2, cy = h/2;
+  const scale = 40; // 40 pixels = 1 unidade
+
+  ctx.clearRect(0,0,w,h);
+  
+  // Grid
+  ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
+  for(let i=0; i<w; i+=scale) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,h); ctx.stroke(); }
+  for(let i=0; i<h; i+=scale) { ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(w,i); ctx.stroke(); }
+  
+  // Eixos
+  ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,h); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0,cy); ctx.lineTo(w,cy); ctx.stroke();
+  
+  // Identificadores de eixo
+  ctx.fillStyle = '#64748b'; ctx.font = '14px sans-serif';
+  ctx.fillText('x', w - 15, cy - 10);
+  ctx.fillText('y', cx + 10, 15);
+
+  // y = x (Espelho)
+  ctx.strokeStyle = '#cbd5e1'; ctx.setLineDash([5, 5]); ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(0, h); ctx.lineTo(w, 0); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // f(x) = a^x (Exponencial - Azul)
+  ctx.strokeStyle = '#2563eb'; ctx.lineWidth = 3;
+  ctx.beginPath();
+  let firstExp = true;
+  for(let px = 0; px <= w; px+=2) {
+    let x = (px - cx) / scale;
+    let y = Math.pow(a, x);
+    let py = cy - (y * scale);
+    if(py > -100 && py < h + 100) {
+      if(firstExp) { ctx.moveTo(px, py); firstExp = false; }
+      else ctx.lineTo(px, py);
+    }
+  }
+  ctx.stroke();
+
+  // g(x) = log_a(x) (Logaritmo - Vermelho)
+  ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 3;
+  ctx.beginPath();
+  let firstLog = true;
+  for(let py = 0; py <= h; py+=2) {
+    // Calculando pela inversa para precisão extrema perto do eixo y
+    let y = (cy - py) / scale; // y na matemática
+    let x = Math.pow(a, y);
+    let px = cx + (x * scale);
+    if(px > 0 && px < w + 100) {
+      if(firstLog) { ctx.moveTo(px, py); firstLog = false; }
+      else ctx.lineTo(px, py);
+    }
+  }
+  ctx.stroke();
+}
+
+function updateTable(a) {
+  const tb = $('lab-table');
+  tb.innerHTML = '';
+  // Valores chaves de x para a tabela
+  const xs = [-1, 0, 1, 2, a];
+  xs.forEach(x => {
+    let exp = Math.pow(a, x).toFixed(2);
+    let log = x > 0 ? (Math.log(x) / Math.log(a)).toFixed(2) : '-';
+    // Remove decimais inuteis
+    exp = exp.replace(/\.00$/, '');
+    if(log !== '-') log = log.replace(/\.00$/, '');
+    
+    tb.innerHTML += `<tr class="border-b border-slate-100 hover:bg-slate-100"><td class="py-2">${x}</td><td class="text-blue-600">${exp}</td><td class="text-red-600">${log}</td></tr>`;
+  });
+  renderAll();
+}
+
+// Ferramentas / Cálculos
+function factorize(n, base) {
+    let count = 0;
+    let temp = n;
+    while(temp > 1 && temp % base === 0) {
+        temp = temp / base;
+        count++;
+    }
+    return temp === 1 ? count : null;
+}
+
+function renderLogTool() {
+  const b = parseInt($('calc-log-b').value);
+  const x = parseInt($('calc-log-x').value);
+  const out = $('log-out');
+  out.classList.remove('hidden');
+  
+  if (isNaN(b) || isNaN(x) || b < 2 || x < 1) {
+    out.innerHTML = '<div class="warning rounded-xl p-4">Insira uma base \(\ge 2\) e um logaritmando \(\ge 1\).</div>';
+    return renderAll();
+  }
+
+  if (x === 1) {
+    out.innerHTML = `<div class="step" data-step="1">A pergunta é: \(${b}^? = 1\).</div><div class="step mt-3" data-step="2">Qualquer número não nulo elevado a 0 é 1.</div><div class="success rounded-xl p-4 mt-4 text-center text-lg font-bold">\[\\log_{${b}} 1 = 0\]</div>`;
+    return renderAll();
+  }
+
+  const k = factorize(x, b);
+  
+  if(k !== null) {
+      out.innerHTML = `
+      <div class="step" data-step="1">A pergunta principal é descobrir o expoente: ${mathInline(`${b}^? = ${x}`)}.</div>
+      <div class="step mt-3" data-step="2">Fatore o número ${x} usando a base ${b}.<br> ${mathInline(`\\underbrace{${b} \\times ${b} \\dots \\times ${b}}_{${k} \\text{ vezes}} = ${x}`)}</div>
+      <div class="step mt-3" data-step="3">Escreva na forma de potência: ${mathInline(`${x} = ${b}^${k}`)}.</div>
+      <div class="step mt-3" data-step="4">Substitua no logaritmo: ${mathInline(`\\log_{${b}} (${b}^${k})`)}. O logaritmo cancela a base.</div>
+      <div class="success rounded-xl p-4 mt-4 text-center text-lg font-bold">\[\\log_{${b}} ${x} = ${k}\]</div>
+      `;
+  } else {
+      let val = (Math.log(x)/Math.log(b)).toFixed(4);
+      out.innerHTML = `
+      <div class="step" data-step="1">A pergunta é: ${mathInline(`${b}^? = ${x}`)}.</div>
+      <div class="step mt-3" data-step="2">Como ${x} não é uma potência exata de ${b} inteira, o resultado será um número quebrado (irracional ou decimal).</div>
+      <div class="step mt-3" data-step="3">Usando mudança de base para calcular: ${mathInline(`\\frac{\\log_{10} ${x}}{\\log_{10} ${b}}`)}.</div>
+      <div class="success rounded-xl p-4 mt-4 text-center text-lg font-bold">\[\\log_{${b}} ${x} \\approx ${val}\]</div>
+      `;
+  }
+  renderAll();
+}
+
+function renderEqTool() {
+  const b = parseInt($('calc-eq-b').value);
+  const y = parseInt($('calc-eq-y').value);
+  const out = $('eq-out');
+  out.classList.remove('hidden');
+
+  if (isNaN(b) || isNaN(y) || b < 2 || y < 1) {
+    out.innerHTML = '<div class="warning rounded-xl p-4">Insira valores válidos. Base \(\ge 2\).</div>';
+    return renderAll();
+  }
+
+  const k = factorize(y, b);
+  if(k !== null) {
+     out.innerHTML = `
+      <div class="step" data-step="1">A equação é: ${mathDisplay(`${b}^x = ${y}`)}</div>
+      <div class="step mt-3" data-step="2">O objetivo é igualar as bases. Vamos fatorar ${y} na base ${b}. Como ${mathInline(`${b}^${k} = ${y}`)}.</div>
+      <div class="step mt-3" data-step="3">Reescrevendo a equação: ${mathDisplay(`${b}^x = ${b}^${k}`)}</div>
+      <div class="step mt-3" data-step="4">Como as bases são iguais e diferentes de 1, podemos igualar os expoentes.</div>
+      <div class="success rounded-xl p-4 mt-4 text-center text-lg font-bold">\[x = ${k}\]</div>
+      `;
+  } else {
+     let val = (Math.log(y)/Math.log(b)).toFixed(4);
+     out.innerHTML = `
+      <div class="step" data-step="1">A equação é: ${mathDisplay(`${b}^x = ${y}`)}</div>
+      <div class="step mt-3" data-step="2">Como ${y} não é potência inteira de ${b}, não conseguimos igualar bases facilmente. Aplicamos logaritmo dos dois lados.</div>
+      <div class="step mt-3" data-step="3">Aplicando log: ${mathDisplay(`\\log(${b}^x) = \\log(${y})`)}</div>
+      <div class="step mt-3" data-step="4">O expoente $x$ "cai" para frente multiplicando (Regra do Tombo): ${mathDisplay(`x \\cdot \\log(${b}) = \\log(${y})`)}</div>
+      <div class="step mt-3" data-step="5">Isolando $x$: ${mathDisplay(`x = \\frac{\\log(${y})}{\\log(${b})}`)}</div>
+      <div class="success rounded-xl p-4 mt-4 text-center text-lg font-bold">\[x \\approx ${val}\]</div>
+      `;
+  }
+  renderAll();
+}
+
+// Geração de 100 exercícios densamente formatada
+const rawData = [
+  // Nível 1: Potências Simples
+  "1|1|Potências Simples|2^2|4|evalExp",
+  "2|1|Potências Simples|2^3|8|evalExp",
+  "3|1|Potências Simples|2^4|16|evalExp",
+  "4|1|Potências Simples|2^5|32|evalExp",
+  "5|1|Potências Simples|3^2|9|evalExp",
+  "6|1|Potências Simples|3^3|27|evalExp",
+  "7|1|Potências Simples|4^2|16|evalExp",
+  "8|1|Potências Simples|4^3|64|evalExp",
+  "9|1|Potências Simples|5^2|25|evalExp",
+  "10|1|Potências Simples|5^3|125|evalExp",
+  "11|1|Potências Simples|6^2|36|evalExp",
+  "12|1|Potências Simples|7^2|49|evalExp",
+  "13|1|Potências Simples|8^2|64|evalExp",
+  "14|1|Potências Simples|9^2|81|evalExp",
+  "15|1|Potências Simples|10^3|1000|evalExp",
+  
+  // Nível 2: Potências Especiais (Negativas, Frações, Zero)
+  "16|2|Expoente Zero|7^0|1|evalExp",
+  "17|2|Expoente Negativo|2^{-1}|1/2|evalExp",
+  "18|2|Expoente Negativo|2^{-2}|1/4|evalExp",
+  "19|2|Expoente Negativo|3^{-1}|1/3|evalExp",
+  "20|2|Expoente Negativo|3^{-2}|1/9|evalExp",
+  "21|2|Expoente Negativo|10^{-2}|1/100|evalExp",
+  "22|2|Expoente Negativo|10^{-3}|1/1000|evalExp",
+  "23|2|Expoente Fracionário|4^{1/2}|2|evalExp",
+  "24|2|Expoente Fracionário|9^{1/2}|3|evalExp",
+  "25|2|Expoente Fracionário|16^{1/2}|4|evalExp",
+  "26|2|Expoente Fracionário|27^{1/3}|3|evalExp",
+  "27|2|Expoente Fracionário|8^{1/3}|2|evalExp",
+  "28|2|Expoente Fracionário|100^{1/2}|10|evalExp",
+  "29|2|Inversão da Base|(1/2)^{-1}|2|evalExp",
+  "30|2|Inversão da Base|(1/3)^{-2}|9|evalExp",
+  
+  // Nível 3: Definição de Logaritmo
+  "31|3|Definição de Log|\\log_2 4|2|defLog",
+  "32|3|Definição de Log|\\log_2 8|3|defLog",
+  "33|3|Definição de Log|\\log_2 16|4|defLog",
+  "34|3|Definição de Log|\\log_2 32|5|defLog",
+  "35|3|Definição de Log|\\log_3 9|2|defLog",
+  "36|3|Definição de Log|\\log_3 27|3|defLog",
+  "37|3|Definição de Log|\\log_4 16|2|defLog",
+  "38|3|Definição de Log|\\log_5 25|2|defLog",
+  "39|3|Definição de Log|\\log_5 125|3|defLog",
+  "40|3|Logaritmo Decimal|\\log_{10} 100|2|defLog",
+  "41|3|Logaritmo Decimal|\\log_{10} 1000|3|defLog",
+  "42|3|Base igual Logaritmando|\\log_2 2|1|defLog",
+  "43|3|Logaritmo de 1|\\log_7 1|0|defLog",
+  "44|3|Logaritmo de Fração|\\log_2 (1/2)|-1|defLog",
+  "45|3|Logaritmo de Fração|\\log_2 (1/4)|-2|defLog",
+  "46|3|Logaritmo de Fração|\\log_3 (1/9)|-2|defLog",
+  "47|3|Log Decimal Negativo|\\log_{10} 0.1|-1|defLog",
+  "48|3|Base maior que número|\\log_4 2|1/2|defLog",
+  "49|3|Base maior que número|\\log_9 3|1/2|defLog",
+  "50|3|Base maior que número|\\log_{27} 3|1/3|defLog",
+
+  // Nível 4: Propriedades dos Logaritmos
+  "51|4|Log do Produto|\\log_2(2 \\cdot 4)|3|propLog",
+  "52|4|Log do Produto|\\log_3(9 \\cdot 3)|3|propLog",
+  "53|4|Log do Quociente|\\log_2(16 / 2)|3|propLog",
+  "54|4|Log do Quociente|\\log_3(27 / 9)|1|propLog",
+  "55|4|Log da Potência|\\log_2(2^5)|5|propLog",
+  "56|4|Log da Potência|\\log_5(5^3)|3|propLog",
+  "57|4|Soma de Logs|\\log_2 16 + \\log_2 2|5|propLog",
+  "58|4|Subtração de Logs|\\log_3 27 - \\log_3 9|1|propLog",
+  "59|4|Base elevada ao Log|2^{\\log_2 5}|5|propLog",
+  "60|4|Base elevada ao Log|10^{\\log_{10} 7}|7|propLog",
+  "61|4|Tombo da Potência|\\log_2(8^2)|6|propLog",
+  "62|4|Tombo da Potência|\\log_3(9^2)|4|propLog",
+  "63|4|Soma de Logs|\\log_4 2 + \\log_4 8|2|propLog",
+  "64|4|Soma de Logs|\\log_6 12 + \\log_6 3|2|propLog",
+  "65|4|Soma de Logs|\\log_{10} 50 + \\log_{10} 2|2|propLog",
+  "66|4|Subtração de Logs|\\log_2 80 - \\log_2 5|4|propLog",
+  "67|4|Subtração de Logs|\\log_3 162 - \\log_3 2|4|propLog",
+  "68|4|Mudança de Base|\\frac{\\log_2 9}{\\log_2 3}|2|propLog",
+  "69|4|Mudança de Base|\\frac{\\log_5 16}{\\log_5 2}|4|propLog",
+  "70|4|Produto de Logs cruzados|\\log_2 3 \\cdot \\log_3 8|3|propLog",
+
+  // Nível 5: Equações Exponenciais Simples (Resolver x)
+  "71|5|Bases Iguais Diretas|2^x = 8|3|eqExp",
+  "72|5|Bases Iguais Diretas|3^x = 81|4|eqExp",
+  "73|5|Bases Iguais Diretas|5^x = 125|3|eqExp",
+  "74|5|Expoente Composto|2^{x-1} = 4|3|eqExp",
+  "75|5|Expoente Composto|3^{x+1} = 27|2|eqExp",
+  "76|5|Fatoração de base base|4^x = 2|1/2|eqExp",
+  "77|5|Fatoração de base base|9^x = 3|1/2|eqExp",
+  "78|5|Produto no Expoente|2^{2x} = 16|2|eqExp",
+  "79|5|Divisão no Expoente|5^{x/2} = 5|2|eqExp",
+  "80|5|Base Invertida|(1/2)^x = 4|-2|eqExp",
+  "81|5|Base Invertida|(1/3)^x = 9|-2|eqExp",
+  "82|5|Igualdade Inversa|2^x = 1/8|-3|eqExp",
+  "83|5|Igualdade Inversa Decimal|10^x = 0.01|-2|eqExp",
+  "84|5|Expoente Composto|3^{2x-1} = 27|2|eqExp",
+  "85|5|Igualando a 1|7^{x-2} = 1|2|eqExp",
+
+  // Nível 6: Equações Logarítmicas (Resolver x)
+  "86|6|Regra do Empurrão|\\log_2 x = 3|8|eqLog",
+  "87|6|Regra do Empurrão|\\log_3 x = 2|9|eqLog",
+  "88|6|Regra do Empurrão|\\log_5 x = 3|125|eqLog",
+  "89|6|Incógnita na Base|\\log_x 16 = 2|4|eqLog",
+  "90|6|Incógnita na Base|\\log_x 27 = 3|3|eqLog",
+  "91|6|Logaritmando Composto|\\log_2(x-1) = 2|5|eqLog",
+  "92|6|Logaritmando Composto|\\log_3(x+2) = 2|7|eqLog",
+  "93|6|Soma antes do Empurrão|\\log_2 x + \\log_2 2 = 3|4|eqLog",
+  "94|6|Subtração de Logs|\\log_3 x - \\log_3 2 = 1|6|eqLog",
+  "95|6|Produto Interno|\\log_2(2x) = 4|8|eqLog",
+  "96|6|Log Decimal Negativo|\\log_{10} x = -1|1/10|eqLog",
+  "97|6|Incógnita na Base|\\log_x 8 = 3|2|eqLog",
+  "98|6|Resultado Fracionário|\\log_4 x = 1/2|2|eqLog",
+  "99|6|Resultado Fracionário|\\log_9 x = 1/2|3|eqLog",
+  "100|6|Expoente no Logaritmando|\\log_2(x^2) = 4|4|eqLog" // Assumindo raiz positiva
+];
+
+const E = rawData.map(line => {
+  const p = line.split('|');
+  return { id: parseInt(p[0]), level: parseInt(p[1]), title: p[2], expr: p[3], ans: p[4], type: p[5] };
+});
+
+function solutionSteps(ex){
+  const S=[];
+  if(ex.type==='evalExp'){
+    S.push(['1','O expoente diz quantas vezes multiplicar a base por ela mesma (ou suas regras especiais).']);
+    if(ex.expr.includes('-')) S.push(['2','Expoente negativo inverte a base e fica positivo.']);
+    if(ex.expr.includes('1/')) S.push(['2','Expoente fracionário transforma-se em raiz.']);
+    S.push(['3',`Calcule o valor: \\(${ex.expr} = ${ex.ans}\\).`]);
+  }
+  else if(ex.type==='defLog'){
+    S.push(['1','Aplique a definição: "A base elevada a qual número resulta no logaritmando?".']);
+    let base = ex.expr.match(/_(\{?\w+\}?)/)[1].replace(/[{}]/g, '');
+    let num = ex.expr.split(' ')[1] || ex.expr.split('(')[1].replace(')','');
+    S.push(['2',`Neste caso, resolver: \\(${base}^? = ${num}\\).`]);
+    S.push(['3',`Como \\(${base}^{${ex.ans}} = ${num}\\), o resultado é \\(${ex.ans}\\).`]);
+  }
+  else if(ex.type==='propLog'){
+    S.push(['1','Identifique a propriedade logarítmica a ser usada (Soma vira produto, subtração vira divisão, expoente tomba).']);
+    S.push(['2','Aplique a propriedade para simplificar a expressão antes de calcular.']);
+    S.push(['3',`O valor final simplificado é \\(${ex.ans}\\).`]);
+  }
+  else if(ex.type==='eqExp'){
+    S.push(['1',`Equação: \\(${ex.expr}\\). O objetivo é igualar as bases dos dois lados.`]);
+    S.push(['2','Fatore o número ou aplique regras de potência para que os dois lados tenham a mesma base.']);
+    S.push(['3','Após igualar as bases, corte-as e resolva a igualdade apenas com os expoentes.']);
+    S.push(['4',`Resultado: \\(x = ${ex.ans}\\).`]);
+  }
+  else if(ex.type==='eqLog'){
+    S.push(['1',`Equação: \\(${ex.expr}\\). Se tiver 'x', aplique a "Regra do Empurrão".`]);
+    S.push(['2','A base do logaritmo passa para o outro lado da igualdade elevando o que está lá.']);
+    S.push(['3','O logaritmo some e vira uma equação normal ou exponencial simples. Resolva.']);
+    S.push(['4',`Resultado: \\(x = ${ex.ans}\\).`]);
+  }
+  return S;
+}
+
+let solved=new Set(JSON.parse(localStorage.getItem('expSolved')||'[]'));
+let currentLevel='all';
+
+function renderExercises(){
+  const q=($('search') ? $('search').value.toLowerCase() : '');
+  let list=E.filter(e=>(currentLevel==='all'||e.level==currentLevel)&&(q===''||(`questão ${e.id} ${e.title}`).toLowerCase().includes(q)));
+  
+  $('exercise-list').innerHTML=list.map(ex=>{
+    const done=solved.has(ex.id);
+    let isEq = ex.type === 'eqExp' || ex.type === 'eqLog';
+    const questionMath = ex.expr + (isEq ? '' : ' = ?');
+    
+    return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm">
+      <div class="flex justify-between gap-3">
+        <span class="text-xs font-black px-2.5 py-1 rounded-full bg-teal-50 text-teal-700">Questão ${ex.id}</span>
+        <span class="text-xs text-slate-400">${ex.title}</span>
+      </div>
+      <div class="bg-slate-50 rounded-xl border border-dashed mt-3 p-6 text-center text-xl overflow-x-auto overflow-y-hidden" style="min-height: 80px;">
+        ${mathDisplay(questionMath)}
+      </div>
+      <div class="flex gap-2 mt-4">
+        ${isEq ? '<div class="flex items-center text-lg font-bold text-slate-500">x =</div>' : ''}
+        <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm" placeholder="Sua resposta (ex: 2 ou 1/2)">
+        <button onclick="check(${ex.id})" class="bg-teal-600 hover:bg-teal-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+      </div>
+      <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+      <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-teal-700 hover:underline">👁 Visualizar dicas e resposta</button>
+      
+      <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+        <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Guia de Resolução</div>
+        ${solutionSteps(ex).map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+        <div class="success rounded-xl p-4 text-center font-bold">Resposta: ${mathDisplay(ex.ans)}</div>
+      </div>
+    </article>`
+  }).join('');
+  
+  $('progress-text').textContent=`${solved.size} / 100`;
+  $('progress-bar').style.width=(solved.size)+'%';
+  renderAll();
+}
+
+function parseUserAnswer(ans) {
+  // Limpa espaços e transforma virgulas em pontos
+  return ans.trim().replace(/\s+/g, '').replace(',', '.');
+}
+
+function check(id){
+  const ex = E.find(x=>x.id===id);
+  const raw = $('answer-'+id).value;
+  const user = parseUserAnswer(raw);
+  const fb = $('feedback-'+id);
+  
+  let ok = false;
+  // Comparação simples de string, lidando com decimais (0.5 == 1/2)
+  if (user === ex.ans) {
+    ok = true;
+  } else if (ex.ans.includes('/')) {
+    let parts = ex.ans.split('/');
+    if(parseFloat(user) === (parseFloat(parts[0]) / parseFloat(parts[1]))) {
+      ok = true;
+    }
+  }
+
+  if(ok){
+    solved.add(id);
+    localStorage.setItem('expSolved',JSON.stringify([...solved]));
+    fb.className='text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent='✓ Correto! Excelente trabalho.';
+  }else{
+    fb.className='text-sm font-bold mt-2 text-red-600';
+    fb.textContent='✗ Ainda não. Reveja os passos e tente de novo.';
+  }
+  renderExercises();
+}
+
+function toggleSol(id){ $('solution-'+id).classList.toggle('hidden'); }
+
+document.querySelectorAll('.level-btn').forEach(b=>{
+  b.onclick=()=>{
+    currentLevel=b.dataset.level;
+    document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderExercises();
+  }
+});
+if($('search')) $('search').addEventListener('input',renderExercises);
+
+window.addEventListener('DOMContentLoaded',()=>{
+  renderAll();
+});
+</script>
+</body>
+</html>
