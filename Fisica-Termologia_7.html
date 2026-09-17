@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física — Acústica e Fenômenos Ondulatórios Sonoros</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {--ink: #0f172a; --paper: #f8fafc; --line: #cbd5e1; --accent: #6366f1}
+  body {background: #f8fafc; color: var(--ink)}
+  .tab-btn.active {color: #4f46e5; border-bottom-color: #4f46e5; font-weight: 800}
+  .paper {background: #f1f5f9; background-image: linear-gradient(#e2e8f0 1px, transparent 1px); background-size: 100% 2rem; border: 1px solid #cbd5e1; box-shadow: 0 8px 24px #0f172a0a}
+  .step {position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #c7d2fe; border-radius: 1rem; background: white}
+  .step::before {content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #e0e7ff; color: #4338ca; font-weight: 800; display: grid; place-items: center; font-size: .8rem}
+  .level-btn.active {background: #4f46e5; color: white}
+  .exercise-solution {animation: fade .2s ease}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  .tip {border-left: 4px solid #6366f1; background: #eef2ff}
+  .success {border-left: 4px solid #10b981; background: #ecfdf5}
+  .warning {border-left: 4px solid #ef4444; background: #fef2f2}
+  .enrichment {background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: white}
+  canvas {display: block; width: 100%; height: auto;}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-indigo-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+     <div class="font-black text-lg sm:text-xl text-indigo-950">🔊 Acústica & Fenômenos Sonoros</div>
+     <div class="text-[11px] text-slate-500 hidden sm:block">Espectro Sonoro, Fisiologia, Doppler, Sons Musicais e Acústica Ondulatória</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Laboratório Acústico</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- SEÇÃO TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-slate-950 via-indigo-950 to-blue-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-300">Física Geral • Ondulatória II • Moderna Plus</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">A Física da Música, da Voz e do Som</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Como as compressões e rarefações moleculares no ar criam a sensação auditiva humana; por que a sirene da ambulância parece mais aguda quando se aproxima e mais grave quando se afasta; e como tubos de órgãos, cordas de violão e decibéis obedecem aos princípios matemáticos da acústica física.</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm text-sm border border-indigo-200">
+  <b class="text-indigo-950 text-base">⚠️ O Pilar Inegociável da Acústica:</b><br>
+  <span class="text-slate-700 text-sm leading-6">O som nos fluidos (como o ar e a água) é uma <b>onda mecânica puramente longitudinal</b> e tridimensional. Ele necessita de átomos e moléculas materiais para sofrer compressão e descompressão cíclica. <b>O som JAMAIS se propaga no vácuo!</b> Além disso, como qualquer onda, transporta apenas energia mecânica e momento linear, sem arrastar a matéria do meio.</span>
+ </div>
+
+ <!-- TÓPICO 1 E 2: Infrassom/Ultrassom e Propagação -->
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border border-indigo-100 p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black text-indigo-950">Som, Infrassom e Ultrassom</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">O ouvido humano jovem saudável é um transdutor biológico capaz de captar vibrações mecânicas em uma faixa estrita de frequências: o chamado <b>espectro audível humano</b>, delimitado entre $20\text{ Hz}$ e $20.000\text{ Hz}$ ($20\text{ kHz}$).</p>
+   
+   <div class="space-y-3 mt-4 text-xs">
+    <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+     <b class="text-amber-950 text-sm">Infrassom ($f < 20\text{ Hz}$)</b>
+     <p class="text-slate-600 mt-1">Vibrações mecânicas ultralentas inaudíveis aos humanos, mas sentidas como tremores torácicos. Ondas sísmicas de terremotos, abalos vulcânicos e a comunicação de longa distância de elefantes e baleias-azuis ocorrem nesta faixa.</p>
+    </div>
+    <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200">
+     <b class="text-emerald-950 text-sm">Som Audível ($20\text{ Hz} \le f \le 20.000\text{ Hz}$)</b>
+     <p class="text-slate-600 mt-1">Faixa captada pelo tímpano e pelos ossículos do ouvido médio (martelo, bigorna e estribo), sendo convertida em impulsos neurais na cóclea.</p>
+    </div>
+    <div class="p-3 rounded-xl bg-indigo-50 border border-indigo-200">
+     <b class="text-indigo-950 text-sm">Ultrassom ($f > 20.000\text{ Hz}$)</b>
+     <p class="text-slate-600 mt-1">Oscilações mecânicas ultrarrápidas inaudíveis aos nossos ouvidos, mas percebidas por cães ($f \approx 40\text{ kHz}$), morcegos e golfinhos ($f > 100\text{ kHz}$). Utilizadas em exames de imagem médica (ecografia), sonares marítimos e ensaios não destrutivos de materiais.</p>
+    </div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border border-indigo-100 p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black text-indigo-950">Características da Propagação Sonora</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">A velocidade de propagação do som depende exclusivamente das <b>propriedades elásticas e da densidade inercial do meio material</b>, regida pela equação $v = \sqrt{\frac{B}{\rho}}$ (onde $B$ é o módulo de elasticidade volumétrico e $\rho$ é a densidade).</p>
+   
+   <div class="paper text-center py-3 mt-3 rounded-xl shadow-inner border border-indigo-200">
+    <div class="text-sm font-bold text-indigo-950">Hierarquia Geral da Velocidade Sonora:</div>
+    <div class="text-lg font-black text-indigo-700 mt-1">\[v_{\text{sólidos}} > v_{\text{líquidos}} > v_{\text{gases}}\]</div>
+    <p class="text-[11px] text-slate-500 mt-1">Aço: $\approx 5.100\text{ m/s}$ &bull; Água: $\approx 1.480\text{ m/s}$ &bull; Ar ($20^\circ\text{C}$): $\approx 343\text{ m/s}$</p>
+   </div>
+
+   <p class="mt-3 text-slate-600 text-sm leading-6"><b>Influência da Temperatura nos Gases:</b> Em um gás, moléculas mais quentes colidem mais rápido. No ar atmosférico seco, a velocidade varia aproximadamente com:</p>
+   <div class="paper text-center py-2 mt-2 font-bold text-xs text-indigo-900">\[v \approx 331 + 0,6 \cdot \theta \quad (\theta \text{ em } ^\circ\text{C})\]</div>
+   <p class="text-[11px] text-slate-500 mt-1">A $0^\circ\text{C}$, $v \approx 331\text{ m/s}$; a $20^\circ\text{C}$, $v \approx 343\text{ m/s}$; a $30^\circ\text{C}$, $v \approx 349\text{ m/s}$.</p>
+  </article>
+ </div>
+
+ <!-- TÓPICO 3: Qualidades Fisiológicas do Som -->
+ <div class="bg-white rounded-2xl border border-indigo-100 shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">3</span><h2 class="text-2xl font-black text-indigo-950">Qualidades Fisiológicas do Som</h2></div>
+  <p class="text-sm text-slate-600 mt-3 mb-4">O cérebro humano decodifica o estímulo sonoro através de três sensações fisiológicas independentes, cada uma ligada a uma grandeza estritamente ondulatória:</p>
+  
+  <div class="grid lg:grid-cols-3 gap-5 text-xs">
+   <div class="border border-sky-200 rounded-xl p-4 bg-sky-50/60">
+    <div class="flex items-center justify-between"><b class="text-sky-900 text-sm">1. Altura (Frequência $f$)</b><span class="text-[10px] bg-sky-200 text-sky-800 px-2 py-0.5 rounded-full font-bold">Grave vs. Agudo</span></div>
+    <p class="text-slate-600 mt-2">Diferencia sons <b>graves (baixa frequência)</b> de sons <b>agudos (alta frequência)</b>. <br>• <i>Erro comum do cotidiano:</i> "Aumentar a altura da TV" não é aumentar o volume, e sim torná-la mais aguda!</p>
+    <div class="paper py-2 mt-2 font-bold text-center text-xs text-sky-900">Grave = Baixo $f$ ($\lambda$ grande) $\iff$ Agudo = Alto $f$ ($\lambda$ curto)</div>
+    <p class="text-[11px] text-slate-500 mt-2">Exemplo: Voz masculina grave ($\approx 100\text{ Hz}$) vs. voz feminina aguda ($\approx 250\text{ Hz}$ a $1000\text{ Hz}$).</p>
+   </div>
+
+   <div class="border border-indigo-200 rounded-xl p-4 bg-indigo-50/60">
+    <div class="flex items-center justify-between"><b class="text-indigo-900 text-sm">2. Intensidade (Amplitude $A$)</b><span class="text-[10px] bg-indigo-200 text-indigo-800 px-2 py-0.5 rounded-full font-bold">Forte vs. Fraco</span></div>
+    <p class="text-slate-600 mt-2">Diferencia sons <b>fortes (grande energia/amplitude)</b> de sons <b>fracos (pequena amplitude)</b>. É o verdadeiro "volume".</p>
+    <div class="paper py-2 mt-2 font-bold text-center text-xs text-indigo-900">Intensidade Física: \[I = \frac{P_{\text{fonte}}}{4\pi R^2} \quad (\text{W/m}^2)\]</div>
+    <p class="text-[11px] text-slate-500 mt-2">Limiar de audibilidade humano: $I_0 = 10^{-12}\text{ W/m}^2$. Limiar da dor: $I_{\text{dor}} = 1\text{ W/m}^2$.</p>
+   </div>
+
+   <div class="border border-purple-200 rounded-xl p-4 bg-purple-50/60">
+    <div class="flex items-center justify-between"><b class="text-purple-900 text-sm">3. Timbre (Forma da Onda)</b><span class="text-[10px] bg-purple-200 text-purple-800 px-2 py-0.5 rounded-full font-bold">A "Identidade" Sonora</span></div>
+    <p class="text-slate-600 mt-2">Permite distinguir <b>fontes sonoras distintas emitindo a mesma nota musical</b> (mesma frequência $f$) e com a mesma intensidade ($I$).</p>
+    <div class="paper py-2 mt-2 font-bold text-center text-xs text-purple-900">Mesma nota Lá ($440\text{ Hz}$) no violino e no piano</div>
+    <p class="text-[11px] text-slate-500 mt-2">O som puro é senoidal; os instrumentos reais emitem um conjunto de harmônicos superpostos, gerando uma onda resultante com desenho morfológico único.</p>
+   </div>
+  </div>
+
+  <!-- Escala Decibeliana -->
+  <div class="paper text-center py-4 mt-5 rounded-2xl shadow-inner border border-indigo-300">
+   <span class="text-xs uppercase tracking-widest font-black text-indigo-700">A Escala Logarítmica da Audição — O Nível Sonoro ($\beta$)</span>
+   <div class="text-2xl sm:text-3xl font-black text-indigo-950 my-2">
+    \[\beta = 10 \cdot \log_{10}\left(\frac{I}{I_0}\right) \quad (\text{em Decibéis, dB})\]
+   </div>
+   <p class="text-xs text-slate-600 max-w-2xl mx-auto px-4">
+    Como o ouvido responde de forma logarítmica (Lei de Weber-Fechner), para dobrar a sensação auditiva de volume precisamos multiplicar a intensidade física por 10! Um aumento de $10\text{ dB}$ significa intensidade física dez vezes maior ($10\times$).
+   </p>
+  </div>
+ </div>
+
+ <!-- TÓPICO 4: Efeito Doppler-Fizeau -->
+ <div class="bg-white rounded-2xl border border-indigo-100 shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">4</span><h2 class="text-2xl font-black text-indigo-950">O Efeito Doppler-Fizeau</h2></div>
+  <p class="text-sm text-slate-600 mt-3 mb-4">É a alteração aparente na frequência percebida por um observador provocada pelo <b>movimento relativo de aproximação ou de afastamento</b> entre a fonte emissora de ondas e o receptor:</p>
+  
+  <div class="grid lg:grid-cols-2 gap-6">
+   <div class="space-y-3 text-xs">
+    <div class="p-3 rounded-xl bg-sky-50 border border-sky-200">
+     <b class="text-sky-950 text-sm">Na Aproximação Relativa: Som Mais Agudo ($f_{\text{obs}} > f_{\text{fonte}}$)</b>
+     <p class="text-slate-600 mt-1">Ao se aproximar, as frentes de onda são comprimidas no espaço. O observador intercepta mais cristas por segundo, percebendo uma frequência mais alta (aguda).</p>
+    </div>
+    <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+     <b class="text-amber-950 text-sm">No Afastamento Relativo: Som Mais Grave ($f_{\text{obs}} < f_{\text{fonte}}$)</b>
+     <p class="text-slate-600 mt-1">Ao se afastar, as frentes de onda são esticadas no espaço. O observador intercepta menos cristas por segundo, percebendo uma frequência mais baixa (grave).</p>
+    </div>
+    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-slate-700">
+     <b>Atenção Rigorosa:</b> A fonte emissora continua emitindo rigorosamente a sua frequência original constante! A alteração é apenas aparente para quem está em movimento relativo.
+    </div>
+   </div>
+
+   <div class="paper p-4 rounded-xl flex flex-col justify-center text-center">
+    <span class="text-xs uppercase tracking-widest font-black text-indigo-700 mb-1">Equação Geral do Efeito Doppler</span>
+    <div class="text-xl sm:text-2xl font-black text-indigo-950 my-2">
+     \[f_{\text{obs}} = f_{\text{fonte}} \cdot \left(\frac{v \pm v_{\text{obs}}}{v \mp v_{\text{fonte}}}\right)\]
+    </div>
+    <div class="text-[11px] text-slate-600 text-left space-y-1 mt-2 bg-white/70 p-3 rounded-lg border">
+     <b>Regra dos Sinais (Referencial orientado do Observador para a Fonte, $O \longrightarrow F$):</b><br>
+     • $v$: velocidade do som no meio ($\approx 340\text{ m/s}$).<br>
+     • Observador aproxima: $+v_{\text{obs}}$ &bull; Observador afasta: $-v_{\text{obs}}$<br>
+     • Fonte aproxima: $-v_{\text{fonte}}$ no denominador &bull; Fonte afasta: $+v_{\text{fonte}}$ no denominador.
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <!-- TÓPICO 5 E 6: Sons Musicais e Fenômenos Ondulatórios Sonoros -->
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border border-indigo-100 p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black text-indigo-950">Sons Musicais: Cordas e Tubos Sonoros</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Instrumentos acústicos produzem som através de <b>ondas estacionárias</b> formadas por reflexões sucessivas em suas fronteiras:</p>
+   
+   <div class="space-y-3 mt-3 text-xs">
+    <div class="p-3 rounded-xl bg-blue-50 border border-blue-200">
+     <b class="text-blue-950 text-sm">Cordas Vibrantes e Tubos Abertos</b>
+     <p class="text-slate-600 mt-1">Tubos abertos nas duas pontas possuem ventres nas extremidades. Cordas fixas possuem nós nas pontas. Em ambos os casos, a frequência dos harmônicos obedece à série completa ($n = 1, 2, 3...$):</p>
+     <div class="paper text-center py-2 mt-1 font-bold text-xs text-blue-950">\[f_n = n \cdot \frac{v}{2L} \quad (n = 1, 2, 3, 4...)\]</div>
+    </div>
+
+    <div class="p-3 rounded-xl bg-purple-50 border border-purple-200">
+     <b class="text-purple-950 text-sm">Tubos Fechados em uma Extremidade</b>
+     <p class="text-slate-600 mt-1">Possuem um nó na extremidade fechada e um ventre na extremidade aberta. Emitem <b>exclusivamente harmônicos ímpares</b> ($n = 1, 3, 5...$):</p>
+     <div class="paper text-center py-2 mt-1 font-bold text-xs text-purple-950">\[f_n = n \cdot \frac{v}{4L} \quad (n = 1, 3, 5, 7...)\]</div>
+    </div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border border-indigo-100 p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black text-indigo-950">Fenômenos Ondulatórios Aplicados ao Som</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Comportamentos acústicos clássicos em ambientes e fronteiras:</p>
+   
+   <div class="space-y-2 mt-3 text-xs">
+    <div class="p-2.5 rounded-lg bg-slate-50 border">
+     <b class="text-indigo-950">Reflexão (Eco vs. Reverberação):</b> O cérebro precisa de um intervalo de $\Delta t \ge 0,1\text{ s}$ para distinguir dois sons sucessivos (persistência auditiva). Como $d = \frac{v \cdot \Delta t}{2} = \frac{340 \cdot 0,1}{2}$, a distância mínima do anteparo para ouvir <b>eco distinto é $17\text{ metros}$</b>. A distâncias menores, ocorre <b>reverberação</b>.
+    </div>
+    <div class="p-2.5 rounded-lg bg-slate-50 border">
+     <b class="text-indigo-950">Difração Sonora:</b> Como o som audível possui comprimentos de onda métricos ($0,017\text{ m} \le \lambda \le 17\text{ m}$), ele contorna portas abertas, esquinas e muros com extrema facilidade ($\lambda \approx d$).
+    </div>
+    <div class="p-2.5 rounded-lg bg-slate-50 border">
+     <b class="text-indigo-950">Batimento Acústico:</b> Superposição de duas ondas sonoras de frequências muito próximas ($f_1 \approx f_2$), gerando modulação periódica de intensidade com frequência de batimento $f_{\text{bat}} = |f_1 - f_2|$.
+    </div>
+   </div>
+  </article>
+ </div>
+
+ <!-- TEXTOS DE ENRIQUECIMENTO -->
+ <div class="enrichment rounded-3xl p-7 shadow-xl space-y-4">
+  <div class="flex items-center gap-3"><span class="text-2xl">💡</span><h2 class="text-xl font-black text-indigo-200">Enriquecimento: A Acústica no Mundo Real</h2></div>
+  
+  <div class="grid md:grid-cols-3 gap-4 text-xs">
+   <div class="bg-white/10 rounded-2xl p-4 border border-white/10">
+    <b class="text-indigo-300 text-sm">Ecolocalização: O Radar da Natureza</b>
+    <p class="text-indigo-100 mt-2 leading-5">Morcegos emitem pulsos de ultrassom de alta frequência ($f > 60\text{ kHz}$). Como a frequência é altíssima, o comprimento de onda é milimétrico ($\lambda = v/f \approx 5\text{ mm}$), permitindo que a onda sofra reflexão nítida em insetos minúsculos em pleno voo noturno sem difratar ao redor deles!</p>
+   </div>
+
+   <div class="bg-white/10 rounded-2xl p-4 border border-white/10">
+    <b class="text-indigo-300 text-sm">Por que o Gás Hélio afina a voz?</b>
+    <p class="text-indigo-100 mt-2 leading-5">O gás hélio é muito menos denso que o ar atmosférico. Como a densidade $\rho$ é menor, a velocidade do som no hélio quase triplica ($v \approx 965\text{ m/s}$). Como a cavidade vocal ressonante mantém o mesmo tamanho $L$, a frequência dos harmônicos da voz ($f = v/2L$) dispara para valores agudos!</p>
+   </div>
+
+   <div class="bg-white/10 rounded-2xl p-4 border border-white/10">
+    <b class="text-indigo-300 text-sm">O Cone de Mach e o Estrondo Sônico</b>
+    <p class="text-indigo-100 mt-2 leading-5">Quando um caça supersônico viaja a uma velocidade superior à do som ($v_{\text{fonte}} > v_{\text{som}}$, ou seja, $\text{Mach} > 1$), ele ultrapassa suas próprias frentes de onda. Todas as ondas sonoras acumulam-se em uma superfície cônica de choque compressivo extremo, produzindo um estrondo ensurdecedor no solo.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- SEÇÃO LABORATÓRIO E SIMULADORES -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border border-indigo-100 p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Laboratório Virtual Acústico</span>
+  <h1 class="text-3xl font-black mt-2 text-indigo-950">Simuladores de Efeito Doppler e Nível Sonoro</h1>
+  <p class="text-slate-600 mt-2 text-sm">Calcule o Efeito Doppler-Fizeau com velocidades da fonte e observador, converta intensidades sonoras em Decibéis ($\text{dB}$) e determine frequências em tubos sonoros.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Simulador 1: Efeito Doppler Interativo -->
+  <div class="bg-white rounded-2xl border border-indigo-100 p-6 shadow-sm flex flex-col justify-between">
+   <div>
+    <h2 class="font-black text-xl text-indigo-950">1. Calculadora do Efeito Doppler-Fizeau</h2>
+    <p class="text-xs text-slate-500 mb-4">Veja como a frequência percebida varia quando a fonte ou o observador estão em movimento mútuo.</p>
+    
+    <div class="space-y-3 text-sm">
+      <div class="flex items-center justify-between">
+        <label>Frequência da Fonte ($f_{\text{fonte}}$ em $\text{Hz}$):</label>
+        <input id="dop-f" type="number" value="1000" class="border border-indigo-200 rounded-xl px-2 py-1 w-28 text-center font-bold">
+      </div>
+      <div class="flex items-center justify-between">
+        <label>Velocidade do Som no Meio ($v$ em $\text{m/s}$):</label>
+        <input id="dop-v" type="number" value="340" class="border border-indigo-200 rounded-xl px-2 py-1 w-28 text-center font-bold">
+      </div>
+      <div class="flex items-center justify-between">
+        <label>Velocidade da Fonte ($v_f$ em $\text{m/s}$):</label>
+        <input id="dop-vf" type="number" value="20" class="border border-indigo-200 rounded-xl px-2 py-1 w-28 text-center font-bold">
+      </div>
+      <div class="flex items-center justify-between">
+        <label>Velocidade do Observador ($v_o$ em $\text{m/s}$):</label>
+        <input id="dop-vo" type="number" value="0" class="border border-indigo-200 rounded-xl px-2 py-1 w-28 text-center font-bold">
+      </div>
+      <div class="flex items-center justify-between">
+        <label class="font-semibold text-xs">Situação de Movimento:</label>
+        <select id="dop-tipo" class="border border-indigo-200 rounded-xl px-2 py-1 text-xs bg-indigo-50 font-bold">
+          <option value="aprox">Aproximação Mútua</option>
+          <option value="afast">Afastamento Mútuo</option>
+        </select>
+      </div>
+    </div>
+    
+    <button onclick="calcDopplerSim()" class="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl py-3 font-bold transition shadow-md">Calcular Frequência Percebida e Análise</button>
+   </div>
+
+   <div id="out-doppler" class="paper rounded-xl p-4 mt-4 hidden text-xs space-y-2"></div>
+  </div>
+
+  <!-- Simulador 2: Nível Sonoro em Decibéis & Tubos Sonoros -->
+  <div class="bg-white rounded-2xl border border-indigo-100 p-6 shadow-sm flex flex-col justify-between">
+   <div>
+    <h2 class="font-black text-xl text-indigo-950">2. Nível Sonoro ($\text{dB}$) e Tubos Acústicos</h2>
+    <p class="text-xs text-slate-500 mb-4">Analise a escala logarítmica de decibéis ou calcule o harmônico de um tubo musical aberto ou fechado.</p>
+    
+    <div class="space-y-3 text-sm">
+      <div class="flex items-center justify-between">
+        <label>Comprimento do Tubo ($L$ em metros):</label>
+        <input id="tub-l" type="number" step="0.05" value="0.85" class="border border-indigo-200 rounded-xl px-2 py-1 w-28 text-center font-bold">
+      </div>
+      <div class="flex items-center justify-between">
+        <label>Número do Harmônico ($n$):</label>
+        <input id="tub-n" type="number" value="1" min="1" class="border border-indigo-200 rounded-xl px-2 py-1 w-28 text-center font-bold">
+      </div>
+      <div class="flex items-center justify-between">
+        <label class="font-semibold text-xs">Tipo de Tubo:</label>
+        <select id="tub-tipo" class="border border-indigo-200 rounded-xl px-2 py-1 text-xs bg-indigo-50 font-bold">
+          <option value="aberto">Tubo Aberto (Ambas as pontas)</option>
+          <option value="fechado">Tubo Fechado em uma ponta</option>
+        </select>
+      </div>
+      <div class="flex items-center justify-between">
+        <label>Intensidade Física ($I$ em $\text{W/m}^2$, ex: $1\text{e}-4$):</label>
+        <input id="tub-i" type="text" value="1e-6" class="border border-indigo-200 rounded-xl px-2 py-1 w-28 text-center font-bold">
+      </div>
+    </div>
+    
+    <button onclick="calcTubosSim()" class="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl py-3 font-bold transition shadow-md">Calcular Harmônico e Nível Sonoro em dB</button>
+   </div>
+
+   <div id="out-tubos" class="paper rounded-xl p-4 mt-4 hidden text-xs space-y-2"></div>
+  </div>
+ </div>
+</section>
+
+<!-- SEÇÃO EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border border-indigo-100 p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div>
+     <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino Didático e Progressivo</span>
+     <h1 class="text-3xl font-black mt-2 text-indigo-950">90 Questões Resolvidas</h1>
+     <p class="text-slate-600 mt-2 text-sm"><b>Teoria:</b> digite a letra (A, B, C, D). <b>Cálculos:</b> digite apenas o número (use '.' ou ',' para decimais). Arredonde para 2 casas quando necessário.</p>
+   </div>
+   <div class="min-w-[210px]">
+     <div class="flex justify-between text-sm font-bold text-indigo-950"><span>Progresso</span><span id="progress-text">0 / 90</span></div>
+     <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden">
+       <div id="progress-bar" class="h-full bg-indigo-600 transition-all duration-500 rounded-full" style="width:0%"></div>
+     </div>
+   </div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border border-indigo-100 p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-theme="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold transition">Todos (90)</button>
+   <button data-theme="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T1: Infrassom e Ultrassom</button>
+   <button data-theme="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T2: Propagação Sonora</button>
+   <button data-theme="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T3: Qualidades Fisiológicas</button>
+   <button data-theme="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T4: Efeito Doppler</button>
+   <button data-theme="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T5: Sons Musicais & Tubos</button>
+   <button data-theme="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T6: Fenômenos Ondulatórios</button>
+  </div>
+ </div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+</main>
+
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material didático interativo • Física — Acústica e Fenômenos Ondulatórios Sonoros</div></footer>
+
+<!-- JAVASCRIPT LOGIC -->
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){
+  document.querySelectorAll('body').forEach(el=>{
+    if(window.renderMathInElement) {
+      renderMathInElement(el,{delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'\\[',right:'\\]',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false}
+      ]});
+    }
+  });
+}
+
+// Navegação de Abas
+const sections=['teoria','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    const t=btn.dataset.tab;
+    sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));
+    if(t==='exercicios')renderExercises();
+}));
+
+function calcDopplerSim(){
+  const f = +$('dop-f').value;
+  const v = +$('dop-v').value;
+  const vf = +$('dop-vf').value;
+  const vo = +$('dop-vo').value;
+  const tipo = $('dop-tipo').value;
+  
+  if (f <= 0 || v <= 0 || vf < 0 || vo < 0) {
+    $('out-doppler').innerHTML = `<b class="text-red-500">Insira valores positivos válidos.</b>`;
+    $('out-doppler').classList.remove('hidden');
+    return;
+  }
+  
+  let fObs = 0;
+  let eqStr = '';
+  
+  if (tipo === 'aprox') {
+    if (vf >= v) {
+      $('out-doppler').innerHTML = `<b class="text-red-500">A velocidade da fonte não pode ser maior ou igual à velocidade do som nesta aproximação clássica (formaria cone de choque supersônico).</b>`;
+      $('out-doppler').classList.remove('hidden');
+      return;
+    }
+    fObs = f * ((v + vo) / (v - vf));
+    eqStr = `f_{\\text{obs}} = ${f} \\cdot \\left(\\frac{${v} + ${vo}}{${v} - ${vf}}\\right) = ${f} \\cdot \\left(\\frac{${v+vo}}{${v-vf}}\\right)`;
+  } else {
+    fObs = f * ((v - vo) / (v + vf));
+    eqStr = `f_{\\text{obs}} = ${f} \\cdot \\left(\\frac{${v} - ${vo}}{${v} + ${vf}}\\right) = ${f} \\cdot \\left(\\frac{${v-vo}}{${v+vf}}\\right)`;
+  }
+  
+  let h = `<b>1. Equação do Efeito Doppler Aplicada:</b><br>`;
+  h += `\\[${eqStr} = \\mathbf{${fObs.toFixed(2)} \\text{ Hz}}\\]<br>`;
+  
+  h += `<b>2. Diagnóstico Auditivo:</b><br>`;
+  if (fObs > f) {
+    const shift = (fObs - f).toFixed(2);
+    h += `• A frequência percebida aumentou em <b>+${shift} Hz</b>. O som ouvido pelo observador é <b>mais agudo</b> que o emitido pela fonte.`;
+  } else if (fObs < f) {
+    const shift = (f - fObs).toFixed(2);
+    h += `• A frequência percebida diminuiu em <b>-${shift} Hz</b>. O som ouvido pelo observador é <b>mais grave</b> que o emitido pela fonte.`;
+  } else {
+    h += `• As velocidades relativas se anulam. A frequência percebida é rigorosamente igual à emitida.`;
+  }
+  
+  $('out-doppler').innerHTML = h;
+  $('out-doppler').classList.remove('hidden');
+  renderAll();
+}
+
+function calcTubosSim(){
+  const L = +$('tub-l').value;
+  const n = +$('tub-n').value;
+  const tipo = $('tub-tipo').value;
+  const iStr = $('tub-i').value.trim();
+  const I = parseFloat(iStr);
+  const v = 340; // m/s no ar
+  
+  if (L <= 0 || n <= 0 || isNaN(I) || I <= 0) {
+    $('out-tubos').innerHTML = `<b class="text-red-500">Insira valores numéricos válidos.</b>`;
+    $('out-tubos').classList.remove('hidden');
+    return;
+  }
+  
+  let fHarm = 0;
+  let formulaHarm = '';
+  
+  if (tipo === 'aberto') {
+    fHarm = (n * v) / (2 * L);
+    formulaHarm = `f_${n} = ${n} \\cdot \\frac{${v}}{2 \\cdot ${L}} = \\mathbf{${fHarm.toFixed(2)} \\text{ Hz}}`;
+  } else {
+    // Tubo fechado só aceita n ímpar
+    if (n % 2 === 0) {
+      $('out-tubos').innerHTML = `<b class="text-amber-600">Atenção Didática:</b> Tubos fechados em uma ponta NÃO ressoam em harmônicos pares ($n=2, 4, 6...$). Adotaremos o valor ímpar correspondente ou altere para $n=1, 3, 5...$`;
+    }
+    fHarm = (n * v) / (4 * L);
+    formulaHarm = `f_${n} = ${n} \\cdot \\frac{${v}}{4 \\cdot ${L}} = \\mathbf{${fHarm.toFixed(2)} \\text{ Hz}}`;
+  }
+  
+  // Cálculo de dB: beta = 10 * log10(I / 1e-12)
+  const I0 = 1e-12;
+  const beta = 10 * Math.log10(I / I0);
+  
+  let h = `<b>1. Ressonância Acústica no Tubo ($v_{\\text{ar}} = 340 \\text{ m/s}$):</b><br>`;
+  h += `\\[${formulaHarm}\\]<br>`;
+  h += `Comprimento de onda associado: \\[\\lambda_${n} = \\frac{v}{f_${n}} = \\mathbf{${(v / fHarm).toFixed(3)} \\text{ metros}}\\]<br>`;
+  
+  h += `<b>2. Nível de Intensidade Sonora ($\text{dB}$):</b><br>`;
+  h += `\\[\\beta = 10 \\cdot \\log_{10}\\left(\\frac{${I}}{10^{-12}}\\right) = \\mathbf{${beta.toFixed(1)} \\text{ dB}}\\]<br>`;
+  if (beta >= 120) {
+    h += `<span class="text-red-600 font-bold">⚠️ Acima de 120 dB: Atinge o limiar da dor auditiva com risco iminente de trauma acústico.</span>`;
+  } else if (beta >= 85) {
+    h += `<span class="text-amber-600 font-bold">⚠️ Acima de 85 dB: Nível de risco de perda auditiva crônica sob exposição prolongada.</span>`;
+  } else {
+    h += `<span class="text-emerald-700 font-bold">✓ Zona de audição segura e confortável.</span>`;
+  }
+  
+  $('out-tubos').innerHTML = h;
+  $('out-tubos').classList.remove('hidden');
+  renderAll();
+}
+
+const exercisesData = [];
+let exId = 1;
+const addQ = (th, ty, q, ans, steps, opts=[]) => { exercisesData.push({ id: exId++, theme: th, type: ty, q, ans, steps, opts }); };
+
+// ==========================================
+// TEMA 1: Som, Infrassom e Ultrassom (1-15)
+// ==========================================
+addQ(1,'theo',"O espectro de frequências audíveis pelo ser humano jovem e com audição sadia situa-se aproximadamente no intervalo:", "B",
+    ["O ouvido humano capta oscilações mecânicas longitudinais entre $20 \\text{ Hz}$ e $20.000 \\text{ Hz}$ ($20 \\text{ kHz}$). Abaixo de $20 \\text{ Hz}$ é infrassom; acima de $20 \\text{ kHz}$ é ultrassom."],
+    ["A) De $0 \\text{ Hz}$ a $100 \\text{ Hz}$.", "B) De $20 \\text{ Hz}$ a $20.000 \\text{ Hz}$.", "C) De $1.000 \\text{ Hz}$ a $1.000.000 \\text{ Hz}$.", "D) De $200 \\text{ kHz}$ a $500 \\text{ kHz}$."]);
+
+addQ(1,'theo',"Uma onda mecânica com frequência $f = 12 \\text{ Hz}$ e outra com $f = 45.000 \\text{ Hz}$ são classificadas, respectivamente, como:", "C",
+    ["$12 \\text{ Hz}$ está abaixo de $20 \\text{ Hz}$, configurando infrassom. $45.000 \\text{ Hz}$ está acima de $20.000 \\text{ Hz}$, configurando ultrassom."],
+    ["A) Som audível e som grave.", "B) Ultrassom e infrassom.", "C) Infrassom e ultrassom.", "D) Ambas são audíveis ao ouvido humano."]);
+
+addQ(1,'theo',"A técnica de ultrassonografia utilizada na medicina diagnóstica baseia-se primordialmente no uso de ondas mecânicas de alta frequência porque:", "D",
+    ["Como a frequência do ultrassom é elevadíssima ($f > 1 \\text{ MHz}$), o comprimento de onda é milimétrico ou submilimétrico ($\\lambda = v/f$). Ondas com $\\lambda$ muito pequeno sofrem difração desprezível e refletem nitidamente nas fronteiras entre tecidos e órgãos."],
+    ["A) O ultrassom emite radiação ionizante que altera o DNA fetal.", "B) O ultrassom atinge a velocidade da luz ao passar pela pele.", "C) O ouvido do médico precisa escutar diretamente a imagem fetal.", "D) Por terem altíssima frequência, possuem comprimentos de onda minúsculos, permitindo alta resolução espacial ao refletirem nos tecidos."]);
+
+addQ(1,'theo',"Morcegos conseguem caçar pequenos insetos na escuridão total emitindo ondas ultrassônicas de até $100.000 \\text{ Hz}$. Do ponto de vista da física ondulatória, por que o uso do ultrassom é mais eficiente que sons graves para essa caça?", "A",
+    ["Para haver reflexão nítida de volta (ecolocalização), a dimensão do obstáculo/alvo deve ser maior ou comparável ao comprimento de onda da onda sonora. Sons graves possuem $\\lambda$ métrico e contornariam o inseto por difração sem refletir."],
+    ["A) Porque comprimentos de onda minúsculos do ultrassom refletem no inseto sem sofrer difração em volta dele.", "B) Porque o ultrassom atordoa eletricamente o inseto.", "C) Porque o ultrassom viaja dez vezes mais rápido que o som audível no ar.", "D) Porque insetos só absorvem frequências abaixo de $20 \\text{ Hz}$."]);
+
+addQ(1,'theo',"Elefantes e baleias comunicam-se a dezenas de quilômetros de distância utilizando ondas infrassônicas. A grande vantagem física do infrassom para transmissão a longa distância é que:", "C",
+    ["Ondas de baixíssima frequência (infrassom) sofrem muito menos atenuação e dissipação por absorção térmica no ar e na água, além de sofrerem difração gigantesca sobre obstáculos geográficos."],
+    ["A) O infrassom viaja no vácuo espacial.", "B) A velocidade do infrassom no ar é igual à da luz.", "C) Sofre menor absorção no meio e consegue contornar colinas e curvas por ter grande comprimento de onda.", "D) Não gera nenhuma pressão molecular."]);
+
+// Cálculos Tema 1
+addQ(1,'calc',"Adotando a velocidade do som no ar como $v = 340 \\text{ m/s}$, calcule o comprimento de onda $\\lambda$ em metros da onda mais grave do espectro audível humano ($f = 20 \\text{ Hz}$).", "17",
+    ["Passo 1: Aplicar a equação fundamental da ondulatória: $v = \\lambda \\cdot f$", "Passo 2: $\\lambda = \\frac{v}{f} = \\frac{340}{20} = \\mathbf{17 \\text{ metros}}$."]);
+
+addQ(1,'calc',"Aproveitando a velocidade do som no ar ($v = 340 \\text{ m/s}$), calcule o comprimento de onda $\\lambda$ em centímetros do som mais agudo audível pelo ouvido humano ($f = 20.000 \\text{ Hz}$).", "1.7",
+    ["Passo 1: $\\lambda = \\frac{v}{f} = \\frac{340}{20000} = 0,017 \\text{ m}$", "Passo 2: Converter para centímetros: $0,017 \\times 100 = \\mathbf{1,7 \\text{ cm}}$."]);
+
+addQ(1,'calc',"Um aparelho de ultrassonografia médica emite pulsos mecânicos com frequência de $2 \\text{ MHz}$ ($2 \\times 10^6 \\text{ Hz}$). Sabendo que a velocidade média do som nos tecidos moles humanos é de $1540 \\text{ m/s}$, determine o comprimento de onda desse feixe em milímetros ($\\text{mm}$).", "0.77",
+    ["$\\lambda = \\frac{v}{f} = \\frac{1540}{2 \\times 10^6} = 0,00077 \\text{ m}$", "Em milímetros: $0,00077 \\times 1000 = \\mathbf{0,77 \\text{ mm}}$."]);
+
+addQ(1,'calc',"Um terremoto gera uma onda de infrassom de $f = 5 \\text{ Hz}$ que se propaga na crosta rochosa a uma velocidade de $4000 \\text{ m/s}$. Qual é o comprimento de onda $\\lambda$ dessa vibração geológica em metros?", "800",
+    ["$\\lambda = \\frac{v}{f} = \\frac{4000}{5} = \\mathbf{800 \\text{ metros}}$."]);
+
+addQ(1,'calc',"Um apito ultrassônico para adestramento de cães emite som na frequência de $34.000 \\text{ Hz}$. Em um dia em que a velocidade do som é $340 \\text{ m/s}$, qual é o comprimento de onda $\\lambda$ em milímetros?", "10",
+    ["$\\lambda = \\frac{v}{f} = \\frac{340}{34000} = 0,01 \\text{ m}$", "Em milímetros: $0,01 \\times 1000 = \\mathbf{10 \\text{ mm}}$."]);
+
+addQ(1,'calc',"Um morcego emite um bipe de ecolocalização com $\\lambda = 4 \\text{ mm}$ ($0,004 \\text{ m}$). Se a velocidade do som no ar é $340 \\text{ m/s}$, qual é a frequência emitida em Hertz ($f = \\frac{v}{\\lambda}$)?", "85000",
+    ["$f = \\frac{v}{\\lambda} = \\frac{340}{0,004} = \\mathbf{85.000 \\text{ Hz}}$ (ou $85 \\text{ kHz}$, ultrassom puro!)."]);
+
+addQ(1,'calc',"Uma onda sonora completa $100$ ciclos de compressão e rarefação a cada $0,005 \\text{ segundos}$. Determine a frequência $f$ dessa onda em Hertz.", "20000",
+    ["$f = \\frac{N}{\\Delta t} = \\frac{100}{0,005} = \\mathbf{20.000 \\text{ Hz}}$ (exatamente o limiar superior audível!)."]);
+
+addQ(1,'calc',"Uma baleia azul emite um canto infrassônico de $f = 16 \\text{ Hz}$ na água do mar, onde a velocidade de propagação é de $1520 \\text{ m/s}$. Calcule o comprimento de onda $\\lambda$ dessa onda na água em metros.", "95",
+    ["$\\lambda = \\frac{v}{f} = \\frac{1520}{16} = \\mathbf{95 \\text{ metros}}$."]);
+
+addQ(1,'calc',"Um gerador piezoelétrico vibra no modo ultrassônico com período $T = 0,000025 \\text{ s}$ ($25 \\;\\mu\\text{s}$). Qual é a frequência de oscilação correspondente em Hertz ($f = \\frac{1}{T}$)?", "40000",
+    ["$f = \\frac{1}{T} = \\frac{1}{0,000025} = \\mathbf{40.000 \\text{ Hz}}$ (ou $40 \\text{ kHz}$)."]);
+
+addQ(1,'calc',"Um sonar submarino opera na frequência de $50 \\text{ kHz}$ ($50.000 \\text{ Hz}$). Ao atravessar a água salgada ($v = 1500 \\text{ m/s}$), qual é o comprimento dessa onda em centímetros?", "3",
+    ["$\\lambda = \\frac{v}{f} = \\frac{1500}{50000} = 0,03 \\text{ m}$", "Em centímetros: $0,03 \\times 100 = \\mathbf{3 \\text{ cm}}$."]);
+
+// ==========================================
+// TEMA 2: Características da Propagação Sonora (16-30)
+// ==========================================
+addQ(2,'theo',"Em relação à natureza ondulatória e às direções de propagação e de oscilação molecular, o som propagando-se no ar atmosférico é uma onda:", "C",
+    ["O som no ar é gerado por empurrões que criam compressões e rarefações na mesma linha de propagação da onda mecânica, sendo classificado como mecânico e longitudinal."],
+    ["A) Eletromagnética e transversal.", "B) Mecânica e puramente transversal.", "C) Mecânica e puramente longitudinal.", "D) Eletromagnética e longitudinal."]);
+
+addQ(2,'theo',"Por que a velocidade de propagação do som costuma ser significativamente maior em sólidos (como o aço, $v \\approx 5000 \\text{ m/s}$) do que em gases (como o ar, $v \\approx 340 \\text{ m/s}$)?", "B",
+    ["Nos sólidos, os átomos encontram-se intimamente ligados por forças eletrostáticas interatômicas muito rígidas (alto módulo de elasticidade), permitindo que a transmissão do choque mecânico ocorra de forma quase instantânea de partícula para partícula."],
+    ["A) Porque os sólidos não oferecem atrito ao som.", "B) Porque a rigidez e as forças de ligação intermolecular nos sólidos são imensamente maiores que nos gases.", "C) Porque os sólidos são transparentes às ondas sonoras.", "D) Porque a densidade dos sólidos é sempre menor que a dos gases."]);
+
+addQ(2,'theo',"O que acontece com a velocidade do som no ar quando a temperatura atmosférica aumenta de $0^\\circ\\text{C}$ para $35^\\circ\\text{C}$?", "A",
+    ["Com o aquecimento, as moléculas gasosas ganham energia cinética média e movem-se mais velozmente, transmitindo as colisões mecânicas mais rapidamente ($v \\approx 331 + 0,6\\theta$). A velocidade do som aumenta com a temperatura."],
+    ["A) A velocidade do som aumenta.", "B) A velocidade do som cai pela metade.", "C) A velocidade do som vai a zero.", "D) Permanece perfeitamente inalterada, pois depende apenas da pressão."]);
+
+addQ(2,'theo',"Dois astronautas realizam uma caminhada espacial fora da Estação Espacial Internacional no vácuo. Se um deles bater com uma chave inglesa no traje do outro, o segundo astronauta não ouvirá nada através do espaço porque:", "D",
+    ["O som é uma onda estritamente mecânica que necessita de suporte de matéria elástica deformável para propagar suas perturbações de pressão. O vácuo não possui matéria para colidir."],
+    ["A) A velocidade da luz anula o som.", "B) O metal da ferramenta absorve todo o som.", "C) O som viaja para trás no espaço.", "D) O espaço cósmico é um vácuo e ondas sonoras mecânicas não se propagam sem meio material."]);
+
+addQ(2,'theo',"Uma pessoa encosta o ouvido em um trilho de trem de ferro longo e percebe duas pancadas distintas originadas de uma marretada dada a 1 km de distância. Isso ocorre porque:", "A",
+    ["A onda sonora mecânica viaja pelo metal do trilho ($v_{\\text{ferro}} \\approx 5000 \\text{ m/s}$) muito mais rápido do que pelo ar atmosférico ($v_{\\text{ar}} \\approx 340 \\text{ m/s}$). O som pelo trilho chega primeiro."],
+    ["A) O som propaga-se com velocidade muito maior pelo trilho de ferro do que pelo ar.", "B) O martelo bateu duas vezes seguidas por engano.", "C) O som do ar sofreu inversão temporal.", "D) O ferro cria um eco magnético instantâneo."]);
+
+// Cálculos Tema 2
+addQ(2,'calc',"A velocidade do som no ar pode ser aproximada por $v = 331 + 0,6 \\cdot \\theta$, onde $\\theta$ é a temperatura em $^\\circ\\text{C}$. Calcule a velocidade do som no ar em $\\text{m/s}$ em um dia quente de verão em que a temperatura é de $30^\\circ\\text{C}$.", "349",
+    ["$v = 331 + 0,6 \\cdot 30 = 331 + 18 = \\mathbf{349 \\text{ m/s}}$."]);
+
+addQ(2,'calc',"Uma pessoa avista o relâmpago de uma tempestade e ouve o trovão correspondente exatos $6 \\text{ segundos}$ depois. Considerando a propagação da luz como instantânea e a velocidade do som como $v = 340 \\text{ m/s}$, a que distância em metros ocorreu a descarga elétrica?", "2040",
+    ["$d = v \\cdot \\Delta t = 340 \\times 6 = \\mathbf{2040 \\text{ metros}}$ (ou $2,04 \\text{ km}$)."]);
+
+addQ(2,'calc',"O som se propaga no aço a $5000 \\text{ m/s}$ e no ar a $340 \\text{ m/s}$. Um operário dá uma marretada em um trilho de trem de $1700 \\text{ metros}$ de comprimento. Calcule o intervalo de tempo $\\Delta t$ em segundos gasto pelo som para atravessar o trilho de ferro de ponta a ponta.", "0.34",
+    ["$t = \\frac{d}{v} = \\frac{1700}{5000} = \\mathbf{0,34 \\text{ s}}$."]);
+
+addQ(2,'calc',"Aproveitando os dados da questão anterior ($d = 1700 \\text{ m}$, $v_{\\text{ar}} = 340 \\text{ m/s}$), quantos segundos o som da marretada levará para chegar até o observador viajando através do ar?", "5",
+    ["$t_{\\text{ar}} = \\frac{d}{v_{\\text{ar}}} = \\frac{1700}{340} = \\mathbf{5 \\text{ segundos}}$."]);
+
+addQ(2,'calc',"Qual é a diferença de tempo (em segundos) entre a chegada do som pelo ferro ($0,34 \\text{ s}$) e pelo ar ($5,00 \\text{ s}$) na questão anterior? ($5,00 - 0,34$)", "4.66",
+    ["$\\Delta t = 5,00 - 0,34 = \\mathbf{4,66 \\text{ segundos}}$."]);
+
+addQ(2,'calc',"Um sonar militar emite uma onda ultrassônica na água salgada ($v = 1500 \\text{ m/s}$) em direção a um cardume e recebe o sinal refletido após $0,8 \\text{ segundos}$ (ida e volta). A que distância em metros da embarcação encontra-se o cardume?", "600",
+    ["Passo 1: O tempo de ida até o cardume é a metade do tempo total do eco: $t_{\\text{ida}} = \\frac{0,8}{2} = 0,4 \\text{ s}$.", "Passo 2: $d = v \\cdot t_{\\text{ida}} = 1500 \\times 0,4 = \\mathbf{600 \\text{ metros}}$."]);
+
+addQ(2,'calc',"Uma onda sonora de $f = 680 \\text{ Hz}$ viaja no ar ($v = 340 \\text{ m/s}$) e penetra na água de uma piscina ($v = 1360 \\text{ m/s}$). Sabendo que a frequência permanece rigorosamente constante ($680 \\text{ Hz}$), qual é o comprimento de onda do som dentro da água em metros?", "2",
+    ["$\\lambda_{\\text{água}} = \\frac{v_{\\text{água}}}{f} = \\frac{1360}{680} = \\mathbf{2 \\text{ metros}}$."]);
+
+addQ(2,'calc',"Na mesma situação da questão anterior, qual era o comprimento de onda do som quando ele estava se propagando no ar (em metros)?", "0.5",
+    ["$\\lambda_{\\text{ar}} = \\frac{v_{\\text{ar}}}{f} = \\frac{340}{680} = \\mathbf{0,5 \\text{ metros}}$."]);
+
+addQ(2,'calc',"Um atleta dispara um tiro de festim na largada de uma corrida de $100 \\text{ metros}$ rasos. Se a velocidade do som no ar é $340 \\text{ m/s}$, quanto tempo em segundos o som leva para ir do ponto de partida até a linha de chegada? (Arredonde para 2 casas decimais).", "0.29",
+    ["$t = \\frac{d}{v} = \\frac{100}{340} \\approx \\mathbf{0,29 \\text{ s}}$ (é por isso que em olimpíadas usa-se disparo eletrônico com sinal de luz e alto-falante individual!)."]);
+
+addQ(2,'calc',"Uma explosão ocorre no topo de uma montanha a $10^\circ\\text{C}$, onde a velocidade do som é dada por $v = 331 + 0,6 \\cdot 10 = 337 \\text{ m/s}$. Se um vilarejo está a $3370 \\text{ metros}$ de distância, quantos segundos o estrondo levará para ser ouvido?", "10",
+    ["$t = \\frac{d}{v} = \\frac{3370}{337} = \\mathbf{10 \\text{ segundos}}$."]);
+
+// ==========================================
+// TEMA 3: Qualidades Fisiológicas do Som (31-45)
+// ==========================================
+addQ(3,'theo',"Um tenor e um baixo cantam notas musicais diferentes. O tenor atinge uma nota aguda (frequência alta) e o baixo emite uma nota grave (frequência baixa). A qualidade fisiológica que nos permite diferenciar um som grave de um agudo é a:", "A",
+    ["A 'Altura' é a qualidade associada exclusivamente à frequência da onda. Som alto = agudo (alta frequência); som baixo = grave (baixa frequência)."],
+    ["A) Altura.", "B) Intensidade.", "C) Timbre.", "D) Velocidade de fase."]);
+
+addQ(3,'theo',"Quando você gira o botão de volume de uma caixa de som para tornar o som mais 'forte', a grandeza estritamente ondulatória que você está alterando é a:", "B",
+    ["A sensação fisiológica de intensidade (volume forte vs. fraco) está ligada à quantidade de energia transportada e, portanto, diretamente à amplitude de vibração da onda."],
+    ["A) Frequência da nota.", "B) Amplitude da onda sonora.", "C) Velocidade de propagação.", "D) Comprimento de onda no ar."]);
+
+addQ(3,'theo',"A mesma nota musical Sol ($392 \\text{ Hz}$) tocada com a mesma intensidade por um saxofone e por uma flauta doce soa de forma completamente distinta aos nossos ouvidos. Isso ocorre devido à qualidade fisiológica denominada:", "D",
+    ["O 'Timbre' é a assinatura morfológica do som, determinada pela combinação dos harmônicos superpostos que formam a onda complexa daquele instrumento específico."],
+    ["A) Altura.", "B) Intensidade.", "C) Difração auditiva.", "D) Timbre."]);
+
+addQ(3,'theo',"O nível sonoro $\\beta$ medido em decibéis ($\\text{dB}$) é definido por $\\beta = 10 \\cdot \\log_{10}\\left(\\frac{I}{I_0}\\right)$, onde $I_0 = 10^{-12} \\text{ W/m}^2$. Se a intensidade física $I$ de uma britadeira for multiplicada por $10$, de quanto aumentará o nível sonoro em decibéis?", "C",
+    ["Como a escala é logarítmica na base 10, multiplicar a intensidade física por 10 adiciona $10 \\cdot \\log_{10}(10) = 10 \\cdot 1 = 10 \\text{ dB}$ ao nível sonoro."],
+    ["A) O nível sonoro dobrará.", "B) Aumentará em $1 \\text{ dB}$.", "C) Aumentará em exatamente $10 \\text{ dB}$.", "D) Multiplicará por 10 decibéis."]);
+
+addQ(3,'theo',"A voz humana masculina costuma ser percebida como mais 'grave' em comparação à voz feminina típica. Fisicamente, isso significa que as cordas vocais masculinas:", "A",
+    ["Cordas vocais mais espessas e longas vibram com menor número de oscilações por segundo, gerando frequências fundamentais mais baixas (sons graves)."],
+    ["A) Vibram com menor frequência (menos oscilações por segundo).", "B) Propagam ondas com maior velocidade no ar.", "C) Não possuem timbre.", "D) Possuem amplitude nula."]);
+
+// Cálculos Tema 3
+addQ(3,'calc',"O limiar de audibilidade humana é $I_0 = 10^{-12} \\text{ W/m}^2$. Calcule o nível sonoro $\\beta$ em decibéis ($\\text{dB}$) para um som cuja intensidade física seja exatamente $I = 10^{-12} \\text{ W/m}^2$ (use $\\beta = 10 \\log_{10}\\left(\\frac{I}{I_0}\\right)$).", "0",
+    ["$\\beta = 10 \\cdot \\log_{10}\\left(\\frac{10^{-12}}{10^{-12}}\\right) = 10 \\cdot \\log_{10}(1) = 10 \\cdot 0 = \\mathbf{0 \\text{ dB}}$ (o marco zero da audição!)."]);
+
+addQ(3,'calc',"Em uma sala de aula silenciosa, a intensidade do som é $I = 10^{-8} \\text{ W/m}^2$. Adotando $I_0 = 10^{-12} \\text{ W/m}^2$, calcule o nível sonoro $\\beta$ em decibéis ($\\text{dB}$).", "40",
+    ["Passo 1: $\\frac{I}{I_0} = \\frac{10^{-8}}{10^{-12}} = 10^4$", "Passo 2: $\\beta = 10 \\cdot \\log_{10}(10^4) = 10 \\cdot 4 = \\mathbf{40 \\text{ dB}}$."]);
+
+addQ(3,'calc',"O trânsito intenso de uma avenida atinge uma intensidade física de $I = 10^{-5} \\text{ W/m}^2$. Calcule o nível de intensidade sonora $\\beta$ em decibéis para esse tráfego ($I_0 = 10^{-12} \\text{ W/m}^2$).", "70",
+    ["Passo 1: $\\frac{I}{I_0} = \\frac{10^{-5}}{10^{-12}} = 10^7$", "Passo 2: $\\beta = 10 \\cdot \\log_{10}(10^7) = 10 \\cdot 7 = \\mathbf{70 \\text{ dB}}$."]);
+
+addQ(3,'calc',"O limiar da dor auditiva ocorre quando a intensidade física atinge $I_{\\text{dor}} = 1 \\text{ W/m}^2$ ($10^0 \\text{ W/m}^2$). Calcule o nível de decibéis correspondente a essa intensidade ensurdecedora.", "120",
+    ["Passo 1: $\\frac{I}{I_0} = \\frac{1}{10^{-12}} = 10^{12}$", "Passo 2: $\\beta = 10 \\cdot \\log_{10}(10^{12}) = 10 \\cdot 12 = \\mathbf{120 \\text{ dB}}$."]);
+
+addQ(3,'calc',"Uma turbina de avião gera um nível sonoro ensurdecedor de $\\beta = 140 \\text{ dB}$ próximo ao hangar. Sabendo que $\\beta = 10 \\log_{10}\\left(\\frac{I}{I_0}\\right)$ com $I_0 = 10^{-12} \\text{ W/m}^2$, qual é a intensidade física $I$ em $\\text{W/m}^2$?", "100",
+    ["$140 = 10 \\cdot \\log_{10}\\left(\\frac{I}{10^{-12}}\\right) \\rightarrow 14 = \\log_{10}\\left(\\frac{I}{10^{-12}}\\right)$", "$\\frac{I}{10^{-12}} = 10^{14} \\rightarrow I = 10^{14} \\cdot 10^{-12} = 10^2 = \\mathbf{100 \\text{ W/m}^2}$."]);
+
+addQ(3,'calc',"Uma fonte sonora pontual emite ondas esféricas com potência de $P = 125,6 \\text{ W}$ ($40\\pi \\text{ W}$). Sabendo que a intensidade a uma distância $R$ é $I = \\frac{P}{4\\pi R^2}$, calcule a intensidade sonora em $\\text{W/m}^2$ a uma distância de $R = 10 \\text{ metros}$ da fonte.", "0.1",
+    ["$I = \\frac{40\\pi}{4\\pi \\cdot (10)^2} = \\frac{40\\pi}{4\\pi \\cdot 100} = \\frac{40}{400} = \\mathbf{0,1 \\text{ W/m}^2}$."]);
+
+addQ(3,'calc',"Uma pessoa fala emitindo frequência fundamental de $200 \\text{ Hz}$. Em um gás onde a velocidade do som é $340 \\text{ m/s}$, qual é o comprimento dessa onda fundamental em metros?", "1.7",
+    ["$\\lambda = \\frac{v}{f} = \\frac{340}{200} = \\mathbf{1,7 \\text{ metros}}$."]);
+
+addQ(3,'calc',"Se duas máquinas industriais idênticas produzem cada uma $80 \\text{ dB}$, a intensidade sonora física dobra ($I_{\\text{total}} = 2 \\cdot I_1$). Sabendo que $\\log_{10}(2) \\approx 0,30$, qual será o novo nível sonoro conjunto em decibéis ($\\beta = 80 + 10 \\cdot \\log_{10}(2)$)?", "83",
+    ["$\\beta_{\\text{total}} = 80 + 10 \\cdot 0,30 = 80 + 3 = \\mathbf{83 \\text{ dB}}$ (dobrar a fonte NÃO dobra os decibéis, acrescenta apenas cerca de $3 \\text{ dB}$!)."]);
+
+addQ(3,'calc',"Um som de conversa normal tem $\\beta_1 = 60 \\text{ dB}$ e uma britadeira tem $\\beta_2 = 100 \\text{ dB}$. Como a diferença é de $40 \\text{ dB}$, a intensidade física da britadeira é $10^4$ vezes maior. Digite o valor correspondente a $10^4$ em número inteiro.", "10000",
+    ["Cada $10 \\text{ dB}$ multiplica por 10. Para uma diferença de $40 \\text{ dB}$, a intensidade é $10^4 = \\mathbf{10.000}$ vezes maior."]);
+
+addQ(3,'calc',"Um diapasão afinado na nota Dó emite frequência $f = 264 \\text{ Hz}$. Sabendo que a velocidade do som no ar é $330 \\text{ m/s}$, calcule o comprimento dessa onda em metros.", "1.25",
+    ["$\\lambda = \\frac{v}{f} = \\frac{330}{264} = \\mathbf{1,25 \\text{ metros}}$."]);
+
+// ==========================================
+// TEMA 4: Efeito Doppler-Fizeau (46-60)
+// ==========================================
+addQ(4,'theo',"O Efeito Doppler é caracterizado como a aparente alteração na frequência de uma onda percebida por um observador decorrente de:", "A",
+    ["O fenômeno só existe caso haja movimento relativo de aproximação ou de afastamento mútuo entre o emissor e o receptor da onda sonora ou eletromagnética."],
+    ["A) Movimento relativo entre a fonte emissora e o observador.", "B) Mudança na densidade da atmosfera do planeta.", "C) Destruição da energia mecânica no vácuo.", "D) Aquecimento térmico da fonte geradora."]);
+
+addQ(4,'theo',"Quando uma ambulância com a sirene ligada aproxima-se rapidamente de uma pessoa parada na calçada, o som percebido pela pessoa é:", "B",
+    ["Na aproximação, as frentes de onda são comprimidas no espaço diante da ambulância, aumentando o número de cristas que atingem o tímpano a cada segundo (frequência aparente maior = som mais agudo)."],
+    ["A) Mais grave do que o emitido pela sirene.", "B) Mais agudo do que o emitido pela sirene.", "C) Idêntico à frequência de repouso.", "D) Inaudível por cancelamento de fase."]);
+
+addQ(4,'theo',"Logo após a ambulância cruzar a pessoa e afastar-se rapidamente em linha reta descendo a rua, o som da sirene percebido pela pessoa:", "C",
+    ["No afastamento, as cristas de onda são esticadas no espaço atrás do veículo, diminuindo a taxa de frentes de onda que chegam ao ouvido (frequência aparente menor = som mais grave)."],
+    ["A) Fica instantaneamente supersônico.", "B) Fica mais agudo.", "C) Fica perceptivelmente mais grave.", "D) Desaparece em 0 Kelvin."]);
+
+addQ(4,'theo',"Se a fonte sonora e o observador estiverem ambos se movendo no mesmo sentido e com rigorosamente a MESMA velocidade ($v_{\\text{fonte}} = v_{\\text{obs}}$), o que ocorre com a frequência ouvida pelo observador?", "A",
+    ["Como a velocidade relativa entre fonte e observador é nula, a distância relativa entre ambos não varia. Portanto, não há Efeito Doppler e a frequência percebida é idêntica à emitida."],
+    ["A) Será exatamente igual à frequência emitida pela fonte.", "B) Dobrará de frequência por ressonância.", "C) Ficará mais aguda.", "D) Ficará mais grave."]);
+
+addQ(4,'theo',"Em astrofísica, astrônomos observam a luz de galáxias distantes e notam que as linhas de absorção do espectro estão desviadas para o vermelho (Redshift). Por analogia ao Efeito Doppler acústico, essa observação prova que:", "D",
+    ["A luz vermelha possui menor frequência no espectro visível. Assim como o som mais grave (menor frequência) indica afastamento, o desvio para o vermelho indica que as galáxias estão se afastando da Terra (expansão do Universo)."],
+    ["A) O Sol está colidindo com as galáxias.", "B) As galáxias estão se aproximando da Terra a altíssima velocidade.", "C) A velocidade da luz está diminuindo com o tempo.", "D) As galáxias distantes estão se afastando da Terra (evidência da expansão do espaço cósmico)."]);
+
+// Cálculos Tema 4
+addQ(4,'calc',"Uma sirene em repouso emite som com frequência de $1000 \\text{ Hz}$. A velocidade do som no ar é $v = 340 \\text{ m/s}$. Um carro de polícia move-se a $v_f = 34 \\text{ m/s}$ aproximando-se de um pedestre parado ($v_o = 0$). Calcule a frequência ouvida pelo pedestre em Hertz ($f_o = f \\cdot \\frac{v}{v - v_f}$).", "1111.11",
+    ["$f_o = 1000 \\cdot \\left(\\frac{340}{340 - 34}\\right) = 1000 \\cdot \\left(\\frac{340}{306}\\right) \\approx \\mathbf{1111,11 \\text{ Hz}}$ (som perceptivelmente mais agudo!)."]);
+
+addQ(4,'calc',"Aproveitando a questão anterior, após cruzar o pedestre, a polícia afasta-se com a mesma velocidade ($v_f = 34 \\text{ m/s}$). Calcule a nova frequência ouvida pelo pedestre em Hertz ($f_o = f \\cdot \\frac{v}{v + v_f}$).", "909.09",
+    ["$f_o = 1000 \\cdot \\left(\\frac{340}{340 + 34}\\right) = 1000 \\cdot \\left(\\frac{340}{374}\\right) \\approx \\mathbf{909,09 \\text{ Hz}}$ (som perceptivelmente mais grave!)."]);
+
+addQ(4,'calc',"Uma buzina fixa na parede emite som de $850 \\text{ Hz}$ ($v = 340 \\text{ m/s}$). Um ciclista aproxima-se da buzina pedalando a $v_o = 10 \\text{ m/s}$ ($v_f = 0$). Qual é a frequência percebida pelo ciclista em Hertz ($f_o = f \\cdot \\frac{v + v_o}{v}$)?", "875",
+    ["$f_o = 850 \\cdot \\left(\\frac{340 + 10}{340}\\right) = 850 \\cdot \\left(\\frac{350}{340}\\right) = \\frac{850}{340} \\cdot 350 = 2,5 \\cdot 350 = \\mathbf{875 \\text{ Hz}}$."]);
+
+addQ(4,'calc',"O mesmo ciclista da questão anterior ($f = 850 \\text{ Hz}$, $v = 340 \\text{ m/s}$) afasta-se agora da buzina a $v_o = 10 \\text{ m/s}$. Qual a frequência percebida em Hertz ($f_o = f \\cdot \\frac{v - v_o}{v}$)?", "825",
+    ["$f_o = 850 \\cdot \\left(\\frac{340 - 10}{340}\\right) = 850 \\cdot \\left(\\frac{330}{340}\\right) = 2,5 \\cdot 330 = \\mathbf{825 \\text{ Hz}}$."]);
+
+addQ(4,'calc',"Um trem apita com frequência de $450 \\text{ Hz}$ e aproxima-se de uma estação a $v_f = 40 \\text{ m/s}$. Sabendo que o som no ar viaja a $v = 340 \\text{ m/s}$, qual a frequência ouvida pelo passageiro parado na plataforma em Hertz?", "510",
+    ["$f_o = 450 \\cdot \\left(\\frac{340}{340 - 40}\\right) = 450 \\cdot \\left(\\frac{340}{300}\\right) = 450 \\cdot 1,1333... = 1,5 \\cdot 340 = \\mathbf{510 \\text{ Hz}}$."]);
+
+addQ(4,'calc',"Uma fonte emite som de $500 \\text{ Hz}$ ($v = 340 \\text{ m/s}$). Para que um observador em repouso perceba um som $10\\%$ mais agudo ($f_o = 550 \\text{ Hz}$) na aproximação, qual deve ser a velocidade da fonte em m/s? (Use $550 = 500 \\cdot \\frac{340}{340 - v_f}$).", "30.91",
+    ["$1,1 = \\frac{340}{340 - v_f} \\rightarrow 1,1 \\cdot (340 - v_f) = 340$", "$374 - 1,1 v_f = 340 \\rightarrow 1,1 v_f = 34$", "$v_f = \\frac{34}{1,1} \\approx \\mathbf{30,91 \\text{ m/s}}$."]);
+
+addQ(4,'calc',"Um morcego viaja a $10 \\text{ m/s}$ perseguindo uma mariposa em repouso na parede. O morcego emite ultrassom de $80.000 \\text{ Hz}$. Se $v = 340 \\text{ m/s}$, com qual frequência em Hertz o ultrassom atinge a mariposa ($f_o = f \\cdot \\frac{v}{v - v_f}$)?", "82424.24",
+    ["$f_o = 80000 \\cdot \\left(\\frac{340}{340 - 10}\\right) = 80000 \\cdot \\left(\\frac{340}{330}\\right) \\approx \\mathbf{82.424,24 \\text{ Hz}}$."]);
+
+addQ(4,'calc',"Dois automóveis movem-se na mesma rodovia em sentidos opostos, aproximando-se. O carro 1 emite som de $600 \\text{ Hz}$ a $v_1 = 20 \\text{ m/s}$ e o carro 2 viaja a $v_2 = 30 \\text{ m/s}$. Se $v_{\\text{som}} = 340 \\text{ m/s}$, determine a frequência captada pelo motorista do carro 2 ($f_o = f \\cdot \\frac{v + v_2}{v - v_1}$).", "693.75",
+    ["$f_o = 600 \\cdot \\left(\\frac{340 + 30}{340 - 20}\\right) = 600 \\cdot \\left(\\frac{370}{320}\\right) = 600 \\cdot 1,15625 = \\mathbf{693,75 \\text{ Hz}}$."]);
+
+addQ(4,'calc',"Um carro de resgate afasta-se de um acidente a $v_f = 17 \\text{ m/s}$ emitindo som de $680 \\text{ Hz}$. Com o som viajando a $v = 340 \\text{ m/s}$, calcule a frequência ouvida pelo médico parado no local do acidente ($f_o = f \\cdot \\frac{v}{v + v_f}$).", "647.62",
+    ["$f_o = 680 \\cdot \\left(\\frac{340}{340 + 17}\\right) = 680 \\cdot \\left(\\frac{340}{357}\\right) = \\frac{231200}{357} \\approx \\mathbf{647,62 \\text{ Hz}}$."]);
+
+addQ(4,'calc',"Um observador aproxima-se de uma fonte estática a $34 \\text{ m/s}$ ($v_{\\text{som}} = 340 \\text{ m/s}$). Se a frequência emitida é $400 \\text{ Hz}$, qual a frequência ouvida em Hertz ($f_o = 400 \\cdot \\frac{340 + 34}{340}$)?", "440",
+    ["$f_o = 400 \\cdot \\left(\\frac{374}{340}\\right) = 400 \\cdot 1,1 = \\mathbf{440 \\text{ Hz}}$."]);
+
+// ==========================================
+// TEMA 5: Sons Musicais & Tubos Sonoros (61-75)
+// ==========================================
+addQ(5,'theo',"Em uma corda de violão esticada com extremidades fixas, as ondas estacionárias formam-se com nós obrigatórios em ambas as extremidades. O modo fundamental de vibração (primeiro harmônico, $n = 1$) possui comprimento de onda $\\lambda$ relacionado ao comprimento $L$ da corda por:", "A",
+    ["No primeiro harmônico de uma corda fixa nas duas pontas, forma-se um único fuso com dois nós nas extremidades e um ventre central. Assim, o comprimento da corda abriga exatamente metade de uma onda: $L = \\frac{\\lambda}{2} \\iff \\lambda = 2L$."],
+    ["A) $\\lambda = 2L$", "B) $\\lambda = L / 2$", "C) $\\lambda = 4L$", "D) $\\lambda = L$"]);
+
+addQ(5,'theo',"Os tubos sonoros fechados em uma das pontas e abertos na outra diferenciam-se profundamente dos tubos abertos porque:", "C",
+    ["Pela condição de contorno (nó na extremidade fechada e ventre na aberta), a coluna de ar só consegue vibrar em comprimentos que contenham número ímpar de quartos de onda. Logo, só existem harmônicos ímpares ($n = 1, 3, 5, 7...$)."],
+    ["A) Não produzem som musical.", "B) Emitem todos os harmônicos pares e ímpares igualmente.", "C) Conseguem ressoar exclusivamente nos harmônicos ímpares ($n = 1, 3, 5...$).", "D) Sua velocidade do som é a metade da atmosfera."]);
+
+addQ(5,'theo',"Um tubo sonoro aberto nas duas extremidades de comprimento $L$ e um tubo sonoro fechado em uma extremidade de mesmo comprimento $L$ possuem frequências fundamentais ($f_1$), respectivamente, dadas por:", "B",
+    ["Para tubo aberto: $f_1 = \\frac{v}{2L}$. Para tubo fechado em uma ponta: $f_1 = \\frac{v}{4L}$. O tubo fechado emite nota uma oitava mais grave que o aberto de mesmo tamanho."],
+    ["A) $f_1 = \\frac{v}{4L}$ e $f_1 = \\frac{v}{2L}$.", "B) $f_1 = \\frac{v}{2L}$ e $f_1 = \\frac{v}{4L}$.", "C) Ambas são iguais a $f_1 = \\frac{v}{L}$.", "D) $f_1 = \\frac{2v}{L}$ e $f_1 = \\frac{4v}{L}$."]);
+
+addQ(5,'theo',"Ao afinar uma corda de violão, o músico aperta a tarracha aumentando a tensão de tração mecânica ($T$). O que acontece com a frequência da nota emitida por essa corda?", "A",
+    ["Pela Fórmula de Taylor, $v = \\sqrt{\\frac{T}{\\mu}}$. Ao aumentar a tração $T$, a velocidade $v$ da onda na corda cresce. Como $f = \\frac{v}{2L}$, a frequência da nota aumenta, tornando o som mais agudo."],
+    ["A) A frequência aumenta (a nota fica mais aguda).", "B) A frequência diminui (a nota fica mais grave).", "C) A frequência não varia, muda apenas o timbre.", "D) A corda para de ressoar."]);
+
+addQ(5,'theo',"O segundo harmônico de um tubo sonoro aberto possui frequência que é igual a:", "B",
+    ["Nos tubos abertos, a série harmônica é completa ($f_n = n \\cdot f_1$). O segundo harmônico ($n=2$) possui exatamente o dobro da frequência do primeiro ($f_2 = 2 f_1$)."],
+    ["A) Metade da frequência fundamental ($0,5 f_1$).", "B) O dobro da frequência fundamental ($2 f_1$).", "C) O triplo da frequência fundamental ($3 f_1$).", "D) O quadruplo da frequência fundamental ($4 f_1$)."]);
+
+// Cálculos Tema 5
+addQ(5,'calc',"Um tubo de órgão aberto nas duas extremidades tem comprimento $L = 0,85 \\text{ m}$. Adote a velocidade do som no ar como $v = 340 \\text{ m/s}$. Calcule a frequência fundamental ($f_1$) emitida por esse tubo em Hertz ($f_1 = \\frac{v}{2L}$).", "200",
+    ["$f_1 = \\frac{v}{2L} = \\frac{340}{2 \\times 0,85} = \\frac{340}{1,70} = \\mathbf{200 \\text{ Hz}}$."]);
+
+addQ(5,'calc',"Qual é a frequência do terceiro harmônico ($f_3 = 3 \\cdot f_1$) do tubo sonoro aberto da questão anterior em Hertz?", "600",
+    ["$f_3 = 3 \\times f_1 = 3 \\times 200 = \\mathbf{600 \\text{ Hz}}$."]);
+
+addQ(5,'calc',"Um tubo sonoro FECHADO em uma das pontas tem comprimento $L = 0,85 \\text{ m}$. Adotando $v = 340 \\text{ m/s}$, determine a frequência de seu modo fundamental em Hertz ($f_1 = \\frac{v}{4L}$).", "100",
+    ["$f_1 = \\frac{v}{4L} = \\frac{340}{4 \\times 0,85} = \\frac{340}{3,40} = \\mathbf{100 \\text{ Hz}}$."]);
+
+addQ(5,'calc',"Lembrando que tubos fechados em uma ponta só admitem harmônicos ímpares ($n = 1, 3, 5...$), calcule a frequência do harmônico imediatamente seguinte ao fundamental ($n = 3$, ou seja, $f_3 = 3 \\cdot f_1$) para o tubo fechado da questão anterior em Hertz.", "300",
+    ["$f_3 = 3 \\times f_1 = 3 \\times 100 = \\mathbf{300 \\text{ Hz}}$."]);
+
+addQ(5,'calc',"Uma corda de violão de comprimento $L = 0,65 \\text{ m}$ emite nota fundamental de $440 \\text{ Hz}$ (Lá padrão). Qual é a velocidade de propagação da onda transversal na corda em m/s ($v = 2 L f$)?", "572",
+    ["$f_1 = \\frac{v}{2L} \\rightarrow v = 2 L f_1$", "$v = 2 \\times 0,65 \\times 440 = 1,30 \\times 440 = \\mathbf{572 \\text{ m/s}}$."]);
+
+addQ(5,'calc',"Se o instrumentista pressionar o dedo sobre o traste diminuindo o comprimento vibrante da corda do exercício anterior para a metade ($L' = 0,325 \\text{ m}$), qual será a nova frequência fundamental em Hertz mantendo a mesma tensão ($v = 572 \\text{ m/s}$)?", "880",
+    ["Como $f \\propto 1/L$, reduzir o comprimento à metade dobra a frequência:", "$f = \\frac{572}{2 \\times 0,325} = \\frac{572}{0,65} = \\mathbf{880 \\text{ Hz}}$ (a nota sobe exatamente uma oitava!)."]);
+
+addQ(5,'calc',"Um tubo aberto ressoa na frequência fundamental de $170 \\text{ Hz}$ no ar ($v = 340 \\text{ m/s}$). Qual é o comprimento $L$ desse tubo em metros ($L = \\frac{v}{2 f_1}$)?", "1",
+    ["$L = \\frac{v}{2 f_1} = \\frac{340}{2 \\times 170} = \\frac{340}{340} = \\mathbf{1 \\text{ metro}}$."]);
+
+addQ(5,'calc',"Um tubo fechado em uma ponta possui frequência fundamental de $85 \\text{ Hz}$ ($v = 340 \\text{ m/s}$). Qual é o comprimento $L$ desse tubo em metros ($L = \\frac{v}{4 f_1}$)?", "1",
+    ["$L = \\frac{v}{4 f_1} = \\frac{340}{4 \\times 85} = \\frac{340}{340} = \\mathbf{1 \\text{ metro}}$."]);
+
+addQ(5,'calc',"Uma corda esticada vibra no seu quarto harmônico ($n = 4$) com frequência de $1200 \\text{ Hz}$. Qual é a frequência fundamental dessa corda em Hertz ($f_1 = f_4 / 4$)?", "300",
+    ["$f_4 = 4 f_1 \\rightarrow f_1 = \\frac{1200}{4} = \\mathbf{300 \\text{ Hz}}$."]);
+
+addQ(5,'calc',"A Fórmula de Taylor diz que $v = \\sqrt{\\frac{T}{\\mu}}$. Uma corda de violoncelo tem densidade linear $\\mu = 0,04 \\text{ kg/m}$ e está tracionada com $T = 400 \\text{ N}$. Calcule a velocidade de propagação $v$ da onda na corda em m/s.", "100",
+    ["$v = \\sqrt{\\frac{400}{0,04}} = \\sqrt{10000} = \\mathbf{100 \\text{ m/s}}$."]);
+
+// ==========================================
+// TEMA 6: Fenômenos Ondulatórios Sonoros (76-90)
+// ==========================================
+addQ(6,'theo',"O cérebro humano necessita de um intervalo de tempo de pelo menos $0,10 \\text{ segundo}$ entre a chegada de dois sons sucessivos para distingui-los como separados (persistência auditiva). Se o som refletir em um anteparo e retornar antes de $0,10 \\text{ s}$, ocorre o fenômeno da:", "B",
+    ["Caso o som refletido retorne aos nossos ouvidos em tempo inferior a 0,1s, as sensações acústicas se fundem na nossa percepção, reforçando e prolongando o som original. Esse fenômeno é a reverberação."],
+    ["A) Polarização total.", "B) Reverberação.", "C) Refração com dispersão.", "D) Interferência destrutiva completa."]);
+
+addQ(6,'theo',"Por que uma pessoa conversando em uma sala pode ser ouvida claramente por alguém no corredor ao lado da porta aberta, mas não pode ser enxergada?", "D",
+    ["O som audível possui comprimento de onda na escala métrica ($0,1\\text{ m}$ a $1\\text{ m}$), comparável à largura do vão da porta aberta, sofrendo difração acentuada. A luz visível possui $\\lambda$ nanométrico ($10^{-7}\\text{ m}$) e não difrata de forma perceptível na escala métrica de uma porta."],
+    ["A) Porque a luz sofre reflexão total no teto.", "B) Porque o som é mais rápido que a luz.", "C) Porque o som se propaga no vácuo e a luz não.", "D) Porque o comprimento de onda do som é da ordem da largura da porta, permitindo difração pronunciada, ao contrário da luz visível."]);
+
+addQ(6,'theo',"Dois instrumentos musicais emitem ondas senoidais puras de frequências muito próximas: $f_1 = 440 \\text{ Hz}$ e $f_2 = 444 \\text{ Hz}$. A superposição dessas ondas faz com que o som varie periodicamente de intensidade de forma oscilante. Esse fenômeno é conhecido como:", "A",
+    ["O 'Batimento' é um fenômeno de interferência temporal resultante da superposição de duas ondas de frequências ligeiramente distintas, com frequência de batimento $f_{\\text{bat}} = |f_1 - f_2|$."],
+    ["A) Batimento acústico.", "B) Efeito estufa térmico.", "C) Polarização de Fresnel.", "D) Ressonância infinita."]);
+
+addQ(6,'theo',"Em noites frias e calmas de inverno, sons distantes (como o apito de um trem ou uma conversa do outro lado de um lago) parecem ser ouvidos com muito mais nitidez e alcance do que em dias quentes de sol. Esse fenômeno ocorre devido à:", "C",
+    ["Durante noites calmas, o ar próximo ao solo resfria mais rápido que as camadas superiores (inversão térmica). Como o som viaja mais devagar no ar frio perto do chão e mais rápido no ar quente superior, a frente de onda sofre refração e curva-se para baixo, em direção ao solo, concentrando a energia auditiva."],
+    ["A) Difração ultravioleta.", "B) Polarização do nitrogênio.", "C) Refração do som gerada pelo gradiente vertical de temperatura do ar.", "D) Ressonância atômica do vapor de água."]);
+
+addQ(6,'theo',"Quando um cantor de ópera atinge uma nota aguda específica com volume elevado, uma taça de cristal fina próxima pode quebrar-se repentinamente. Esse fenômeno é a demonstração física de:", "B",
+    ["Quando a frequência da onda sonora coincide perfeitamente com a frequência natural de oscilação elástica da taça, ocorre o fenômeno da Ressonância. A taça absorve energia continuamente e sua amplitude de deformação cresce até superar o limite de resistência mecânica do cristal."],
+    ["A) Polarização do vidro.", "B) Ressonância acústica.", "C) Refração total.", "D) Efeito Doppler supersônico."]);
+
+// Cálculos Tema 6
+addQ(6,'calc',"Adotando a velocidade do som no ar como $v = 340 \\text{ m/s}$ e sabendo que a persistência auditiva humana exige $\\Delta t \\ge 0,10 \\text{ s}$, calcule a distância mínima $d$ em metros que um anteparo refletor deve estar de uma pessoa para que ela ouça um eco nítido de sua própria voz ($d = \\frac{v \\cdot \\Delta t}{2}$).", "17",
+    ["Tempo de ida: $t_{\\text{ida}} = \\frac{0,10}{2} = 0,05 \\text{ s}$", "$d = v \\cdot t_{\\text{ida}} = 340 \\times 0,05 = \\mathbf{17 \\text{ metros}}$."]);
+
+addQ(6,'calc',"Um alpinista grita diante de um paredão rochoso e ouve o eco da sua própria voz exatos $1,6 \\text{ segundos}$ após gritar. Se a velocidade do som no ar é $340 \\text{ m/s}$, a que distância em metros o paredão encontra-se do alpinista?", "272",
+    ["Tempo de ida: $t_{\\text{ida}} = \\frac{1,6}{2} = 0,8 \\text{ s}$", "$d = v \\cdot t_{\\text{ida}} = 340 \\times 0,8 = \\mathbf{272 \\text{ metros}}$."]);
+
+addQ(6,'calc',"Dois diapasões vibram simultaneamente: um com $f_1 = 440 \\text{ Hz}$ e outro com $f_2 = 443 \\text{ Hz}$. Calcule a frequência de batimento acústico $f_{\\text{bat}}$ em Hertz ($f_{\\text{bat}} = |f_2 - f_1|$).", "3",
+    ["$f_{\\text{bat}} = |443 - 440| = \\mathbf{3 \\text{ Hz}}$ (são ouvidos 3 pulsos oscilantes de intensidade por segundo)."]);
+
+addQ(6,'calc',"Um afinador de piano toca uma nota de $f_1 = 220 \\text{ Hz}$ junto com o instrumento desafinado e ouve $4$ batimentos por segundo ($f_{\\text{bat}} = 4 \\text{ Hz}$). Sabendo que a corda do piano está mais aguda que o diapasão, qual é a frequência da corda do piano em Hertz?", "224",
+    ["Como a corda está mais aguda: $f_{\\text{piano}} = f_1 + f_{\\text{bat}} = 220 + 4 = \\mathbf{224 \\text{ Hz}}$."]);
+
+addQ(6,'calc',"Um navio no mar dispara uma salva de canhão a $1360 \\text{ metros}$ de uma encosta rochosa. Sabendo que o som viaja no ar a $340 \\text{ m/s}$, quantos segundos depois do disparo a tripulação ouvirá o eco refletido pela montanha (tempo de ida e volta)?", "8",
+    ["$t_{\\text{ida}} = \\frac{d}{v} = \\frac{1360}{340} = 4 \\text{ s}$", "Tempo total de ida e volta: $t_{\\text{total}} = 2 \\times 4 = \\mathbf{8 \\text{ segundos}}$."]);
+
+addQ(6,'calc',"Duas caixas acústicas idênticas em fase emitem uma onda sonora pura de frequência $f = 680 \\text{ Hz}$ no ar ($v = 340 \\text{ m/s}$). O comprimento de onda é $\\lambda = \\frac{340}{680} = 0,50 \\text{ m}$. Em um ponto $P$, a distância até a caixa 1 é $d_1 = 5,00 \\text{ m}$ e até a caixa 2 é $d_2 = 6,00 \\text{ m}$. Calcule a diferença de caminhos $\\Delta x = d_2 - d_1$ em metros.", "1",
+    ["$\\Delta x = 6,00 - 5,00 = \\mathbf{1,00 \\text{ metro}}$ (como $\\Delta x = 2 \\cdot \\lambda = 2 \\times 0,50$, temos interferência perfeitamente construtiva!)."]);
+
+addQ(6,'calc',"Para que ocorra interferência destrutiva total entre as duas caixas em fase da questão anterior ($\lambda = 0,50 \\text{ m}$), a menor diferença de caminhos não nula deve ser $\\Delta x = \\frac{\\lambda}{2}$. Calcule essa distância em metros.", "0.25",
+    ["$\\Delta x = \\frac{\\lambda}{2} = \\frac{0,50}{2} = \\mathbf{0,25 \\text{ metros}}$."]);
+
+addQ(6,'calc',"Um fone de ouvido com cancelamento ativo de ruído (ANC) capta um som externo indesejado e gera uma onda de cancelamento de mesma amplitude e mesma frequência, mas em oposição de fase de $180^\\circ$. Se a amplitude da onda externa é $A = 0,02 \\text{ Pa}$, qual será a amplitude da pressão sonora resultante nos ouvidos em Pascals por interferência destrutiva perfeita?", "0",
+    ["Na interferência destrutiva total de ondas com amplitudes iguais em oposição de fase: $A_{\\text{res}} = |A_1 - A_2| = |0,02 - 0,02| = \\mathbf{0 \\text{ Pa}}$."]);
+
+addQ(6,'calc',"Um som propaga-se no ar frio próximo ao solo a $v_1 = 330 \\text{ m/s}$ e refrata para uma camada superior de ar quente onde sua velocidade salta para $v_2 = 363 \\text{ m/s}$. Se o comprimento de onda no ar frio era $\\lambda_1 = 1,00 \\text{ metro}$, qual será o novo comprimento $\\lambda_2$ na camada quente em metros (use $\\frac{v_1}{\\lambda_1} = \\frac{v_2}{\\lambda_2}$)?", "1.1",
+    ["$\\frac{330}{1,00} = \\frac{363}{\\lambda_2} \\rightarrow 330 \\lambda_2 = 363$", "$\\lambda_2 = \\frac{363}{330} = \\mathbf{1,10 \\text{ metros}}$."]);
+
+addQ(6,'calc',"Uma pessoa bate palmas dentro de uma sala fechada. O som reflete na parede oposta e retorna ao seu ouvido após $0,06 \\text{ segundos}$. Como $0,06 \\text{ s} < 0,10 \\text{ s}$, não ouvimos eco e sim reverberação. Sabendo que $v = 340 \\text{ m/s}$, a que distância em metros está a parede ($d = \\frac{v \\cdot t}{2}$)?", "10.2",
+    ["$d = \\frac{v \\cdot t}{2} = \\frac{340 \\times 0,06}{2} = 340 \\times 0,03 = \\mathbf{10,2 \\text{ metros}}$."]);
+
+let currentTheme = 'all';
+let solved = new Set(JSON.parse(localStorage.getItem('fisicaAcusticaSolved')||'[]'));
+
+function renderExercises() {
+    const listDiv = $('exercise-list');
+    let html = '';
+    
+    exercisesData.forEach(ex => {
+        if (currentTheme !== 'all' && ex.theme != currentTheme) return;
+        
+        const isSolved = solved.has(ex.id);
+        const borderColor = isSolved ? 'border-emerald-400' : 'border-indigo-100';
+        const badgeColor = isSolved ? 'bg-emerald-100 text-emerald-800' : 'bg-indigo-100 text-indigo-800';
+        const themeNames = [
+          "", 
+          "Infrassom & Ultrassom", 
+          "Propagação Sonora", 
+          "Qualidades Fisiológicas", 
+          "Efeito Doppler-Fizeau", 
+          "Sons Musicais & Tubos", 
+          "Fenômenos Ondulatórios Sonoros"
+        ];
+        
+        let questionBody = `<p class="mt-3 text-slate-700 mb-4 text-sm leading-6">${ex.q}</p>`;
+        
+        if (ex.type === 'theo' && ex.opts) {
+            questionBody += `<div class="space-y-2 mb-4 text-sm text-slate-600">`;
+            ex.opts.forEach(opt => {
+                questionBody += `<div class="p-2 bg-slate-50 rounded-lg border border-slate-100">${opt}</div>`;
+            });
+            questionBody += `</div>`;
+        }
+
+        html += `
+        <article class="bg-white rounded-2xl border ${borderColor} p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div class="flex justify-between gap-3 items-center">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full ${badgeColor}">Questão ${ex.id}</span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">TEMA ${ex.theme}: ${themeNames[ex.theme]}</span>
+            </div>
+            
+            ${questionBody}
+            
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" type="text" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="${ex.type==='theo' ? 'Letra (A, B, C, D)' : 'Valor numérico'}">
+                <button onclick="checkAnswer(${ex.id})" class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition shadow-sm">Conferir</button>
+            </div>
+            
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+            
+            <button onclick="document.getElementById('sol-${ex.id}').classList.toggle('hidden')" class="mt-3 text-sm font-bold text-indigo-700 hover:underline">
+                👁 Mostrar explicação / cálculo
+            </button>
+            
+            <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t border-indigo-100 pt-4">
+                <div class="text-xs uppercase tracking-widest font-black text-indigo-800 mb-3">Resolução Passo a Passo</div>
+                ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+                <div class="success rounded-xl p-4 text-center font-bold mt-2 text-emerald-900">Resposta Correta: ${ex.ans}</div>
+            </div>
+        </article>
+        `;
+    });
+    
+    listDiv.innerHTML = html;
+    updateProgress();
+    renderAll();
+}
+
+function checkAnswer(id) {
+    const ex = exercisesData.find(x => x.id === id);
+    const inputEl = $(`ans-${id}`);
+    const fbEl = $(`fb-${id}`);
+    
+    let rawInput = inputEl.value.trim().toUpperCase();
+    if(ex.type === 'calc') {
+        rawInput = rawInput.replace(',', '.'); 
+    }
+
+    let isCorrect = false;
+    
+    if (ex.type === 'theo') {
+        isCorrect = (rawInput === ex.ans);
+    } else {
+        const numIn = parseFloat(rawInput);
+        const numAns = parseFloat(ex.ans);
+        if(!isNaN(numIn) && Math.abs(numIn - numAns) <= 0.05) {
+            isCorrect = true;
+        }
+    }
+
+    if (isCorrect) {
+        solved.add(id);
+        localStorage.setItem('fisicaAcusticaSolved', JSON.stringify([...solved]));
+        fbEl.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fbEl.textContent = '✓ Excelente! Resposta correta.';
+        setTimeout(renderExercises, 400); 
+    } else {
+        fbEl.className = 'text-sm font-bold mt-2 text-red-500';
+        fbEl.textContent = '✗ Não está certo. Revise a teoria acústica e tente novamente!';
+    }
+}
+
+function updateProgress() {
+    const max = exercisesData.length;
+    const current = solved.size;
+    $('progress-text').textContent = `${current} / ${max}`;
+    $('progress-bar').style.width = `${(current/max)*100}%`;
+}
+
+// Filtros de Tema
+document.querySelectorAll('.level-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active', 'bg-indigo-600', 'text-white'));
+        document.querySelectorAll('.level-btn:not(.active)').forEach(b => b.classList.add('bg-slate-100'));
+        
+        btn.classList.add('active');
+        btn.classList.remove('bg-slate-100');
+        
+        currentTheme = btn.dataset.theme;
+        renderExercises();
+    };
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderExercises();
+    renderAll();
+});
+</script>
+</body>
+</html>

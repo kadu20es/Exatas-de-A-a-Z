@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física — Termologia e Dilatação</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {--ink: #450a0a; --paper: #fffbeb; --line: #fcd34d; --accent: #dc2626}
+  body {background: #fff8f1; color: var(--ink)}
+  .tab-btn.active {color: #b91c1c; border-bottom-color: #b91c1c; font-weight: 800}
+  .paper {background: var(--paper); background-image: linear-gradient(#fde68a 1px, transparent 1px); background-size: 100% 2rem; border: 1px solid #fcd34d; box-shadow: 0 8px 24px #450a0a0d}
+  .step {position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #fde047; border-radius: 1rem; background: white}
+  .step::before {content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #fef08a; color: #b91c1c; font-weight: 800; display: grid; place-items: center; font-size: .8rem}
+  .level-btn.active {background: #dc2626; color: white}
+  .exercise-solution {animation: fade .2s ease}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  .tip {border-left: 4px solid #f59e0b; background: #fffbeb}
+  .success {border-left: 4px solid #10b981; background: #ecfdf5}
+  .warning {border-left: 4px solid #ef4444; background: #fef2f2}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-orange-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-red-900">🔥 Física Dinâmica</div><div class="text-[11px] text-slate-500 hidden sm:block">Termologia: Temperatura, Escalas e Dilatação</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Simuladores</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-red-950 via-red-900 to-orange-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-orange-300">Termologia Básica</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">O Universo em Agitação</h1>
+  <p class="mt-4 max-w-3xl text-orange-100 leading-7">Entenda o que realmente significa "estar quente", como medir essa agitação invisível através das escalas termométricas e por que pontes e ferrovias precisam de frestas para não racharem nos dias de verão.</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm text-sm">
+  <b>Conceito Fundamental (Calor vs. Temperatura):</b> Na física moderna, <b>Temperatura</b> mede o grau de agitação das moléculas de um corpo (quanto mais rápido vibram, mais "quente" ele está). Já o <b>Calor</b> é energia térmica <i>em trânsito</i>, que flui espontaneamente do corpo mais quente para o mais frio até atingirem o equilíbrio térmico.
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tema 1 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-red-100 text-red-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">Temperatura e suas Escalas</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Para medir a temperatura, precisamos de "pontos fixos" de referência. Historicamente, usamos a água.
+   </p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-orange-50 rounded-xl p-3 border border-orange-100">
+     <b class="text-orange-800">Escala Celsius (°C)</b>
+     <p class="mt-1 text-slate-600">Criada por Anders Celsius. Usa a fusão do gelo como 0°C e a ebulição da água como 100°C. Dividida em 100 partes (escala centígrada).</p>
+    </div>
+    <div class="bg-red-50 rounded-xl p-3 border border-red-100">
+     <b class="text-red-800">Escala Fahrenheit (°F)</b>
+     <p class="mt-1 text-slate-600">Usada nos EUA. A fusão do gelo é 32°F e a ebulição da água é 212°F. Dividida em 180 partes.</p>
+    </div>
+   </div>
+   <div class="paper text-center py-3 mt-4 rounded-xl font-bold text-lg">\[\frac{C}{5} = \frac{F - 32}{9}\]</div>
+   <p class="text-xs text-slate-500 mt-2 text-center">Fórmula de conversão entre as leituras.</p>
+  </article>
+
+  <!-- Tema 2 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-red-100 text-red-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Escala Absoluta (Kelvin)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Se a temperatura mede a agitação das moléculas, o que acontece se elas <b>pararem completamente</b>? Lord Kelvin calculou esse limite: é o <b>Zero Absoluto</b>.</p>
+   <ul class="list-disc pl-5 mt-3 text-sm text-slate-600 space-y-2">
+    <li>O Zero Absoluto equivale a <b>-273,15 °C</b>. Não existe temperatura menor que essa no universo!</li>
+    <li>A escala Kelvin não usa "graus" (dizemos apenas Kelvin, e não "graus Kelvin").</li>
+    <li>Não existem valores negativos na escala Kelvin.</li>
+   </ul>
+   <div class="paper text-center py-3 mt-4 rounded-xl font-bold text-lg">\[K = C + 273\]</div>
+   <div class="bg-slate-50 border-l-4 border-slate-400 p-3 mt-3 text-xs text-slate-700">
+    <b>Variação (\(\Delta\)):</b> A divisão da escala Celsius e Kelvin têm o mesmo tamanho. Se a temperatura subir 10°C, ela também subiu 10 K. (\(\Delta C = \Delta K\)). Mas na Fahrenheit, ela subiria 18°F.
+   </div>
+  </article>
+ </div>
+
+ <!-- Tema 3 -->
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-red-100 text-red-700 grid place-items-center font-black">3</span><h2 class="text-2xl font-black">Dilatação Térmica dos Sólidos</h2></div>
+  <p class="text-sm text-slate-600 mt-3 mb-4">Quando esquentamos um objeto, suas moléculas vibram com mais intensidade e "empurram" umas às outras, fazendo o corpo precisar de mais espaço. Isso é a dilatação! Ela depende do tamanho inicial, da variação de temperatura e do material (coeficiente).</p>
+  
+  <div class="grid lg:grid-cols-3 gap-4">
+   <div class="border rounded-xl p-4 bg-slate-50">
+    <h3 class="font-bold text-red-800 text-center">Linear (1D)</h3>
+    <p class="text-xs text-slate-500 mt-1 mb-2 text-center">Fios, barras, trilhos. Importa apenas o comprimento (L).</p>
+    <div class="text-center font-bold">\[\Delta L = L_0 \cdot \alpha \cdot \Delta T\]</div>
+   </div>
+   <div class="border rounded-xl p-4 bg-slate-50">
+    <h3 class="font-bold text-red-800 text-center">Superficial (2D)</h3>
+    <p class="text-xs text-slate-500 mt-1 mb-2 text-center">Chapas, placas, pisos. Importa a Área (A). O coeficiente é \(\beta = 2\alpha\).</p>
+    <div class="text-center font-bold">\[\Delta A = A_0 \cdot \beta \cdot \Delta T\]</div>
+   </div>
+   <div class="border rounded-xl p-4 bg-slate-50">
+    <h3 class="font-bold text-red-800 text-center">Volumétrica (3D)</h3>
+    <p class="text-xs text-slate-500 mt-1 mb-2 text-center">Esferas, cubos, blocos. Importa o Volume (V). O coeficiente é \(\gamma = 3\alpha\).</p>
+    <div class="text-center font-bold">\[\Delta V = V_0 \cdot \gamma \cdot \Delta T\]</div>
+   </div>
+  </div>
+  
+  <div class="bg-amber-100 p-4 rounded-xl mt-4 border border-amber-200">
+    <b class="text-amber-900 text-sm">🏛️ Texto de Enriquecimento: Engenharia e Dilatação</b>
+    <p class="text-xs text-amber-800 mt-1">Já reparou que em pontes, viadutos ou nos trilhos do trem existem "fendas" ou juntas de metal sanfonadas com espaços vazios? Elas se chamam <b>Juntas de Dilatação</b>. No verão, o concreto e o aço absorvem calor e se dilatam (aumentam de tamanho). Se não houvesse esse espaço vazio para eles crescerem, as estruturas se esmagariam e rachariam, causando desabamentos. Até mesmo obturações nos dentes precisam ter o mesmo coeficiente de dilatação do dente para não quebrarem com café quente!</p>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tema 4 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-red-100 text-red-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Dilatação dos Líquidos</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">Líquidos são muito "soltos", então eles <b>dilatam mais que os sólidos</b>. O problema é que todo líquido precisa estar dentro de um recipiente sólido (uma panela, por exemplo).</p>
+   
+   <ul class="list-disc pl-5 mt-3 text-sm text-slate-600 space-y-2">
+    <li>Ao esquentar uma panela cheia, a panela cresce (dilata).</li>
+    <li>O líquido dentro também cresce, mas cresce MAIS RÁPIDO que a panela.</li>
+    <li>O líquido que transborda e cai fora do pote é chamado de <b>Dilatação Aparente</b>.</li>
+   </ul>
+   
+   <div class="paper text-center py-2 mt-4 font-bold rounded-lg text-sm">\[\Delta V_{real} = \Delta V_{aparente} + \Delta V_{recipiente}\]</div>
+   <p class="text-xs text-slate-500 mt-2 text-center">Isso significa que a dilatação verdadeira do líquido é a soma do que derramou com o volume extra que o pote ganhou ao crescer.</p>
+  </article>
+  
+  <!-- Tema 5 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-red-100 text-red-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">O Comportamento Anômalo da Água</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">Regra geral do universo: Esquenta = Dilata (volume aumenta). Esfria = Contrai (volume diminui). <b>A Água quebra essa regra!</b></p>
+   
+   <div class="bg-red-50 p-3 rounded-xl border border-red-100 mt-3 text-sm">
+    Entre <b>0 °C e 4 °C</b>, se você esquentar a água, o volume dela <b>DIMINUI</b>! E se esfriar (de 4 para 0), ela <b>AUMENTA</b> de volume. Aos exatos 4°C, a água atinge seu menor volume e sua <b>Densidade Máxima</b>.
+   </div>
+   
+   <p class="text-[11px] text-slate-600 mt-3 leading-5"><b>🌍 Consequência milagrosa:</b> É por isso que lagos congelam apenas na superfície! Quando o inverno chega e a água esfria até 4°C, ela fica "pesada" (densa) e afunda. A água a 0°C (gelo) fica "leve" e boia. Isso cria uma crosta de gelo no topo, isolando o frio, mantendo a água no fundo líquida a 4°C e salvando os peixes da morte por congelamento no inverno profundo.</p>
+  </article>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-red-600">Laboratório Virtual</span><h1 class="text-3xl font-black mt-2">Simuladores Termodinâmicos</h1><p class="text-slate-600 mt-2 text-sm">Experimente as equações na prática usando nossas calculadoras.</p></div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Lab Termometro -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">Conversor de Escalas</h2>
+   <p class="text-xs text-slate-500 mb-4">Insira um valor em graus Celsius para ver a conversão imediata para Fahrenheit e Kelvin com o passo a passo da fórmula.</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label class="font-bold">Temperatura (°C):</label><input id="lab-celsius" type="number" value="25" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcTemp()" class="mt-4 w-full bg-red-600 hover:bg-red-700 text-white rounded-xl py-3 font-bold transition">Converter Escalas</button>
+   <div id="out-temp" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+
+  <!-- Lab Dilatação -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl">Simulador de Expansão (Linear)</h2>
+   <p class="text-xs text-slate-500 mb-4">Veja o quanto uma barra de metal vai crescer ao ser aquecida (a fórmula usa notação científica).</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Comprimento Inicial - \(L_0\) (m):</label><input id="lab-l0" type="number" value="10" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Variação de Temp. - \(\Delta T\) (°C):</label><input id="lab-dt" type="number" value="100" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Material (\(\alpha\)):</label>
+        <select id="lab-alpha" class="border rounded-xl px-2 py-1 text-xs">
+            <option value="0.000012">Aço / Ferro (12 x 10⁻⁶)</option>
+            <option value="0.000024">Alumínio (24 x 10⁻⁶)</option>
+            <option value="0.000017">Cobre (17 x 10⁻⁶)</option>
+        </select>
+    </div>
+   </div>
+   <button onclick="calcDilatacao()" class="mt-4 w-full bg-orange-600 hover:bg-orange-700 text-white rounded-xl py-3 font-bold transition">Aquecer Barra</button>
+   <div id="out-dilatacao" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-red-600">Treino Progressivo</span><h1 class="text-3xl font-black mt-2">75 Questões Resolvidas</h1><p class="text-slate-600 mt-2 text-sm"><b>Teoria:</b> digite a letra (A, B, C, D). <b>Cálculos:</b> digite apenas o número (use '.' ou ',' para decimais). Arredonde para 2 casas quando necessário.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold text-red-900"><span>Progresso</span><span id="progress-text">0 / 75</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-red-500 transition-all duration-500 rounded-full" style="width:0%"></div></div></div></div></div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters">
+  <button data-theme="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold transition">Todos</button>
+  <button data-theme="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T1: Escalas °C e °F</button>
+  <button data-theme="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T2: Escala Kelvin</button>
+  <button data-theme="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T3: Dilatação Sólidos</button>
+  <button data-theme="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T4: Dilatação Líquidos</button>
+  <button data-theme="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T5: Água (Anomalia)</button>
+ </div></div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+</main>
+
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo - Termologia (Moderna Plus)</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Tab Navigation
+const sections=['teoria','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises();}));
+
+function calcTemp(){
+    const c = +$('lab-celsius').value;
+    const f = (c * 9/5) + 32;
+    const k = c + 273.15;
+    
+    let h = `<b>1. Conversão para Fahrenheit (°F):</b><br>`;
+    h += `\\[\\frac{C}{5} = \\frac{F - 32}{9} \\rightarrow \\frac{${c}}{5} = \\frac{F - 32}{9}\\]<br>`;
+    h += `\\[${c/5} \\cdot 9 = F - 32 \\rightarrow ${(c/5)*9} = F - 32\\]<br>`;
+    h += `\\[F = ${(c/5)*9} + 32 = \\mathbf{${f.toFixed(1)} ^\\circ\\text{F}}\\]<br><br>`;
+    h += `<b>2. Conversão para Kelvin (K):</b><br>`;
+    h += `\\[K = C + 273,15\\]<br>`;
+    h += `\\[K = ${c} + 273,15 = \\mathbf{${k.toFixed(2)} \\text{ K}}\\]`;
+    
+    $('out-temp').innerHTML = h;
+    $('out-temp').classList.remove('hidden');
+    renderAll();
+}
+
+function calcDilatacao(){
+    const l0 = +$('lab-l0').value;
+    const dt = +$('lab-dt').value;
+    const alpha = +$('lab-alpha').value;
+    
+    const dL = l0 * alpha * dt;
+    const Lf = l0 + dL;
+    
+    // Formatting alpha for display (e.g., 0.000012 -> 12 \times 10^{-6})
+    const alphaDisplay = (alpha * 1e6).toFixed(0) + " \\times 10^{-6}";
+    
+    let h = `<b>1. Fórmula da Dilatação Linear:</b><br>`;
+    h += `\\[\\Delta L = L_0 \\cdot \\alpha \\cdot \\Delta T\\]<br>`;
+    h += `\\[\\Delta L = ${l0} \\cdot (${alphaDisplay}) \\cdot ${dt}\\]<br><br>`;
+    h += `<b>2. Calculando o quanto cresceu (\\(\\Delta L\\)):</b><br>`;
+    h += `\\[\\Delta L = \\mathbf{${dL.toFixed(5)} \\text{ metros}}\\]<br>`;
+    h += `<span class="text-xs text-slate-500">(Isso equivale a ${(dL*1000).toFixed(2)} milímetros)</span><br><br>`;
+    h += `<b>3. Comprimento Final (\\(L_f\\)):</b><br>`;
+    h += `\\[L_f = L_0 + \\Delta L = ${l0} + ${dL.toFixed(5)}\\]<br>`;
+    h += `\\[L_f = \\mathbf{${Lf.toFixed(5)} \\text{ m}}\\]`;
+    
+    $('out-dilatacao').innerHTML = h;
+    $('out-dilatacao').classList.remove('hidden');
+    renderAll();
+}
+
+const exercisesData = [];
+let exId = 1;
+const addQ = (th, ty, q, ans, steps, opts=[]) => { exercisesData.push({ id: exId++, theme: th, type: ty, q, ans, steps, opts }); };
+
+// TEMA 1: Temperatura e Escalas (1-15)
+addQ(1,'theo',"Na física moderna, a grandeza Temperatura está intimamente ligada a qual característica microscópica da matéria?", "B", ["Temperatura é a medida indireta do grau médio de agitação (energia cinética) das moléculas."], ["A) Quantidade de calor armazenado", "B) Grau de agitação molecular", "C) Pressão atmosférica", "D) Massa específica"]);
+addQ(1,'theo',"Calor e Temperatura são conceitos diferentes. O Calor é definido corretamente como:", "C", ["O calor não fica 'dentro' dos corpos, ele é o fluxo de energia devido à diferença de temperatura."], ["A) O mesmo que temperatura.", "B) A energia cinética das moléculas.", "C) A energia térmica em trânsito de um corpo mais quente para um mais frio.", "D) O grau de frio de um corpo."]);
+addQ(1,'theo',"A escala Celsius adota quais fenômenos como seus pontos fixos fundamentais sob pressão de 1 atm?", "A", ["0°C e 100°C baseiam-se na água."], ["A) Fusão do gelo e ebulição da água.", "B) Zero absoluto e ebulição do álcool.", "C) Temperatura corporal humana e fusão do ferro.", "D) Congelamento da água salgada e fusão do mercúrio."]);
+addQ(1,'theo',"Na escala Fahrenheit, os pontos de fusão do gelo e ebulição da água equivalem, respectivamente, a:", "D", ["Memorização básica da escala estadunidense."], ["A) 0 e 100", "B) 32 e 100", "C) 0 e 212", "D) 32 e 212"]);
+addQ(1,'theo',"Sobre as variações de temperatura (\\(\\Delta T\\)), se a temperatura subir 10 graus na escala Celsius, ela subirá quantos graus na escala Fahrenheit?", "C", ["A escala Celsius tem 100 divisões entre a fusão e ebulição. A Fahrenheit tem 180. A proporção é de 100 para 180 (ou seja, 1 para 1,8). Subir 10°C equivale a subir 18°F."], ["A) 10", "B) 5", "C) 18", "D) 32"]);
+
+addQ(1,'calc',"Converta a temperatura ambiente de $25 ^\\circ\\text{C}$ para a escala Fahrenheit (°F).", "77", ["$C/5 = (F-32)/9 \\rightarrow 25/5 = (F-32)/9$", "$5 = (F-32)/9 \\rightarrow 45 = F - 32$", "$F = 45 + 32 = 77 ^\\circ\\text{F}$"]);
+addQ(1,'calc',"O corpo humano tem uma temperatura saudável em torno de $37 ^\\circ\\text{C}$. Qual o valor aproximado em Fahrenheit (°F)? (Use 1 casa decimal)", "98.6", ["$37/5 = (F-32)/9 \\rightarrow 7,4 = (F-32)/9$", "$66,6 = F - 32 \\rightarrow F = 98,6 ^\\circ\\text{F}$"]);
+addQ(1,'calc',"Em uma viagem a Nova York, o termômetro marcava $50 ^\\circ\\text{F}$. Qual era a temperatura em graus Celsius (°C)?", "10", ["$C/5 = (50-32)/9 \\rightarrow C/5 = 18/9$", "$C/5 = 2 \\rightarrow C = 10 ^\\circ\\text{C}$"]);
+addQ(1,'calc',"Água ferve a $212 ^\\circ\\text{F}$. Quanto isso representa em graus Celsius (°C)?", "100", ["$C/5 = (212-32)/9 \\rightarrow C/5 = 180/9$", "$C/5 = 20 \\rightarrow C = 100 ^\\circ\\text{C}$"]);
+addQ(1,'calc',"Uma fórmula rápida para variação é $\\Delta F = 1,8 \\cdot \\Delta C$. Se a temperatura em São Paulo subiu $15 ^\\circ\\text{C}$ de manhã para a tarde, qual foi a variação correspondente em Fahrenheit?", "27", ["$\\Delta F = 1,8 \\cdot 15$", "$\\Delta F = 27 ^\\circ\\text{F}$ (Atenção: Variação não soma 32!)"]);
+addQ(1,'calc',"Qual é a única temperatura que possui exatamente o mesmo valor numérico na escala Celsius e na Fahrenheit? (Dica: iguale C = F = x)", "-40", ["$x/5 = (x-32)/9 \\rightarrow 9x = 5(x-32)$", "$9x = 5x - 160 \\rightarrow 4x = -160 \\rightarrow x = -40$"]);
+addQ(1,'calc',"Um líquido sofre uma variação térmica de $\\Delta F = 36 ^\\circ\\text{F}$. Qual é o valor dessa variação na escala Celsius ($\\Delta C$)?", "20", ["$\\Delta C / 5 = \\Delta F / 9 \\rightarrow \\Delta C / 5 = 36 / 9$", "$\\Delta C / 5 = 4 \\rightarrow \\Delta C = 20 ^\\circ\\text{C}$"]);
+addQ(1,'calc',"Um forno foi regulado para $392 ^\\circ\\text{F}$. O padeiro precisa saber a temperatura em Celsius para seguir a receita local. Qual é?", "200", ["$C/5 = (392-32)/9 \\rightarrow C/5 = 360/9$", "$C/5 = 40 \\rightarrow C = 200 ^\\circ\\text{C}$"]);
+addQ(1,'calc',"Converta a temperatura muito fria de $-4 ^\\circ\\text{F}$ para Celsius.", "-20", ["$C/5 = (-4-32)/9 \\rightarrow C/5 = -36/9$", "$C/5 = -4 \\rightarrow C = -20 ^\\circ\\text{C}$"]);
+addQ(1,'calc',"O mercúrio funde a $-39 ^\\circ\\text{C}$. Qual é esse ponto em Fahrenheit?", "-38.2", ["$-39/5 = (F-32)/9 \\rightarrow -7,8 = (F-32)/9$", "$-70,2 = F - 32 \\rightarrow F = -38,2 ^\\circ\\text{F}$"]);
+
+// TEMA 2: Escala Kelvin (16-30)
+addQ(2,'theo',"A escala Kelvin é chamada de Escala Absoluta porque o seu ponto zero (Zero Absoluto) corresponde a uma situação teórica em que:", "C", ["No 0 K, a energia cinética e a vibração molecular atingem o seu valor mínimo possível (virtualmente ausência de agitação)."], ["A) A água congela instantaneamente.", "B) A pressão atmosférica é máxima.", "C) A agitação térmica (vibração) das moléculas cessa completamente.", "D) Os átomos se desintegram."]);
+addQ(2,'theo',"Sobre as temperaturas expressas na escala Kelvin, é correto afirmar que:", "A", ["A escala Kelvin parte do Zero absoluto. Não existe nada mais frio, logo, não há números negativos."], ["A) Não admitem valores negativos.", "B) Podem ter valores negativos em invernos rigorosos.", "C) Usam o símbolo de graus (°K).", "D) Têm divisões de tamanho diferente da escala Celsius."]);
+addQ(2,'theo',"Sabemos que a escala Celsius e a Kelvin têm a mesma 'quantidade' de degraus entre a fusão e ebulição da água (100 partes). Logo, a variação de 1 °C é igual a uma variação de:", "B", ["Como o tamanho do 'grau' é o mesmo, $\\Delta C = \\Delta K$."], ["A) 1,8 K", "B) 1 K", "C) 273 K", "D) 0,5 K"]);
+addQ(2,'theo',"A temperatura do Zero Absoluto corresponde a qual valor na escala Celsius?", "D", ["O zero de Kelvin equivale a -273 °C (ignorando a casa decimal usual de ,15 para cálculos básicos de ensino médio)."], ["A) 0 °C", "B) -100 °C", "C) 273 °C", "D) -273 °C"]);
+addQ(2,'theo',"Para converter Celsius em Kelvin, a fórmula é $K = C + 273$. Por que simplesmente SOMAMOS 273 e não multiplicamos/dividimos como no Fahrenheit?", "A", ["Porque o tamanho da unidade é o mesmo, a escala Kelvin só está 'deslocada' (arrastada) 273 números para cima em relação à Celsius."], ["A) Porque o tamanho da unidade de variação é o mesmo em ambas as escalas, mudando apenas o ponto de origem.", "B) Porque a água entra em ebulição a 273 K.", "C) Porque foi uma escolha aleatória de Lord Kelvin.", "D) Porque a pressão atmosférica interfere na divisão."]);
+
+addQ(2,'calc',"Converta $27 ^\\circ\\text{C}$ para a escala Kelvin (K). Use a relação $K = C + 273$.", "300", ["$K = 27 + 273 = 300 \\text{ K}$"]);
+addQ(2,'calc',"A temperatura de ebulição da água ao nível do mar é $100 ^\\circ\\text{C}$. Qual o valor equivalente em Kelvin?", "373", ["$K = 100 + 273 = 373 \\text{ K}$"]);
+addQ(2,'calc',"Um gás armazenado em laboratório está a uma temperatura extremamente baixa de $20 \\text{ K}$. Qual o valor em Celsius (°C)?", "-253", ["$K = C + 273 \\rightarrow 20 = C + 273$", "$C = 20 - 273 = -253 ^\\circ\\text{C}$"]);
+addQ(2,'calc',"O nitrogênio líquido entra em ebulição a $77 \\text{ K}$. Qual a sua temperatura em graus Celsius (°C)?", "-196", ["$C = K - 273$", "$C = 77 - 273 = -196 ^\\circ\\text{C}$"]);
+addQ(2,'calc',"Um paciente com febre alta teve a variação térmica medida. A temperatura dele subiu $2 ^\\circ\\text{C}$. Qual foi a variação de temperatura em Kelvin ($\\Delta K$)?", "2", ["A variação na escala Celsius é numericamente igual à variação na Kelvin.", "$\\Delta K = \\Delta C = 2 \\text{ K}$ (Não some 273 na variação!)"]);
+addQ(2,'calc',"Um metal foi aquecido e sua temperatura subiu $50 \\text{ K}$. De quantos graus Celsius ($\\Delta C$) foi o aquecimento?", "50", ["Como $\\Delta K = \\Delta C$, a variação foi de $50 ^\\circ\\text{C}$."]);
+addQ(2,'calc',"Converta $59 ^\\circ\\text{F}$ diretamente para Kelvin. (Dica: ache Celsius primeiro e depois passe pra Kelvin).", "288", ["Passo 1 (C): $C/5 = (59-32)/9 \\rightarrow C/5 = 27/9 \\rightarrow C/5 = 3 \\rightarrow C = 15 ^\\circ\\text{C}$", "Passo 2 (K): $K = 15 + 273 = 288 \\text{ K}$"]);
+addQ(2,'calc',"Zero absoluto em Fahrenheit! Se o zero absoluto é $0 \\text{ K}$ ($-273 ^\\circ\\text{C}$), qual é o valor aproximado na escala Fahrenheit? (Use a conversão do -273)", "-459.4", ["$-273/5 = (F-32)/9 \\rightarrow -54,6 = (F-32)/9$", "$-491,4 = F - 32 \\rightarrow F = -491,4 + 32 = -459,4 ^\\circ\\text{F}$"]);
+addQ(2,'calc',"A temperatura do núcleo do Sol é de aproximadamente $15.000.000 ^\\circ\\text{C}$. Em valores tão altos, a diferença da constante 273 quase não faz peso. Qual a temperatura do núcleo em Kelvin (número exato)?", "15000273", ["$K = 15.000.000 + 273 = 15.000.273 \\text{ K}$"]);
+addQ(2,'calc',"Se $T_1 = 300 \\text{ K}$ e $T_2 = 50 ^\\circ\\text{C}$, qual a diferença entre elas ($T_2 - T_1$) em Kelvin?", "23", ["Converta $T_2$ para Kelvin: $K = 50 + 273 = 323 \\text{ K}$", "Diferença: $323 - 300 = 23 \\text{ K}$"]);
+
+// TEMA 3: Dilatação Sólidos (31-45)
+addQ(3,'theo',"A dilatação térmica dos sólidos ocorre fundamentalmente devido a qual fator estrutural na matéria?", "C", ["O aumento da temperatura causa o aumento da amplitude da vibração térmica dos átomos, forçando uma distância média maior entre eles."], ["A) O peso do material derrete o centro.", "B) O ar dentro do sólido se expande.", "C) O aumento da amplitude de vibração das moléculas exige maior distância média entre elas.", "D) A pressão atmosférica externa empurra o objeto."]);
+addQ(3,'theo',"Qual a função prática das juntas de dilatação encontradas em pontes e trilhos de trem?", "A", ["Sem esse espaço, a dilatação do material sob sol intenso causaria empenamento ou quebra da estrutura."], ["A) Permitir que o material se expanda nos dias quentes sem entortar ou quebrar a estrutura.", "B) Escoar a água da chuva.", "C) Reduzir o atrito do trem.", "D) Diminuir o custo do concreto usado na obra."]);
+addQ(3,'theo',"Se uma placa retangular de metal com um furo circular no meio for aquecida, o que acontece com o diâmetro do furo?", "B", ["Na dilatação térmica, o sólido comporta-se como se fosse uma fotografia ampliada. Todos os detalhes (inclusive os buracos) aumentam de tamanho."], ["A) Diminui, porque o metal expande para dentro do buraco.", "B) Aumenta, dilatando junto com o resto da placa.", "C) Fica exatamente igual.", "D) Vira um formato oval."]);
+addQ(3,'theo',"Existem os coeficientes de dilatação linear ($\\alpha$), superficial ($\\beta$) e volumétrico ($\\gamma$). Qual a relação matemática entre eles para um material isótropo?", "D", ["$\\beta = 2\\alpha$ (duas dimensões) e $\\gamma = 3\\alpha$ (três dimensões)."], ["A) $\\alpha = \\beta = \\gamma$", "B) $\\alpha = 2\\beta$ e $\\alpha = 3\\gamma$", "C) Eles não têm relação, dependem do formato.", "D) $\\beta = 2\\alpha$ e $\\gamma = 3\\alpha$"]);
+addQ(3,'theo',"Dois fios metálicos do mesmo tamanho e do mesmo material. O fio A sofre aumento de $20 ^\\circ\\text{C}$ e o fio B sofre de $40 ^\\circ\\text{C}$. O que podemos afirmar sobre a dilatação de B?", "A", ["A dilatação é diretamente proporcional à variação de temperatura. $\\Delta L = L_0 \\cdot \\alpha \\cdot \\Delta T$."], ["A) B dilata o dobro do que A.", "B) B dilata 4 vezes mais.", "C) B dilata a metade.", "D) Dilatam a mesma coisa."]);
+
+addQ(3,'calc',"Uma barra de cobre ($\\alpha = 17 \\times 10^{-6} \\text{ } ^\\circ\\text{C}^{-1}$) tem comprimento de $10 \\text{ m}$ a $20 ^\\circ\\text{C}$. Qual a dilatação linear ($\\Delta L$) em metros quando aquecida até $120 ^\\circ\\text{C}$? (Digite o número decimal)", "0.017", ["$\\Delta T = 120 - 20 = 100 ^\\circ\\text{C}$", "$\\Delta L = 10 \\cdot 17 \\times 10^{-6} \\cdot 100$", "$\\Delta L = 17 \\times 10^{-6} \\cdot 1000 = 17 \\times 10^{-3} = 0,017 \\text{ m}$"]);
+addQ(3,'calc',"No exercício anterior (onde cresceu $0,017 \\text{ m}$), qual será o comprimento final da barra (em metros)?", "10.017", ["$L_f = L_0 + \\Delta L = 10 + 0,017 = 10,017 \\text{ m}$"]);
+addQ(3,'calc',"Um trilho de ferro de $20 \\text{ m}$ sofre variação de $50 ^\\circ\\text{C}$. Sabendo que $\\alpha = 12 \\times 10^{-6}$, qual a dilatação sofrida em metros? (Digite o decimal)", "0.012", ["$\\Delta L = 20 \\cdot 12 \\times 10^{-6} \\cdot 50 = 1000 \\cdot 12 \\times 10^{-6}$", "$\\Delta L = 12 \\times 10^{-3} = 0,012 \\text{ m}$"]);
+addQ(3,'calc',"Uma placa de vidro ($\\alpha = 9 \\times 10^{-6}$) tem área inicial $A_0 = 2 \\text{ m}^2$. Foi aquecida em $100 ^\\circ\\text{C}$. O coeficiente superficial $\\beta$ é o dobro do $\\alpha$. Calcule a dilatação da área $\\Delta A$ em metros quadrados.", "0.0036", ["$\\beta = 2 \\cdot 9 \\times 10^{-6} = 18 \\times 10^{-6}$", "$\\Delta A = A_0 \\cdot \\beta \\cdot \\Delta T = 2 \\cdot 18 \\times 10^{-6} \\cdot 100$", "$\\Delta A = 3600 \\times 10^{-6} = 0,0036 \\text{ m}^2$"]);
+addQ(3,'calc',"Um bloco cúbico de chumbo ($\\alpha = 29 \\times 10^{-6}$) tem volume $V_0 = 10 \\text{ m}^3$. Calcule o coeficiente volumétrico $\\gamma$ do chumbo, que é $3\\alpha$. (A resposta será $X \\times 10^{-6}$, digite apenas o valor de X)", "87", ["$\\gamma = 3 \\cdot \\alpha = 3 \\cdot 29 = 87 \\times 10^{-6}$"]);
+addQ(3,'calc',"Usando o $\\gamma$ da questão anterior ($87 \\times 10^{-6}$), calcule a dilatação do volume ($\\Delta V$) do bloco de chumbo de $10 \\text{ m}^3$ ao esquentar $100 ^\\circ\\text{C}$. (Digite em decimal)", "0.087", ["$\\Delta V = V_0 \\cdot \\gamma \\cdot \\Delta T = 10 \\cdot 87 \\times 10^{-6} \\cdot 100$", "$\\Delta V = 87000 \\times 10^{-6} = 0,087 \\text{ m}^3$"]);
+addQ(3,'calc',"Um fio de $100 \\text{ m}$ aumentou seu tamanho em $0,02 \\text{ m}$ após uma elevação de $10 ^\\circ\\text{C}$. Qual o valor do seu $\\alpha$? (A resposta será $X \\times 10^{-5}$, digite apenas X)", "2", ["$\\Delta L = L_0 \\cdot \\alpha \\cdot \\Delta T \\rightarrow 0,02 = 100 \\cdot \\alpha \\cdot 10$", "$0,02 = 1000 \\cdot \\alpha \\rightarrow \\alpha = 0,02 / 1000 = 0,00002$", "$\\alpha = 2 \\times 10^{-5} \\text{ } ^\\circ\\text{C}^{-1}$. (Logo, X = 2)."]);
+addQ(3,'calc',"Chapa de alumínio ($\\beta = 48 \\times 10^{-6}$) com $5 \\text{ m}^2$ a $0 ^\\circ\\text{C}$ vai para $50 ^\\circ\\text{C}$. Qual a área final $A_f$ em metros quadrados?", "5.012", ["$\\Delta A = 5 \\cdot 48 \\times 10^{-6} \\cdot 50 = 250 \\cdot 48 \\times 10^{-6} = 12000 \\times 10^{-6} = 0,012$", "$A_f = 5 + 0,012 = 5,012 \\text{ m}^2$"]);
+addQ(3,'calc',"Duas barras (A e B) do mesmo tamanho inicial têm $\\alpha_A = 10 \\times 10^{-6}$ e $\\alpha_B = 20 \\times 10^{-6}$. Ambas são aquecidas $50 ^\\circ\\text{C}$. A dilatação da barra B será quantas vezes maior que a de A?", "2", ["A fórmula $\\Delta L = L_0 \\cdot \\alpha \\cdot \\Delta T$ é linear. Se o $\\alpha$ de B é o dobro do $\\alpha$ de A, ela dilatará o dobro. (2 vezes)"]);
+addQ(3,'calc',"Uma régua de aço ($\\alpha = 12 \\times 10^{-6}$) medindo $1 \\text{ m}$ exato foi levada ao forno com $\\Delta T = 200 ^\\circ\\text{C}$. Qual o tamanho que ela aumentou em MILÍMETROS (mm)? Lembre que $1 \\text{ m} = 1000 \\text{ mm}$.", "2.4", ["$\\Delta L = 1 \\cdot 12 \\times 10^{-6} \\cdot 200 = 2400 \\times 10^{-6} \\text{ m} = 0,0024 \\text{ m}$", "Em mm: $0,0024 \\cdot 1000 = 2,4 \\text{ mm}$"]);
+
+// TEMA 4: Dilatação Líquidos (46-60)
+addQ(4,'theo',"Qual é a principal diferença conceitual na dilatação térmica entre sólidos e líquidos?", "B", ["Líquidos não têm forma própria. Por isso, a única dilatação que faz sentido estudar neles é a Volumétrica (3D). Não existe dilatação linear de líquido."], ["A) Líquidos têm dilatação linear e volumétrica, sólidos só linear.", "B) Sólidos podem dilatar linearmente, enquanto os líquidos dilatam apenas volumetricamente.", "C) Líquidos não dilatam, apenas os recipientes que os contêm.", "D) Sólidos dilatam muito mais do que os líquidos em geral."]);
+addQ(4,'theo',"Ao aquecer uma panela completamente cheia de água, observa-se que a água transborda. O volume de água que derramou corresponde a:", "C", ["O que transborda é a dilatação aparente. O líquido real expandiu mais do que isso (ele também preencheu o espaço extra que a panela criou ao dilatar)."], ["A) Toda a dilatação real do líquido.", "B) À dilatação da panela.", "C) À dilatação aparente do líquido (que é a real menos a expansão da panela).", "D) Ao volume inicial da panela."]);
+addQ(4,'theo',"Qual a relação matemática correta entre os coeficientes de dilatação volumétrica num sistema recipiente/líquido?", "A", ["O volume real que o líquido expandiu = volume aparente (vazado) + volume que a panela cresceu."], ["A) $\\gamma_{real} = \\gamma_{aparente} + \\gamma_{recipiente}$", "B) $\\gamma_{real} = \\gamma_{aparente} - \\gamma_{recipiente}$", "C) $\\gamma_{aparente} = \\gamma_{real} + \\gamma_{recipiente}$", "D) $\\gamma_{recipiente} = \\gamma_{real} + \\gamma_{aparente}$"]);
+addQ(4,'theo',"O que aconteceria, teoricamente, se o recipiente tivesse o mesmo coeficiente de dilatação volumétrica que o líquido dentro dele, ao serem aquecidos juntos e estando o recipiente completamente cheio?", "D", ["Eles cresceriam juntos na mesma proporção geométrica, então não haveria líquido esborrando nem faltando."], ["A) O líquido transbordaria muito.", "B) O líquido secaria.", "C) O recipiente racharia.", "D) O líquido continuaria exatamente na borda (não transbordaria nem o nível baixaria)."]);
+addQ(4,'theo',"De forma geral (com exceção de anomalias), ao compararmos os coeficientes de dilatação térmica volumétrica ($\\gamma$) dos líquidos e dos sólidos, notamos que:", "A", ["A ligação molecular nos líquidos é menos rígida, permitindo que eles se expandam muito mais facilmente com o aumento da temperatura."], ["A) Os líquidos geralmente têm coeficientes muito maiores que os dos sólidos.", "B) Os sólidos têm coeficientes maiores que os líquidos.", "C) São exatamente iguais se forem da mesma massa.", "D) Líquidos não possuem coeficiente."]);
+
+addQ(4,'calc',"Um frasco de vidro de $1000 \\text{ cm}^3$ está totalmente cheio de mercúrio. Ao aquecer o conjunto, transbordam $15 \\text{ cm}^3$ de mercúrio. O volume do frasco dilatou $3 \\text{ cm}^3$. Qual foi a dilatação REAL (total) do mercúrio ($\\Delta V_{real}$)?", "18", ["$\\Delta V_{real} = \\Delta V_{aparente} + \\Delta V_{recipiente}$", "$\\Delta V_{real} = 15 + 3 = 18 \\text{ cm}^3$"]);
+addQ(4,'calc',"Se o líquido derramou $8 \\text{ mL}$ (dilatação aparente) e a dilatação real dele era $10 \\text{ mL}$. Quanto de volume extra o recipiente ganhou com o calor (em mL)?", "2", ["$\\Delta V_{recipiente} = \\Delta V_{real} - \\Delta V_{aparente} = 10 - 8 = 2 \\text{ mL}$"]);
+addQ(4,'calc',"O coeficiente de dilatação aparente de um líquido num frasco é $12 \\times 10^{-5}$ e o coeficiente de dilatação volumétrica do recipiente é $3 \\times 10^{-5}$. Qual é o coeficiente de dilatação REAL do líquido (em $10^{-5}$)?", "15", ["$\\gamma_{real} = \\gamma_{aparente} + \\gamma_{recip}$", "$\\gamma_{real} = 12 + 3 = 15 \\times 10^{-5} \\text{ } ^\\circ\\text{C}^{-1}$"]);
+addQ(4,'calc',"Recipiente de volume $100 \\text{ Litros}$ totalmente cheio. Após aquecimento de $50 ^\\circ\\text{C}$, percebe-se que transborda $1 \\text{ Litro}$. Qual o coeficiente de dilatação APARENTE ($\\gamma_{aparente}$) do líquido? (Resposta será $X \\times 10^{-4}$, digite X)", "2", ["$\\Delta V_{ap} = V_0 \\cdot \\gamma_{ap} \\cdot \\Delta T \\rightarrow 1 = 100 \\cdot \\gamma_{ap} \\cdot 50$", "$1 = 5000 \\cdot \\gamma_{ap} \\rightarrow \\gamma_{ap} = 1 / 5000 = 0,0002$", "$\\gamma_{ap} = 2 \\times 10^{-4} \\text{ } ^\\circ\\text{C}^{-1}$. (X = 2)"]);
+addQ(4,'calc',"Seja um frasco cujo vidro tem $\\alpha = 9 \\times 10^{-6}$. Qual o coeficiente volumétrico do recipiente $\\gamma_{recip}$ (em $10^{-6}$) para usarmos nas equações de líquidos?", "27", ["Recipiente é tridimensional, precisa do $\\gamma$.", "$\\gamma = 3\\alpha = 3 \\cdot 9 = 27 \\times 10^{-6}$"]);
+addQ(4,'calc',"Um recipiente de $1000 \\text{ cm}^3$ e coeficiente volumétrico $\\gamma_{rec} = 30 \\times 10^{-6}$ é aquecido $100 ^\\circ\\text{C}$. Qual o aumento do seu volume $\\Delta V_{rec}$ (em $\\text{cm}^3$)?", "3", ["$\\Delta V = 1000 \\cdot 30 \\times 10^{-6} \\cdot 100 = 3000000 \\times 10^{-6}$", "$\\Delta V = 3 \\text{ cm}^3$"]);
+addQ(4,'calc',"No mesmo exercício anterior, o líquido que estava dentro tinha $\\gamma_{real} = 130 \\times 10^{-6}$. Qual seria a dilatação REAL dele para esse aquecimento? (em $\\text{cm}^3$)", "13", ["$\\Delta V_{real} = 1000 \\cdot 130 \\times 10^{-6} \\cdot 100 = 13000000 \\times 10^{-6} = 13 \\text{ cm}^3$"]);
+addQ(4,'calc',"Aproveitando os 2 dados anteriores, o volume real do líquido subiu 13 e o recipiente subiu 3. Quanto de líquido derramou fora (Dilatação Aparente)?", "10", ["$\\Delta V_{aparente} = 13 - 3 = 10 \\text{ cm}^3$"]);
+addQ(4,'calc',"O que é possível concluir de um sistema que, após sofrer grande aquecimento, a quantidade de líquido aparente que derramou foi ZERO, mesmo ele estando até a borda? (Resposta numérica da relação $\\gamma_{real} / \\gamma_{rec}$)", "1", ["Se derramou zero, a dilatação aparente é zero. Isso significa que a dilatação real do líquido foi exatamente igual ao crescimento do pote. Logo, seus coeficientes ($\\gamma$) são idênticos. Divisão = 1."]);
+addQ(4,'calc',"Um tanque de combustível de $50 \\text{ L}$ ($50000 \\text{ cm}^3$) de um carro está cheio num dia frio de $10 ^\\circ\\text{C}$. O sol do meio dia leva a chapa para $40 ^\\circ\\text{C}$ ($\\Delta T = 30$). O $\\gamma_{ap}$ da gasolina para esse tanque é de $10 \\times 10^{-4}$. Quantos Litros (L) de gasolina vão esborrar do carro para a rua?", "1.5", ["$\\Delta V_{ap} = V_0 \\cdot \\gamma_{ap} \\cdot \\Delta T$", "$\\Delta V_{ap} = 50 \\cdot 10 \\times 10^{-4} \\cdot 30 = 15000 \\times 10^{-4} = 1,5 \\text{ L}$"]);
+
+// TEMA 5: Anomalia da Água (61-75)
+addQ(5,'theo',"O comportamento 'anômalo' da água sob aquecimento ocorre em qual intervalo de temperatura?", "B", ["Apenas nesse pequeno intervalo a água reage de forma 'ao contrário' da maioria dos fluidos."], ["A) De 4 °C a 100 °C", "B) De 0 °C a 4 °C", "C) De -10 °C a 0 °C", "D) De 90 °C a 100 °C"]);
+addQ(5,'theo',"Dentro da faixa de 0 °C a 4 °C, o que acontece com o volume de uma amostra de água quando ela é AQUECIDA?", "C", ["O normal é expandir ao aquecer, mas nesse pequeno intervalo da anomalia, o volume DIMINUI até atingir o seu mínimo a 4 °C."], ["A) Aumenta rapidamente", "B) Permanece constante", "C) Diminui", "D) A água vira gelo imediatamente"]);
+addQ(5,'theo',"Em que temperatura a água pura em estado líquido atinge o seu MENOR volume e, consequentemente, a sua MAIOR densidade?", "D", ["É o pico da anomalia. Como o volume ali é o mínimo possível, as moléculas estão o mais empacotadas possível (densidade máxima)."], ["A) 0 °C", "B) 100 °C", "C) -4 °C", "D) 4 °C"]);
+addQ(5,'theo',"Qual é o motivo biológico e ambiental da anomalia da água ser tão importante para o planeta Terra?", "A", ["A água mais densa fica no fundo (a 4 °C), enquanto a água mais fria (e o gelo) flutua no topo. Se congelasse de baixo para cima, o lago viraria um bloco maciço de gelo, matando a vida marinha."], ["A) Permite que lagos congelem apenas na superfície no inverno, preservando a vida aquática no fundo a 4 °C.", "B) Permite que os oceanos não evaporem sob o Sol.", "C) Impede o derretimento das calotas polares.", "D) Facilita a respiração dos peixes de superfície."]);
+addQ(5,'theo',"Uma garrafa de vidro perfeitamente vedada e totalmente cheia de água é colocada no congelador (passando de 20 °C para -5 °C). O que acontece com ela?", "C", ["Ao esfriar abaixo de 4 °C e ir congelar a 0 °C, a água irá SE EXPANDIR. Como a garrafa está fechada, a expansão quebra o vidro."], ["A) A garrafa encolhe até amassar.", "B) O vidro fica mais resistente pela temperatura.", "C) A garrafa provavelmente quebra, pois a água irá se expandir ao congelar.", "D) Não acontece nada físico."]);
+
+addQ(5,'calc',"Se a densidade ($d = m/V$). A massa é 1000g. O volume a 0°C é 1000,13 ml e o volume cai para seu mínimo de 1000,00 ml aos 4°C. Calcule a densidade exata da água a 4°C (em g/ml).", "1", ["$d = 1000 / 1000 = 1 \\text{ g/ml}$. (Esse é o padrão universal que usamos, e ele só é perfeitamente '1' aos 4°C!)"]);
+addQ(5,'calc',"Um bloco de gelo boia na água porque a densidade do gelo (água sólida a 0°C) é menor que a da água líquida. Se a densidade da água a 4°C é de $1000 \\text{ kg/m}^3$ e a do gelo é de $920 \\text{ kg/m}^3$. Qual a diferença de densidade entre eles?", "80", ["$1000 - 920 = 80 \\text{ kg/m}^3$. Por ser $80 \\text{ kg}$ mais leve a cada metro cúbico, o gelo flutua no alto do lago."]);
+addQ(5,'calc',"Uma amostra de água a 0°C sofre aquecimento até atingir 10°C. O seu volume sofreu duas fases. Dos 0 aos 4°C o volume X (aumenta=1 ou diminui=0). E dos 4 aos 10°C o volume Y (aumenta=1 ou diminui=0). Qual a soma (X+Y)?", "1", ["De 0 a 4: volume cai (X=0).", "De 4 a 10: água já passou a fase anômala, volta a dilatar normal, o volume cresce (Y=1).", "Soma: 0 + 1 = 1."]);
+addQ(5,'calc',"A água a 4°C é aquecida para 5°C, o seu volume aumentou. Se a mesma água a 4°C for RESFRIADA para 3°C, o seu volume (0=diminui, 1=aumenta):", "1", ["Aos 4°C o volume é o MÍNIMO DO UNIVERSO para aquela amostra. Qualquer direção que você for (esquentar ou esfriar) a partir dos 4°C fará o volume AUMENTAR. (1)."]);
+addQ(5,'calc',"Um lago congela no inverno numa região polar. A temperatura na crosta de gelo (ar livre) é -10°C. A temperatura na água profunda do fundo, onde os peixes sobrevivem na água líquida em densidade máxima, é de quantos graus Celsius?", "4", ["A água mais pesada e densa repousa no fundo. Como sabemos, a água atinge sua densidade máxima cravados em 4°C."]);
+addQ(5,'calc',"Uma garrafa pet contém 500 mL de água a 20°C. Ao ser congelada a 0°C, a água vira gelo que tem um volume aproximadamente 9% MAIOR que a água líquida em temperatura ambiente. Qual o volume aproximado do gelo formado (em mL)?", "545", ["Acréscimo de 9%: $500 \\cdot 0,09 = 45 \\text{ mL}$", "Volume do gelo: $500 + 45 = 545 \\text{ mL}$. (Por isso a garrafa fica inchada!)"]);
+addQ(5,'calc',"O gráfico do Volume x Temperatura da água forma um 'vale' ou um 'pico' nos 4°C?", "0", ["Digite 0 para 'Vale' ou 1 para 'Pico'.", "O volume diminui, bate num ponto mínimo (fundo) e volta a subir. O gráfico forma um 'Vale' = 0."]);
+addQ(5,'calc',"O gráfico da Densidade x Temperatura da água forma um 'vale' ou um 'pico' nos 4°C?", "1", ["Digite 0 para 'Vale' ou 1 para 'Pico'.", "A densidade aumenta, bate no ponto máximo (topo) aos 4°C, e depois volta a cair. O gráfico forma um 'Pico' = 1."]);
+addQ(5,'calc',"A água está a 10°C num balão de vidro e é resfriada até 0°C. Como o nível da água se comporta no gargalo?", "0", ["Digite 0 se 'Desce e depois sobe' ou 1 se 'Sobe e depois desce'.", "De 10 a 4°C: comportamento normal, ela encolhe e o nível desce.", "De 4 a 0°C: anomalia, ela se expande e o nível sobe.", "Resposta = 0."]);
+addQ(5,'calc',"Considere uma fábrica enchendo latas de refrigerante. Eles as enchem a 4°C, pois é quando o refrigerante (maioria água) ocupa o MENOR volume possível. A lata de 350 mL é preenchida até a boca. Se a lata for levada à praia (30°C), a água irá dilatar. Porém o alumínio dilata mais ou menos que a água nos dias normais?", "0", ["Sólidos dilatam menos que líquidos fora do ponto da anomalia. Então a água vai esborrar. (Digite 0 para 'menos', 1 para 'mais'). Sólidos = menos = 0."]);
+
+let currentTheme = 'all';
+let solved = new Set(JSON.parse(localStorage.getItem('fisicaTermoSolved')||'[]'));
+
+function renderExercises() {
+    const listDiv = $('exercise-list');
+    let html = '';
+    
+    exercisesData.forEach(ex => {
+        if (currentTheme !== 'all' && ex.theme != currentTheme) return;
+        
+        const isSolved = solved.has(ex.id);
+        const borderColor = isSolved ? 'border-red-400' : 'border-slate-200';
+        const badgeColor = isSolved ? 'bg-red-100 text-red-800' : 'bg-slate-100 text-slate-700';
+        const themeNames = ["", "Temp. e Escalas", "Escala Kelvin", "Dilatação Sólida", "Dilatação Líquida", "Anomalia da Água"];
+        
+        let questionBody = `<p class="mt-3 text-slate-700 mb-4 text-sm leading-6">${ex.q}</p>`;
+        
+        if (ex.type === 'theo' && ex.opts) {
+            questionBody += `<div class="space-y-2 mb-4 text-sm text-slate-600">`;
+            ex.opts.forEach(opt => {
+                questionBody += `<div class="p-2 bg-slate-50 rounded-lg border border-slate-100">${opt}</div>`;
+            });
+            questionBody += `</div>`;
+        }
+
+        html += `
+        <article class="bg-white rounded-2xl border ${borderColor} p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div class="flex justify-between gap-3 items-center">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full ${badgeColor}">Questão ${ex.id}</span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">TEMA ${ex.theme}: ${themeNames[ex.theme]}</span>
+            </div>
+            
+            ${questionBody}
+            
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" type="text" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="${ex.type==='theo' ? 'Letra (A, B, C, D)' : 'Valor numérico'}">
+                <button onclick="checkAnswer(${ex.id})" class="bg-red-600 hover:bg-red-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+            </div>
+            
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+            
+            <button onclick="document.getElementById('sol-${ex.id}').classList.toggle('hidden')" class="mt-3 text-sm font-bold text-red-700 hover:underline">
+                👁 Mostrar explicação / cálculo
+            </button>
+            
+            <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t border-orange-100 pt-4">
+                <div class="text-xs uppercase tracking-widest font-black text-red-800 mb-3">Resolução Passo a Passo</div>
+                ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+                <div class="success rounded-xl p-4 text-center font-bold mt-2 text-emerald-900">Resposta Correta: ${ex.ans}</div>
+            </div>
+        </article>
+        `;
+    });
+    
+    listDiv.innerHTML = html;
+    updateProgress();
+    renderAll();
+}
+
+function checkAnswer(id) {
+    const ex = exercisesData.find(x => x.id === id);
+    const inputEl = $(`ans-${id}`);
+    const fbEl = $(`fb-${id}`);
+    
+    let rawInput = inputEl.value.trim().toUpperCase();
+    if(ex.type === 'calc') {
+        rawInput = rawInput.replace(',', '.'); 
+    }
+
+    let isCorrect = false;
+    
+    if (ex.type === 'theo') {
+        isCorrect = (rawInput === ex.ans);
+    } else {
+        const numIn = parseFloat(rawInput);
+        const numAns = parseFloat(ex.ans);
+        // Margem de erro mínima (0.05)
+        if(!isNaN(numIn) && Math.abs(numIn - numAns) <= 0.05) {
+            isCorrect = true;
+        }
+    }
+
+    if (isCorrect) {
+        solved.add(id);
+        localStorage.setItem('fisicaTermoSolved', JSON.stringify([...solved]));
+        fbEl.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fbEl.textContent = '✓ Excelente! Você acertou.';
+        setTimeout(renderExercises, 400); 
+    } else {
+        fbEl.className = 'text-sm font-bold mt-2 text-red-500';
+        fbEl.textContent = '✗ Quase lá. Dê uma espiadinha na teoria e tente novamente!';
+    }
+}
+
+function updateProgress() {
+    const max = exercisesData.length;
+    const current = solved.size;
+    $('progress-text').textContent = `${current} / ${max}`;
+    $('progress-bar').style.width = `${(current/max)*100}%`;
+}
+
+// Filtros Theme
+document.querySelectorAll('.level-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active', 'bg-red-500', 'text-white'));
+        document.querySelectorAll('.level-btn:not(.active)').forEach(b => b.classList.add('bg-slate-100'));
+        
+        btn.classList.add('active');
+        btn.classList.remove('bg-slate-100');
+        
+        currentTheme = btn.dataset.theme;
+        renderExercises();
+    };
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderExercises();
+    renderAll();
+});
+</script>
+</body>
+</html>

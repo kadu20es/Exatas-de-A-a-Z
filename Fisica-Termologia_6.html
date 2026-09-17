@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física — Ondulatória e Fenômenos Ondulatórios</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {--ink: #082f49; --paper: #f0fdfa; --line: #99f6e4; --accent: #0284c7}
+  body {background: #f0f9ff; color: var(--ink)}
+  .tab-btn.active {color: #0369a1; border-bottom-color: #0369a1; font-weight: 800}
+  .paper {background: #f8fafc; background-image: linear-gradient(#e2e8f0 1px, transparent 1px); background-size: 100% 2rem; border: 1px solid #cbd5e1; box-shadow: 0 8px 24px #0f172a0a}
+  .step {position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #bae6fd; border-radius: 1rem; background: white}
+  .step::before {content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #e0f2fe; color: #0369a1; font-weight: 800; display: grid; place-items: center; font-size: .8rem}
+  .level-btn.active {background: #0284c7; color: white}
+  .exercise-solution {animation: fade .2s ease}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  .tip {border-left: 4px solid #0284c7; background: #f0f9ff}
+  .success {border-left: 4px solid #10b981; background: #ecfdf5}
+  .warning {border-left: 4px solid #ef4444; background: #fef2f2}
+  .enrichment {background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%); color: white}
+  canvas {display: block; width: 100%; height: auto;}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-sky-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+     <div class="font-black text-lg sm:text-xl text-sky-950">🌊 Ondulatória & Fenômenos Ondulatórios</div>
+     <div class="text-[11px] text-slate-500 hidden sm:block">Natureza, Classificação, Equação Fundamental $v = \lambda \cdot f$ e Fenômenos</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- SEÇÃO TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-slate-950 via-sky-950 to-blue-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-sky-300">Física Geral • Moderna Plus</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">A Dança da Energia no Espaço</h1>
+  <p class="mt-4 max-w-3xl text-sky-100 leading-7">Como as vibrações viajam por cordas, oceanos e pelo vácuo cósmico; por que conseguimos ouvir uma conversa atrás do muro mas não ver a pessoa; e como a física descreve a luz, o som e o sinal Wi-Fi através da mesma equação fundamental.</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm text-sm border border-sky-200">
+  <b class="text-sky-950 text-base">⚠️ A Regra de Ouro Inegociável da Ondulatória:</b><br>
+  <span class="text-slate-700 text-sm leading-6">Uma onda é uma perturbação periódica ou pulso que se propaga transportando <b>ENERGIA e QUANTIDADE DE MOVIMENTO</b>, <b>NUNCA transportando matéria</b>! Uma rolha boiando em um lago agitado sobe e desce, mas permanece no mesmo ponto médio horizontal após a passagem da crista.</span>
+ </div>
+
+ <!-- TÓPICO 1 E 2: Conceito, Energia e Natureza -->
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border border-sky-100 p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black text-sky-950">Conceito de Onda e Energia</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Se você soltar uma pedra no meio de uma piscina calma, o impacto empurra as moléculas de água adjacentes para baixo e para cima. Essas moléculas exercem forças elásticas sobre suas vizinhas e voltam à posição original de equilíbrio. Essa perturbação que viaja é um <b>pulso</b>.</p>
+   
+   <p class="mt-3 text-slate-600 text-sm leading-6">Quando uma fonte vibra continuamente de forma repetitiva (como um alto-falante ou uma ponta vibrante), produz um <b>trem de ondas periódicas</b>. A matéria apenas oscila localmente em torno de sua posição de equilíbrio; o que viaja até a borda da piscina é pura <b>energia mecânica</b>.</p>
+   
+   <div class="bg-sky-50 rounded-xl p-3 border border-sky-200 mt-3 text-xs text-sky-950">
+    <b>A "Ola" no Estádio de Futebol:</b> Cada torcedor levanta os braços e senta no mesmo lugar. Ninguém anda pelo estádio, mas a onda humana circula todas as arquibancadas com velocidade impressionante!
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border border-sky-100 p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black text-sky-950">Classificação quanto à Natureza</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Dependendo do meio físico necessário para se propagar, as ondas se dividem em duas grandes famílias universais:</p>
+   
+   <div class="space-y-3 mt-3 text-xs">
+    <div class="p-3 rounded-xl bg-blue-50 border border-blue-200">
+     <b class="text-blue-950 text-sm">Ondas Mecânicas (Exigem Meio Material)</b>
+     <p class="text-slate-600 mt-1">Surgem de deformações elásticas da matéria. As partículas colidem e transmitem a perturbação. <b>JAMAIS se propagam no vácuo!</b></p>
+     <p class="text-[11px] text-blue-800 font-semibold mt-1">Exemplos: O som, ondas na água, cordas de violão, ondas sísmicas de terremotos.</p>
+    </div>
+    <div class="p-3 rounded-xl bg-indigo-50 border border-indigo-200">
+     <b class="text-indigo-950 text-sm">Ondas Eletromagnéticas (Não exigem meio material)</b>
+     <p class="text-slate-600 mt-1">Resultam da oscilação de cargas elétricas, gerando campos elétricos e magnéticos perpendiculares que se auto-sustentam. <b>Propagam-se no vácuo com velocidade máxima $c \approx 3 \times 10^8 \text{ m/s}$ ($300.000\text{ km/s}$)</b> e em meios transparentes.</p>
+     <p class="text-[11px] text-indigo-800 font-semibold mt-1">Exemplos: Luz visível, raios X, ondas de rádio, micro-ondas, Wi-Fi, radiação ultravioleta.</p>
+    </div>
+   </div>
+  </article>
+ </div>
+
+ <!-- TÓPICO 3: Vibração e Dimensões -->
+ <div class="bg-white rounded-2xl border border-sky-100 shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">3</span><h2 class="text-2xl font-black text-sky-950">Modos de Vibração e Dimensões de Propagação</h2></div>
+  <p class="text-sm text-slate-600 mt-3 mb-4">A direção em que as partículas do meio oscilam em comparação à direção em que a onda se desloca define propriedades cruciais:</p>
+  
+  <div class="grid lg:grid-cols-3 gap-4 text-xs">
+   <div class="border border-sky-200 rounded-xl p-4 bg-sky-50/50">
+    <b class="text-sky-900 text-sm">Ondas Transversais</b>
+    <p class="text-slate-600 mt-1">A direção de vibração é <b>perpendicular (90°)</b> à direção de propagação.</p>
+    <div class="paper py-2 mt-2 font-bold text-center text-xs text-sky-900">Vibra vertical $\Updownarrow$ $\iff$ Propaga horizontal $\Longrightarrow$</div>
+    <p class="text-[11px] text-slate-500 mt-2">Exemplos: Todas as ondas eletromagnéticas (luz), ondas em cordas esticadas. <b>São as únicas capazes de sofrer polarização!</b></p>
+   </div>
+
+   <div class="border border-indigo-200 rounded-xl p-4 bg-indigo-50/50">
+    <b class="text-indigo-900 text-sm">Ondas Longitudinais</b>
+    <p class="text-slate-600 mt-1">A direção de vibração coincide (é <b>paralela</b>) à direção de propagação.</p>
+    <div class="paper py-2 mt-2 font-bold text-center text-xs text-indigo-900">Vibra horizontal $\Longleftrightarrow$ $\iff$ Propaga horizontal $\Longrightarrow$</div>
+    <p class="text-[11px] text-slate-500 mt-2">Exemplos: O som nos fluidos (ar e água) e compressão longitudinal em molas helicoidais. Formam zonas alternadas de compressão e rarefação.</p>
+   </div>
+
+   <div class="border border-teal-200 rounded-xl p-4 bg-teal-50/50">
+    <b class="text-teal-900 text-sm">Dimensões de Propagação</b>
+    <p class="text-slate-600 mt-1">Espalhamento geométrico da energia:</p>
+    <ul class="list-disc pl-4 space-y-1 text-slate-600 mt-1">
+     <li><b>Unidimensionais (1D):</b> Fios e cordas.</li>
+     <li><b>Bidimensionais (2D):</b> Superfície líquida de uma lagoa.</li>
+     <li><b>Tridimensionais (3D):</b> Som no ar e luz no espaço esférico.</li>
+    </ul>
+   </div>
+  </div>
+ </div>
+
+ <!-- TÓPICO 4: Características Físicas e Equação Fundamental -->
+ <div class="bg-white rounded-2xl border border-sky-100 shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">4</span><h2 class="text-2xl font-black text-sky-950">A Anatomia de uma Onda e a Equação Fundamental</h2></div>
+  <p class="text-sm text-slate-600 mt-3 mb-4">Ao observar um gráfico espacial e temporal de uma onda senoidal harmônica, destacam-se grandezas fundamentais:</p>
+  
+  <div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-4 text-xs">
+   <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+    <b class="text-slate-900 text-sm">Crista e Vale</b>
+    <p class="text-slate-600 mt-1"><b>Crista:</b> Ponto mais alto de elevação máxima positiva.<br><b>Vale:</b> Ponto mais baixo de depressão máxima negativa.</p>
+   </div>
+   <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+    <b class="text-slate-900 text-sm">Amplitude ($A$)</b>
+    <p class="text-slate-600 mt-1">Distância do eixo central de equilíbrio até uma crista ou vale. Mede a <b>intensidade</b> da energia transportada (volume no som, brilho na luz).</p>
+   </div>
+   <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+    <b class="text-slate-900 text-sm">Comprimento de Onda ($\lambda$)</b>
+    <p class="text-slate-600 mt-1">Distância entre duas cristas sucessivas ou dois vales sucessivos. Corresponde ao tamanho espacial de <b>um ciclo completo</b>.</p>
+   </div>
+   <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+    <b class="text-slate-900 text-sm">Período ($T$) e Frequência ($f$)</b>
+    <p class="text-slate-600 mt-1"><b>Período ($T$):</b> Tempo para 1 oscilação completa (em segundos).<br><b>Frequência ($f$):</b> Número de oscilações por segundo (em Hertz, $\text{Hz} = \text{s}^{-1}$):<br>
+    \[f = \frac{1}{T} \iff T = \frac{1}{f}\]</p>
+   </div>
+  </div>
+
+  <!-- A Equação Fundamental -->
+  <div class="paper text-center py-5 mt-5 rounded-2xl shadow-inner border border-sky-300">
+   <span class="text-xs uppercase tracking-widest font-black text-sky-700">A Fórmula Mais Célebre da Ondulatória</span>
+   <div class="text-3xl sm:text-4xl font-black text-sky-950 my-2">
+    \[v = \lambda \cdot f \quad \iff \quad v = \frac{\lambda}{T}\]
+   </div>
+   <p class="text-xs text-slate-600 max-w-xl mx-auto px-4">
+    $v$: Velocidade de propagação ($\text{m/s}$) &bull; $\lambda$: Comprimento de onda ($\text{m}$) &bull; $f$: Frequência ($\text{Hz}$)
+   </p>
+  </div>
+
+  <div class="bg-amber-50 rounded-xl p-4 border border-amber-200 mt-4 text-xs text-amber-950">
+   <b>Princípio da Fonte e do Meio:</b><br>
+   • A <b>frequência ($f$)</b> depende <b>exclusivamente da fonte</b> emissora e <b>nunca muda</b> ao longo da propagação (mesmo mudando de meio!).<br>
+   • A <b>velocidade ($v$)</b> depende <b>exclusivamente das propriedades físicas do meio</b> (densidade, elasticidade, temperatura).<br>
+   • Como consequência, ao passar para um meio mais lento, o comprimento de onda ($\lambda$) diminui proporcionalmente para manter a frequência constante ($v \propto \lambda$).
+  </div>
+ </div>
+
+ <!-- TÓPICO 5: Fenômenos Ondulatórios -->
+ <div class="bg-white rounded-2xl border border-sky-100 shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 grid place-items-center font-black">5</span><h2 class="text-2xl font-black text-sky-950">Fenômenos Ondulatórios</h2></div>
+  <p class="text-sm text-slate-600 mt-3 mb-4">Comportamentos característicos exibidos pelas ondas ao encontrarem fronteiras, fendas, obstáculos ou outras ondas:</p>
+  
+  <div class="grid lg:grid-cols-3 sm:grid-cols-2 gap-4 text-xs">
+   <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+    <b class="text-sky-900 text-sm">1. Reflexão</b>
+    <p class="text-slate-600 mt-1">A onda atinge um obstáculo e retorna ao mesmo meio. A velocidade ($v$), frequência ($f$) e comprimento ($\lambda$) <b>permanecem idênticos</b>.</p>
+    <div class="mt-2 text-[11px] text-slate-500 bg-white p-2 rounded border">
+     • <b>Extremidade fixa:</b> Inverte a fase (crista volta vale).<br>
+     • <b>Extremidade livre:</b> Não inverte a fase (crista volta crista).
+    </div>
+   </div>
+
+   <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+    <b class="text-sky-900 text-sm">2. Refração</b>
+    <p class="text-slate-600 mt-1">A onda muda de meio de propagação, alterando sua velocidade ($v$) e seu comprimento ($\lambda$). <b>A frequência ($f$) NUNCA se altera</b>!</p>
+    <div class="paper text-center py-2 mt-2 font-bold text-xs">
+     \[\frac{v_1}{\lambda_1} = \frac{v_2}{\lambda_2} = f = \text{constante}\]
+    </div>
+   </div>
+
+   <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+    <b class="text-sky-900 text-sm">3. Difração</b>
+    <p class="text-slate-600 mt-1">A capacidade da onda de <b>contornar obstáculos</b> ou espalhar-se ao passar por orifícios. Ocorre de forma evidente quando o tamanho da fenda ($d$) é de ordem de grandeza comparável ao comprimento de onda ($\lambda \approx d$).</p>
+    <p class="text-[11px] text-slate-500 mt-1">O som tem $\lambda$ métrico (contorna portas); a luz visível tem $\lambda$ nanométrico (não contorna portas abertas facilmente).</p>
+   </div>
+
+   <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+    <b class="text-sky-900 text-sm">4. Interferência</b>
+    <p class="text-slate-600 mt-1">Superposição de duas ou mais ondas que se cruzam no mesmo ponto do espaço:</p>
+    <div class="mt-2 text-[11px] text-slate-500 bg-white p-2 rounded border">
+     • <b>Construtiva:</b> Crista encontra crista $\rightarrow$ amplitudes somam ($A = A_1 + A_2$).<br>
+     • <b>Destrutiva:</b> Crista encontra vale $\rightarrow$ amplitudes subtraem ($A = |A_1 - A_2|$).
+    </div>
+   </div>
+
+   <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+    <b class="text-sky-900 text-sm">5. Polarização</b>
+    <p class="text-slate-600 mt-1">Filtro que seleciona apenas uma direção de vibração transversal. <b>Exclusiva de ondas transversais!</b></p>
+    <p class="text-[11px] text-slate-500 mt-2">O som nos fluidos é longitudinal e <b>NUNCA pode ser polarizado</b>. Óculos polarizados bloqueiam reflexos horizontais de luz.</p>
+   </div>
+
+   <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+    <b class="text-sky-900 text-sm">6. Ressonância</b>
+    <p class="text-slate-600 mt-1">Quando um sistema recebe energia de uma fonte cuja frequência coincide com sua <b>frequência natural de oscilação</b>, acumulando energia e atingindo amplitudes gigantescas (ex.: ponte de Tacoma Narrows, taça de cristal quebrando com agudo vocal).</p>
+   </div>
+  </div>
+ </div>
+
+ <!-- TEXTOS DE ENRIQUECIMENTO -->
+ <div class="enrichment rounded-3xl p-7 shadow-xl space-y-4">
+  <div class="flex items-center gap-3"><span class="text-2xl">💡</span><h2 class="text-xl font-black text-sky-200">Enriquecimento: Física Aplicada no Cotidiano</h2></div>
+  
+  <div class="grid md:grid-cols-3 gap-4 text-xs">
+   <div class="bg-white/10 rounded-2xl p-4 border border-white/10">
+    <b class="text-sky-300 text-sm">Fones com Cancelamento de Ruído (ANC)</b>
+    <p class="text-sky-100 mt-2 leading-5">Microfones externos captam a onda sonora do ruído do avião ou do trânsito. Um processador gera instantaneamente uma onda idêntica, mas em <b>oposição de fase (180°)</b>. As cristas do ruído encontram os vales da anti-onda no seu ouvido, ocorrendo <b>interferência destrutiva quase perfeita</b>: o barulho desaparece por completo!</p>
+   </div>
+
+   <div class="bg-white/10 rounded-2xl p-4 border border-white/10">
+    <b class="text-sky-300 text-sm">Por que não há som no espaço?</b>
+    <p class="text-sky-100 mt-2 leading-5">Nos filmes de ficção científica, naves explodem no espaço com estrondos ensurdecedores. Isso é fisicamente impossível! O som é uma onda mecânica longitudinal: ele precisa de moléculas para colidir e propagar a compressão. Como o espaço cósmico interestelar é um <b>vácuo quase perfeito</b>, o som não tem como viajar. Já a luz da explosão é eletromagnética e chega aos nossos olhos sem problemas.</p>
+   </div>
+
+   <div class="bg-white/10 rounded-2xl p-4 border border-white/10">
+    <b class="text-sky-300 text-sm">A Física do Tsunami</b>
+    <p class="text-sky-100 mt-2 leading-5">Em alto-mar profundo ($h \approx 4.000\text{ m}$), um tsunami viaja como um jato comercial ($v = \sqrt{g \cdot h} \approx 700\text{ km/h}$) com comprimento de onda gigantesco ($\lambda > 100\text{ km}$) e altura imperceptível ($A < 1\text{ m}$). Ao aproximar-se da costa rasa, o atrito desacelera a frente da onda. Como a energia precisa se conservar e o comprimento encolhe, a <b>amplitude é empilhada para cima</b>, erguendo paredões devastadores de 20 a 30 metros de altura!</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- SEÇÃO LABORATÓRIO E SIMULADORES -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border border-sky-100 p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-sky-600">Laboratório Virtual de Ondas</span>
+  <h1 class="text-3xl font-black mt-2 text-sky-950">Simulador Ondulatório Interativo</h1>
+  <p class="text-slate-600 mt-2 text-sm">Experimente o comportamento harmônico de uma onda periódica em tempo real, varie a amplitude e frequência, e resolva a Equação Fundamental ($v = \lambda \cdot f$).</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Simulador 1: Onda Periódica no Canvas -->
+  <div class="bg-white rounded-2xl border border-sky-100 p-6 shadow-sm flex flex-col justify-between">
+   <div>
+    <h2 class="font-black text-xl text-sky-950">1. Gerador de Onda Transversal Harmônica</h2>
+    <p class="text-xs text-slate-500 mb-4">Veja as cristas e vales se movimentando. Observe como o aumento da frequência encurta o comprimento de onda ($\lambda$).</p>
+    
+    <div class="bg-slate-900 rounded-2xl overflow-hidden p-2 border border-slate-800 shadow-inner">
+      <canvas id="waveCanvas" width="600" height="200" class="rounded-xl"></canvas>
+    </div>
+    
+    <div class="grid sm:grid-cols-3 gap-3 mt-4 text-xs">
+      <div>
+        <label class="font-bold text-slate-700">Amplitude ($A$): <span id="val-amp" class="text-sky-600">30 px</span></label>
+        <input id="slider-amp" type="range" min="10" max="60" value="30" class="w-full mt-1">
+      </div>
+      <div>
+        <label class="font-bold text-slate-700">Frequência ($f$): <span id="val-freq" class="text-sky-600">1.5 Hz</span></label>
+        <input id="slider-freq" type="range" min="0.5" max="4.0" step="0.1" value="1.5" class="w-full mt-1">
+      </div>
+      <div>
+        <label class="font-bold text-slate-700">Velocidade ($v$): <span id="val-vel" class="text-sky-600">120 px/s</span></label>
+        <input id="slider-vel" type="range" min="40" max="240" step="10" value="120" class="w-full mt-1">
+      </div>
+    </div>
+   </div>
+
+   <div class="paper rounded-xl p-3 mt-4 text-xs text-slate-700 flex items-center justify-between">
+    <div><b>Comprimento de Onda ($\lambda = v/f$):</b> <span id="calc-lambda" class="font-bold text-sky-700 text-sm">80.0 px</span></div>
+    <div><b>Período ($T = 1/f$):</b> <span id="calc-period" class="font-bold text-sky-700 text-sm">0.67 s</span></div>
+   </div>
+  </div>
+
+  <!-- Simulador 2: Calculadora da Equação Fundamental e Refração -->
+  <div class="bg-white rounded-2xl border border-sky-100 p-6 shadow-sm flex flex-col justify-between">
+   <div>
+    <h2 class="font-black text-xl text-sky-950">2. Calculadora da Equação Fundamental & Refração</h2>
+    <p class="text-xs text-slate-500 mb-4">Insira os parâmetros da onda em um meio (1) e a nova velocidade no meio (2) para ver a refração passo a passo.</p>
+    
+    <div class="space-y-3 text-sm">
+      <div class="flex items-center justify-between">
+        <label>Velocidade no Meio 1 ($v_1$ em $\text{m/s}$):</label>
+        <input id="sim-v1" type="number" value="340" class="border border-sky-200 rounded-xl px-2 py-1 w-28 text-center font-bold">
+      </div>
+      <div class="flex items-center justify-between">
+        <label>Frequência da Fonte ($f$ em $\text{Hz}$):</label>
+        <input id="sim-f" type="number" value="170" class="border border-sky-200 rounded-xl px-2 py-1 w-28 text-center font-bold">
+      </div>
+      <div class="flex items-center justify-between">
+        <label>Velocidade no Meio 2 ($v_2$ em $\text{m/s}$):<br><span class="text-[10px] text-slate-400">Ex.: som na água = 1500 m/s</span></label>
+        <input id="sim-v2" type="number" value="1480" class="border border-sky-200 rounded-xl px-2 py-1 w-28 text-center font-bold">
+      </div>
+    </div>
+    
+    <button onclick="calcOndaSim()" class="mt-5 w-full bg-sky-600 hover:bg-sky-700 text-white rounded-xl py-3 font-bold transition shadow-md">Calcular Comprimentos de Onda e Diagnóstico</button>
+   </div>
+
+   <div id="out-onda-sim" class="paper rounded-xl p-4 mt-4 hidden text-xs space-y-2"></div>
+  </div>
+ </div>
+</section>
+
+<!-- SEÇÃO EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border border-sky-100 p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div>
+     <span class="text-xs font-bold uppercase tracking-widest text-sky-600">Treino Didático e Progressivo</span>
+     <h1 class="text-3xl font-black mt-2 text-sky-950">90 Questões Resolvidas</h1>
+     <p class="text-slate-600 mt-2 text-sm"><b>Teoria:</b> digite a letra (A, B, C, D). <b>Cálculos:</b> digite apenas o número (use '.' ou ',' para decimais). Arredonde para 2 casas quando necessário.</p>
+   </div>
+   <div class="min-w-[210px]">
+     <div class="flex justify-between text-sm font-bold text-sky-950"><span>Progresso</span><span id="progress-text">0 / 90</span></div>
+     <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden">
+       <div id="progress-bar" class="h-full bg-sky-600 transition-all duration-500 rounded-full" style="width:0%"></div>
+     </div>
+   </div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border border-sky-100 p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-theme="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold transition">Todos (90)</button>
+   <button data-theme="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T1: Conceito & Energia</button>
+   <button data-theme="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T2: Natureza das Ondas</button>
+   <button data-theme="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T3: Vibração & Dimensões</button>
+   <button data-theme="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T4: Elementos & $v = \lambda \cdot f$</button>
+   <button data-theme="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T5: Fenômenos I (Reflexão, Refração, Difração)</button>
+   <button data-theme="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T6: Fenômenos II (Interferência, Polarização, Ressonância)</button>
+  </div>
+ </div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+</main>
+
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material didático interativo • Física — Ondulatória e Fenômenos Ondulatórios</div></footer>
+
+<!-- JAVASCRIPT LOGIC -->
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){
+  document.querySelectorAll('body').forEach(el=>{
+    if(window.renderMathInElement) {
+      renderMathInElement(el,{delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'\\[',right:'\\]',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false}
+      ]});
+    }
+  });
+}
+
+// Navegação de Abas
+const sections=['teoria','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    const t=btn.dataset.tab;
+    sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));
+    if(t==='exercicios')renderExercises();
+    if(t==='ferramentas')startCanvasAnimation();
+}));
+
+let animFrameId = null;
+let wavePhase = 0;
+
+function startCanvasAnimation() {
+  const canvas = $('waveCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  
+  function draw() {
+    const A = +$('slider-amp').value;
+    const f = +$('slider-freq').value;
+    const v = +$('slider-vel').value;
+    
+    $('val-amp').textContent = `${A} px`;
+    $('val-freq').textContent = `${f.toFixed(1)} Hz`;
+    $('val-vel').textContent = `${v} px/s`;
+    
+    const lambda = v / f;
+    const T = 1 / f;
+    $('calc-lambda').textContent = `${lambda.toFixed(1)} px`;
+    $('calc-period').textContent = `${T.toFixed(2)} s`;
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Eixo de equilíbrio central
+    ctx.beginPath();
+    ctx.strokeStyle = '#334155';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.moveTo(0, canvas.height / 2);
+    ctx.lineTo(canvas.width, canvas.height / 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    
+    // Desenho da onda senoidal
+    ctx.beginPath();
+    ctx.strokeStyle = '#38bdf8';
+    ctx.lineWidth = 3;
+    
+    const k = (2 * Math.PI) / lambda;
+    wavePhase += 0.05 * (v / 100);
+    
+    for (let x = 0; x < canvas.width; x++) {
+      const y = (canvas.height / 2) - A * Math.sin(k * x - wavePhase);
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    
+    // Partícula em oscilação puramente vertical para evidenciar a ausência de transporte de matéria
+    const partX = 150;
+    const partY = (canvas.height / 2) - A * Math.sin(k * partX - wavePhase);
+    ctx.beginPath();
+    ctx.fillStyle = '#f43f5e';
+    ctx.arc(partX, partY, 6, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    
+    animFrameId = requestAnimationFrame(draw);
+  }
+  
+  if (animFrameId) cancelAnimationFrame(animFrameId);
+  draw();
+}
+
+function calcOndaSim(){
+  const v1 = +$('sim-v1').value;
+  const f = +$('sim-f').value;
+  const v2 = +$('sim-v2').value;
+  
+  if (f <= 0 || v1 <= 0 || v2 <= 0) {
+    $('out-onda-sim').innerHTML = `<b class="text-red-500">A velocidade e a frequência devem ser rigorosamente maiores que zero.</b>`;
+    $('out-onda-sim').classList.remove('hidden');
+    return;
+  }
+  
+  const lambda1 = v1 / f;
+  const lambda2 = v2 / f;
+  const T = 1 / f;
+  
+  let h = `<b>1. Propriedade Fundamental da Refração:</b><br>`;
+  h += `A frequência é determinada unicamente pela fonte e permanece <b>inalterada</b> ($f = ${f} \\text{ Hz}$). O período é $T = \\frac{1}{f} = \\mathbf{${T.toFixed(4)} \\text{ s}}$.<br><br>`;
+  
+  h += `<b>2. Meio 1 ($v_1 = ${v1} \\text{ m/s}$):</b><br>`;
+  h += `\\[\\lambda_1 = \\frac{v_1}{f} = \\frac{${v1}}{${f}} = \\mathbf{${lambda1.toFixed(2)} \\text{ metros}}\\]<br>`;
+  
+  h += `<b>3. Meio 2 ($v_2 = ${v2} \\text{ m/s}$):</b><br>`;
+  h += `\\[\\lambda_2 = \\frac{v_2}{f} = \\frac{${v2}}{${f}} = \\mathbf{${lambda2.toFixed(2)} \\text{ metros}}\\]<br>`;
+  
+  h += `<b>4. Diagnóstico Físico:</b><br>`;
+  if (v2 > v1) {
+    const ratio = (v2 / v1).toFixed(2);
+    h += `• Como $v_2 > v_1$, a velocidade aumentou em ${ratio} vezes. Portanto, o comprimento de onda também foi esticado em ${ratio} vezes. A onda fica com cristas mais espaçadas!`;
+  } else if (v2 < v1) {
+    const ratio = (v1 / v2).toFixed(2);
+    h += `• Como $v_2 < v_1$, a velocidade diminuiu em ${ratio} vezes. Portanto, o comprimento de onda foi comprimido em ${ratio} vezes. As cristas ficam mais amontoadas!`;
+  } else {
+    h += `• As velocidades são idênticas. A onda não sofreu mudança de comprimento.`;
+  }
+  
+  $('out-onda-sim').innerHTML = h;
+  $('out-onda-sim').classList.remove('hidden');
+  renderAll();
+}
+
+// BANCO DE DADOS DE EXERCÍCIOS (90 QUESTÕES - 15 POR TEMA)
+const exercisesData = [];
+let exId = 1;
+const addQ = (th, ty, q, ans, steps, opts=[]) => { exercisesData.push({ id: exId++, theme: th, type: ty, q, ans, steps, opts }); };
+
+// ==========================================
+// TEMA 1: Conceito de Onda e Energia (1-15)
+// ==========================================
+addQ(1,'theo',"Qual é o princípio fundamental absoluto que define o que uma onda transporta e o que ela NÃO transporta ao longo de sua propagação?", "B",
+    ["Ondas são perturbações que transportam exclusivamente energia mecânica ou eletromagnética e quantidade de movimento através do espaço, sem qualquer transporte líquido de matéria."],
+    ["A) Transporta matéria e energia em proporções equivalentes.", "B) Transporta exclusivamente energia e momento, sem transportar matéria.", "C) Transporta massa de um ponto ao outro, deixando a energia em repouso.", "D) Não transporta nem energia nem matéria, apenas deforma o vácuo."]);
+
+addQ(1,'theo',"Uma rolha de cortiça flutua na água de uma piscina quando um trem de ondas passa por ela. Descrevendo o movimento da rolha durante a passagem contínua das ondas, conclui-se que ela:", "A",
+    ["A matéria do meio (a água e a rolha que nela flutua) executa apenas uma oscilação em torno da posição de equilíbrio de repouso, não sendo arrastada horizontalmente com a onda."],
+    ["A) Executa apenas um movimento oscilatório vertical de sobe e desce, permanecendo na mesma posição média horizontal.", "B) É arrastada com a velocidade de propagação da crista da onda até bater na borda da piscina.", "C) Afunda imediatamente até o fundo e permanece imersa.", "D) Começa a girar em torno do seu próprio eixo com velocidade supraluminar."]);
+
+addQ(1,'theo',"Ao falar em uma sala fechada, a sua voz chega aos ouvidos de uma pessoa do outro lado do cômodo. Do ponto de vista molecular, o que aconteceu com o ar da sala?", "C",
+    ["As moléculas de ar vibraram longitudinalmente para frente e para trás, transmitindo a perturbação de pressão de molécula a molécula por colisões sucessivas, sem que o ar dos pulmões viaje até a outra pessoa."],
+    ["A) O ar que saiu dos seus pulmões viajou horizontalmente em linha reta até entrar no ouvido da pessoa.", "B) O ar foi completamente destruído e transformado em luz ultravioleta.", "C) O ar serviu apenas de suporte mecânico oscilatório; as moléculas vibraram localmente sem saírem de suas vizinhanças médias.", "D) As moléculas de nitrogênio foram aceleradas permanentemente até 1000 km/h."]);
+
+addQ(1,'theo',"A amplitude de uma onda mecânica está diretamente associada a qual grandeza física transportada por ela?", "D",
+    ["A energia mecânica total e a potência média de uma onda harmônica são diretamente proporcionais ao quadrado da sua amplitude ($E \\propto A^2$). Ondas com grande amplitude transportam imensa energia."],
+    ["A) À velocidade da luz no vácuo.", "B) Ao comprimento físico do tubo de ensaio.", "C) À cor refletida pelo obstáculo.", "D) À quantidade de energia que a onda transporta (intensidade)."]);
+
+addQ(1,'theo',"Se uma onda na superfície de um lago tiver a sua amplitude duplicada ($A_2 = 2 A_1$) mantendo todas as outras características fixas, a energia mecânica transmitida por essa onda:", "B",
+    ["Como a energia transportada por uma onda varia com o quadrado de sua amplitude ($E \\propto A^2$), dobrar a amplitude quadruplica ($2^2 = 4$) a energia mecânica do pulso."],
+    ["A) Dobrará.", "B) Quadruplicará ($4\\times$).", "C) Permanecerá rigorosamente inalterada.", "D) Cairá pela metade."]);
+
+// Cálculos Tema 1
+addQ(1,'calc',"Uma fonte vibratória transfere $240 \\text{ Joules}$ de energia mecânica para uma corda ao longo de um intervalo de tempo de $4 \\text{ segundos}$. Qual é a potência média dessa onda em Watts ($P = \\frac{E}{\\Delta t}$)?", "60",
+    ["Passo 1: Aplicar a definição de potência média: $P = \\frac{E}{\\Delta t}$", "Passo 2: $P = \\frac{240 \\text{ J}}{4 \\text{ s}} = \\mathbf{60 \\text{ W}}$."]);
+
+addQ(1,'calc',"Se uma onda senoidal de amplitude $A_1 = 0,10 \\text{ m}$ transporta uma energia de $50 \\text{ Joules}$, quanta energia em Joules será transportada por uma onda idêntica cuja amplitude foi aumentada para $A_2 = 0,30 \\text{ m}$ (a amplitude triplicou, $3\\times$)?", "450",
+    ["Como a energia é proporcional ao quadrado da amplitude ($E \\propto A^2$):", "Fator de aumento da energia = $3^2 = 9\\times$", "$E_2 = 9 \\times 50 = \\mathbf{450 \\text{ Joules}}$."]);
+
+addQ(1,'calc',"Uma bóia marítima oscila verticalmente $120$ vezes em um intervalo de $2 \\text{ minutos}$ ($120 \\text{ s}$). Quantas oscilações completas essa bóia realiza em cada segundo (qual a sua frequência em Hz)?", "1",
+    ["Passo 1: $\\Delta t = 2 \\text{ min} = 120 \\text{ segundos}$", "Passo 2: $f = \\frac{N}{\\Delta t} = \\frac{120}{120} = \\mathbf{1 \\text{ Hz}}$."]);
+
+addQ(1,'calc',"Um alto-falante emite uma onda sonora com potência mecânica de $50 \\text{ W}$ que atinge uniformemente uma placa absorvedora de $2 \\text{ m}^2$. Qual é a intensidade sonora $I$ incidente em $\\text{W/m}^2$ ($I = \\frac{P}{A}$)?", "25",
+    ["$I = \\frac{P}{A}$", "$I = \\frac{50}{2} = \\mathbf{25 \\text{ W/m}^2}$."]);
+
+addQ(1,'calc',"Uma onda mecânica em uma mola carrega uma quantidade de movimento $Q = 12 \\text{ kg}\\cdot\\text{m/s}$ com energia cinética de $36 \\text{ J}$. Se $E_c = \\frac{Q \\cdot v}{2}$, qual é a velocidade de fase $v$ da onda em $\\text{m/s}$?", "6",
+    ["$36 = \\frac{12 \\cdot v}{2} \\rightarrow 36 = 6 \\cdot v$", "$v = \\frac{36}{6} = \\mathbf{6 \\text{ m/s}}$."]);
+
+addQ(1,'calc',"Um gerador de pulsos emite ondas a uma taxa constante de $80 \\text{ Joules}$ por pulso. Se a fonte dispara $5$ pulsos a cada segundo, qual a energia total emitida em $10 \\text{ segundos}$ (em Joules)?", "4000",
+    ["Energia por segundo = $5 \\times 80 = 400 \\text{ J/s}$", "Em $10 \\text{ segundos}$: $E_{total} = 400 \\times 10 = \\mathbf{4000 \\text{ Joules}}$."]);
+
+addQ(1,'calc',"Se a amplitude de uma onda na água cai de $0,80 \\text{ m}$ para $0,20 \\text{ m}$ (reduz-se a $\\frac{1}{4}$ da original) devido à dissipação viscosa, por qual fator a sua energia diminuiu? (A energia final é $1/X$ da inicial. Digite o valor de $X$, onde $X = 4^2$).", "16",
+    ["Como $E \\propto A^2$, ao reduzir a amplitude em 4 vezes, a energia diminui por $4^2 = 16$. Logo, $X = 16$."]);
+
+addQ(1,'calc',"Um feixe de laser transporta uma energia de $300 \\text{ mJ}$ ($0,30 \\text{ J}$) concentrada em um pulso ultracurto que dura apenas $0,001 \\text{ s}$ ($1 \\text{ ms}$). Qual é a potência instantânea desse pulso em Watts?", "300",
+    ["$P = \\frac{E}{\\Delta t} = \\frac{0,30 \\text{ J}}{0,001 \\text{ s}} = \\mathbf{300 \\text{ W}}$."]);
+
+addQ(1,'calc',"Uma onda marítima com cristas de $2 \\text{ metros}$ de altura atinge um quebra-mar liberando $10.000 \\text{ Joules}$. Se em uma tempestade a altura das ondas subir para $6 \\text{ metros}$ (triplicou), quanta energia em Joules será despejada na estrutura?", "90000",
+    ["A altura mede a amplitude. Triplicando $A$ ($3\\times$), a energia multiplica por $3^2 = 9$.", "$E = 9 \\times 10.000 = \\mathbf{90.000 \\text{ Joules}}$."]);
+
+addQ(1,'calc',"Um diapasão oscila $880$ vezes em exatos $2 \\text{ segundos}$. Qual a frequência fundamental dessa nota em Hertz?", "440",
+    ["$f = \\frac{N}{\\Delta t} = \\frac{880}{2} = \\mathbf{440 \\text{ Hz}}$ (trata-se da nota Lá padrão de afinação musical!)."]);
+
+// ==========================================
+// TEMA 2: Classificação quanto à Natureza (16-30)
+// ==========================================
+addQ(2,'theo',"Qual das seguintes ondas NÃO é uma onda mecânica e, portanto, consegue se propagar livremente no vácuo do espaço cósmico?", "C",
+    ["Ondas de rádio são ondas eletromagnéticas (perturbações de campos elétricos e magnéticos) e não exigem suporte material para sua propagação."],
+    ["A) Onda sonora emitida por um submarino na água.", "B) Onda sísmica de um terremoto propagando-se na rocha.", "C) Sinal de rádio emitido por uma sonda espacial em Marte.", "D) Onda de choque gerada pelo estalo de um chicote."]);
+
+addQ(2,'theo',"Em filmes de ficção científica clássicos, é comum vermos uma nave estelar explodir no espaço emitindo um clarão brilhante acompanhado de um estrondo ensurdecedor. Do ponto de vista da física ondulatória:", "B",
+    ["A luz é uma onda eletromagnética e viaja pelo vácuo; o som é uma onda mecânica e necessita de moléculas materiais colidindo para existir, sendo inaudível no vácuo."],
+    ["A) A cena é perfeita, pois tanto a luz quanto o som viajam à mesma velocidade no vácuo.", "B) A cena comete um erro físico grave, pois o som é mecânico e não se propaga no vácuo interestelar.", "C) O som viaja mais rápido no vácuo do que no ar atmosférico.", "D) A explosão não produziria luz porque a luz precisa de oxigênio para se mover."]);
+
+addQ(2,'theo',"As ondas eletromagnéticas no vácuo (como a luz vermelha, os raios X e as micro-ondas) possuem todas a mesma:", "A",
+    ["Todas as ondas eletromagnéticas viajam rigorosamente com a mesma velocidade no vácuo ($c \\approx 3 \\times 10^8 \\text{ m/s}$). O que as diferencia é a frequência e o comprimento de onda."],
+    ["A) Velocidade de propagação ($c \\approx 300.000 \\text{ km/s}$).", "B) Frequência absoluta de oscilação.", "C) Energia quântica por fóton.", "D) Capacidade de ionização celular."]);
+
+addQ(2,'theo',"Quando comparamos a velocidade do som no ar atmosférico ($v_{\\text{ar}} \\approx 340 \\text{ m/s}$), na água líquida ($v_{\\text{água}} \\approx 1.500 \\text{ m/s}$) e no aço sólido ($v_{\\text{aço}} \\approx 5.000 \\text{ m/s}$), podemos concluir sobre as ondas mecânicas sonoras que:", "D",
+    ["Quanto mais densamente empacotadas e rígidas forem as ligações interatômicas do meio elástico, mais veloz é a transmissão mecânica da colisão entre átomos: $v_{\\text{sólido}} > v_{\\text{líquido}} > v_{\\text{gás}}$."],
+    ["A) Elas são mais velozes nos gases do que nos sólidos.", "B) Sua velocidade é rigorosamente constante e independe do meio.", "C) O som não consegue atravessar metais sólidos.", "D) Em geral, as ondas sonoras mecânicas se propagam com maior velocidade nos sólidos, seguidos pelos líquidos e mais lentamente nos gases."]);
+
+addQ(2,'theo',"Qual das seguintes radiações eletromagnéticas possui a MAIOR frequência e, portanto, a maior energia associada no espectro eletromagnético?", "B",
+    ["No espectro eletromagnético, a sequência crescente de frequência é: ondas de rádio $\\rightarrow$ micro-ondas $\\rightarrow$ infravermelho $\\rightarrow$ luz visível $\\rightarrow$ ultravioleta $\\rightarrow$ raios X $\\rightarrow$ raios gama."],
+    ["A) Ondas de rádio AM/FM.", "B) Raios gama.", "C) Radiação infravermelha.", "D) Luz visível amarela."]);
+
+// Cálculos Tema 2
+addQ(2,'calc',"A luz do Sol viaja no vácuo com velocidade $c = 300.000 \\text{ km/s}$. Sabendo que a distância média da Terra ao Sol é de $150.000.000 \\text{ km}$, quantos segundos a luz solar leva para atingir a superfície terrestre?", "500",
+    ["$\\Delta t = \\frac{\\Delta s}{v} = \\frac{150.000.000 \\text{ km}}{300.000 \\text{ km/s}}$", "$\\Delta t = \\mathbf{500 \\text{ segundos}}$ (cerca de 8 minutos e 20 segundos!)."]);
+
+addQ(2,'calc',"Uma pessoa vê o clarão de um relâmpago e ouve o trovão exatos $5 \\text{ segundos}$ depois. Sabendo que a luz chega instantaneamente e a velocidade do som no ar é $v = 340 \\text{ m/s}$, a que distância em metros caiu o raio ($d = v \\cdot t$)?", "1700",
+    ["$d = v \\cdot \\Delta t = 340 \\cdot 5 = \\mathbf{1700 \\text{ metros}}$ (ou $1,7 \\text{ km}$)."]);
+
+addQ(2,'calc',"O sonar de um navio emite uma onda ultrassônica mecânica na água ($v = 1500 \\text{ m/s}$) perpendicularmente ao fundo do mar e capta o eco refletido após $4 \\text{ segundos}$ (ida e volta). Qual é a profundidade do oceano naquele ponto em metros?", "3000",
+    ["Passo 1: O tempo de ida é metade do tempo do eco: $t_{\\text{ida}} = \\frac{4}{2} = 2 \\text{ segundos}$.", "Passo 2: Profundidade $h = v \\cdot t_{\\text{ida}} = 1500 \\cdot 2 = \\mathbf{3000 \\text{ metros}}$."]);
+
+addQ(2,'calc',"Uma estação de rádio FM transmite ondas eletromagnéticas na frequência de $100 \\text{ MHz}$ ($100 \\times 10^6 \\text{ Hz}$). Sabendo que a velocidade da luz é $3 \\times 10^8 \\text{ m/s}$, qual é o comprimento dessa onda de rádio em metros ($\\lambda = \\frac{c}{f}$)?", "3",
+    ["$\\lambda = \\frac{c}{f} = \\frac{3 \\times 10^8}{100 \\times 10^6} = \\frac{3 \\times 10^8}{10^8} = \\mathbf{3 \\text{ metros}}$."]);
+
+addQ(2,'calc',"Um forno de micro-ondas opera com radiação eletromagnética cujo comprimento de onda é $\\lambda = 0,12 \\text{ m}$. Adote a velocidade da luz $c = 300.000 \\text{ km/s} = 3 \\times 10^8 \\text{ m/s}$. Calcule a frequência das micro-ondas em MegaHertz (MHz, ou seja, divida por $10^6$).", "2500",
+    ["$f = \\frac{c}{\\lambda} = \\frac{3 \\times 10^8}{0,12} = 2,5 \\times 10^9 \\text{ Hz} = 2500 \\times 10^6 \\text{ Hz}$", "Em MHz: $\\mathbf{2500 \\text{ MHz}}$ (ou $2,5 \\text{ GHz}$)."]);
+
+addQ(2,'calc',"Uma onda sísmica mecânica primária (P) propaga-se a $6000 \\text{ m/s}$ na crosta terrestre. Quanto tempo em segundos ela leva para percorrer uma falha geológica de $180 \\text{ km}$ ($180.000 \\text{ m}$)?", "30",
+    ["$\\Delta t = \\frac{\\Delta s}{v} = \\frac{180.000}{6000} = \\mathbf{30 \\text{ segundos}}$."]);
+
+addQ(2,'calc',"Um feixe de luz vermelha viaja no vácuo ($c = 300.000 \\text{ km/s}$) e penetra em um bloco de vidro onde sua velocidade cai para $200.000 \\text{ km/s}$. Calcule o índice de refração do vidro ($n = \\frac{c}{v}$).", "1.5",
+    ["$n = \\frac{c}{v} = \\frac{300.000}{200.000} = \\mathbf{1,5}$."]);
+
+addQ(2,'calc',"A velocidade do som no ferro é de cerca de $5100 \\text{ m/s}$. Um operário bate com uma marreta em um trilho de trem de $1020 \\text{ metros}$ de comprimento. Quantos segundos o som mecânico leva para atravessar o metal de uma ponta à outra?", "0.2",
+    ["$t = \\frac{d}{v} = \\frac{1020}{5100} = \\mathbf{0,2 \\text{ s}}$."]);
+
+addQ(2,'calc',"Uma rede Wi-Fi de $5 \\text{ GHz}$ ($5 \\times 10^9 \\text{ Hz}$) emite ondas no ar a $3 \\times 10^8 \\text{ m/s}$. Qual é o comprimento de onda em centímetros dessa rede ($\\%\\text{ em cm} = \\lambda \\times 100$)?", "6",
+    ["$\\lambda = \\frac{c}{f} = \\frac{3 \\times 10^8}{5 \\times 10^9} = 0,06 \\text{ m}$", "Em centímetros: $0,06 \\times 100 = \\mathbf{6 \\text{ cm}}$."]);
+
+addQ(2,'calc',"Uma sonda na Lua ($d = 384.000 \\text{ km}$) envia uma foto para a Terra via sinal de rádio ($c = 300.000 \\text{ km/s}$). Quanto tempo em segundos o sinal demora para chegar à antena receptora na Terra?", "1.28",
+    ["$t = \\frac{d}{c} = \\frac{384.000}{300.000} = \\mathbf{1,28 \\text{ segundos}}$."]);
+
+// ==========================================
+// TEMA 3: Classificação quanto à Vibração e Dimensões (31-45)
+// ==========================================
+addQ(3,'theo',"Uma onda é classificada como 'Transversal' quando a direção de oscilação das partículas do meio é:", "A",
+    ["Nas ondas transversais, o movimento de vibração das partículas ou campos forma um ângulo de 90° (perpendicular) em relação ao deslocamento da onda."],
+    ["A) Rigorosamente perpendicular à direção em que a onda se propaga.", "B) Exatamente paralela à direção de deslocamento da energia.", "C) Em espiral tridimensional sem qualquer plano fixo.", "D) Circular e estacionária sem propagação."]);
+
+addQ(3,'theo',"O som propagando-se no ar atmosférico ou na água é um exemplo clássico de onda:", "C",
+    ["Nos fluidos homogêneos, o som só consegue se propagar por compressões e rarefações sucessivas na mesma direção do deslocamento da frente de onda: trata-se de uma onda mecânica longitudinal e tridimensional."],
+    ["A) Eletromagnética e transversal.", "B) Mecânica, transversal e unidimensional.", "C) Mecânica, longitudinal e tridimensional.", "D) Gravitacional e bidimensional."]);
+
+addQ(3,'theo',"Qual das seguintes ondas é UNIDIMENSIONAL (propaga-se restrita a uma única direção espacial geométrica)?", "B",
+    ["Pulsos em cordas ou fios esticados viajam restritos ao longo do comprimento linear da própria corda, sendo unidimensionais."],
+    ["A) O som de uma buzina no trânsito.", "B) O pulso mecânico gerado em uma corda de violão esticada.", "C) A onda circular gerada por uma gota caindo em um balde.", "D) A luz emitida por uma vela acesa no quarto."]);
+
+addQ(3,'theo',"As ondas produzidas na superfície de um lago quando atiramos uma pedra são classificadas quanto à sua geometria de propagação e modo de vibração como:", "D",
+    ["Na superfície líquida, a onda se espalha em anéis concêntricos sobre o plano d'água (bidimensional) e as moléculas descrevem órbitas ovais/circulares que combinam componentes transversais e longitudinais (onda mista)."],
+    ["A) Unidimensionais e puramente longitudinais.", "B) Tridimensionais e eletromagnéticas.", "C) Estritamente transversais e unidimensionais.", "D) Bidimensionais na superfície e mistas em vibração (com componentes transversais e longitudinais)."]);
+
+addQ(3,'theo',"Por que uma onda longitudinal como o som no ar NÃO pode ser polarizada sob nenhuma hipótese?", "A",
+    ["A polarização consiste em selecionar apenas uma direção transversal de oscilação. Como na onda longitudinal a oscilação já se dá unicamente na própria direção de propagação, não existe vetor transversal para ser filtrado."],
+    ["A) Porque a polarização é um fenômeno exclusivo de ondas transversais.", "B) Porque o som não possui velocidade definida no ar.", "C) Porque o som tem frequência muito baixa para os polarizadores.", "D) Porque a polarização só funciona com espelhos planos."]);
+
+// Cálculos Tema 3
+addQ(3,'calc',"Em uma corda de violão (1D), uma onda transversal percorre uma extensão de $0,80 \\text{ m}$ em $0,004 \\text{ s}$. Qual é a velocidade de propagação dessa onda na corda em m/s ($v = \\frac{\\Delta s}{\\Delta t}$)?", "200",
+    ["$v = \\frac{\\Delta s}{\\Delta t} = \\frac{0,80}{0,004} = \\mathbf{200 \\text{ m/s}}$."]);
+
+addQ(3,'calc',"A velocidade de uma onda transversal em uma corda sob tração $T$ e densidade linear $\\mu$ é dada pela Fórmula de Taylor: $v = \\sqrt{\\frac{T}{\\mu}}$. Se a força de tração é $T = 160 \\text{ N}$ e $\\mu = 0,01 \\text{ kg/m}$, calcule a velocidade $v$ da onda em m/s.", "126.49",
+    ["$v = \\sqrt{\\frac{160}{0,01}} = \\sqrt{16000} \\approx \\mathbf{126,49 \\text{ m/s}}$."]);
+
+addQ(3,'calc',"Usando a mesma Fórmula de Taylor ($v = \\sqrt{\\frac{T}{\\mu}}$), se quadruplicarmos a força de tração da corda ($4 \\times T$), por qual fator a velocidade da onda aumentará (calcule $\\sqrt{4}$)?", "2",
+    ["Como a velocidade é proporcional à raiz quadrada da tração ($v \\propto \\sqrt{T}$), ao quadruplicar $T$, a velocidade dobra: $\\sqrt{4} = \\mathbf{2}$."]);
+
+addQ(3,'calc',"Uma mola helicoidal esticada tem $2 \\text{ metros}$ de comprimento. Um pulso longitudinal de compressão vai de uma ponta a outra e volta (bate e volta, percorrendo $4 \\text{ metros}$) em $0,5 \\text{ segundo}$. Qual a velocidade de propagação na mola em m/s?", "8",
+    ["Distância total percorrida = $4 \\text{ m}$", "$v = \\frac{\\Delta s}{\\Delta t} = \\frac{4}{0,5} = \\mathbf{8 \\text{ m/s}}$."]);
+
+addQ(3,'calc',"Uma onda bidimensional na água se propaga em círculos concêntricos a $1,5 \\text{ m/s}$. Qual será o raio da circunferência da onda em metros após $6 \\text{ segundos}$ do impacto da pedra?", "9",
+    ["$R = v \\cdot t = 1,5 \\cdot 6 = \\mathbf{9 \\text{ metros}}$."]);
+
+addQ(3,'calc',"A área atingida por uma onda circular bidimensional cresce com $A = \\pi R^2$. Se o raio da onda do exercício anterior é $R = 9 \\text{ m}$, adote $\\pi = 3,14$ e calcule a área perturbada em $m^2$.", "254.34",
+    ["$A = \\pi \\cdot R^2 = 3,14 \\cdot (9)^2 = 3,14 \\cdot 81 = \\mathbf{254,34 \\text{ m}^2}$."]);
+
+addQ(3,'calc',"Uma onda sonora esférica tridimensional (3D) propaga-se no ar a $340 \\text{ m/s}$. A que distância em metros a frente de onda esférica se encontra da fonte emissora após $3 \\text{ segundos}$?", "1020",
+    ["$d = v \\cdot t = 340 \\cdot 3 = \\mathbf{1020 \\text{ metros}}$."]);
+
+addQ(3,'calc',"Em uma corda de $4 \\text{ metros}$ e massa total de $0,08 \\text{ kg}$, a densidade linear é $\\mu = \\frac{m}{L}$. Calcule o valor de $\\mu$ em kg/m.", "0.02",
+    ["$\\mu = \\frac{m}{L} = \\frac{0,08}{4} = \\mathbf{0,02 \\text{ kg/m}}$."]);
+
+addQ(3,'calc',"Se a corda do exercício anterior ($\mu = 0,02 \\text{ kg/m}$) for esticada com tração $T = 72 \\text{ N}$, qual será a velocidade transversal do pulso em m/s ($v = \\sqrt{\\frac{T}{\\mu}}$)?", "60",
+    ["$v = \\sqrt{\\frac{72}{0,02}} = \\sqrt{3600} = \\mathbf{60 \\text{ m/s}}$."]);
+
+addQ(3,'calc',"Uma onda sonora tridimensional atinge um ouvinte que está a $680 \\text{ metros}$ da fonte. Sabendo que $v_{\\text{som}} = 340 \\text{ m/s}$, quantos segundos o som levou para atingir o ouvinte?", "2",
+    ["$t = \\frac{d}{v} = \\frac{680}{340} = \\mathbf{2 \\text{ segundos}}$."]);
+
+// ==========================================
+// TEMA 4: Elementos de uma Onda e Equação Fundamental (46-60)
+// ==========================================
+addQ(4,'theo',"O comprimento de onda ($\\lambda$) de uma onda periódica harmônica pode ser definido geometricamente como a distância entre:", "B",
+    ["O comprimento de onda corresponde ao período espacial da função senoidal, medido entre duas cristas consecutivas, dois vales consecutivos ou o início e fim de um ciclo completo."],
+    ["A) Uma crista e o vale imediatamente consecutivo.", "B) Duas cristas sucessivas ou dois vales sucessivos.", "C) O eixo de equilíbrio central e o topo da crista.", "D) A fonte emissora e o receptor final."]);
+
+addQ(4,'theo',"Qual é a relação matemática correta entre o período ($T$) e a frequência ($f$) de qualquer oscilação periódica?", "A",
+    ["Período e frequência são grandezas inversamente proporcionais ($f = 1/T$ e $T = 1/f$). Uma frequência de 10 Hz significa 10 ciclos por segundo, ou seja, cada ciclo dura 0,1 s."],
+    ["A) $f = \\frac{1}{T}$", "B) $f = T^2$", "C) $f \\cdot T = 0$", "D) $f = \\frac{T}{2}$"]);
+
+addQ(4,'theo',"Na Equação Fundamental da Ondulatória ($v = \\lambda \\cdot f$), se uma onda se propaga em um meio homogêneo com velocidade constante $v$, o que acontece com o comprimento de onda ($\\lambda$) se a frequência da fonte for duplicada?", "C",
+    ["Com a velocidade constante no mesmo meio, comprimento de onda e frequência são grandezas inversamente proporcionais ($\\lambda = v/f$). Ao dobrar $f$, o comprimento de onda cai pela metade."],
+    ["A) O comprimento de onda também dobra.", "B) O comprimento de onda quadruplica.", "C) O comprimento de onda é reduzido à metade.", "D) O comprimento de onda permanece inalterado."]);
+
+addQ(4,'theo',"A unidade de frequência no Sistema Internacional é o Hertz (Hz). Um Hertz equivale exatamente a:", "D",
+    ["$1 \\text{ Hz} = 1 \\text{ ciclo por segundo} = 1 \\text{ s}^{-1}$."],
+    ["A) $1 \\text{ metro por segundo}$", "B) $1 \\text{ Joule por segundo}$", "C) $1 \\text{ Newton por metro}$", "D) $1 \\text{ oscilação por segundo} (\\text{s}^{-1})$"]);
+
+addQ(4,'theo',"Em uma representação gráfica de onda, a 'Amplitude' representa a medida física correspondente:", "A",
+    ["A amplitude é a elongação máxima a partir da linha central de equilíbrio, não devendo ser confundida com a distância pico-a-pico (que é igual a duas vezes a amplitude)."],
+    ["A) Da distância vertical do ponto de equilíbrio médio até o ponto mais alto de uma crista.", "B) Da distância horizontal total entre o início e o fim da corda.", "C) Da distância vertical entre a crista e o fundo do vale.", "D) Do tempo gasto para percorrer um metro."]);
+
+// Cálculos Tema 4
+addQ(4,'calc',"Uma onda propaga-se com velocidade $v = 120 \\text{ m/s}$ e possui frequência $f = 60 \\text{ Hz}$. Calcule o seu comprimento de onda $\\lambda$ em metros ($v = \\lambda \\cdot f$).", "2",
+    ["$v = \\lambda \\cdot f \\rightarrow 120 = \\lambda \\cdot 60$", "$\\lambda = \\frac{120}{60} = \\mathbf{2 \\text{ metros}}$."]);
+
+addQ(4,'calc',"O ouvido humano jovem ouve sons com frequências entre $20 \\text{ Hz}$ e $20.000 \\text{ Hz}$. Adotando a velocidade do som no ar como $v = 340 \\text{ m/s}$, calcule o comprimento de onda $\\lambda$ em metros do som mais grave audível ($f = 20 \\text{ Hz}$).", "17",
+    ["$\\lambda = \\frac{v}{f} = \\frac{340}{20} = \\mathbf{17 \\text{ metros}}$."]);
+
+addQ(4,'calc',"Aproveitando a questão anterior ($v = 340 \\text{ m/s}$), calcule o comprimento de onda $\\lambda$ em centímetros do som mais agudo audível ($f = 20.000 \\text{ Hz}$). (Dica: ache em metros e multiplique por 100).", "1.7",
+    ["$\\lambda = \\frac{340}{20000} = 0,017 \\text{ m}$", "Em centímetros: $0,017 \\times 100 = \\mathbf{1,7 \\text{ cm}}$."]);
+
+addQ(4,'calc',"Uma onda periódica realiza $1$ ciclo completo a cada $0,02 \\text{ segundos}$ (período $T = 0,02 \\text{ s}$). Qual é a sua frequência $f$ em Hertz ($f = \\frac{1}{T}$)?", "50",
+    ["$f = \\frac{1}{T} = \\frac{1}{0,02} = \\mathbf{50 \\text{ Hz}}$."]);
+
+addQ(4,'calc',"Um trem de ondas propaga-se com comprimento de onda $\\lambda = 0,5 \\text{ m}$ e período $T = 0,1 \\text{ s}$. Qual é a velocidade de propagação $v$ dessa onda em m/s ($v = \\frac{\\lambda}{T}$)?", "5",
+    ["$v = \\frac{\\lambda}{T} = \\frac{0,5}{0,1} = \\mathbf{5 \\text{ m/s}}$."]);
+
+addQ(4,'calc',"Uma onda na água possui distância entre duas cristas consecutivas igual a $4 \\text{ metros}$ e velocidade de $12 \\text{ m/s}$. Quantas cristas passam por um pescador ancorado a cada segundo (frequência em Hz)?", "3",
+    ["$\\lambda = 4 \\text{ m}$ e $v = 12 \\text{ m/s}$", "$f = \\frac{v}{\\lambda} = \\frac{12}{4} = \\mathbf{3 \\text{ Hz}}$."]);
+
+addQ(4,'calc',"Uma estação de rádio transmite na frequência $f = 10^6 \\text{ Hz}$ ($1000 \\text{ kHz}$). Se a velocidade da onda é $c = 300.000 \\text{ km/s} = 3 \\times 10^8 \\text{ m/s}$, calcule o comprimento de onda $\\lambda$ em metros.", "300",
+    ["$\\lambda = \\frac{c}{f} = \\frac{3 \\times 10^8}{10^6} = \\mathbf{300 \\text{ metros}}$."]);
+
+addQ(4,'calc',"A distância vertical pico-a-pico entre a crista mais alta e o vale mais baixo de uma onda senoidal é de $0,80 \\text{ m}$. Qual é a Amplitude $A$ dessa onda em metros?", "0.4",
+    ["A distância crista-a-vale é igual ao dobro da amplitude ($2A = 0,80$).", "$A = \\frac{0,80}{2} = \\mathbf{0,4 \\text{ metros}}$."]);
+
+addQ(4,'calc',"Em um gráfico espacial $y \\times x$, a distância entre a primeira crista e a quarta crista consecutiva é de $15 \\text{ metros}$. Sabendo que entre a 1ª e a 4ª crista existem exatos $3$ comprimentos de onda ($3\\lambda = 15$), calcule o valor de $\\lambda$ em metros.", "5",
+    ["$3\\lambda = 15 \\rightarrow \\lambda = \\frac{15}{3} = \\mathbf{5 \\text{ metros}}$."]);
+
+addQ(4,'calc',"Uma onda sonora de $f = 680 \\text{ Hz}$ no ar ($v = 340 \\text{ m/s}$) tem comprimento $\\lambda = 0,5 \\text{ m}$. Se ela penetrar na água onde a velocidade salta para $v_{\\text{água}} = 1360 \\text{ m/s}$, qual será o novo comprimento de onda $\\lambda_{\\text{água}}$ em metros?", "2",
+    ["A frequência permanece constante: $f = 680 \\text{ Hz}$.", "$\\lambda_{\\text{água}} = \\frac{v_{\\text{água}}}{f} = \\frac{1360}{680} = \\mathbf{2 \\text{ metros}}$."]);
+
+// ==========================================
+// TEMA 5: Fenômenos Ondulatórios I - Reflexão, Refração e Difração (61-75)
+// ==========================================
+addQ(5,'theo',"Quando uma onda mecânica que viaja por uma corda atinge uma extremidade perfeitamente FIXA na parede, o pulso refletido retorna:", "C",
+    ["Pela Terceira Lei de Newton, ao puxar a parede fixa para cima, a parede reage puxando a corda para baixo com força igual e oposta, provocando inversão de fase de 180° (crista reflete como vale)."],
+    ["A) Sem inversão de fase, como crista.", "B) Com o dobro da velocidade original.", "C) Com inversão de fase de 180° (a crista retorna como um vale).", "D) Completamente extinto sem retorno de energia."]);
+
+addQ(5,'theo',"Durante o fenômeno da REFRAÇÃO de qualquer onda (passagem de um meio material para outro distinto), qual grandeza física permanece RIGOROSAMENTE constante?", "B",
+    ["A frequência de oscilação é uma 'assinatura' indelével imposta pela fonte geradora e nunca se altera na refração."],
+    ["A) A velocidade de propagação ($v$).", "B) A frequência ($f$).", "C) O comprimento de onda ($\\lambda$).", "D) A direção geométrica de propagação sempre."]);
+
+addQ(5,'theo',"Conseguimos ouvir claramente a voz de uma pessoa conversando do outro lado de um muro alto, mas não conseguimos enxergá-la. Esse fenômeno é explicado primordialmente por:", "D",
+    ["O som audível tem comprimento de onda na escala de centímetros a metros, permitindo que sofra difração intensa nas bordas do muro. A luz visível tem comprimento nanométrico ($10^{-7}\\text{ m}$), não sofrendo difração perceptível em obstáculos de escala métrica."],
+    ["A) Reflexão total da luz no chão.", "B) Polarização das ondas sonoras pelo concreto.", "C) Ressonância dos tijolos da parede com as cordas vocais.", "D) Difração do som, que possui comprimento de onda compatível com as dimensões do obstáculo."]);
+
+addQ(5,'theo',"Para que o fenômeno da DIFRAÇÃO ocorra com máxima nitidez quando uma onda atinge uma fenda orifício de largura $d$, é necessário que:", "A",
+    ["A difração acentua-se drasticamente quando a largura da abertura orifício $d$ possui ordem de grandeza comparável ou menor que o comprimento de onda incidente ($d \\le \\lambda$)."],
+    ["A) O comprimento de onda ($\\lambda$) seja da mesma ordem de grandeza da largura da fenda ($d$).", "B) A fenda seja infinitamente maior que a onda.", "C) A onda seja puramente eletromagnética ionizante.", "D) A velocidade da onda seja nula na abertura."]);
+
+addQ(5,'theo',"Um raio de luz monocromática passa do ar (onde sua velocidade é $v_1 = 300.000 \\text{ km/s}$) para a água (onde sua velocidade é $v_2 = 225.000 \\text{ km/s}$). O que acontece com o seu comprimento de onda $\\lambda$?", "B",
+    ["Como $v = \\lambda \\cdot f$ e a frequência $f$ não varia na refração, a diminuição da velocidade faz com que o comprimento de onda $\\lambda$ encolha na mesma proporção ($v \\propto \\lambda$)."],
+    ["A) Aumenta proporcionalmente.", "B) Diminui proporcionalmente à redução da velocidade.", "C) Permanece exatamente constante.", "D) Dobra de valor."]);
+
+// Cálculos Tema 5
+addQ(5,'calc',"Uma onda periódica de frequência $f = 500 \\text{ Hz}$ propaga-se no meio A com $\\lambda_A = 0,60 \\text{ m}$. Ao refratar para o meio B, seu comprimento de onda passa a ser $\\lambda_B = 0,90 \\text{ m}$. Qual é a velocidade da onda no meio B em m/s ($v_B = \\lambda_B \\cdot f$)?", "450",
+    ["Passo 1: A frequência é constante: $f = 500 \\text{ Hz}$.", "Passo 2: $v_B = \\lambda_B \\cdot f = 0,90 \\cdot 500 = \\mathbf{450 \\text{ m/s}}$."]);
+
+addQ(5,'calc',"Na mesma refração anterior, qual era a velocidade da onda no meio A em m/s ($v_A = \\lambda_A \\cdot f$)?", "300",
+    ["$v_A = \\lambda_A \\cdot f = 0,60 \\cdot 500 = \\mathbf{300 \\text{ m/s}}$."]);
+
+addQ(5,'calc',"Uma onda na água passa de uma região profunda para uma região rasa. A velocidade cai de $v_1 = 10 \\text{ m/s}$ para $v_2 = 6 \\text{ m/s}$. Se no meio 1 o comprimento de onda era $\\lambda_1 = 2 \\text{ m}$, qual é $\\lambda_2$ em metros (use $\\frac{v_1}{\\lambda_1} = \\frac{v_2}{\\lambda_2}$)?", "1.2",
+    ["$\\frac{10}{2} = \\frac{6}{\\lambda_2} \\rightarrow 5 = \\frac{6}{\\lambda_2}$", "$\\lambda_2 = \\frac{6}{5} = \\mathbf{1,2 \\text{ metros}}$."]);
+
+addQ(5,'calc',"Um feixe de luz monocromática com comprimento de onda $\\lambda_{\\text{ar}} = 600 \\text{ nm}$ penetra em um diamante cujo índice de refração é $n = 2,4$. O novo comprimento de onda no diamante é $\\lambda_{\\text{diamante}} = \\frac{\\lambda_{\\text{ar}}}{n}$. Calcule o valor em nanômetros (nm).", "250",
+    ["$\\lambda_{\\text{diamante}} = \\frac{600}{2,4} = \\mathbf{250 \\text{ nm}}$."]);
+
+addQ(5,'calc',"Uma pessoa bate palmas na frente de um paredão de rocha e ouve o eco da reflexão exatos $0,8 \\text{ segundos}$ depois. Sabendo que o som no ar viaja a $340 \\text{ m/s}$, a que distância em metros ela está da parede?", "136",
+    ["Tempo de ida: $t_{\\text{ida}} = \\frac{0,8}{2} = 0,4 \\text{ s}$", "$d = v \\cdot t_{\\text{ida}} = 340 \\cdot 0,4 = \\mathbf{136 \\text{ metros}}$."]);
+
+addQ(5,'calc',"O eco mais rápido perceptível pelo cérebro humano exige um retardo mínimo de $0,10 \\text{ segundos}$ entre o som direto e o refletido. Adotando $v = 340 \\text{ m/s}$, qual é a distância mínima em metros para que uma pessoa ouça um eco distinto?", "17",
+    ["$t_{\\text{ida}} = \\frac{0,10}{2} = 0,05 \\text{ s}$", "$d_{\\text{min}} = 340 \\cdot 0,05 = \\mathbf{17 \\text{ metros}}$ (se o obstáculo estiver a menos de 17 m, ocorre reverberação e não eco distinto!)."]);
+
+addQ(5,'calc',"Uma onda na superfície de um tanque de testes tem frequência $f = 20 \\text{ Hz}$ e atinge uma fenda de largura $d = 15 \\text{ cm}$. Para que ocorra difração ótima com $\\lambda = d = 0,15 \\text{ m}$, qual deve ser a velocidade da onda em m/s ($v = \\lambda \\cdot f$)?", "3",
+    ["$v = \\lambda \\cdot f = 0,15 \\cdot 20 = \\mathbf{3 \\text{ m/s}}$."]);
+
+addQ(5,'calc',"Em uma refração, a velocidade de uma onda cai em $20\\%$ (ou seja, $v_2 = 0,80 \\cdot v_1$). Se o comprimento de onda inicial era $\\lambda_1 = 5 \\text{ metros}$, qual será o comprimento $\\lambda_2$ em metros?", "4",
+    ["Como $\\lambda \\propto v$, temos $\\lambda_2 = 0,80 \\cdot \\lambda_1 = 0,80 \\cdot 5 = \\mathbf{4 \\text{ metros}}$."]);
+
+addQ(5,'calc',"Um sinal sonoro mecânico de $1700 \\text{ Hz}$ passa do ar ($v_1 = 340 \\text{ m/s}$) para uma barra de ferro ($v_2 = 5100 \\text{ m/s}$). Calcule a razão de expansão do comprimento de onda ($\\frac{\\lambda_{\\text{ferro}}}{\\lambda_{\\text{ar}}} = \\frac{v_2}{v_1}$).", "15",
+    ["$\\text{Razão} = \\frac{5100}{340} = \\mathbf{15}$ vezes maior."]);
+
+addQ(5,'calc',"Um pulso viaja em uma corda a $10 \\text{ m/s}$ e reflete em uma ponta livre. Se o comprimento da corda é $5 \\text{ metros}$, quantos segundos o pulso gasta para fazer o ciclo completo de ida e volta ($10 \\text{ m}$)?", "1",
+    ["$\\Delta s = 5 + 5 = 10 \\text{ metros}$", "$t = \\frac{10}{10} = \\mathbf{1 \\text{ segundo}}$."]);
+
+// ==========================================
+// TEMA 6: Fenômenos Ondulatórios II - Interferência, Polarização e Ressonância (76-90)
+// ==========================================
+addQ(6,'theo',"Duas ondas periódicas de mesma frequência e mesma amplitude propagam-se em sentidos opostos na mesma corda e colidem. No ponto em que a crista de uma coincide perfeitamente com o vale da outra, ocorre:", "C",
+    ["A superposição de crista com vale de mesma amplitude gera interferência destrutiva total, resultando em elongação e amplitude resultantes temporariamente nulas."],
+    ["A) Uma explosão mecânica da corda.", "B) Interferência construtiva com amplitude quadruplicada.", "C) Interferência destrutiva total, com amplitude resultante nula naquele ponto.", "D) Desvio do feixe em 90 graus."]);
+
+addQ(6,'theo',"A tecnologia de Cancelamento Ativo de Ruído (Active Noise Cancelling - ANC) presente em fones de ouvido modernos baseia-se diretamente no princípio da:", "B",
+    ["O circuito capta o som do ambiente e produz em tempo real uma onda em oposição de fase de 180°, anulando o som externo por interferência puramente destrutiva."],
+    ["A) Refração total da onda sonoro no tímpano.", "B) Interferência destrutiva de ondas sonoras defasadas de 180°.", "C) Polarização magnética do ar.", "D) Ressonância acústica amplificadora."]);
+
+addQ(6,'theo',"Por que é estritamente proibido que pelotões de soldados marchem em cadência compassada ao cruzarem pontes suspensas?", "A",
+    ["Se a frequência do passo cadenciado dos soldados coincidir com uma das frequências naturais de vibração da ponte, ocorrerá ressonância mecânica. A amplitude das oscilações da estrutura crescerá até provocar colapso catastrófico."],
+    ["A) Para evitar o fenômeno da Ressonância Mecânica, que pode amplificar descontroladamente as oscilações da ponte e derrubá-la.", "B) Para não espantar os peixes do rio abaixo.", "C) Porque a marcha gera polarização magnética no aço.", "D) Porque o peso dos soldados quadruplica durante a marcha."]);
+
+addQ(6,'theo',"Ao usar óculos de sol com lentes 'Polaroid' (polarizadas), percebe-se a eliminação expressiva dos reflexos cegantes da luz solar na água de uma piscina ou no asfalto. Isso é possível porque:", "D",
+    ["A luz solar ao refletir em superfícies horizontais torna-se predominantemente polarizada no plano horizontal. As lentes polarizadas com eixo de transmissão vertical bloqueiam essa luz horizontal."],
+    ["A) A água emite som ultrasônico que quebra os fótons.", "B) Os óculos absorvem todo o calor e esfriam a água.", "C) A luz é uma onda puramente longitudinal.", "D) A luz refletida é parcialmente polarizada na horizontal, e a lente com filtro vertical bloqueia essa componente refletida."]);
+
+addQ(6,'theo',"Quando duas ondas senoidais idênticas propagam-se em sentidos opostos em uma corda de extremidades fixas, a superposição contínua produz uma 'Onda Estacionária'. Os pontos da corda que NUNCA se movem (amplitude sempre nula) são chamados de:", "C",
+    ["Numa onda estacionária, os pontos de interferência destrutiva permanente e amplitude nula são os Nós (ou Nodos). Os pontos de máxima oscilação são os Ventres (ou Antinós)."],
+    ["A) Ventres ou Antinós.", "B) Cristas giratórias.", "C) Nós ou Nodos.", "D) Focos de difração."]);
+
+// Cálculos Tema 6
+addQ(6,'calc',"Dois pulsos de onda encontram-se no meio de uma corda em interferência construtiva perfeita. Se o primeiro pulso tem amplitude $A_1 = 6 \\text{ cm}$ e o segundo tem $A_2 = 8 \\text{ cm}$, qual será a amplitude máxima da crista resultante em centímetros ($A = A_1 + A_2$)?", "14",
+    ["Na interferência construtiva em fase: $A_{\\text{res}} = A_1 + A_2$", "$A_{\\text{res}} = 6 + 8 = \\mathbf{14 \\text{ cm}}$."]);
+
+addQ(6,'calc',"Se os mesmos dois pulsos da questão anterior ($A_1 = 6 \\text{ cm}$ e $A_2 = 8 \\text{ cm}$) chegassem em oposição de fase de 180° (uma crista contra um vale), qual seria a amplitude resultante em centímetros ($A_{\\text{res}} = |A_2 - A_1|$)?", "2",
+    ["Na interferência destrutiva: $A_{\\text{res}} = |A_2 - A_1|$", "$A_{\\text{res}} = |8 - 6| = \\mathbf{2 \\text{ cm}}$."]);
+
+addQ(6,'calc',"Duas fontes sonoras coerentes em fase emitem ondas com comprimento $\\lambda = 2 \\text{ metros}$. Para haver interferência CONSTRUTIVA em um ponto $P$, a diferença de caminhos deve ser $\\Delta x = n \\cdot \\lambda$ (com $n = 1, 2, 3...$). Se a distância da fonte 1 é $d_1 = 10 \\text{ m}$ e a distância da fonte 2 é $d_2 = 16 \\text{ m}$, qual o valor da diferença de caminho $\\Delta x = d_2 - d_1$ em metros?", "6",
+    ["$\\Delta x = 16 - 10 = \\mathbf{6 \\text{ metros}}$ (como $6 = 3 \\times 2$, temos $n=3$, confirmando interferência construtiva!)."]);
+
+addQ(6,'calc',"Para haver interferência DESTRUTIVA total entre fontes em fase, a diferença de caminho deve ser um múltiplo semi-inteiro: $\\Delta x = (2n + 1) \\frac{\\lambda}{2}$. Se $\\lambda = 4 \\text{ metros}$, qual é a menor diferença de caminhos não nula ($n = 0$) em metros para anulação do som?", "2",
+    ["$\\Delta x = (2 \\cdot 0 + 1) \\frac{4}{2} = 1 \\cdot 2 = \\mathbf{2 \\text{ metros}}$."]);
+
+addQ(6,'calc',"Em uma onda estacionária, a distância entre dois nós consecutivos é igual a meio comprimento de onda: $d_{\\text{nós}} = \\frac{\\lambda}{2}$. Se a distância medida entre dois nós adjacentes é de $0,40 \\text{ metros}$, qual é o comprimento de onda $\\lambda$ em metros?", "0.8",
+    ["$0,40 = \\frac{\\lambda}{2} \\rightarrow \\lambda = 2 \\times 0,40 = \\mathbf{0,80 \\text{ m}}$."]);
+
+addQ(6,'calc',"Uma corda de violão de $L = 0,60 \\text{ m}$ de comprimento vibra no seu modo fundamental (primeiro harmônico), onde $L = \\frac{\\lambda}{2}$. Calcule o comprimento da onda fundamental $\\lambda$ em metros.", "1.2",
+    ["$0,60 = \\frac{\\lambda}{2} \\rightarrow \\lambda = 2 \\times 0,60 = \\mathbf{1,20 \\text{ metros}}$."]);
+
+addQ(6,'calc',"Se a velocidade da onda na corda de violão da questão anterior é $v = 480 \\text{ m/s}$ e $\\lambda = 1,20 \\text{ m}$, qual é a frequência fundamental de ressonância em Hertz ($f = \\frac{v}{\\lambda}$)?", "400",
+    ["$f = \\frac{v}{\\lambda} = \\frac{480}{1,20} = \\mathbf{400 \\text{ Hz}}$."]);
+
+addQ(6,'calc',"O segundo harmônico de uma corda possui frequência igual ao dobro da fundamental ($f_2 = 2 \\cdot f_1$). Se $f_1 = 400 \\text{ Hz}$, qual a frequência do segundo harmônico em Hertz?", "800",
+    ["$f_2 = 2 \\times 400 = \\mathbf{800 \\text{ Hz}}$."]);
+
+addQ(6,'calc',"A Lei de Malus estabelece que a intensidade da luz após passar por um filtro polarizador é $I = I_0 \\cdot \\cos^2(\\theta)$. Se o ângulo entre o polarizador e o analisador for $\\theta = 60^\\circ$ (onde $\\cos(60^\\circ) = 0,5$), por qual fator a intensidade inicial $I_0$ é multiplicada? ($0,5^2$).", "0.25",
+    ["Fator $= \\cos^2(60^\\circ) = (0,5)^2 = \\mathbf{0,25}$ (passa apenas $25\\%$ da luz)."]);
+
+addQ(6,'calc',"Uma taça de cristal possui frequência natural de ressonância de $850 \\text{ Hz}$. Se a velocidade do som no ar é $340 \\text{ m/s}$, qual comprimento de onda sonoro deve ser cantado por um tenor para quebrar a taça por ressonância em metros ($\\lambda = \\frac{v}{f}$)?", "0.4",
+    ["$\\lambda = \\frac{v}{f} = \\frac{340}{850} = \\mathbf{0,40 \\text{ metros}}$ (ou $40 \\text{ cm}$)."]);
+
+let currentTheme = 'all';
+let solved = new Set(JSON.parse(localStorage.getItem('fisicaOndasSolved')||'[]'));
+
+function renderExercises() {
+    const listDiv = $('exercise-list');
+    let html = '';
+    
+    exercisesData.forEach(ex => {
+        if (currentTheme !== 'all' && ex.theme != currentTheme) return;
+        
+        const isSolved = solved.has(ex.id);
+        const borderColor = isSolved ? 'border-emerald-400' : 'border-sky-100';
+        const badgeColor = isSolved ? 'bg-emerald-100 text-emerald-800' : 'bg-sky-100 text-sky-800';
+        const themeNames = [
+          "", 
+          "Conceito & Energia", 
+          "Natureza das Ondas", 
+          "Vibração & Dimensões", 
+          "Elementos & Equação", 
+          "Fenômenos I (Reflexão/Refração/Difração)", 
+          "Fenômenos II (Interferência/Polarização/Ressonância)"
+        ];
+        
+        let questionBody = `<p class="mt-3 text-slate-700 mb-4 text-sm leading-6">${ex.q}</p>`;
+        
+        if (ex.type === 'theo' && ex.opts) {
+            questionBody += `<div class="space-y-2 mb-4 text-sm text-slate-600">`;
+            ex.opts.forEach(opt => {
+                questionBody += `<div class="p-2 bg-slate-50 rounded-lg border border-slate-100">${opt}</div>`;
+            });
+            questionBody += `</div>`;
+        }
+
+        html += `
+        <article class="bg-white rounded-2xl border ${borderColor} p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div class="flex justify-between gap-3 items-center">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full ${badgeColor}">Questão ${ex.id}</span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">TEMA ${ex.theme}: ${themeNames[ex.theme]}</span>
+            </div>
+            
+            ${questionBody}
+            
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" type="text" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="${ex.type==='theo' ? 'Letra (A, B, C, D)' : 'Valor numérico'}">
+                <button onclick="checkAnswer(${ex.id})" class="bg-sky-600 hover:bg-sky-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition shadow-sm">Conferir</button>
+            </div>
+            
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+            
+            <button onclick="document.getElementById('sol-${ex.id}').classList.toggle('hidden')" class="mt-3 text-sm font-bold text-sky-700 hover:underline">
+                👁 Mostrar explicação / cálculo
+            </button>
+            
+            <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t border-sky-100 pt-4">
+                <div class="text-xs uppercase tracking-widest font-black text-sky-800 mb-3">Resolução Passo a Passo</div>
+                ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+                <div class="success rounded-xl p-4 text-center font-bold mt-2 text-emerald-900">Resposta Correta: ${ex.ans}</div>
+            </div>
+        </article>
+        `;
+    });
+    
+    listDiv.innerHTML = html;
+    updateProgress();
+    renderAll();
+}
+
+function checkAnswer(id) {
+    const ex = exercisesData.find(x => x.id === id);
+    const inputEl = $(`ans-${id}`);
+    const fbEl = $(`fb-${id}`);
+    
+    let rawInput = inputEl.value.trim().toUpperCase();
+    if(ex.type === 'calc') {
+        rawInput = rawInput.replace(',', '.'); 
+    }
+
+    let isCorrect = false;
+    
+    if (ex.type === 'theo') {
+        isCorrect = (rawInput === ex.ans);
+    } else {
+        const numIn = parseFloat(rawInput);
+        const numAns = parseFloat(ex.ans);
+        if(!isNaN(numIn) && Math.abs(numIn - numAns) <= 0.05) {
+            isCorrect = true;
+        }
+    }
+
+    if (isCorrect) {
+        solved.add(id);
+        localStorage.setItem('fisicaOndasSolved', JSON.stringify([...solved]));
+        fbEl.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fbEl.textContent = '✓ Excelente! Resposta correta.';
+        setTimeout(renderExercises, 400); 
+    } else {
+        fbEl.className = 'text-sm font-bold mt-2 text-red-500';
+        fbEl.textContent = '✗ Não está certo. Revise a fórmula v = λ·f e tente novamente!';
+    }
+}
+
+function updateProgress() {
+    const max = exercisesData.length;
+    const current = solved.size;
+    $('progress-text').textContent = `${current} / ${max}`;
+    $('progress-bar').style.width = `${(current/max)*100}%`;
+}
+
+// Filtros de Tema
+document.querySelectorAll('.level-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active', 'bg-sky-600', 'text-white'));
+        document.querySelectorAll('.level-btn:not(.active)').forEach(b => b.classList.add('bg-slate-100'));
+        
+        btn.classList.add('active');
+        btn.classList.remove('bg-slate-100');
+        
+        currentTheme = btn.dataset.theme;
+        renderExercises();
+    };
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderExercises();
+    renderAll();
+    // Ativa animação do canvas se estiver visível
+    const sliderA = $('slider-amp');
+    const sliderF = $('slider-freq');
+    const sliderV = $('slider-vel');
+    if(sliderA && sliderF && sliderV) {
+      sliderA.addEventListener('input', startCanvasAnimation);
+      sliderF.addEventListener('input', startCanvasAnimation);
+      sliderV.addEventListener('input', startCanvasAnimation);
+    }
+});
+</script>
+</body>
+</html>

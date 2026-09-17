@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física — Propagação do Calor</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {--ink: #4c0519; --paper: #fff1f2; --line: #fecdd3; --accent: #e11d48}
+  body {background: #fff1f2; color: var(--ink)}
+  .tab-btn.active {color: #be123c; border-bottom-color: #be123c; font-weight: 800}
+  .paper {background: var(--paper); background-image: linear-gradient(#ffe4e6 1px, transparent 1px); background-size: 100% 2rem; border: 1px solid #fda4af; box-shadow: 0 8px 24px #4c05190d}
+  .step {position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #fecdd3; border-radius: 1rem; background: white}
+  .step::before {content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #ffe4e6; color: #e11d48; font-weight: 800; display: grid; place-items: center; font-size: .8rem}
+  .level-btn.active {background: #e11d48; color: white}
+  .exercise-solution {animation: fade .2s ease}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  .tip {border-left: 4px solid #f59e0b; background: #fffbeb}
+  .success {border-left: 4px solid #10b981; background: #ecfdf5}
+  .warning {border-left: 4px solid #ef4444; background: #fef2f2}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-rose-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-rose-900">🔥 Viagem do Calor</div><div class="text-[11px] text-slate-500 hidden sm:block">Fluxo, Condução, Convecção e Irradiação</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-rose-950 via-rose-900 to-amber-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-rose-300">Termodinâmica na Prática</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Como o Calor Viaja?</h1>
+  <p class="mt-4 max-w-3xl text-rose-100 leading-7">O calor é uma energia inquieta. Ele odeia a diferença e está sempre viajando do corpo mais quente para o mais frio na tentativa de equilibrar o universo. Mas como ele faz essa viagem? Descubra os três meios de transporte da energia térmica.</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm text-sm">
+  <b>A Analogia do Balde d'Água:</b> Imagine um incêndio onde pessoas precisam levar água de um tanque até o fogo.<br>
+  1. <b>Condução:</b> As pessoas formam uma fila e passam o balde de mão em mão (molécula a molécula).<br>
+  2. <b>Convecção:</b> As pessoas pegam o balde e correm com ele até o fogo (a própria matéria se move).<br>
+  3. <b>Irradiação:</b> As pessoas usam uma mangueira para esguichar a água diretamente de longe pelo ar (ondas eletromagnéticas viajando no vazio).
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tema 1: Fluxo de Calor -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">Fluxo de Calor (\(\Phi\))</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Antes de estudar <i>como</i> ele viaja, precisamos medir <i>o quão rápido</i> ele viaja. O Fluxo de Calor (\(\Phi\)) é a quantidade de energia térmica (\(Q\)) que atravessa uma superfície em um certo intervalo de tempo (\(\Delta t\)).</p>
+   <div class="paper text-center py-4 mt-3 font-bold rounded-lg text-lg">\[\Phi = \frac{Q}{\Delta t}\]</div>
+   <ul class="list-disc pl-5 mt-4 text-sm text-slate-600 space-y-2">
+    <li><b>Unidades:</b> cal/s ou Joules/segundo (que é exatamente o <b>Watt</b>).</li>
+    <li><b>Regime Estacionário:</b> Quando a temperatura das extremidades não muda mais, o fluxo de calor se torna constante (não há mais acúmulo de energia no meio).</li>
+   </ul>
+  </article>
+
+  <!-- Tema 2: Condução Térmica -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Condução Térmica</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">É a propagação do calor <b>sem o transporte de matéria</b>. Ocorre principalmente nos <b>sólidos</b>. As moléculas quentes vibram muito, batem nas vizinhas e transferem essa vibração gradativamente.</p>
+   
+   <div class="bg-amber-50 rounded-xl p-3 border border-amber-100 mt-3">
+     <b class="text-amber-900 text-sm">A Lei de Fourier</b>
+     <p class="text-xs text-slate-600 mt-1">O fluxo (\(\Phi\)) numa parede depende do material (\(k\)), da área (\(A\)), da diferença de temperatura (\(\Delta T\)) e da espessura da parede (\(L\) ou \(e\)).</p>
+     <div class="text-center mt-2 font-bold text-amber-900 text-lg">\[\Phi = \frac{k \cdot A \cdot \Delta T}{L}\]</div>
+   </div>
+   <p class="text-[11px] text-slate-500 mt-3">Metais têm 'k' alto (Bons Condutores). Isopor, madeira e ar têm 'k' muito baixo (Isolantes Térmicos).</p>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black">3</span><h2 class="text-2xl font-black">Convecção Térmica</h2></div>
+  <p class="text-sm text-slate-600 mt-3 mb-4">Acontece EXCLUSIVAMENTE nos fluidos (<b>líquidos e gases</b>). Ocorre através de correntes de massa (a própria matéria quente viaja). Quando um fluido esquenta, ele se expande, fica <b>menos denso (mais leve) e SOBE</b>. O fluido frio, mais denso, desce para ocupar o lugar, criando um ciclo contínuo.</p>
+  
+  <div class="grid lg:grid-cols-2 gap-4">
+   <div class="border rounded-xl p-4 bg-sky-50">
+    <h3 class="font-bold text-sky-800 text-sm">Na Geladeira e Ar-condicionado</h3>
+    <p class="text-xs text-slate-600 mt-1">O congelador (ou ar-condicionado) deve ficar no <b>ALTO</b>. Ele gela o ar, esse ar frio fica denso (pesado) e desce, empurrando o ar quente (leve) lá de baixo para cima, onde será resfriado. Isso esfria todo o ambiente.</p>
+   </div>
+   <div class="border rounded-xl p-4 bg-orange-50">
+    <h3 class="font-bold text-orange-800 text-sm">Brisas Litorâneas</h3>
+    <p class="text-xs text-slate-600 mt-1">De <b>dia</b>: a areia esquenta rápido, o ar sobre ela sobe. O ar mais frio do mar vem para a praia (Brisa Marítima).<br>De <b>noite</b>: a areia esfria rápido, o mar continua morno. O ar sobre o mar sobe e puxa o ar da terra (Brisa Terrestre).</p>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tema 4: Irradiação -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Irradiação Térmica</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">É a única forma de propagação de calor que ocorre no <b>vácuo</b> (mas também passa por gases e vidros). A energia viaja na forma de <b>Ondas Eletromagnéticas</b> (principalmente luz infravermelha).</p>
+   
+   <ul class="list-disc pl-5 mt-3 text-sm text-slate-600 space-y-2">
+    <li>É assim que o calor do Sol chega à Terra, cruzando o espaço vazio.</li>
+    <li><b>Cores:</b> O Preto (e superfícies foscas) absorve muita radiação e esquenta rápido. O Branco (e superfícies polidas/espelhadas) reflete a radiação.</li>
+    <li>Todo corpo acima do Zero Absoluto emite irradiação. A potência emitida cresce absurdamente com a Temperatura (\(P \propto T^4\), Lei de Stefan-Boltzmann).</li>
+   </ul>
+  </article>
+  
+  <!-- Enriquecimento: Garrafa Térmica -->
+  <article class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl border border-slate-700 p-6 shadow-sm text-white">
+   <div class="flex items-center gap-3"><span class="text-2xl">☕</span><h2 class="text-xl font-black text-rose-200">A Genialidade do Vaso de Dewar</h2></div>
+   <p class="mt-3 text-slate-300 text-sm">A garrafa térmica foi criada para bloquear as TRÊS formas de propagação de calor ao mesmo tempo:</p>
+   
+   <div class="space-y-3 mt-4 text-xs">
+    <div class="bg-white/10 p-3 rounded-lg border border-white/5">
+     <b class="text-rose-300">Contra a Condução:</b> Ela tem paredes duplas (uma garrafa dentro da outra) e o ar entre elas é sugado, criando um <b>VÁCUO</b>. A condução precisa de moléculas para existir, então o calor trava ali!
+    </div>
+    <div class="bg-white/10 p-3 rounded-lg border border-white/5">
+     <b class="text-sky-300">Contra a Convecção:</b> Como há o Vácuo, não há fluido circulando ali. Além disso, uma tampa hermética impede o ar quente do café de subir e fugir.
+    </div>
+    <div class="bg-white/10 p-3 rounded-lg border border-white/5">
+     <b class="text-amber-300">Contra a Irradiação:</b> As paredes de vidro por dentro são pintadas de <b>ESPELHO</b> (prateadas). O espelho reflete as ondas infravermelhas de volta para o líquido.
+    </div>
+   </div>
+  </article>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-rose-600">Simuladores Térmicos</span><h1 class="text-3xl font-black mt-2">Laboratório de Isolamento</h1><p class="text-slate-600 mt-2 text-sm">Utilize as leis matemáticas para prever a perda de calor através de paredes e o impacto das ondas eletromagnéticas.</p></div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Lab Fourier -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl text-rose-900">Calculadora de Parede (Fourier)</h2>
+   <p class="text-xs text-slate-500 mb-4">Descubra quantos Joules por segundo fogem pela parede da sua casa no inverno.</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Condutividade do Material ($k$):<br><span class="text-[10px] text-slate-400">Tijolo=0.6, Vidro=0.8, Cobre=400</span></label><input id="lab-k" type="number" value="0.6" step="0.1" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Área da Parede ($m^2$):</label><input id="lab-a" type="number" value="10" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Dif. de Temp. (Dentro/Fora) ($\Delta T$):</label><input id="lab-dt" type="number" value="15" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Espessura da Parede ($L$ em metros):</label><input id="lab-l" type="number" value="0.2" step="0.05" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcFourier()" class="mt-4 w-full bg-rose-600 hover:bg-rose-700 text-white rounded-xl py-3 font-bold transition">Calcular Fluxo ($\Phi$)</button>
+   <div id="out-fourier" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+
+  <!-- Lab Stefan-Boltzmann (Proporcional) -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl text-amber-900">Potência Irradiada (Proporção)</h2>
+   <p class="text-xs text-slate-500 mb-4">Todo corpo quente brilha no infravermelho. A Lei de Stefan-Boltzmann diz que a energia emitida é proporcional à Temperatura Absoluta na quarta potência ($T^4$).</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Potência Inicial Emitida (Watts):</label><input id="lab-p0" type="number" value="100" class="border rounded-xl px-2 py-1 w-24 text-center bg-slate-50"></div>
+    <div class="flex items-center justify-between"><label>Fator de Aumento da Temp. Absoluta (Kelvin):<br><span class="text-[10px] text-slate-400">Ex: 2 significa que o Kelvin dobrou</span></label><input id="lab-fatorT" type="number" value="2" step="0.5" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcStefan()" class="mt-4 w-full bg-amber-600 hover:bg-amber-700 text-white rounded-xl py-3 font-bold transition">Estimar Nova Potência</button>
+   <div id="out-stefan" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-rose-600">Treino Progressivo</span><h1 class="text-3xl font-black mt-2">60 Questões Resolvidas</h1><p class="text-slate-600 mt-2 text-sm"><b>Teoria:</b> digite a letra (A, B, C, D). <b>Cálculos:</b> digite apenas o número (use '.' ou ',' para decimais).</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold text-rose-900"><span>Progresso</span><span id="progress-text">0 / 60</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-rose-500 transition-all duration-500 rounded-full" style="width:0%"></div></div></div></div></div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters">
+  <button data-theme="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold transition">Todos</button>
+  <button data-theme="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T1: Fluxo de Calor</button>
+  <button data-theme="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T2: Condução Térmica</button>
+  <button data-theme="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T3: Convecção Térmica</button>
+  <button data-theme="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T4: Irradiação Térmica</button>
+ </div></div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+</main>
+
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo • Física — Processos de Propagação de Calor</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Tab Navigation
+const sections=['teoria','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises();}));
+
+// Calculators
+function calcFourier(){
+    const k = +$('lab-k').value;
+    const a = +$('lab-a').value;
+    const dt = +$('lab-dt').value;
+    const l = +$('lab-l').value;
+    
+    if (l <= 0) {
+        $('out-fourier').innerHTML = `<b class="text-red-500">A espessura deve ser maior que zero.</b>`;
+        $('out-fourier').classList.remove('hidden');
+        return;
+    }
+    
+    const fluxo = (k * a * dt) / l;
+    
+    let h = `<b>1. Lei de Fourier:</b><br>`;
+    h += `\\[\\Phi = \\frac{k \\cdot A \\cdot \\Delta T}{L}\\]<br>`;
+    h += `<b>2. Substituindo os valores:</b><br>`;
+    h += `\\[\\Phi = \\frac{${k} \\cdot ${a} \\cdot ${dt}}{${l}}\\]<br>`;
+    h += `\\[\\Phi = \\frac{${(k*a*dt).toFixed(2)}}{${l}}\\]<br><br>`;
+    h += `<b>3. Resultado do Fluxo:</b><br>`;
+    h += `Estão fugindo <b class="text-rose-700">${fluxo.toFixed(2)} Joules a cada segundo</b> pela parede (ou ${fluxo.toFixed(2)} Watts).`;
+    
+    $('out-fourier').innerHTML = h;
+    $('out-fourier').classList.remove('hidden');
+    renderAll();
+}
+
+function calcStefan(){
+    const p0 = +$('lab-p0').value;
+    const fT = +$('lab-fatorT').value;
+    
+    // Potência final é P0 * (fatorT ^ 4)
+    const factor4 = Math.pow(fT, 4);
+    const pFinal = p0 * factor4;
+    
+    let h = `<b>1. A Lei de Stefan-Boltzmann:</b><br>`;
+    h += `A energia irradiada cresce de forma muito violenta com a temperatura absoluta: $P \\propto T^4$.<br><br>`;
+    h += `<b>2. Efeito do multiplicador:</b><br>`;
+    h += `Como a Temperatura em Kelvin foi multiplicada por ${fT}, a Potência será multiplicada por ${fT} elevado a 4.<br>`;
+    h += `\\[Fator = ${fT}^4 = ${factor4.toFixed(2)}\\]<br><br>`;
+    h += `<b>3. Nova Potência Irradiada:</b><br>`;
+    h += `\\[P_{final} = ${p0} \\cdot ${factor4.toFixed(2)} = \\mathbf{${pFinal.toFixed(2)} \\text{ Watts}}\\]<br>`;
+    h += `<span class="text-xs text-slate-500">Isso explica por que uma fogueira esquenta tanto a distância de repente quando colocamos mais lenha.</span>`;
+    
+    $('out-stefan').innerHTML = h;
+    $('out-stefan').classList.remove('hidden');
+    renderAll();
+}
+
+const exercisesData = [];
+let exId = 1;
+const addQ = (th, ty, q, ans, steps, opts=[]) => { exercisesData.push({ id: exId++, theme: th, type: ty, q, ans, steps, opts }); };
+
+// TEMA 1: Fluxo de Calor (1-15)
+addQ(1,'theo',"O que o Fluxo de Calor ($\\Phi$) mede na física térmica?", "A", ["O fluxo é uma taxa (velocidade) de transferência de energia. É Calor dividido por Tempo."], ["A) A quantidade de energia térmica transferida em um intervalo de tempo.", "B) A temperatura máxima que uma parede suporta.", "C) O calor específico da substância.", "D) A distância que o calor percorre no vácuo."]);
+addQ(1,'theo',"Qual a unidade oficial do Fluxo de Calor no Sistema Internacional (SI)?", "D", ["No SI, Calor = Joule e Tempo = Segundo. Joule/s = Watt."], ["A) Caloria", "B) Grau Celsius", "C) Joule", "D) Watt (Joules por segundo)"]);
+addQ(1,'theo',"Quando dizemos que uma barra de metal atingiu o 'Regime Estacionário', o que isso significa?", "B", ["No regime estacionário, a temperatura não muda mais nas extremidades e não há retenção de calor. Tudo que entra de calor numa ponta sai na outra de forma constante."], ["A) A barra derreteu.", "B) A temperatura em cada ponto da barra não muda mais com o tempo e o fluxo de calor é constante.", "C) O fluxo de calor parou totalmente.", "D) A barra virou um isolante térmico."]);
+addQ(1,'theo',"Se uma máquina térmica aumenta a quantidade de energia térmica transmitida (Q), mas realiza isso no mesmo intervalo de tempo, o que acontece com o fluxo de calor?", "C", ["$\\Phi = Q / \\Delta t$. Se Q aumenta, o Fluxo aumenta de forma diretamente proporcional."], ["A) Permanece inalterado.", "B) Diminui.", "C) Aumenta.", "D) Fica negativo."]);
+addQ(1,'theo',"Se duas janelas idênticas estão sendo analisadas, mas pela Janela 1 passam 500 Joules em 10 segundos, e pela Janela 2 passam 500 Joules em 5 segundos. Qual tem maior fluxo térmico?", "B", ["Janela 2 faz a mesma coisa na metade do tempo, logo o fluxo é o dobro de rápido."], ["A) A Janela 1.", "B) A Janela 2.", "C) Ambas têm o mesmo fluxo.", "D) Depende do material do vidro."]);
+
+addQ(1,'calc',"Uma parede transfere $4000 \\text{ Joules}$ de calor para o ambiente externo em $20 \\text{ segundos}$. Qual é o fluxo de calor ($\\Phi$) em Watts (J/s)?", "200", ["$\\Phi = Q / \\Delta t$", "$\\Phi = 4000 / 20 = 200 \\text{ W}$"]);
+addQ(1,'calc',"Um aquecedor tem um fluxo de calor constante de $1500 \\text{ W}$ (J/s). Quantos Joules de energia térmica ele transfere em 1 minuto ($60 \\text{ s}$)?", "90000", ["$\\Phi = Q / \\Delta t \\rightarrow 1500 = Q / 60$", "$Q = 1500 \\cdot 60 = 90000 \\text{ J}$"]);
+addQ(1,'calc',"Se $1 \\text{ caloria}$ equivale a $4 \\text{ Joules}$ (aproximação). Uma panela recebe um fluxo de calor do fogão de $500 \\text{ cal/s}$. Qual é esse fluxo em Watts (Joules/s)?", "2000", ["$\\Phi = 500 \\text{ cal/s}$", "Convertendo: $500 \\cdot 4 = 2000 \\text{ J/s} = 2000 \\text{ W}$"]);
+addQ(1,'calc',"Pelo telhado de uma casa vazam $30.000 \\text{ calorias}$ em $5 \\text{ minutos}$. Qual é o fluxo de calor em cal/min?", "6000", ["$\\Phi = 30000 / 5 = 6000 \\text{ cal/min}$"]);
+addQ(1,'calc',"Baseado na questão anterior (Fluxo = $6000 \\text{ cal/min}$). Qual é o fluxo térmico em cal/s? (Lembre que 1 min = 60 s).", "100", ["$\\Phi = Q / \\Delta t_{segundos}$", "$\\Phi = 6000 / 60 = 100 \\text{ cal/s}$"]);
+addQ(1,'calc',"Um ferro de passar dissipa calor. Se o fluxo é de $800 \\text{ W}$, quanto tempo em segundos ele leva para dissipar $4800 \\text{ Joules}$?", "6", ["$\\Phi = Q / \\Delta t \\rightarrow 800 = 4800 / \\Delta t$", "$\\Delta t = 4800 / 800 = 6 \\text{ segundos}$"]);
+addQ(1,'calc',"Em Regime Estacionário, entram $250 \\text{ J/s}$ numa ponta da barra e não há fuga de calor pelas laterais. Qual o fluxo em Joules/s saindo na outra extremidade da barra?", "250", ["Regime estacionário sem perdas laterais: o fluxo que entra é exatamente o fluxo que sai da barra.", "Fluxo = $250 \\text{ J/s}$"]);
+addQ(1,'calc',"Um bloco de gelo precisa de $80.000 \\text{ calorias}$ para derreter totalmente. Se ele é colocado numa caixa térmica que permite um fluxo de entrada de apenas $400 \\text{ cal/s}$, quantos segundos ele levará para derreter?", "200", ["$\\Delta t = Q / \\Phi$", "$\\Delta t = 80000 / 400 = 200 \\text{ segundos}$"]);
+addQ(1,'calc',"Duas portas fechadas. A Porta A tem fluxo de $10 \\text{ W}$ e a Porta B tem fluxo de $15 \\text{ W}$. Se eu colocar as duas portas cobrindo buracos diferentes da mesma sala, qual será o fluxo total (W) vazando?", "25", ["O fluxo total de calor por áreas paralelas e independentes é a soma dos fluxos.", "Total = $10 + 15 = 25 \\text{ W}$"]);
+addQ(1,'calc',"Um ar-condicionado retira calor da sala a uma taxa (fluxo) de $3000 \\text{ W}$. A parede da sala permite a entrada de calor de $500 \\text{ W}$ do sol escaldante externo. Qual é o fluxo LÍQUIDO (efetivo) de resfriamento em Watts?", "2500", ["Fluxo Líquido = Fluxo de saída (ar-condicionado) - Fluxo de entrada (Sol).", "$3000 - 500 = 2500 \\text{ W}$ esfriando a sala."]);
+
+// TEMA 2: Condução Térmica (16-30)
+addQ(2,'theo',"A Condução Térmica é o processo de propagação de calor que se caracteriza por:", "A", ["A condução exige um meio material, pois funciona batendo átomo com átomo, sem que eles saiam do lugar geral (não há transporte de matéria visível)."], ["A) Propagar-se molécula a molécula, sem que haja transporte de matéria.", "B) Propagar-se apenas através de líquidos em movimento.", "C) Propagar-se através de ondas eletromagnéticas no vácuo.", "D) Ocorrer exclusivamente em materiais transparentes."]);
+addQ(2,'theo',"Em dias de inverno intenso no sul do Brasil, as pessoas usam casacos de lã Grossos. Fisicamente, qual a função da lã grossa?", "C", ["O frio não existe como energia. O casaco de lã não 'produz' calor (ele não tem bateria). A lã é cheia de bolsões de ar, que é um ótimo isolante térmico, e a espessura dificulta a condução do calor do corpo para a rua."], ["A) Produzir energia térmica para aquecer a pessoa.", "B) Absorver o frio das ruas.", "C) Atuar como um mau condutor (isolante), diminuindo o fluxo de calor do corpo para o ambiente.", "D) Facilitar a irradiação solar."]);
+addQ(2,'theo',"A Lei de Fourier ($ \\Phi = \\frac{k \\cdot A \\cdot \\Delta T}{L} $) mostra que o fluxo de calor através de uma parede é:", "B", ["Fluxo é DIRETAMENTE proporcional à Área (janela maior vaza mais frio) e ao $\\Delta T$. É INVERSAMENTE proporcional à espessura L (parede mais grossa, vaza menos)."], ["A) Inversamente proporcional à área da parede.", "B) Diretamente proporcional à área da parede e inversamente proporcional à sua espessura.", "C) Diretamente proporcional à espessura.", "D) Independente do material (k)."]);
+addQ(2,'theo',"Se eu trocar a porta de madeira ($k$ baixo) do forno por uma chapa de aço do mesmo tamanho e espessura ($k$ muito alto), o que acontece com a perda de calor do forno?", "A", ["O aço é um condutor muito melhor (maior k), então o calor fugirá do forno muito mais facilmente, aumentando o fluxo."], ["A) Aumenta muito, porque o metal é um excelente condutor de calor.", "B) Diminui, pois o metal segura a temperatura.", "C) Fica inalterado.", "D) A madeira resistiria mais à chama."]);
+addQ(2,'theo',"Ao pegar numa colher de pau e numa colher de alumínio esquecidas numa panela de água fervendo, por que você queima a mão na de alumínio e não na de pau?", "C", ["O calor caminha velozmente por todo o metal da colher até sua mão. Na madeira, o calor viaja de forma extremamente lenta."], ["A) A colher de pau não atinge 100°C na ponta da panela.", "B) O alumínio atrai a água.", "C) O alumínio é um ótimo condutor, transferindo calor rapidamente da água para a ponta onde sua mão está.", "D) A colher de pau esfria sozinha."]);
+
+addQ(2,'calc',"Uma janela de vidro ($k = 0,8$) tem área $A = 2 \\text{ m}^2$ e espessura fina $L = 0,004 \\text{ m}$. O quarto está a 20°C e a rua a 30°C ($\\Delta T = 10$). Qual o fluxo de calor em Watts (J/s) entrando no quarto?", "4000", ["$\\Phi = \\frac{k \\cdot A \\cdot \\Delta T}{L}$", "$\\Phi = \\frac{0,8 \\cdot 2 \\cdot 10}{0,004} = \\frac{16}{0,004}$", "$\\Phi = 4000 \\text{ W}$"]);
+addQ(2,'calc',"Temos uma barra de cobre de 1 metro de comprimento ($L = 1$). Área da seção é $0,01 \\text{ m}^2$. O $\\Delta T$ entre as pontas é de 100°C. Sabendo que o cobre tem altíssima condutividade $k = 400$, qual é o fluxo $\\Phi$ na barra?", "400", ["$\\Phi = \\frac{400 \\cdot 0,01 \\cdot 100}{1}$", "$\\Phi = \\frac{400}{1} = 400 \\text{ W}$"]);
+addQ(2,'calc',"Se eu duplicar a espessura (L) de uma parede de isopor (ou seja, isolar o dobro). Por qual fator numérico (fração decimal) o fluxo de calor ($\\Phi$) será multiplicado?", "0.5", ["Espessura L está no denominador.", "Se L é o dobro (x2), o fluxo cai pela metade (/2). Fator = 0.5."]);
+addQ(2,'calc',"Se eu abrir uma janela que tem o dobro da área ($A$) da anterior. Considerando o mesmo vidro e temperatura, o fluxo de calor aumentará quantas vezes?", "2", ["A Área ($A$) está no numerador.", "Se a área dobra (2x), o fluxo entra o dobro de calor."]);
+addQ(2,'calc',"O fluxo numa parede é $500 \\text{ W}$. Qual deve ser o valor de $\\Delta T$ (diferença de temp. dentro e fora) sabendo que a parede tem $A=10 \\text{ m}^2$, espessura $L = 0,2 \\text{ m}$ e $k = 0,5$?", "20", ["$\\Phi = \\frac{k \\cdot A \\cdot \\Delta T}{L}$", "$500 = \\frac{0,5 \\cdot 10 \\cdot \\Delta T}{0,2} \\rightarrow 500 = \\frac{5 \\cdot \\Delta T}{0,2}$", "$100 = 5 \\cdot \\Delta T \\rightarrow \\Delta T = 100 / 5 = 20^\\circ\\text{C}$"]);
+addQ(2,'calc',"Uma caixa térmica de acampamento tem todas as faces somando área de $1 \\text{ m}^2$. A espessura da parede plástica de isopor é $0,05 \\text{ m}$. A temperatura do gelo dentro é 0°C e o ar quente do parque é 40°C ($\\Delta T=40$). Se o fluxo vazando pra dentro é $32 \\text{ W}$, qual o $k$ do isopor?", "0.04", ["$32 = \\frac{k \\cdot 1 \\cdot 40}{0,05} \\rightarrow 32 = k \\cdot 800$", "$k = 32 / 800 = 0,04 \\text{ W/m.K}$"]);
+addQ(2,'calc',"Duas barras idênticas em tamanho e espessura ($A$ e $L$ iguais). A Barra A é de Prata ($k = 420$) e a Barra B é de Chumbo ($k = 35$). Quantas vezes a Prata transporta calor mais rápido (maior fluxo) que o Chumbo na mesma situação térmica?", "12", ["Como tudo o mais é igual, o fluxo é proporcional ao $k$.", "$Fator = 420 / 35 = 12$ vezes mais rápido!"]);
+addQ(2,'calc',"Uma barra condutora cilíndrica está em regime estacionário. A ponta quente (fogo) está a 100°C e a ponta fria (gelo) a 0°C. O comprimento total é 2 metros. Qual a temperatura exata no MEIO da barra (a 1 metro de distância de cada ponta)?", "50", ["Em regime estacionário e sem perdas laterais, a queda de temperatura é linear (proporcional à distância).", "Cai 100°C em 2m. No meio (1m), caiu metade (50°C).", "Logo, $100 - 50 = 50^\\circ\\text{C}$."]);
+addQ(2,'calc',"Usando o raciocínio da queda linear da questão anterior. Se a barra tem 50 cm e a ponta quente é 80°C e a ponta gelada 30°C (Diferença = 50°C). A temperatura cai $1^\\circ\\text{C}$ a cada centímetro ($50^\\circ / 50\\text{cm}$). Qual a temperatura a 20 cm medidos A PARTIR DA PONTA FRIA (30°C)?", "50", ["Se andou 20 cm do lado frio em direção ao quente, subiu $20 \\cdot 1 = 20^\\circ\\text{C}$.", "$30 + 20 = 50^\\circ\\text{C}$."]);
+addQ(2,'calc',"Uma parede é formada por duas camadas grudadadas: Tijolo de espessura 10 cm e Concreto de 10 cm. A espessura total ($L$) dobrou (20 cm) em relação a uma de só tijolo. Sabendo que materiais agregados aumentam a Resistência Térmica. Se eu tiver que esquentar a mesma casa, a condução ficou mais fácil ou difícil? (Digite 0 para Mais Fácil, 1 para Mais Difícil).", "1", ["Mais isolantes grudados somam espessura ($L$ aumenta e os 'k' dificultam) diminuindo fortemente o fluxo. Ficou muito mais difícil do calor vazar (Mais difícil = 1)."]);
+
+// TEMA 3: Convecção Térmica (31-45)
+addQ(3,'theo',"A propagação de calor por Convecção envolve um princípio essencial na física térmica dos fluidos:", "B", ["A convecção transporta energia porque O PRÓPRIO AR (ou água) viaja fisicamente, carregando sua energia térmica consigo para cima e para baixo."], ["A) As moléculas batem umas nas outras sem sair do lugar.", "B) Transporte real de matéria devido à diferença de densidades.", "C) Ondas atravessando o vácuo intergaláctico.", "D) Refração luminosa."]);
+addQ(3,'theo',"Por que a resistência elétrica que esquenta a água num ebulidor elétrico (rabo quente) ou num aquecedor de peixes deve ser colocada no FUNDO do recipiente?", "A", ["Se aquecer o topo, a água quente fica leve e boia, e o fundo continua gelado. Se aquecer o fundo, a água quente sobe e empurra a fria pra baixo para ser aquecida (Ciclo de Convecção)."], ["A) Para que a água quente suba (menos densa) e a fria desça, aquecendo todo o volume.", "B) Por estética.", "C) Porque a eletricidade foge pela borda.", "D) Porque a água não sofre dilatação."]);
+addQ(3,'theo',"Durante o dia na praia, a areia esquenta muito mais rápido que o mar (devido ao calor específico). Isso causa uma 'Brisa Marítima'. Como o ar se movimenta nessa brisa?", "B", ["A areia é o 'fogo'. O ar da areia sobe, cria um vazio de baixa pressão e 'chupa' o ar fresquinho do mar para o seu rosto."], ["A) Do alto da montanha em direção ao mar.", "B) O ar quente sobe na areia, e o ar mais frio que estava sobre o mar sopra em direção à praia para ocupar o espaço.", "C) Do continente escaldante para dentro do mar frio.", "D) É uma corrente marinha e não tem a ver com o vento."]);
+addQ(3,'theo',"Os balões de ar quente de passeio voam baseados em qual princípio?", "C", ["O maçarico esquenta o ar dentro do envelope de lona. Esse ar se dilata, fica 'leve' (menos denso que o ar externo) e o Princípio de Arquimedes o empurra para cima."], ["A) Radiação ultravioleta que repulsa o solo.", "B) Fumaça negra que puxa o balão.", "C) O ar quente dentro do balão fica menos denso que o ar frio externo e, portanto, sobe.", "D) Condução térmica da chama na lona."]);
+addQ(3,'theo',"A chaminé de uma fábrica serve para retirar a fumaça tóxica de dentro da oficina. Isso funciona naturalmente sem ventiladores porque:", "D", ["A fumaça é quente, logo é menos densa. Ela usa a chaminé como um tubo de subida direta. Quanto mais alta a chaminé, melhor a tiragem por convecção."], ["A) O vento lá em cima 'suga' magicamente.", "B) O tijolo atrai fuligem.", "C) A cor negra da fumaça absorve gravidade.", "D) O gás de exaustão é muito quente e, sendo menos denso, sobe pela chaminé como um duto natural de convecção."]);
+
+addQ(3,'calc',"Numa sala fechada, um aquecedor no chão jorra $500 \\text{ W}$ de calor. Todo o ar da sala precisa de $30.000 \\text{ J}$ de energia total ($Q = mc\\Delta T$) para subir de 15°C para 25°C. Levando em conta as perfeitas correntes de convecção que misturam o ar, quantos segundos levará para a sala atingir o conforto?", "60", ["A convecção mistura o ar, e a fonte jorra $\\Phi = 500 \\text{ J/s}$.", "$500 = 30000 / \\Delta t \\rightarrow \\Delta t = 30000 / 500 = 60 \\text{ segundos}$."]);
+addQ(3,'calc',"A convecção na chaleira: $2 \\text{ kg}$ de água recebem fluxo térmico do fundo. Para aquecer a água de 20°C até ferver (100°C), precisa-se de energia ($Q = m \\cdot c \\cdot \\Delta T$). Sendo $c_{agua} = 4000 \\text{ J/kg.K}$ (arredondado). Calcule Q em Joules e digite o valor absoluto dividido por 1000 (ou seja, a resposta em kJ).", "640", ["$\\Delta T = 100 - 20 = 80^\\circ\\text{C}$", "$Q = 2 \\cdot 4000 \\cdot 80 = 640000 \\text{ Joules}$", "Em kJ: $640000 / 1000 = 640$."]);
+addQ(3,'calc',"Densidade e Convecção: Densidade = Massa/Volume. O ar frio num quarto tem Volume $1000 \\text{ Litros}$ e Massa $1,2 \\text{ kg}$. O ar quente do quarto tem Volume $1000 \\text{ Litros}$ e Massa $1,0 \\text{ kg}$ (ele se expandiu e perdeu massa no mesmo volume fixo imaginário). Qual a densidade do ar Frio em kg/Litro?", "0.0012", ["Densidade = $1,2 / 1000 = 0,0012 \\text{ kg/L}$."]);
+addQ(3,'calc',"Com base no exercício anterior, qual a diferença (subtração) entre a densidade do ar frio e a do ar quente ($1,0 / 1000$)?", "0.0002", ["Ar quente = $1,0 / 1000 = 0,0010 \\text{ kg/L}$.", "Diferença = $0,0012 - 0,0010 = 0,0002 \\text{ kg/L}$ (Isso explica por que o frio afunda, é mais pesado por Litro)."]);
+addQ(3,'calc',"Um balão de ar quente possui um duto de gás emitindo $10.000 \\text{ Joules/segundo}$ (Watts) para esquentar a lona inteira. Ele precisa voar. A câmara de ar interna requer $50.000 \\text{ Joules}$ para ficar leve o bastante para decolar. Quantos segundos de fogo contínuo são necessários?", "5", ["$\\Delta t = Q / \\Phi = 50000 / 10000 = 5 \\text{ segundos}$."]);
+addQ(3,'calc',"Convecção no manto da Terra gera o movimento das placas tectônicas. Se um bloco de magma gigante demora $1.000.000$ de anos para subir do núcleo à crosta. Quantos quilômetros ele viaja se a velocidade de convecção for de APENAS $0,003 \\text{ km/ano}$?", "3000", ["$\\Delta S = v \\cdot t = 0,003 \\cdot 1.000.000 = 3000 \\text{ km}$."]);
+addQ(3,'calc',"Um fluido tem comportamento anômalo: não muda de densidade com a temperatura. A convecção térmica natural ocorreria nesse líquido no espaço sideral com zero gravidade? (Digite 0 para NÃO, 1 para SIM).", "0", ["A convecção precisa do princípio de Arquimedes (flutuação), que depende de diferentes densidades brigando sob efeito da gravidade. Zero gravidade ou sem variação de densidade = Sem convecção natural (Resposta: 0)."]);
+addQ(3,'calc',"Um exaustor térmico tira $0,5 \\text{ m}^3$ de ar quente por segundo. A densidade do ar quente é $1,1 \\text{ kg/m}^3$. Quantos quilogramas de ar poluído ele joga pra fora da fábrica por segundo?", "0.55", ["Massa = Densidade $\\cdot$ Volume", "Massa expelida = $1,1 \\cdot 0,5 = 0,55 \\text{ kg}$ a cada segundo."]);
+addQ(3,'calc',"Temos um ar-condicionado de $2000 \\text{ W}$ de potência. Ele empurra ar frio para baixo, forçando a convecção. Se mantivermos ele ligado por 2 horas, quantos Watts-hora (Wh) de energia de refrigeração ele injetou no quarto?", "4000", ["Energia = Potência $\\cdot$ Tempo", "$E = 2000 \\text{ W} \\cdot 2 \\text{ horas} = 4000 \\text{ Wh}$."]);
+addQ(3,'calc',"Para converter $4000 \\text{ Wh}$ (da questão anterior) em kWh (kilowatt-hora), dividimos por 1000. Quantos kWh a conta de luz vai registrar para a convecção induzida no quarto?", "4", ["$4000 / 1000 = 4 \\text{ kWh}$."]);
+
+// TEMA 4: Irradiação Térmica (46-60)
+addQ(4,'theo',"Qual das afirmativas define a Irradiação Térmica como única entre os três meios de propagação?", "C", ["O sol envia calor num vácuo perfeito. Isso prova que radiação não precisa de moléculas de matéria no caminho."], ["A) É a mais lenta das três, viajando a 1 metro por segundo.", "B) Ela só acontece se a superfície for vermelha.", "C) É a única que ocorre no Vácuo, pois propaga-se por ondas eletromagnéticas.", "D) Envolve troca intensa de moléculas de água gasosa."]);
+addQ(4,'theo',"Sobre o famoso Efeito Estufa no nosso planeta, as regras de irradiação nos dizem que o vidro (ou o gás carbônico atmosférico) se comporta como uma armadilha térmica. Como isso funciona?", "A", ["A radiação visível e de alta frequência do Sol entra. O chão quente tenta re-emitir infravermelho (baixa frequência) pro espaço, mas o vidro reflete/bloqueia esse infravermelho."], ["A) O vidro deixa a luz do Sol entrar, o solo esquenta e emite infravermelho. O vidro NÃO deixa o infravermelho sair, prendendo o calor.", "B) O vidro atrai ativamente os raios gama.", "C) O gás bloqueia a entrada do sol e a Terra ferve pela condução.", "D) O infravermelho quebra a janela e foge."]);
+addQ(4,'theo',"Se eu usar duas camisetas sob sol forte de 40°C no verão: Uma inteiramente PRETA e a outra totalmente BRANCA. De acordo com os princípios de absorção de irradiação:", "D", ["Branco reflete grande parte de toda a luz que bate. O Preto absorve todas as cores da luz e as converte em calor no seu corpo."], ["A) A branca absorverá toda a luz e ficará insuportavelmente quente.", "B) Ambas ficarão com a mesma temperatura após 10 minutos.", "C) O preto resfria por emissão noturna.", "D) A preta esquentará muito mais, pois o pigmento preto absorve quase toda a radiação que incide sobre ele."]);
+addQ(4,'theo',"O espaço entre as paredes de vidro dentro de uma 'Garrafa Térmica' moderna é esvaziado de ar (possui vácuo). Esse vácuo atua bloqueando:", "B", ["O vácuo impede condução (precisa de sólidos contíguos) e convecção (precisa de ar/líquido). O espelho lida com a irradiação."], ["A) Apenas a irradiação.", "B) A condução e a convecção térmicas.", "C) Qualquer contato da luz.", "D) O magnetismo terrestre sobre o café."]);
+addQ(4,'theo',"Qual é o princípio por trás do interior espelhado (prateado) nas ampolas das Garrafas Térmicas?", "B", ["As ondas de irradiação térmica (infravermelhas) que tentam sair do café e atravessar a parede batem no espelho e refletem de volta pra dentro, mantendo a bebida quentinha."], ["A) Deixar a garrafa com visual premium.", "B) Refletir a irradiação térmica de volta para o líquido, impedindo que essa energia fuja na forma de ondas.", "C) Absorver o sol e esquentar a garrafa por fora.", "D) Fazer o calor transitar por condução até o fundo."]);
+
+addQ(4,'calc',"O fluxo (potência) de energia do Sol que bate num telhado é de $1000 \\text{ W/m}^2$. Se o telhado tem uma placa solar de $5 \\text{ m}^2$, qual a potência total da irradiação recebida nessa placa?", "5000", ["Potência Total = Intensidade $\\cdot$ Área", "$1000 \\cdot 5 = 5000 \\text{ W}$"]);
+addQ(4,'calc',"Uma peça de ferro incandescente emite Irradiação com uma Potência de $80 \\text{ W}$. Se a temperatura ABSOLUTA (em Kelvin) do ferro DOBRAR (2x), lembrando da Lei de Stefan-Boltzmann ($P \\propto T^4$). Qual será a nova potência de irradiação (W)?", "1280", ["O multiplicador será $2^4 = 2 \\cdot 2 \\cdot 2 \\cdot 2 = 16$.", "$P = 80 \\cdot 16 = 1280 \\text{ W}$ (O brilho e o calor disparam!)"]);
+addQ(4,'calc',"Um satélite esfriou no espaço. Sua Temperatura Absoluta caiu pela METADE (1/2). Qual o fator numérico de redução da sua potência irradiada? (Ou seja, $P$ cai para qual fração original multiplicadora? Responda em decimal).", "0.0625", ["O fator é $(1/2)^4 = 1 / 16$.", "$1 / 16 = 0,0625$."]);
+addQ(4,'calc',"A irradiação do Sol transfere energia. Uma chapa absorve calor numa taxa (Fluxo) de $200 \\text{ Joules/s}$. Após ficar $10 \\text{ minutos}$ ($600 \\text{ segundos}$) no sol, quantos mil Joules (kJ) de energia radiante ela absorveu?", "120", ["$Q = \\Phi \\cdot \\Delta t = 200 \\cdot 600 = 120.000 \\text{ Joules}$", "Em kJ: $120.000 / 1000 = 120 \\text{ kJ}$."]);
+addQ(4,'calc',"Se 100% da Irradiação vira calor, e um laser de infravermelho militar despeja incríveis $500.000 \\text{ W}$ num drone de espionagem inimigo por $2 \\text{ segundos}$. Quantos Joules de calor fritaram o equipamento?", "1000000", ["$Q = P \\cdot t = 500000 \\cdot 2 = 1.000.000 \\text{ Joules}$ (ou 1 MJ)."]);
+addQ(4,'calc',"A Constante Solar acima da atmosfera é aproximadamente $1360 \\text{ W/m}^2$. Numa espaçonave, um painel solar de $10 \\text{ m}^2$ captura essa irradiação mas só tem eficiência de conversão elétrica de $20\\%$ (fator 0.2). Qual a Potência Elétrica GERADA em Watts?", "2720", ["Energia Incidente Total = $1360 \\cdot 10 = 13600 \\text{ W}$", "Energia Útil = $13600 \\cdot 0,2 = 2720 \\text{ W}$."]);
+addQ(4,'calc',"Duas esferas idênticas em tamanho e temperatura irradiam no vácuo. Esfera 1 é Preta Perfeita (Emissividade $e = 1$). Esfera 2 é reflexiva (Emissividade $e = 0,2$). A Potência da esfera 1 é $1000 \\text{ W}$. Qual a potência irradiada pela Esfera 2 ($P_{esf2} = P_{preta} \\cdot e$)?", "200", ["Superfícies polidas espelhadas são PÉSSIMAS emissoras de irradiação (e péssimas absorvedoras também).", "$1000 \\cdot 0,2 = 200 \\text{ W}$."]);
+addQ(4,'calc',"Se um forno fechado estiver em perfeito equilíbrio térmico e brilhando com temperatura T, a parede absorve do pão exatos $50 \\text{ Joules}$ de irradiação por segundo. Quantos Joules por segundo a parede deve estar devolvendo pro pão para que a temperatura das coisas não mude mais?", "50", ["No equilíbrio radiativo (Lei de Kirchhoff da radiação), um corpo bom absorvedor é igualmente um bom emissor.", "Para a Temperatura ficar estável, o que entra deve ser igual ao que sai: 50."]);
+addQ(4,'calc',"Albedo é a taxa de reflexão planetária. A Terra tem Albedo médio de 30% (fator 0.3). Isso significa que de cada $1000 \\text{ W/m}^2$ de luz visível solar que atinge a nuvem e o gelo, $300 \\text{ W/m}^2$ ricocheteiam pro espaço. Quantos $W/m^2$ são ABSORVIDOS para aquecer a Terra nesse exemplo?", "700", ["Luz não refletida é absorvida.", "$1000 - 300 = 700 \\text{ W/m}^2$ retidos para aquecer as rochas e água."]);
+addQ(4,'calc',"Se o Gelo derreter e a Terra ficar muito mais escura (floresta e oceano exposto), o Albedo global cai de 30% (fator 0.3) para 10% (fator 0.1). Num raio solar bruto incidente de $1000 \\text{ W/m}^2$, qual será o novo valor de luz ABSORVIDA (em $W/m^2$)?", "900", ["Reflete apenas 10% de $1000 = 100 \\text{ W/m}^2$.", "Absorvido = $1000 - 100 = 900 \\text{ W/m}^2$ (A Terra esquentaria perigosamente mais rápido!)"]);
+
+let currentTheme = 'all';
+let solved = new Set(JSON.parse(localStorage.getItem('fisicaPropagacaoSolved')||'[]'));
+
+function renderExercises() {
+    const listDiv = $('exercise-list');
+    let html = '';
+    
+    exercisesData.forEach(ex => {
+        if (currentTheme !== 'all' && ex.theme != currentTheme) return;
+        
+        const isSolved = solved.has(ex.id);
+        const borderColor = isSolved ? 'border-emerald-400' : 'border-slate-200';
+        const badgeColor = isSolved ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700';
+        const themeNames = ["", "Fluxo Térmico", "Condução", "Convecção", "Irradiação"];
+        
+        let questionBody = `<p class="mt-3 text-slate-700 mb-4 text-sm leading-6">${ex.q}</p>`;
+        
+        if (ex.type === 'theo' && ex.opts) {
+            questionBody += `<div class="space-y-2 mb-4 text-sm text-slate-600">`;
+            ex.opts.forEach(opt => {
+                questionBody += `<div class="p-2 bg-slate-50 rounded-lg border border-slate-100">${opt}</div>`;
+            });
+            questionBody += `</div>`;
+        }
+
+        html += `
+        <article class="bg-white rounded-2xl border ${borderColor} p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div class="flex justify-between gap-3 items-center">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full ${badgeColor}">Questão ${ex.id}</span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">TEMA ${ex.theme}: ${themeNames[ex.theme]}</span>
+            </div>
+            
+            ${questionBody}
+            
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" type="text" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500" placeholder="${ex.type==='theo' ? 'Letra (A, B, C, D)' : 'Valor numérico'}">
+                <button onclick="checkAnswer(${ex.id})" class="bg-rose-600 hover:bg-rose-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+            </div>
+            
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+            
+            <button onclick="document.getElementById('sol-${ex.id}').classList.toggle('hidden')" class="mt-3 text-sm font-bold text-rose-700 hover:underline">
+                👁 Mostrar explicação / cálculo
+            </button>
+            
+            <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t border-rose-100 pt-4">
+                <div class="text-xs uppercase tracking-widest font-black text-rose-800 mb-3">Resolução Passo a Passo</div>
+                ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+                <div class="success rounded-xl p-4 text-center font-bold mt-2 text-emerald-900">Resposta Correta: ${ex.ans}</div>
+            </div>
+        </article>
+        `;
+    });
+    
+    listDiv.innerHTML = html;
+    updateProgress();
+    renderAll();
+}
+
+function checkAnswer(id) {
+    const ex = exercisesData.find(x => x.id === id);
+    const inputEl = $(`ans-${id}`);
+    const fbEl = $(`fb-${id}`);
+    
+    let rawInput = inputEl.value.trim().toUpperCase();
+    if(ex.type === 'calc') {
+        rawInput = rawInput.replace(',', '.'); 
+    }
+
+    let isCorrect = false;
+    
+    if (ex.type === 'theo') {
+        isCorrect = (rawInput === ex.ans);
+    } else {
+        const numIn = parseFloat(rawInput);
+        const numAns = parseFloat(ex.ans);
+        // Tolerância decimal
+        if(!isNaN(numIn) && Math.abs(numIn - numAns) <= 0.05) {
+            isCorrect = true;
+        }
+    }
+
+    if (isCorrect) {
+        solved.add(id);
+        localStorage.setItem('fisicaPropagacaoSolved', JSON.stringify([...solved]));
+        fbEl.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fbEl.textContent = '✓ Excelente! Você acertou.';
+        setTimeout(renderExercises, 400); 
+    } else {
+        fbEl.className = 'text-sm font-bold mt-2 text-red-500';
+        fbEl.textContent = '✗ Quase lá. Tente verificar a fórmula ou a teoria.';
+    }
+}
+
+function updateProgress() {
+    const max = exercisesData.length;
+    const current = solved.size;
+    $('progress-text').textContent = `${current} / ${max}`;
+    $('progress-bar').style.width = `${(current/max)*100}%`;
+}
+
+// Filtros Theme
+document.querySelectorAll('.level-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active', 'bg-rose-500', 'text-white'));
+        document.querySelectorAll('.level-btn:not(.active)').forEach(b => b.classList.add('bg-slate-100'));
+        
+        btn.classList.add('active');
+        btn.classList.remove('bg-slate-100');
+        
+        currentTheme = btn.dataset.theme;
+        renderExercises();
+    };
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderExercises();
+    renderAll();
+});
+</script>
+</body>
+</html>

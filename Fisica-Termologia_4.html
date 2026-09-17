@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física — Teoria e Termodinâmica dos Gases Ideais</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {--ink: #1e1b4b; --paper: #faf5ff; --line: #e9d5ff; --accent: #9333ea}
+  body {background: #fcfaff; color: var(--ink)}
+  .tab-btn.active {color: #7e22ce; border-bottom-color: #7e22ce; font-weight: 800}
+  .paper {background: var(--paper); background-image: linear-gradient(#f3e8ff 1px, transparent 1px); background-size: 100% 2rem; border: 1px solid #d8b4fe; box-shadow: 0 8px 24px #3b07640a}
+  .step {position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #e9d5ff; border-radius: 1rem; background: white}
+  .step::before {content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #f3e8ff; color: #7e22ce; font-weight: 800; display: grid; place-items: center; font-size: .8rem}
+  .level-btn.active {background: #9333ea; color: white}
+  .exercise-solution {animation: fade .2s ease}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  .tip {border-left: 4px solid #f59e0b; background: #fffbeb}
+  .success {border-left: 4px solid #10b981; background: #ecfdf5}
+  .warning {border-left: 4px solid #ef4444; background: #fef2f2}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-purple-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+     <div class="font-black text-lg sm:text-xl text-purple-950">🎈 Termodinâmica Gasosa</div>
+     <div class="text-[11px] text-slate-500 hidden sm:block">Gases Ideais, Clapeyron e Transformações Termodinâmicas</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- SEÇÃO TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-purple-950 via-indigo-900 to-purple-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-purple-300">Termofísica • Física Moderna Plus</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">O Fascinante Mundo dos Gases</h1>
+  <p class="mt-4 max-w-3xl text-purple-100 leading-7">Ao contrário de sólidos e líquidos, os gases não têm volume nem forma fixa. Eles se expandem, exercem pressão nas paredes e respondem imediatamente ao calor. Compreenda aqui o modelo do gás perfeito, as equações de Clapeyron e como a matéria gasosa se comporta no universo microscópico e industrial.</p>
+ </div>
+
+ <div class="warning rounded-2xl p-5 shadow-sm text-sm">
+  <b class="text-red-700">⚠️ A Regra de Ouro da Termodinâmica Gasosa:</b> Em QUALQUER fórmula de gases ($PV=nRT$ ou na Lei Geral), a <b>Temperatura TEM de estar na escala absoluta Kelvin ($K$)</b>! Usar Celsius diretamente nas fórmulas é o erro mais comum dos estudantes e anula completamente a proporção matemática. Lembre-se sempre: $T(K) = \theta(^\circ\text{C}) + 273$.
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tópico 1 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-purple-100 text-purple-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">Comportamento dos Gases Ideais</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Na natureza, os gases reais têm forças de atração elétrica entre as moléculas e seus átomos ocupam espaço físico. Para facilitar os cálculos e criar leis matemáticas universais, os físicos criaram o modelo teórico do <b>Gás Ideal (ou Perfeito)</b>.</p>
+   
+   <div class="space-y-2 mt-3 text-xs text-slate-700 bg-purple-50 p-4 rounded-xl border border-purple-100">
+    <div>• <b>Partículas Pontuais:</b> O volume das próprias moléculas é desprezível em comparação com o volume total do frasco.</div>
+    <div>• <b>Movimento Caótico:</b> As moléculas se movem em linha reta, desordenadamente e a altas velocidades.</div>
+    <div>• <b>Colisões Perfeitamente Elásticas:</b> Ao baterem entre si e contra as paredes do recipiente, não há perda de energia cinética.</div>
+    <div>• <b>Sem Forças Intermoleculares:</b> Não há atração nem repulsão à distância entre as moléculas (apenas colisão mecânica instantânea).</div>
+   </div>
+   <p class="text-xs text-slate-500 mt-3"><b>Quando um gás real vira ideal?</b> Sob <i>baixa pressão</i> (moléculas bem separadas) e <i>alta temperatura</i> (moléculas muito rápidas).</p>
+  </article>
+
+  <!-- Tópico 2 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-purple-100 text-purple-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Mol, Quantidade de Matéria e Massa Molar</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Como átomos são minúsculos demais para serem contados um a um, os cientistas criaram uma unidade coletiva chamada <b>mol</b> (assim como dizemos "dúzia" para 12 laranjas).</p>
+   
+   <div class="paper text-center py-3 mt-3 font-bold rounded-lg text-base">
+    \[1 \text{ mol} = 6,02 \times 10^{23} \text{ entidades (Constante de Avogadro)}\]
+   </div>
+   
+   <p class="text-xs text-slate-600 mt-3">Para calcular o número de mols ($n$) contidos em uma massa de gás ($m$), usamos a sua Massa Molar ($M$):</p>
+   <div class="paper text-center py-2 mt-2 font-bold rounded-lg text-lg text-purple-900">
+    \[n = \frac{m}{M}\]
+   </div>
+   <p class="text-[11px] text-slate-500 mt-2 text-center">Exemplo: O gás oxigênio ($O_2$) tem $M = 32 \text{ g/mol}$. Uma amostra de $64 \text{ g}$ contém exatamente $n = 64 / 32 = 2 \text{ mols}$.</p>
+  </article>
+ </div>
+
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-purple-100 text-purple-700 grid place-items-center font-black">3</span><h2 class="text-2xl font-black">As Três Variáveis de Estado ($P, V, T$)</h2></div>
+  <p class="text-sm text-slate-600 mt-3 mb-4">Para descrever perfeitamente uma massa gasosa confinada em um recipiente, precisamos conhecer apenas três grandezas macroscópicas interligadas:</p>
+  
+  <div class="grid lg:grid-cols-3 gap-4 text-sm">
+   <div class="border rounded-xl p-4 bg-slate-50">
+    <b class="text-purple-800 text-base">Pressão ($P$)</b>
+    <p class="text-xs text-slate-600 mt-1">É a força exercida pelo choque incessante de bilhões de partículas contra cada metro quadrado da parede interna do recipiente ($P = F/A$).</p>
+    <div class="mt-2 text-xs font-semibold text-slate-700">Unidades usuais:</div>
+    <div class="text-[11px] text-slate-500 mt-1">$1 \text{ atm} \approx 10^5 \text{ Pa} \approx 760 \text{ mmHg}$</div>
+   </div>
+
+   <div class="border rounded-xl p-4 bg-slate-50">
+    <b class="text-purple-800 text-base">Volume ($V$)</b>
+    <p class="text-xs text-slate-600 mt-1">Como o gás ocupa todo o recipiente onde é colocado, o volume do gás é rigorosamente igual ao volume do próprio frasco.</p>
+    <div class="mt-2 text-xs font-semibold text-slate-700">Unidades usuais:</div>
+    <div class="text-[11px] text-slate-500 mt-1">$1 \text{ m}^3 = 1000 \text{ L} = 10^6 \text{ cm}^3$</div>
+   </div>
+
+   <div class="border rounded-xl p-4 bg-slate-50">
+    <b class="text-purple-800 text-base">Temperatura ($T$)</b>
+    <p class="text-xs text-slate-600 mt-1">Mede diretamente o grau de agitação cinética média de translação das moléculas ($E_c \propto T$). Mais quente = moléculas mais velozes.</p>
+    <div class="mt-2 text-xs font-semibold text-slate-700">Conversão Obrigatória:</div>
+    <div class="text-[11px] text-red-600 font-bold mt-1">$T(K) = \theta(^\circ\text{C}) + 273$</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tópico 4 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-purple-100 text-purple-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Equação de Clapeyron ($PV = nRT$)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">O físico francês Émile Clapeyron sintetizou as descobertas de Boyle, Charles e Avogadro em uma única equação que relaciona as variáveis de estado com a quantidade de matéria de uma amostra fixa ou variável:</p>
+   
+   <div class="paper text-center py-4 mt-3 font-bold rounded-xl text-2xl text-purple-900">
+    \[P \cdot V = n \cdot R \cdot T\]
+   </div>
+   
+   <div class="bg-amber-50 rounded-xl p-3 border border-amber-200 mt-3 text-xs text-amber-900">
+    <b>Atenção à Constante Universal dos Gases ($R$):</b><br>
+    • Se a pressão estiver em <b>atm</b> e o volume em <b>Litros</b>: $R \approx 0,082 \frac{\text{atm}\cdot\text{L}}{\text{mol}\cdot\text{K}}$<br>
+    • Se estiver no Sistema Internacional ($P$ em $\text{N/m}^2$ e $V$ em $\text{m}^3$): $R \approx 8,31 \frac{\text{J}}{\text{mol}\cdot\text{K}}$
+   </div>
+   <p class="text-[11px] text-slate-500 mt-2">Nas CNTP (Condições Normais de Temperatura e Pressão: $0^\circ\text{C} = 273\text{ K}$ e $1\text{ atm}$), <b>$1\text{ mol}$ de qualquer gás ideal ocupa exatamente $22,4\text{ Litros}$</b>.</p>
+  </article>
+
+  <!-- Tópico 5 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-purple-100 text-purple-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Lei Geral dos Gases Perfeitos</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Quando uma <b>massa fixa de gás</b> (sem vazamento e sem injeção, ou seja, $n$ constante) passa de um estado inicial (1) para um estado final (2), a relação $\frac{P \cdot V}{T}$ permanece inalterada:</p>
+   
+   <div class="paper text-center py-4 mt-3 font-bold rounded-xl text-xl text-purple-900">
+    \[\frac{P_1 \cdot V_1}{T_1} = \frac{P_2 \cdot V_2}{T_2}\]
+   </div>
+   
+   <div class="bg-purple-50 p-3 rounded-xl border border-purple-200 mt-3 text-xs text-slate-700">
+    <b>Por que essa fórmula é tão prática?</b> Não precisamos nos preocupar com o valor numérico de $R$. Basta que $P_1$ e $P_2$ estejam na mesma unidade, assim como $V_1$ e $V_2$. Porém, a temperatura $T$ <b>obrigatoriamente</b> deve ser convertida para Kelvin antes de calcular!
+   </div>
+  </article>
+ </div>
+
+ <!-- Tópico 6 -->
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-purple-100 text-purple-700 grid place-items-center font-black">6</span><h2 class="text-2xl font-black">As Transformações Gasosas Específicas</h2></div>
+  <p class="text-sm text-slate-600 mt-3 mb-4">Muitas vezes, uma das variáveis de estado é mantida propositalmente constante durante o processo térmico. Observe os três casos fundamentais:</p>
+  
+  <div class="grid lg:grid-cols-3 gap-5 text-sm">
+   <div class="border rounded-2xl p-4 bg-sky-50 border-sky-100">
+    <div class="flex items-center justify-between"><b class="text-sky-900 text-base">Isotérmica</b><span class="text-xs bg-sky-200 text-sky-800 px-2 py-0.5 rounded-full font-bold">Temp. Constante</span></div>
+    <p class="text-xs text-slate-600 mt-2"><b>Lei de Boyle:</b> Se a temperatura não muda, Pressão e Volume são inversamente proporcionais. Se você espreme o pistão (volume cai pela metade), as partículas batem o dobro de vezes na parede (a pressão dobra).</p>
+    <div class="paper text-center py-2 mt-3 font-bold rounded-lg text-base">\[P_1 \cdot V_1 = P_2 \cdot V_2\]</div>
+    <div class="text-[11px] text-slate-500 mt-2 text-center">Gráfico $P \times V$: <i>Hipérbole Equilátera (Isoterma)</i>.</div>
+   </div>
+
+   <div class="border rounded-2xl p-4 bg-amber-50 border-amber-100">
+    <div class="flex items-center justify-between"><b class="text-amber-900 text-base">Isobárica</b><span class="text-xs bg-amber-200 text-amber-800 px-2 py-0.5 rounded-full font-bold">Pressão Constante</span></div>
+    <p class="text-xs text-slate-600 mt-2"><b>1ª Lei de Charles e Gay-Lussac:</b> Ocorre em êmbolos livres que mantêm a pressão estável. Volume e Temperatura em Kelvin são diretamente proporcionais: ao esquentar o gás, ele se expande.</p>
+    <div class="paper text-center py-2 mt-3 font-bold rounded-lg text-base">\[\frac{V_1}{T_1} = \frac{V_2}{T_2}\]</div>
+    <div class="text-[11px] text-slate-500 mt-2 text-center">Gráfico $V \times T$: <i>Reta inclinada passando pela origem</i>.</div>
+   </div>
+
+   <div class="border rounded-2xl p-4 bg-emerald-50 border-emerald-100">
+    <div class="flex items-center justify-between"><b class="text-emerald-900 text-base">Isométrica (ou Isocórica)</b><span class="text-xs bg-emerald-200 text-emerald-800 px-2 py-0.5 rounded-full font-bold">Volume Constante</span></div>
+    <p class="text-xs text-slate-600 mt-2"><b>2ª Lei de Charles e Gay-Lussac:</b> Ocorre em panelas rígidas fechadas ou botijões de gás. Pressão e Temperatura em Kelvin são diretamente proporcionais: esquentar o gás faz a pressão interna disparar.</p>
+    <div class="paper text-center py-2 mt-3 font-bold rounded-lg text-base">\[\frac{P_1}{T_1} = \frac{P_2}{T_2}\]</div>
+    <div class="text-[11px] text-slate-500 mt-2 text-center">Gráfico $P \times T$: <i>Reta inclinada passando pela origem</i>.</div>
+   </div>
+  </div>
+
+  <div class="bg-indigo-50 border-l-4 border-indigo-400 p-4 rounded-r-xl mt-5 text-sm">
+   <b class="text-indigo-900">🚀 Texto de Enriquecimento: E o que é uma Transformação Adiabática?</b>
+   <p class="text-xs text-indigo-800 mt-1">É uma transformação que ocorre tão rápido (ou em um recipiente tão perfeitamente isolado termicamente) que <b>não há tempo para troca de calor com o ambiente externo ($Q = 0$)</b>. Quando você esvazia rapidamente um desodorante aerossol ou enche o pneu de uma bicicleta rapidamente, o gás sofre expansão ou compressão adiabática. Na expansão adiabática, o gás realiza trabalho gastando sua própria energia interna, fazendo com que ele resfrie bruscamente (é por isso que a lata de desodorante gela na sua mão!).</p>
+  </div>
+ </div>
+</section>
+
+<!-- SEÇÃO LABORATÓRIO E SIMULADORES -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-purple-600">Simulador Termodinâmico</span>
+  <h1 class="text-3xl font-black mt-2">Laboratório de Gases Ideais</h1>
+  <p class="text-slate-600 mt-2 text-sm">Experimente as equações fundamentais em tempo real e visualize o passo a passo algébrico exato com renderização em KaTeX.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Simulador Clapeyron -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl text-purple-900">Calculadora de Clapeyron ($PV = nRT$)</h2>
+   <p class="text-xs text-slate-500 mb-4">Descubra a pressão exercida por uma quantidade conhecida de gás contida em um cilindro. Use $R = 0,082 \text{ atm}\cdot\text{L}/(\text{mol}\cdot\text{K})$.</p>
+   
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Número de Mols ($n$):</label><input id="lab-n" type="number" value="2" step="0.5" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Volume do Cilindro ($V$ em Litros):</label><input id="lab-v" type="number" value="10" step="1" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Temperatura ($\theta$ em $^\circ\text{C}$):</label><input id="lab-tc" type="number" value="27" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+   </div>
+   
+   <button onclick="calcClapeyron()" class="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white rounded-xl py-3 font-bold transition">Calcular Pressão ($P$)</button>
+   <div id="out-clapeyron" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+
+  <!-- Simulador Lei Geral -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl text-indigo-900">Simulador de Transformação ($\frac{P_1 V_1}{T_1} = \frac{P_2 V_2}{T_2}$)</h2>
+   <p class="text-xs text-slate-500 mb-4">Escolha o tipo de processo térmico sofrido por uma massa fixa de gás e encontre a variável final.</p>
+   
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between">
+      <label class="font-semibold">Tipo de Transformação:</label>
+      <select id="lab-tipo" class="border rounded-xl px-2 py-1 text-xs bg-purple-50" onchange="toggleTransfInputs()">
+        <option value="isoT">Isotérmica (T constante)</option>
+        <option value="isoP">Isobárica (P constante)</option>
+        <option value="isoV">Isométrica (V constante)</option>
+      </select>
+    </div>
+    
+    <div class="grid grid-cols-2 gap-3 pt-2">
+     <div class="space-y-2 bg-slate-50 p-3 rounded-xl border border-slate-200">
+      <b class="text-xs text-purple-900">Estado Inicial (1)</b>
+      <div id="box-p1" class="flex justify-between items-center text-xs"><label>P1 (atm):</label><input id="lab-p1" type="number" value="2" class="w-16 border rounded px-1 py-0.5 text-center"></div>
+      <div id="box-v1" class="flex justify-between items-center text-xs"><label>V1 (L):</label><input id="lab-v1" type="number" value="5" class="w-16 border rounded px-1 py-0.5 text-center"></div>
+      <div id="box-t1" class="flex justify-between items-center text-xs"><label>T1 (°C):</label><input id="lab-t1" type="number" value="27" class="w-16 border rounded px-1 py-0.5 text-center"></div>
+     </div>
+
+     <div class="space-y-2 bg-slate-50 p-3 rounded-xl border border-slate-200">
+      <b class="text-xs text-purple-900">Estado Final (2)</b>
+      <div id="box-p2" class="flex justify-between items-center text-xs hidden"><label>P2 (atm):</label><input id="lab-p2" type="number" value="4" class="w-16 border rounded px-1 py-0.5 text-center"></div>
+      <div id="box-v2" class="flex justify-between items-center text-xs"><label>V2 (L):</label><input id="lab-v2" type="number" value="2.5" class="w-16 border rounded px-1 py-0.5 text-center"></div>
+      <div id="box-t2" class="flex justify-between items-center text-xs hidden"><label>T2 (°C):</label><input id="lab-t2" type="number" value="127" class="w-16 border rounded px-1 py-0.5 text-center"></div>
+     </div>
+    </div>
+   </div>
+   
+   <button onclick="calcTransformacao()" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl py-3 font-bold transition">Calcular Variável Desconhecida</button>
+   <div id="out-transf" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+ </div>
+</section>
+
+<!-- SEÇÃO EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div>
+     <span class="text-xs font-bold uppercase tracking-widest text-purple-600">Treino Didático e Progressivo</span>
+     <h1 class="text-3xl font-black mt-2">90 Questões Resolvidas</h1>
+     <p class="text-slate-600 mt-2 text-sm"><b>Teoria:</b> digite a letra (A, B, C, D). <b>Cálculos:</b> digite apenas o número (use '.' ou ',' para decimais). Arredonde para 2 casas quando necessário.</p>
+   </div>
+   <div class="min-w-[210px]">
+     <div class="flex justify-between text-sm font-bold text-purple-900"><span>Progresso</span><span id="progress-text">0 / 90</span></div>
+     <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden">
+       <div id="progress-bar" class="h-full bg-purple-600 transition-all duration-500 rounded-full" style="width:0%"></div>
+     </div>
+   </div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-theme="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold transition">Todos (90)</button>
+   <button data-theme="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T1: Gás Ideal</button>
+   <button data-theme="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T2: Mol e Massa Molar</button>
+   <button data-theme="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T3: Variáveis (P, V, T)</button>
+   <button data-theme="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T4: Clapeyron</button>
+   <button data-theme="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T5: Lei Geral</button>
+   <button data-theme="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T6: Transformações</button>
+  </div>
+ </div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+</main>
+
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material didático interativo • Física Térmica — Gases Ideais e Termodinâmica</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Navegação de Abas
+const sections=['teoria','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    const t=btn.dataset.tab;
+    sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));
+    if(t==='exercicios')renderExercises();
+}));
+
+// Calculadora Clapeyron
+function calcClapeyron(){
+    const n = +$('lab-n').value;
+    const v = +$('lab-v').value;
+    const tc = +$('lab-tc').value;
+    const R = 0.082;
+    
+    if (v <= 0 || n <= 0) {
+        $('out-clapeyron').innerHTML = `<b class="text-red-500">O volume e o número de mols devem ser maiores que zero.</b>`;
+        $('out-clapeyron').classList.remove('hidden');
+        return;
+    }
+    
+    const T = tc + 273;
+    const P = (n * R * T) / v;
+    
+    let h = `<b>1. Conversão Obrigatória para Kelvin:</b><br>`;
+    h += `\\[T = ${tc} + 273 = ${T} \\text{ K}\\]<br>`;
+    h += `<b>2. Aplicando a Equação de Clapeyron:</b><br>`;
+    h += `\\[P \\cdot V = n \\cdot R \\cdot T \\rightarrow P = \\frac{n \\cdot R \\cdot T}{V}\\]<br>`;
+    h += `\\[P = \\frac{${n} \\cdot 0,082 \\cdot ${T}}{${v}}\\]<br>`;
+    h += `\\[P = \\frac{${(n * R * T).toFixed(2)}}{${v}} = \\mathbf{${P.toFixed(2)} \\text{ atm}}\\]<br>`;
+    h += `<span class="text-xs text-slate-500">No SI, isso equivale a aprox. ${(P * 101325).toFixed(0)} Pascals.</span>`;
+    
+    $('out-clapeyron').innerHTML = h;
+    $('out-clapeyron').classList.remove('hidden');
+    renderAll();
+}
+
+function toggleTransfInputs() {
+    const tipo = $('lab-tipo').value;
+    if (tipo === 'isoT') {
+        $('box-p2').classList.remove('hidden');
+        $('box-v2').classList.add('hidden');
+        $('box-t1').classList.add('hidden');
+        $('box-t2').classList.add('hidden');
+    } else if (tipo === 'isoP') {
+        $('box-p2').classList.add('hidden');
+        $('box-v2').classList.add('hidden');
+        $('box-t1').classList.remove('hidden');
+        $('box-t2').classList.remove('hidden');
+    } else if (tipo === 'isoV') {
+        $('box-p2').classList.add('hidden');
+        $('box-v2').classList.add('hidden');
+        $('box-t1').classList.remove('hidden');
+        $('box-t2').classList.remove('hidden');
+    }
+}
+
+function calcTransformacao() {
+    const tipo = $('lab-tipo').value;
+    const p1 = +$('lab-p1').value;
+    const v1 = +$('lab-v1').value;
+    const tc1 = +$('lab-t1').value;
+    const t1 = tc1 + 273;
+    
+    let h = '';
+    
+    if (tipo === 'isoT') {
+        const p2 = +$('lab-p2').value;
+        if (p2 <= 0) {
+            $('out-transf').innerHTML = `<b class="text-red-500">P2 deve ser maior que zero.</b>`;
+            $('out-transf').classList.remove('hidden');
+            return;
+        }
+        const v2 = (p1 * v1) / p2;
+        h += `<b>Transformação Isotérmica (Temperatura Constante - Lei de Boyle):</b><br>`;
+        h += `\\[P_1 \\cdot V_1 = P_2 \\cdot V_2\\]<br>`;
+        h += `\\[${p1} \\cdot ${v1} = ${p2} \\cdot V_2 \\rightarrow ${p1*v1} = ${p2} \\cdot V_2\\]<br>`;
+        h += `\\[V_2 = \\frac{${p1*v1}}{${p2}} = \\mathbf{${v2.toFixed(2)} \\text{ Litros}}\\]`;
+    } else if (tipo === 'isoP') {
+        const tc2 = +$('lab-t2').value;
+        const t2 = tc2 + 273;
+        const v2 = (v1 * t2) / t1;
+        h += `<b>Transformação Isobárica (Pressão Constante):</b><br>`;
+        h += `Conversão: $T_1 = ${tc1} + 273 = ${t1}\\text{ K}$ e $T_2 = ${tc2} + 273 = ${t2}\\text{ K}$.<br>`;
+        h += `\\[\\frac{V_1}{T_1} = \\frac{V_2}{T_2} \\rightarrow \\frac{${v1}}{${t1}} = \\frac{V_2}{${t2}}\\]<br>`;
+        h += `\\[V_2 = \\frac{${v1} \\cdot ${t2}}{${t1}} = \\mathbf{${v2.toFixed(2)} \\text{ Litros}}\\]`;
+    } else if (tipo === 'isoV') {
+        const tc2 = +$('lab-t2').value;
+        const t2 = tc2 + 273;
+        const p2 = (p1 * t2) / t1;
+        h += `<b>Transformação Isométrica / Isocórica (Volume Constante):</b><br>`;
+        h += `Conversão: $T_1 = ${tc1} + 273 = ${t1}\\text{ K}$ e $T_2 = ${tc2} + 273 = ${t2}\\text{ K}$.<br>`;
+        h += `\\[\\frac{P_1}{T_1} = \\frac{P_2}{T_2} \\rightarrow \\frac{${p1}}{${t1}} = \\frac{P_2}{${t2}}\\]<br>`;
+        h += `\\[P_2 = \\frac{${p1} \\cdot ${t2}}{${t1}} = \\mathbf{${p2.toFixed(2)} \\text{ atm}}\\]`;
+    }
+    
+    $('out-transf').innerHTML = h;
+    $('out-transf').classList.remove('hidden');
+    renderAll();
+}
+
+// BANCO DE DADOS COMPLETO DE EXERCÍCIOS (90 QUESTÕES: 15 POR TEMA)
+const exercisesData = [];
+let exId = 1;
+const addQ = (th, ty, q, ans, steps, opts=[]) => { exercisesData.push({ id: exId++, theme: th, type: ty, q, ans, steps, opts }); };
+
+// ==========================================
+// TEMA 1: Comportamento dos Gases Ideais (1-15)
+// ==========================================
+addQ(1,'theo',"Qual das seguintes hipóteses NÃO faz parte do modelo clássico de um Gás Ideal (ou Perfeito)?", "C", 
+    ["No modelo do gás ideal, supõe-se que NÃO existem forças de atração ou repulsão entre as moléculas à distância. Apenas colisões instantâneas e perfeitamente elásticas."], 
+    ["A) As partículas estão em movimento contínuo, rápido e desordenado.", "B) As colisões entre as partículas e contra as paredes do recipiente são perfeitamente elásticas.", "C) As moléculas exercem fortes forças de atração mútua à distância entre si.", "D) O volume próprio das moléculas é desprezível diante do volume total ocupado pelo gás."]);
+
+addQ(1,'theo',"Um gás real (como o oxigênio ou o nitrogênio do ar que respiramos) aproxima-se mais do comportamento de um Gás Ideal quando submetido a quais condições físicas?", "B", 
+    ["Baixas pressões garantem que as moléculas fiquem distantes umas das outras (espaço vazio enorme), e altas temperaturas garantem grande energia cinética, tornando as forças de atração intermoleculares insignificantes."], 
+    ["A) Altas pressões e baixas temperaturas.", "B) Baixas pressões e altas temperaturas.", "C) Altas pressões e altas temperaturas.", "D) Temperatura no Zero Absoluto e qualquer pressão."]);
+
+addQ(1,'theo',"Do ponto de vista microscópico da teoria cinética, o que define fisicamente a 'Pressão' exercida por um gás nas paredes de um balão?", "A", 
+    ["Pressão é o resultado macroscópico da força média gerada pela quantidade colossal de choques mecânicos por segundo das partículas contra a área interna do recipiente."], 
+    ["A) A média das forças geradas pelas colisões incessantes das moléculas contra as paredes.", "B) O peso estático das moléculas que descansam no fundo do frasco.", "C) A atração gravitacional entre as partículas do gás.", "D) O atrito gerado pela passagem de luz através do gás."]);
+
+addQ(1,'theo',"Quando a Temperatura absoluta de uma amostra de gás ideal é duplicada, o que podemos afirmar sobre a energia cinética média das suas moléculas?", "D", 
+    ["A temperatura termodinâmica absoluta é uma medida direta da energia cinética média de translação das partículas ($E_c \\propto T$). Portanto, se $T$ dobra, a $E_c$ média também dobra."], 
+    ["A) Permanece inalterada, pois a massa molecular não muda.", "B) Fica quatro vezes maior.", "C) Reduz-se à metade.", "D) É exatamente duplicada."]);
+
+addQ(1,'theo',"O que significa dizer que as colisões intermoleculares de um gás perfeito são 'perfeitamente elásticas'?", "C", 
+    ["Em colisões mecânicas perfeitamente elásticas, a Energia Cinética Total do sistema antes do choque é rigorosamente igual à Energia Cinética Total depois do choque, sem perda em calor ou deformação permanente."], 
+    ["A) As moléculas grudam umas nas outras como massinha.", "B) As moléculas perdem velocidade e param no fundo do recipiente.", "C) Não há perda de energia cinética durante os choques.", "D) As moléculas mudam de elemento químico após colidirem."]);
+
+addQ(1,'calc',"Em um recipiente cúbico, ocorrem $3 \\times 10^{22}$ colisões moleculares contra as paredes em um intervalo de $5 \\text{ segundos}$. Qual é a taxa média de colisões por segundo? (Digite em notação: se for $6 \\times 10^{21}$, digite apenas o fator 6 e resolva os zeros correspondentes, ou seja, $30/5 = 6$. Responda o coeficiente 6).", "6", 
+    ["Taxa = $\\frac{\\text{Colisões}}{\\Delta t} = \\frac{3 \\times 10^{22}}{5} = 0,6 \\times 10^{22} = 6 \\times 10^{21}$. O fator multiplicador é 6."]);
+
+addQ(1,'calc',"A energia cinética média de translação de uma molécula a uma temperatura $T$ é dada por $E_c = \\frac{3}{2} k_B T$. Se a uma temperatura $T_1$ a energia cinética média é $6 \\times 10^{-21} \\text{ J}$, qual será o valor dessa energia cinética (em $10^{-21} \\text{ J}$) se a temperatura absoluta for quadruplicada (4x)?", "24", 
+    ["Como $E_c$ é diretamente proporcional a $T$:", "$E_{c2} = 4 \\cdot E_{c1} = 4 \\cdot 6 = 24 \\times 10^{-21} \\text{ J}$."]);
+
+addQ(1,'calc',"A velocidade média quadrática ($v_{rms}$) das moléculas de um gás é proporcional à raiz quadrada da temperatura absoluta ($v \\propto \\sqrt{T}$). Se a temperatura absoluta de um gás passar de $100 \\text{ K}$ para $900 \\text{ K}$ (aumentou 9 vezes), por qual fator a velocidade das moléculas será multiplicada?", "3", 
+    ["Fator de aumento da velocidade = $\\sqrt{Fator_T} = \\sqrt{9} = 3$. As moléculas ficam 3 vezes mais rápidas."]);
+
+addQ(1,'calc',"Se a velocidade média de uma molécula de gás oxigênio a $300 \\text{ K}$ é de aproximadamente $480 \\text{ m/s}$. Para que essa velocidade caia pela metade ($240 \\text{ m/s}$, fator $0,5$), a temperatura absoluta deve ser dividida por quanto? (Lembre que $T \\propto v^2$).", "4", 
+    ["Se $v$ cai pela metade ($1/2$), $T$ varia com o quadrado da velocidade: $(1/2)^2 = 1/4$.", "A temperatura absoluta deve cair para um quarto, ou seja, ser dividida por 4."]);
+
+addQ(1,'calc',"Um recipiente hermético de $1 \\text{ m}^2$ de parede interna sofre uma força perpendicular constante de $250.000 \\text{ N}$ devida exclusivamente aos choques das moléculas do gás. Sabendo que $1 \\text{ atm} = 100.000 \\text{ N/m}^2$, qual a pressão do gás em atm?", "2.5", 
+    ["$P = F / A = 250000 / 1 = 250.000 \\text{ N/m}^2$", "Em atm: $250000 / 100000 = 2,5 \\text{ atm}$."]);
+
+addQ(1,'calc',"Se uma amostra de gás real a $20 \\text{ atm}$ e $150 \\text{ K}$ for expandida e aquecida até $0,1 \\text{ atm}$ e $600 \\text{ K}$, ela se torna muito mais próxima do gás ideal. Por qual fator a sua pressão foi reduzida ($P_{inicial} / P_{final}$)?", "200", 
+    ["Fator de redução da pressão = $20 / 0,1 = 200$ vezes menor!"]);
+
+addQ(1,'calc',"Em um gás ideal monoatômico, a energia interna total de $1 \\text{ mol}$ é $U = \\frac{3}{2} R T$. Adotando $R = 8,31 \\text{ J/(mol K)}$, calcule a energia interna $U$ em Joules para $T = 200 \\text{ K}$.", "2493", 
+    ["$U = 1,5 \\cdot 8,31 \\cdot 200$", "$U = 1,5 \\cdot 1662 = 2493 \\text{ Joules}$."]);
+
+addQ(1,'calc',"Três recipientes iguais guardam o mesmo gás na mesma temperatura, com massas diferentes. Recipiente A tem $10^{20}$ moléculas, B tem $2 \\times 10^{20}$ moléculas e C tem $5 \\times 10^{20}$ moléculas. Se a pressão em A é $2 \\text{ atm}$, qual será a pressão no recipiente B (em atm)?", "4", 
+    ["A pressão é diretamente proporcional ao número de moléculas colidindo no mesmo volume e temperatura.", "B tem o dobro de moléculas que A: $P_B = 2 \\cdot 2 = 4 \\text{ atm}$."]);
+
+addQ(1,'calc',"Aproveitando a questão anterior: qual será a pressão no recipiente C (em atm), que tem 5 vezes mais moléculas que A ($P_A = 2 \\text{ atm}$)?", "10", 
+    ["$P_C = 5 \\cdot P_A = 5 \\cdot 2 = 10 \\text{ atm}$."]);
+
+addQ(1,'calc',"Se um gás real idealizado a $300 \\text{ K}$ possui partículas que viajam a uma média de $500 \\text{ m/s}$. Para que a velocidade média salte para $1000 \\text{ m/s}$ (o dobro), qual deve ser a nova temperatura absoluta em Kelvin?", "1200", 
+    ["Como $v \\propto \\sqrt{T}$, duplicar a velocidade exige quadruplicar ($2^2 = 4$) a temperatura absoluta.", "$T_{final} = 300 \\cdot 4 = 1200 \\text{ K}$."]);
+
+// ==========================================
+// TEMA 2: Mol, Massa Molar e Número de Mols (16-30)
+// ==========================================
+addQ(2,'theo',"Na física e na química, a constante de Avogadro ($N_A \\approx 6,02 \\times 10^{23}$) representa:", "A", 
+    ["Um mol é a quantidade de matéria que contém tantas entidades elementares quantos átomos existem em 12 gramas de carbono-12, correspondendo ao número fixo de $6,02 \\times 10^{23}$ partículas."], 
+    ["A) O número de moléculas ou átomos presentes em exatamente 1 mol de qualquer substância.", "B) A massa em gramas de um único átomo de hidrogênio.", "C) A pressão de um gás no vácuo espacial.", "D) O volume ocupado por um líquido a 100°C."]);
+
+addQ(2,'theo',"A grandeza 'Massa Molar' ($M$), expressa habitualmente em gramas por mol ($\text{g/mol}$), significa:", "D", 
+    ["A massa molar é numericamente igual à massa molecular da substância (obtida na tabela periódica), mas expressa a massa equivalente a um pacote de 1 mol ($6 \\times 10^{23}$ moléculas)."], 
+    ["A) O peso de um metro cúbico do gás.", "B) A soma dos elétrons de um átomo.", "C) O tempo necessário para o gás se fundir.", "D) A massa em gramas correspondente a 1 mol de moléculas daquela substância."]);
+
+addQ(2,'theo',"Se temos duas amostras fechadas com 1 mol de Gás Hélio ($He$, massa molar $4 \\text{ g/mol}$) e 1 mol de Gás Oxigênio ($O_2$, massa molar $32 \\text{ g/mol}$), podemos afirmar com certeza que:", "B", 
+    ["Como ambas as amostras contêm exatamente 1 mol, ambas possuem o mesmo número de moléculas ($6,02 \\times 10^{23}$). Contudo, a amostra de oxigênio pesa $32 \\text{ g}$ e a de hélio pesa apenas $4 \\text{ g}$."], 
+    ["A) A amostra de Hélio tem mais moléculas que a de Oxigênio.", "B) Ambas contêm rigorosamente a mesma quantidade de moléculas, porém a massa de $O_2$ é maior.", "C) Ambas têm a mesma massa em gramas.", "D) O Hélio ocupa um volume 8 vezes maior necessariamente."]);
+
+addQ(2,'theo',"A relação matemática entre a massa total de uma amostra ($m$), o número de mols ($n$) e a massa molar ($M$) é dada por:", "C", 
+    ["O número de mols é a divisão da massa total da amostra pela massa de um único mol ($n = m / M$)."], 
+    ["A) $n = m \\cdot M$", "B) $n = M / m$", "C) $n = m / M$", "D) $n = m + M$"]);
+
+addQ(2,'theo',"Em condições normais de temperatura e pressão (CNTP: $0^\circ\text{C}$ e $1\\text{ atm}$), o Princípio de Avogadro estabelece que 1 mol de qualquer gás perfeito ocupa um volume fixo de:", "B", 
+    ["O volume molar nas CNTP é uma constante experimental universal para gases ideais: $22,4 \\text{ Litros}$."], 
+    ["A) $10,0 \\text{ L}$", "B) $22,4 \\text{ L}$", "C) $100,0 \\text{ L}$", "D) $1,0 \\text{ L}$"]);
+
+addQ(2,'calc',"Quantos mols de gás carbônico ($CO_2$, massa molar $M = 44 \\text{ g/mol}$) existem em uma amostra pura de $88 \\text{ gramas}$?", "2", 
+    ["$n = \\frac{m}{M} = \\frac{88}{44} = 2 \\text{ mols}$."]);
+
+addQ(2,'calc',"Qual a massa em gramas de $5 \\text{ mols}$ de gás Hélio ($He$, cuja massa molar é $M = 4 \\text{ g/mol}$)?", "20", 
+    ["$n = \\frac{m}{M} \\rightarrow m = n \\cdot M$", "$m = 5 \\cdot 4 = 20 \\text{ gramas}$."]);
+
+addQ(2,'calc',"Uma botija contém $140 \\text{ g}$ de gás nitrogênio ($N_2$). Sabendo que a massa molar do nitrogênio é $M = 28 \\text{ g/mol}$, quantos mols de $N_2$ estão guardados?", "5", 
+    ["$n = \\frac{140}{28} = 5 \\text{ mols}$."]);
+
+addQ(2,'calc',"Uma amostra gasosa tem massa de $60 \\text{ g}$ e sabemos que ela contém exatamente $1,5 \\text{ mol}$. Qual é a massa molar ($M$) desse gás em $\\text{g/mol}$?", "40", 
+    ["$n = \\frac{m}{M} \\rightarrow 1,5 = \\frac{60}{M}$", "$M = \\frac{60}{1,5} = 40 \\text{ g/mol}$ (trata-se do gás nobre Argônio!)."]);
+
+addQ(2,'calc',"Quantos mols de gás hidrogênio ($H_2$, $M = 2 \\text{ g/mol}$) há em uma garrafa contendo apenas $10 \\text{ g}$ do combustível?", "5", 
+    ["$n = \\frac{10}{2} = 5 \\text{ mols}$."]);
+
+addQ(2,'calc',"Nas CNTP ($1 \\text{ mol} = 22,4 \\text{ L}$), qual é o volume em Litros ocupado por $3 \\text{ mols}$ de um gás ideal?", "67.2", 
+    ["$V = n \\cdot 22,4 = 3 \\cdot 22,4 = 67,2 \\text{ Litros}$."]);
+
+addQ(2,'calc',"Um balão meteorológico nas CNTP contém $112 \\text{ Litros}$ de gás Hélio. Quantos mols de gás existem dentro dele? ($1 \\text{ mol} = 22,4 \\text{ L}$)", "5", 
+    ["$n = \\frac{V}{22,4} = \\frac{112}{22,4} = 5 \\text{ mols}$."]);
+
+addQ(2,'calc',"Quantas moléculas existem em $0,5 \\text{ mol}$ de gás oxigênio? Sabendo que $1 \\text{ mol} = 6 \\times 10^{23}$ moléculas, a resposta é $X \\times 10^{23}$. Digite o valor de X.", "3", 
+    ["Moléculas = $0,5 \\cdot 6 \\times 10^{23} = 3 \\times 10^{23}$. Logo, $X = 3$."]);
+
+addQ(2,'calc',"Se $1 \\text{ mol}$ tem $6 \\times 10^{23}$ moléculas, uma amostra contendo $1,8 \\times 10^{24}$ moléculas possui quantos mols? (Dica: $1,8 \\times 10^{24} = 18 \\times 10^{23}$).", "3", 
+    ["$n = \\frac{18 \\times 10^{23}}{6 \\times 10^{23}} = 3 \\text{ mols}$."]);
+
+addQ(2,'calc',"O gás metano ($CH_4$) tem massa molar $M = 16 \\text{ g/mol}$. Quantos gramas de metano ocupam $44,8 \\text{ L}$ nas CNTP ($22,4 \\text{ L/mol}$)?", "32", 
+    ["Passo 1: $n = 44,8 / 22,4 = 2 \\text{ mols}$", "Passo 2: $m = n \\cdot M = 2 \\cdot 16 = 32 \\text{ gramas}$."]);
+
+// ==========================================
+// TEMA 3: Variáveis de Estado (P, V, T) (31-45)
+// ==========================================
+addQ(3,'theo',"Qual é a razão física fundamental pela qual a temperatura de um gás DEVE ser expressa na escala absoluta (Kelvin) nas fórmulas termodinâmicas?", "A", 
+    ["A escala Celsius possui um zero arbitrário (congelamento da água) e admite valores negativos e nulos (0°C), o que destruiria as razões matemáticas de proporção direta. Apenas a escala Kelvin mede a agitação real a partir do repouso molecular total ($0 \\text{ K}$)."], 
+    ["A) Porque a escala Kelvin mede a energia cinética real a partir do zero absoluto, evitando divisões por zero ou volumes negativos.", "B) Porque a escala Celsius foi abandonada por todos os países.", "C) Porque em Kelvin a pressão atmosférica é sempre constante.", "D) Não é obrigatório, pode-se usar Celsius sem alterar o resultado."]);
+
+addQ(3,'theo',"Um gás ideal está em um cilindro de $20 \\text{ L}$. Se ele for transferido integralmente para uma sala hermética de $2000 \\text{ L}$, qual será o novo volume do gás?", "C", 
+    ["Por definição fundamental da matéria gasosa, os gases não possuem volume próprio: eles se expandem indefinidamente ocupando TODO o volume do recipiente que os abriga."], 
+    ["A) Continuará sendo 20 L, ocupando um canto da sala.", "B) 1000 L, metade da sala.", "C) 2000 L, pois o gás sempre ocupa a totalidade do recipiente disponível.", "D) Virará líquido instantaneamente."]);
+
+addQ(3,'theo',"Sobre as unidades de pressão, a equivalência correta entre a atmosfera ($1 \\text{ atm}$) e o Pascal no Sistema Internacional ($1 \\text{ Pa} = 1 \\text{ N/m}^2$) é aproximadamente:", "D", 
+    ["1 atmosfera padrão ao nível do mar equivale a aproximadamente $101.325 \\text{ Pa}$, comumente arredondado para $10^5 \\text{ Pa}$ no Ensino Médio."], 
+    ["A) $1 \\text{ atm} = 1 \\text{ Pa}$", "B) $1 \\text{ atm} = 100 \\text{ Pa}$", "C) $1 \\text{ atm} = 760 \\text{ Pa}$", "D) $1 \\text{ atm} \\approx 10^5 \\text{ Pa}$ (ou $100.000 \\text{ N/m}^2$)"]);
+
+addQ(3,'theo',"Um manômetro acoplado ao pneu de um carro mede a 'pressão manométrica' (pressão relativa). Para usar as leis dos gases, precisamos da Pressão Absoluta. Como ela é obtida?", "B", 
+    ["A pressão absoluta sobre as paredes internas é a soma da pressão indicada pelo mostrador do manômetro mais a pressão atmosférica do ar que empurra do lado de fora ($P_{abs} = P_{man} + P_{atm}$)."], 
+    ["A) Subtraindo a pressão atmosférica.", "B) Somando a pressão atmosférica à pressão medida pelo manômetro.", "C) Multiplicando por 273.", "D) Dividindo pelo volume do pneu."]);
+
+addQ(3,'theo',"Para converter uma temperatura dada em graus Celsius ($\theta$) para a escala termodinâmica Kelvin ($T$), devemos:", "C", 
+    ["$T(K) = \\theta(^\circ\\text{C}) + 273$."], 
+    ["A) Multiplicar por 1,8 e somar 32.", "B) Dividir por 273.", "C) Somar 273 à temperatura em Celsius.", "D) Subtrair 273 da temperatura em Celsius."]);
+
+addQ(3,'calc',"Converta a temperatura ambiente de $27^\circ\\text{C}$ para a escala Kelvin ($K$).", "300", 
+    ["$T = 27 + 273 = 300 \\text{ K}$"]);
+
+addQ(3,'calc',"A água ferve a $100^\circ\\text{C}$ sob 1 atm. Qual é essa temperatura em Kelvin?", "373", 
+    ["$T = 100 + 273 = 373 \\text{ K}$"]);
+
+addQ(3,'calc',"O nitrogênio líquido encontra-se a $-193^\circ\\text{C}$. Qual é essa temperatura na escala Kelvin?", "80", 
+    ["$T = -193 + 273 = 80 \\text{ K}$"]);
+
+addQ(3,'calc',"Um gás está a $500 \\text{ K}$. Qual é a sua temperatura em graus Celsius ($^\circ\\text{C}$)?", "227", 
+    ["$\\theta = T - 273 = 500 - 273 = 227^\circ\\text{C}$"]);
+
+addQ(3,'calc',"Sabendo que $1 \\text{ m}^3$ equivale a $1000 \\text{ Litros}$, um tanque industrial de $2,5 \\text{ m}^3$ comporta quantos Litros de gás?", "2500", 
+    ["$V = 2,5 \\cdot 1000 = 2500 \\text{ Litros}$"]);
+
+addQ(3,'calc',"Converta uma seringa de $500 \\text{ mL}$ (mililitros) para Litros ($1 \\text{ L} = 1000 \\text{ mL}$).", "0.5", 
+    ["$V = 500 / 1000 = 0,5 \\text{ Litros}$"]);
+
+addQ(3,'calc',"Uma pressão medida no topo de uma montanha foi de $380 \\text{ mmHg}$. Sabendo que $1 \\text{ atm} = 760 \\text{ mmHg}$, qual é o valor dessa pressão em atm?", "0.5", 
+    ["$P = 380 / 760 = 0,5 \\text{ atm}$"]);
+
+addQ(3,'calc',"Um pneu de trator registra uma pressão interna de $3 \\text{ atm}$. Sabendo que $1 \\text{ atm} \\approx 100.000 \\text{ Pa}$, qual a pressão em Pascal?", "300000", 
+    ["$P = 3 \\cdot 100.000 = 300.000 \\text{ Pa}$"]);
+
+addQ(3,'calc',"A temperatura de um gás variou em $\\Delta \\theta = 50^\circ\\text{C}$. Qual foi essa variação na escala Kelvin ($\\Delta T$)?", "50", 
+    ["Como a divisão de 1 grau Celsius tem exatamente a mesma amplitude de 1 Kelvin, a VARIAÇÃO térmica é idêntica: $\\Delta T = \\Delta \\theta = 50 \\text{ K}$ (Nunca some 273 na variação!)."]);
+
+addQ(3,'calc',"A pressão atmosférica padrão é $1 \\text{ atm}$. Um mergulhador com cilindro de ar comprimido a $10 \\text{ m}$ de profundidade sente a água exercendo mais $1 \\text{ atm}$. Qual a pressão absoluta total sentida por ele em atm?", "2", 
+    ["$P_{total} = P_{atm} + P_{hidro} = 1 + 1 = 2 \\text{ atm}$."]);
+
+// ==========================================
+// TEMA 4: Equação de Clapeyron (PV = nRT) (46-60)
+// ==========================================
+addQ(4,'theo',"A equação de estado dos gases perfeitos, deduzida por Clapeyron, é expressa por:", "A", 
+    ["A célebre equação sintetiza pressão, volume, mols, constante universal e temperatura: $PV = nRT$."], 
+    ["A) $P \\cdot V = n \\cdot R \\cdot T$", "B) $P \\cdot T = n \\cdot R \\cdot V$", "C) $P \\cdot V = m \\cdot c \\cdot \\Delta T$", "D) $P / V = n \\cdot R \\cdot T$"]);
+
+addQ(4,'theo',"Na equação de Clapeyron ($PV = nRT$), se a pressão for usada em atm e o volume em Litros, qual é o valor numérico aproximado da constante universal $R$?", "C", 
+    ["O valor tradicional da constante dos gases em unidades práticas é $0,082 \\text{ atm}\\cdot\\text{L}/(\\text{mol}\\cdot\\text{K})$."], 
+    ["A) 8,31", "B) 1,98", "C) 0,082", "D) 6,02"]);
+
+addQ(4,'theo',"Se mantivermos o volume de um cilindro ($V$) e a temperatura ($T$) rigorosamente constantes, o que acontece com a pressão ($P$) ao injetarmos o dobro de mols ($n$) de gás?", "B", 
+    ["De acordo com $P = n \\cdot \\frac{RT}{V}$, com $V$ e $T$ constantes, a pressão é diretamente proporcional ao número de mols $n$. Mais moléculas colidindo = o dobro de pressão."], 
+    ["A) Permanece inalterada.", "B) Dobra.", "C) Cai pela metade.", "D) Fica negativa."]);
+
+addQ(4,'theo',"Como a equação de Clapeyron pode ser reescrita para envolver a densidade absoluta ($d = m/V$) de um gás?", "D", 
+    ["Como $n = m/M$, temos $PV = (m/M)RT \\rightarrow P \\cdot M = (m/V) R T \\rightarrow P \\cdot M = d \\cdot R \\cdot T$. Logo, $d = \\frac{P \\cdot M}{R \\cdot T}$."], 
+    ["A) $d = P \\cdot V \\cdot T$", "B) $d = R \\cdot T / P$", "C) $d = n \\cdot M / V$", "D) $d = \\frac{P \\cdot M}{R \\cdot T}$"]);
+
+addQ(4,'theo',"Em um balão com gás ideal, o que acontece com a densidade do gás ($d = m/V$) quando ele é aquecido a pressão constante?", "A", 
+    ["Ao aquecer a pressão constante, o gás se expande (seu volume aumenta). Como densidade é massa sobre volume ($d = m/V$), se o volume aumenta para a mesma massa, a densidade DIMINUI (o ar quente fica mais leve e o balão sobe!)."], 
+    ["A) Diminui, fazendo o gás ficar menos denso.", "B) Aumenta muito.", "C) Permanece inalterada.", "D) Vai a zero."]);
+
+addQ(4,'calc',"Calcule a pressão (em atm) exercida por $1 \\text{ mol}$ de gás ideal confinado em um volume de $8,2 \\text{ Litros}$ a uma temperatura de $300 \\text{ K}$. (Use $R = 0,082$).", "3", 
+    ["$PV = nRT \\rightarrow P \\cdot 8,2 = 1 \\cdot 0,082 \\cdot 300$", "$P \\cdot 8,2 = 24,6$", "$P = 24,6 / 8,2 = 3 \\text{ atm}$."]);
+
+addQ(4,'calc',"Qual é o volume (em Litros) ocupado por $2 \\text{ mols}$ de gás mantidos sob pressão de $4,1 \\text{ atm}$ a uma temperatura de $400 \\text{ K}$? ($R = 0,082$).", "16", 
+    ["$PV = nRT \\rightarrow 4,1 \\cdot V = 2 \\cdot 0,082 \\cdot 400$", "$4,1 \\cdot V = 65,6$", "$V = 65,6 / 4,1 = 16 \\text{ Litros}$."]);
+
+addQ(4,'calc',"Um frasco rígido de $16,4 \\text{ L}$ contém gás sob pressão de $2 \\text{ atm}$ a $300 \\text{ K}$. Quantos mols de gás há no frasco? ($R = 0,082$).", "1.33", 
+    ["$PV = nRT \\rightarrow 2 \\cdot 16,4 = n \\cdot 0,082 \\cdot 300$", "$32,8 = n \\cdot 24,6$", "$n = 32,8 / 24,6 \\approx 1,33 \\text{ mol}$."]);
+
+addQ(4,'calc',"Se $0,5 \\text{ mol}$ de gás ocupa um volume de $10 \\text{ L}$ sob pressão de $1,23 \\text{ atm}$, qual é a temperatura do gás em Kelvin? ($R = 0,082$).", "300", 
+    ["$PV = nRT \\rightarrow 1,23 \\cdot 10 = 0,5 \\cdot 0,082 \\cdot T$", "$12,3 = 0,041 \\cdot T$", "$T = 12,3 / 0,041 = 300 \\text{ K}$."]);
+
+addQ(4,'calc',"Um cilindro de oxigênio hospitalar tem volume fixo de $41 \\text{ L}$ e está a $27^\circ\\text{C}$ ($T = 300 \\text{ K}$). Se ele contém $10 \\text{ mols}$ de gás, qual a pressão interna em atm? ($R = 0,082$).", "6", 
+    ["$P \\cdot 41 = 10 \\cdot 0,082 \\cdot 300$", "$P \\cdot 41 = 246$", "$P = 246 / 41 = 6 \\text{ atm}$."]);
+
+addQ(4,'calc',"Uma massa de $64 \\text{ g}$ de gás metano ($CH_4$, massa molar $M = 16 \\text{ g/mol}$) está em um botijão de $82 \\text{ L}$ a $300 \\text{ K}$. Qual a pressão em atm? (Dica: ache o número de mols primeiro: $n = 64/16$).", "1.2", 
+    ["Passo 1: $n = 64 / 16 = 4 \\text{ mols}$", "Passo 2: $P \\cdot 82 = 4 \\cdot 0,082 \\cdot 300 = 98,4$", "$P = 98,4 / 82 = 1,2 \\text{ atm}$."]);
+
+addQ(4,'calc',"Sob pressão de $1 \\text{ atm}$ e $T = 300 \\text{ K}$, qual é o volume em Litros ocupado por $5 \\text{ mols}$ de gás ideal? ($R = 0,082$).", "123", 
+    ["$1 \\cdot V = 5 \\cdot 0,082 \\cdot 300$", "$V = 123 \\text{ Litros}$."]);
+
+addQ(4,'calc',"Em um experimento no Sistema Internacional ($R = 8,31 \\text{ J/(mol K)}$), $1 \\text{ mol}$ de gás a $300 \\text{ K}$ está a uma pressão de $100.000 \\text{ Pa}$. Calcule o volume em metros cúbicos ($m^3$) arredondado para 3 casas decimais.", "0.025", 
+    ["$P \\cdot V = n \\cdot R \\cdot T$", "$100000 \\cdot V = 1 \\cdot 8,31 \\cdot 300 = 2493$", "$V = 2493 / 100000 = 0,02493 \\approx 0,025 \\text{ m}^3$."]);
+
+addQ(4,'calc',"Se $n = 2 \\text{ mols}$ e $T = 400 \\text{ K}$, quanto vale o produto $P \\cdot V$ em atm·L? ($R = 0,082$).", "65.6", 
+    ["$P \\cdot V = n R T = 2 \\cdot 0,082 \\cdot 400 = 65,6 \\text{ atm}\\cdot\\text{L}$."]);
+
+addQ(4,'calc',"Se o produto $P \\cdot V$ de uma amostra de $4 \\text{ mols}$ é igual a $98,4 \\text{ atm}\\cdot\\text{L}$, qual é a temperatura do gás em Kelvin? ($R = 0,082$).", "300", 
+    ["$98,4 = 4 \\cdot 0,082 \\cdot T \\rightarrow 98,4 = 0,328 T$", "$T = 98,4 / 0,328 = 300 \\text{ K}$."]);
+
+// ==========================================
+// TEMA 5: Lei Geral dos Gases Perfeitos (61-75)
+// ==========================================
+addQ(5,'theo',"A Lei Geral dos Gases ($\\frac{P_1 V_1}{T_1} = \\frac{P_2 V_2}{T_2}$) pode ser aplicada com validade estrita somente quando:", "C", 
+    ["A Lei Geral supõe que a quantidade de matéria (número de mols $n$) permanece inalterada entre os estados 1 e 2, isto é, não entra nem vaza gás do recipiente."], 
+    ["A) O gás for liquefeito.", "B) A temperatura estiver em graus Fahrenheit.", "C) A massa do gás for constante (sistema fechado sem vazamentos).", "D) A pressão for nula."]);
+
+addQ(5,'theo',"Se uma amostra confinada de gás tiver o seu volume reduzido pela metade e a sua temperatura absoluta (K) for mantida rigorosamente constante, a sua pressão final será:", "B", 
+    ["Pela Lei de Boyle ($P_1 V_1 = P_2 V_2$), com $T$ constante, pressão e volume são grandezas inversamente proporcionais. Se o espaço cai pela metade, a pressão dobra."], 
+    ["A) Reduzida à metade.", "B) Duplicada.", "C) Quadruplicada.", "D) Inalterada."]);
+
+addQ(5,'theo',"Um balão selado e indeformável (volume constante) é colocado no congelador. O que acontecerá com a pressão do gás lá dentro?", "D", 
+    ["Em volume constante, pressão e temperatura em Kelvin são diretamente proporcionais ($P/T = const$). Ao esfriar o gás, as moléculas perdem velocidade e batem mais fracamente na parede: a pressão diminui."], 
+    ["A) Aumenta muito.", "B) Permanece exatamente constante.", "C) O gás vaza do balão.", "D) Diminui proporcionalmente à queda da temperatura em Kelvin."]);
+
+addQ(5,'theo',"O que acontece simultaneamente com um gás se dobrarmos a sua temperatura em Kelvin e, ao mesmo tempo, dobrarmos o seu volume?", "A", 
+    ["Da Lei Geral: $\\frac{P_1 V_1}{T_1} = \\frac{P_2 (2 V_1)}{2 T_1}$. Os fatores '2' se cancelam no numerador e denominador, resultando em $P_2 = P_1$. A pressão permanece rigorosamente igual!"], 
+    ["A) A sua pressão permanecerá inalterada.", "B) A pressão quadruplica.", "C) A pressão cai para um quarto.", "D) A pressão se anula."]);
+
+addQ(5,'theo',"Ao calibrar os pneus de um carro de manhã com ar frio e viajar horas em asfalto quente a alta velocidade, o que ocorre com a pressão interna do pneu (considerando a borracha rígida com volume quase fixo)?", "B", 
+    ["O atrito com o asfalto esquenta o ar dentro do pneu. Como o volume da câmara de ar é praticamente constante, o aumento de temperatura provoca um aumento na pressão interna do pneu."], 
+    ["A) Diminui, deixando o pneu murcho.", "B) Aumenta, podendo causar estouro se estiver muito acima do limite.", "C) Fica exatamente igual devido à borracha.", "D) A temperatura cai."]);
+
+addQ(5,'calc',"Um gás sob pressão de $2 \\text{ atm}$ ocupa $6 \\text{ L}$ a $300 \\text{ K}$. Se o volume for reduzido para $2 \\text{ L}$ mantendo a temperatura constante em $300 \\text{ K}$, qual será a nova pressão (em atm)?", "6", 
+    ["$P_1 \\cdot V_1 = P_2 \\cdot V_2$", "$2 \\cdot 6 = P_2 \\cdot 2 \\rightarrow 12 = 2 P_2$", "$P_2 = 12 / 2 = 6 \\text{ atm}$."]);
+
+addQ(5,'calc',"Certa massa de gás ocupa $10 \\text{ L}$ a $300 \\text{ K}$ sob pressão $P$. Se aquecermos esse gás a pressão constante até $600 \\text{ K}$ (o dobro), qual será o novo volume em Litros?", "20", 
+    ["$\\frac{V_1}{T_1} = \\frac{V_2}{T_2} \\rightarrow \\frac{10}{300} = \\frac{V_2}{600}$", "$V_2 = \\frac{10 \\cdot 600}{300} = 20 \\text{ Litros}$."]);
+
+addQ(5,'calc',"Uma panela de pressão de volume indeformável tem gás a $1 \\text{ atm}$ e $300 \\text{ K}$. Ela é aquecida no fogão até $450 \\text{ K}$. Qual será a nova pressão interna em atm?", "1.5", 
+    ["$\\frac{P_1}{T_1} = \\frac{P_2}{T_2} \\rightarrow \\frac{1}{300} = \\frac{P_2}{450}$", "$P_2 = \\frac{450}{300} = 1,5 \\text{ atm}$."]);
+
+addQ(5,'calc',"Uma amostra tem $P_1 = 4 \\text{ atm}$, $V_1 = 5 \\text{ L}$ e $T_1 = 200 \\text{ K}$. Ela é levada para um estado onde $V_2 = 10 \\text{ L}$ e $T_2 = 400 \\text{ K}$. Qual é o novo valor de $P_2$ em atm?", "4", 
+    ["$\\frac{P_1 V_1}{T_1} = \\frac{P_2 V_2}{T_2}$", "$\\frac{4 \\cdot 5}{200} = \\frac{P_2 \\cdot 10}{400} \\rightarrow \\frac{20}{200} = \\frac{10 P_2}{400}$", "$0,1 = \\frac{10 P_2}{400} \\rightarrow 40 = 10 P_2 \\rightarrow P_2 = 4 \\text{ atm}$."]);
+
+addQ(5,'calc',"Uma bolha de ar de $1 \\text{ mL}$ é liberada no fundo de um lago a $20 \\text{ m}$ de profundidade ($P_1 = 3 \\text{ atm}$) e temperatura constante. Ao atingir a superfície ($P_2 = 1 \\text{ atm}$), qual será o volume final da bolha em mL?", "3", 
+    ["Isotérmica: $P_1 \\cdot V_1 = P_2 \\cdot V_2$", "$3 \\cdot 1 = 1 \\cdot V_2 \\rightarrow V_2 = 3 \\text{ mL}$ (A bolha triplica de tamanho ao subir!)."]);
+
+addQ(5,'calc',"Um gás a $27^\circ\\text{C}$ ($T_1 = 300 \\text{ K}$) tem volume $12 \\text{ L}$ e pressão $1 \\text{ atm}$. Se a pressão for aumentada para $2 \\text{ atm}$ e a temperatura for para $327^\circ\\text{C}$ ($T_2 = 600 \\text{ K}$), qual será o novo volume $V_2$ em Litros?", "12", 
+    ["$T_1 = 27 + 273 = 300 \\text{ K}$; $T_2 = 327 + 273 = 600 \\text{ K}$", "$\\frac{1 \\cdot 12}{300} = \\frac{2 \\cdot V_2}{600}$", "$\\frac{12}{300} = \\frac{2 V_2}{600} \\rightarrow 0,04 \\cdot 600 = 2 V_2 \\rightarrow 24 = 2 V_2 \\rightarrow V_2 = 12 \\text{ L}$."]);
+
+addQ(5,'calc',"Em um frasco selado, um gás está a $2 \\text{ atm}$ e $250 \\text{ K}$. Para que a pressão suba para $6 \\text{ atm}$ mantendo o volume constante, para qual temperatura em Kelvin ele deve ser aquecido?", "750", 
+    ["$\\frac{P_1}{T_1} = \\frac{P_2}{T_2} \\rightarrow \\frac{2}{250} = \\frac{6}{T_2}$", "$2 T_2 = 1500 \\rightarrow T_2 = 750 \\text{ K}$."]);
+
+addQ(5,'calc',"Um cilindro contém gás ocupando $8 \\text{ L}$ a $4 \\text{ atm}$. Ele se expande isotermicamente até que a pressão caia para $1 \\text{ atm}$. Qual é o novo volume em Litros?", "32", 
+    ["$P_1 \\cdot V_1 = P_2 \\cdot V_2$", "$4 \\cdot 8 = 1 \\cdot V_2 \\rightarrow V_2 = 32 \\text{ Litros}$."]);
+
+addQ(5,'calc',"Se $P_1 V_1 / T_1 = 0,5 \\text{ atm L/K}$. Se no estado final $P_2 = 2 \\text{ atm}$ e $V_2 = 100 \\text{ L}$, qual é a temperatura final $T_2$ em Kelvin?", "400", 
+    ["$\\frac{P_2 \\cdot V_2}{T_2} = 0,5 \\rightarrow \\frac{2 \\cdot 100}{T_2} = 0,5$", "$\\frac{200}{T_2} = 0,5 \\rightarrow T_2 = 200 / 0,5 = 400 \\text{ K}$."]);
+
+addQ(5,'calc',"Gás ideal sofre aquecimento isobárico. Inicialmente tem $4 \\text{ L}$ a $200 \\text{ K}$. Se o volume final passa a ser $10 \\text{ L}$, qual foi a temperatura final $T_2$ atingida (em K)?", "500", 
+    ["$\\frac{4}{200} = \\frac{10}{T_2} \\rightarrow 0,02 = \\frac{10}{T_2}$", "$T_2 = 10 / 0,02 = 500 \\text{ K}$."]);
+
+// ==========================================
+// TEMA 6: Transformações Gasosas e Gráficos (76-90)
+// ==========================================
+addQ(6,'theo',"A curva característica que representa uma transformação Isotérmica em um diagrama de Pressão por Volume ($P \\times V$) é uma:", "C", 
+    ["Como o produto $P \\cdot V = constante$, a relação matemática $P = constante / V$ gera uma curva suave decrescente chamada hipérbole equilátera (denominada 'isoterma')."], 
+    ["A) Reta vertical paralela ao eixo P.", "B) Parábola com concavidade para cima.", "C) Hipérbole equilátera chamada de isoterma.", "D) Reta horizontal paralela ao eixo V."]);
+
+addQ(6,'theo',"Em um gráfico de Pressão por Volume ($P \\times V$), como é representada visualmente uma transformação Isobárica?", "A", 
+    ["Como a pressão não muda durante o processo, o valor no eixo vertical 'P' é constante, formando um segmento de reta puramente horizontal."], 
+    ["A) Uma reta horizontal.", "B) Uma reta vertical.", "C) Uma hipérbole.", "D) Uma circunferência fechada."]);
+
+addQ(6,'theo',"Uma transformação em que o gás NÃO realiza trabalho mecânico sobre o ambiente ($W = 0$) é obrigatoriamente uma transformação:", "B", 
+    ["O trabalho de um gás depende da variação do seu volume ($W = P \\cdot \\Delta V$). Se não há expansão nem compressão ($\\Delta V = 0$), o volume é fixo e o trabalho é rigorosamente nulo."], 
+    ["A) Isotérmica", "B) Isométrica (ou Isocórica)", "C) Isobárica", "D) Adiabática"]);
+
+addQ(6,'theo',"Durante uma compressão adiabática rápida de um gás (sem troca de calor com o exterior), o que ocorre com a sua temperatura?", "B", 
+    ["Pela Primeira Lei da Termodinâmica, $\\Delta U = Q - W$. Sendo $Q = 0$ (adiabática), temos $\\Delta U = -W$. Na compressão, o trabalho é negativo sobre o gás, logo $\\Delta U > 0$. A energia interna sobe e o gás aquece bruscamente!"], 
+    ["A) Diminui.", "B) Aumenta significativamente.", "C) Fica em zero absoluto.", "D) Permanece inalterada."]);
+
+addQ(6,'theo',"No diagrama $P \\times V$, quanto mais distante da origem (para cima e para a direita) estiver uma curva isoterma, o que podemos concluir sobre a temperatura daquela curva?", "A", 
+    ["Como o produto $P \\cdot V$ é diretamente proporcional à temperatura absoluta ($T = PV/nR$), isotermas mais altas e afastadas dos eixos representam temperaturas progressivamente maiores ($T_2 > T_1$)."], 
+    ["A) Representa uma temperatura mais alta.", "B) Representa uma temperatura mais baixa.", "C) A temperatura é sempre 0 K em qualquer isoterma.", "D) Depende do material do recipiente."]);
+
+addQ(6,'calc',"Em uma transformação Isobárica ($P = 2 \\text{ atm} = 200.000 \\text{ N/m}^2$), o volume de um gás se expande de $0,01 \\text{ m}^3$ para $0,04 \\text{ m}^3$ ($\\Delta V = 0,03 \\text{ m}^3$). O trabalho mecânico é $W = P \\cdot \\Delta V$. Calcule o trabalho realizado pelo gás em Joules.", "600", 
+    ["$W = P \\cdot \\Delta V$", "$W = 200000 \\cdot (0,04 - 0,01) = 200000 \\cdot 0,03 = 6000 \\text{ Joules}$."]);
+
+addQ(6,'calc',"Um gás realiza uma transformação isométrica onde seu volume é fixo em $5 \\text{ L}$. Qual é o trabalho mecânico realizado por ele em Joules?", "0", 
+    ["Em transformação isométrica (isocórica), $\\Delta V = 0$. Como $W = P \\cdot \\Delta V$, o trabalho é rigorosamente zero (0)."]);
+
+addQ(6,'calc',"Num ciclo termodinâmico retangular em um gráfico $P \\times V$, a base varia de $V_1 = 2 \\text{ m}^3$ a $V_2 = 5 \\text{ m}^3$ ($\\Delta V = 3$) e a altura varia de $P_1 = 100 \\text{ kPa}$ a $P_2 = 300 \\text{ kPa}$ ($\\Delta P = 200 \\text{ kPa}$). O trabalho útil do ciclo é numericamente igual à área da figura. Calcule o trabalho em kJ (base × altura).", "600", 
+    ["Área do retângulo = $\\Delta V \\cdot \\Delta P = 3 \\text{ m}^3 \\cdot 200 \\text{ kPa} = 600 \\text{ kJ}$."]);
+
+addQ(6,'calc',"Certo gás passa por uma transformação isotérmica. Seu volume inicial é $V_1 = 3 \\text{ L}$ e a pressão é $P_1 = 8 \\text{ atm}$. Se o gás for expandido até $V_2 = 12 \\text{ L}$, qual será a pressão final $P_2$ em atm?", "2", 
+    ["Isotérmica: $P_1 V_1 = P_2 V_2$", "$8 \\cdot 3 = P_2 \\cdot 12 \\rightarrow 24 = 12 P_2$", "$P_2 = 24 / 12 = 2 \\text{ atm}$."]);
+
+addQ(6,'calc',"Em uma transformação isobárica sob $3 \\text{ atm}$, o gás está a $300 \\text{ K}$ ocupando $6 \\text{ L}$. Para que o volume passe para $10 \\text{ L}$, qual deve ser a nova temperatura $T_2$ em Kelvin?", "500", 
+    ["$\\frac{V_1}{T_1} = \\frac{V_2}{T_2} \\rightarrow \\frac{6}{300} = \\frac{10}{T_2}$", "$6 T_2 = 3000 \\rightarrow T_2 = 500 \\text{ K}$."]);
+
+addQ(6,'calc',"Um spray aerossol tem pressão de $2,5 \\text{ atm}$ a $27^\circ\\text{C}$ ($300 \\text{ K}$). Ele é jogado em uma fogueira e atinge $327^\circ\\text{C}$ ($600 \\text{ K}$) antes de estourar. Sabendo que a lata de metal não dilata (isométrica), qual foi a pressão máxima atingida antes do estouro em atm?", "5", 
+    ["$\\frac{P_1}{T_1} = \\frac{P_2}{T_2} \\rightarrow \\frac{2,5}{300} = \\frac{P_2}{600}$", "$P_2 = \\frac{2,5 \\cdot 600}{300} = 2,5 \\cdot 2 = 5 \\text{ atm}$."]);
+
+addQ(6,'calc',"Uma isoterma a $300 \\text{ K}$ tem um ponto com $P = 4 \\text{ atm}$ e $V = 5 \\text{ L}$ ($P \\cdot V = 20$). Em outra isoterma mais quente, o mesmo gás no volume de $5 \\text{ L}$ atinge $8 \\text{ atm}$ ($P \\cdot V = 40$). Quantas vezes a temperatura da segunda isoterma é maior que a da primeira?", "2", 
+    ["Como $PV = nRT$, a razão entre as temperaturas é igual à razão entre os produtos $PV$:", "$T_2 / T_1 = 40 / 20 = 2$ vezes mais quente (ou seja, $600 \\text{ K}$)."]);
+
+addQ(6,'calc',"Um pistão com gás sob pressão constante de $150.000 \\text{ Pa}$ realiza um trabalho de $4500 \\text{ Joules}$ ao expandir. Qual foi a variação de volume $\\Delta V$ em metros cúbicos ($m^3$)? ($W = P \\cdot \\Delta V$).", "0.03", 
+    ["$W = P \\cdot \\Delta V \\rightarrow 4500 = 150000 \\cdot \\Delta V$", "$\\Delta V = 4500 / 150000 = 0,03 \\text{ m}^3$."]);
+
+addQ(6,'calc',"Aproveitando a questão anterior, quantos Litros representam essa variação de $0,03 \\text{ m}^3$? ($1 \\text{ m}^3 = 1000 \\text{ L}$).", "30", 
+    ["$\\Delta V = 0,03 \\cdot 1000 = 30 \\text{ Litros}$."]);
+
+addQ(6,'calc',"Um gás sob pressão de $10 \\text{ atm}$ e volume de $2 \\text{ L}$ sofre uma expansão isotérmica até que o volume quadruplique ($V_2 = 8 \\text{ L}$). Qual é a pressão final em atm?", "2.5", 
+    ["$P_1 \\cdot V_1 = P_2 \\cdot V_2$", "$10 \\cdot 2 = P_2 \\cdot 8 \\rightarrow 20 = 8 P_2$", "$P_2 = 20 / 8 = 2,5 \\text{ atm}$."]);
+
+let currentTheme = 'all';
+let solved = new Set(JSON.parse(localStorage.getItem('fisicaGasesSolved')||'[]'));
+
+function renderExercises() {
+    const listDiv = $('exercise-list');
+    let html = '';
+    
+    exercisesData.forEach(ex => {
+        if (currentTheme !== 'all' && ex.theme != currentTheme) return;
+        
+        const isSolved = solved.has(ex.id);
+        const borderColor = isSolved ? 'border-emerald-400' : 'border-slate-200';
+        const badgeColor = isSolved ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700';
+        const themeNames = ["", "Gás Ideal", "Mol e Massa", "Variáveis de Estado", "Clapeyron", "Lei Geral", "Transformações"];
+        
+        let questionBody = `<p class="mt-3 text-slate-700 mb-4 text-sm leading-6">${ex.q}</p>`;
+        
+        if (ex.type === 'theo' && ex.opts) {
+            questionBody += `<div class="space-y-2 mb-4 text-sm text-slate-600">`;
+            ex.opts.forEach(opt => {
+                questionBody += `<div class="p-2 bg-slate-50 rounded-lg border border-slate-100">${opt}</div>`;
+            });
+            questionBody += `</div>`;
+        }
+
+        html += `
+        <article class="bg-white rounded-2xl border ${borderColor} p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div class="flex justify-between gap-3 items-center">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full ${badgeColor}">Questão ${ex.id}</span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">TEMA ${ex.theme}: ${themeNames[ex.theme]}</span>
+            </div>
+            
+            ${questionBody}
+            
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" type="text" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="${ex.type==='theo' ? 'Letra (A, B, C, D)' : 'Valor numérico'}">
+                <button onclick="checkAnswer(${ex.id})" class="bg-purple-600 hover:bg-purple-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+            </div>
+            
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+            
+            <button onclick="document.getElementById('sol-${ex.id}').classList.toggle('hidden')" class="mt-3 text-sm font-bold text-purple-700 hover:underline">
+                👁 Mostrar explicação / cálculo
+            </button>
+            
+            <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t border-purple-100 pt-4">
+                <div class="text-xs uppercase tracking-widest font-black text-purple-800 mb-3">Resolução Passo a Passo</div>
+                ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+                <div class="success rounded-xl p-4 text-center font-bold mt-2 text-emerald-900">Resposta Correta: ${ex.ans}</div>
+            </div>
+        </article>
+        `;
+    });
+    
+    listDiv.innerHTML = html;
+    updateProgress();
+    renderAll();
+}
+
+function checkAnswer(id) {
+    const ex = exercisesData.find(x => x.id === id);
+    const inputEl = $(`ans-${id}`);
+    const fbEl = $(`fb-${id}`);
+    
+    let rawInput = inputEl.value.trim().toUpperCase();
+    if(ex.type === 'calc') {
+        rawInput = rawInput.replace(',', '.'); 
+    }
+
+    let isCorrect = false;
+    
+    if (ex.type === 'theo') {
+        isCorrect = (rawInput === ex.ans);
+    } else {
+        const numIn = parseFloat(rawInput);
+        const numAns = parseFloat(ex.ans);
+        // Margem de tolerância decimal
+        if(!isNaN(numIn) && Math.abs(numIn - numAns) <= 0.05) {
+            isCorrect = true;
+        }
+    }
+
+    if (isCorrect) {
+        solved.add(id);
+        localStorage.setItem('fisicaGasesSolved', JSON.stringify([...solved]));
+        fbEl.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fbEl.textContent = '✓ Excelente! Resposta correta.';
+        setTimeout(renderExercises, 400); 
+    } else {
+        fbEl.className = 'text-sm font-bold mt-2 text-red-500';
+        fbEl.textContent = '✗ Não está certo. Lembre-se de converter para Kelvin e conferir a fórmula!';
+    }
+}
+
+function updateProgress() {
+    const max = exercisesData.length;
+    const current = solved.size;
+    $('progress-text').textContent = `${current} / ${max}`;
+    $('progress-bar').style.width = `${(current/max)*100}%`;
+}
+
+// Filtros de Tema
+document.querySelectorAll('.level-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active', 'bg-purple-600', 'text-white'));
+        document.querySelectorAll('.level-btn:not(.active)').forEach(b => b.classList.add('bg-slate-100'));
+        
+        btn.classList.add('active');
+        btn.classList.remove('bg-slate-100');
+        
+        currentTheme = btn.dataset.theme;
+        renderExercises();
+    };
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderExercises();
+    renderAll();
+    toggleTransfInputs();
+});
+</script>
+</body>
+</html>

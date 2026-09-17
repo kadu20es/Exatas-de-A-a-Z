@@ -1,0 +1,250 @@
+/*
+ * Exatas-de-A-a-Z
+ * Componentes de exercícios
+ */
+
+/* Card */
+
+.exercise-card {
+    position: relative;
+
+    margin: 1rem 0;
+    padding: 1.25rem;
+
+    background: var(--exatas-surface);
+
+    border:
+        1px solid var(--exatas-border);
+
+    border-radius:
+        var(--exatas-radius-lg);
+
+    box-shadow:
+        var(--exatas-shadow-sm);
+}
+
+/* Cabeçalho */
+
+.exercise-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+.exercise-number {
+    display: grid;
+    place-items: center;
+
+    min-width: 2rem;
+    height: 2rem;
+
+    padding-inline: 0.5rem;
+
+    border-radius: 999px;
+
+    background: var(--exatas-primary);
+
+    color: white;
+
+    font-weight: 700;
+}
+
+.exercise-id {
+    color: var(--exatas-text-muted);
+
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+
+    font-size: 0.8rem;
+}
+
+/* Questão */
+
+.exercise-question {
+    margin-bottom: 1rem;
+
+    line-height: 1.7;
+}
+
+/* Resposta */
+
+.exercise-answer-area {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.exercise-answer {
+    flex: 1;
+
+    min-width: 0;
+
+    border:
+        1px solid var(--exatas-border);
+
+    border-radius:
+        var(--exatas-radius);
+
+    background: white;
+
+    padding: 0.625rem 0.75rem;
+
+    transition:
+        border-color var(--exatas-transition),
+        box-shadow var(--exatas-transition);
+}
+
+.exercise-answer:focus {
+    outline: none;
+
+    border-color:
+        var(--exatas-primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgb(37 99 235 / 0.15);
+}
+
+.exercise-check {
+    border: 0;
+
+    border-radius:
+        var(--exatas-radius);
+
+    padding: 0.625rem 1rem;
+
+    background:
+        var(--exatas-primary);
+
+    color: white;
+
+    font-weight: 600;
+}
+
+/* Feedback */
+
+.exercise-feedback {
+    margin-top: 1rem;
+
+    padding: 0.75rem 1rem;
+
+    border-radius:
+        var(--exatas-radius);
+}
+
+.exercise-feedback.correct {
+    background:
+        var(--exatas-success-bg);
+
+    color:
+        var(--exatas-success);
+
+    border:
+        1px solid
+        rgb(21 128 61 / 0.25);
+}
+
+.exercise-feedback.incorrect {
+    background:
+        var(--exatas-danger-bg);
+
+    color:
+        var(--exatas-danger);
+
+    border:
+        1px solid
+        rgb(185 28 28 / 0.25);
+}
+
+/* Solução */
+
+.exercise-solution {
+    margin-top: 1rem;
+
+    padding: 1rem;
+
+    border-top:
+        1px solid var(--exatas-border);
+
+    background:
+        var(--exatas-surface-soft);
+
+    border-radius:
+        var(--exatas-radius);
+}
+
+/* Estados */
+
+.exercise-card.is-correct {
+    border-color:
+        var(--exatas-success);
+}
+
+.exercise-card.is-incorrect {
+    border-color:
+        var(--exatas-danger);
+}
+
+/* Filtros */
+
+.exercise-filters {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 0.75rem;
+
+    margin-bottom: 1.5rem;
+}
+
+.exercise-filter {
+    min-width: 160px;
+}
+
+/* Progresso */
+
+.exercise-progress {
+    margin-bottom: 1.5rem;
+}
+
+.exercise-progress-info {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: 0.5rem;
+
+    color:
+        var(--exatas-text-muted);
+
+    font-size: 0.9rem;
+}
+
+/* Responsividade */
+
+@media (max-width: 640px) {
+    .exercise-answer-area {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .exercise-check {
+        width: 100%;
+    }
+
+    .exercise-card {
+        padding: 1rem;
+    }
+}

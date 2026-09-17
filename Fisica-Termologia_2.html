@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física — Calor e Calorimetria</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {--ink: #431407; --paper: #fffbeb; --line: #fcd34d; --accent: #ea580c}
+  body {background: #fffaf0; color: var(--ink)}
+  .tab-btn.active {color: #c2410c; border-bottom-color: #c2410c; font-weight: 800}
+  .paper {background: var(--paper); background-image: linear-gradient(#fde68a 1px, transparent 1px); background-size: 100% 2rem; border: 1px solid #fcd34d; box-shadow: 0 8px 24px #4314070d}
+  .step {position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #fde047; border-radius: 1rem; background: white}
+  .step::before {content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #fef08a; color: #c2410c; font-weight: 800; display: grid; place-items: center; font-size: .8rem}
+  .level-btn.active {background: #ea580c; color: white}
+  .exercise-solution {animation: fade .2s ease}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  .tip {border-left: 4px solid #f59e0b; background: #fffbeb}
+  .success {border-left: 4px solid #10b981; background: #ecfdf5}
+  .warning {border-left: 4px solid #ef4444; background: #fef2f2}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-orange-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-orange-900">🔥 Física Térmica</div><div class="text-[11px] text-slate-500 hidden sm:block">Calor, Alimentos, Estados e Equilíbrio</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-orange-950 via-red-900 to-amber-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-amber-300">Termologia: Dinâmica do Calor</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">A Energia Invisível</h1>
+  <p class="mt-4 max-w-3xl text-orange-100 leading-7">Entenda a diferença crucial entre calor e temperatura, como nosso corpo queima calorias dos alimentos, o mistério das mudanças de estado da água e a matemática por trás da mistura do café quente com o leite frio.</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm text-sm">
+  <b>A Grande Confusão:</b> No dia a dia dizemos "Estou com calor!" ou "Feche a porta para o frio não entrar". <b>Na Física, as duas frases estão erradas!</b> Frio não existe (é apenas ausência de calor) e ninguém "tem" calor. Você apenas "sente" o calor fluindo do seu corpo para o ambiente ou vice-versa.
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tema 1 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">Calor: Energia em Trânsito</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Calor ($Q$) é a energia térmica transferida de um corpo para outro motivada <b>exclusivamente pela diferença de temperatura</b> entre eles.</p>
+   <ul class="list-disc pl-5 mt-3 text-sm text-slate-600 space-y-2">
+    <li>O calor <b>SÓ EXISTE</b> enquanto está viajando do corpo MAIS quente para o MAIS frio. Quando a viagem acaba, ele volta a se chamar "energia interna".</li>
+    <li><b>Unidades:</b> No SI, medimos em <b>Joules (J)</b>. Mas na prática usamos a <b>caloria (cal)</b>.</li>
+    <li>1 caloria é a energia exata para esquentar 1 grama de água em 1 °C. ($1 \text{ cal} \approx 4,18 \text{ J}$).</li>
+   </ul>
+  </article>
+
+  <!-- Tema 2 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Energia para a Vida (Alimentos)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Nosso corpo é uma máquina térmica. Queimamos alimentos para manter nossa temperatura em 36,5°C e realizar trabalho (andar, bater o coração).</p>
+   <div class="bg-amber-50 rounded-xl p-3 border border-amber-100 mt-3 text-sm">
+     <b>A Caloria Alimentar:</b> Quando um pacote de biscoito diz ter "130 Calorias" (com C maiúsculo), ele na verdade tem 130 <b>Quilocalorias (kcal)</b>.
+     <div class="font-bold text-center mt-2 text-orange-900">$1 \text{ kcal} = 1000 \text{ cal}$</div>
+   </div>
+   <p class="text-[11px] text-slate-500 mt-3 leading-5"><b>Taxa Metabólica Basal:</b> É a quantidade de energia (kcal) que seu corpo gasta por dia apenas para se manter vivo, dormindo na cama. Se você comer mais calorias do que queima, o corpo armazena o calor sobressalente como gordura.</p>
+  </article>
+ </div>
+
+ <!-- Tema 3 -->
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">3</span><h2 class="text-2xl font-black">O Ciclo da Água e as Fases</h2></div>
+  <p class="text-sm text-slate-600 mt-3 mb-4">A matéria pode estar Sólida, Líquida ou Gasosa. Adicionar ou retirar calor faz a matéria pular de um estado para o outro. Mas atenção: <b>durante a mudança de estado, a temperatura NÃO muda!</b> Todo o calor é usado para "quebrar as pontes" entre as moléculas, não para agitá-las mais.</p>
+  
+  <div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-3 text-sm">
+   <div class="border rounded-xl p-3 bg-red-50 text-center"><b class="text-red-800 text-xs">Fusão</b><br><span class="text-[10px] text-slate-600">Sólido $\rightarrow$ Líquido<br>(Absorve Calor)</span></div>
+   <div class="border rounded-xl p-3 bg-orange-50 text-center"><b class="text-orange-800 text-xs">Vaporização</b><br><span class="text-[10px] text-slate-600">Líquido $\rightarrow$ Gás<br>(Absorve Calor)</span></div>
+   <div class="border rounded-xl p-3 bg-sky-50 text-center"><b class="text-sky-800 text-xs">Condensação</b><br><span class="text-[10px] text-slate-600">Gás $\rightarrow$ Líquido<br>(Libera Calor)</span></div>
+   <div class="border rounded-xl p-3 bg-blue-50 text-center"><b class="text-blue-800 text-xs">Solidificação</b><br><span class="text-[10px] text-slate-600">Líquido $\rightarrow$ Sólido<br>(Libera Calor)</span></div>
+  </div>
+  
+  <div class="bg-rose-50 border-l-4 border-rose-400 p-4 rounded-r-xl mt-4">
+    <b class="text-rose-900 text-sm">💦 Por que o suor nos refresca?</b>
+    <p class="text-xs text-rose-800 mt-1">A Vaporização rouba calor! Quando o suor (água) na sua pele evapora, ele precisa absorver muita energia para virar gás. De onde ele rouba essa energia? Do seu corpo! Ao perder calor para a gota de suor evaporar, sua pele esfria e sua temperatura abaixa.</p>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Tema 4 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Trocas de Calor</h2></div>
+   <p class="mt-3 text-slate-600 text-sm mb-3">Existem dois tipos matemáticos de Calor:</p>
+   
+   <b class="text-orange-800 text-sm">1. Calor Sensível (Muda a Temperatura)</b>
+   <p class="text-xs text-slate-600 mt-1 mb-2">Usado quando o corpo esquenta ou esfria, sem derreter ou ferver. A famosa equação do "Que Ma Ce Te".</p>
+   <div class="paper text-center py-2 font-bold rounded-lg text-lg">\[Q = m \cdot c \cdot \Delta T\]</div>
+   <div class="text-[10px] text-slate-500 mt-1 text-center">$m$: massa | $c$: calor específico | $\Delta T$: variação de Temp.</div>
+   
+   <hr class="my-4 border-slate-200">
+   
+   <b class="text-rose-800 text-sm">2. Calor Latente (Muda o Estado)</b>
+   <p class="text-xs text-slate-600 mt-1 mb-2">Usado na hora exata em que o gelo derrete ou a água ferve (a temperatura trava, $\Delta T$ é inútil aqui!). A equação do "Que Mole".</p>
+   <div class="paper text-center py-2 font-bold rounded-lg text-lg">\[Q = m \cdot L\]</div>
+   <div class="text-[10px] text-slate-500 mt-1 text-center">$m$: massa | $L$: calor latente (L da fusão do gelo é 80 cal/g)</div>
+  </article>
+  
+  <!-- Tema 5 -->
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Princípio do Equilíbrio Térmico</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">O que acontece se jogarmos uma pedra de ferro quente a 100°C dentro de um balde de água a 20°C num sistema isolado (uma garrafa térmica perfeita)?</p>
+   
+   <ul class="list-disc pl-5 mt-3 text-sm text-slate-600 space-y-2">
+    <li>O calor vai sair do ferro e entrar na água até ambos atingirem uma mesma temperatura final ($T_f$).</li>
+    <li>A energia se conserva! O calor que um <b>cede</b> é exatamente igual ao calor que o outro <b>recebe</b>.</li>
+   </ul>
+   
+   <div class="paper text-center py-3 mt-4 font-bold rounded-lg text-sm text-red-900 border-red-200">\[\sum Q = 0\]<br>\[Q_{recebido} + Q_{cedido} = 0\]</div>
+   
+   <div class="bg-sky-50 border-l-4 border-sky-400 p-3 mt-4 text-[11px] text-slate-700">
+    <b>A Magia da Água:</b> O calor específico da água ($c = 1 \text{ cal/g}^\circ\text{C}$) é gigantesco comparado à areia ($c \approx 0,2$). É por isso que, na praia sob o sol do meio dia, a areia queima o pé, mas a água do mar está fria. A água precisa de muita energia para subir 1 grau de temperatura, servindo como o ar-condicionado do planeta Terra!
+   </div>
+  </article>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-orange-600">Simulador Termodinâmico</span><h1 class="text-3xl font-black mt-2">Calorímetro Virtual</h1><p class="text-slate-600 mt-2 text-sm">Pratique a equação do Calor Sensível e simule misturas térmicas para descobrir a temperatura final de equilíbrio.</p></div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Lab Calor Sensivel -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl text-orange-900">Calculadora de Calor Sensível</h2>
+   <p class="text-xs text-slate-500 mb-4">Descubra quantas calorias são necessárias para esquentar ou esfriar uma substância.</p>
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between"><label>Massa (g):</label><input id="lab-m" type="number" value="200" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Calor Específico ($c$):<br><span class="text-[10px] text-slate-400">Água=1, Ferro=0.11, Areia=0.2</span></label><input id="lab-c" type="number" value="1" step="0.01" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Temp. Inicial ($^\circ$C):</label><input id="lab-ti" type="number" value="20" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+    <div class="flex items-center justify-between"><label>Temp. Final ($^\circ$C):</label><input id="lab-tf" type="number" value="80" class="border rounded-xl px-2 py-1 w-24 text-center"></div>
+   </div>
+   <button onclick="calcSensivel()" class="mt-4 w-full bg-orange-600 hover:bg-orange-700 text-white rounded-xl py-3 font-bold transition">Calcular Calor (Q)</button>
+   <div id="out-sensivel" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+
+  <!-- Lab Equilíbrio -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl text-red-900">Mistura: Equilíbrio Térmico</h2>
+   <p class="text-xs text-slate-500 mb-4">Misture ÁGUA quente com ÁGUA fria e veja em qual temperatura a mistura vai estabilizar ($T_f$). Assumindo $c_{água}=1$.</p>
+   <div class="space-y-3 text-sm">
+    <div class="font-bold text-sky-800 border-b pb-1">Corpo A (Frio)</div>
+    <div class="flex items-center justify-between"><label>Massa A (g):</label><input id="lab-ma" type="number" value="300" class="border rounded-xl px-2 py-1 w-24 text-center bg-sky-50"></div>
+    <div class="flex items-center justify-between"><label>Temp. A ($^\circ$C):</label><input id="lab-ta" type="number" value="10" class="border rounded-xl px-2 py-1 w-24 text-center bg-sky-50"></div>
+    
+    <div class="font-bold text-red-800 border-b pb-1 mt-3">Corpo B (Quente)</div>
+    <div class="flex items-center justify-between"><label>Massa B (g):</label><input id="lab-mb" type="number" value="200" class="border rounded-xl px-2 py-1 w-24 text-center bg-red-50"></div>
+    <div class="flex items-center justify-between"><label>Temp. B ($^\circ$C):</label><input id="lab-tb" type="number" value="80" class="border rounded-xl px-2 py-1 w-24 text-center bg-red-50"></div>
+   </div>
+   <button onclick="calcEquilibrio()" class="mt-4 w-full bg-red-600 hover:bg-red-700 text-white rounded-xl py-3 font-bold transition">Misturar Corpos</button>
+   <div id="out-equilibrio" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><span class="text-xs font-bold uppercase tracking-widest text-orange-600">Treino Progressivo</span><h1 class="text-3xl font-black mt-2">75 Questões Resolvidas</h1><p class="text-slate-600 mt-2 text-sm"><b>Teoria:</b> digite a letra (A, B, C, D). <b>Cálculos:</b> digite apenas o número (use '.' ou ',' para decimais). Arredonde para 2 casas quando necessário.</p></div><div class="min-w-[210px]"><div class="flex justify-between text-sm font-bold text-red-900"><span>Progresso</span><span id="progress-text">0 / 75</span></div><div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-red-500 transition-all duration-500 rounded-full" style="width:0%"></div></div></div></div></div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm"><div class="flex flex-wrap gap-2" id="filters">
+  <button data-theme="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold transition">Todos</button>
+  <button data-theme="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T1: Calor vs Temp</button>
+  <button data-theme="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T2: Energia/Alimentos</button>
+  <button data-theme="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T3: Ciclo/Mudanças</button>
+  <button data-theme="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T4: Calor Sens/Latente</button>
+  <button data-theme="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T5: Equilíbrio Térmico</button>
+ </div></div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+</main>
+
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material interativo • Física — Calor, Energia e Calorimetria</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){document.querySelectorAll('body').forEach(el=>{if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}]})})}
+
+// Tab Navigation
+const sections=['teoria','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const t=btn.dataset.tab;sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));if(t==='exercicios')renderExercises();}));
+
+// Calculators
+function calcSensivel(){
+    const m = +$('lab-m').value;
+    const c = +$('lab-c').value;
+    const ti = +$('lab-ti').value;
+    const tf = +$('lab-tf').value;
+    
+    if (m <= 0 || c <= 0) {
+        $('out-sensivel').innerHTML = `<b class="text-red-500">A massa e o calor específico devem ser maiores que zero.</b>`;
+        $('out-sensivel').classList.remove('hidden');
+        return;
+    }
+    
+    const dT = tf - ti;
+    const Q = m * c * dT;
+    
+    let h = `<b>1. A Equação Fundamental da Calorimetria:</b><br>`;
+    h += `\\[Q = m \\cdot c \\cdot \\Delta T\\]<br>`;
+    h += `<b>2. Achando o $\\Delta T$:</b><br>`;
+    h += `\\[\\Delta T = T_{final} - T_{inicial} = ${tf} - ${ti} = ${dT} ^\\circ\\text{C}\\]<br><br>`;
+    h += `<b>3. Calculando o Calor (Q):</b><br>`;
+    h += `\\[Q = ${m} \\cdot ${c} \\cdot (${dT})\\]<br>`;
+    
+    if (Q > 0) {
+        h += `A substância absorveu <b class="text-orange-700">${Q.toFixed(2)} calorias</b> para ESQUENTAR.`;
+    } else if (Q < 0) {
+        h += `A substância precisou liberar/perder <b class="text-sky-700">${Math.abs(Q).toFixed(2)} calorias</b> para ESFRIAR.`;
+    } else {
+        h += `A temperatura não mudou, logo Q = 0 calorias.`;
+    }
+    
+    $('out-sensivel').innerHTML = h;
+    $('out-sensivel').classList.remove('hidden');
+    renderAll();
+}
+
+function calcEquilibrio(){
+    const ma = +$('lab-ma').value;
+    const ta = +$('lab-ta').value;
+    const mb = +$('lab-mb').value;
+    const tb = +$('lab-tb').value;
+    
+    if (ma <= 0 || mb <= 0) {
+        $('out-equilibrio').innerHTML = `<b class="text-red-500">As massas devem ser maiores que zero.</b>`;
+        $('out-equilibrio').classList.remove('hidden');
+        return;
+    }
+    
+    // Qa + Qb = 0  => ma * c * (Tf - Ta) + mb * c * (Tf - Tb) = 0
+    // Como c é igual para os dois (água), podemos cortar.
+    // ma(Tf) - ma(Ta) + mb(Tf) - mb(Tb) = 0
+    // Tf(ma + mb) = ma(Ta) + mb(Tb)
+    // Tf = (ma*Ta + mb*Tb) / (ma + mb) -> Isso é uma média ponderada!
+    
+    const Tf = (ma*ta + mb*tb) / (ma + mb);
+    
+    let h = `<b>1. Princípio do Equilíbrio:</b><br>`;
+    h += `\\[Q_A + Q_B = 0\\]<br>`;
+    h += `\\[m_A \\cdot c \\cdot (T_f - T_A) + m_B \\cdot c \\cdot (T_f - T_B) = 0\\]<br>`;
+    h += `Como ambos são água ($c=1$), podemos ignorar o $c$.<br><br>`;
+    h += `<b>2. Distribuindo (Matemática):</b><br>`;
+    h += `\\[${ma} \\cdot (T_f - ${ta}) + ${mb} \\cdot (T_f - ${tb}) = 0\\]<br>`;
+    h += `\\[${ma}T_f - ${ma*ta} + ${mb}T_f - ${mb*tb} = 0\\]<br>`;
+    h += `\\[(${ma+mb})T_f = ${ma*ta + mb*tb}\\]<br><br>`;
+    h += `<b>3. Temperatura Final ($T_f$):</b><br>`;
+    h += `\\[T_f = \\frac{${ma*ta + mb*tb}}{${ma+mb}} = \\mathbf{${Tf.toFixed(2)} ^\\circ\\text{C}}\\]`;
+    
+    $('out-equilibrio').innerHTML = h;
+    $('out-equilibrio').classList.remove('hidden');
+    renderAll();
+}
+
+const exercisesData = [];
+let exId = 1;
+const addQ = (th, ty, q, ans, steps, opts=[]) => { exercisesData.push({ id: exId++, theme: th, type: ty, q, ans, steps, opts }); };
+
+// TEMA 1: Calor: energia térmica em trânsito (1-15)
+addQ(1,'theo',"Qual a condição OBRIGATÓRIA na física para que exista a transferência de calor entre dois corpos?", "C", ["A energia térmica só flui de forma natural e se chama 'calor' quando existe um desnível de temperatura entre dois corpos."], ["A) Mesmo estado físico", "B) Mesma massa", "C) Diferença de temperatura entre eles", "D) Estarem no vácuo"]);
+addQ(1,'theo',"O calor flui espontaneamente de que maneira?", "A", ["A natureza determina que o fluxo de energia térmica vai do mais agitado (quente) para o menos agitado (frio) até se equilibrarem."], ["A) Do corpo de maior temperatura para o de menor temperatura.", "B) Do corpo mais frio para o mais quente.", "C) Do corpo maior para o corpo menor.", "D) Não existe fluxo natural."]);
+addQ(1,'theo',"Quando você abraça um bloco de gelo e sente 'frio', o que está acontecendo fisicamente?", "B", ["O frio não entra no seu corpo. É você que está a 36°C e a pedra de gelo a 0°C. O calor flui do mais quente (você) para o mais frio (gelo). A sensação de perder calor é o que o cérebro interpreta como 'frio'."], ["A) O frio do gelo entra no seu corpo.", "B) O calor do seu corpo flui para o gelo.", "C) As temperaturas se somam.", "D) A umidade do gelo resfria a pele."]);
+addQ(1,'theo',"Calor e Temperatura muitas vezes são confundidos. Assinale a afirmação correta:", "A", ["Temperatura é o estado de agitação; Calor é a energia que viaja."], ["A) Temperatura mede o grau de agitação molecular, Calor é a energia em trânsito.", "B) Temperatura é medida em Joules.", "C) Calor mede o grau de agitação das moléculas.", "D) Um casaco grosso fornece calor ao nosso corpo."]);
+addQ(1,'theo',"Um cobertor grosso de lã não 'esquenta' a nossa cama. Qual a função física do cobertor num dia de inverno?", "C", ["Cobertores não têm bateria elétrica, eles não geram energia térmica. Eles apenas servem como isolantes, dificultando que o calor natural do seu corpo fuja para o ar frio do quarto."], ["A) Gerar calor através do atrito da lã.", "B) Aumentar a temperatura do ar externo.", "C) Atuar como isolante térmico, impedindo que o calor do nosso corpo escape para o ar frio.", "D) Absorver o frio do ambiente."]);
+
+addQ(1,'calc',"Para a física, a unidade de Calor no Sistema Internacional (SI) é o Joule (J). Se uma pedra recebe 2000 Joules, quantas calorias (cal) ela recebeu? (Adote $1 \\text{ cal} = 4 \\text{ J}$ para facilitar as contas).", "500", ["$Q_{cal} = Q_{Joules} / 4$", "$Q = 2000 / 4 = 500 \\text{ cal}$"]);
+addQ(1,'calc',"Um aquecedor elétrico fornece 10.000 calorias para um quarto. Qual é o valor dessa energia transferida em Joules? (Adote $1 \\text{ cal} = 4,18 \\text{ J}$).", "41800", ["$Q_{Joules} = 10000 \\cdot 4,18 = 41800 \\text{ J}$"]);
+addQ(1,'calc',"Se $1 \\text{ kcal}$ equivale a $1000 \\text{ cal}$, quantas calorias simples existem em uma barra que liberou $5,5 \\text{ kcal}$ de calor em um forno?", "5500", ["$Q = 5,5 \\cdot 1000 = 5500 \\text{ cal}$"]);
+addQ(1,'calc',"Um motor perde $4180 \\text{ Joules}$ de energia por atrito, e toda ela se transforma em calor (aquecendo as peças). Quantas quilocalorias (kcal) foram geradas? (Use $1 \\text{ cal} = 4,18 \\text{ J}$).", "1", ["Passo 1: Joules para calorias: $4180 / 4,18 = 1000 \\text{ cal}$", "Passo 2: Calorias para kcal: $1000 / 1000 = 1 \\text{ kcal}$"]);
+addQ(1,'calc',"Potência térmica é a taxa de calor por tempo. Se uma fogueira fornece $200 \\text{ cal/segundo}$, quantas calorias ela fornece em 1 minuto ($60 \\text{ s}$)?", "12000", ["$Q = Pot \\cdot tempo$", "$Q = 200 \\cdot 60 = 12000 \\text{ cal}$"]);
+addQ(1,'calc',"Baseado na questão anterior (12000 cal em 1 min), quantas quilocalorias (kcal) ela transferiu em 1 minuto?", "12", ["$12000 / 1000 = 12 \\text{ kcal}$"]);
+addQ(1,'calc',"Um ferro de passar dissipa calor. Se em $10 \\text{ segundos}$ ele envia $5000 \\text{ J}$ para a roupa, qual a sua potência em Watts ($1 \\text{ Watt} = 1 \\text{ Joule/segundo}$)?", "500", ["$Pot = Energia / tempo$", "$Pot = 5000 / 10 = 500 \\text{ Watts}$"]);
+addQ(1,'calc',"Uma caixa isolada deixa escapar calor a uma taxa de $10 \\text{ cal/s}$. Em 1 hora ($3600 \\text{ segundos}$), quantas calorias terão fugido?", "36000", ["$Q = 10 \\cdot 3600 = 36000 \\text{ cal}$"]);
+addQ(1,'calc',"Converter as 36.000 cal da questão anterior para Joules. (Use $1 \\text{ cal} = 4 \\text{ Joules}$).", "144000", ["$Q_J = 36000 \\cdot 4 = 144000 \\text{ J}$"]);
+addQ(1,'calc',"Dois blocos: A ($50^\\circ\\text{C}$) e B ($10^\\circ\\text{C}$). Encostados, o calor flui de A para B. Sabendo que eles trocam um total de $800 \\text{ cal}$, B absorve 800. A lei da conservação diz que a energia térmica não some. Então, quantas calorias o bloco A perdeu?", "800", ["O calor perdido por um é ganho pelo outro integralmente. O bloco A cedeu/perdeu as mesmas 800 cal."]);
+
+// TEMA 2: Energia para a Vida e Alimentos (16-30)
+addQ(2,'theo',"Nos rótulos das embalagens, lê-se 'Valor energético: 150 Calorias' (com C maiúsculo). Fisicamente, o que essa informação nutricional representa em laboratório?", "C", ["1 Caloria alimentar (Cal) é na verdade 1 kcal.", "Representa que se queimarmos esse alimento totalmente, ele liberará a energia de 150 kcal."], ["A) $150 \\text{ cal}$ simples", "B) $150 \\text{ Joules}$", "C) $150.000 \\text{ cal}$ (ou $150 \\text{ kcal}$)", "D) A temperatura máxima que o corpo atinge."]);
+addQ(2,'theo',"Nosso corpo gasta energia ininterruptamente (para manter o coração batendo e a temperatura corpórea), mesmo quando dormimos. Esse gasto fixo básico é chamado de:", "A", ["É a taxa metabólica 'base' (basal)."], ["A) Taxa Metabólica Basal", "B) Calor Latente", "C) Gasto Aeróbico", "D) Coeficiente de Dilatação"]);
+addQ(2,'theo',"De onde vem a energia química armazenada nos alimentos de origem vegetal que comemos (como uma maçã ou o pão)?", "B", ["Através da fotossíntese, as plantas convertem a energia eletromagnética do sol em ligações químicas (açúcares/carboidratos). Nós ingerimos e quebramos essas ligações."], ["A) Do núcleo da Terra.", "B) Da conversão da energia luminosa do Sol pela fotossíntese.", "C) Da respiração da planta.", "D) Da gravidade."]);
+addQ(2,'theo',"Se uma pessoa ingere $3000 \\text{ kcal}$ por dia, mas o seu corpo (metabolismo basal + atividades físicas) só gasta $2000 \\text{ kcal}$ por dia. O que a física da termodinâmica diz que acontecerá com a energia excedente?", "D", ["Energia não some. O corpo estoca o sobressalente como reserva química (gordura)."], ["A) Será evaporada pelo suor.", "B) O corpo expele imediatamente a energia não usada.", "C) Ela desaparece.", "D) Será armazenada como gordura (reserva química)."]);
+addQ(2,'theo',"Quando você se exercita intensamente na academia, seu corpo esquenta, sua pele fica vermelha e você transpira muito. Qual o princípio termodinâmico por trás disso?", "A", ["A eficiência muscular humana não é 100%. Parte vira movimento (trabalho), grande parte vira calor dissipado."], ["A) A conversão da energia química do corpo em trabalho muscular é imperfeita, gerando muito calor residual que precisa ser dissipado pelo suor para você não cozinhar.", "B) O atrito do ar esquenta a pele.", "C) Você absorveu muito calor das lâmpadas da academia.", "D) O exercício cria energia do zero."]);
+
+addQ(2,'calc',"Um pacote de salgadinho informa que contém $200 \\text{ kcal}$. Quantas calorias (cal) simples ele tem?", "200000", ["$200 \\text{ kcal} = 200 \\cdot 1000 = 200.000 \\text{ cal}$"]);
+addQ(2,'calc',"Qual é a energia do salgadinho ($200 \\text{ kcal}$) em Joules? (Adote $1 \\text{ kcal} = 4,18 \\text{ kJ}$, e $1 \\text{ kJ} = 1000 \\text{ J}$). Dê a resposta em J.", "836000", ["$200 \\text{ kcal} \\cdot 4,18 = 836 \\text{ kJ}$", "$836 \\cdot 1000 = 836.000 \\text{ Joules}$"]);
+addQ(2,'calc',"Um corredor consome (queima) $10 \\text{ kcal}$ por minuto. Se ele correr por 30 minutos, quantas kcal ele terá gasto?", "300", ["$Gasto = 10 \\cdot 30 = 300 \\text{ kcal}$"]);
+addQ(2,'calc',"Para perder 1 kg de gordura corporal, estima-se que a pessoa precise gerar um déficit (gastar mais do que come) de $7000 \\text{ kcal}$. Se a dieta de João tira um déficit de $500 \\text{ kcal}$ por dia, em quantos dias ele perde 1 kg?", "14", ["$Dias = 7000 / 500 = 14 \\text{ dias}$"]);
+addQ(2,'calc',"Uma pessoa ingere um lanche de $500 \\text{ kcal}$. Sabendo que a queima numa caminhada é de $5 \\text{ kcal/minuto}$, quantos minutos ela precisa caminhar apenas para 'queimar' aquele lanche?", "100", ["$Tempo = 500 / 5 = 100 \\text{ minutos}$"]);
+addQ(2,'calc',"Ao levantar um halter pesadíssimo, o corpo humano gasta energia mecânica (Trabalho $W = F \\cdot d$). Uma levantada gera um trabalho mecânico de $1000 \\text{ Joules}$. Como a eficiência do corpo é de $20\\%$ (ou seja, 1/5, o resto vira suor/calor), quantos Joules a queima interna DO CORPO precisou torrar para fazer essa única levantada?", "5000", ["Se os $1000 \\text{ J}$ que chegaram no halter representam só $20\\%$, o corpo todo gastou 5 vezes mais.", "$1000 / 0,20 = 5000 \\text{ Joules}$ da sua reserva química."]);
+addQ(2,'calc',"Um Big Mac tem cerca de $500 \\text{ kcal}$. Quanto isso dá em Calorias Alimentares (com C maiúsculo: Cal)?", "500", ["1 Caloria Alimentar = 1 kcal.", "Portanto, são 500 Cal."]);
+addQ(2,'calc',"O metabolismo basal de Ana é $1500 \\text{ kcal/dia}$. Isso significa que se ela ficar em jejum absoluto sem fazer nada ela emagrece essa quantidade por dia. Certo dia, Ana comeu $2000 \\text{ kcal}$ e não se moveu da cama. Quantas kcal foram transformadas em reserva de gordura?", "500", ["Saldo = Ingere - Gasta", "$Saldo = 2000 - 1500 = 500 \\text{ kcal}$ acumuladas."]);
+addQ(2,'calc',"A densidade energética da gordura é enorme: $9 \\text{ kcal}$ em apenas 1 grama! Se um homem tem de derreter $100 \\text{ g}$ de pura gordura da barriga durante um treino pesado de corrida, quantas kcal de déficit esse treino representará para a barriga dele?", "900", ["$E = 100 \\text{ g} \\cdot 9 \\text{ kcal/g} = 900 \\text{ kcal}$"]);
+addQ(2,'calc',"O carboidrato (açúcar) tem $4 \\text{ kcal/g}$. Se você comer 50 gramas de carboidrato líquido (ex: uma tapioca grande), quantas kcal você estará ingerindo?", "200", ["$E = 50 \\cdot 4 = 200 \\text{ kcal}$"]);
+
+// TEMA 3: Ciclo da Água e Mudanças de Estado (31-45)
+addQ(3,'theo',"A passagem direta de um corpo sólido para o estado gasoso, sem passar pelo estado líquido (como ocorre com as bolinhas de naftalina nos guarda-roupas ou com o 'gelo seco'), é chamada de:", "C", ["O gelo seco é CO2 sólido, e não derrete virando líquido, ele pula direto para o gás na pressão ambiente."], ["A) Condensação", "B) Fusão", "C) Sublimação", "D) Ebulição"]);
+addQ(3,'theo',"O que ocorre com a TEMPERATURA de uma panela com água fervendo perfeitamente destilada ao nível do mar (1 atm), se você aumentar a chama do fogão ao máximo durante a ebulição?", "B", ["Durante uma mudança de estado de uma substância pura sob pressão constante, a temperatura FICA TRAVADA. A água ferve a 100°C e não passa disso (o calor extra só faz a água virar vapor mais rápido, mas não a deixa a 110°C na panela aberta)."], ["A) Vai para 120°C.", "B) Permanece cravada em 100°C até a última gota virar vapor.", "C) Diminui.", "D) Sobe continuamente sem limites."]);
+addQ(3,'theo',"A vaporização pode acontecer de três formas. Qual é o nome do processo lento e natural, que seca as roupas no varal ou que faz as poças de chuva sumirem com o sol brando?", "A", ["Ebulição é a fervura rápida. Evaporação é o roubo de moléculas na superfície da água, que acontece o tempo todo."], ["A) Evaporação", "B) Calefação", "C) Ebulição", "D) Condensação"]);
+addQ(3,'theo',"A formação das nuvens de chuva ocorre quando o vapor de água sobe para as regiões muito frias da atmosfera e retorna ao estado de pequenas gotículas de água líquida em suspensão. Essa fase se chama:", "D", ["O gás vira líquido novamente na nuvem antes de cair na chuva."], ["A) Sublimação", "B) Solidificação", "C) Fusão", "D) Condensação"]);
+addQ(3,'theo',"Algumas transformações absorvem calor do ambiente (Esfriam o entorno = Endotérmicas), outras liberam calor (Esquentam o entorno = Exotérmicas). Qual das opções abaixo precisa ABSORVER calor?", "B", ["Para o gelo virar água, ele precisa sugar calor."], ["A) Congelamento (Solidificação)", "B) Derretimento do Gelo (Fusão)", "C) Condensação do Vapor", "D) Formação de Neve"]);
+
+addQ(3,'calc',"Se 1 grama de gelo no seu copo precisa roubar $80 \\text{ calorias}$ ($L_F = 80 \\text{ cal/g}$) do seu refrigerante para derreter totalmente. Quantas calorias serão roubadas da bebida se um cubo grande de gelo de $50 \\text{ g}$ derreter?", "4000", ["$Q = m \\cdot L$", "$Q = 50 \\cdot 80 = 4000 \\text{ cal}$"]);
+addQ(3,'calc',"Para transformar $10 \\text{ gramas}$ de água fervendo ($100^\\circ\\text{C}$) em vapor d'água ($100^\\circ\\text{C}$), sabendo que o calor latente de vaporização é enorme ($L_v = 540 \\text{ cal/g}$). Qual a quantidade de calor necessária?", "5400", ["$Q = m \\cdot L$", "$Q = 10 \\cdot 540 = 5400 \\text{ cal}$"]);
+addQ(3,'calc',"A condensação é a volta do vapor para a água. Como é a volta, ela libera calor de volta para o ambiente. Por isso o $L_c$ é negativo: $-540 \\text{ cal/g}$. Se $2 \\text{ g}$ de vapor d'água de uma chaleira condensarem na sua mão (queimadura horrível), quantas calorias de calor serão DESPEJADAS na sua pele instantaneamente (módulo)?", "1080", ["$Q = m \\cdot |L_c|$", "$Q = 2 \\cdot 540 = 1080 \\text{ cal}$ (Apenas por virar líquido, fora a temperatura da água que será 100 graus ainda!)"]);
+addQ(3,'calc',"Na formação de gelo no congelador (água 0°C para gelo 0°C), a água precisa liberar calor para o motor da geladeira. $L_s = -80 \\text{ cal/g}$. Para congelar $200 \\text{ gramas}$ de água de uma forminha, quantas quilocalorias (kcal) a geladeira deve tirar da água (módulo)?", "16", ["$Q = 200 \\cdot 80 = 16000 \\text{ cal}$", "$16000 / 1000 = 16 \\text{ kcal}$"]);
+addQ(3,'calc',"Um bico de Bunsen (fogareiro) fornece $200 \\text{ cal/minuto}$. Há um pote com $10 \\text{ g}$ de gelo a $0^\\circ\\text{C}$. Sendo $L_F = 80$, o calor para derreter tudo é $800 \\text{ cal}$. Quantos minutos o fogareiro levará para derreter todo o gelo?", "4", ["$Tempo = Calor Total / Potência$", "$Tempo = 800 / 200 = 4 \\text{ minutos}$"]);
+addQ(3,'calc',"Calor Latente do Chumbo é $L_F = 6 \\text{ cal/g}$ (é bem baixo, derrete fácil depois de chegar na temperatura ideal). Para derreter $50 \\text{ g}$ de chumbo (já no ponto de fusão), quantas calorias são necessárias?", "300", ["$Q = 50 \\cdot 6 = 300 \\text{ cal}$"]);
+addQ(3,'calc',"Uma peça de ferro de $1000 \\text{ g}$ no seu ponto de fusão precisa absorver $16.000 \\text{ cal}$ para derreter e virar ferro líquido brilhante. Calcule o Calor Latente de Fusão do Ferro ($L_F$) em $\\text{cal/g}$.", "16", ["$Q = m \\cdot L \\rightarrow 16000 = 1000 \\cdot L$", "$L = 16000 / 1000 = 16 \\text{ cal/g}$"]);
+addQ(3,'calc',"Se $L_{fusao}$ do ouro é 15 e $L_{vap}$ da água é 540. Uma poça d'água absorve muito calor do Sol para evaporar. Quantas gramas de Ouro poderiam ser derretidas com o mesmo calor exigido para evaporar apenas $1 \\text{ grama}$ de água ($540 \\text{ cal}$) a $100^\\circ\\text{C}$?", "36", ["Com $Q = 540 \\text{ cal}$", "Ouro: $Q = m \\cdot L \\rightarrow 540 = m \\cdot 15$", "$m = 540 / 15 = 36 \\text{ gramas}$ de Ouro!"]);
+addQ(3,'calc',"Um pedaço de gelo de $10 \\text{ g}$ a $0^\\circ\\text{C}$ foi colocado numa calçada quente. A calçada transferiu $400 \\text{ calorias}$ para ele. Se para derreter inteiro precisaria de $800 \\text{ cal}$ ($10 \\cdot 80$), o gelo não derreteu todo. Quantas GRAMAS de gelo sobraram na calçada (ainda sólidas)?", "5", ["O calor dado foi 400. Ele derrete a massa $m = Q / L = 400 / 80 = 5 \\text{ gramas}$ derretidas.", "Massa original era 10, derreteu 5, sobrou: $10 - 5 = 5 \\text{ g}$ de gelo."]);
+addQ(3,'calc',"Um ebulidor elétrico fornece $1080 \\text{ calorias/s}$ para a água fervendo de uma panela grande. Quantos gramas de vapor d'água ($L_v = 540$) estarão saindo da panela a CADA SEGUNDO?", "2", ["A cada segundo, $Q = 1080$.", "$m = Q / L_v = 1080 / 540 = 2 \\text{ gramas}$ de água por segundo escapando para o teto!"]);
+
+// TEMA 4: Calor Sensível e Latente (46-60)
+addQ(4,'theo',"O 'Calor Específico' (c) de uma substância mede a dificuldade térmica daquela substância. A areia esfria e esquenta rápido, então seu calor específico é baixo. A água demora horas para esquentar no sol e horas para esfriar na noite. O calor específico da água é:", "B", ["A água é o grande ar-condicionado da Terra pois tem um calor específico gigantesco, demorando para variar a temperatura (precisa engolir MUITA energia para subir 1 grau)."], ["A) Muito pequeno.", "B) Muito grande, o que faz dela um ótimo regulador térmico para o clima.", "C) Zero.", "D) Negativo."]);
+addQ(4,'theo',"A Capacidade Térmica (C maiúsculo) e Calor Específico (c minúsculo) são diferentes. O Calor específico é da SUBSTÂNCIA (ex: Ferro = 0.11 cal/g°C). A Capacidade Térmica (C) é do CORPO INTEIRO (Massa x Calor Específico = m·c). Uma panela de 2kg de ferro e um prego de 2 gramas de ferro têm:", "A", ["A substância (ferro) é a mesma, mas a panela é gigante, logo precisa de muito mais calor para aquecê-la inteira."], ["A) O mesmo calor específico, mas capacidades térmicas diferentes.", "B) A mesma capacidade térmica.", "C) O mesmo volume.", "D) Tudo idêntico."]);
+addQ(4,'theo',"A fórmula $Q = m \\cdot c \\cdot \\Delta T$ ('Que macete') é usada exclusivamente para calcular o calor trocado em qual situação?", "C", ["O $\\Delta T$ prova que só há sentido usar essa fórmula quando a temperatura está mudando (esquentando ou esfriando)."], ["A) Durante o derretimento de um sólido (mudança de estado).", "B) Na explosão da pólvora.", "C) Na variação de temperatura de um corpo (Calor Sensível), sem mudança de estado.", "D) Ao misturar tintas de cores diferentes."]);
+addQ(4,'theo',"Em dias de frio, uma pessoa entra num carro que ficou no relento a noite inteira e toca no volante de plástico e na fivela de metal do cinto. Ela sente o metal 'muito mais gelado' que o plástico. Fisicamente, se os dois passaram a noite juntos no carro:", "A", ["Como estão em equilíbrio com o ar do carro à noite, as temperaturas de ambos são iguais! Mas o metal é um excelente condutor de calor, roubando o calor do seu dedo de forma tão violenta e rápida que seu cérebro grita 'Muito gelado!'."], ["A) Eles estão na mesma temperatura exata, mas o metal é bom condutor e rouba o calor da sua mão muito mais rápido, causando a sensação.", "B) O metal está objetivamente com temperatura mais baixa que o plástico.", "C) O plástico gera calor sozinho.", "D) O plástico isolou a sua mão do calor."]);
+addQ(4,'theo',"Quando a temperatura cai e a água encanada no inverno dos EUA atinge $0^\\circ\\text{C}$ e começa a congelar, o que frequentemente acontece com os canos se não houver frestas?", "B", ["Voltamos ao comportamento anômalo da água (Termologia I). Ao congelar a 0°C a água expande o seu volume, e o gelo estoura o cano de metal."], ["A) Eles derretem.", "B) Eles estouram, porque a água, diferentemente da maioria dos materiais, se expande (aumenta o volume) ao virar gelo.", "C) Eles encolhem apertando o gelo.", "D) Nada."]);
+
+addQ(4,'calc',"Quantas calorias são necessárias para esquentar $100 \\text{ gramas}$ de água (calor específico $c = 1 \\text{ cal/g}^\\circ\\text{C}$) de $20^\\circ\\text{C}$ para $50^\\circ\\text{C}$?", "3000", ["$\\Delta T = 50 - 20 = 30^\\circ\\text{C}$", "$Q = m \\cdot c \\cdot \\Delta T$", "$Q = 100 \\cdot 1 \\cdot 30 = 3000 \\text{ cal}$"]);
+addQ(4,'calc',"Uma colher de prata ($m = 50 \\text{ g}$, e $c = 0,05 \\text{ cal/g}^\\circ\\text{C}$) foi mergulhada no chá, e sua temperatura subiu $40^\\circ\\text{C}$ ($\\Delta T = 40$). Quanto calor o chá transferiu para a colher?", "100", ["$Q = 50 \\cdot 0,05 \\cdot 40 = 2,5 \\cdot 40 = 100 \\text{ cal}$"]);
+addQ(4,'calc',"Um bloco de pedra perdeu $800 \\text{ cal}$ ($Q = -800$). Sua massa é $200 \\text{ g}$, e a temperatura inicial era $30^\\circ\\text{C}$. Se o calor específico da pedra for $c = 0,2$, qual foi a variação de temperatura ($\\Delta T$)? Responda o valor negativo pois esfriou.", "-20", ["$-800 = 200 \\cdot 0,2 \\cdot \\Delta T \\rightarrow -800 = 40 \\cdot \\Delta T$", "$\\Delta T = -800 / 40 = -20^\\circ\\text{C}$"]);
+addQ(4,'calc',"Baseado na questão anterior, se ele estava a $30^\\circ\\text{C}$ e esfriou $20^\\circ\\text{C}$ ($\\Delta T = -20$), qual a temperatura FINAL do bloco?", "10", ["$T_f = T_i + \\Delta T = 30 + (-20) = 10^\\circ\\text{C}$"]);
+addQ(4,'calc',"A Capacidade Térmica (C maiúsculo) do nosso corpo inteiro é enorme (pois somos feitos de muita água). A fórmula é $C = m \\cdot c$. Se o calor específico do corpo humano médio é $0,83 \\text{ cal/g}^\\circ\\text{C}$ e a pessoa tem $70 \\text{ kg}$ ($70.000 \\text{ g}$). Qual a Capacidade Térmica (C) dela em $\\text{cal/}^\\circ\\text{C}$?", "58100", ["$C = 70000 \\cdot 0,83 = 58100 \\text{ cal/}^\\circ\\text{C}$", "(Isso significa que para causar febre nela de $+1^\\circ\\text{C}$, ela tem que segurar 58.100 cal internamente sem suar)."]);
+addQ(4,'calc',"Se jogarmos $10.000 \\text{ cal}$ numa bacia com $1000 \\text{ g}$ (1 Litro) de água ($c=1$) a $25^\\circ\\text{C}$. Qual o $\\Delta T$ que ela vai sofrer?", "10", ["$10000 = 1000 \\cdot 1 \\cdot \\Delta T \\rightarrow 10000 = 1000 \\Delta T$", "$\\Delta T = 10^\\circ\\text{C}$"]);
+addQ(4,'calc',"Com o $\\Delta T = 10$, qual a Temperatura Final dessa bacia d'água que estava a $25^\\circ\\text{C}$?", "35", ["$T_f = 25 + 10 = 35^\\circ\\text{C}$"]);
+addQ(4,'calc',"Dê calor para $100 \\text{ g}$ de areia ($c = 0,2$) em vez de água. Jogue as MESMAS $10.000 \\text{ cal}$ da questão 51 nela. Qual o absurdo $\\Delta T$ que a areia sofrerá?", "500", ["$10000 = 100 \\cdot 0,2 \\cdot \\Delta T \\rightarrow 10000 = 20 \\Delta T$", "$\\Delta T = 10000 / 20 = 500^\\circ\\text{C}$!", "A mesma energia ferveu a areia mas mal esquentou o litro d'água."]);
+addQ(4,'calc',"Se $Q = C \\cdot \\Delta T$ (Onde $C$ é a Capacidade térmica da panela toda). Uma panela tem $C = 150 \\text{ cal/}^\\circ\\text{C}$. Coloquei no fogo, ela absorveu $1500 \\text{ cal}$. Qual foi o aumento de temperatura dela?", "10", ["$Q = C \\cdot \\Delta T \\rightarrow 1500 = 150 \\cdot \\Delta T$", "$\\Delta T = 10^\\circ\\text{C}$"]);
+addQ(4,'calc',"Um bloco misterioso ganha $600 \\text{ cal}$ e sua temperatura sobe $12^\\circ\\text{C}$. Se ele pesa $100 \\text{ g}$, qual é o seu calor específico ($c$ minúsculo)?", "0.5", ["$Q = m \\cdot c \\cdot \\Delta T$", "$600 = 100 \\cdot c \\cdot 12 \\rightarrow 600 = 1200 \\cdot c$", "$c = 600 / 1200 = 0,5 \\text{ cal/g}^\\circ\\text{C}$"]);
+
+// TEMA 5: Equilíbrio Térmico (Princípio Geral) (61-75)
+addQ(5,'theo',"O que afirma o Princípio da Conservação da Energia em um sistema termicamente isolado (um Calorímetro Ideal)?", "C", ["Nenhuma caloria entra de fora e nenhuma foge. Toda a caloria perdida por um corpo lá dentro vai para outro lá dentro."], ["A) Todo o calor do sistema some após a mistura.", "B) O corpo mais pesado sempre ganha.", "C) A soma de todos os calores trocados pelos corpos dentro do sistema é nula ($Q_{cedido} + Q_{recebido} = 0$).", "D) A temperatura final será sempre zero graus."]);
+addQ(5,'theo',"Ao colocar café muito quente em uma xícara fria de porcelana. O que podemos afirmar sobre o $Q$ (calor) no final do dia?", "B", ["As coisas no universo real não são um sistema isolado. A xícara cede calor pro ar."], ["A) $Q_{café} + Q_{xícara} = 0$ perfeitamente.", "B) O café cedeu calor para a xícara E TAMBÉM para o ar ao redor do ambiente.", "C) A xícara esquentou o café.", "D) O café manteve sua temperatura inicial."]);
+addQ(5,'theo',"Uma barra de ferro de 1 kg a 100°C é jogada num lago de 10.000.000 kg a 20°C. Quem dita a Temperatura Final de equilíbrio?", "A", ["A água do lago tem tanta massa que sua capacidade térmica é infinita perto da barra. A barra que lute para esfriar e o lago mal muda de grau."], ["A) O lago. A temperatura final será praticamente os 20°C do lago, pois sua massa (e Capacidade Térmica C) é infinitamente maior.", "B) O ferro. O lago vai ferver inteiro a 100°C.", "C) A temperatura vai bater exatamente no meio: 60°C.", "D) Vai pra zero."]);
+addQ(5,'theo',"Calorímetro Ideal (uma super garrafa térmica de laboratório) tem capacidade térmica C = 0 (ele é perfeito, não participa da troca de calor). Na prática, uma garrafa térmica vagabunda:", "A", ["Garrafa ruim esquenta a parede de plástico por dentro. Ela 'roubou' calor do café pra ela."], ["A) Tem C maior que zero, ou seja, ela vai roubar um pouco do calor do café para aquecer sua própria parede de vidro/plástico.", "B) Reflete todo o calor.", "C) Gela o café de propósito.", "D) Melhora o café."]);
+addQ(5,'theo',"No Universo em grande escala, as estrelas emitem calor pro vácuo frio e tudo caminha para a mesma temperatura gelada. Como os físicos chamam esse destino fatal onde todas as trocas param?", "D", ["A Morte Térmica do Universo (Equilíbrio Térmico final, onde nenhuma máquina de trabalho pode ser ligada porque não há diferença de temperatura)."], ["A) Big Bang", "B) Buraco Negro", "C) Entropia Reversa", "D) Morte Térmica do Universo (Equilíbrio Térmico Máximo)"]);
+
+addQ(5,'calc',"Misturei $100 \\text{ g}$ de água ($c=1$) a $80^\\circ\\text{C}$ com $100 \\text{ g}$ de água a $20^\\circ\\text{C}$. Qual a temperatura final ($T_f$) dessa mistura? (Dica: Se são a MESMA substância e a MESMA massa, o equilíbrio é a média aritmética cravada das duas).", "50", ["Média simples: $(80 + 20) / 2 = 100 / 2 = 50^\\circ\\text{C}$"]);
+addQ(5,'calc',"Mistura sem mesma massa: Joguei $300 \\text{ g}$ de Água Quente ($T_Q = 90^\\circ\\text{C}$) em $200 \\text{ g}$ de Água Fria ($T_F = 10^\\circ\\text{C}$). Não dá pra fazer média simples. Faça a média ponderada pelas massas: $T_f = (300\\cdot90 + 200\\cdot10) / (300+200)$.", "58", ["$T_f = (27000 + 2000) / 500 = 29000 / 500 = 58^\\circ\\text{C}$"]);
+addQ(5,'calc',"Um pedaço de cobre quente de $50 \\text{ g}$ ($c=0,1$) a $100^\\circ\\text{C}$ é jogado em $45 \\text{ g}$ de água ($c=1$) a $20^\\circ\\text{C}$. A equação é: $50 \\cdot 0,1 \\cdot (T_f - 100) + 45 \\cdot 1 \\cdot (T_f - 20) = 0$. Calcule $T_f$.", "28", ["Cobre: $5(T_f - 100) = 5T_f - 500$", "Água: $45(T_f - 20) = 45T_f - 900$", "Soma = 0: $5T_f - 500 + 45T_f - 900 = 0$", "$50T_f - 1400 = 0 \\rightarrow 50T_f = 1400 \\rightarrow T_f = 28^\\circ\\text{C}$ (Veja que a água de 20 foi para 28, o cobre de 100 desabou pra 28. A água venceu devido ao $c$ gigante)."]);
+addQ(5,'calc',"Bloco A cedeu $-2500 \\text{ cal}$. Bloco B recebeu $+1500 \\text{ cal}$. E o calorímetro (garrafa) esquentou também e absorveu $+1000 \\text{ cal}$. A soma de tudo ($Q_A + Q_B + Q_C$) dá quanto?", "0", ["$-2500 + 1500 + 1000 = 0$. A energia sempre fecha a conta na física!"]);
+addQ(5,'calc',"Tenho $200 \\text{ g}$ de leite ($c=1$) na mamadeira a $10^\\circ\\text{C}$. Quero aquecer para a temperatura ideal de $40^\\circ\\text{C}$. Para isso despejo água quente a $100^\\circ\\text{C}$. Quantos gramas ($m_A$) de água quente devo despejar? $m_A \\cdot 1 \\cdot (40 - 100) + 200 \\cdot 1 \\cdot (40 - 10) = 0$.", "100", ["Água Quente: $m_A \\cdot (-60) = -60m_A$", "Leite Frio: $200 \\cdot 30 = 6000$", "$-60m_A + 6000 = 0 \\rightarrow 60m_A = 6000 \\rightarrow m_A = 100 \\text{ g}$"]);
+addQ(5,'calc',"Coloquei $500 \\text{ g}$ de ferro a $120^\\circ\\text{C}$ dentro de um pote com bastante água. A temperatura final fechou em $20^\\circ\\text{C}$. Sabendo que $c_{ferro}=0,1$, quantas calorias o ferro DERRAMOU na água? (Ache o calor Sensível que o ferro soltou em módulo)", "5000", ["$\\Delta T = 20 - 120 = -100^\\circ\\text{C}$", "$Q_f = 500 \\cdot 0,1 \\cdot (-100) = -5000 \\text{ cal}$. Em módulo: 5000 cal cedidas."]);
+addQ(5,'calc',"Se $Q_A = 500 \\cdot (T_f - 200)$ e $Q_B = 1000 \\cdot (T_f - 50)$. Sabemos que $Q_A + Q_B = 0$. Divida a equação toda por 500 para simplificar: $1\\cdot(T_f - 200) + 2\\cdot(T_f - 50) = 0$. Calcule $T_f$.", "100", ["$T_f - 200 + 2T_f - 100 = 0$", "$3T_f - 300 = 0 \\rightarrow 3T_f = 300 \\rightarrow T_f = 100^\\circ\\text{C}$"]);
+addQ(5,'calc',"Temos 2 litros ($2000 \\text{ g}$) de água no aquário a $20^\\circ\\text{C}$. Eu coloco um ebulidor térmico (rabo quente) nele. O ebulidor transfere calor, mas eu desligo logo antes da água ferver, deixando a água bater $100^\\circ\\text{C}$. Quanto calor a água absorveu (em kcal)?", "160", ["$Q = 2000 \\cdot 1 \\cdot (100 - 20) = 2000 \\cdot 80 = 160000 \\text{ cal}$", "$160000 / 1000 = 160 \\text{ kcal}$"]);
+addQ(5,'calc',"Misturei líquido A ($m=10$, $c=0,5$, $T=100$) e líquido B ($m=20$, $c=0,5$, $T=40$). Se o calor específico 'c' é IGUAL, eu posso cortar da conta! Fica a média ponderada só da massa. Faça $(10\\cdot100 + 20\\cdot40) / (10 + 20)$.", "60", ["$T_f = (1000 + 800) / 30 = 1800 / 30 = 60^\\circ\\text{C}$"]);
+addQ(5,'calc',"Um copo de água ($200 \\text{ g}$) está a $30^\\circ\\text{C}$. Jogo um cubo de gelo de $10 \\text{ g}$ a $0^\\circ\\text{C}$ lá dentro. Para derreter tudo, o gelo vai roubar $800 \\text{ cal}$ ($10\\cdot80$). Isso é Calor Latente! Então a água vai Ceder essas 800 cal perdendo Temperatura Sensível. Qual o $\\Delta T$ que o copo de água sofre para ceder isso? (Use $-800$ pra água)", "-4", ["Água cedeu: $-800 = 200 \\cdot 1 \\cdot \\Delta T$", "$\\Delta T = -800 / 200 = -4^\\circ\\text{C}$. (A água morna derreteu o gelo inteiro e a sua temperatura caiu apenas 4 graus, indo parar nos agradáveis 26°C. Fim.)"]);
+
+let currentTheme = 'all';
+let solved = new Set(JSON.parse(localStorage.getItem('fisicaCalorSolved')||'[]'));
+
+function renderExercises() {
+    const listDiv = $('exercise-list');
+    let html = '';
+    
+    exercisesData.forEach(ex => {
+        if (currentTheme !== 'all' && ex.theme != currentTheme) return;
+        
+        const isSolved = solved.has(ex.id);
+        const borderColor = isSolved ? 'border-orange-400' : 'border-slate-200';
+        const badgeColor = isSolved ? 'bg-orange-100 text-orange-800' : 'bg-slate-100 text-slate-700';
+        const themeNames = ["", "Calor e Unidades", "Energia Alimentar", "Ciclos d'Água", "Sensível e Latente", "Equilíbrio Térmico"];
+        
+        let questionBody = `<p class="mt-3 text-slate-700 mb-4 text-sm leading-6">${ex.q}</p>`;
+        
+        if (ex.type === 'theo' && ex.opts) {
+            questionBody += `<div class="space-y-2 mb-4 text-sm text-slate-600">`;
+            ex.opts.forEach(opt => {
+                questionBody += `<div class="p-2 bg-slate-50 rounded-lg border border-slate-100">${opt}</div>`;
+            });
+            questionBody += `</div>`;
+        }
+
+        html += `
+        <article class="bg-white rounded-2xl border ${borderColor} p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div class="flex justify-between gap-3 items-center">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full ${badgeColor}">Questão ${ex.id}</span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">TEMA ${ex.theme}: ${themeNames[ex.theme]}</span>
+            </div>
+            
+            ${questionBody}
+            
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" type="text" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="${ex.type==='theo' ? 'Letra (A, B, C, D)' : 'Valor numérico'}">
+                <button onclick="checkAnswer(${ex.id})" class="bg-orange-600 hover:bg-orange-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+            </div>
+            
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+            
+            <button onclick="document.getElementById('sol-${ex.id}').classList.toggle('hidden')" class="mt-3 text-sm font-bold text-orange-700 hover:underline">
+                👁 Mostrar explicação / cálculo
+            </button>
+            
+            <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t border-orange-100 pt-4">
+                <div class="text-xs uppercase tracking-widest font-black text-orange-800 mb-3">Resolução Passo a Passo</div>
+                ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+                <div class="success rounded-xl p-4 text-center font-bold mt-2 text-emerald-900">Resposta Correta: ${ex.ans}</div>
+            </div>
+        </article>
+        `;
+    });
+    
+    listDiv.innerHTML = html;
+    updateProgress();
+    renderAll();
+}
+
+function checkAnswer(id) {
+    const ex = exercisesData.find(x => x.id === id);
+    const inputEl = $(`ans-${id}`);
+    const fbEl = $(`fb-${id}`);
+    
+    let rawInput = inputEl.value.trim().toUpperCase();
+    if(ex.type === 'calc') {
+        rawInput = rawInput.replace(',', '.'); 
+    }
+
+    let isCorrect = false;
+    
+    if (ex.type === 'theo') {
+        isCorrect = (rawInput === ex.ans);
+    } else {
+        const numIn = parseFloat(rawInput);
+        const numAns = parseFloat(ex.ans);
+        if(!isNaN(numIn) && Math.abs(numIn - numAns) <= 0.05) {
+            isCorrect = true;
+        }
+    }
+
+    if (isCorrect) {
+        solved.add(id);
+        localStorage.setItem('fisicaCalorSolved', JSON.stringify([...solved]));
+        fbEl.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fbEl.textContent = '✓ Excelente! Você acertou.';
+        setTimeout(renderExercises, 400); 
+    } else {
+        fbEl.className = 'text-sm font-bold mt-2 text-red-500';
+        fbEl.textContent = '✗ Quase lá. Tente verificar a fórmula ou os dados!';
+    }
+}
+
+function updateProgress() {
+    const max = exercisesData.length;
+    const current = solved.size;
+    $('progress-text').textContent = `${current} / ${max}`;
+    $('progress-bar').style.width = `${(current/max)*100}%`;
+}
+
+// Filtros Theme
+document.querySelectorAll('.level-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active', 'bg-orange-500', 'text-white'));
+        document.querySelectorAll('.level-btn:not(.active)').forEach(b => b.classList.add('bg-slate-100'));
+        
+        btn.classList.add('active');
+        btn.classList.remove('bg-slate-100');
+        
+        currentTheme = btn.dataset.theme;
+        renderExercises();
+    };
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderExercises();
+    renderAll();
+});
+</script>
+</body>
+</html>

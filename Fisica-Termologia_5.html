@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física — Termodinâmica e Máquinas Térmicas</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {--ink: #3c1505; --paper: #fffcf7; --line: #fed7aa; --accent: #ea580c}
+  body {background: #fff8f0; color: var(--ink)}
+  .tab-btn.active {color: #c2410c; border-bottom-color: #c2410c; font-weight: 800}
+  .paper {background: var(--paper); background-image: linear-gradient(#ffedd5 1px, transparent 1px); background-size: 100% 2rem; border: 1px solid #fdba74; box-shadow: 0 8px 24px #4314070a}
+  .step {position: relative; padding: 1rem 1rem 1rem 3.2rem; border: 1px solid #fed7aa; border-radius: 1rem; background: white}
+  .step::before {content: attr(data-step); position: absolute; left: 1rem; top: 1rem; width: 1.65rem; height: 1.65rem; border-radius: 999px; background: #ffedd5; color: #c2410c; font-weight: 800; display: grid; place-items: center; font-size: .8rem}
+  .level-btn.active {background: #ea580c; color: white}
+  .exercise-solution {animation: fade .2s ease}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  .tip {border-left: 4px solid #f59e0b; background: #fffbeb}
+  .success {border-left: 4px solid #10b981; background: #ecfdf5}
+  .warning {border-left: 4px solid #ef4444; background: #fef2f2}
+  .danger-quote {border-left: 4px solid #dc2626; background: #fef2f2}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-orange-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+     <div class="font-black text-lg sm:text-xl text-orange-950">⚙️ Termodinâmica & Máquinas Térmicas</div>
+     <div class="text-[11px] text-slate-500 hidden sm:block">1ª e 2ª Leis, Transformações, Ciclo de Carnot e Entropia</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">🧮 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- SEÇÃO TEORIA -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-stone-900 via-amber-950 to-orange-950 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-amber-300">Termofísica • Física Moderna Plus</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">A Dança do Fogo e do Trabalho</h1>
+  <p class="mt-4 max-w-3xl text-orange-100 leading-7">Como a queima de carvão colocou trens em movimento, como a física formulou os limites absolutos de qualquer motor e por que o calor é a forma mais degradada de energia do cosmos. Domine aqui a Primeira e a Segunda Lei da Termodinâmica.</p>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm text-sm">
+  <b class="text-amber-900">💡 O Sentido Prático da Termodinâmica:</b> O nome vem do grego: <i>therme</i> (calor) e <i>dynamis</i> (potência, força, movimento). A termodinâmica nasceu para resolver um problema estritamente econômico e prático da Revolução Industrial: <b>"Quanto trabalho mecânico útil conseguimos extrair de cada quilo de carvão queimado?"</b>
+ </div>
+
+ <!-- TÓPICO 1 E 2: Origem e Trabalho -->
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">Origem da Termodinâmica</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Até o século XVIII, o trabalho mecânico dependia quase que exclusivamente da força muscular (humana ou animal), de moinhos de vento ou de rodas d'água. As primeiras máquinas térmicas operacionais surgiram com <b>Thomas Savery</b> e <b>Thomas Newcomen</b> para drenar a água acumulada nas minas de carvão.</p>
+   
+   <p class="mt-3 text-slate-600 text-sm leading-6">Em 1769, <b>James Watt</b> aprimorou o projeto ao introduzir um condensador separado, aumentando drasticamente o rendimento e impulsionando a <b>Revolução Industrial</b>. Em 1824, o jovem engenheiro francês <b>Sadi Carnot</b> publicou a obra-prima que deu origem à ciência da termodinâmica teórica, estabelecendo o limite máximo do rendimento para qualquer máquina térmica.</p>
+   
+   <div class="bg-amber-50 rounded-xl p-3 border border-amber-200 mt-3 text-xs text-amber-900">
+    <b>Definição Moderna:</b> A Termodinâmica é o ramo da física que investiga as relações mútuas entre o calor ($Q$), o trabalho mecânico ($W$) e outras formas de energia que afetam as propriedades macroscópicas da matéria.
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Trabalho Trocado por um Gás ($W$)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Considere um gás confinado em um cilindro com um êmbolo móvel de área $A$. Ao exercer pressão $P$ sobre o êmbolo e deslocá-lo por uma distância $\Delta x$, o gás troca energia mecânica com o meio exterior:</p>
+   
+   <div class="paper text-center py-3 mt-3 font-bold rounded-xl text-xl text-orange-950">
+    \[W = P \cdot \Delta V\]
+   </div>
+   
+   <div class="space-y-2 mt-3 text-xs">
+    <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-900">
+     <b>• Expansão ($\Delta V > 0 \rightarrow W > 0$):</b> O gás empurra o êmbolo. Dizemos que <b>o gás realiza trabalho</b> sobre o meio externo.
+    </div>
+    <div class="p-2.5 rounded-lg bg-sky-50 border border-sky-200 text-sky-900">
+     <b>• Compressão ($\Delta V < 0 \rightarrow W < 0$):</b> O êmbolo espreme o gás. Dizemos que <b>o meio realiza trabalho</b> sobre o gás.
+    </div>
+    <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-700">
+     <b>• Isométrica / Isocórica ($\Delta V = 0 \rightarrow W = 0$):</b> Se o volume não varia, o trabalho é <b>rigorosamente nulo</b>.
+    </div>
+   </div>
+   <p class="text-[11px] text-slate-500 mt-2">Em gráficos $P \times V$, o trabalho é <b>numericamente igual à área</b> sob a curva da transformação.</p>
+  </article>
+ </div>
+
+ <!-- TÓPICO 3 E 4: Calor e Energia Interna -->
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">3</span><h2 class="text-xl font-black">Calor Trocado com o Meio ($Q$)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">O calor é energia térmica transferida espontaneamente entre o sistema e o meio exterior decorrente unicamente da <b>diferença de temperatura</b> entre ambos.</p>
+   
+   <div class="grid sm:grid-cols-2 gap-3 mt-3 text-xs">
+    <div class="p-3 rounded-xl bg-orange-50 border border-orange-200">
+     <b class="text-orange-900 text-sm">$Q > 0$ (Calor Recebido)</b>
+     <p class="text-slate-600 mt-1">O gás absorve energia térmica da vizinhança (processo endotérmico térmico).</p>
+    </div>
+    <div class="p-3 rounded-xl bg-blue-50 border border-blue-200">
+     <b class="text-blue-900 text-sm">$Q < 0$ (Calor Cedido)</b>
+     <p class="text-slate-600 mt-1">O gás perde/rejeita energia térmica para o ambiente externo (processo exotérmico).</p>
+    </div>
+   </div>
+   <p class="text-xs text-slate-600 mt-3">Quando um sistema não troca calor com o meio ($Q = 0$), o processo é denominado <b>adiabático</b> (ocorre em frascos perfeitamente isolados ou em expansões e compressões extremamente rápidas).</p>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Energia Interna ($U$)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">A energia interna ($U$) de uma massa de gás representa a soma de todas as energias cinéticas de translação, rotação e vibração de suas partículas constituintes.</p>
+   
+   <div class="paper text-center py-3 mt-2 font-bold rounded-xl text-lg text-orange-950">
+    \[U = \frac{3}{2} n R T \quad \Longrightarrow \quad \Delta U = \frac{3}{2} n R \Delta T\]
+   </div>
+   
+   <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 mt-3 text-xs text-slate-700">
+    <b>Princípio Fundamental de Joule:</b> A energia interna de um gás ideal é uma <b>função de estado exclusiva da sua temperatura absoluta</b> ($T$). 
+    <br>• Se a temperatura sobe ($\Delta T > 0$), $\Delta U > 0$ (o gás esquenta).
+    <br>• Se a temperatura cai ($\Delta T < 0$), $\Delta U < 0$ (o gás esfria).
+    <br>• Em qualquer processo isotérmico ($\Delta T = 0$), a variação de energia interna é <b>nula</b> ($\Delta U = 0$).
+   </div>
+  </article>
+ </div>
+
+ <!-- TÓPICO 5: Primeira Lei da Termodinâmica -->
+ <div class="bg-white rounded-2xl border shadow-sm p-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">5</span><h2 class="text-2xl font-black">A Primeira Lei da Termodinâmica</h2></div>
+  <p class="text-sm text-slate-600 mt-3 mb-4">A Primeira Lei nada mais é do que o <b>Princípio da Conservação da Energia</b> aplicado aos processos térmicos: o calor recebido por um sistema pode ser utilizado para aumentar sua energia interna e/ou realizar trabalho mecânico sobre o meio exterior.</p>
+  
+  <div class="paper text-center py-4 my-3 font-bold rounded-xl text-2xl text-orange-900">
+   \[\Delta U = Q - W \quad \iff \quad Q = W + \Delta U\]
+  </div>
+
+  <h3 class="font-bold text-slate-800 text-base mt-6 mb-3">Comportamento nas Transformações Particulares:</h3>
+  <div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-4 text-xs">
+   <div class="border rounded-xl p-4 bg-sky-50 border-sky-200">
+    <b class="text-sky-900 text-sm">Isotérmica ($T$ cte)</b>
+    <p class="text-slate-600 mt-1">Como $\Delta T = 0$, temos <b>$\Delta U = 0$</b>.</p>
+    <div class="paper py-2 mt-2 font-bold text-center text-sm">\[Q = W\]</div>
+    <p class="text-[11px] text-slate-500 mt-2">Todo calor absorvido é integralmente transformado em trabalho de expansão.</p>
+   </div>
+
+   <div class="border rounded-xl p-4 bg-emerald-50 border-emerald-200">
+    <b class="text-emerald-900 text-sm">Isométrica ($V$ cte)</b>
+    <p class="text-slate-600 mt-1">Como $\Delta V = 0$, o êmbolo não anda: <b>$W = 0$</b>.</p>
+    <div class="paper py-2 mt-2 font-bold text-center text-sm">\[\Delta U = Q\]</div>
+    <p class="text-[11px] text-slate-500 mt-2">Todo calor recebido serve unicamente para aquecer o gás e elevar sua pressão.</p>
+   </div>
+
+   <div class="border rounded-xl p-4 bg-amber-50 border-amber-200">
+    <b class="text-amber-900 text-sm">Isobárica ($P$ cte)</b>
+    <p class="text-slate-600 mt-1">O êmbolo se move livremente sob pressão constante.</p>
+    <div class="paper py-2 mt-2 font-bold text-center text-sm">\[Q = W + \Delta U\]</div>
+    <p class="text-[11px] text-slate-500 mt-2">O calor recebido é dividido: parte realiza trabalho ($P\Delta V$) e parte aquece o gás.</p>
+   </div>
+
+   <div class="border rounded-xl p-4 bg-purple-50 border-purple-200">
+    <b class="text-purple-900 text-sm">Adiabática ($Q = 0$)</b>
+    <p class="text-slate-600 mt-1">Não há tempo ou meio para troca térmica.</p>
+    <div class="paper py-2 mt-2 font-bold text-center text-sm">\[W = -\Delta U\]</div>
+    <p class="text-[11px] text-slate-500 mt-2">Na expansão adiabática ($W > 0$), o gás gasta sua própria energia interna e resfria ($\Delta U < 0$).</p>
+   </div>
+  </div>
+
+  <div class="mt-4 p-4 rounded-xl bg-orange-50 border border-orange-200 text-xs text-orange-950">
+   <b>Transformações Cíclicas:</b> Quando um gás passa por uma série de processos e retorna rigorosamente ao seu estado inicial de pressão, volume e temperatura, o estado termodinâmico final é idêntico ao inicial. Logo, <b>$\Delta U_{ciclo} = 0$</b> e o trabalho líquido é exatamente igual ao calor líquido trocado: <b>$W_{ciclo} = Q_{ciclo}$</b>.
+  </div>
+ </div>
+
+ <!-- TÓPICO 6 E 7: Máquinas Térmicas e 2ª Lei -->
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">Máquinas Térmicas e Rendimento</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Uma máquina térmica é qualquer dispositivo que opera em ciclos transformando calor em trabalho mecânico contínuo. Ela opera obrigatoriamente entre duas fontes a temperaturas diferentes:</p>
+   
+   <ul class="list-disc pl-5 mt-3 text-xs text-slate-600 space-y-1">
+    <li><b>Fonte Quente ($T_1$):</b> Fornece a quantidade de calor $Q_1$.</li>
+    <li><b>Trabalho Útil ($W$):</b> A parcela convertida em energia mecânica ($W = Q_1 - Q_2$).</li>
+    <li><b>Fonte Fria ($T_2$):</b> Recebe o calor rejeitado não aproveitado $Q_2$.</li>
+   </ul>
+
+   <div class="paper text-center py-3 mt-3 font-bold rounded-xl text-lg text-orange-950">
+    \[\eta = \frac{W}{Q_1} = \frac{Q_1 - Q_2}{Q_1} = 1 - \frac{Q_2}{Q_1}\]
+   </div>
+   <p class="text-[11px] text-slate-500 mt-2 text-center">O rendimento ($\eta$) é um número adimensional entre 0 e 1 (frequentemente expresso em porcentagem).</p>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">7</span><h2 class="text-xl font-black">A Segunda Lei da Termodinâmica</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Enquanto a 1ª Lei dita que a energia não pode ser criada nem destruída, a 2ª Lei estabelece <b>o sentido espontâneo das transformações na natureza</b>:</p>
+   
+   <div class="space-y-3 mt-3 text-xs">
+    <div class="danger-quote p-3 rounded-xl">
+     <b class="text-red-900">Enunciado de Kelvin-Planck:</b><br>
+     "É impossível construir uma máquina térmica que, operando em ciclo contínuo, tenha como único efeito retirar calor de uma única fonte e convertê-lo integralmente em trabalho mecânico." (<b>O rendimento $\eta$ é estritamente menor que 100%!</b>).
+    </div>
+    <div class="p-3 rounded-xl bg-sky-50 border border-sky-200">
+     <b class="text-sky-900">Enunciado de Clausius:</b><br>
+     "O calor não pode fluir de forma espontânea de um corpo de menor temperatura (mais frio) para outro de maior temperatura (mais quente)."
+    </div>
+   </div>
+  </article>
+ </div>
+
+ <!-- TÓPICO 8 E 9: Refrigeradores, Carnot e Entropia -->
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">8</span><h2 class="text-xl font-black">Máquinas Frigoríficas (Refrigeradores)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">O refrigerador (ou ar-condicionado) opera o ciclo termodinâmico no <b>sentido inverso (anti-horário)</b>. Para fazer o calor sair da fonte fria e ir para a quente, é necessário <b>fornecer trabalho mecânico externo</b> (pelo compressor elétrico):</p>
+   
+   <div class="paper text-center py-3 mt-3 font-bold rounded-xl text-lg text-orange-950">
+    \[Q_1 = Q_2 + W \quad \Longrightarrow \quad e = \frac{Q_2}{W} = \frac{Q_2}{Q_1 - Q_2}\]
+   </div>
+   <p class="text-xs text-slate-600 mt-2">A grandeza $e$ é a <b>eficiência (ou coeficiente de desempenho)</b> do refrigerador. Diferente do rendimento do motor térmico, a eficiência $e$ pode ser maior do que 1 (ou maior que 100%).</p>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-orange-100 text-orange-700 grid place-items-center font-black">9</span><h2 class="text-xl font-black">O Ciclo Ideal de Carnot</h2></div>
+   <p class="mt-4 text-slate-600 text-sm leading-6">Nicolas Léonard Sadi Carnot concebeu um ciclo ideal e teórico composto por <b>duas transformações isotérmicas reversíveis e duas adiabáticas reversíveis</b>. Nenhuma máquina real pode superar o rendimento do ciclo de Carnot operando entre as mesmas temperaturas de fonte:</p>
+   
+   <div class="paper text-center py-3 mt-3 font-bold rounded-xl text-xl text-orange-950">
+    \[\eta_{\text{Carnot}} = 1 - \frac{T_2}{T_1} \quad (T \text{ obrigatoriamente em Kelvin!})\]
+   </div>
+   
+   <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 mt-3 text-xs text-slate-700">
+    <b>Importante:</b> Para atingir 100% de rendimento, a fonte fria $T_2$ teria que estar no Zero Absoluto ($0\text{ K} = -273,15^\circ\text{C}$), o que é inatingível na prática (Terceira Lei da Termodinâmica).
+   </div>
+  </article>
+ </div>
+
+ <!-- TEXTO DE ENRIQUECIMENTO: Entropia e a Seta do Tempo -->
+ <div class="bg-gradient-to-br from-stone-900 via-zinc-900 to-amber-950 text-white rounded-2xl border border-amber-900/50 p-6 shadow-sm">
+  <div class="flex items-center gap-3"><span class="text-2xl">⏳</span><h2 class="text-xl font-black text-amber-200">Enriquecimento: A Irreversibilidade e a Seta do Tempo</h2></div>
+  <p class="mt-3 text-stone-300 text-sm leading-6">Você já viu um copo de vidro quebrado no chão se recompor sozinho e saltar de volta para a mesa? As equações da mecânica de Newton não proíbem isso (se invertêssemos as velocidades de cada átomo, o filme rodaria perfeitamente ao contrário). No entanto, isso <b>nunca</b> acontece na realidade. Por quê?</p>
+  
+  <div class="grid sm:grid-cols-2 gap-4 mt-4 text-xs">
+   <div class="bg-white/10 p-4 rounded-xl border border-white/5">
+    <b class="text-amber-300 text-sm">O Conceito de Entropia ($S$)</b>
+    <p class="text-stone-300 mt-1">Rudolf Clausius introduziu o conceito de entropia para quantificar a degradação da energia útil. Em qualquer processo real e espontâneo em um sistema isolado, a <b>entropia total sempre aumenta ($\Delta S \ge 0$)</b>. O calor é energia desordenada; por isso, transformar trabalho (organizado) em calor é 100% fácil (basta atrito), mas converter calor em trabalho sofre restrições severas.</p>
+   </div>
+   <div class="bg-white/10 p-4 rounded-xl border border-white/5">
+    <b class="text-amber-300 text-sm">Por que abrir a geladeira não esfria a casa?</b>
+    <p class="text-stone-300 mt-1">Se você deixar a porta da geladeira aberta num quarto fechado, o ambiente vai <b>esquentar</b>! O refrigerador retira calor da fonte fria ($Q_2$), mas para fazer isso o motor elétrico injeta trabalho ($W$). A grade traseira dissipa $Q_1 = Q_2 + W$. Como o calor jogado no quarto ($Q_1$) é maior do que o retirado do ar ($Q_2$), o balanço líquido aquece a sala.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- SEÇÃO LABORATÓRIO E SIMULADORES -->
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-orange-600">Simulador Termodinâmico Interativo</span>
+  <h1 class="text-3xl font-black mt-2">Laboratório de Termodinâmica</h1>
+  <p class="text-slate-600 mt-2 text-sm">Experimente o balanço de energia da Primeira Lei em um êmbolo e calcule o limite de Carnot para motores e refrigeradores.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  <!-- Simulador 1: Primeira Lei -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl text-orange-950">Balanço da 1ª Lei ($\Delta U = Q - W$)</h2>
+   <p class="text-xs text-slate-500 mb-4">Insira o calor trocado ($Q$) e o trabalho realizado ($W$) para analisar o comportamento interno do gás.</p>
+   
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between">
+      <label>Calor trocado ($Q$ em Joules):<br><span class="text-[10px] text-slate-400">+ para recebido, - para cedido</span></label>
+      <input id="sim-q" type="number" value="1500" class="border rounded-xl px-2 py-1 w-28 text-center">
+    </div>
+    <div class="flex items-center justify-between">
+      <label>Trabalho trocado ($W$ em Joules):<br><span class="text-[10px] text-slate-400">+ expansão, - compressão, 0 isométrica</span></label>
+      <input id="sim-w" type="number" value="600" class="border rounded-xl px-2 py-1 w-28 text-center">
+    </div>
+   </div>
+   
+   <button onclick="calcPrimeiraLei()" class="mt-4 w-full bg-orange-600 hover:bg-orange-700 text-white rounded-xl py-3 font-bold transition">Calcular $\Delta U$ e Diagnóstico</button>
+   <div id="out-primeira-lei" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+
+  <!-- Simulador 2: Máquinas Térmicas e Carnot -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl text-amber-950">Calculadora de Carnot e Motores Térmicos</h2>
+   <p class="text-xs text-slate-500 mb-4">Descubra o rendimento máximo teórico de Carnot entre duas temperaturas e o trabalho gerado.</p>
+   
+   <div class="space-y-3 text-sm">
+    <div class="flex items-center justify-between">
+      <label>Temperatura da Fonte Quente ($T_1$ em $^\circ\text{C}$):</label>
+      <input id="sim-t1" type="number" value="327" class="border rounded-xl px-2 py-1 w-24 text-center">
+    </div>
+    <div class="flex items-center justify-between">
+      <label>Temperatura da Fonte Fria ($T_2$ em $^\circ\text{C}$):</label>
+      <input id="sim-t2" type="number" value="27" class="border rounded-xl px-2 py-1 w-24 text-center">
+    </div>
+    <div class="flex items-center justify-between">
+      <label>Calor da Fonte Quente ($Q_1$ em Joules):</label>
+      <input id="sim-q1" type="number" value="4000" class="border rounded-xl px-2 py-1 w-24 text-center">
+    </div>
+   </div>
+   
+   <button onclick="calcCarnotSim()" class="mt-4 w-full bg-amber-700 hover:bg-amber-800 text-white rounded-xl py-3 font-bold transition">Calcular Rendimento e Trabalho</button>
+   <div id="out-carnot" class="paper rounded-xl p-4 mt-4 hidden text-sm space-y-2"></div>
+  </div>
+ </div>
+</section>
+
+<!-- SEÇÃO EXERCÍCIOS -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+   <div>
+     <span class="text-xs font-bold uppercase tracking-widest text-orange-600">Treino Didático e Progressivo</span>
+     <h1 class="text-3xl font-black mt-2">90 Questões Resolvidas</h1>
+     <p class="text-slate-600 mt-2 text-sm"><b>Teoria:</b> digite a letra (A, B, C, D). <b>Cálculos:</b> digite apenas o número (use '.' ou ',' para decimais). Arredonde para 2 casas quando necessário.</p>
+   </div>
+   <div class="min-w-[210px]">
+     <div class="flex justify-between text-sm font-bold text-orange-900"><span>Progresso</span><span id="progress-text">0 / 90</span></div>
+     <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden">
+       <div id="progress-bar" class="h-full bg-orange-600 transition-all duration-500 rounded-full" style="width:0%"></div>
+     </div>
+   </div>
+  </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-theme="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold transition">Todos (90)</button>
+   <button data-theme="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T1: Trabalho & Energia Interna</button>
+   <button data-theme="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T2: 1ª Lei nas Transformações</button>
+   <button data-theme="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T3: Máquinas Térmicas</button>
+   <button data-theme="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T4: Ciclo de Carnot</button>
+   <button data-theme="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T5: Refrigeradores</button>
+   <button data-theme="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100 transition">T6: 2ª Lei & Entropia</button>
+  </div>
+ </div>
+ <div id="exercise-list" class="grid lg:grid-cols-2 gap-5"></div>
+</section>
+</main>
+
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material didático interativo • Física Térmica — Termodinâmica e Máquinas Térmicas</div></footer>
+
+<!-- JAVASCRIPT LOGIC -->
+<script>
+const $=id=>document.getElementById(id);
+function renderAll(){
+  document.querySelectorAll('body').forEach(el=>{
+    if(window.renderMathInElement) {
+      renderMathInElement(el,{delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'\\[',right:'\\]',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false}
+      ]});
+    }
+  });
+}
+
+// Navegação de Abas
+const sections=['teoria','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    const t=btn.dataset.tab;
+    sections.forEach(s=>$('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b===btn));
+    if(t==='exercicios')renderExercises();
+}));
+
+function calcPrimeiraLei(){
+    const q = +$('sim-q').value;
+    const w = +$('sim-w').value;
+    const dU = q - w;
+    
+    let h = `<b>1. Aplicando a 1ª Lei da Termodinâmica:</b><br>`;
+    h += `\\[\\Delta U = Q - W\\]<br>`;
+    h += `\\[\\Delta U = (${q}) - (${w}) = \\mathbf{${dU} \\text{ Joules}}\\]<br><br>`;
+    
+    h += `<b>2. Análise Física Detalhada:</b><br>`;
+    if (dU > 0) {
+        h += `• $\\Delta U > 0$: A energia cinética interna das moléculas aumentou. <b>O gás aqueceu</b> (sua temperatura final é maior que a inicial).<br>`;
+    } else if (dU < 0) {
+        h += `• $\\Delta U < 0$: A energia cinética interna das moléculas diminuiu. <b>O gás resfriou</b> (sua temperatura final é menor que a inicial).<br>`;
+    } else {
+        h += `• $\\Delta U = 0$: A energia interna não se alterou. O processo foi <b>isotérmico</b> ($T = \\text{constante}$).<br>`;
+    }
+    
+    if (w > 0) {
+        h += `• $W > 0$: O gás sofreu <b>expansão</b> (o gás empurrou o êmbolo, realizando trabalho).`;
+    } else if (w < 0) {
+        h += `• $W < 0$: O gás sofreu <b>compressão</b> (o meio exterior empurrou o êmbolo sobre o gás).`;
+    } else {
+        h += `• $W = 0$: O volume permaneceu inalterado (transformação <b>isocórica/isométrica</b>).`;
+    }
+    
+    $('out-primeira-lei').innerHTML = h;
+    $('out-primeira-lei').classList.remove('hidden');
+    renderAll();
+}
+
+function calcCarnotSim(){
+    const tc1 = +$('sim-t1').value;
+    const tc2 = +$('sim-t2').value;
+    const q1 = +$('sim-q1').value;
+    
+    const t1 = tc1 + 273;
+    const t2 = tc2 + 273;
+    
+    if (t1 <= t2) {
+        $('out-carnot').innerHTML = `<b class="text-red-500">Erro: A temperatura da fonte quente ($T_1$) deve ser rigorosamente maior que a da fonte fria ($T_2$).</b>`;
+        $('out-carnot').classList.remove('hidden');
+        return;
+    }
+    
+    const eta = 1 - (t2 / t1);
+    const etaPct = (eta * 100).toFixed(2);
+    const w = q1 * eta;
+    const q2 = q1 - w;
+    const eFrig = t2 / (t1 - t2);
+    
+    let h = `<b>1. Conversão Obrigatória para Kelvin:</b><br>`;
+    h += `\\[T_1 = ${tc1} + 273 = ${t1} \\text{ K}, \\quad T_2 = ${tc2} + 273 = ${t2} \\text{ K}\\]<br>`;
+    h += `<b>2. Rendimento Máximo de Carnot:</b><br>`;
+    h += `\\[\\eta_{\\text{Carnot}} = 1 - \\frac{T_2}{T_1} = 1 - \\frac{${t2}}{${t1}} = 1 - ${(t2/t1).toFixed(4)} = \\mathbf{${etaPct}\\%}\\]<br>`;
+    h += `<b>3. Trabalho Útil e Calor Rejeitado:</b><br>`;
+    h += `• Trabalho útil gerado: \\[W = \\eta \\cdot Q_1 = ${(eta).toFixed(4)} \\cdot ${q1} = \\mathbf{${w.toFixed(2)} \\text{ Joules}}\\]`;
+    h += `• Calor rejeitado para a fonte fria: \\[Q_2 = Q_1 - W = ${q1} - ${w.toFixed(2)} = \\mathbf{${q2.toFixed(2)} \\text{ Joules}}\\]<br>`;
+    h += `<span class="text-xs text-slate-500">Caso operasse como ciclo de refrigeração inverso de Carnot entre essas mesmas fontes, sua eficiência máxima seria $e = \\frac{T_2}{T_1 - T_2} = \\mathbf{${eFrig.toFixed(2)}}$.</span>`;
+    
+    $('out-carnot').innerHTML = h;
+    $('out-carnot').classList.remove('hidden');
+    renderAll();
+}
+
+// BANCO DE DADOS DE EXERCÍCIOS (90 QUESTÕES - 15 POR TEMA)
+const exercisesData = [];
+let exId = 1;
+const addQ = (th, ty, q, ans, steps, opts=[]) => { exercisesData.push({ id: exId++, theme: th, type: ty, q, ans, steps, opts }); };
+
+// ==========================================
+// TEMA 1: Origem, Trabalho e Energia Interna (1-15)
+// ==========================================
+addQ(1,'theo',"A Revolução Industrial foi impulsionada pela invenção da máquina a vapor. Qual foi o avanço tecnológico fundamental introduzido por James Watt em relação ao modelo anterior de Newcomen?", "B",
+    ["Thomas Newcomen resfriava o próprio cilindro de expansão, gastando carvão excessivo para reaquecê-lo. James Watt inventou o condensador separado, mantendo o cilindro sempre aquecido e quadruplicando a eficiência da máquina."],
+    ["A) O uso de eletricidade para acionar a caldeira.", "B) A introdução do condensador separado, reduzindo o desperdício térmico.", "C) A substituição completa do vapor d'água por gás hélio.", "D) A eliminação de qualquer troca de calor com a atmosfera."]);
+
+addQ(1,'theo',"Um gás ideal sofre uma expansão contra um êmbolo móvel. Do ponto de vista termodinâmico, o que podemos afirmar sobre o sinal do trabalho ($W$) e sobre quem realizou esse trabalho?", "A",
+    ["Na expansão, o volume aumenta ($\\Delta V > 0$). Logo, $W = P \\cdot \\Delta V > 0$. O gás empurrou o êmbolo contra a resistência externa, logo o gás realizou trabalho sobre o meio."],
+    ["A) O trabalho é positivo ($W > 0$) e foi realizado pelo próprio gás sobre o meio exterior.", "B) O trabalho é negativo ($W < 0$) e foi realizado pelo meio sobre o gás.", "C) O trabalho é nulo, pois gases não exercem força mecânica.", "D) O trabalho independe da variação de volume."]);
+
+addQ(1,'theo',"De acordo com a teoria cinética e as conclusões experimentais de Joule, a Energia Interna ($U$) de uma massa fixa de gás ideal depende exclusivamente de qual grandeza física?", "D",
+    ["No modelo do gás ideal, não existem forças de atração mútua entre as moléculas. Assim, a energia interna resume-se à energia cinética molecular total, que é diretamente proporcional à Temperatura Absoluta ($U = \\frac{3}{2}nRT$)."],
+    ["A) Da pressão manométrica exclusivamente.", "B) Do formato geométrico do recipiente.", "C) Da densidade relativa do gás.", "D) Da temperatura absoluta ($T$) da amostra."]);
+
+addQ(1,'theo',"Em um gráfico de Pressão por Volume ($P \\times V$), a área sob o segmento de reta que representa uma transformação termodinâmica mede numericamente:", "C",
+    ["A integral de $P \\, dV$ equivale geometricamente à área entre a curva da transformação e o eixo horizontal do volume, correspondendo ao trabalho mecânico trocado ($W$)."],
+    ["A) A variação de temperatura absoluta ($\\Delta T$).", "B) O calor latente de fusão do recipiente.", "C) O trabalho mecânico ($W$) trocado entre o gás e a vizinhança.", "D) A densidade final do gás."]);
+
+addQ(1,'theo',"O que ocorre com a energia interna ($U$) de um gás que passa por uma compressão e, ao mesmo tempo, é resfriado até que sua temperatura absoluta caia pela metade?", "B",
+    ["Como $U$ é diretamente proporcional a $T$ ($U \\propto T$), se a temperatura absoluta cai pela metade, a energia interna do gás também é reduzida exatamente à metade."],
+    ["A) Permanece inalterada.", "B) É reduzida à metade.", "C) É quadruplicada.", "D) Vai instantaneamente a zero."]);
+
+// Cálculos Tema 1
+addQ(1,'calc',"Um gás sob pressão constante de $200.000 \\text{ N/m}^2$ sofre uma expansão isobárica de $0,02 \\text{ m}^3$ para $0,05 \\text{ m}^3$. Calcule o trabalho realizado pelo gás em Joules ($W = P \\cdot \\Delta V$).", "6000",
+    ["$\\Delta V = V_{final} - V_{inicial} = 0,05 - 0,02 = 0,03 \\text{ m}^3$", "$W = P \\cdot \\Delta V = 200000 \\cdot 0,03 = 6000 \\text{ Joules}$."]);
+
+addQ(1,'calc',"Certo gás é comprimido sob pressão estável de $150.000 \\text{ Pa}$, tendo seu volume reduzido de $0,04 \\text{ m}^3$ para $0,01 \\text{ m}^3$. Qual o valor do trabalho em Joules? (Atenção ao sinal: se for compressão, informe com sinal negativo).", "-4500",
+    ["$\\Delta V = 0,01 - 0,04 = -0,03 \\text{ m}^3$", "$W = P \\cdot \\Delta V = 150000 \\cdot (-0,03) = -4500 \\text{ Joules}$ (o meio realizou trabalho sobre o gás)."]);
+
+addQ(1,'calc',"Um gás mantido em um botijão indeformável de $10 \\text{ Litros}$ é aquecido, e sua pressão sobe de $1 \\text{ atm}$ para $4 \\text{ atm}$. Sabendo que as paredes não se moveram ($\Delta V = 0$), qual foi o trabalho realizado em Joules?", "0",
+    ["Em transformações isométricas (isocóricas), não há deslocamento de fronteiras ($\Delta V = 0$).", "Logo, $W = P \\cdot 0 = 0 \\text{ Joules}$."]);
+
+addQ(1,'calc',"Sabendo que $1 \\text{ atm} \\approx 100.000 \\text{ N/m}^2$ e $1 \\text{ m}^3 = 1000 \\text{ L}$. Um gás se expande sob pressão constante de $3 \\text{ atm}$ de um volume de $10 \\text{ L}$ para $50 \\text{ L}$ ($\Delta V = 40 \\text{ L} = 0,04 \\text{ m}^3$). Calcule o trabalho em Joules.", "12000",
+    ["$P = 3 \\cdot 100000 = 300.000 \\text{ N/m}^2$", "$\\Delta V = 40 / 1000 = 0,04 \\text{ m}^3$", "$W = 300000 \\cdot 0,04 = 12000 \\text{ Joules}$."]);
+
+addQ(1,'calc',"Em um gráfico $P \\times V$, uma transformação retilínea vai do ponto $(V=1\\text{ m}^3, P=100\\text{ kPa})$ até $(V=5\\text{ m}^3, P=300\\text{ kPa})$. A área sob o gráfico é um trapézio: $\\text{Área} = \\frac{(P_1 + P_2) \\cdot \\Delta V}{2}$. Calcule o trabalho em kJ.", "800",
+    ["Base menor = $100 \\text{ kPa}$, Base maior = $300 \\text{ kPa}$, Altura $\\Delta V = 5 - 1 = 4 \\text{ m}^3$", "$W = \\frac{(100 + 300) \\cdot 4}{2} = \\frac{400 \\cdot 4}{2} = 800 \\text{ kJ}$."]);
+
+addQ(1,'calc',"A energia interna de $2 \\text{ mols}$ de um gás ideal monoatômico é dada por $U = \\frac{3}{2} n R T$. Adote $R = 8,31 \\text{ J/(mol K)}$. Calcule o valor de $U$ em Joules para $T = 400 \\text{ K}$.", "9972",
+    ["$U = 1,5 \\cdot n \\cdot R \\cdot T$", "$U = 1,5 \\cdot 2 \\cdot 8,31 \\cdot 400 = 3 \\cdot 3324 = 9972 \\text{ Joules}$."]);
+
+addQ(1,'calc',"A temperatura de $1 \\text{ mol}$ de gás monoatômico passa de $300 \\text{ K}$ para $500 \\text{ K}$ ($\Delta T = 200 \\text{ K}$). Usando $R = 8,31$, calcule a variação da energia interna $\Delta U$ em Joules ($\Delta U = 1,5 \\cdot n \\cdot R \\cdot \\Delta T$).", "2493",
+    ["$\\Delta U = 1,5 \\cdot 1 \\cdot 8,31 \\cdot 200$", "$\\Delta U = 1,5 \\cdot 1662 = 2493 \\text{ Joules}$."]);
+
+addQ(1,'calc',"Um êmbolo sofre força de $4000 \\text{ N}$ exercida pela expansão de um gás, deslocando-se por uma distância de $0,5 \\text{ m}$. Calcule o trabalho realizado em Joules ($W = F \\cdot d$).", "2000",
+    ["$W = F \\cdot d = 4000 \\cdot 0,5 = 2000 \\text{ Joules}$."]);
+
+addQ(1,'calc',"Para um gás ideal monoatômico, sabe-se que $U = \\frac{3}{2} P V$. Um cilindro contém gás a $200.000 \\text{ Pa}$ ocupando $0,04 \\text{ m}^3$. Qual a energia interna $U$ em Joules?", "12000",
+    ["$U = 1,5 \\cdot P \\cdot V = 1,5 \\cdot 200000 \\cdot 0,04$", "$U = 1,5 \\cdot 8000 = 12000 \\text{ Joules}$."]);
+
+addQ(1,'calc',"Se um gás ideal sofre uma transformação onde o produto $P \\cdot V$ passa de $4000 \\text{ J}$ para $10000 \\text{ J}$, qual foi a variação de energia interna $\\Delta U$ em Joules sabendo que $\\Delta U = 1,5 \\cdot \\Delta(PV)$?", "9000",
+    ["$\\Delta(PV) = 10000 - 4000 = 6000 \\text{ J}$", "$\\Delta U = 1,5 \\cdot 6000 = 9000 \\text{ Joules}$."]);
+
+// ==========================================
+// TEMA 2: 1ª Lei nas Transformações Gasosas (16-30)
+// ==========================================
+addQ(2,'theo',"A Primeira Lei da Termodinâmica ($\\Delta U = Q - W$) traduz fisicamente qual dos seguintes princípios universais?", "C",
+    ["A Primeira Lei estabelece que a energia do universo não é criada do nada nem se perde; ela apenas se converte entre calor, energia mecânica e energia interna."],
+    ["A) O princípio da inércia de Galileu.", "B) O princípio da gravitação universal.", "C) O princípio da conservação da energia.", "D) O princípio da relatividade geral."]);
+
+addQ(2,'theo',"Em uma transformação Isotérmica de um gás ideal, qual é a relação matemática correta entre o calor trocado ($Q$) e o trabalho realizado ($W$)?", "A",
+    ["Como a temperatura é rigorosamente constante em um processo isotérmico, a variação da energia interna é zero ($\\Delta U = 0$). Pela 1ª Lei: $0 = Q - W \\rightarrow Q = W$."],
+    ["A) $Q = W$, pois a variação de energia interna é nula ($\\Delta U = 0$).", "B) $Q = -W$, pois o volume permanece constante.", "C) $Q = 0$, pois não há calor trocado.", "D) $W = 0$, pois o êmbolo fica travado."]);
+
+addQ(2,'theo',"Quando você aperta a válvula de um spray aerossol e o gás se expande bruscamente para o ambiente, por que a latinha de metal esfria imediatamente na sua mão?", "B",
+    ["A expansão rápida é aproximadamente adiabática ($Q = 0$). Para empurrar o ar e expandir ($W > 0$), o gás gasta sua própria energia interna ($W = -\\Delta U$), provocando a queda brusca da temperatura."],
+    ["A) Porque o gás absorveu muito calor da sua mão de forma instantânea.", "B) Porque sofreu expansão adiabática rápida, realizando trabalho às custas de sua própria energia interna.", "C) Porque o gás virou gelo dentro da lata.", "D) Porque a pressão externa aumentou bruscamente."]);
+
+addQ(2,'theo',"Em uma transformação Isométrica (isocórica), todo o calor absorvido pelo gás destina-se a:", "D",
+    ["Como o volume não se altera, o êmbolo não se move e o trabalho é nulo ($W = 0$). Pela 1ª Lei: $\\Delta U = Q - 0 \\rightarrow \\Delta U = Q$. Todo calor vira energia interna (aquecimento)."],
+    ["A) Realizar trabalho de expansão externa.", "B) Resfriar o recipiente.", "C) Murchar as moléculas do gás.", "D) Aumentar unicamente a energia interna e a temperatura do gás."]);
+
+addQ(2,'theo',"Ao longo de um ciclo termodinâmico fechado completo percorrido por um gás, qual é o valor da variação total da sua energia interna ($\\Delta U_{\\text{ciclo}}$)?", "A",
+    ["A energia interna é uma função de estado. Retornando ao ponto de partida, as coordenadas $P, V, T$ voltam a ser rigorosamente iguais. Logo, $\\Delta U = U_{\\text{final}} - U_{\\text{inicial}} = 0$."],
+    ["A) É rigorosamente nula ($\\Delta U = 0$).", "B) É sempre igual ao calor da fonte quente.", "C) É igual ao dobro do trabalho realizado.", "D) É negativa em todos os ciclos."]);
+
+// Cálculos Tema 2
+addQ(2,'calc',"Um gás ideal recebe $800 \\text{ Joules}$ de calor de uma chama ($Q = 800$) e se expande realizando $300 \\text{ Joules}$ de trabalho sobre o êmbolo ($W = 300$). Qual foi a variação da energia interna $\\Delta U$ em Joules?", "500",
+    ["$\\Delta U = Q - W$", "$\\Delta U = 800 - 300 = 500 \\text{ Joules}$."]);
+
+addQ(2,'calc',"Em uma transformação isovolumétrica, um gás perde $450 \\text{ Joules}$ de calor para o ambiente ($Q = -450$). Qual é a variação de energia interna $\\Delta U$ em Joules?", "-450",
+    ["Como é isovolumétrica, $\\Delta V = 0 \\rightarrow W = 0$.", "$\\Delta U = Q - W = -450 - 0 = -450 \\text{ Joules}$."]);
+
+addQ(2,'calc',"Durante uma transformação isotérmica, um gás ideal realiza $1200 \\text{ Joules}$ de trabalho de expansão ($W = 1200$). Quanto calor $Q$ ele teve de absorver da fonte térmica em Joules?", "1200",
+    ["Em processo isotérmico, $\\Delta U = 0$.", "$0 = Q - W \\rightarrow Q = W = 1200 \\text{ Joules}$."]);
+
+addQ(2,'calc',"Em uma expansão adiabática, um gás realiza $750 \\text{ Joules}$ de trabalho mecânico contra a atmosfera ($W = 750$). Qual foi a variação de sua energia interna $\\Delta U$ em Joules? (Inclua o sinal negativo se diminuiu).", "-750",
+    ["Na transformação adiabática, $Q = 0$.", "$\\Delta U = Q - W = 0 - 750 = -750 \\text{ Joules}$."]);
+
+addQ(2,'calc',"Em uma compressão adiabática rápida, o meio exterior realiza $500 \\text{ Joules}$ de trabalho sobre o gás ($W = -500$). Qual é a variação da energia interna $\\Delta U$ do gás em Joules?", "500",
+    ["Adiabática: $Q = 0$. Trabalho de compressão: $W = -500 \\text{ J}$.", "$\\Delta U = Q - W = 0 - (-500) = +500 \\text{ Joules}$ (o gás aquece!)."]);
+
+addQ(2,'calc',"Um gás recebe $2000 \\text{ Joules}$ de calor e sua energia interna sobe em $1400 \\text{ Joules}$. Qual foi o trabalho mecânico $W$ realizado por ele em Joules?", "600",
+    ["$\\Delta U = Q - W \\rightarrow 1400 = 2000 - W$", "$W = 2000 - 1400 = 600 \\text{ Joules}$."]);
+
+addQ(2,'calc',"Um sistema termodinâmico cede $600 \\text{ Joules}$ de calor para o exterior ($Q = -600$) enquanto é comprimido com um trabalho de $900 \\text{ Joules}$ ($W = -900$). Calcule a variação de energia interna $\\Delta U$ em Joules.", "300",
+    ["$\\Delta U = Q - W$", "$\\Delta U = (-600) - (-900) = -600 + 900 = 300 \\text{ Joules}$."]);
+
+addQ(2,'calc',"Em um ciclo termodinâmico fechado, um gás realiza um trabalho líquido total de $3500 \\text{ Joules}$ ($W_{ciclo} = 3500$). Qual foi o calor líquido total $Q_{ciclo}$ absorvido no ciclo em Joules?", "3500",
+    ["Em qualquer ciclo fechado, $\\Delta U_{ciclo} = 0$.", "$0 = Q_{ciclo} - W_{ciclo} \\rightarrow Q_{ciclo} = W_{ciclo} = 3500 \\text{ Joules}$."]);
+
+addQ(2,'calc',"Um gás se expande isobaricamente a $100.000 \\text{ Pa}$ aumentando seu volume em $0,01 \\text{ m}^3$. Sabendo que o calor total absorvido foi $Q = 2500 \\text{ J}$, calcule a variação de energia interna $\\Delta U$ em Joules.", "1500",
+    ["Passo 1: $W = P \\cdot \\Delta V = 100000 \\cdot 0,01 = 1000 \\text{ J}$", "Passo 2: $\\Delta U = Q - W = 2500 - 1000 = 1500 \\text{ Joules}$."]);
+
+addQ(2,'calc',"Certo gás monoatômico sofre expansão onde sua energia interna cai de $8000 \\text{ J}$ para $5000 \\text{ J}$ ($\Delta U = -3000 \\text{ J}$). Se ele recebeu ao mesmo tempo $1000 \\text{ J}$ de calor, qual o trabalho realizado em Joules?", "4000",
+    ["$\\Delta U = Q - W \\rightarrow -3000 = 1000 - W$", "$W = 1000 - (-3000) = 4000 \\text{ Joules}$."]);
+
+// ==========================================
+// TEMA 3: Máquinas Térmicas e Rendimento (31-45)
+// ==========================================
+addQ(3,'theo',"Qual é o papel fundamental da 'fonte fria' em qualquer máquina térmica que opera em ciclo contínuo?", "C",
+    ["Para fechar o ciclo e retornar ao estado inicial e reiniciar a compressão, o fluido de trabalho precisa rejeitar calor para uma fonte a temperatura mais baixa. Sem fonte fria, o ciclo travaria."],
+    ["A) Fornecer calor extra para aumentar a velocidade dos pistões.", "B) Gerar energia elétrica a partir do vácuo.", "C) Receber o calor rejeitado pelo fluido para permitir o fechamento do ciclo termodinâmico.", "D) Anular completamente a necessidade de queima de combustível."]);
+
+addQ(3,'theo',"A expressão matemática que define o rendimento ($\\eta$) de qualquer máquina térmica em função do trabalho útil ($W$) e do calor absorvido da fonte quente ($Q_1$) é:", "A",
+    ["Rendimento é a fração da energia fornecida ($Q_1$) que foi efetivamente convertida naquilo que desejamos extrair ($W$). Logo, $\\eta = W / Q_1$."],
+    ["A) $\\eta = \\frac{W}{Q_1}$", "B) $\\eta = \\frac{Q_1}{W}$", "C) $\\eta = W \\cdot Q_1$", "D) $\\eta = \\frac{Q_2}{Q_1}$"]);
+
+addQ(3,'theo',"De acordo com o princípio da conservação da energia na máquina térmica, a relação entre calor da fonte quente ($Q_1$), calor da fonte fria ($Q_2$) e trabalho útil ($W$) é dada por:", "B",
+    ["A energia que entra ($Q_1$) se divide entre a parte útil que sai mecanicamente ($W$) e a parte térmica perdida na exaustão ($Q_2$). Logo, $Q_1 = W + Q_2 \\rightarrow W = Q_1 - Q_2$."],
+    ["A) $W = Q_1 + Q_2$", "B) $W = Q_1 - Q_2$", "C) $W = Q_2 - Q_1$", "D) $W = Q_1 \\cdot Q_2$"]);
+
+addQ(3,'theo',"Se um inventor registrar a patente de um motor a vapor que extrai 10.000 J de carvão e gera 10.000 J de trabalho mecânico no eixo sem rejeitar calor ($Q_2 = 0$), essa máquina:", "D",
+    ["Essa máquina violaria frontalmente o Enunciado de Kelvin-Planck da Segunda Lei da Termodinâmica, caracterizando um moto-contínuo de segunda espécie, o que é fisicamente impossível."],
+    ["A) É altamente viável e revolucionará a indústria global.", "B) Viola a Primeira Lei da Termodinâmica apenas.", "C) Só funcionaria se o combustível fosse gasolina aditivada.", "D) É impossível, pois viola a Segunda Lei da Termodinâmica (Kelvin-Planck)."]);
+
+addQ(3,'theo',"No escapamento dos automóveis convencionais a combustão interna, grande quantidade de gases quentes é liberada. Esse calor lançado no ar representa:", "A",
+    ["O escapamento e o radiador do carro atuam como a 'fonte fria' ($Q_2$) da máquina térmica, descarregando o calor não transformado em movimento para o ambiente."],
+    ["A) O calor rejeitado para a fonte fria ($Q_2$), inerente à impossibilidade de 100% de rendimento.", "B) Um erro de fabricação corrigível com filtros simples.", "C) Energia mecânica pura que não encontrou as rodas.", "D) O calor da fonte quente ($Q_1$)."]);
+
+// Cálculos Tema 3
+addQ(3,'calc',"Uma máquina térmica recebe $5000 \\text{ Joules}$ de calor de sua caldeira ($Q_1$) e rejeita $3500 \\text{ Joules}$ para o condensador de água fria ($Q_2$). Qual o trabalho mecânico útil $W$ produzido em Joules?", "1500",
+    ["$W = Q_1 - Q_2$", "$W = 5000 - 3500 = 1500 \\text{ Joules}$."]);
+
+addQ(3,'calc',"Com base no exercício anterior ($Q_1 = 5000 \\text{ J}$ e $W = 1500 \\text{ J}$), calcule o rendimento percentual dessa máquina térmica (digite apenas o número em %, ex: 30).", "30",
+    ["$\\eta = W / Q_1 = 1500 / 5000 = 0,30$", "Em porcentagem: $0,30 \\cdot 100 = 30\\%$."]);
+
+addQ(3,'calc',"Um motor térmico opera com rendimento de $25\\%$ (fator 0,25). Se ele consome $8000 \\text{ Joules}$ de calor da queima de combustível a cada ciclo, qual é o trabalho útil gerado em Joules?", "2000",
+    ["$W = \\eta \\cdot Q_1$", "$W = 0,25 \\cdot 8000 = 2000 \\text{ Joules}$."]);
+
+addQ(3,'calc',"Aproveitando os dados da questão anterior ($Q_1 = 8000 \\text{ J}$ e $W = 2000 \\text{ J}$), quanto calor $Q_2$ é desperdiçado para a atmosfera a cada ciclo (em Joules)?", "6000",
+    ["$Q_2 = Q_1 - W$", "$Q_2 = 8000 - 2000 = 6000 \\text{ Joules}$."]);
+
+addQ(3,'calc',"Uma locomotiva a vapor realiza $4000 \\text{ Joules}$ de trabalho útil a cada segundo (potência de $4 \\text{ kW}$). Sabendo que seu rendimento é de apenas $10\\%$ (fator 0,10), qual o calor $Q_1$ fornecido pelo carvão por segundo?", "40000",
+    ["$\\eta = W / Q_1 \\rightarrow 0,10 = 4000 / Q_1$", "$Q_1 = 4000 / 0,10 = 40000 \\text{ Joules}$."]);
+
+addQ(3,'calc',"Se uma máquina térmica absorve $1000 \\text{ J}$ e descarrega $600 \\text{ J}$ na fonte fria, calcule o rendimento $\\eta$ na forma decimal (digite com ponto, ex: 0.4).", "0.4",
+    ["$W = 1000 - 600 = 400 \\text{ J}$", "$\\eta = 400 / 1000 = 0,4$ (ou $40\\%$)."]);
+
+addQ(3,'calc',"Um motor a combustão produz $3600 \\text{ Joules}$ de trabalho mecânico e dissipa $5400 \\text{ Joules}$ de calor no radiador e escapamento. Qual é o calor total $Q_1$ fornecido pela queima do combustível em Joules?", "9000",
+    ["$Q_1 = W + Q_2$", "$Q_1 = 3600 + 5400 = 9000 \\text{ Joules}$."]);
+
+addQ(3,'calc',"Qual o rendimento percentual do motor da questão anterior ($W = 3600 \\text{ J}$ e $Q_1 = 9000 \\text{ J}$)? Digite o valor numérico em %.", "40",
+    ["$\\eta = W / Q_1 = 3600 / 9000 = 0,40$", "Em porcentagem: $40\\%$."]);
+
+addQ(3,'calc',"Uma usina termelétrica consome $200 \\text{ MJ}$ de calor de reator nuclear e rejeita $130 \\text{ MJ}$ no rio vizinho a cada segundo. Calcule a energia mecânica útil $W$ produzida por segundo em MegaJoules (MJ).", "70",
+    ["$W = Q_1 - Q_2 = 200 - 130 = 70 \\text{ MJ}$."]);
+
+addQ(3,'calc',"Qual é o rendimento percentual da usina da questão anterior ($W = 70 \\text{ MJ}$ e $Q_1 = 200 \\text{ MJ}$)? Digite o número em %.", "35",
+    ["$\\eta = 70 / 200 = 0,35 = 35\\%$."]);
+
+// ==========================================
+// TEMA 4: Ciclo de Carnot e Rendimento Máximo (46-60)
+// ==========================================
+addQ(4,'theo',"O Ciclo de Carnot é uma referência teórica máxima na termodinâmica. Ele é composto por quais transformações sucessivas reversíveis?", "B",
+    ["O ciclo de Carnot é composto alternadamente por: Expansão Isotérmica $\\rightarrow$ Expansão Adiabática $\\rightarrow$ Compressão Isotérmica $\\rightarrow$ Compressão Adiabática."],
+    ["A) Quatro transformações isobáricas consecutivas.", "B) Duas transformações isotérmicas e duas transformações adiabáticas.", "C) Duas transformações isométricas e duas isobáricas.", "D) Uma expansão livre e três compressões elásticas."]);
+
+addQ(4,'theo',"Qual é a fórmula matemática do rendimento de uma máquina ideal de Carnot em função das temperaturas absolutas da fonte quente ($T_1$) e da fonte fria ($T_2$)?", "A",
+    ["No ciclo de Carnot, a razão dos calores é proporcional à das temperaturas absolutas ($Q_2/Q_1 = T_2/T_1$), logo $\\eta_{\\text{Carnot}} = 1 - T_2/T_1$, com ambas em Kelvin."],
+    ["A) $\\eta = 1 - \\frac{T_2}{T_1}$", "B) $\\eta = 1 - \\frac{T_1}{T_2}$", "C) $\\eta = \\frac{T_1 + T_2}{T_1}$", "D) $\\eta = \\frac{T_2}{T_1 - T_2}$"]);
+
+addQ(4,'theo',"Para que uma máquina térmica ideal de Carnot atingisse um rendimento teórico de 100% ($\\eta = 1$), qual condição física para as temperaturas seria rigorosamente necessária?", "D",
+    ["Para $\\eta = 1 - T_2/T_1 = 1$, teríamos que ter $T_2 / T_1 = 0$, o que só ocorre se a fonte fria estiver no Zero Absoluto ($T_2 = 0 \\text{ K}$) ou a fonte quente for infinitamente quente."],
+    ["A) $T_1 = T_2$, fontes na mesma temperatura.", "B) A fonte quente ferver a 100°C.", "C) A fonte fria estar a 0°C.", "D) A fonte fria estar no Zero Absoluto ($0 \\text{ K} = -273^\\circ\\text{C}$)."]);
+
+addQ(4,'theo',"Duas máquinas térmicas, A e B, operam entre as mesmas fontes térmicas de $600 \\text{ K}$ e $300 \\text{ K}$. A máquina A opera no ciclo de Carnot e a máquina B é real (com atritos e irreversibilidades). É correto afirmar que:", "C",
+    ["O Teorema de Carnot enuncia que nenhuma máquina real operando entre as mesmas duas temperaturas pode ter rendimento superior ao de uma máquina reversível de Carnot ($\\eta_{\\text{real}} < \\eta_{\\text{Carnot}}$)."],
+    ["A) A máquina B terá rendimento maior que A.", "B) Ambas terão exatamente 100% de rendimento.", "C) O rendimento de B é estritamente menor que o rendimento de A.", "D) O rendimento de A depende do gás utilizado, podendo ser superado por B."]);
+
+addQ(4,'theo',"Ao calcular o rendimento de Carnot ($\\eta = 1 - T_2/T_1$), qual cuidado matemático indispensável deve ser tomado em relação às temperaturas?", "B",
+    ["As leis termodinâmicas derivam da agitação molecular absoluta. Usar Celsius diretamente nas razões matemáticas destrói a proporção física. A conversão $T(K) = \\theta(^\\circ\\text{C}) + 273$ é obrigatória."],
+    ["A) Podem estar em graus Celsius sem problemas.", "B) As temperaturas devem estar OBRIGATORIAMENTE na escala absoluta Kelvin.", "C) Devem estar expressas em Fahrenheit.", "D) Devem ser divididas pela constante de gravidade."]);
+
+// Cálculos Tema 4
+addQ(4,'calc',"Uma máquina de Carnot opera entre uma fonte quente a $T_1 = 500 \\text{ K}$ e uma fonte fria a $T_2 = 300 \\text{ K}$. Calcule o seu rendimento percentual (digite o valor em %, ex: 40).", "40",
+    ["$\\eta = 1 - \\frac{T_2}{T_1} = 1 - \\frac{300}{500} = 1 - 0,60 = 0,40$", "Em porcentagem: $40\\%$."]);
+
+addQ(4,'calc',"Uma máquina de Carnot tem fonte quente a $127^\circ\\text{C}$ e fonte fria a $27^\circ\\text{C}$. Passo 1: converta ambas para Kelvin ($T = \\theta + 273$). Qual o rendimento em %?", "25",
+    ["$T_1 = 127 + 273 = 400 \\text{ K}$", "$T_2 = 27 + 273 = 300 \\text{ K}$", "$\\eta = 1 - 300/400 = 1 - 0,75 = 0,25 = 25\\%$."]);
+
+addQ(4,'calc',"Um motor opera no ciclo de Carnot entre $T_1 = 600 \\text{ K}$ e $T_2 = 300 \\text{ K}$ ($\eta = 50\\%$). Se ele recebe $4000 \\text{ Joules}$ de calor da fonte quente por ciclo, qual o trabalho gerado em Joules?", "2000",
+    ["$W = \\eta \\cdot Q_1 = 0,50 \\cdot 4000 = 2000 \\text{ Joules}$."]);
+
+addQ(4,'calc',"No motor de Carnot da questão anterior ($Q_1 = 4000 \\text{ J}$ e $W = 2000 \\text{ J}$), qual a quantidade de calor $Q_2$ rejeitada para a fonte fria em Joules?", "2000",
+    ["$Q_2 = Q_1 - W = 4000 - 2000 = 2000 \\text{ Joules}$."]);
+
+addQ(4,'calc',"Uma turbina a vapor tem fonte quente a $527^\circ\\text{C}$ e fonte fria a $127^\circ\\text{C}$. Calcule o rendimento máximo de Carnot em porcentagem (%).", "50",
+    ["$T_1 = 527 + 273 = 800 \\text{ K}$", "$T_2 = 127 + 273 = 400 \\text{ K}$", "$\\eta = 1 - 400/800 = 1 - 0,50 = 0,50 = 50\\%$."]);
+
+addQ(4,'calc',"Se uma máquina de Carnot opera entre $T_1 = 1000 \\text{ K}$ e $T_2 = 200 \\text{ K}$, qual é o seu rendimento em porcentagem?", "80",
+    ["$\\eta = 1 - 200/1000 = 1 - 0,20 = 0,80 = 80\\%$."]);
+
+addQ(4,'calc',"Uma máquina de Carnot possui rendimento de $60\\%$ (0,60) e sua fonte fria está a $200 \\text{ K}$. Qual é a temperatura da fonte quente $T_1$ em Kelvin?", "500",
+    ["$\\eta = 1 - \\frac{T_2}{T_1} \\rightarrow 0,60 = 1 - \\frac{200}{T_1}$", "$\\frac{200}{T_1} = 0,40 \\rightarrow T_1 = \\frac{200}{0,40} = 500 \\text{ K}$."]);
+
+addQ(4,'calc',"Para dobrar o rendimento de um motor de Carnot de $20\\%$ para $40\\%$ mantendo a fonte fria em $T_2 = 400 \\text{ K}$, qual deve ser a nova temperatura $T_1$ da fonte quente em Kelvin?", "666.67",
+    ["$0,40 = 1 - \\frac{400}{T_1} \\rightarrow \\frac{400}{T_1} = 0,60$", "$T_1 = 400 / 0,60 \\approx 666,67 \\text{ K}$."]);
+
+addQ(4,'calc',"Num ciclo de Carnot, o calor rejeitado é $Q_2 = 600 \\text{ J}$ e as temperaturas são $T_1 = 800 \\text{ K}$ e $T_2 = 400 \\text{ K}$. Como $\\frac{Q_2}{Q_1} = \\frac{T_2}{T_1}$, calcule o calor absorvido $Q_1$ em Joules.", "1200",
+    ["$\\frac{600}{Q_1} = \\frac{400}{800} = 0,5$", "$Q_1 = 600 / 0,5 = 1200 \\text{ Joules}$."]);
+
+addQ(4,'calc',"Com base no exercício anterior ($Q_1 = 1200 \\text{ J}$ e $Q_2 = 600 \\text{ J}$), qual é o trabalho útil $W$ realizado por esse ciclo em Joules?", "600",
+    ["$W = Q_1 - Q_2 = 1200 - 600 = 600 \\text{ Joules}$."]);
+
+// ==========================================
+// TEMA 5: Máquinas Frigoríficas e Eficiência (61-75)
+// ==========================================
+addQ(5,'theo',"Em uma máquina frigorífica (refrigerador doméstico ou ar-condicionado), o sentido do ciclo termodinâmico no diagrama $P \\times V$ é:", "B",
+    ["Enquanto os motores térmicos realizam ciclos no sentido horário ($W > 0$), as máquinas frigoríficas operam no sentido anti-horário ($W < 0$, recebendo trabalho mecânico para forçar o calor a fluir contra o gradiente natural)."],
+    ["A) Sentido horário, gerando trabalho para a tomada.", "B) Sentido anti-horário, recebendo trabalho do compressor para transferir calor.", "C) Em linha reta horizontal apenas.", "D) Espiral descendente com perda de massa."]);
+
+addQ(5,'theo',"O que mede o coeficiente de eficácia (ou desempenho $e$) de um refrigerador?", "C",
+    ["O benefício de um refrigerador é o calor retirado dos alimentos na fonte fria ($Q_2$), e o custo operacional é a energia elétrica consumida no compressor ($W$). Logo, $e = Q_2 / W$."],
+    ["A) A velocidade com que a luz interna acende.", "B) A quantidade de gelo que se forma por hora.", "C) A razão entre o calor retirado da fonte fria ($Q_2$) e o trabalho mecânico consumido ($W$).", "D) A temperatura máxima do compressor."]);
+
+addQ(5,'theo',"Qual é a relação fundamental entre as quantidades de calor e o trabalho em um refrigerador real?", "A",
+    ["Pela conservação da energia, o calor descarregado na serpentina traseira quente ($Q_1$) é igual à soma do calor retirado de dentro da geladeira ($Q_2$) com a energia elétrica gasta pelo motor ($W$)."],
+    ["A) $Q_1 = Q_2 + W$", "B) $Q_2 = Q_1 + W$", "C) $W = Q_1 + Q_2$", "D) $Q_1 = Q_2 - W$"]);
+
+addQ(5,'theo',"O coeficiente de eficácia $e$ de um refrigerador pode ser numericamente superior a 1 (ou maior que 100%)?", "D",
+    ["Sim! Diferente de um motor térmico onde $\\eta < 1$, num refrigerador o trabalho não é transformado em calor, ele serve apenas como 'pedágio' para bombear calor de um lugar para o outro. Eficiências típicas variam de 2 a 5."],
+    ["A) Jamais, violaria a Primeira Lei da Termodinâmica.", "B) Apenas se a geladeira funcionar a gás natural.", "C) Somente no vácuo interestelar.", "D) Sim, pois o trabalho não é convertido em calor, mas atua apenas bombeando o calor da fonte fria para a quente."]);
+
+addQ(5,'theo',"Se uma pessoa deixar a porta do refrigerador aberta em uma sala termicamente isolada e com a tomada ligada, o que acontecerá com a temperatura do ar da sala após algumas horas?", "B",
+    ["A grade traseira da geladeira libera $Q_1 = Q_2 + W$. Como o interior absorve $Q_2$ e a grade devolve $Q_1 = Q_2 + W$ na mesma sala, o balanço líquido introduz o trabalho do motor elétrico ($W > 0$), aquecendo a sala!"],
+    ["A) A sala se transformará em uma câmara fria.", "B) A temperatura da sala aumentará progressivamente.", "C) A temperatura da sala permanecerá rigorosamente inalterada.", "D) O motor congelará e a sala atingirá zero Kelvin."]);
+
+// Cálculos Tema 5
+addQ(5,'calc',"Um refrigerador retira $3000 \\text{ Joules}$ de calor do congelador ($Q_2$) enquanto seu compressor consome $1000 \\text{ Joules}$ de trabalho elétrico ($W$). Qual é o coeficiente de eficácia $e$ ($e = Q_2 / W$)?", "3",
+    ["$e = Q_2 / W$", "$e = 3000 / 1000 = 3$."]);
+
+addQ(5,'calc',"No refrigerador da questão anterior ($Q_2 = 3000 \\text{ J}$ e $W = 1000 \\text{ J}$), quanto calor $Q_1$ é rejeitado para a cozinha pela serpentina traseira em Joules?", "4000",
+    ["$Q_1 = Q_2 + W$", "$Q_1 = 3000 + 1000 = 4000 \\text{ Joules}$."]);
+
+addQ(5,'calc',"Um ar-condicionado possui coeficiente de eficácia $e = 4$. Se ele precisa retirar $8000 \\text{ Joules}$ de calor de um quarto quente a cada ciclo, qual trabalho elétrico $W$ o motor deve realizar em Joules?", "2000",
+    ["$e = Q_2 / W \\rightarrow 4 = 8000 / W$", "$W = 8000 / 4 = 2000 \\text{ Joules}$."]);
+
+addQ(5,'calc',"Para o ar-condicionado anterior ($Q_2 = 8000 \\text{ J}$ e $W = 2000 \\text{ J}$), qual o calor total $Q_1$ jogado na rua pelo condensador externo em Joules?", "10000",
+    ["$Q_1 = Q_2 + W = 8000 + 2000 = 10000 \\text{ Joules}$."]);
+
+addQ(5,'calc',"Um refrigerador de Carnot opera entre $T_2 = 250 \\text{ K}$ (congelador) e $T_1 = 300 \\text{ K}$ (ambiente). A eficácia máxima de Carnot é $e = \\frac{T_2}{T_1 - T_2}$. Calcule o valor de $e$.", "5",
+    ["$e = \\frac{250}{300 - 250} = \\frac{250}{50} = 5$."]);
+
+addQ(5,'calc',"Se um freezer consome $500 \\text{ J}$ de energia elétrica e joga $2500 \\text{ J}$ de calor na cozinha ($Q_1$), quanto calor $Q_2$ ele conseguiu retirar dos alimentos em Joules?", "2000",
+    ["$Q_1 = Q_2 + W \\rightarrow 2500 = Q_2 + 500$", "$Q_2 = 2500 - 500 = 2000 \\text{ Joules}$."]);
+
+addQ(5,'calc',"Qual foi o coeficiente de eficácia do freezer da questão anterior ($Q_2 = 2000 \\text{ J}$ e $W = 500 \\text{ J}$)?", "4",
+    ["$e = Q_2 / W = 2000 / 500 = 4$."]);
+
+addQ(5,'calc',"Uma bomba de calor retira $1200 \\text{ J}$ do solo frio consumindo $400 \\text{ J}$ de eletricidade. Qual é o calor $Q_1$ transferido para o aquecedor da casa em Joules?", "1600",
+    ["$Q_1 = Q_2 + W = 1200 + 400 = 1600 \\text{ Joules}$."]);
+
+addQ(5,'calc',"Um refrigerador ideal de Carnot tem $T_1 = 350 \\text{ K}$ e $T_2 = 280 \\text{ K}$. Calcule sua eficácia teórica $e = \\frac{T_2}{T_1 - T_2}$.", "4",
+    ["$e = \\frac{280}{350 - 280} = \\frac{280}{70} = 4$."]);
+
+addQ(5,'calc',"Se um refrigerador com eficácia $e = 2,5$ recebe $600 \\text{ J}$ de trabalho de seu motor, quantas calorias térmicas equivalentes em Joules ($Q_2$) ele retirará do seu interior?", "1500",
+    ["$e = Q_2 / W \\rightarrow 2,5 = Q_2 / 600$", "$Q_2 = 2,5 \\cdot 600 = 1500 \\text{ Joules}$."]);
+
+// ==========================================
+// TEMA 6: 2ª Lei, Irreversibilidade e Entropia (76-90)
+// ==========================================
+addQ(6,'theo',"Qual das seguintes afirmações melhor descreve o conceito de 'Irreversibilidade' nos processos físicos naturais?", "C",
+    ["Processos naturais espontâneos (como queima, atrito, expansão livre de um gás no vácuo e difusão de calor) ocorrem em um único sentido preferencial e não retornam ao estado inicial sem intervenção externa."],
+    ["A) Todos os processos na natureza podem retroceder sem deixar qualquer vestígio no universo.", "B) A energia total do universo diminui a cada transformação.", "C) Processos naturais espontâneos ocorrem em sentido único preferencial, acompanhados de degradação da energia útil.", "D) O trabalho mecânico nunca pode ser integralmente transformado em calor."]);
+
+addQ(6,'theo',"A grandeza termodinâmica 'Entropia' ($S$), formulada por Rudolf Clausius e ampliada por Ludwig Boltzmann, está associada ao grau de:", "A",
+    ["A entropia mede quantitativamente a dispersão da energia e a desordem estatística molecular (número de microestados acessíveis) de um sistema."],
+    ["A) Desordem microscópica e dispersão da energia térmica do sistema.", "B) Pressão total nas paredes do recipiente.", "C) Velocidade da luz no meio material.", "D) Pureza química de um combustível fóssil."]);
+
+addQ(6,'theo',"Em qualquer transformação real espontânea que ocorra em um sistema termicamente isolado (como o próprio Universo como um todo), a Entropia total:", "B",
+    ["Pelo Princípio do Aumento da Entropia (2ª Lei), em sistemas isolados a entropia nunca diminui; ela sempre cresce ($\\Delta S > 0$) em processos irreversíveis e permanece constante em reversíveis ideais."],
+    ["A) Sempre diminui até atingir zero.", "B) Sempre aumenta ou, no limite ideal reversível, permanece constante ($\\Delta S \\ge 0$).", "C) Oscila periodicamente como um pêndulo.", "D) É sempre nula em qualquer situação."]);
+
+addQ(6,'theo',"A expressão 'Morte Térmica do Universo' refere-se ao cenário cosmológico hipotético em que:", "D",
+    ["Se todas as estrelas queimarem e a energia do universo se degradar em calor homogêneo, todo o cosmos atingirá uma mesma temperatura gelada uniforme. Sem desnível térmico, nenhuma máquina térmica poderá operar e nenhum trabalho poderá ser gerado."],
+    ["A) O Sol explodirá e consumirá os planetas interiores.", "B) A gravidade esmagará todo o universo em um buraco negro único.", "C) A velocidade da luz cairá a zero.", "D) O Universo atingirá o equilíbrio térmico e a entropia máxima, impossibilitando qualquer fluxo de calor ou realização de trabalho."]);
+
+addQ(6,'theo',"Ao misturar uma xícara de água quente a 80°C com uma de água fria a 20°C, obtemos água morna a 50°C. Esse processo é irreversível porque:", "B",
+    ["A separação espontânea violaria a Segunda Lei da Termodinâmica. A mistura morna é um estado de maior entropia e maior probabilidade estatística do que os dois volumes separados."],
+    ["A) A massa da água se alterou durante a mistura.", "B) A água morna jamais se separará espontaneamente de volta em uma porção quente e outra fria sem energia externa.", "C) A Primeira Lei da Termodinâmica proíbe a conservação de calor em líquidos.", "D) A gravidade impede o movimento de retorno das moléculas."]);
+
+// Cálculos Tema 6
+addQ(6,'calc',"Para uma transferência de calor reversível à temperatura absoluta constante, a variação de entropia é $\\Delta S = \\frac{Q}{T}$. Se um corpo absorve $1200 \\text{ Joules}$ de calor a uma temperatura estável de $300 \\text{ K}$, qual a variação de entropia $\\Delta S$ em J/K?", "4",
+    ["$\\Delta S = Q / T$", "$\\Delta S = 1200 / 300 = 4 \\text{ J/K}$."]);
+
+addQ(6,'calc',"Um bloco térmico cede $1500 \\text{ Joules}$ de calor a $500 \\text{ K}$ ($Q = -1500$). Qual foi a variação de entropia desse bloco em J/K? (Inclua o sinal negativo).", "-3",
+    ["$\\Delta S = -1500 / 500 = -3 \\text{ J/K}$."]);
+
+addQ(6,'calc',"Se o calor de $1500 \\text{ J}$ cedido pelo bloco da questão anterior a $500 \\text{ K}$ ($\\Delta S_1 = -3 \\text{ J/K}$) for absorvido por um reservatório frio a $300 \\text{ K}$, a variação de entropia do reservatório será $\\Delta S_2 = 1500 / 300 = +5 \\text{ J/K}$. Qual é a variação de entropia TOTAL do universo nesse processo ($\\Delta S_{\\text{total}} = \\Delta S_1 + \\Delta S_2$)?", "2",
+    ["$\\Delta S_{\\text{total}} = -3 + 5 = +2 \\text{ J/K}$ (Comprovando que a entropia do universo sempre aumenta!)."]);
+
+addQ(6,'calc',"Durante o derretimento de gelo a $0^\\circ\\text{C}$ ($T = 273 \\text{ K}$), uma amostra absorve $5460 \\text{ Joules}$ de calor latente. Calcule a variação de entropia $\\Delta S$ em J/K.", "20",
+    ["$T = 273 \\text{ K}$", "$\\Delta S = 5460 / 273 = 20 \\text{ J/K}$."]);
+
+addQ(6,'calc',"Em um ciclo reversível de Carnot, a variação total de entropia do sistema após uma volta completa ($\\Delta S_{\\text{ciclo}}$) é exatamente igual a:", "0",
+    ["Como a entropia é uma função de estado e o ciclo de Carnot é estritamente reversível, ao retornar ao estado inicial $\\Delta S = S_{\\text{final}} - S_{\\text{inicial}} = 0 \\text{ J/K}$."]);
+
+addQ(6,'calc',"Uma fonte quente a $600 \\text{ K}$ transfere $3000 \\text{ J}$ de calor. Calcule a variação de entropia da fonte quente em J/K ($\Delta S = -Q/T$).", "-5",
+    ["$\\Delta S = -3000 / 600 = -5 \\text{ J/K}$."]);
+
+addQ(6,'calc',"O mesmo calor de $3000 \\text{ J}$ da questão anterior é absorvido por uma fonte a $200 \\text{ K}$. Calcule $\\Delta S$ da fonte receptora em J/K.", "15",
+    ["$\\Delta S = +3000 / 200 = +15 \\text{ J/K}$."]);
+
+addQ(6,'calc',"Somando as duas fontes anteriores ($\Delta S_{quente} = -5 \\text{ J/K}$ e $\Delta S_{fria} = +15 \\text{ J/K}$), qual o aumento líquido de entropia do sistema em J/K?", "10",
+    ["$\\Delta S_{universo} = -5 + 15 = 10 \\text{ J/K}$."]);
+
+addQ(6,'calc',"A água ferve a $100^\circ\\text{C}$ ($T = 373 \\text{ K}$). Se uma porção de água absorve $3730 \\text{ Joules}$ durante a ebulição isotérmica, qual a variação de entropia em J/K?", "10",
+    ["$T = 100 + 273 = 373 \\text{ K}$", "$\\Delta S = 3730 / 373 = 10 \\text{ J/K}$."]);
+
+addQ(6,'calc',"Em um processo irreversível, a energia degradada indisponível para realizar trabalho é dada por $E_{\\text{degradada}} = T_{\\text{fria}} \\cdot \\Delta S_{\\text{universo}}$. Se $T_{\\text{fria}} = 300 \\text{ K}$ e $\\Delta S_{\\text{universo}} = 8 \\text{ J/K}$, quanta energia mecânica em Joules foi perdida para sempre?", "2400",
+    ["$E_{\\text{degradada}} = 300 \\cdot 8 = 2400 \\text{ Joules}$."]);
+
+// RENDERIZAÇÃO E INTERAÇÃO DOS EXERCÍCIOS
+let currentTheme = 'all';
+let solved = new Set(JSON.parse(localStorage.getItem('fisicaTermodinamicaSolved')||'[]'));
+
+function renderExercises() {
+    const listDiv = $('exercise-list');
+    let html = '';
+    
+    exercisesData.forEach(ex => {
+        if (currentTheme !== 'all' && ex.theme != currentTheme) return;
+        
+        const isSolved = solved.has(ex.id);
+        const borderColor = isSolved ? 'border-emerald-400' : 'border-slate-200';
+        const badgeColor = isSolved ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700';
+        const themeNames = [
+          "", 
+          "Trabalho & E. Interna", 
+          "1ª Lei & Transformações", 
+          "Máquinas Térmicas", 
+          "Ciclo de Carnot", 
+          "Refrigeradores", 
+          "2ª Lei & Entropia"
+        ];
+        
+        let questionBody = `<p class="mt-3 text-slate-700 mb-4 text-sm leading-6">${ex.q}</p>`;
+        
+        if (ex.type === 'theo' && ex.opts) {
+            questionBody += `<div class="space-y-2 mb-4 text-sm text-slate-600">`;
+            ex.opts.forEach(opt => {
+                questionBody += `<div class="p-2 bg-slate-50 rounded-lg border border-slate-100">${opt}</div>`;
+            });
+            questionBody += `</div>`;
+        }
+
+        html += `
+        <article class="bg-white rounded-2xl border ${borderColor} p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div class="flex justify-between gap-3 items-center">
+                <span class="text-xs font-black px-2.5 py-1 rounded-full ${badgeColor}">Questão ${ex.id}</span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">TEMA ${ex.theme}: ${themeNames[ex.theme]}</span>
+            </div>
+            
+            ${questionBody}
+            
+            <div class="flex gap-2 mt-4">
+                <input id="ans-${ex.id}" type="text" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="${ex.type==='theo' ? 'Letra (A, B, C, D)' : 'Valor numérico'}">
+                <button onclick="checkAnswer(${ex.id})" class="bg-orange-600 hover:bg-orange-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+            </div>
+            
+            <div id="fb-${ex.id}" class="text-sm font-bold mt-2 min-h-5"></div>
+            
+            <button onclick="document.getElementById('sol-${ex.id}').classList.toggle('hidden')" class="mt-3 text-sm font-bold text-orange-700 hover:underline">
+                👁 Mostrar explicação / cálculo
+            </button>
+            
+            <div id="sol-${ex.id}" class="hidden exercise-solution mt-4 border-t border-orange-100 pt-4">
+                <div class="text-xs uppercase tracking-widest font-black text-orange-800 mb-3">Resolução Passo a Passo</div>
+                ${ex.steps.map((s, idx) => `<div class="step mb-3 text-sm" data-step="${idx+1}">${s}</div>`).join('')}
+                <div class="success rounded-xl p-4 text-center font-bold mt-2 text-emerald-900">Resposta Correta: ${ex.ans}</div>
+            </div>
+        </article>
+        `;
+    });
+    
+    listDiv.innerHTML = html;
+    updateProgress();
+    renderAll();
+}
+
+function checkAnswer(id) {
+    const ex = exercisesData.find(x => x.id === id);
+    const inputEl = $(`ans-${id}`);
+    const fbEl = $(`fb-${id}`);
+    
+    let rawInput = inputEl.value.trim().toUpperCase();
+    if(ex.type === 'calc') {
+        rawInput = rawInput.replace(',', '.'); 
+    }
+
+    let isCorrect = false;
+    
+    if (ex.type === 'theo') {
+        isCorrect = (rawInput === ex.ans);
+    } else {
+        const numIn = parseFloat(rawInput);
+        const numAns = parseFloat(ex.ans);
+        // Margem de tolerância decimal
+        if(!isNaN(numIn) && Math.abs(numIn - numAns) <= 0.05) {
+            isCorrect = true;
+        }
+    }
+
+    if (isCorrect) {
+        solved.add(id);
+        localStorage.setItem('fisicaTermodinamicaSolved', JSON.stringify([...solved]));
+        fbEl.className = 'text-sm font-bold mt-2 text-emerald-600';
+        fbEl.textContent = '✓ Excelente! Resposta correta.';
+        setTimeout(renderExercises, 400); 
+    } else {
+        fbEl.className = 'text-sm font-bold mt-2 text-red-500';
+        fbEl.textContent = '✗ Não está certo. Revise os sinais (Q e W) e verifique se converteu T para Kelvin!';
+    }
+}
+
+function updateProgress() {
+    const max = exercisesData.length;
+    const current = solved.size;
+    $('progress-text').textContent = `${current} / ${max}`;
+    $('progress-bar').style.width = `${(current/max)*100}%`;
+}
+
+// Filtros de Tema
+document.querySelectorAll('.level-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active', 'bg-orange-600', 'text-white'));
+        document.querySelectorAll('.level-btn:not(.active)').forEach(b => b.classList.add('bg-slate-100'));
+        
+        btn.classList.add('active');
+        btn.classList.remove('bg-slate-100');
+        
+        currentTheme = btn.dataset.theme;
+        renderExercises();
+    };
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    renderExercises();
+    renderAll();
+});
+</script>
+</body>
+</html>
