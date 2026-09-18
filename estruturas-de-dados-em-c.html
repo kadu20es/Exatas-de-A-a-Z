@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Estruturas de Dados em C — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body{background:#fbf7ee}
+  .dark body{background:#0f172a}
+  .tab-btn.active{color:#4f46e5;border-bottom-color:#4f46e5;font-weight:800}
+  .dark .tab-btn.active{color:#818cf8;border-bottom-color:#818cf8}
+  .step{position:relative;padding:1rem 1rem 1rem 3.2rem;border:1px solid #e5e7eb;border-radius:1rem;background:white}
+  .step::before{content:attr(data-step);position:absolute;left:1rem;top:1rem;width:1.65rem;height:1.65rem;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:800;display:grid;place-items:center;font-size:.8rem}
+  .tip{border-left:4px solid #f59e0b;background:#fffbeb}
+  .success{border-left:4px solid #10b981;background:#ecfdf5}
+  .warning{border-left:4px solid #ef4444;background:#fef2f2}
+  .exercise-solution{animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  pre::-webkit-scrollbar{height:8px}
+  pre::-webkit-scrollbar-thumb{background:#475569;border-radius:8px}
+</style>
+</head>
+<body class="min-h-screen font-sans dark:bg-slate-950 dark:text-slate-100">
+<header class="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-amber-200 dark:border-slate-700 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div><div class="font-black text-lg sm:text-xl text-indigo-900 dark:text-indigo-300">🧱 Estruturas de Dados em C</div><div class="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">Aprenda vendo a estrutura funcionar, não decorando código</div></div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Laboratório</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<!-- ================= TEORIA ================= -->
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-200">Curso do zero — Linguagem C</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Estruturas de Dados sem decorar código</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">Cada estrutura começa por uma <b>analogia do dia a dia</b>, passa por uma <b>ideia visual</b> e só depois chega ao código em C. No Laboratório você mexe na estrutura com a mão antes de ler a implementação.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">6</b><div class="text-xs text-indigo-200">estruturas</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">6</b><div class="text-xs text-indigo-200">laboratórios interativos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">3</b><div class="text-xs text-indigo-200">exercícios com resolução</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">C</b><div class="text-xs text-indigo-200">100% em linguagem C</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm dark:bg-amber-950/40 dark:text-amber-100"><b>Como estudar:</b> leia a ideia, veja a analogia, acompanhe o desenho mental da estrutura e só então olhe o código em C. Se travar em algum ponto, vá até a aba <b>Laboratório</b> e mexa na estrutura — muita gente entende melhor vendo funcionar do que lendo a explicação.</div>
+
+ <!-- 1. PILHA -->
+ <article class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-2xl border p-6 shadow-sm">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 grid place-items-center font-black">1</span><h2 class="text-xl font-black">Pilha (Stack)</h2></div>
+  <p class="mt-4 text-slate-600 dark:text-slate-300 leading-7">Pense em uma <b>pilha de pratos</b> na cozinha. Você só consegue colocar um prato novo no topo, e só consegue retirar o prato que está no topo — nunca um prato do meio ou do fundo. Essa regra tem nome: <b>LIFO</b> (Last In, First Out — o último que entra é o primeiro que sai).</p>
+  <div class="grid sm:grid-cols-2 gap-3 text-sm mt-5">
+   <div class="bg-indigo-50 dark:bg-indigo-950/50 rounded-xl p-4"><b>push (empilhar)</b><br>coloca um elemento no topo da pilha.</div>
+   <div class="bg-amber-50 dark:bg-amber-950/40 rounded-xl p-4"><b>pop (desempilhar)</b><br>remove e devolve o elemento do topo.</div>
+  </div>
+  <div class="success rounded-xl p-4 mt-4 text-sm dark:bg-emerald-950/40 dark:text-emerald-100"><b>Onde isso aparece na prática?</b> No botão "Voltar" do navegador, no "Desfazer" (Ctrl+Z) de um editor, e na própria forma como o computador controla chamadas de função (o "call stack", que você vai ver com detalhes na próxima seção, sobre recursividade).</div>
+  <div class="warning rounded-xl p-4 mt-4 text-sm dark:bg-red-950/30 dark:text-red-100"><b>Erro comum:</b> tentar desempilhar (pop) uma pilha vazia. Sempre verifique <code>estaVazia()</code> antes de remover, ou o programa vai tentar ler uma posição de memória inválida.</div>
+ </article>
+
+ <!-- 2. RECURSIVIDADE -->
+ <article class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-2xl border p-6 shadow-sm">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Recursividade</h2></div>
+  <p class="mt-4 text-slate-600 dark:text-slate-300 leading-7">Uma função <b>recursiva</b> é uma função que chama a si mesma para resolver um problema menor, até chegar em um caso tão simples que a resposta é óbvia. É como aquelas <b>bonecas russas (matryoshka)</b>: cada boneca guarda uma boneca menor dentro, até chegar na menorzinha, que não abre mais — e a partir dela, tudo se "fecha" de volta.</p>
+  <div class="grid sm:grid-cols-2 gap-3 text-sm mt-5">
+   <div class="bg-indigo-50 dark:bg-indigo-950/50 rounded-xl p-4"><b>Caso base</b><br>a condição mais simples, que <b>não</b> chama a função de novo — é aqui que a recursão para.</div>
+   <div class="bg-amber-50 dark:bg-amber-950/40 rounded-xl p-4"><b>Caso recursivo</b><br>a função chama a si mesma com um problema <b>menor</b>, aproximando-se do caso base.</div>
+  </div>
+  <div class="space-y-3 mt-5">
+   <div class="step dark:bg-slate-900 dark:border-slate-700" data-step="1"><b>Toda chamada de função em C usa a pilha de execução.</b><div class="mt-1 text-sm dark:text-slate-300">Quando <code>fatorial(5)</code> chama <code>fatorial(4)</code>, o computador "empilha" um novo quadro de execução (uma nova "camada" da boneca russa) e só volta para o quadro anterior quando a chamada de baixo retornar.</div></div>
+   <div class="step dark:bg-slate-900 dark:border-slate-700" data-step="2"><b>As chamadas se acumulam até o caso base.</b><div class="mt-1 text-sm dark:text-slate-300"><code>fatorial(5) → fatorial(4) → fatorial(3) → fatorial(2) → fatorial(1)</code>. Quando chega em <code>fatorial(1)</code>, a função para de chamar a si mesma e devolve 1.</div></div>
+   <div class="step dark:bg-slate-900 dark:border-slate-700" data-step="3"><b>Depois, os retornos "desempilham" na ordem inversa.</b><div class="mt-1 text-sm dark:text-slate-300"><code>fatorial(1)=1 → fatorial(2)=2 → fatorial(3)=6 → fatorial(4)=24 → fatorial(5)=120</code>.</div></div>
+  </div>
+  <div class="warning rounded-xl p-4 mt-4 text-sm dark:bg-red-950/30 dark:text-red-100"><b>Erro comum: recursão infinita.</b> Se você esquecer o caso base (ou ele nunca for alcançado), cada chamada empilha um novo quadro para sempre, até a memória acabar — isso é o famoso erro <i>"stack overflow"</i>.</div>
+ </article>
+
+ <!-- 3. FILAS -->
+ <article class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-2xl border p-6 shadow-sm">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 grid place-items-center font-black">3</span><h2 class="text-xl font-black">Fila (Queue)</h2></div>
+  <p class="mt-4 text-slate-600 dark:text-slate-300 leading-7">Pense na <b>fila do caixa do supermercado</b>. Quem chega primeiro, entra no fim da fila; quem está na frente é atendido primeiro. Essa regra também tem nome: <b>FIFO</b> (First In, First Out — o primeiro que entra é o primeiro que sai). É o oposto da pilha!</p>
+  <div class="grid sm:grid-cols-2 gap-3 text-sm mt-5">
+   <div class="bg-indigo-50 dark:bg-indigo-950/50 rounded-xl p-4"><b>enqueue (enfileirar)</b><br>adiciona um elemento no <b>fim</b> da fila.</div>
+   <div class="bg-amber-50 dark:bg-amber-950/40 rounded-xl p-4"><b>dequeue (desenfileirar)</b><br>remove e devolve o elemento do <b>início</b> da fila.</div>
+  </div>
+  <div class="success rounded-xl p-4 mt-4 text-sm dark:bg-emerald-950/40 dark:text-emerald-100"><b>Onde isso aparece na prática?</b> Fila de impressão de documentos, fila de mensagens entre programas, e a busca em largura (BFS) em grafos, que você vai ver mais adiante — ela usa uma fila por baixo dos panos.</div>
+  <div class="tip rounded-xl p-4 mt-4 text-sm dark:bg-amber-950/30 dark:text-amber-100"><b>Detalhe de implementação:</b> em C, a fila costuma ser implementada com um vetor <b>circular</b> (os índices "dão a volta" usando o operador <code>%</code>), para reaproveitar os espaços que já foram esvaziados no início do vetor.</div>
+ </article>
+
+ <!-- 4. LISTAS -->
+ <article class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-2xl border p-6 shadow-sm">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Lista Encadeada (Linked List)</h2></div>
+  <p class="mt-4 text-slate-600 dark:text-slate-300 leading-7">Pense em um <b>trem</b>: cada vagão carrega uma carga (o valor) e um gancho que o liga ao <b>próximo</b> vagão. Diferente de um vetor, os vagões não precisam estar em posições fixas e contínuas na memória — cada um só "conhece" quem vem depois dele.</p>
+  <div class="grid sm:grid-cols-2 gap-4 mt-5">
+   <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4 text-sm"><b>Por que não usar sempre um vetor (array)?</b><br>Um vetor tem tamanho fixo e, para inserir no meio, é preciso deslocar todos os elementos seguintes. Uma lista encadeada cresce sob demanda e insere/remove em O(1) quando já se tem a posição — só é preciso ajustar os "ganchos" (ponteiros).</div>
+   <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4 text-sm"><b>O preço a pagar</b><br>Para achar o 5º elemento de uma lista, é preciso <b>percorrer</b> vagão por vagão a partir da cabeça — não existe acesso direto como <code>vetor[5]</code>.</div>
+  </div>
+  <div class="paper-like bg-indigo-950 text-white rounded-xl p-5 mt-5 text-center font-mono text-sm overflow-x-auto">cabeça → [ 5 | • ] → [ 10 | • ] → [ 20 | NULL ]</div>
+  <div class="warning rounded-xl p-4 mt-4 text-sm dark:bg-red-950/30 dark:text-red-100"><b>Erro comum:</b> perder a referência para o resto da lista ao trocar um ponteiro na ordem errada. Por isso, ao remover o primeiro nó, sempre <b>guarde</b> o ponteiro antigo antes de mover a cabeça, e só depois libere a memória com <code>free()</code>.</div>
+ </article>
+
+ <!-- 5. ÁRVORES -->
+ <article class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-2xl border p-6 shadow-sm">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Árvores</h2></div>
+  <p class="mt-4 text-slate-600 dark:text-slate-300 leading-7">Pense na <b>árvore genealógica</b> da sua família, só que de cabeça para baixo: no topo fica a <b>raiz</b>, e dela saem "galhos" para os <b>filhos</b>, que por sua vez podem ter seus próprios filhos. Quem não tem filhos é chamado de <b>folha</b>.</p>
+  <div class="grid sm:grid-cols-3 gap-3 text-sm mt-5">
+   <div class="bg-indigo-50 dark:bg-indigo-950/50 rounded-xl p-4"><b>Raiz</b><br>o nó do topo, sem "pai".</div>
+   <div class="bg-amber-50 dark:bg-amber-950/40 rounded-xl p-4"><b>Nó interno</b><br>tem pai e pelo menos um filho.</div>
+   <div class="bg-emerald-50 dark:bg-emerald-950/40 rounded-xl p-4"><b>Folha</b><br>nó sem nenhum filho.</div>
+  </div>
+  <p class="mt-4 text-slate-600 dark:text-slate-300 leading-7">O tipo mais comum para começar é a <b>árvore binária</b>: cada nó tem no máximo <b>dois</b> filhos, chamados de filho <b>esquerdo</b> e filho <b>direito</b>. Quando, além disso, seguimos a regra <i>"tudo à esquerda é menor, tudo à direita é maior"</i>, temos uma <b>Árvore Binária de Busca</b> (BST — Binary Search Tree).</p>
+  <div class="paper-like bg-indigo-950 text-white rounded-xl p-5 mt-5 text-center font-mono text-sm">
+       50<br>
+      /  \<br>
+    30    70<br>
+   /  \   /  \<br>
+  20  40 60  80
+  </div>
+
+  <div class="mt-6 border-t dark:border-slate-700 pt-5">
+   <h3 class="font-black text-lg text-indigo-800 dark:text-indigo-300">5.1 Busca em árvores</h3>
+   <p class="mt-3 text-slate-600 dark:text-slate-300 leading-7">A grande vantagem de uma BST é que <b>buscar um valor é muito rápido</b>. Como a árvore acima está organizada, para procurar o valor 60 você não precisa olhar todos os 7 nós:</p>
+   <div class="space-y-3 mt-4">
+    <div class="step dark:bg-slate-900 dark:border-slate-700" data-step="1"><b>Compare com a raiz (50).</b><div class="mt-1 text-sm dark:text-slate-300">60 é maior que 50 → vá para a <b>direita</b>.</div></div>
+    <div class="step dark:bg-slate-900 dark:border-slate-700" data-step="2"><b>Compare com 70.</b><div class="mt-1 text-sm dark:text-slate-300">60 é menor que 70 → vá para a <b>esquerda</b>.</div></div>
+    <div class="step dark:bg-slate-900 dark:border-slate-700" data-step="3"><b>Compare com 60.</b><div class="mt-1 text-sm dark:text-slate-300">É igual! Valor encontrado em apenas 3 comparações, sem olhar os outros 4 nós.</div></div>
+   </div>
+   <div class="success rounded-xl p-4 mt-4 text-sm dark:bg-emerald-950/40 dark:text-emerald-100"><b>Por que isso importa?</b> Em uma lista com N elementos, buscar no pior caso custa N comparações. Em uma BST "equilibrada" com N elementos, custa cerca de <b>log₂(N)</b> comparações — com 1 milhão de elementos, isso é a diferença entre 1.000.000 e apenas ~20 comparações!</div>
+   <div class="warning rounded-xl p-4 mt-4 text-sm dark:bg-red-950/30 dark:text-red-100"><b>Cuidado:</b> essa vantagem só existe se a árvore estiver relativamente equilibrada. Se você inserir os valores já em ordem crescente (1,2,3,4,5...), a árvore vira uma lista encadeada disfarçada, e a busca volta a custar N comparações.</div>
+  </div>
+ </article>
+
+ <!-- 6. GRAFOS -->
+ <article class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-2xl border p-6 shadow-sm">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 grid place-items-center font-black">6</span><h2 class="text-xl font-black">Grafos</h2></div>
+  <p class="mt-4 text-slate-600 dark:text-slate-300 leading-7">Pense no <b>mapa de uma cidade</b>: os bairros são os <b>vértices</b> (ou "nós") e as ruas que os ligam são as <b>arestas</b>. Diferente de uma árvore, em um grafo não existe uma "raiz" nem uma hierarquia obrigatória — qualquer vértice pode se conectar a qualquer outro, inclusive formando ciclos (ir e voltar pelo mesmo caminho).</p>
+  <div class="grid sm:grid-cols-2 gap-3 text-sm mt-5">
+   <div class="bg-indigo-50 dark:bg-indigo-950/50 rounded-xl p-4"><b>Grafo não-direcionado</b><br>se A se conecta com B, B também se conecta com A (como uma rua de mão dupla).</div>
+   <div class="bg-amber-50 dark:bg-amber-950/40 rounded-xl p-4"><b>Grafo direcionado</b><br>a conexão tem um sentido só, de A para B (como uma rua de mão única).</div>
+  </div>
+  <p class="mt-4 text-slate-600 dark:text-slate-300 leading-7">Em C, a forma mais comum de representar um grafo é a <b>lista de adjacência</b>: para cada vértice, guardamos uma lista encadeada (viu? as listas do tópico 4 aparecem de novo!) com todos os vértices vizinhos.</p>
+  <div class="grid lg:grid-cols-2 gap-4 mt-5">
+   <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4 text-sm">
+    <b>Busca em Largura — BFS (Breadth-First Search)</b>
+    <p class="mt-2 dark:text-slate-300">Explora o grafo "em ondas": primeiro visita todos os vizinhos diretos do ponto de partida, depois os vizinhos dos vizinhos, e assim por diante. Usa uma <b>fila</b> por baixo dos panos.</p>
+   </div>
+   <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4 text-sm">
+    <b>Busca em Profundidade — DFS (Depth-First Search)</b>
+    <p class="mt-2 dark:text-slate-300">Explora o mais fundo possível por um caminho antes de voltar (backtrack) e tentar outro. Usa uma <b>pilha</b> por baixo dos panos (ou a própria pilha de recursão).</p>
+   </div>
+  </div>
+  <div class="success rounded-xl p-4 mt-4 text-sm dark:bg-emerald-950/40 dark:text-emerald-100"><b>Onde isso aparece na prática?</b> GPS e rotas (menor caminho), redes sociais (sugestão de amizades), rastreamento de dependências entre pacotes de software, e mapas de jogos.</div>
+ </article>
+
+ <article class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-2xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">Resumo rápido</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4 text-sm">
+   <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4"><b>Pilha</b><br>LIFO — último a entrar, primeiro a sair.</div>
+   <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4"><b>Recursividade</b><br>função que chama a si mesma até um caso base.</div>
+   <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4"><b>Fila</b><br>FIFO — primeiro a entrar, primeiro a sair.</div>
+   <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4"><b>Lista encadeada</b><br>nós ligados por ponteiros, crescimento dinâmico.</div>
+   <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4"><b>Árvore / BST</b><br>hierarquia com busca rápida (~log N).</div>
+   <div class="bg-slate-50 dark:bg-slate-900 rounded-xl p-4"><b>Grafo</b><br>vértices e arestas, explorado via BFS ou DFS.</div>
+  </div>
+ </article>
+</section>
+
+<!-- ================= LABORATÓRIO ================= -->
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-3xl border p-7 shadow-sm"><span class="text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Laboratório interativo</span><h1 class="text-3xl font-black mt-2">Mexa na estrutura, depois veja o código</h1><p class="text-slate-600 dark:text-slate-300 mt-2">Cada bloco abaixo tem uma visualização interativa da estrutura, seguida do código em C que a implementa. Experimente os controles antes de ler o código — isso ajuda a entender <i>o que</i> o código faz antes de entender <i>como</i>.</p></div>
+
+ <!-- LAB PILHA -->
+ <div class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-3xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">🥞 Pilha (Stack)</h2>
+  <p class="text-slate-600 dark:text-slate-300 mt-1 text-sm">Empilhe alguns valores e veja como só é possível remover pelo topo.</p>
+  <div id="stack-visual" class="flex flex-col-reverse items-center gap-1 min-h-[260px] justify-start border-2 border-dashed dark:border-slate-600 rounded-xl p-4 max-w-[220px] mx-auto bg-slate-50 dark:bg-slate-900/40 mt-5"></div>
+  <div class="flex flex-wrap items-center justify-center gap-2 mt-4">
+   <input id="stack-input" type="number" value="42" class="border dark:border-slate-600 dark:bg-slate-900 rounded-xl p-2 w-24 text-center">
+   <button onclick="stackPush()" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Empilhar (push)</button>
+   <button onclick="stackPop()" class="bg-slate-700 text-white rounded-xl px-4 py-2 text-sm font-bold">Desempilhar (pop)</button>
+  </div>
+  <div id="stack-msg" class="text-sm font-bold mt-3 min-h-5 text-center"></div>
+  <div class="mt-6">
+   <div class="text-xs uppercase tracking-widest font-black text-indigo-600 dark:text-indigo-400 mb-2">Código em C — Pilha com vetor</div>
+   <pre class="bg-slate-900 text-slate-100 rounded-xl p-4 overflow-x-auto text-xs sm:text-sm leading-relaxed"><code id="out-pilha"></code></pre>
+  </div>
+  <script type="text/plain" class="ccode" data-out="out-pilha">
+#include <stdio.h>
+#define MAX 100
+
+typedef struct {
+    int itens[MAX];
+    int topo; // índice do topo da pilha (-1 = vazia)
+} Pilha;
+
+void inicializar(Pilha *p) {
+    p->topo = -1;
+}
+
+int estaVazia(Pilha *p) {
+    return p->topo == -1;
+}
+
+int estaCheia(Pilha *p) {
+    return p->topo == MAX - 1;
+}
+
+void empilhar(Pilha *p, int valor) {
+    if (estaCheia(p)) {
+        printf("Erro: pilha cheia!\n");
+        return;
+    }
+    p->topo++;
+    p->itens[p->topo] = valor;
+}
+
+int desempilhar(Pilha *p) {
+    if (estaVazia(p)) {
+        printf("Erro: pilha vazia!\n");
+        return -1;
+    }
+    int valor = p->itens[p->topo];
+    p->topo--;
+    return valor;
+}
+
+int main() {
+    Pilha p;
+    inicializar(&p);
+    empilhar(&p, 10);
+    empilhar(&p, 20);
+    empilhar(&p, 30);
+    printf("Removido: %d\n", desempilhar(&p)); // 30 (o ultimo que entrou)
+    printf("Removido: %d\n", desempilhar(&p)); // 20
+    return 0;
+}
+  </script>
+ </div>
+
+ <!-- LAB RECURSIVIDADE -->
+ <div class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-3xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">🪆 Recursividade — pilha de chamadas do fatorial</h2>
+  <p class="text-slate-600 dark:text-slate-300 mt-1 text-sm">Escolha um número e veja, quadro a quadro, como as chamadas se empilham até o caso base e depois retornam.</p>
+  <div id="recur-visual" class="flex flex-col-reverse items-center gap-1 min-h-[300px] justify-start border-2 border-dashed dark:border-slate-600 rounded-xl p-4 max-w-xs mx-auto bg-slate-50 dark:bg-slate-900/40 mt-5"></div>
+  <div class="flex flex-wrap items-center justify-center gap-2 mt-4">
+   <label class="text-sm font-bold">n = </label>
+   <input id="recur-n" type="number" value="5" min="1" max="8" class="border dark:border-slate-600 dark:bg-slate-900 rounded-xl p-2 w-20 text-center">
+   <button id="recur-btn" onclick="startFactorial()" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Calcular fatorial(n)</button>
+  </div>
+  <div id="recur-msg" class="text-sm font-bold mt-3 min-h-5 text-center"></div>
+  <div class="mt-6">
+   <div class="text-xs uppercase tracking-widest font-black text-indigo-600 dark:text-indigo-400 mb-2">Código em C — Fatorial recursivo</div>
+   <pre class="bg-slate-900 text-slate-100 rounded-xl p-4 overflow-x-auto text-xs sm:text-sm leading-relaxed"><code id="out-recur"></code></pre>
+  </div>
+  <script type="text/plain" class="ccode" data-out="out-recur">
+#include <stdio.h>
+
+long fatorial(int n) {
+    if (n == 0 || n == 1) {       // caso base: para a recursão
+        return 1;
+    }
+    return n * fatorial(n - 1);   // caso recursivo: problema menor
+}
+
+int main() {
+    int n = 5;
+    printf("%d! = %ld\n", n, fatorial(n)); // 5! = 120
+    return 0;
+}
+  </script>
+ </div>
+
+ <!-- LAB TORRE DE HANOI -->
+ <div class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-3xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">🗼 Torre de Hanói — recursão em ação</h2>
+  <p class="text-slate-600 dark:text-slate-300 mt-1 text-sm">O objetivo é mover os <b>5 discos</b> do pino A para o pino C, usando o pino B como apoio. Regra única: <b>nunca</b> coloque um disco maior sobre um disco menor.</p>
+  <div class="tip rounded-xl p-4 mt-3 text-sm dark:bg-amber-950/30 dark:text-amber-100"><b>Como interagir:</b> clique em um pino para escolher a <b>origem</b> (ele fica destacado), depois clique em outro pino para escolher o <b>destino</b>. Exemplo: clique no pino <b>A</b> → o disco do topo (o menor, disco 1) fica selecionado → clique no pino <b>B</b> → o disco 1 se move de A para B.</div>
+
+  <div class="flex justify-center items-end gap-6 sm:gap-10 border-b-4 border-slate-500 dark:border-slate-400 mt-6 pb-0 overflow-x-auto">
+   <button type="button" onclick="hanoiClick('A')" id="hanoi-col-A" class="flex flex-col items-center gap-2 rounded-xl p-2 border-2 border-transparent transition flex-shrink-0">
+    <div class="relative w-28 h-56 flex flex-col-reverse items-center">
+     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 bg-slate-400 dark:bg-slate-500 rounded-t" style="height:92%"></div>
+     <div id="hanoi-discs-A" class="relative z-10 flex flex-col-reverse items-center gap-1 w-full"></div>
+    </div>
+    <div class="font-black text-sm text-slate-700 dark:text-slate-200">Pino A</div>
+   </button>
+   <button type="button" onclick="hanoiClick('B')" id="hanoi-col-B" class="flex flex-col items-center gap-2 rounded-xl p-2 border-2 border-transparent transition flex-shrink-0">
+    <div class="relative w-28 h-56 flex flex-col-reverse items-center">
+     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 bg-slate-400 dark:bg-slate-500 rounded-t" style="height:92%"></div>
+     <div id="hanoi-discs-B" class="relative z-10 flex flex-col-reverse items-center gap-1 w-full"></div>
+    </div>
+    <div class="font-black text-sm text-slate-700 dark:text-slate-200">Pino B</div>
+   </button>
+   <button type="button" onclick="hanoiClick('C')" id="hanoi-col-C" class="flex flex-col items-center gap-2 rounded-xl p-2 border-2 border-transparent transition flex-shrink-0">
+    <div class="relative w-28 h-56 flex flex-col-reverse items-center">
+     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 bg-slate-400 dark:bg-slate-500 rounded-t" style="height:92%"></div>
+     <div id="hanoi-discs-C" class="relative z-10 flex flex-col-reverse items-center gap-1 w-full"></div>
+    </div>
+    <div class="font-black text-sm text-slate-700 dark:text-slate-200">Pino C</div>
+   </button>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-center gap-2 mt-5">
+   <button onclick="hanoiAutoSolve()" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">▶ Resolver automaticamente</button>
+   <button onclick="hanoiReset()" class="bg-slate-700 text-white rounded-xl px-4 py-2 text-sm font-bold">Reiniciar</button>
+  </div>
+  <div id="hanoi-counter" class="text-center text-sm font-bold mt-3 text-slate-600 dark:text-slate-300"></div>
+  <div id="hanoi-msg" class="text-sm font-bold mt-1 min-h-5 text-center"></div>
+
+  <div class="mt-6">
+   <div class="text-xs uppercase tracking-widest font-black text-indigo-600 dark:text-indigo-400 mb-2">Código em C — Torre de Hanói recursiva</div>
+   <pre class="bg-slate-900 text-slate-100 rounded-xl p-4 overflow-x-auto text-xs sm:text-sm leading-relaxed"><code id="out-hanoi"></code></pre>
+  </div>
+  <script type="text/plain" class="ccode" data-out="out-hanoi">
+#include <stdio.h>
+
+void hanoi(int n, char origem, char destino, char auxiliar) {
+    if (n == 0) return;   // caso base: nao ha disco para mover
+
+    // 1. move os (n-1) discos de cima para o pino auxiliar
+    hanoi(n - 1, origem, auxiliar, destino);
+
+    // 2. move o maior disco (o de baixo) para o destino
+    printf("Mover disco %d de %c para %c\n", n, origem, destino);
+
+    // 3. move os (n-1) discos do auxiliar para o destino
+    hanoi(n - 1, auxiliar, destino, origem);
+}
+
+int main() {
+    int discos = 5;
+    hanoi(discos, 'A', 'C', 'B');
+    // numero minimo de movimentos possivel = 2^n - 1 = 31 (para 5 discos)
+    return 0;
+}
+  </script>
+ </div>
+
+ <!-- LAB FILA -->
+ <div class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-3xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">🚶 Fila (Queue)</h2>
+  <p class="text-slate-600 dark:text-slate-300 mt-1 text-sm">Enfileire valores e veja que quem chega primeiro (início) é o primeiro a ser atendido (removido).</p>
+  <div id="queue-visual" class="flex flex-row items-start gap-2 min-h-[110px] border-2 border-dashed dark:border-slate-600 rounded-xl p-4 bg-slate-50 dark:bg-slate-900/40 mt-5 overflow-x-auto"></div>
+  <div class="flex flex-wrap items-center justify-center gap-2 mt-4">
+   <input id="queue-input" type="number" value="7" class="border dark:border-slate-600 dark:bg-slate-900 rounded-xl p-2 w-24 text-center">
+   <button onclick="queueEnqueue()" class="bg-amber-500 text-white rounded-xl px-4 py-2 text-sm font-bold">Enfileirar (enqueue)</button>
+   <button onclick="queueDequeue()" class="bg-slate-700 text-white rounded-xl px-4 py-2 text-sm font-bold">Desenfileirar (dequeue)</button>
+  </div>
+  <div id="queue-msg" class="text-sm font-bold mt-3 min-h-5 text-center"></div>
+  <div class="mt-6">
+   <div class="text-xs uppercase tracking-widest font-black text-indigo-600 dark:text-indigo-400 mb-2">Código em C — Fila circular com vetor</div>
+   <pre class="bg-slate-900 text-slate-100 rounded-xl p-4 overflow-x-auto text-xs sm:text-sm leading-relaxed"><code id="out-fila"></code></pre>
+  </div>
+  <script type="text/plain" class="ccode" data-out="out-fila">
+#include <stdio.h>
+#define MAX 100
+
+typedef struct {
+    int itens[MAX];
+    int inicio;
+    int fim;
+    int total;
+} Fila;
+
+void inicializar(Fila *f) {
+    f->inicio = 0;
+    f->fim = -1;
+    f->total = 0;
+}
+
+int estaVazia(Fila *f) { return f->total == 0; }
+int estaCheia(Fila *f) { return f->total == MAX; }
+
+void enfileirar(Fila *f, int valor) {
+    if (estaCheia(f)) {
+        printf("Erro: fila cheia!\n");
+        return;
+    }
+    f->fim = (f->fim + 1) % MAX;   // avanca em circulo
+    f->itens[f->fim] = valor;
+    f->total++;
+}
+
+int desenfileirar(Fila *f) {
+    if (estaVazia(f)) {
+        printf("Erro: fila vazia!\n");
+        return -1;
+    }
+    int valor = f->itens[f->inicio];
+    f->inicio = (f->inicio + 1) % MAX; // avanca em circulo
+    f->total--;
+    return valor;
+}
+
+int main() {
+    Fila f;
+    inicializar(&f);
+    enfileirar(&f, 1);
+    enfileirar(&f, 2);
+    enfileirar(&f, 3);
+    printf("Saiu: %d\n", desenfileirar(&f)); // 1 (primeiro a entrar)
+    printf("Saiu: %d\n", desenfileirar(&f)); // 2
+    return 0;
+}
+  </script>
+ </div>
+
+ <!-- LAB LISTA -->
+ <div class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-3xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">🚂 Lista Encadeada</h2>
+  <p class="text-slate-600 dark:text-slate-300 mt-1 text-sm">Insira "vagões" no início ou no fim, e remova do início, para ver os ponteiros se reorganizando.</p>
+  <div id="list-visual" class="flex flex-row flex-wrap items-center gap-1 min-h-[90px] border-2 border-dashed dark:border-slate-600 rounded-xl p-4 bg-slate-50 dark:bg-slate-900/40 mt-5 overflow-x-auto"></div>
+  <div class="flex flex-wrap items-center justify-center gap-2 mt-4">
+   <input id="list-input" type="number" value="15" class="border dark:border-slate-600 dark:bg-slate-900 rounded-xl p-2 w-24 text-center">
+   <button onclick="listInsertFront()" class="bg-emerald-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Inserir no início</button>
+   <button onclick="listInsertEnd()" class="bg-emerald-700 text-white rounded-xl px-4 py-2 text-sm font-bold">Inserir no fim</button>
+   <button onclick="listRemoveFront()" class="bg-slate-700 text-white rounded-xl px-4 py-2 text-sm font-bold">Remover do início</button>
+  </div>
+  <div id="list-msg" class="text-sm font-bold mt-3 min-h-5 text-center"></div>
+  <div class="mt-6">
+   <div class="text-xs uppercase tracking-widest font-black text-indigo-600 dark:text-indigo-400 mb-2">Código em C — Lista encadeada simples</div>
+   <pre class="bg-slate-900 text-slate-100 rounded-xl p-4 overflow-x-auto text-xs sm:text-sm leading-relaxed"><code id="out-lista"></code></pre>
+  </div>
+  <script type="text/plain" class="ccode" data-out="out-lista">
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct No {
+    int valor;
+    struct No *proximo;
+} No;
+
+No* criarNo(int valor) {
+    No *novo = (No*) malloc(sizeof(No));
+    novo->valor = valor;
+    novo->proximo = NULL;
+    return novo;
+}
+
+void inserirInicio(No **cabeca, int valor) {
+    No *novo = criarNo(valor);
+    novo->proximo = *cabeca;
+    *cabeca = novo;
+}
+
+void inserirFim(No **cabeca, int valor) {
+    No *novo = criarNo(valor);
+    if (*cabeca == NULL) {
+        *cabeca = novo;
+        return;
+    }
+    No *atual = *cabeca;
+    while (atual->proximo != NULL) {
+        atual = atual->proximo;
+    }
+    atual->proximo = novo;
+}
+
+void removerInicio(No **cabeca) {
+    if (*cabeca == NULL) return;
+    No *temp = *cabeca;
+    *cabeca = (*cabeca)->proximo; // cabeca passa a ser o segundo no
+    free(temp);
+}
+
+void imprimir(No *cabeca) {
+    No *atual = cabeca;
+    while (atual != NULL) {
+        printf("%d -> ", atual->valor);
+        atual = atual->proximo;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    No *lista = NULL;
+    inserirFim(&lista, 10);
+    inserirFim(&lista, 20);
+    inserirInicio(&lista, 5);
+    imprimir(&lista); // 5 -> 10 -> 20 -> NULL
+    return 0;
+}
+  </script>
+ </div>
+
+ <!-- LAB ARVORE -->
+ <div class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-3xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">🌳 Árvore Binária de Busca (BST)</h2>
+  <p class="text-slate-600 dark:text-slate-300 mt-1 text-sm">Insira valores e depois busque um deles para ver o caminho de comparações destacado em amarelo.</p>
+  <div class="border-2 border-dashed dark:border-slate-600 rounded-xl p-2 bg-slate-50 dark:bg-slate-900/40 mt-5 relative min-h-[440px] flex items-center justify-center overflow-x-auto">
+   <svg id="tree-svg" width="100%" height="440" style="min-width:320px"></svg>
+   <div id="tree-empty" class="absolute text-slate-400 text-sm">Árvore vazia — insira um valor para começar</div>
+  </div>
+  <div class="flex flex-wrap items-center justify-center gap-2 mt-4">
+   <input id="tree-input" type="number" placeholder="valor" class="border dark:border-slate-600 dark:bg-slate-900 rounded-xl p-2 w-24 text-center">
+   <button onclick="treeInsertHandler()" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">Inserir</button>
+   <input id="tree-search-input" type="number" placeholder="buscar" class="border dark:border-slate-600 dark:bg-slate-900 rounded-xl p-2 w-24 text-center">
+   <button onclick="treeSearchHandler()" class="bg-amber-500 text-white rounded-xl px-4 py-2 text-sm font-bold">Buscar</button>
+   <button onclick="treeReset()" class="bg-slate-700 text-white rounded-xl px-4 py-2 text-sm font-bold">Limpar árvore</button>
+  </div>
+  <div id="tree-msg" class="text-sm font-bold mt-3 min-h-5 text-center"></div>
+  <div class="mt-6">
+   <div class="text-xs uppercase tracking-widest font-black text-indigo-600 dark:text-indigo-400 mb-2">Código em C — Inserção e busca em BST</div>
+   <pre class="bg-slate-900 text-slate-100 rounded-xl p-4 overflow-x-auto text-xs sm:text-sm leading-relaxed"><code id="out-arvore"></code></pre>
+  </div>
+  <script type="text/plain" class="ccode" data-out="out-arvore">
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct No {
+    int valor;
+    struct No *esquerda;
+    struct No *direita;
+} No;
+
+No* criarNo(int valor) {
+    No *novo = (No*) malloc(sizeof(No));
+    novo->valor = valor;
+    novo->esquerda = NULL;
+    novo->direita = NULL;
+    return novo;
+}
+
+No* inserir(No *raiz, int valor) {
+    if (raiz == NULL) {
+        return criarNo(valor);
+    }
+    if (valor < raiz->valor) {
+        raiz->esquerda = inserir(raiz->esquerda, valor);
+    } else if (valor > raiz->valor) {
+        raiz->direita = inserir(raiz->direita, valor);
+    }
+    return raiz;
+}
+
+No* buscar(No *raiz, int valor) {
+    if (raiz == NULL || raiz->valor == valor) {
+        return raiz;         // achou (ou chegou em NULL = nao existe)
+    }
+    if (valor < raiz->valor) {
+        return buscar(raiz->esquerda, valor);
+    }
+    return buscar(raiz->direita, valor);
+}
+
+void emOrdem(No *raiz) {
+    if (raiz == NULL) return;
+    emOrdem(raiz->esquerda);
+    printf("%d ", raiz->valor);
+    emOrdem(raiz->direita);
+}
+
+int main() {
+    No *raiz = NULL;
+    int valores[] = {50, 30, 70, 20, 40, 60, 80};
+    for (int i = 0; i < 7; i++) {
+        raiz = inserir(raiz, valores[i]);
+    }
+    emOrdem(raiz);   // imprime em ordem crescente: 20 30 40 50 60 70 80
+    printf("\n");
+
+    No *encontrado = buscar(raiz, 40);
+    printf(encontrado ? "Encontrado!\n" : "Nao encontrado.\n");
+    return 0;
+}
+  </script>
+ </div>
+
+ <!-- LAB GRAFO -->
+ <div class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-3xl border p-6 shadow-sm">
+  <h2 class="text-xl font-black">🕸️ Grafo — BFS e DFS</h2>
+  <p class="text-slate-600 dark:text-slate-300 mt-1 text-sm">Este grafo já vem pronto. Clique em BFS ou DFS para ver a ordem de visita dos vértices a partir de A.</p>
+  <div class="border-2 border-dashed dark:border-slate-600 rounded-xl p-2 bg-slate-50 dark:bg-slate-900/40 mt-5 flex items-center justify-center overflow-x-auto">
+   <svg id="graph-svg" viewBox="0 0 500 260" width="100%" height="260" style="min-width:420px"></svg>
+  </div>
+  <div class="flex flex-wrap items-center justify-center gap-2 mt-4">
+   <button onclick="runGraph('bfs')" class="bg-indigo-600 text-white rounded-xl px-4 py-2 text-sm font-bold">BFS a partir de A</button>
+   <button onclick="runGraph('dfs')" class="bg-amber-500 text-white rounded-xl px-4 py-2 text-sm font-bold">DFS a partir de A</button>
+   <button onclick="resetGraphColors()" class="bg-slate-700 text-white rounded-xl px-4 py-2 text-sm font-bold">Limpar cores</button>
+  </div>
+  <div class="text-center mt-3 text-sm"><b>Ordem de visita:</b> <span id="graph-order" class="font-mono"></span></div>
+  <div id="graph-msg" class="text-sm font-bold mt-2 min-h-5 text-center"></div>
+  <div class="mt-6">
+   <div class="text-xs uppercase tracking-widest font-black text-indigo-600 dark:text-indigo-400 mb-2">Código em C — Lista de adjacência e BFS</div>
+   <pre class="bg-slate-900 text-slate-100 rounded-xl p-4 overflow-x-auto text-xs sm:text-sm leading-relaxed"><code id="out-grafo"></code></pre>
+  </div>
+  <script type="text/plain" class="ccode" data-out="out-grafo">
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_VERT 10
+
+typedef struct NoAdj {
+    int vertice;
+    struct NoAdj *proximo;
+} NoAdj;
+
+typedef struct {
+    NoAdj *cabeca[MAX_VERT];
+    int numVertices;
+} Grafo;
+
+void inicializarGrafo(Grafo *g, int n) {
+    g->numVertices = n;
+    for (int i = 0; i < n; i++) {
+        g->cabeca[i] = NULL;
+    }
+}
+
+void adicionarAresta(Grafo *g, int origem, int destino) {
+    NoAdj *novo = (NoAdj*) malloc(sizeof(NoAdj));
+    novo->vertice = destino;
+    novo->proximo = g->cabeca[origem];
+    g->cabeca[origem] = novo;
+
+    // grafo nao-direcionado: adiciona tambem o caminho inverso
+    novo = (NoAdj*) malloc(sizeof(NoAdj));
+    novo->vertice = origem;
+    novo->proximo = g->cabeca[destino];
+    g->cabeca[destino] = novo;
+}
+
+void bfs(Grafo *g, int inicio) {
+    int visitado[MAX_VERT] = {0};
+    int fila[MAX_VERT], ini = 0, fim = 0;
+
+    visitado[inicio] = 1;
+    fila[fim++] = inicio;
+
+    while (ini < fim) {
+        int atual = fila[ini++];
+        printf("%d ", atual);
+
+        NoAdj *vizinho = g->cabeca[atual];
+        while (vizinho != NULL) {
+            if (!visitado[vizinho->vertice]) {
+                visitado[vizinho->vertice] = 1;
+                fila[fim++] = vizinho->vertice;
+            }
+            vizinho = vizinho->proximo;
+        }
+    }
+}
+
+int main() {
+    Grafo g;
+    inicializarGrafo(&g, 5);
+    adicionarAresta(&g, 0, 1);
+    adicionarAresta(&g, 0, 2);
+    adicionarAresta(&g, 1, 3);
+    adicionarAresta(&g, 2, 4);
+
+    printf("BFS a partir de 0: ");
+    bfs(&g, 0); // 0 1 2 3 4
+    return 0;
+}
+  </script>
+ </div>
+
+</section>
+
+<!-- ================= EXERCÍCIOS ================= -->
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-3xl border p-7 shadow-sm">
+  <span class="text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Pratique</span>
+  <h1 class="text-3xl font-black mt-2">3 exercícios para resolver em C</h1>
+  <p class="text-slate-600 dark:text-slate-300 mt-2">Tente escrever o código você mesmo antes de olhar a resolução. Se travar, clique em <b>"Ver algoritmo e resolução"</b> — lá tem a explicação passo a passo e o código comentado.</p>
+ </div>
+
+ <div id="exercicios-list" class="space-y-6"></div>
+</section>
+
+</main>
+<footer class="border-t dark:border-slate-700 bg-white dark:bg-slate-900 mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500 dark:text-slate-400">Material interativo de estudo de Estruturas de Dados em C • Feito para aprender vendo funcionar</div></footer>
+
+<script>
+/* ===================== helpers gerais ===================== */
+const $ = id => document.getElementById(id);
+
+function hl(code){
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  code = esc(code);
+  const pattern = /(\/\/[^\n]*)|("(?:[^"\\]|\\.)*")|(#\w+[^\n]*)|\b(int|char|float|double|void|struct|typedef|return|if|else|while|for|do|switch|case|break|continue|sizeof|malloc|free|calloc|realloc|NULL|const|unsigned|long|short|static)\b|\b(\d+)\b/g;
+  return code.replace(pattern, (m, comment, str, preproc, kw, num) => {
+    if (comment) return `<span class="text-slate-500">${comment}</span>`;
+    if (str) return `<span class="text-emerald-400">${str}</span>`;
+    if (preproc) return `<span class="text-fuchsia-400">${preproc}</span>`;
+    if (kw) return `<span class="text-sky-400">${kw}</span>`;
+    if (num) return `<span class="text-amber-300">${num}</span>`;
+    return m;
+  });
+}
+
+function renderAllCode(){
+  document.querySelectorAll('script.ccode').forEach(s => {
+    const target = $(s.dataset.out);
+    if (target) target.innerHTML = hl(s.textContent.trim());
+  });
+}
+
+/* ===================== navegação por abas ===================== */
+const sections = ['teoria','laboratorio','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    sections.forEach(s => $('sec-'+s).classList.toggle('hidden', s !== btn.dataset.tab));
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+
+/* ===================== LAB: PILHA ===================== */
+let stackArr = [];
+function renderStack(){
+  const el = $('stack-visual');
+  if (stackArr.length === 0){ el.innerHTML = '<div class="text-slate-400 text-sm py-10">Pilha vazia</div>'; return; }
+  el.innerHTML = stackArr.map((v,i) => {
+    const isTop = i === stackArr.length - 1;
+    return `<div class="w-28 text-center py-3 rounded-lg font-bold border-2 ${isTop ? 'bg-indigo-600 border-indigo-700 text-white' : 'bg-indigo-50 border-indigo-200 text-indigo-800 dark:bg-indigo-950 dark:border-indigo-800 dark:text-indigo-200'}">${v}${isTop ? '<span class="text-[10px] block font-normal">← topo</span>' : ''}</div>`;
+  }).join('');
+}
+function stackMsg(t, warn){ const el = $('stack-msg'); el.textContent = t; el.className = 'text-sm font-bold mt-3 min-h-5 text-center ' + (warn ? 'text-red-600' : 'text-emerald-600'); }
+function stackPush(){
+  if (stackArr.length >= 7){ stackMsg('Pilha cheia! (limite de 7 para visualização)', true); return; }
+  const input = $('stack-input');
+  let v = parseInt(input.value);
+  if (isNaN(v)) v = Math.floor(Math.random()*90+10);
+  stackArr.push(v);
+  renderStack();
+  stackMsg(`empilhar(&p, ${v}) → ${v} colocado no topo.`, false);
+  input.value = Math.floor(Math.random()*90+10);
+}
+function stackPop(){
+  if (stackArr.length === 0){ stackMsg('Pilha vazia — desempilhar() retornaria erro!', true); return; }
+  const v = stackArr.pop();
+  renderStack();
+  stackMsg(`desempilhar(&p) → removeu ${v}, que era o topo.`, false);
+}
+
+/* ===================== LAB: RECURSIVIDADE ===================== */
+function buildFactorialSteps(n){
+  const steps = [];
+  function rec(n){
+    steps.push({type:'call', n});
+    let r;
+    if (n <= 1){ r = 1; }
+    else { r = n * rec(n-1); }
+    steps.push({type:'return', n, value:r});
+    return r;
+  }
+  rec(n);
+  return steps;
+}
+let recurRunning = false;
+function renderFrames(frames){
+  const el = $('recur-visual');
+  if (frames.length === 0){ el.innerHTML = recurRunning ? '' : '<div class="text-slate-400 text-sm py-10">Pilha de chamadas vazia</div>'; return; }
+  el.innerHTML = frames.map(f => `<div class="w-44 text-center py-2 rounded-lg font-mono text-sm font-bold border-2 ${f.resolved ? 'bg-emerald-100 border-emerald-400 text-emerald-800 dark:bg-emerald-950 dark:border-emerald-700 dark:text-emerald-200' : 'bg-indigo-50 border-indigo-300 text-indigo-800 dark:bg-indigo-950 dark:border-indigo-700 dark:text-indigo-200'}">fatorial(${f.n})${f.resolved ? ` = ${f.value}` : ''}</div>`).join('');
+}
+function startFactorial(){
+  if (recurRunning) return;
+  let n = parseInt($('recur-n').value);
+  if (isNaN(n) || n < 1) n = 1;
+  if (n > 8) n = 8;
+  $('recur-n').value = n;
+  const steps = buildFactorialSteps(n);
+  const frames = [];
+  let i = 0;
+  recurRunning = true;
+  $('recur-btn').disabled = true;
+  $('recur-msg').textContent = '';
+  function step(){
+    if (i >= steps.length){
+      recurRunning = false;
+      $('recur-btn').disabled = false;
+      $('recur-msg').textContent = `Resultado final: fatorial(${n}) = ${steps[steps.length-1].value}`;
+      $('recur-msg').className = 'text-sm font-bold mt-3 min-h-5 text-center text-emerald-600';
+      renderFrames(frames);
+      return;
+    }
+    const s = steps[i++];
+    if (s.type === 'call'){
+      frames.push({n: s.n, resolved:false, value:null});
+      renderFrames(frames);
+      setTimeout(step, 550);
+    } else {
+      frames[frames.length-1].resolved = true;
+      frames[frames.length-1].value = s.value;
+      renderFrames(frames);
+      setTimeout(() => { frames.pop(); renderFrames(frames); setTimeout(step, 200); }, 650);
+    }
+  }
+  step();
+}
+
+/* ===================== LAB: TORRE DE HANÓI ===================== */
+let hanoiPegs = { A:[5,4,3,2,1], B:[], C:[] };
+let hanoiSelected = null;
+let hanoiMoves = 0;
+let hanoiRunning = false;
+function hanoiDiscColor(d){ return ['', '#ef4444','#f59e0b','#eab308','#22c55e','#3b82f6'][d] || '#6366f1'; }
+function hanoiMsg(t, warn){ const el = $('hanoi-msg'); el.textContent = t; el.className = 'text-sm font-bold mt-1 min-h-5 text-center ' + (warn ? 'text-red-600' : 'text-emerald-600'); }
+function renderHanoi(){
+  ['A','B','C'].forEach(p => {
+    $('hanoi-discs-'+p).innerHTML = hanoiPegs[p].map(d => `<div class="rounded-md h-6 flex items-center justify-center text-white text-[11px] font-bold shadow" style="width:${34+d*16}px;background:${hanoiDiscColor(d)}">${d}</div>`).join('');
+    $('hanoi-col-'+p).className = 'flex flex-col items-center gap-2 rounded-xl p-2 border-2 transition flex-shrink-0 ' + (hanoiSelected === p ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/40' : 'border-transparent hover:border-slate-300 dark:hover:border-slate-600');
+  });
+  $('hanoi-counter').textContent = `Movimentos: ${hanoiMoves}  (mínimo possível para 5 discos: 31)`;
+}
+function hanoiClick(peg){
+  if (hanoiRunning) return;
+  if (hanoiSelected === null){
+    if (hanoiPegs[peg].length === 0){ hanoiMsg('Esse pino está vazio — escolha um pino com discos para ser a origem.', true); return; }
+    hanoiSelected = peg;
+    hanoiMsg(`Pino ${peg} selecionado como origem. Agora clique no pino de destino.`, false);
+    renderHanoi();
+    return;
+  }
+  if (hanoiSelected === peg){ hanoiSelected = null; hanoiMsg('Seleção cancelada.', false); renderHanoi(); return; }
+  const from = hanoiSelected, to = peg;
+  const moving = hanoiPegs[from][hanoiPegs[from].length - 1];
+  const destTop = hanoiPegs[to][hanoiPegs[to].length - 1];
+  hanoiSelected = null;
+  if (destTop !== undefined && moving > destTop){
+    hanoiMsg(`Movimento inválido: o disco ${moving} não pode ficar sobre o disco ${destTop}, que é menor.`, true);
+    renderHanoi();
+    return;
+  }
+  hanoiPegs[from].pop();
+  hanoiPegs[to].push(moving);
+  hanoiMoves++;
+  renderHanoi();
+  if (hanoiPegs.C.length === 5){
+    hanoiMsg(`🎉 Resolvido em ${hanoiMoves} movimento${hanoiMoves===1?'':'s'}! (o mínimo possível é 31)`, false);
+  } else {
+    hanoiMsg(`Disco ${moving} movido de ${from} para ${to}.`, false);
+  }
+}
+function hanoiReset(){
+  hanoiPegs = { A:[5,4,3,2,1], B:[], C:[] };
+  hanoiSelected = null;
+  hanoiMoves = 0;
+  hanoiRunning = false;
+  renderHanoi();
+  hanoiMsg('Torre reiniciada.', false);
+}
+function hanoiAutoSolve(){
+  if (hanoiRunning) return;
+  hanoiReset();
+  hanoiRunning = true;
+  hanoiMsg('Resolvendo automaticamente, como a função recursiva hanoi() faria...', false);
+  const moves = [];
+  function solve(n, origem, destino, auxiliar){
+    if (n === 0) return;
+    solve(n-1, origem, auxiliar, destino);
+    moves.push([origem, destino]);
+    solve(n-1, auxiliar, destino, origem);
+  }
+  solve(5, 'A', 'C', 'B');
+  let i = 0;
+  function step(){
+    if (i >= moves.length){
+      hanoiRunning = false;
+      hanoiMsg(`🎉 Resolvido automaticamente em ${hanoiMoves} movimentos — o mínimo possível para 5 discos (2⁵ - 1 = 31).`, false);
+      return;
+    }
+    const [from, to] = moves[i++];
+    const moving = hanoiPegs[from].pop();
+    hanoiPegs[to].push(moving);
+    hanoiMoves++;
+    renderHanoi();
+    setTimeout(step, 420);
+  }
+  step();
+}
+
+/* ===================== LAB: FILA ===================== */
+let queueArr = [];
+function renderQueue(){
+  const el = $('queue-visual');
+  if (queueArr.length === 0){ el.innerHTML = '<div class="text-slate-400 text-sm py-10 w-full text-center">Fila vazia</div>'; return; }
+  el.innerHTML = queueArr.map((v,i) => {
+    const isFront = i === 0, isRear = i === queueArr.length - 1;
+    let label = (isFront && isRear) ? 'início / fim' : isFront ? 'início' : isRear ? 'fim' : '';
+    return `<div class="flex flex-col items-center flex-shrink-0">
+      <div class="w-20 text-center py-3 rounded-lg font-bold border-2 ${isFront ? 'bg-amber-500 border-amber-600 text-white' : 'bg-amber-50 border-amber-200 text-amber-800 dark:bg-amber-950 dark:border-amber-800 dark:text-amber-200'}">${v}</div>
+      <div class="text-[10px] mt-1 font-bold text-amber-700 dark:text-amber-300 h-3">${label}</div>
+    </div>`;
+  }).join('');
+}
+function queueMsg(t, warn){ const el = $('queue-msg'); el.textContent = t; el.className = 'text-sm font-bold mt-3 min-h-5 text-center ' + (warn ? 'text-red-600' : 'text-emerald-600'); }
+function queueEnqueue(){
+  if (queueArr.length >= 8){ queueMsg('Fila cheia! (limite de 8 para visualização)', true); return; }
+  const input = $('queue-input');
+  let v = parseInt(input.value);
+  if (isNaN(v)) v = Math.floor(Math.random()*90+10);
+  queueArr.push(v);
+  renderQueue();
+  queueMsg(`enfileirar(&f, ${v}) → ${v} entrou no fim da fila.`, false);
+  input.value = Math.floor(Math.random()*90+10);
+}
+function queueDequeue(){
+  if (queueArr.length === 0){ queueMsg('Fila vazia — desenfileirar() retornaria erro!', true); return; }
+  const v = queueArr.shift();
+  renderQueue();
+  queueMsg(`desenfileirar(&f) → removeu ${v}, que estava no início.`, false);
+}
+
+/* ===================== LAB: LISTA ENCADEADA ===================== */
+let listArr = [];
+function renderList(){
+  const el = $('list-visual');
+  if (listArr.length === 0){ el.innerHTML = '<div class="text-slate-400 text-sm py-10 w-full text-center">Lista vazia (cabeça = NULL)</div>'; return; }
+  el.innerHTML = listArr.map(v => `
+    <div class="flex items-center flex-shrink-0">
+      <div class="w-16 text-center py-3 rounded-lg font-bold bg-emerald-50 border-2 border-emerald-300 text-emerald-800 dark:bg-emerald-950 dark:border-emerald-700 dark:text-emerald-200">${v}</div>
+      <div class="text-emerald-500 text-xl mx-1">→</div>
+    </div>`).join('') + '<div class="font-bold text-slate-400 flex-shrink-0">NULL</div>';
+}
+function listMsg(t, warn){ const el = $('list-msg'); el.textContent = t; el.className = 'text-sm font-bold mt-3 min-h-5 text-center ' + (warn ? 'text-red-600' : 'text-emerald-600'); }
+function listInsertFront(){
+  if (listArr.length >= 9){ listMsg('Lista cheia! (limite de 9 para visualização)', true); return; }
+  const input = $('list-input');
+  let v = parseInt(input.value);
+  if (isNaN(v)) v = Math.floor(Math.random()*90+10);
+  listArr.unshift(v);
+  renderList();
+  listMsg(`inserirInicio(&cabeca, ${v}) → novo nó vira a nova cabeça.`, false);
+  input.value = Math.floor(Math.random()*90+10);
+}
+function listInsertEnd(){
+  if (listArr.length >= 9){ listMsg('Lista cheia! (limite de 9 para visualização)', true); return; }
+  const input = $('list-input');
+  let v = parseInt(input.value);
+  if (isNaN(v)) v = Math.floor(Math.random()*90+10);
+  listArr.push(v);
+  renderList();
+  listMsg(`inserirFim(&cabeca, ${v}) → percorreu a lista até o último nó e o encadeou.`, false);
+  input.value = Math.floor(Math.random()*90+10);
+}
+function listRemoveFront(){
+  if (listArr.length === 0){ listMsg('Lista vazia — nada para remover!', true); return; }
+  const v = listArr.shift();
+  renderList();
+  listMsg(`removerInicio(&cabeca) → removeu ${v} e a cabeça avançou para o próximo nó.`, false);
+}
+
+/* ===================== LAB: ÁRVORE (BST) ===================== */
+let treeRoot = null;
+function bstInsert(node, val){
+  if (!node) return { value: val, left: null, right: null };
+  if (val < node.value) node.left = bstInsert(node.left, val);
+  else if (val > node.value) node.right = bstInsert(node.right, val);
+  return node;
+}
+function bstFind(node, val){
+  if (!node) return null;
+  if (node.value === val) return node;
+  return val < node.value ? bstFind(node.left, val) : bstFind(node.right, val);
+}
+function treeMsg(t, warn){ const el = $('tree-msg'); el.textContent = t; el.className = 'text-sm font-bold mt-3 min-h-5 text-center ' + (warn ? 'text-red-600' : 'text-emerald-600'); }
+function treeInsertHandler(){
+  const input = $('tree-input');
+  const v = parseInt(input.value);
+  if (isNaN(v)){ treeMsg('Digite um número válido.', true); return; }
+  if (bstFind(treeRoot, v)){ treeMsg(`O valor ${v} já existe na árvore.`, true); return; }
+  treeRoot = bstInsert(treeRoot, v);
+  renderTree();
+  treeMsg(`inserir(raiz, ${v}) → valor inserido na posição correta.`, false);
+  input.value = '';
+}
+function treeReset(){ treeRoot = null; renderTree(); treeMsg('Árvore reiniciada.', false); }
+function renderTree(){
+  const svgEl = $('tree-svg');
+  if (!treeRoot){ svgEl.innerHTML = ''; $('tree-empty').classList.remove('hidden'); return; }
+  $('tree-empty').classList.add('hidden');
+  let counter = 0;
+  function layout(node, depth){
+    if (!node) return;
+    layout(node.left, depth+1);
+    node.x = counter*64 + 50;
+    node.y = depth*95 + 45;
+    counter++;
+    layout(node.right, depth+1);
+  }
+  layout(treeRoot, 0);
+  const width = Math.max(counter*64 + 50, 320);
+  svgEl.setAttribute('viewBox', `0 0 ${width} 440`);
+  let edges = '', nodes = '';
+  function drawEdges(node){
+    if (!node) return;
+    if (node.left){ edges += `<line x1="${node.x}" y1="${node.y}" x2="${node.left.x}" y2="${node.left.y}" stroke="#c7d2fe" stroke-width="2"/>`; drawEdges(node.left); }
+    if (node.right){ edges += `<line x1="${node.x}" y1="${node.y}" x2="${node.right.x}" y2="${node.right.y}" stroke="#c7d2fe" stroke-width="2"/>`; drawEdges(node.right); }
+  }
+  function drawNodes(node){
+    if (!node) return;
+    nodes += `<g id="tnode-${node.value}"><circle cx="${node.x}" cy="${node.y}" r="20" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/><text x="${node.x}" y="${node.y+5}" text-anchor="middle" font-size="13" font-weight="bold" fill="#312e81">${node.value}</text></g>`;
+    drawNodes(node.left); drawNodes(node.right);
+  }
+  drawEdges(treeRoot);
+  drawNodes(treeRoot);
+  svgEl.innerHTML = edges + nodes;
+}
+let treeSearching = false;
+function treeSearchHandler(){
+  if (treeSearching) return;
+  const v = parseInt($('tree-search-input').value);
+  if (isNaN(v)){ treeMsg('Digite um número para buscar.', true); return; }
+  if (!treeRoot){ treeMsg('A árvore está vazia.', true); return; }
+  const path = [];
+  let cur = treeRoot;
+  while (cur){ path.push(cur); if (cur.value === v) break; cur = v < cur.value ? cur.left : cur.right; }
+  const found = path.length > 0 && path[path.length-1].value === v;
+  renderTree();
+  treeSearching = true;
+  let i = 0;
+  function step(){
+    if (i >= path.length){
+      treeSearching = false;
+      const compTxt = path.length === 1 ? '1 comparação' : `${path.length} comparações`;
+      treeMsg(found ? `Valor ${v} encontrado! (${compTxt})` : `Valor ${v} não está na árvore (${compTxt} até NULL).`, !found);
+      return;
+    }
+    const node = path[i++];
+    const isLast = i === path.length;
+    const circle = document.querySelector(`#tnode-${node.value} circle`);
+    if (circle){
+      circle.setAttribute('fill', isLast ? (found ? '#10b981' : '#ef4444') : '#facc15');
+      circle.setAttribute('stroke', isLast ? (found ? '#047857' : '#b91c1c') : '#ca8a04');
+    }
+    setTimeout(step, 600);
+  }
+  setTimeout(step, 150);
+}
+
+/* ===================== LAB: GRAFO ===================== */
+const graphAdj = { A:['B','C'], B:['A','D'], C:['A','D','F'], D:['B','C','E'], E:['D','F'], F:['C','E'] };
+const graphPos = { A:[60,130], B:[190,55], C:[190,205], D:[320,130], E:[450,55], F:[450,205] };
+const graphEdges = [['A','B'],['A','C'],['B','D'],['C','D'],['C','F'],['D','E'],['E','F']];
+function resetGraphColors(){ renderGraphBase(); }
+function renderGraphBase(){
+  const edgesSvg = graphEdges.map(([a,b]) => { const [x1,y1]=graphPos[a], [x2,y2]=graphPos[b]; return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#cbd5e1" stroke-width="3"/>`; }).join('');
+  const nodesSvg = Object.keys(graphPos).map(k => { const [x,y]=graphPos[k]; return `<g id="gnode-${k}"><circle cx="${x}" cy="${y}" r="22" fill="#f1f5f9" stroke="#475569" stroke-width="2"/><text x="${x}" y="${y+5}" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">${k}</text></g>`; }).join('');
+  $('graph-svg').innerHTML = edgesSvg + nodesSvg;
+  $('graph-order').textContent = '';
+  $('graph-msg').textContent = '';
+}
+function graphOrderBFS(start){
+  const visited = {[start]:true}, queue = [start], order = [];
+  while (queue.length){
+    const cur = queue.shift();
+    order.push(cur);
+    graphAdj[cur].forEach(nb => { if (!visited[nb]){ visited[nb] = true; queue.push(nb); } });
+  }
+  return order;
+}
+function graphOrderDFS(start){
+  const visited = {}, order = [];
+  (function rec(node){ visited[node] = true; order.push(node); graphAdj[node].forEach(nb => { if (!visited[nb]) rec(nb); }); })(start);
+  return order;
+}
+let graphRunning = false;
+function runGraph(type){
+  if (graphRunning) return;
+  graphRunning = true;
+  renderGraphBase();
+  const order = type === 'bfs' ? graphOrderBFS('A') : graphOrderDFS('A');
+  let i = 0;
+  function step(){
+    if (i >= order.length){
+      graphRunning = false;
+      $('graph-msg').textContent = `${type === 'bfs' ? 'BFS' : 'DFS'} concluída a partir de A.`;
+      $('graph-msg').className = 'text-sm font-bold mt-2 min-h-5 text-center text-emerald-600';
+      return;
+    }
+    const node = order[i++];
+    const circle = document.querySelector(`#gnode-${node} circle`);
+    const text = document.querySelector(`#gnode-${node} text`);
+    if (circle){ circle.setAttribute('fill', '#4f46e5'); circle.setAttribute('stroke', '#312e81'); }
+    if (text){ text.setAttribute('fill', 'white'); }
+    $('graph-order').textContent += ($('graph-order').textContent ? ' → ' : '') + node;
+    setTimeout(step, 600);
+  }
+  step();
+}
+
+/* ===================== EXERCÍCIOS ===================== */
+const exercicios = [
+  {
+    id: 1,
+    titulo: 'Exercício 1 — Parênteses balanceados (Pilha)',
+    enunciado: 'Escreva uma função em C que recebe uma string contendo os caracteres <code>( ) [ ] { }</code> (e possivelmente outros caracteres no meio) e devolve 1 se todos os parênteses/colchetes/chaves estiverem corretamente balanceados e fechados na ordem certa, ou 0 caso contrário. Exemplo: <code>"{[(a+b)*c]-d}"</code> é balanceada; <code>"([)]"</code> não é.',
+    dica: 'Pense em uma pilha de pratos: cada símbolo de abertura "empilha" e cada símbolo de fechamento precisa "desempilhar" exatamente o símbolo de abertura correspondente.',
+    algoritmo: [
+      'Crie uma pilha vazia de caracteres.',
+      'Percorra a string caractere por caractere.',
+      'Se o caractere for um símbolo de abertura <code>( [ {</code>, empilhe-o.',
+      'Se for um símbolo de fechamento <code>) ] }</code>: se a pilha estiver vazia, a expressão já está errada (fechou algo que nunca abriu). Senão, desempilhe o topo e verifique se ele é o símbolo de abertura correspondente ao fechamento atual.',
+      'Se não corresponder, a expressão não está balanceada.',
+      'No final, se a pilha estiver vazia, todos os símbolos foram fechados corretamente — a expressão está balanceada. Se sobrar algo na pilha, faltou fechar.'
+    ],
+    codigo: `#include <stdio.h>
+#include <string.h>
+#define MAX 100
+
+typedef struct {
+    char itens[MAX];
+    int topo;
+} Pilha;
+
+void inicializar(Pilha *p) { p->topo = -1; }
+int estaVazia(Pilha *p) { return p->topo == -1; }
+void empilhar(Pilha *p, char c) { p->itens[++p->topo] = c; }
+char desempilhar(Pilha *p) { return p->itens[p->topo--]; }
+
+int balanceado(char *expr) {
+    Pilha p;
+    inicializar(&p);
+
+    for (int i = 0; expr[i] != '\\0'; i++) {
+        char c = expr[i];
+        if (c == '(' || c == '[' || c == '{') {
+            empilhar(&p, c);
+        } else if (c == ')' || c == ']' || c == '}') {
+            if (estaVazia(&p)) return 0;          // fechou sem abrir
+            char abertura = desempilhar(&p);
+            if ((c == ')' && abertura != '(') ||
+                (c == ']' && abertura != '[') ||
+                (c == '}' && abertura != '{')) {
+                return 0;                          // nao combina
+            }
+        }
+    }
+    return estaVazia(&p); // se sobrou algo aberto, nao esta balanceada
+}
+
+int main() {
+    char expr[] = "{[(a+b)*c]-d}";
+    if (balanceado(expr)) {
+        printf("Balanceada!\\n");
+    } else {
+        printf("Nao balanceada.\\n");
+    }
+    return 0;
+}`
+  },
+  {
+    id: 2,
+    titulo: 'Exercício 2 — Inverter uma lista encadeada (Lista)',
+    enunciado: 'Escreva uma função em C que recebe a cabeça de uma lista encadeada simples e inverte a ordem dos nós <b>sem criar uma lista nova</b> (ou seja, reaproveitando os mesmos nós, apenas trocando os ponteiros <code>proximo</code>). A função deve devolver a nova cabeça da lista.',
+    dica: 'Você vai precisar de três ponteiros que "caminham" juntos pela lista: um para o nó anterior, um para o nó atual e um para guardar o próximo antes de perdê-lo.',
+    algoritmo: [
+      'Crie três ponteiros: <code>anterior</code> (inicia como NULL), <code>atual</code> (inicia na cabeça da lista) e <code>proximo</code>.',
+      'Enquanto <code>atual</code> não for NULL, repita os passos abaixo.',
+      'Guarde em <code>proximo</code> o valor de <code>atual->proximo</code>, antes de sobrescrevê-lo (senão você perde o resto da lista).',
+      'Aponte <code>atual->proximo</code> para <code>anterior</code> — isso inverte a "seta" daquele nó.',
+      'Avance: <code>anterior</code> recebe <code>atual</code>, e <code>atual</code> recebe <code>proximo</code>.',
+      'Quando o laço terminar, <code>anterior</code> estará apontando para o que era o último nó — que agora é a nova cabeça da lista.'
+    ],
+    codigo: `#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct No {
+    int valor;
+    struct No *proximo;
+} No;
+
+No* inverter(No *cabeca) {
+    No *anterior = NULL;
+    No *atual = cabeca;
+    No *proximo;
+
+    while (atual != NULL) {
+        proximo = atual->proximo;   // guarda o proximo antes de perde-lo
+        atual->proximo = anterior;  // inverte a seta deste no
+        anterior = atual;           // avanca "anterior"
+        atual = proximo;            // avanca "atual"
+    }
+    return anterior; // anterior agora e a nova cabeca
+}
+
+void imprimir(No *cabeca) {
+    while (cabeca != NULL) {
+        printf("%d -> ", cabeca->valor);
+        cabeca = cabeca->proximo;
+    }
+    printf("NULL\\n");
+}
+
+int main() {
+    No *n3 = malloc(sizeof(No)); n3->valor = 3; n3->proximo = NULL;
+    No *n2 = malloc(sizeof(No)); n2->valor = 2; n2->proximo = n3;
+    No *n1 = malloc(sizeof(No)); n1->valor = 1; n1->proximo = n2;
+
+    imprimir(n1);             // 1 -> 2 -> 3 -> NULL
+    No *nova = inverter(n1);
+    imprimir(nova);           // 3 -> 2 -> 1 -> NULL
+    return 0;
+}`
+  },
+  {
+    id: 3,
+    titulo: 'Exercício 3 — Menor valor e busca em uma BST (Árvore)',
+    enunciado: 'Escreva duas funções em C para uma Árvore Binária de Busca: (a) <code>menorValor</code>, que devolve o ponteiro para o nó com o menor valor da árvore; (b) <code>existe</code>, que devolve 1 se um valor está presente na árvore e 0 caso contrário.',
+    dica: 'Lembre-se da regra da BST: tudo à esquerda é menor. Isso quer dizer que o menor valor de toda a árvore está sempre no nó mais à esquerda possível — você nem precisa comparar valores para achá-lo!',
+    algoritmo: [
+      '<b>menorValor:</b> comece na raiz e, enquanto o nó atual tiver um filho à esquerda, mova-se para esse filho.',
+      '<b>menorValor:</b> quando o nó atual não tiver mais filho à esquerda, ele é o menor valor da árvore — devolva esse nó.',
+      '<b>existe:</b> se a raiz for NULL, o valor não está na árvore (caso base, devolve 0).',
+      '<b>existe:</b> se o valor da raiz for igual ao valor procurado, encontrou (caso base, devolve 1).',
+      '<b>existe:</b> se o valor procurado for menor que o da raiz, busque recursivamente na subárvore esquerda; caso contrário, busque na subárvore direita.'
+    ],
+    codigo: `#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct No {
+    int valor;
+    struct No *esquerda;
+    struct No *direita;
+} No;
+
+No* criarNo(int valor) {
+    No *novo = malloc(sizeof(No));
+    novo->valor = valor;
+    novo->esquerda = novo->direita = NULL;
+    return novo;
+}
+
+No* inserir(No *raiz, int valor) {
+    if (raiz == NULL) return criarNo(valor);
+    if (valor < raiz->valor) raiz->esquerda = inserir(raiz->esquerda, valor);
+    else if (valor > raiz->valor) raiz->direita = inserir(raiz->direita, valor);
+    return raiz;
+}
+
+// O menor valor esta sempre no no mais a esquerda
+No* menorValor(No *raiz) {
+    if (raiz == NULL) return NULL;
+    while (raiz->esquerda != NULL) {
+        raiz = raiz->esquerda;
+    }
+    return raiz;
+}
+
+int existe(No *raiz, int valor) {
+    if (raiz == NULL) return 0;
+    if (raiz->valor == valor) return 1;
+    if (valor < raiz->valor) return existe(raiz->esquerda, valor);
+    return existe(raiz->direita, valor);
+}
+
+int main() {
+    No *raiz = NULL;
+    int valores[] = {50, 30, 70, 20, 40, 10};
+    for (int i = 0; i < 6; i++) raiz = inserir(raiz, valores[i]);
+
+    printf("Menor valor: %d\\n", menorValor(raiz)->valor); // 10
+    printf("Existe 40? %s\\n", existe(raiz, 40) ? "Sim" : "Nao");
+    printf("Existe 99? %s\\n", existe(raiz, 99) ? "Sim" : "Nao");
+    return 0;
+}`
+  }
+];
+
+function renderExercicios(){
+  $('exercicios-list').innerHTML = exercicios.map(ex => `
+    <article class="bg-white dark:bg-slate-800 dark:border-slate-700 rounded-2xl border p-6 shadow-sm">
+      <span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Questão ${ex.id}</span>
+      <h2 class="text-lg font-black mt-3">${ex.titulo}</h2>
+      <p class="mt-3 text-slate-600 dark:text-slate-300 leading-7">${ex.enunciado}</p>
+      <div class="tip rounded-xl p-4 mt-4 text-sm dark:bg-amber-950/30 dark:text-amber-100"><b>Dica:</b> ${ex.dica}</div>
+      <button onclick="toggleSol(${ex.id})" class="mt-4 text-sm font-bold text-indigo-700 dark:text-indigo-300 hover:underline">👁 Ver algoritmo e resolução</button>
+      <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t dark:border-slate-700 pt-4">
+        <div class="text-xs uppercase tracking-widest font-black text-emerald-700 dark:text-emerald-400 mb-3">Algoritmo, passo a passo</div>
+        ${ex.algoritmo.map((s,i) => `<div class="step dark:bg-slate-900 dark:border-slate-700 mb-3" data-step="${i+1}">${s}</div>`).join('')}
+        <div class="text-xs uppercase tracking-widest font-black text-emerald-700 dark:text-emerald-400 mb-2 mt-5">Resolução em C</div>
+        <pre class="bg-slate-900 text-slate-100 rounded-xl p-4 overflow-x-auto text-xs sm:text-sm leading-relaxed"><code>${hl(ex.codigo)}</code></pre>
+      </div>
+    </article>
+  `).join('');
+}
+function toggleSol(id){ $('solution-'+id).classList.toggle('hidden'); }
+
+/* ===================== inicialização ===================== */
+window.addEventListener('DOMContentLoaded', () => {
+  renderAllCode();
+  renderStack();
+  renderFrames([]);
+  renderHanoi();
+  renderQueue();
+  renderList();
+  renderTree();
+  renderGraphBase();
+  renderExercicios();
+});
+</script>
+</body>
+</html>
