@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radiciação — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  /* Paleta "Fundação": Índigo, Roxo Escuro e Slate */
+  :root {--ink:#1e1b4b; --paper:#eef2ff; --line:#c7d2fe; --accent:#4f46e5; --accent-light:#e0e7ff; --tech:#4338ca;}
+  body {background:#f8fafc; color:var(--ink);}
+  .tab-btn.active {color:var(--accent); border-bottom-color:var(--accent); font-weight:800;}
+  
+  /* Padrão de Grade Estrutural */
+  .paper {
+    background: var(--paper);
+    background-image: 
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    border: 1px solid #a5b4fc;
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.08);
+  }
+  
+  .step {
+    position:relative; padding:1rem 1rem 1rem 3.2rem; 
+    border:1px solid #e2e8f0; border-radius:1rem; background:white;
+  }
+  .step::before {
+    content:attr(data-step); position:absolute; left:1rem; top:1rem; 
+    width:1.65rem; height:1.65rem; border-radius:999px; 
+    background:var(--accent-light); color:var(--accent); 
+    font-weight:800; display:grid; place-items:center; font-size:.8rem;
+  }
+  
+  canvas {max-width:100%; touch-action: none;}
+  .level-btn.active {background:var(--accent); color:white;}
+  .exercise-solution {animation:fade .2s ease;}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  
+  .tip {border-left:4px solid #f59e0b; background:#fffbeb;}
+  .success {border-left:4px solid #10b981; background:#ecfdf5;}
+  .warning {border-left:4px solid #ef4444; background:#fef2f2;}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-indigo-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+    <div class="font-black text-lg sm:text-xl text-indigo-900">🌳 Radiciação</div>
+    <div class="text-[11px] text-slate-500 hidden sm:block">A arte de extrair a raiz matemática</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">📍 Mapeador</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">⚙️ Simplificador</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-indigo-950 via-indigo-800 to-violet-950 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-indigo-300">Curso Completo</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Desvendando as Raízes</h1>
+  <p class="mt-4 max-w-3xl text-indigo-100 leading-7">A Radiciação é o caminho de volta. Se a potenciação constrói o prédio multiplicando os tijolos, a radiciação pergunta: <i>"Se este prédio tem 27 andares e é um cubo perfeito, qual o tamanho de cada lado?"</i>. Aprenda as propriedades e veja que a raiz é apenas um expoente disfarçado.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">8</b><div class="text-xs text-indigo-300">regras lógicas</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-indigo-300">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-indigo-300">fatoração guiada</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">📍</b><div class="text-xs text-indigo-300">reta numérica</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm">
+  <b>A Regra de Ouro:</b> A raiz é a operação <b>inversa</b> da potência. Para achar a $\sqrt{25}$, seu cérebro deve perguntar: <i>"Qual número que, elevado ao quadrado, resulta em 25?"</i>.
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">A Anatomia do Radical</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Para dominar as raízes, primeiro precisamos saber o nome de cada parte dessa "casinha" matemática.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg font-bold text-indigo-900">
+    \[ \sqrt[\textcolor{#dc2626}{n}]{\textcolor{#2563eb}{x}} = \textcolor{#059669}{y} \]
+   </div>
+   <div class="grid grid-cols-2 gap-3 mt-4 text-sm text-slate-700">
+       <div class="bg-slate-50 p-3 rounded-lg border"><b>Índice ($\color{#dc2626}{n}$):</b> O número lá em cima. Ele diz quantas vezes a resposta deve ser multiplicada por si mesma.</div>
+       <div class="bg-slate-50 p-3 rounded-lg border"><b>Radicando ($\color{#2563eb}{x}$):</b> O número debaixo do telhado. É o resultado final que queremos atingir.</div>
+       <div class="bg-slate-50 p-3 rounded-lg border col-span-2 text-center"><b>Aviso:</b> Quando não tem nenhum índice escrito (ex: $\sqrt{16}$), assumimos que o índice é o <b>2</b> (Raiz Quadrada).</div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Casos Essenciais (Mentalmente)</h2></div>
+   <div class="grid grid-cols-2 gap-2 mt-4 text-sm font-bold text-center">
+    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+        <b>Raiz Quadrada</b><br>Índice 2 (oculto).<br>
+        $\sqrt{49} = 7$<br>
+        <span class="text-xs text-slate-500 font-normal">Pois $7 \times 7 = 49$</span>
+    </div>
+    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+        <b>Raiz Cúbica</b><br>Índice 3.<br>
+        $\sqrt[3]{8} = 2$<br>
+        <span class="text-xs text-slate-500 font-normal">Pois $2 \times 2 \times 2 = 8$</span>
+    </div>
+    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+        <b>Raiz de 1</b><br>Sempre será 1.<br>
+        $\sqrt[10]{1} = 1$<br>
+        <span class="text-xs text-slate-500 font-normal">Pois $1^{10} = 1$</span>
+    </div>
+    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+        <b>Raiz de 0</b><br>Sempre será 0.<br>
+        $\sqrt[5]{0} = 0$<br>
+        <span class="text-xs text-slate-500 font-normal">Pois $0^5 = 0$</span>
+    </div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-indigo-900 text-white rounded-2xl border shadow-sm p-6 sm:p-10 mt-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-800 text-indigo-100 grid place-items-center font-black">3</span><h2 class="text-3xl font-black">A Armadilha do Sinal</h2></div>
+  <p class="mt-4 text-indigo-100 text-lg leading-relaxed">Existe raiz de número negativo? Depende do porteiro da casa (o índice)! Isso confunde 9 em cada 10 alunos.</p>
+  
+  <div class="grid md:grid-cols-2 gap-6 mt-6">
+      <div class="bg-white text-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden text-center border-t-4 border-red-500">
+       <div class="text-sm text-slate-500 font-bold uppercase tracking-wide">Índice PAR (ex: 2, 4, 6)</div>
+       <p class="mt-3 text-sm">Todo número real elevado a um expoente PAR fica positivo. Logo, <b>NÃO EXISTE</b> raiz real de radicando negativo!</p>
+       <div class="mt-3 text-xl font-bold text-red-600">\[ \sqrt{-16} = \text{Não existe em } \mathbb{R} \]</div>
+       <div class="mt-2 text-xs text-slate-500">Pois nem $4^2$ e nem $(-4)^2$ dão $-16$. Ambos dão $+16$. (A resposta reside nos Números Complexos).</div>
+      </div>
+
+      <div class="bg-white text-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden text-center border-t-4 border-emerald-500">
+       <div class="text-sm text-slate-500 font-bold uppercase tracking-wide">Índice ÍMPAR (ex: 3, 5, 7)</div>
+       <p class="mt-3 text-sm">O sinal se mantém! Números negativos elevados a expoentes ímpares <b>continuam negativos</b>. Portanto, existe!</p>
+       <div class="mt-3 text-xl font-bold text-emerald-600">\[ \sqrt[3]{-8} = -2 \]</div>
+       <div class="mt-2 text-xs text-slate-500">Faz sentido, pois $(-2) \times (-2) \times (-2) = -8$.</div>
+      </div>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Propriedades Operatórias</h2></div>
+   <div class="space-y-4 mt-4 text-sm text-slate-600">
+    <div class="step" data-step="×"><b>Raiz de um Produto:</b> A raiz da multiplicação é a multiplicação das raízes (se tiverem o mesmo índice).<br>
+      $\sqrt{4 \times 9} = \sqrt{4} \times \sqrt{9} = 2 \times 3 = 6$<br>
+      Isso também serve para juntar: $\sqrt{2} \times \sqrt{8} = \sqrt{16} = 4$.
+    </div>
+    <div class="step" data-step="÷"><b>Raiz de um Quociente:</b> Funciona igual para divisão/fração.<br>
+      $\sqrt{\frac{100}{25}} = \frac{\sqrt{100}}{\sqrt{25}} = \frac{10}{5} = 2$.
+    </div>
+    <div class="bg-red-50 p-4 rounded-xl border border-red-100 font-bold text-red-800 mt-2">
+        ⚠️ ATENÇÃO: NÃO FAÇA ISSO NA SOMA OU SUBTRAÇÃO!<br>
+        $\sqrt{16 + 9} \neq \sqrt{16} + \sqrt{9}$ (Pois $\sqrt{25} = 5$, e $4+3=7$). Resolva a conta de dentro primeiro!
+    </div>
+   </div>
+  </article>
+
+  <div class="space-y-6">
+      <article class="bg-white rounded-2xl border p-6 shadow-sm border-l-4 border-l-indigo-500">
+       <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">O Disfarce (Expoente Fracionário)</h2></div>
+       <p class="mt-3 text-slate-600 text-sm">Toda raiz pode ser escrita como uma potência usando uma fração. É a regra do <b>"Quem tá no sol vai pra sombra, quem tá na sombra vai pro sol"</b>.</p>
+       <div class="paper rounded-xl p-4 mt-3 text-center text-indigo-900 font-bold text-lg">
+        \[ x^{\frac{\text{sol}}{\text{sombra}}} = \sqrt[\text{sombra}]{x^{\text{sol}}} \]
+       </div>
+       <div class="text-sm text-slate-500 mt-3">
+           Exemplo: $27^{\frac{1}{3}} = \sqrt[3]{27^1} = 3$<br>
+           Exemplo: $\sqrt{x} = x^{\frac{1}{2}}$
+       </div>
+      </article>
+      
+      <article class="bg-white rounded-2xl border p-6 shadow-sm">
+       <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">Raiz de Raiz</h2></div>
+       <p class="mt-3 text-slate-600 text-sm">Quando temos uma casinha dentro da outra, basta manter o radicando e <b>MULTIPLICAR os índices</b>.</p>
+       <div class="bg-slate-50 rounded-xl p-3 mt-3 text-center font-bold text-lg border">
+        \[ \sqrt{\sqrt[3]{64}} = \sqrt[2 \times 3]{64} = \sqrt[6]{64} = 2 \]
+       </div>
+      </article>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center font-black">7</span><h2 class="text-xl font-black">Simplificação (Fatoração)</h2></div>
+   <p class="mt-4 text-slate-600 text-sm">O que fazer com raízes não exatas como $\sqrt{72}$? Nós a "quebramos" em pedaços usando os números primos e tiramos da raiz quem formar pares (pois o índice é 2).</p>
+   <div class="space-y-3 mt-4 text-sm bg-slate-50 p-4 rounded-xl border">
+      <div><b>1. Fatore:</b> $72 = 2 \times 2 \times 2 \times 3 \times 3$</div>
+      <div><b>2. Agrupe:</b> $(2^2) \times 2^1 \times (3^2)$</div>
+      <div><b>3. Corte e Tire:</b> Quem está ao quadrado corta com a raiz e pula para fora. O $2^1$ fica preso.</div>
+      <div class="font-bold text-center mt-2 text-indigo-800">$\sqrt{72} = 2 \times 3 \times \sqrt{2} = 6\sqrt{2}$</div>
+   </div>
+  </article>
+
+  <article class="bg-slate-900 text-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-slate-800 text-indigo-400 grid place-items-center font-black">8</span><h2 class="text-2xl font-black text-indigo-400">Racionalização</h2></div>
+   <p class="mt-3 text-slate-300 text-sm">Na matemática, é "falta de educação" deixar uma raiz no denominador (embaixo) de uma fração. Precisamos subir ela!</p>
+   <div class="mt-4 space-y-4">
+       <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 text-sm">
+           <b>Caso Simples ($\sqrt{x}$):</b> Multiplique em cima e embaixo pela própria raiz.<br>
+           $\frac{5}{\sqrt{2}} = \frac{5 \cdot \sqrt{2}}{\sqrt{2} \cdot \sqrt{2}} = \frac{5\sqrt{2}}{2}$
+       </div>
+       <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 text-sm">
+           <b>Com Soma/Subtração embaixo:</b> Multiplique pelo <i>conjugado</i> (troca o sinal do meio).<br>
+           $\frac{1}{\sqrt{3}-1} \times \frac{\sqrt{3}+1}{\sqrt{3}+1} = \frac{\sqrt{3}+1}{3 - 1} = \frac{\sqrt{3}+1}{2}$
+       </div>
+   </div>
+  </article>
+ </div>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Simulador Analítico</span>
+   <h1 class="text-3xl font-black mt-2">Mapeador de Raízes</h1>
+   <p class="text-slate-600 mt-2">As raízes quadradas não exatas (como $\sqrt{20}$) são números irracionais (decimais infinitos). Este laboratório ajuda você a estimar de cabeça o valor de qualquer raiz quadrada comparando-a com os Quadrados Perfeitos conhecidos na reta numérica.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   <h3 class="font-bold text-lg mb-4 text-center border-b pb-2">Controles da Área</h3>
+   
+   <div class="space-y-6 flex-1">
+      <div>
+        <label class="font-bold text-sm text-slate-700">Área do Quadrado ($x$): <span class="text-indigo-700 font-black text-lg" id="lab-val-x">20</span></label>
+        <input type="range" id="lab-input-x" min="1" max="100" step="1" value="20" class="w-full mt-2 accent-indigo-600">
+      </div>
+      
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4 text-center">
+          <div class="text-sm font-bold text-slate-500 uppercase tracking-wide">A Raiz (Lado do quadrado)</div>
+          <div class="text-2xl font-black mt-2 text-indigo-800" id="lab-result-sqrt">$\sqrt{20} \approx 4.47$</div>
+          <div class="mt-4 text-sm text-slate-600 text-left border-t pt-2" id="lab-explanation">
+              <!-- Explicação dinâmica aqui -->
+          </div>
+      </div>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col relative items-center justify-center min-h-[400px]">
+    <div class="w-full mb-8 relative">
+        <h4 class="font-bold text-center text-slate-500 mb-6 text-sm">Reta dos Quadrados Perfeitos</h4>
+        <!-- Reta Numérica SVG -->
+        <svg viewBox="0 -20 1000 80" class="w-full overflow-visible font-mono">
+            <line x1="0" y1="0" x2="1000" y2="0" stroke="#cbd5e1" stroke-width="4"></line>
+            <!-- Ticks will be generated by JS -->
+            <g id="svg-ticks"></g>
+            <!-- Marker for current value -->
+            <g id="svg-marker" transform="translate(447,0)">
+                <polygon points="-10,-25 10,-25 0,-5" fill="#4f46e5"></polygon>
+                <text x="0" y="-35" text-anchor="middle" fill="#4f46e5" font-weight="bold" font-size="18" id="svg-marker-text">4.47</text>
+            </g>
+        </svg>
+    </div>
+    
+    <div class="flex items-end justify-center w-full mt-4 h-[200px]">
+        <div id="visual-square" class="bg-indigo-100 border-4 border-indigo-500 flex items-center justify-center transition-all duration-300 relative" style="width: 89.4px; height: 89.4px;">
+            <span class="font-bold text-indigo-800 text-xl" id="square-area">20</span>
+            <div class="absolute -bottom-6 font-bold text-indigo-600 text-sm w-full text-center" id="square-side-b">4.47</div>
+            <div class="absolute -left-12 top-1/2 -translate-y-1/2 font-bold text-indigo-600 text-sm" id="square-side-l">4.47</div>
+        </div>
+    </div>
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Assistentes Analíticos</span>
+   <h1 class="text-3xl font-black mt-2">Calculadoras Passo a Passo</h1>
+   <p class="text-slate-600 mt-2">Veja exatamente como simplificar grandes raízes usando a fatoração em números primos, ou como eliminar a raiz do denominador.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  
+  <!-- Simplificador de Radicais -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Simplificação por Fatoração</h2>
+   <p class="text-xs text-slate-500 mb-4">Veja como "tirar do radical" agrupando por índice.</p>
+   
+   <div class="flex items-center gap-3 font-mono bg-slate-50 border p-3 rounded-xl">
+      <div class="font-bold whitespace-nowrap">Índice ($\color{#dc2626}{n}$):</div>
+      <select id="tool1-n" class="border rounded p-1 w-16 text-center font-bold">
+          <option value="2">2 (√)</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+      </select>
+      <div class="font-bold ml-2">de</div>
+      <input id="tool1-x" type="number" value="72" min="1" max="10000" class="border rounded p-2 w-full text-center font-bold">
+   </div>
+
+   <button onclick="calcSimpTool()" class="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 transition text-white rounded-xl py-3 font-bold text-sm">Fatorar e Simplificar</button>
+   <div id="tool1-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+  <!-- Racionalizador -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Racionalização Básica</h2>
+   <p class="text-xs text-slate-500 mb-4">Elimina a raiz quadrada (simples) do denominador.</p>
+   
+   <div class="flex items-center justify-center font-mono mt-6 mb-6">
+      <div class="flex flex-col items-center gap-1">
+          <input id="tool2-top" type="number" value="10" class="w-20 text-center border rounded p-1 font-bold">
+          <div class="w-24 h-0.5 bg-slate-800 my-1"></div>
+          <div class="flex items-center gap-1">
+            <span class="text-xl font-bold">$\sqrt{}$</span><input id="tool2-bot" type="number" value="5" class="w-16 text-center border rounded p-1 font-bold">
+          </div>
+      </div>
+   </div>
+   
+   <button onclick="calcRatTool()" class="w-full mt-5 bg-violet-700 hover:bg-violet-800 transition text-white rounded-xl py-3 font-bold text-sm">Racionalizar Fração</button>
+   <div id="tool2-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+     <div>
+       <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Treino progressivo</span>
+       <h1 class="text-3xl font-black mt-2">100 Exercícios Dinâmicos</h1>
+       <p class="text-slate-600 mt-2 text-sm"><b>INSTRUÇÕES DE DIGITAÇÃO:</b> Para raízes, use a letra <b>V</b> maiúscula. Ex: para $2\sqrt{3}$ digite <code>2V3</code>. Para $\sqrt{5}$ digite <code>V5</code>. Para frações, use a barra: <code>V2/2</code>. Se a raiz não for real, digite <code>N</code>.</p>
+     </div>
+     <div class="min-w-[210px]">
+       <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+       <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width:0%"></div></div>
+     </div>
+   </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 1 (Raízes Exatas)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 2 (Sinais/Armadilhas)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 3 (Expoente Fracionário)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 4 (Propriedades Básicas)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 5 (Simplificação Fatoração)</button>
+   <button data-level="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 6 (Racionalização)</button>
+  </div>
+ </div>
+ 
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material educacional interativo de Matemática • Renderizado com KaTeX</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function mathInline(latex){return String.raw`\(${latex}\)`}
+function mathDisplay(latex){return String.raw`\[${latex}\]`}
+
+function renderAll(){
+    document.querySelectorAll('body').forEach(el=>{
+        if(window.renderMathInElement) renderMathInElement(el,{
+            delimiters:[
+                {left: '$$', right: '$$', display: true},
+                {left: '\\[', right: '\\]', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false}
+            ]
+        });
+    });
+}
+
+// Math Utilities
+function gcd(a,b) { a=Math.abs(a); b=Math.abs(b); while(b) { [a,b]=[b, a%b] } return a || 1; }
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+    const t=btn.dataset.tab;
+    sections.forEach(s => $('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active',b===btn));
+    if(t==='exercicios') renderExercises();
+    if(t==='laboratorio') initLab();
+}));
+
+// --- LABORATÓRIO (Mapeador de Raízes) ---
+let labInited = false;
+function initLab() {
+  if(!labInited) {
+    $('lab-input-x').addEventListener('input', updateLab);
+    window.addEventListener('resize', updateLab); // Just in case, though SVG handles mostly
+    setupSVGTicks();
+    labInited = true;
+  }
+  updateLab();
+}
+
+const perfSquares = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100];
+
+function setupSVGTicks() {
+    const ticksContainer = $('svg-ticks');
+    let html = '';
+    for(let i=0; i<=10; i++) {
+        let xPos = i * 100;
+        let isSquare = true; // They are all roots of perfect squares
+        let h = isSquare ? 15 : 8;
+        html += `<line x1="${xPos}" y1="-${h}" x2="${xPos}" y2="${h}" stroke="#64748b" stroke-width="2"></line>`;
+        html += `<text x="${xPos}" y="35" text-anchor="middle" fill="#64748b" font-size="14" font-weight="bold">${i}</text>`;
+        html += `<text x="${xPos}" y="-25" text-anchor="middle" fill="#94a3b8" font-size="12">√${i*i}</text>`;
+    }
+    ticksContainer.innerHTML = html;
+}
+
+function updateLab() {
+  if($('sec-laboratorio').classList.contains('hidden')) return;
+
+  const x = parseInt($('lab-input-x').value);
+  $('lab-val-x').innerText = x;
+  
+  const root = Math.sqrt(x);
+  const rootFixed = root.toFixed(2).replace('.00', '');
+  
+  $('lab-result-sqrt').innerHTML = `$\\sqrt{${x}} \\approx ${rootFixed}$`;
+  renderAll();
+
+  // Find nearest squares
+  let lowS = 0, highS = 1;
+  for(let i=0; i<perfSquares.length; i++) {
+      if(x === perfSquares[i]) {
+          lowS = perfSquares[i]; highS = perfSquares[i]; break;
+      }
+      if(x > perfSquares[i] && x < perfSquares[i+1]) {
+          lowS = perfSquares[i]; highS = perfSquares[i+1]; break;
+      }
+  }
+
+  let expl = '';
+  if (lowS === highS) {
+      expl = `O número <b>${x}</b> é um quadrado perfeito! Sua raiz é exatamente <b>${rootFixed}</b>, pois $${rootFixed} \\times ${rootFixed} = ${x}$.`;
+  } else {
+      let rL = Math.sqrt(lowS), rH = Math.sqrt(highS);
+      expl = `O número <b>${x}</b> não é perfeito. Ele está preso entre $\\sqrt{${lowS}}$ (${rL}) e $\\sqrt{${highS}}$ (${rH}). Portanto, sua raiz deve ser um número decimal $${rL},...$`;
+  }
+  $('lab-explanation').innerHTML = expl;
+  renderAll();
+
+  // Move SVG Marker
+  const svgMarker = $('svg-marker');
+  const markerX = root * 100; 
+  svgMarker.setAttribute('transform', `translate(${markerX},0)`);
+  $('svg-marker-text').textContent = rootFixed;
+
+  // Draw visual square
+  const maxPixels = 180; // Box max size
+  const maxRoot = 10;
+  const sidePx = (root / maxRoot) * maxPixels;
+  const sq = $('visual-square');
+  sq.style.width = sidePx + 'px';
+  sq.style.height = sidePx + 'px';
+  $('square-area').innerText = x;
+  $('square-side-b').innerText = rootFixed;
+  $('square-side-l').innerText = rootFixed;
+}
+
+// --- FERRAMENTAS ---
+function primeFactorsMap(n) {
+    let factors = {};
+    let temp = n;
+    let d = 2;
+    while (temp > 1) {
+        while (temp % d === 0) {
+            factors[d] = (factors[d] || 0) + 1;
+            temp /= d;
+        }
+        d++;
+        if (d * d > temp) {
+            if (temp > 1) factors[temp] = (factors[temp] || 0) + 1;
+            break;
+        }
+    }
+    return factors;
+}
+
+function calcSimpTool() {
+    const idx = parseInt($('tool1-n').value);
+    const x = parseInt($('tool1-x').value);
+    const out = $('tool1-out');
+    
+    if(isNaN(idx)||isNaN(x) || x < 1) return;
+    
+    if (x === 1) {
+        out.innerHTML = `<div class="success rounded-xl p-4">A raiz de 1 é sempre 1.</div>`;
+        out.classList.remove('hidden'); return;
+    }
+
+    const factors = primeFactorsMap(x);
+    let factorStrArr = [];
+    let insideStrArr = [];
+    let outsideStrArr = [];
+    
+    let outVal = 1;
+    let inVal = 1;
+
+    for (let p in factors) {
+        let power = factors[p];
+        factorStrArr.push(`${p}^{${power}}`);
+        
+        let expOut = Math.floor(power / idx);
+        let expIn = power % idx;
+        
+        if(expOut > 0) {
+            outsideStrArr.push(`${p}^{${expOut}}`);
+            outVal *= Math.pow(p, expOut);
+        }
+        if(expIn > 0) {
+            insideStrArr.push(`${p}^{${expIn}}`);
+            inVal *= Math.pow(p, expIn);
+        }
+    }
+
+    let rootSymb = idx === 2 ? `\\sqrt` : `\\sqrt[${idx}]`;
+    
+    let html = `<div class="step" data-step="1"><b>Fatoração:</b> Decompomos ${x} em fatores primos: ${mathInline(factorStrArr.join(' \\cdot '))}</div>`;
+    html += `<div class="step mt-3" data-step="2"><b>Dentro do Radical:</b> ${mathDisplay(`${rootSymb}{${factorStrArr.join(' \\cdot ')}}`)}</div>`;
+    
+    html += `<div class="step mt-3" data-step="3"><b>Separação por índice (${idx}):</b> A cada ${idx} fatores iguais, 1 pula para fora da raiz.</div>`;
+    
+    let outPart = outsideStrArr.length > 0 ? outsideStrArr.join(' \\cdot ') : '';
+    let inPart = insideStrArr.length > 0 ? `${rootSymb}{${insideStrArr.join(' \\cdot ')}}` : '';
+    
+    let midRes = '';
+    if(outPart && inPart) midRes = `${outPart} \\cdot ${inPart}`;
+    else if (outPart) midRes = outPart;
+    else midRes = inPart;
+
+    html += `<div class="step mt-3" data-step="4"><b>Aplicação:</b> ${mathDisplay(`\\implies ${midRes}`)}</div>`;
+
+    let finalRes = '';
+    if (inVal === 1) finalRes = `${outVal}`; // Perfect root
+    else if (outVal === 1) finalRes = `${rootSymb}{${inVal}}`; // Irreducible
+    else finalRes = `${outVal}${rootSymb}{${inVal}}`;
+
+    html += `<div class="success rounded-xl p-4 mt-4 text-center text-lg font-bold">Resultado Simplificado: \\[${finalRes}\\]</div>`;
+    
+    out.innerHTML = html;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+function calcRatTool() {
+    const t = parseInt($('tool2-top').value);
+    const b = parseInt($('tool2-bot').value);
+    const out = $('tool2-out');
+    
+    if(isNaN(t)||isNaN(b)||b < 1) return;
+    
+    let html = '';
+    
+    // Check if b is perfect square
+    const rootB = Math.sqrt(b);
+    if(Number.isInteger(rootB)) {
+        let resFrac = `\\frac{${t}}{${rootB}}`;
+        let g = gcd(t, rootB);
+        let fn = t/g, fd = rootB/g;
+        if(fd === 1) resFrac = fn;
+        else if (g > 1) resFrac = `\\frac{${fn}}{${fd}}`;
+
+        html = `<div class="step" data-step="1">O denominador já é uma raiz exata! $\\sqrt{${b}} = ${rootB}$.</div>
+                <div class="success rounded-xl p-4 mt-4 text-center font-bold">\\[\\frac{${t}}{\\sqrt{${b}}} = \\frac{${t}}{${rootB}} = ${resFrac}\\]</div>`;
+    } else {
+        let inside = b;
+        let finalNumStr = `${t}\\sqrt{${b}}`;
+        let finalDenStr = `${b}`;
+        
+        let g = gcd(t, b);
+        let simpN = t/g;
+        let simpD = b/g;
+        
+        let resFinal = '';
+        if(simpD === 1) {
+            resFinal = simpN === 1 ? `\\sqrt{${b}}` : `${simpN}\\sqrt{${b}}`;
+        } else {
+            let nStr = simpN === 1 ? `\\sqrt{${b}}` : `${simpN}\\sqrt{${b}}`;
+            resFinal = `\\frac{${nStr}}{${simpD}}`;
+        }
+
+        html = `<div class="step" data-step="1">Temos a fração ${mathInline(`\\frac{${t}}{\\sqrt{${b}}}`)}. Para racionalizar, multiplicamos em cima e embaixo pelo próprio radical do denominador.</div>
+                <div class="step mt-3" data-step="2">Multiplicando: ${mathDisplay(`\\frac{${t}}{\\sqrt{${b}}} \\times \\frac{\\sqrt{${b}}}{\\sqrt{${b}}} = \\frac{${t}\\sqrt{${b}}}{(\\sqrt{${b}})^2}`)}</div>
+                <div class="step mt-3" data-step="3">O quadrado corta com a raiz embaixo: ${mathDisplay(`= \\frac{${t}\\sqrt{${b}}}{${b}}`)}</div>`;
+        
+        if (g > 1) {
+            html += `<div class="step mt-3" data-step="4">Simplificamos a fração de fora dividindo ambos por ${g}.</div>`;
+        }
+
+        html += `<div class="success rounded-xl p-4 mt-4 text-center text-lg font-bold">Resultado Racionalizado: \\[${resFinal}\\]</div>`;
+    }
+    
+    out.innerHTML = html;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+// --- DATA DOS 100 EXERCÍCIOS ---
+const rawExercises = [
+  // L1: Definição Básica Exatas (1-15)
+  "1|1|Raiz Quadrada Exata|\\sqrt{4}|2|basic|Pense: qual número vezes ele mesmo dá 4?",
+  "2|1|Raiz Quadrada Exata|\\sqrt{9}|3|basic|3 vezes 3.",
+  "3|1|Raiz Quadrada Exata|\\sqrt{16}|4|basic|4 vezes 4.",
+  "4|1|Raiz Quadrada Exata|\\sqrt{25}|5|basic|5 vezes 5.",
+  "5|1|Raiz Quadrada Exata|\\sqrt{36}|6|basic|6 vezes 6.",
+  "6|1|Raiz Quadrada Exata|\\sqrt{49}|7|basic|7 vezes 7.",
+  "7|1|Raiz Quadrada Exata|\\sqrt{64}|8|basic|8 vezes 8.",
+  "8|1|Raiz Quadrada Exata|\\sqrt{81}|9|basic|9 vezes 9.",
+  "9|1|Raiz Quadrada Exata|\\sqrt{100}|10|basic|10 vezes 10.",
+  "10|1|Raiz Quadrada Exata|\\sqrt{144}|12|basic|12 vezes 12.",
+  "11|1|Raiz Cúbica Exata|\\sqrt[3]{8}|2|basic|Qual número vezes ele mesmo 3 vezes dá 8? (2x2x2).",
+  "12|1|Raiz Cúbica Exata|\\sqrt[3]{27}|3|basic|3x3x3.",
+  "13|1|Raiz Cúbica Exata|\\sqrt[3]{64}|4|basic|4x4x4.",
+  "14|1|Raiz Cúbica Exata|\\sqrt[3]{125}|5|basic|5x5x5.",
+  "15|1|Outros Índices|\\sqrt[4]{16}|2|basic|Qual número multiplicado 4 vezes dá 16? (2x2x2x2).",
+
+  // L2: Sinais e Armadilhas (16-30)
+  "16|2|Zero|\\sqrt{0}|0|sign|A raiz de 0 é sempre 0.",
+  "17|2|Um|\\sqrt[5]{1}|1|sign|Qualquer raiz de 1 é 1.",
+  "18|2|Sinal Externo|-\\sqrt{25}|-5|sign|O menos está fora esperando. Calcule a raiz, depois junte o menos.",
+  "19|2|Sinal Externo|-\\sqrt[3]{8}|-2|sign|Calcula a raiz (2) e adiciona o menos de fora.",
+  "20|2|Raiz Par de Negativo|\\sqrt{-9}|N|sign|Expoente par nunca dá negativo. Use N.",
+  "21|2|Raiz Par de Negativo|\\sqrt[4]{-16}|N|sign|Índice par de radicando negativo não existe nos Reais (N).",
+  "22|2|Raiz Ímpar de Negativo|\\sqrt[3]{-8}|-2|sign|Existe! (-2)*(-2)*(-2) = -8.",
+  "23|2|Raiz Ímpar de Negativo|\\sqrt[3]{-27}|-3|sign|Mantém o sinal de dentro na resposta se o índice for ímpar.",
+  "24|2|Raiz Ímpar de Negativo|\\sqrt[5]{-32}|-2|sign|Índice ímpar, resposta negativa.",
+  "25|2|Pegadinha|-\\sqrt[3]{-8}|2|sign|Raiz dá -2. O menos de fora com o menos de dentro vira mais.",
+  "26|2|Pegadinha|-\\sqrt{-100}|N|sign|O de dentro (raiz par de negativo) inviabiliza tudo. N.",
+  "27|2|Raiz da Potência Par|\\sqrt{(-5)^2}|5|sign|Cuidado: (-5)² = 25. Raiz de 25 é +5.",
+  "28|2|Raiz da Potência Ímpar|\\sqrt[3]{(-4)^3}|-4|sign|Índices ímpares você pode apenas cortar com o expoente e manter a base e sinal.",
+  "29|2|Soma interna 1|\\sqrt{9 + 16}|5|sign|Some PRIMEIRO (da 25). Raiz de 25 é 5. Não separe em 3+4!",
+  "30|2|Soma interna 2|\\sqrt{100 - 36}|8|sign|Subtraia primeiro (dá 64). Raiz de 64.",
+
+  // L3: Expoente Fracionário (31-45)
+  "31|3|Converter para Raiz|4^{1/2}|2|frac|O denominador 2 vira raiz quadrada. \\sqrt{4}.",
+  "32|3|Converter para Raiz|9^{1/2}|3|frac|Raiz quadrada de 9.",
+  "33|3|Converter para Raiz|16^{1/2}|4|frac|Raiz quadrada de 16.",
+  "34|3|Converter para Raiz|25^{1/2}|5|frac|Raiz quadrada de 25.",
+  "35|3|Converter para Raiz Cúbica|8^{1/3}|2|frac|Raiz cúbica de 8.",
+  "36|3|Converter para Raiz Cúbica|27^{1/3}|3|frac|Raiz cúbica de 27.",
+  "37|3|Expoente com Numerador|8^{2/3}|4|frac|Raiz cúbica de 8 é 2. Depois eleve ao topo (2): 2² = 4.",
+  "38|3|Expoente com Numerador|27^{2/3}|9|frac|Raiz cúbica de 27 é 3. Depois ao quadrado: 3² = 9.",
+  "39|3|Expoente com Numerador|16^{3/4}|8|frac|Raiz quarta de 16 é 2. 2 ao cubo é 8.",
+  "40|3|Expoente Decimal|9^{0.5}|3|frac|0.5 é 1/2. Logo é raiz quadrada.",
+  "41|3|Expoente Decimal|81^{0.5}|9|frac|Raiz quadrada de 81.",
+  "42|3|Fracionário Negativo|4^{-1/2}|1/2|frac|Menos inverte (1/4), meio tira raiz (√(1/4) = 1/2).",
+  "43|3|Fracionário Negativo|9^{-1/2}|1/3|frac|Inverte para 1/9, e tira a raiz quadrada.",
+  "44|3|Mistura|(-8)^{1/3}|-2|frac|Raiz cúbica de -8.",
+  "45|3|Bases Literais (Identidade)|Qual o valor do expoente (em decimal) equivalente à \\sqrt{x}?|0.5|frac|Raiz quadrada equivale a elevado a meio.",
+
+  // L4: Propriedades (Multiplicação, Divisão, Raiz de Raiz) (46-60)
+  "46|4|Produto de Mesma Raiz|\\sqrt{2} \\cdot \\sqrt{2}|2|prop|Junte tudo: \\sqrt{4} = 2.",
+  "47|4|Produto de Mesma Raiz|\\sqrt{2} \\cdot \\sqrt{8}|4|prop|Junte: \\sqrt{16} = 4.",
+  "48|4|Produto de Mesma Raiz|\\sqrt{3} \\cdot \\sqrt{12}|6|prop|\\sqrt{36} = 6.",
+  "49|4|Produto de Mesma Raiz|\\sqrt[3]{2} \\cdot \\sqrt[3]{4}|2|prop|\\sqrt[3]{8} = 2.",
+  "50|4|Produto de Mesma Raiz|\\sqrt{5} \\cdot \\sqrt{20}|10|prop|\\sqrt{100} = 10.",
+  "51|4|Divisão de Raízes|\\frac{\\sqrt{18}}{\\sqrt{2}}|3|prop|Junte na mesma fração: \\sqrt{9} = 3.",
+  "52|4|Divisão de Raízes|\\frac{\\sqrt{75}}{\\sqrt{3}}|5|prop|\\sqrt{25} = 5.",
+  "53|4|Divisão de Raízes|\\frac{\\sqrt{200}}{\\sqrt{2}}|10|prop|\\sqrt{100} = 10.",
+  "54|4|Divisão de Raízes|\\frac{\\sqrt[3]{16}}{\\sqrt[3]{2}}|2|prop|\\sqrt[3]{8} = 2.",
+  "55|4|Divisão com Resultado Fracionário|\\frac{\\sqrt{2}}{\\sqrt{8}}|1/2|prop|\\sqrt{2/8} = \\sqrt{1/4} = 1/2.",
+  "56|4|Raiz de Raiz|\\sqrt{\\sqrt{16}}|2|prop|Multiplica os índices (2*2=4). Raiz quarta de 16 é 2. Ou resolva a de dentro primeiro.",
+  "57|4|Raiz de Raiz|\\sqrt{\\sqrt{81}}|3|prop|Raiz de 81 é 9. Raiz de 9 é 3.",
+  "58|4|Simplificando Índice|\\sqrt[4]{3^2}|V3|prop|Dá pra dividir índice e expoente por 2. Fica raiz quadrada de 3^1.",
+  "59|4|Simplificando Índice|\\sqrt[6]{5^3}|V5|prop|Divide ambos por 3. Fica raiz quadrada de 5.",
+  "60|4|Propriedade Falsa da Soma|Se \\sqrt{A+B} = \\sqrt{A}+\\sqrt{B} fosse verdade para A=9, B=16, a resposta daria 7. Qual a reposta REAL de \\sqrt{9+16}?|5|prop|Soma dá 25. Raiz de 25 é 5.",
+
+  // L5: Simplificação e Fatoração (61-80) - Output format: aVb
+  "61|5|Tirando do Radical|\\sqrt{8}|2V2|simp|8 = 4*2. Raiz de 4 sai como 2. Fica 2V2.",
+  "62|5|Tirando do Radical|\\sqrt{12}|2V3|simp|12 = 4*3. Raiz de 4 é 2. Fica 2V3.",
+  "63|5|Tirando do Radical|\\sqrt{18}|3V2|simp|18 = 9*2. Raiz de 9 é 3. Fica 3V2.",
+  "64|5|Tirando do Radical|\\sqrt{20}|2V5|simp|20 = 4*5. Raiz de 4 é 2. Fica 2V5.",
+  "65|5|Tirando do Radical|\\sqrt{24}|2V6|simp|24 = 4*6. O 4 sai como 2. O 6 fica. 2V6.",
+  "66|5|Tirando do Radical|\\sqrt{27}|3V3|simp|27 = 9*3. Raiz de 9 sai como 3.",
+  "67|5|Tirando do Radical|\\sqrt{32}|4V2|simp|32 = 16*2. Raiz de 16 é 4.",
+  "68|5|Tirando do Radical|\\sqrt{45}|3V5|simp|45 = 9*5. O 9 sai como 3.",
+  "69|5|Tirando do Radical|\\sqrt{48}|4V3|simp|48 = 16*3. O 16 sai como 4.",
+  "70|5|Tirando do Radical|\\sqrt{50}|5V2|simp|50 = 25*2. O 25 sai como 5.",
+  "71|5|Tirando do Radical|\\sqrt{72}|6V2|simp|72 = 36*2. O 36 sai como 6.",
+  "72|5|Tirando do Radical|\\sqrt{75}|5V3|simp|75 = 25*3. O 25 sai como 5.",
+  "73|5|Tirando do Radical|\\sqrt{80}|4V5|simp|80 = 16*5. O 16 sai como 4.",
+  "74|5|Tirando do Radical|\\sqrt{98}|7V2|simp|98 = 49*2. O 49 sai como 7.",
+  "75|5|Tirando do Radical|\\sqrt{200}|10V2|simp|200 = 100*2. 100 sai como 10.",
+  "76|5|Raiz Cúbica Simplific.|\\sqrt[3]{16}|2V[3]2|simp|16 = 8*2. A raiz CÚBICA de 8 sai como 2. Digite 2V[3]2. (Use os colchetes para índice 3 na nossa sintaxe combinada, ou simplifique para 2V2 se aceitarmos erro leve. Para este script, digite 2V[3]2). (Nota: no script vou aceitar `2v[3]2`).",
+  "77|5|Colocando de Volta|2\\sqrt{3} é a raiz de qual número? (Digite apenas o número)|12|simp|O 2 entra elevando ao quadrado (4). 4*3 = 12.",
+  "78|5|Colocando de Volta|3\\sqrt{2} é a raiz de qual número?|18|simp|3 entra como 9. 9*2 = 18.",
+  "79|5|Colocando de Volta|5\\sqrt{5} é a raiz de qual número?|125|simp|5 entra como 25. 25*5 = 125.",
+  "80|5|Soma de Semelhantes|2\\sqrt{3} + 4\\sqrt{3}|6V3|simp|Pense como 2x + 4x = 6x.",
+
+  // L6: Racionalização e Desafios (81-100)
+  "81|6|Racionalização Básica|\\frac{1}{\\sqrt{2}}|V2/2|rat|Multiplica cima e baixo por V2.",
+  "82|6|Racionalização Básica|\\frac{1}{\\sqrt{3}}|V3/3|rat|Multiplica cima e baixo por V3.",
+  "83|6|Racionalização Simplif.|\\frac{2}{\\sqrt{2}}|V2|rat|Vira 2V2 / 2. Os dois cortam, sobra V2.",
+  "84|6|Racionalização Simplif.|\\frac{3}{\\sqrt{3}}|V3|rat|Vira 3V3 / 3. Cortam, sobra V3.",
+  "85|6|Racionalização Simplif.|\\frac{5}{\\sqrt{5}}|V5|rat|Corta fora o 5.",
+  "86|6|Racionalização Padrão|\\frac{4}{\\sqrt{2}}|2V2|rat|4V2 / 2 = 2V2.",
+  "87|6|Racionalização Padrão|\\frac{6}{\\sqrt{3}}|2V3|rat|6V3 / 3 = 2V3.",
+  "88|6|Racionalização Padrão|\\frac{10}{\\sqrt{2}}|5V2|rat|10V2 / 2 = 5V2.",
+  "89|6|Racionalização Padrão|\\frac{12}{\\sqrt{6}}|2V6|rat|12V6 / 6 = 2V6.",
+  "90|6|Mistura Radical|\\sqrt{8} + \\sqrt{2}|3V2|rat|Transforme V8 em 2V2. Depois some: 2V2 + V2 = 3V2.",
+  "91|6|Mistura Radical|\\sqrt{12} - \\sqrt{3}|V3|rat|V12 é 2V3. Fica 2V3 - V3 = 1V3.",
+  "92|6|Mistura Radical|\\sqrt{18} + \\sqrt{50}|8V2|rat|3V2 + 5V2 = 8V2.",
+  "93|6|Mistura Radical|\\sqrt{27} - \\sqrt{12}|V3|rat|3V3 - 2V3 = V3.",
+  "94|6|Divisão Simplificada|\\frac{\\sqrt{20}}{\\sqrt{5}}|2|prop|Junte: raiz de 20/5 = raiz de 4 = 2.",
+  "95|6|Raiz da Raiz Fração|\\sqrt{\\frac{1}{16}}|1/4|prop|Raiz de 1 e Raiz de 16.",
+  "96|6|Raiz Exata Grande|\\sqrt{400}|20|basic|20x20.",
+  "97|6|Raiz Exata Grande|\\sqrt{900}|30|basic|30x30.",
+  "98|6|Desafio Área Quadrado|Se a área é 50, o lado é $\\sqrt{50}$. Qual a forma simplificada do lado?|5V2|text|Mesmo que fatorar V50.",
+  "99|6|Desafio Diagonal|A diagonal de um quadrado de lado 1 é $\\sqrt{1^2+1^2}$. Isso dá?|V2|text|1+1=2.",
+  "100|6|Potência vs Raiz|Se eu elevar $\\sqrt{7}$ à $4ª$ potência, qual o resultado?|49|text|V7^4 = 7^2 = 49."
+];
+
+// O único ajuste no L5 para manter a sintaxe V amigável
+rawExercises[75] = "76|5|Raiz Cúbica Simplific.|\\sqrt[3]{16}|2V[3]2|simp|Para a sintaxe do site digite V com índice em colchetes: 2V[3]2";
+
+const E = rawExercises.map(line => {
+  const p = line.split('|');
+  return { id: parseInt(p[0]), level: parseInt(p[1]), title: p[2], q: p[3], ans: p[4], type: p[5], hint: p[6] };
+});
+
+function solutionSteps(ex){
+  const S=[];
+  if(ex.type==='basic'){
+    S.push(['1','Lembre-se da definição básica: procurar o número que multiplicado por si mesmo dê o valor dentro da raiz.']);
+    S.push(['2',`Raciocínio: ${ex.hint}`]);
+  }
+  else if(ex.type==='sign'){
+    S.push(['1','Muita atenção ao índice da raiz! Índice par não aceita número negativo nos reais. Índice ímpar aceita e mantém o sinal.']);
+    S.push(['2',`No seu caso: ${ex.hint}`]);
+  }
+  else if(ex.type==='frac'){
+    S.push(['1','O expoente fracionário dita a regra: O denominador vira o índice da raiz. O numerador vira a potência do número lá dentro.']);
+    S.push(['2',`Aplicação: ${ex.hint}`]);
+  }
+  else if(ex.type==='prop'){
+    S.push(['1','Use as propriedades a seu favor. Raízes multiplicadas podem ser juntadas. Raiz dividida por raiz pode virar uma grande fração na mesma casinha.']);
+    S.push(['2',`Lógica: ${ex.hint}`]);
+  }
+  else if(ex.type==='simp'){
+    S.push(['1','Fatore o número em números primos. A cada par (se for raiz quadrada) do mesmo número, um pula para fora do radical.']);
+    S.push(['2',`Passo a passo: ${ex.hint}`]);
+  }
+  else { // rat & text
+    if (ex.type === 'rat') S.push(['1','Na racionalização básica, multiplicamos a parte de cima (numerador) e a parte debaixo (denominador) pela própria raiz que está embaixo.']);
+    else S.push(['1','Este é um problema de interpretação.']);
+    S.push(['2',`Atenção: ${ex.hint}`]);
+  }
+  return S;
+}
+
+let solved = new Set(JSON.parse(localStorage.getItem('radSolved')||'[]'));
+let currentLevel = 'all';
+
+function renderExercises(){
+  let list = E.filter(e => (currentLevel==='all' || e.level == currentLevel));
+  
+  $('exercise-list').innerHTML=list.map(ex=>{
+    const done = solved.has(ex.id);
+    
+    let qHTML = '';
+    if (ex.type === 'text') {
+        qHTML = `<div class="text-sm font-bold text-slate-700 mt-6 mb-4 leading-relaxed">${ex.q}</div>`;
+    } else {
+        let dispQ = `\\displaystyle ${ex.q}`;
+        if(!ex.q.includes('?')) dispQ += ` = ?`;
+        qHTML = `<div class="text-center font-bold text-slate-700 mt-6 mb-4 text-2xl overflow-x-auto min-h-[40px] flex items-center justify-center">
+            ${mathDisplay(dispQ)}
+        </div>`;
+    }
+
+    return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between gap-3">
+          <span class="text-xs font-black px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700">Q. ${ex.id}</span>
+          <span class="text-xs font-bold text-slate-400">${ex.title}</span>
+        </div>
+        ${qHTML}
+      </div>
+      
+      <div class="mt-4">
+        <div class="flex gap-2">
+          <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none font-mono" placeholder="Ex: 2V3, 5, 1/2">
+          <button onclick="check(${ex.id})" class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+        </div>
+        <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px]"></div>
+        <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-indigo-700 hover:underline">👁 Ver Resolução Guiada</button>
+        
+        <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+          <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Passo a Passo</div>
+          ${solutionSteps(ex).map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+          <div class="success rounded-xl p-3 mt-2 text-center font-bold">Gabarito esperado: ${ex.ans}</div>
+        </div>
+      </div>
+    </article>`
+  }).join('');
+  
+  $('progress-text').textContent=`${solved.size} / 100`;
+  $('progress-bar').style.width=(solved.size)+'%';
+  renderAll(); 
+}
+
+function parseUser(v) {
+  // Normalize answer formatting
+  return v.trim().replace(/\s+/g, '').replace(',', '.').toUpperCase();
+}
+
+function check(id){
+  const ex = E.find(x=>x.id===id);
+  const raw = $('answer-'+id).value;
+  const user = parseUser(raw);
+  const ans = parseUser(ex.ans);
+  const fb = $('feedback-'+id);
+  
+  if (user === '') {
+      fb.className='text-sm font-bold mt-2 text-red-600';
+      fb.textContent='Insira uma resposta válida.';
+      return;
+  }
+
+  let ok = false;
+  if(user === ans) ok = true;
+  // Fallback for simple fractions typed as decimals if applicable
+  else if(ans.includes('/') && !ans.includes('V')) {
+      let parts = ans.split('/');
+      let uFloat = parseFloat(user);
+      if(!isNaN(uFloat) && Math.abs(uFloat - (parseFloat(parts[0])/parseFloat(parts[1]))) < 0.01) {
+          ok = true;
+      }
+  }
+
+  if (ok) {
+    solved.add(id);
+    localStorage.setItem('radSolved',JSON.stringify([...solved]));
+    fb.className='text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent='✓ Certo! Entendimento perfeito das raízes.';
+  } else {
+    fb.className='text-sm font-bold mt-2 text-red-600';
+    fb.textContent='✗ Incorreto. Analise os fatores e tente de novo.';
+  }
+  renderExercises();
+}
+
+function toggleSol(id){ $('solution-'+id).classList.toggle('hidden'); }
+
+document.querySelectorAll('.level-btn').forEach(b=>{
+  b.onclick = () => {
+    currentLevel = b.dataset.level;
+    document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderExercises();
+  }
+});
+
+// Inicialização Global
+window.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+  initLab();
+});
+</script>
+</body>
+</html>

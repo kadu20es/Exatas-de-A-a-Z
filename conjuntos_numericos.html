@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conjuntos Numéricos — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  /* Paleta "Construtores": Red, Rose e Crimson */
+  :root {--ink:#450a0a; --paper:#fef2f2; --line:#fecaca; --accent:#ef4444; --accent-light:#fee2e2; --tech:#dc2626;}
+  body {background:#fcfaf9; color:var(--ink);}
+  .tab-btn.active {color:var(--accent); border-bottom-color:var(--accent); font-weight:800;}
+  
+  /* Grade de caderno sutil */
+  .paper {
+    background: var(--paper);
+    background-image: 
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    border: 1px solid #fca5a5;
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.08);
+  }
+  
+  .step {
+    position:relative; padding:1rem 1rem 1rem 3.2rem; 
+    border:1px solid #e2e8f0; border-radius:1rem; background:white;
+  }
+  .step::before {
+    content:attr(data-step); position:absolute; left:1rem; top:1rem; 
+    width:1.65rem; height:1.65rem; border-radius:999px; 
+    background:var(--accent-light); color:var(--accent); 
+    font-weight:800; display:grid; place-items:center; font-size:.8rem;
+  }
+  
+  canvas {max-width:100%; touch-action: none;}
+  .level-btn.active {background:var(--accent); color:white;}
+  .exercise-solution {animation:fade .2s ease;}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  
+  .tip {border-left:4px solid #f59e0b; background:#fffbeb;}
+  .success {border-left:4px solid #10b981; background:#ecfdf5;}
+  .warning {border-left:4px solid #ef4444; background:#fef2f2;}
+
+  /* Estilos para o Diagrama de Venn do Laboratório */
+  .venn-box { border-radius: 1.5rem; padding: 1.5rem; border: 3px solid; position: relative; transition: all 0.3s ease; }
+  .venn-title { position: absolute; top: 0.5rem; left: 1rem; font-weight: 900; font-size: 1.2rem; opacity: 0.8;}
+  .venn-N { background: #dbeafe; border-color: #3b82f6; color: #1e3a8a; } /* Blue */
+  .venn-Z { background: #fef08a; border-color: #eab308; color: #713f12; } /* Yellow */
+  .venn-Q { background: #fce7f3; border-color: #ec4899; color: #831843; } /* Pink */
+  .venn-I { background: #d1fae5; border-color: #10b981; color: #064e3b; } /* Emerald */
+  .venn-R { background: #f3f4f6; border-color: #6b7280; color: #1f2937; } /* Gray */
+  
+  .num-pill { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-weight: bold; background: white; border: 1px solid #ccc; margin: 0.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); animation: pop 0.3s ease;}
+  @keyframes pop { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-red-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+    <div class="font-black text-lg sm:text-xl text-red-900">📦 Conjuntos Numéricos</div>
+    <div class="text-[11px] text-slate-500 hidden sm:block">A evolução e organização dos números</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">🔬 Classificador</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">⚙️ Ferramentas</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-red-950 via-red-900 to-rose-950 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-red-300">Curso Completo</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">As Caixas da Matemática</h1>
+  <p class="mt-4 max-w-3xl text-red-100 leading-7">Os números não surgiram todos de uma vez. A humanidade começou precisando contar ovelhas, depois precisou lidar com dívidas, depois com pedaços de pão, até descobrir números infinitos que quebravam a cabeça. Cada novo problema exigiu a criação de um novo Conjunto Numérico!</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">8</b><div class="text-xs text-red-200">conceitos lógicos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-red-200">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-red-200">dízimas periódicas</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">📦</b><div class="text-xs text-red-200">diagrama interativo</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm">
+  <b>A Regra de Ouro (A Matrioshka):</b> Pense nos conjuntos numéricos como bonecas russas (uma dentro da outra). Se um número pertence à caixa mais profunda (Naturais), ele automaticamente pertence a todas as caixas maiores que a envolvem (Inteiros, Racionais e Reais).
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm border-t-4 border-t-blue-500">
+   <div class="flex items-center gap-3"><h2 class="text-2xl font-black text-blue-900">1. Naturais (\(\mathbb{N}\))</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">O primeiro conjunto da humanidade. Serve para <b>contar coisas exatas</b>. Não possui números negativos nem pedaços (decimais).</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg font-bold text-blue-800">
+    \[ \mathbb{N} = \{0, 1, 2, 3, 4, 5, \dots\} \]
+   </div>
+   <p class="mt-4 text-sm text-slate-500">Se usarmos um asterisco (\(\mathbb{N}^*\)), significa que o zero foi expulso do conjunto: \(\{1, 2, 3, \dots\}\).</p>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm border-t-4 border-t-yellow-500">
+   <div class="flex items-center gap-3"><h2 class="text-2xl font-black text-yellow-900">2. Inteiros (\(\mathbb{Z}\))</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">O comércio surgiu e com ele as dívidas e o saldo negativo. A caixa \(\mathbb{Z}\) engoliu a caixa \(\mathbb{N}\) e adicionou os <b>números negativos exatos</b>.</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg font-bold text-yellow-800">
+    \[ \mathbb{Z} = \{\dots, -3, -2, -1, 0, 1, 2, 3, \dots\} \]
+   </div>
+   <p class="mt-4 text-sm text-slate-500">Todo Natural é um Inteiro, mas nem todo Inteiro é Natural. (Ex: -5 é inteiro, mas não natural).</p>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm border-t-4 border-t-pink-500">
+   <div class="flex items-center gap-3"><h2 class="text-2xl font-black text-pink-900">3. Racionais (\(\mathbb{Q}\))</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">O símbolo \(\mathbb{Q}\) vem de Quociente (divisão). Racional é <b>QUALQUER número que pode ser escrito como uma fração</b> \(\frac{a}{b}\) (onde a e b são inteiros e b não é zero).</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+        <b>Fazem parte dos Racionais:</b>
+        <ul class="list-disc list-inside mt-2 space-y-1">
+            <li>Os Inteiros (ex: \(5\), pois é \(\frac{5}{1}\)).</li>
+            <li>Decimais exatos (ex: \(0,25\), pois é \(\frac{1}{4}\)).</li>
+            <li><b>Dízimas Periódicas</b> (ex: \(0,333\dots\), pois é \(\frac{1}{3}\)).</li>
+        </ul>
+    </div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm border-t-4 border-t-emerald-500">
+   <div class="flex items-center gap-3"><h2 class="text-2xl font-black text-emerald-900">4. Irracionais (\(\mathbb{I}\))</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Estes são os "rebeldes". São os números que <b>NÃO</b> podem virar fração de jeito nenhum. Eles têm infinitas casas decimais, mas <b>sem nenhum padrão de repetição (sem período)</b>.</p>
+   <div class="space-y-3 mt-4 text-sm">
+    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+        <b>Fazem parte dos Irracionais:</b>
+        <ul class="list-disc list-inside mt-2 space-y-1">
+            <li>Raízes não exatas: \(\sqrt{2}, \sqrt{3}, \sqrt{5}\).</li>
+            <li>O número Pi: \(\pi \approx 3,14159265\dots\)</li>
+            <li>O Número de Euler: \(e \approx 2,71828\dots\)</li>
+        </ul>
+    </div>
+    <div class="text-xs font-bold text-red-600 text-center mt-2">Atenção: Racionais e Irracionais NUNCA se misturam. Eles não têm nada em comum!</div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-slate-800 text-white rounded-2xl border shadow-sm p-6 sm:p-10 mt-6 relative overflow-hidden">
+  <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-pink-500 to-emerald-500"></div>
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-slate-700 text-slate-100 grid place-items-center font-black">5</span><h2 class="text-3xl font-black">O Conjunto dos Reais (\(\mathbb{R}\))</h2></div>
+  <p class="mt-4 text-slate-300 text-lg leading-relaxed">A união suprema. O conjunto dos Números Reais é a junção da "caixa" dos Racionais (\(\mathbb{Q}\)) com a caixa isolada dos Irracionais (\(\mathbb{I}\)). Juntos, eles preenchem <b>todos os buracos da Reta Numérica</b>.</p>
+  
+  <div class="bg-slate-900 rounded-2xl p-6 mt-6 shadow-inner text-center border border-slate-700">
+   <div class="text-2xl font-black text-slate-100">\[ \mathbb{R} = \mathbb{Q} \cup \mathbb{I} \]</div>
+   <p class="text-sm text-slate-400 mt-4">Qualquer número que você conheça na escola (positivo, negativo, decimal, dízima ou raiz doida) é um número Real. A única coisa que foge da caixa dos Reais são as raízes de números negativos (como \(\sqrt{-4}\)), que pertencem ao Além: os Números Complexos (\(\mathbb{C}\)).</p>
+  </div>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-red-100 text-red-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">Símbolos Essenciais</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">A linguagem dos conjuntos usa símbolos específicos para evitar textos longos. Memorize os três mais vitais:</p>
+   <div class="space-y-4 mt-4">
+    <div class="flex gap-4 items-center border-b pb-3">
+     <div class="text-3xl font-black text-red-700 w-10 text-center">\(\in\)</div>
+     <div class="text-sm"><b>Pertence a:</b> Liga um ELEMENTO a uma CAIXA. <br>Ex: \(5 \in \mathbb{N}\) (O número 5 pertence aos Naturais).</div>
+    </div>
+    <div class="flex gap-4 items-center border-b pb-3">
+     <div class="text-3xl font-black text-red-700 w-10 text-center">\(\subset\)</div>
+     <div class="text-sm"><b>Está Contido (Subconjunto):</b> Liga CAIXA a CAIXA. <br>Ex: \(\mathbb{Z} \subset \mathbb{Q}\) (A caixa dos Inteiros está dentro dos Racionais).</div>
+    </div>
+    <div class="flex gap-4 items-center">
+     <div class="text-2xl font-black text-red-700 w-10 text-center">\(\cup\) e \(\cap\)</div>
+     <div class="text-sm"><b>União e Interseção:</b> União junta tudo (\(\mathbb{Q} \cup \mathbb{I} = \mathbb{R}\)). Interseção pega só o que tem em comum.</div>
+    </div>
+   </div>
+  </article>
+
+  <div class="space-y-6">
+      <article class="bg-white rounded-2xl border p-6 shadow-sm">
+       <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-red-100 text-red-700 grid place-items-center font-black">7</span><h2 class="text-xl font-black">Dízima para Fração (Geratriz)</h2></div>
+       <p class="mt-3 text-slate-600 text-sm">Se uma dízima periódica é racional, como transformá-la em fração? A regra prática é simples:</p>
+       <div class="bg-slate-50 p-4 rounded-xl mt-3 text-sm border">
+           <div class="font-bold text-red-800">Dízima Simples: \(0,777\dots\)</div>
+           <div>O período é \(7\) (um dígito). Colocamos ele sobre um único 9. \(\implies \frac{7}{9}\)</div>
+           <div class="font-bold text-red-800 mt-2">Dízima Composta: \(0,2444\dots\)</div>
+           <div>Pega-se a parte intrusa (2) + o período (4) = 24. Subtrai-se a intrusa = 22.<br>
+           Denominador: Um '9' para o período, um '0' para a intrusa. \(\implies \frac{22}{90}\)</div>
+       </div>
+      </article>
+      
+      <article class="bg-white rounded-2xl border p-6 shadow-sm">
+       <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-red-100 text-red-700 grid place-items-center font-black">8</span><h2 class="text-xl font-black">Intervalos Reais</h2></div>
+       <div class="text-sm mt-3 text-slate-600">
+           Como os Reais não têm "buracos", não podemos listar \(\{1, 1.1, 1.11, \dots\}\). Usamos colchetes:
+           <ul class="list-disc list-inside mt-2 space-y-1">
+               <li><b>\([2, 5]\):</b> Fechado (inclui o 2 e o 5 e tudo no meio). Usa-se bolinha pintada.</li>
+               <li><b>\((2, 5)\) ou \(]2, 5[\):</b> Aberto (chega muito perto, mas exclui o 2 e o 5). Bolinha vazia.</li>
+           </ul>
+       </div>
+      </article>
+  </div>
+ </div>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-red-600">O Separador Matemático</span>
+   <h1 class="text-3xl font-black mt-2">Classificador de Conjuntos</h1>
+   <p class="text-slate-600 mt-2">Digite um número (pode usar raiz, fração ou decimal) e clique em Classificar. O sistema iluminará exatamente a quais conjuntos esse número pertence e explicará o porquê.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[280px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   <h3 class="font-bold text-lg mb-4 text-center border-b pb-2">Entrada de Dados</h3>
+   
+   <div class="space-y-4 flex-1">
+      <div>
+        <label class="font-bold text-sm text-slate-700">Digite um número:</label>
+        <input type="text" id="lab-input" placeholder="Ex: -5, 3.14, 1/3, sqrt(2), pi" class="w-full mt-2 border-2 border-slate-300 rounded-xl p-3 font-mono focus:border-red-500 outline-none" onkeypress="if(event.key==='Enter') classifyNumber()">
+        <p class="text-xs text-slate-400 mt-2">Dicas de digitação: Use `sqrt(x)` para raízes, `pi` ou `e`, `1/4` para frações ou `1.2` para decimais.</p>
+      </div>
+      <button onclick="classifyNumber()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition">Classificar</button>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col relative items-center justify-center min-h-[400px]">
+    
+    <!-- Representação Visual das Caixas (Matrioshkas) -->
+    <div class="w-full flex justify-center py-6">
+        <div id="box-R" class="venn-box venn-R w-full max-w-[500px]">
+            <div class="venn-title">R (Reais)</div>
+            
+            <div class="flex gap-4 mt-8 flex-col sm:flex-row">
+                
+                <div id="box-Q" class="venn-box venn-Q flex-1 relative">
+                    <div class="venn-title">Q (Racionais)</div>
+                    <div id="pool-Q" class="absolute top-2 right-2 text-right w-1/3"></div>
+                    
+                    <div id="box-Z" class="venn-box venn-Z mt-8 relative">
+                        <div class="venn-title">Z (Inteiros)</div>
+                        <div id="pool-Z" class="absolute top-2 right-2 text-right w-1/3"></div>
+                        
+                        <div id="box-N" class="venn-box venn-N mt-8 relative min-h-[80px]">
+                            <div class="venn-title">N (Naturais)</div>
+                            <div id="pool-N" class="absolute bottom-2 right-2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="box-I" class="venn-box venn-I w-full sm:w-[120px] min-h-[100px] relative">
+                    <div class="venn-title">I (Irrac.)</div>
+                    <div id="pool-I" class="absolute bottom-2 right-2"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <div id="lab-explanation" class="mt-4 w-full bg-slate-50 p-4 rounded-xl border text-sm text-slate-700 min-h-[60px] text-center font-medium">
+        Aguardando um número para análise.
+    </div>
+
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-red-600">Assistentes Matemáticos</span>
+   <h1 class="text-3xl font-black mt-2">Calculadoras Passo a Passo</h1>
+   <p class="text-slate-600 mt-2">Converta dízimas periódicas para fração exata e realize operações visuais entre os Intervalos Reais.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  
+  <!-- Ferramenta 1: Geratriz -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Dízima para Fração</h2>
+   <p class="text-xs text-slate-500 mb-4">Insira as partes do número: Ex para \(2,1333\dots\)</p>
+   
+   <div class="grid grid-cols-3 gap-2 font-mono text-sm mb-4">
+      <div class="text-center">
+          <label class="block font-bold text-slate-500 text-xs mb-1">Parte Inteira</label>
+          <input id="t1-int" type="number" value="2" class="w-full border rounded p-2 text-center bg-slate-50">
+      </div>
+      <div class="text-center relative">
+          <label class="block font-bold text-slate-500 text-xs mb-1">Anti-período</label>
+          <input id="t1-anti" type="number" placeholder="(Opcional)" value="1" class="w-full border rounded p-2 text-center bg-slate-50">
+      </div>
+      <div class="text-center">
+          <label class="block font-bold text-rose-700 text-xs mb-1">Período (Repete)</label>
+          <input id="t1-per" type="number" value="3" class="w-full border rounded p-2 text-center bg-rose-50 border-rose-200">
+      </div>
+   </div>
+
+   <button onclick="calcGeratriz()" class="w-full mt-2 bg-rose-600 hover:bg-rose-700 transition text-white rounded-xl py-3 font-bold text-sm">Calcular Fração Geratriz</button>
+   <div id="tool1-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+  <!-- Ferramenta 2: Operações com Intervalos -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Operador de Intervalos</h2>
+   <p class="text-xs text-slate-500 mb-4">Insira dois intervalos Fechados [A, B] e [C, D].</p>
+   
+   <div class="grid grid-cols-2 gap-4 font-mono text-sm mb-4">
+      <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+          <div class="font-bold text-center mb-2">Intervalo 1</div>
+          <div class="flex items-center gap-1">Início: <input id="t2-a" type="number" value="1" class="w-full border rounded p-1 text-center"></div>
+          <div class="flex items-center gap-1 mt-2">Fim: <input id="t2-b" type="number" value="5" class="w-full border rounded p-1 text-center"></div>
+      </div>
+      <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+          <div class="font-bold text-center mb-2">Intervalo 2</div>
+          <div class="flex items-center gap-1">Início: <input id="t2-c" type="number" value="3" class="w-full border rounded p-1 text-center"></div>
+          <div class="flex items-center gap-1 mt-2">Fim: <input id="t2-d" type="number" value="8" class="w-full border rounded p-1 text-center"></div>
+      </div>
+   </div>
+   
+   <div class="flex gap-2">
+       <button onclick="calcInterval('U')" class="flex-1 bg-sky-600 hover:bg-sky-700 transition text-white rounded-xl py-2 font-bold text-sm">União (\(\cup\))</button>
+       <button onclick="calcInterval('I')" class="flex-1 bg-emerald-600 hover:bg-emerald-700 transition text-white rounded-xl py-2 font-bold text-sm">Interseção (\(\cap\))</button>
+   </div>
+   <div id="tool2-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto text-center font-bold text-lg"></div>
+  </div>
+
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+     <div>
+       <span class="text-xs font-bold uppercase tracking-widest text-red-600">Treino progressivo</span>
+       <h1 class="text-3xl font-black mt-2">100 Exercícios Dinâmicos</h1>
+       <p class="text-slate-600 mt-2 text-sm">Responda usando as iniciais do conjunto (<b>N, Z, Q, I, R</b>) para classificações, <b>S/N</b> para Sim ou Não, ou digite o número exato pedido (para frações, use <b>/</b>, ex: 1/2).</p>
+     </div>
+     <div class="min-w-[210px]">
+       <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+       <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-red-600 rounded-full transition-all duration-500" style="width:0%"></div></div>
+     </div>
+   </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 1 (N e Z)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 2 (Inclusões e Símbolos)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 3 (Racionais e Dízimas)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 4 (Irracionais)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 5 (Intervalos Reais)</button>
+   <button data-level="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 6 (Teoria e Desafios)</button>
+  </div>
+ </div>
+ 
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material educacional interativo de Matemática • Renderizado com KaTeX</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function mathInline(latex){return String.raw`\(${latex}\)`}
+function mathDisplay(latex){return String.raw`\[${latex}\]`}
+
+function renderAll(){
+    document.querySelectorAll('body').forEach(el=>{
+        if(window.renderMathInElement) renderMathInElement(el,{
+            delimiters:[
+                {left: '$$', right: '$$', display: true},
+                {left: '\\[', right: '\\]', display: true},
+                {left: '\\(', right: '\\)', display: false}
+            ]
+        });
+    });
+}
+
+// Frações úteis
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1}
+function simplifyFrac(n,d){const g=gcd(n,d);return {n:n/g,d:d/g}}
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+    const t=btn.dataset.tab;
+    sections.forEach(s => $('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active',b===btn));
+    if(t==='exercicios') renderExercises();
+    if(t==='laboratorio') setTimeout(resetLabVisuals, 100);
+}));
+
+// --- LABORATÓRIO VISUAL ---
+function resetLabVisuals() {
+    ['N', 'Z', 'Q', 'I', 'R'].forEach(s => {
+        $('box-'+s).style.boxShadow = 'none';
+        $('box-'+s).style.backgroundColor = '';
+        if($('pool-'+s)) $('pool-'+s).innerHTML = '';
+    });
+    $('lab-explanation').innerHTML = "Aguardando um número para análise.";
+    $('lab-input').value = '';
+}
+
+function parseNumberInput(str) {
+    str = str.trim().toLowerCase().replace(',', '.');
+    if(str === 'pi') return { val: Math.PI, orig: 'π', isI: true };
+    if(str === 'e') return { val: Math.E, orig: 'e', isI: true };
+    
+    // sqrt
+    if(str.startsWith('sqrt(') && str.endsWith(')')) {
+        let inside = parseFloat(str.slice(5, -1));
+        if(isNaN(inside) || inside < 0) return null;
+        let v = Math.sqrt(inside);
+        let isI = !Number.isInteger(v); // se for inteiro, é exata, senao é Irracional
+        return { val: v, orig: `√${inside}`, isI: isI };
+    }
+    
+    // frac
+    if(str.includes('/')) {
+        let p = str.split('/');
+        if(p.length !== 2) return null;
+        let num = parseFloat(p[0]); let den = parseFloat(p[1]);
+        if(isNaN(num) || isNaN(den) || den === 0) return null;
+        return { val: num/den, orig: `${num}/${den}`, isI: false };
+    }
+
+    let val = parseFloat(str);
+    if(isNaN(val)) return null;
+    
+    // Se digitou número com infinitas casas soltas, heurística basica. Assumimos Racional se foi digitado manual.
+    return { val: val, orig: str, isI: false };
+}
+
+function classifyNumber() {
+    const raw = $('lab-input').value;
+    if(raw === '') return;
+    
+    const parsed = parseNumberInput(raw);
+    
+    ['N', 'Z', 'Q', 'I', 'R'].forEach(s => {
+        $('box-'+s).style.boxShadow = 'none';
+        $('box-'+s).style.transform = 'scale(1)';
+        if($('pool-'+s)) $('pool-'+s).innerHTML = '';
+    });
+
+    const expl = $('lab-explanation');
+    
+    if(!parsed) {
+        expl.innerHTML = "<span class='text-red-600 font-bold'>Entrada inválida. Tente um número, raiz ou fração.</span>";
+        return;
+    }
+
+    let v = parsed.val;
+    let isI = parsed.isI;
+    let target = 'R';
+    let text = "";
+
+    // Lógica da Matrioshka
+    if (isI) {
+        target = 'I';
+        text = `O número <b>${parsed.orig}</b> tem infinitas casas decimais sem repetição. Ele é <b class="text-emerald-700">Irracional (I)</b>. Obviamente, pertence à grande caixa dos Reais (R).`;
+    } else {
+        if (Number.isInteger(v)) {
+            if (v >= 0) {
+                target = 'N';
+                text = `O número <b>${parsed.orig}</b> é exato e positivo. Ele pertence à caixa mais funda, os <b class="text-blue-700">Naturais (N)</b>. Por estar na caixa mais funda, ele também é Inteiro (Z), Racional (Q) e Real (R).`;
+            } else {
+                target = 'Z';
+                text = `O número <b>${parsed.orig}</b> é exato, mas negativo. Os Naturais não o aceitam. Ele fica na caixa dos <b class="text-yellow-700">Inteiros (Z)</b>. Ele também é Racional (Q) e Real (R).`;
+            }
+        } else {
+            target = 'Q';
+            text = `O número <b>${parsed.orig}</b> possui decimais ou é uma fração. Ele quebra a regra dos Inteiros. Fica retido na caixa dos <b class="text-pink-700">Racionais (Q)</b>. Todo Racional também é Real (R).`;
+        }
+    }
+
+    // Animando
+    setTimeout(() => {
+        $('box-'+target).style.boxShadow = '0 0 0 4px #ef4444'; // Red glow
+        $('box-'+target).style.transform = 'scale(1.02)';
+        $('pool-'+target).innerHTML = `<div class="num-pill text-red-600 border-red-500">${parsed.orig}</div>`;
+        expl.innerHTML = text;
+    }, 100);
+}
+
+
+// --- FERRAMENTAS ---
+function calcGeratriz() {
+    const intP = $('t1-int').value;
+    const anti = $('t1-anti').value;
+    const per = $('t1-per').value;
+    const out = $('tool1-out');
+    
+    if(per === '') return;
+    
+    const strInt = intP || '0';
+    const strAnti = anti || '';
+    const strPer = per;
+    
+    let numStrFull = strInt + strAnti + strPer;
+    let numStrSub = strInt + strAnti;
+    
+    let n1 = parseInt(numStrFull, 10);
+    let n2 = numStrSub === '' ? 0 : parseInt(numStrSub, 10);
+    
+    let numFinal = n1 - n2;
+    
+    let nNoves = strPer.length;
+    let nZeros = strAnti.length;
+    
+    let denStr = '9'.repeat(nNoves) + '0'.repeat(nZeros);
+    let denFinal = parseInt(denStr, 10);
+    
+    let simp = simplifyFrac(numFinal, denFinal);
+    
+    let numExib = `${strInt},${strAnti}\\overline{${strPer}}`;
+    if(strInt === '0' && strAnti === '' && strPer === '') numExib = '0'; // fail safe
+
+    let html = `
+      <div class="step" data-step="1">Escreva o número formado até o fim do 1º período: <b>${n1}</b>. E o número formado antes de começar o período: <b>${n2}</b>.</div>
+      <div class="step mt-3" data-step="2">Subtraia o segundo do primeiro (Numerador): ${mathInline(`${n1} - ${n2} = ${numFinal}`)}.</div>
+      <div class="step mt-3" data-step="3">Denominador: Um "9" para cada algarismo do período (${nNoves} vez(es)), e um "0" para cada algarismo do anti-período (${nZeros} vez(es)). Resulta em <b>${denFinal}</b>.</div>
+      <div class="step mt-3" data-step="4">A fração é ${mathInline(`\\frac{${numFinal}}{${denFinal}}`)}.</div>
+    `;
+    
+    if (simp.n !== numFinal || simp.d !== denFinal) {
+        html += `<div class="step mt-3" data-step="5">Simplificando, temos: ${mathDisplay(`\\frac{${simp.n}}{${simp.d}}`)}</div>`;
+    }
+
+    html += `<div class='success rounded-xl p-4 mt-4 text-center font-bold text-lg'>${mathDisplay(`${numExib} = \\frac{${simp.n}}{${simp.d}}`)}</div>`;
+    
+    out.innerHTML = html;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+function calcInterval(op) {
+    const a = parseFloat($('t2-a').value); const b = parseFloat($('t2-b').value);
+    const c = parseFloat($('t2-c').value); const d = parseFloat($('t2-d').value);
+    const out = $('tool2-out');
+    out.classList.remove('hidden');
+
+    if(isNaN(a)||isNaN(b)||isNaN(c)||isNaN(d)) return;
+    if(a > b || c > d) {
+        out.innerHTML = '<span class="text-red-500 text-sm">Erro: O início do intervalo deve ser menor ou igual ao fim.</span>';
+        return;
+    }
+
+    if(op === 'U') {
+        // Uniao
+        if (b < c || d < a) {
+            out.innerHTML = `União: Disjuntos. ${mathInline(`[${a}, ${b}] \\cup [${c}, ${d}]`)}<br><span class='text-sm text-slate-500 font-normal'>Os intervalos não se tocam, não dá para juntar em um só.</span>`;
+        } else {
+            let min = Math.min(a, c);
+            let max = Math.max(b, d);
+            out.innerHTML = `União (${mathInline('\\cup')}): <span class='text-sky-600'>${mathInline(`[${min}, ${max}]`)}</span>`;
+        }
+    } else {
+        // Intersecao
+        let min = Math.max(a, c);
+        let max = Math.min(b, d);
+        if (min <= max) {
+            out.innerHTML = `Interseção (${mathInline('\\cap')}): <span class='text-emerald-600'>${mathInline(`[${min}, ${max}]`)}</span>`;
+        } else {
+            out.innerHTML = `Interseção (${mathInline('\\cap')}): <span class='text-emerald-600'>${mathInline('\\emptyset')} (Vazio)</span><br><span class='text-sm text-slate-500 font-normal'>Não há parte em comum.</span>`;
+        }
+    }
+
+    renderAll();
+}
+
+// --- 100 EXERCÍCIOS DATA ---
+// Formato: id|level|title|question_text|answer|type|hint
+const rawExercises = [
+  // L1: N e Z (1-15)
+  "1|1|Naturais|Qual é o menor número natural?|0|num|Os naturais começam do zero.",
+  "2|1|Naturais|O número 5 pertence aos Naturais (N)? (S/N)|S|text|É um número de contagem, exato e positivo.",
+  "3|1|Naturais|O número -3 pertence a N? (S/N)|N|text|Os naturais não contêm números negativos.",
+  "4|1|Inteiros|O número -3 pertence a Z? (S/N)|S|text|Z engloba todos os números exatos, positivos e negativos.",
+  "5|1|Inteiros|O número 0 pertence aos Inteiros? (S/N)|S|text|Zero é neutro, exato, logo pertence a Z.",
+  "6|1|Inteiros vs Naturais|Se um número pertence a N, ele obrigatoriamente pertence a Z? (S/N)|S|text|Sim, a caixa N está dentro da caixa Z.",
+  "7|1|Cálculo Z|Se somarmos dois números negativos inteiros (ex: -2 e -3), o resultado continua em Z? (S/N)|S|text|A soma de inteiros sempre resulta em um inteiro (-5).",
+  "8|1|Identificação|Qual é o sucessor inteiro de -5?|-4|num|O número que vem imediatamente 'à direita' na reta numérica.",
+  "9|1|Identificação|Qual é o antecessor inteiro de 0?|-1|num|O número que vem 'à esquerda'.",
+  "10|1|Símbolos Ocultos|A notação N* significa Naturais sem o zero. O 0 pertence a N*? (S/N)|N|text|O asterisco retira o zero do conjunto.",
+  "11|1|Símbolos Ocultos|A notação Z_+ significa apenas os Inteiros positivos e o zero. Qual é exatamente igual a Z_+? (N, Q, I)|N|text|Inteiros positivos com zero é a definição exata dos Naturais.",
+  "12|1|Falsa Classificação|O número 2,5 pertence a Z? (S/N)|N|text|Apesar de positivo, ele não é um número 'exato' (inteiro).",
+  "13|1|Classificação Exata|A fraction 10/2 pertence a Z? (S/N)|S|text|Resolva a conta antes. 10/2 = 5, que é inteiro.",
+  "14|1|Módulo|O módulo de -7, ou seja |-7|, pertence a N? (S/N)|S|text|O módulo é 7. 7 é natural.",
+  "15|1|Raiz Mascarada|A raiz quadrada de 9 pertence a N? (S/N)|S|text|A raiz de 9 é 3. 3 é natural.",
+
+  // L2: Inclusões, Pertinência e Regras (16-30)
+  "16|2|Inclusão N e Z|Complete com (S) ou (N): N está contido em Z?|S|text|Todos os naturais são inteiros.",
+  "17|2|Inclusão Z e N|Complete com (S) ou (N): Z está contido em N?|N|text|Existem inteiros negativos que estão fora dos naturais.",
+  "18|2|União Z|Se unirmos os inteiros negativos com os naturais, obtemos qual conjunto? (Digite a letra)|Z|text|Naturais + Inteiros Negativos forma os Inteiros (Z).",
+  "19|2|Falsas|Todo número inteiro é natural? (S/N)|N|text|Não. O -1 é inteiro, mas não natural.",
+  "20|2|Interseção|Qual é a interseção entre N e Z? (Digite a letra do conjunto)|N|text|A parte em comum é apenas a parte positiva e o zero, ou seja, o próprio N.",
+  "21|2|Subtração|A operação de subtração entre dois naturais SEMPRE resulta em um natural? (S/N)|N|text|Exemplo: 3 - 5 = -2. O resultado saiu de N.",
+  "22|2|Divisão|A divisão entre dois inteiros SEMPRE resulta em um inteiro? (S/N)|N|text|Exemplo: 3 dividido por 2 é 1,5 (não é inteiro).",
+  "23|2|Diferença de Conjuntos|O conjunto Z - N (Inteiros menos Naturais) resulta apenas nos inteiros positivos ou negativos? (Digite Pos ou Neg)|Neg|text|Você retira o zero e os positivos. Sobram os negativos.",
+  "24|2|Pertinência Reta|Entre os números 1 e 2, existe algum número Inteiro (Z)? (S/N)|N|text|São consecutivos em Z. Não há nada entre eles nessa caixa.",
+  "25|2|Densidade|Entre 1 e 2, existem quantos números Racionais (Q)? (Digite Infinitos ou Nenhum)|Infinitos|text|Você sempre pode achar a metade do caminho (1.5, 1.25, 1.125...).",
+  "26|2|Caixas|Q está contido em R? (S/N)|S|text|Reais engloba Racionais e Irracionais.",
+  "27|2|Caixas Inversas|R está contido em Q? (S/N)|N|text|Os Reais são maiores, eles contêm Q, não o contrário.",
+  "28|2|Pertinência|O símbolo pertence (∈) é usado entre elemento e conjunto. Verdadeiro ou falso que -2 ∈ N? (V/F)|F|text|-2 é negativo.",
+  "29|2|Pertinência 2|-2 ∈ Z. (V/F)|V|text|É um inteiro negativo.",
+  "30|2|Notação Ponto|O número 3.0 pertence a qual conjunto mais 'fundo' ou 'restrito'? (N, Z, Q)|N|text|3.0 é a mesma coisa que 3. A caixa mais profunda é N.",
+
+  // L3: Racionais e Dízimas (31-50)
+  "31|3|Racionais Básicos|A fração 1/2 pertence a Q? (S/N)|S|text|Qulquer fração de inteiros (denominador não nulo) está em Q.",
+  "32|3|Racionais Inclusos|O número 5 pertence a Q? (S/N)|S|text|Sim, pode ser escrito como 5/1.",
+  "33|3|Decimais Exatos|O número 0.75 pertence a Q? (S/N)|S|text|Sim, é um decimal exato (termina). Equivale a 3/4.",
+  "34|3|Dízimas|O número 0.333... é racional? (S/N)|S|text|Dízimas periódicas vêm de frações (1/3). Logo, são racionais.",
+  "35|3|Raiz Racional|A raiz de 16 pertence a Q? (S/N)|S|text|Raiz de 16 é 4. 4 está em Q.",
+  "36|3|Raiz Racional Negativa|A raiz cúbica de -8 pertence a Q? (S/N)|S|text|Raiz cúbica de -8 é -2. É um inteiro, logo é racional.",
+  "37|3|Geratriz 1|Qual a fração geratriz de 0.222...? (Fração, ex: 1/2)|2/9|frac|Período é 2. Um único 9 no denominador.",
+  "38|3|Geratriz 2|Qual a fração geratriz de 0.555...?|5/9|frac|Período 5.",
+  "39|3|Geratriz 3|Qual a fração geratriz de 0.121212...? (Simplifique!)|4/33|frac|12/99. Dividindo por 3, fica 4/33.",
+  "40|3|Geratriz Mista|A fração geratriz de 1.333... é 1 + 3/9. Calcule e digite a fração imprópria irredutível.|4/3|frac|1 + 1/3 = 4/3.",
+  "41|3|Dízima Composta|Em 0.2555... o período é 5 e a intrusa é 2. Qual a fração sem simplificar? (Num/Den)|23/90|text|25 - 2 = 23. Denominador = 90.",
+  "42|3|Dízima Composta 2|Em 0.1666... qual o numerador da fração final antes de simplificar? (16 - 1)|15|num|O período é 6, intruso é 1. 16 - 1 = 15.",
+  "43|3|Dízima Composta 2 Denom|Qual o denominador de 0.1666...?|90|num|Um '9' pelo 6, um '0' pelo 1.",
+  "44|3|Soma Dízimas|Qual a soma exata de 0.333... + 0.666...? (Faça 3/9 + 6/9)|1|num|9/9 = 1. A matemática prova que 0.999... é exatamente igual a 1.",
+  "45|3|Fração Decim.|Escreva a fração 1/4 em número decimal.|0.25|num|Divida 1 por 4.",
+  "46|3|Fração Decim.|Escreva 3/2 em número decimal.|1.5|num|1,5",
+  "47|3|Pertinência Q|O resultado de 10 dividido por 3 pertence a Z ou Q? (Digite a letra)|Q|text|Não é exato.",
+  "48|3|Oposto Q|Qual é o oposto do número 3/4?|-3/4|frac|Basta trocar o sinal.",
+  "49|3|Inverso Q|Qual é o inverso multiplicativo de 3/4?|4/3|frac|Gire a fração.",
+  "50|3|Zero no denominador|A expressão 5/0 representa um número Racional? (S/N)|N|text|Não existe divisão por zero. Isso não é um número Real.",
+
+  // L4: Irracionais (51-65)
+  "51|4|Raízes não exatas|A raiz quadrada de 2 pertence a qual conjunto que tem infinitas casas sem repetição? (N, Z, Q, I)|I|text|Raízes não exatas são os Irracionais clássicos.",
+  "52|4|Raízes não exatas|A raiz quadrada de 5 pertence a Q ou I?|I|text|Não tem raiz exata.",
+  "53|4|O número Pi|O número Pi (3.14159...) pertence a Q ou I?|I|text|É um número transcendental infinito e não periódico.",
+  "54|4|Dízimas Periódicas vs Não Periódicas|O número 1.1010010001... (adicionando zeros) é Racional ou Irracional? (Digite Q ou I)|I|text|Não há um período fixo que se repete. Logo é I.",
+  "55|4|Operações Híbridas|Se somarmos 2 (Racional) com a raiz de 3 (Irracional), o resultado final (2 + √3) é Racional ou Irracional? (Q / I)|I|text|O 'vírus' do irracional infecta toda a soma.",
+  "56|4|Operações Híbridas 2|Se multiplicarmos 5 por Pi, o resultado (5π) é Q ou I?|I|text|Racional (não nulo) vezes Irracional = Irracional.",
+  "57|4|Anulação Irracional|A raiz de 2 multiplicada pela raiz de 2 resulta em que número inteiro?|2|num|√2 * √2 = √4 = 2.",
+  "58|4|Anulação Irracional|Portanto, a multiplicação de dois números Irracionais pode resultar num Racional? (S/N)|S|text|Sim! Vimos que √2 * √2 deu 2 (que é racional).",
+  "59|4|A caixa misteriosa|Existe interseção entre Q e I? Os conjuntos têm números em comum? (S/N)|N|text|Eles são totalmente separados (disjuntos).",
+  "60|4|União Suprema|A união dos Racionais com os Irracionais forma qual conjunto? (Letra)|R|text|R = Q U I.",
+  "61|4|Número de Euler|O número e (2.718...) é Q ou I?|I|text|É um irracional famoso usado em logaritmos.",
+  "62|4|Raiz de Negativo|A raiz quadrada de -4 pertence aos Irracionais? (S/N)|N|text|Não pertence a NENHUM conjunto estudado aqui. Não é real, é Complexo.",
+  "63|4|Subtração Anuladora|Quanto dá Pi - Pi?|0|num|E o resultado (zero) é racional! Outro caso de operação entre irracionais dando racional.",
+  "64|4|Densidade Irracional|Existem números irracionais entre 1 e 2? (S/N)|S|text|Sim, como a raiz de 2 (1.41...) e raiz de 3 (1.73...).",
+  "65|4|Fração Aparente|O número formado por Pi dividido por Pi (π/π) é racional? (S/N)|S|text|Pi dividido por ele mesmo é 1. 1 é racional.",
+
+  // L5: Intervalos Reais (66-85)
+  "66|5|Notação Fechada|O intervalo [2, 5] contém o número 2? (S/N)|S|text|Colchete apontando para dentro = bolinha pintada = inclui o número.",
+  "67|5|Notação Aberta|O intervalo (2, 5) contém o número 2? (S/N)|N|text|Parêntese = bolinha aberta = exclui o número. Começa do 2.000...1",
+  "68|5|Contagem Fechada|Quantos números INTEIROS existem no intervalo fechado [1, 4]?|4|num|O 1, 2, 3 e 4.",
+  "69|5|Contagem Aberta|Quantos números INTEIROS existem no intervalo aberto (1, 4)?|2|num|O 1 e o 4 estão fora. Sobram apenas 2 e 3.",
+  "70|5|Reais|Quantos números REAIS existem no intervalo [1, 2]? (Nenhum ou Infinitos)|Infinitos|text|O conjunto dos Reais é denso, há infinitos números (1.1, 1.12, 1.125...).",
+  "71|5|União Int. 1|A união de [0, 3] com [2, 5]. Qual o ponto de início do novo intervalo?|0|num|Juntando tudo, começa no menor.",
+  "72|5|União Int. 2|Qual o ponto de término do novo intervalo (união de [0, 3] e [2, 5])?|5|num|Termina no maior.",
+  "73|5|Interseção 1|A interseção de [0, 3] com [2, 5] é a parte comum. Onde ela começa?|2|num|Onde os dois se sobrepõem.",
+  "74|5|Interseção 2|Onde termina a interseção de [0, 3] e [2, 5]?|3|num|A sobreposição vai até o 3.",
+  "75|5|Disjuntos|A interseção de [1, 2] com [4, 5] é Vazia? (S/N)|S|text|Eles não se cruzam.",
+  "76|5|Notação Matemática|A expressão x >= 3 equivale a qual intervalo? (Digite A para [3, +∞) ou B para (3, +∞))|A|text|Sinal de 'maior ou igual' significa intervalo fechado no número.",
+  "77|5|Fim infinito|O símbolo do infinito (+∞ ou -∞) sempre usa intervalo aberto (parêntese ou colchete pra fora)? (S/N)|S|text|O infinito não é um número que você possa 'alcançar' ou fechar.",
+  "78|5|Diferença 1|O intervalo [0, 5] menos o intervalo [3, 5] sobra o trecho de 0 a 3. O 3 fica aberto ou fechado? (Aberto ou Fechado)|Aberto|text|Você retirou o 3 junto com a segunda parte. Logo ele fica aberto [0, 3).",
+  "79|5|Inclusão Total|O intervalo [-10, 10] está contido nos números Naturais? (S/N)|N|text|Tem números negativos e decimais nele. Não serve para N.",
+  "80|5|Amplitude|Qual a amplitude (tamanho da reta) do intervalo [-2, 5]? (Faça 5 menos -2)|7|num|5 - (-2) = 7.",
+  "81|5|Símbolos Alternativos|A notação ]2, 5[ é exatamente a mesma coisa que (2, 5)? (S/N)|S|text|Colchete virado pra fora é o mesmo que parêntese.",
+  "82|5|Interseção Ponto|A interseção de [2, 5] com [5, 8] resulta em apenas um número. Qual?|5|num|O único número comum a ambos é a borda, o 5.",
+  "83|5|Interseção Absurda|A interseção de (2, 5) com (5, 8). Existe algum ponto em comum? (S/N)|N|text|O 5 não faz parte de nenhum dos dois. A interseção é Vazia.",
+  "84|5|União Reta Toda|A união de (-∞, 0] com [0, +∞) dá a reta inteira. Qual o nome desse conjunto? (Letra)|R|text|É a definição completa dos Números Reais.",
+  "85|5|Semi-reta|O intervalo (0, +∞) exclui o zero e pega os positivos. Isso equivale aos Reais Positivos (R_+*)? (S/N)|S|text|Exato. Reais estritamente positivos.",
+
+  // L6: Teoria e Desafios (86-100)
+  "86|6|Desafio N em R|Todo número Natural é Real? (S/N)|S|text|Sim, por conta do conceito das 'caixas'. N está dentro de R.",
+  "87|6|Desafio N em I|Todo número Natural é Irracional? (S/N)|N|text|Eles não se cruzam. Racionais (onde N mora) não têm nada a ver com Irracionais.",
+  "88|6|Fechamento Somas|A soma de dois Racionais é sempre Racional? (S/N)|S|text|Sim. Fração + Fração = Fração.",
+  "89|6|Dízima Complexa|O número 0.999... é Racional. Transformando pra fração (9/9), ele equivale a qual número Natural?|1|num|0.999... é 1.",
+  "90|6|Raiz da Raiz|A raiz quadrada da raiz quadrada de 16 (√√16) é Racional ou Irracional? (Q ou I)|Q|text|Raiz de 16 é 4. Raiz de 4 é 2. 2 é Racional.",
+  "91|6|Operação Irracional|Sabemos que √2 * √2 é 2 (Racional). E √2 + √2? Fica 2√2. É Racional ou Irracional? (Q ou I)|I|text|Continua tendo a parte irracional inseparável.",
+  "92|6|Potência de Irracional|(√3) elevado ao quadrado. Qual o resultado?|3|num|A raiz corta com a potência.",
+  "93|6|Zero e Racionais|O zero possui um inverso multiplicativo nos Racionais? (1/0) (S/N)|N|text|Divisão por zero não existe.",
+  "94|6|Diferença R - Q|O conjunto dos Reais menos os Racionais (R - Q) resulta em qual conjunto? (Letra)|I|text|Se tirar os Racionais dos Reais, sobram apenas os Irracionais.",
+  "95|6|Interseção Tripla|Qual a interseção entre Z, Q e R? (Qual conjunto é a resposta da parte comum de todos)|Z|text|Como Z é o menor e está contido em todos, a interseção geral é o próprio Z.",
+  "96|6|União Tripla|Qual a união entre Z, Q e R?|R|text|A união de caixas aninhadas resulta na caixa maior.",
+  "97|6|O 'A Mais' de C|Existe algum conjunto maior que R abordado no ensino médio? (Responda com a letra C de Complexos)|C|text|Os Números Complexos absorvem os Reais e permitem raízes negativas.",
+  "98|6|Símbolo Asterisco|O que acontece quando colocamos um asterisco no símbolo de um conjunto (ex: R*)? Retiramos qual número?|0|num|Retira a origem (zero).",
+  "99|6|Pegadinha Irracional|A constante de Ouro (Phi) usada na arte e arquitetura (1.618...) é obtida pela equação (1+√5)/2. Ela é Q ou I?|I|text|Se tem a √5 não exata no meio, é Irracional.",
+  "100|6|Verdade final|Entre dois números racionais, SEMPRE vai existir outro número racional? (S/N)|S|text|Sim. Basta calcular a média aritmética entre eles. Propriedade da Densidade."
+];
+
+const E = rawExercises.map(line => {
+  const p = line.split('|');
+  // Format math correctly to allow Katex styling without destroying strings.
+  let q = p[3].replace(/\{/g, '\\{').replace(/\}/g, '\\}');
+  return { id: parseInt(p[0]), level: parseInt(p[1]), title: p[2], q: q, ans: p[4], type: p[5], hint: p[6] };
+});
+
+function solutionSteps(ex){
+  const S=[];
+  if(ex.type==='num' || ex.type==='frac'){
+    S.push(['1','Entenda qual conceito matemático a questão está pedindo.']);
+    S.push(['2',`Desenvolva o cálculo: ${ex.hint}`]);
+    S.push(['3',`A resposta exata é ${mathInline(ex.ans)}.`]);
+  }
+  else {
+    S.push(['1','Esta é uma questão teórica, de leitura ou classificação.']);
+    S.push(['2',`Raciocínio lógico e justificativa: ${ex.hint}`]);
+    S.push(['3',`Conclusão: ${ex.ans}.`]);
+  }
+  return S;
+}
+
+let solved = new Set(JSON.parse(localStorage.getItem('conjSolved')||'[]'));
+let currentLevel = 'all';
+
+function renderExercises(){
+  let list = E.filter(e => (currentLevel==='all' || e.level == currentLevel));
+  
+  $('exercise-list').innerHTML=list.map(ex=>{
+    const done = solved.has(ex.id);
+    return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between gap-3">
+          <span class="text-xs font-black px-2.5 py-1 rounded-full bg-red-50 text-red-700">Q. ${ex.id}</span>
+          <span class="text-xs text-slate-400">${ex.title}</span>
+        </div>
+        <div class="text-sm font-bold text-slate-700 mt-4 leading-relaxed">${ex.q}</div>
+      </div>
+      
+      <div class="mt-4">
+        <div class="flex gap-2">
+          <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none font-mono" placeholder="Sua resposta (Ex: S, N, Q, 5, 1/2)">
+          <button onclick="check(${ex.id})" class="bg-red-600 hover:bg-red-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+        </div>
+        <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px]"></div>
+        <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-red-700 hover:underline">👁 Ver Resolução Guiada</button>
+        
+        <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+          <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Passo a Passo</div>
+          ${solutionSteps(ex).map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+          <div class="success rounded-xl p-3 mt-2 text-center font-bold">Gabarito: ${ex.type === 'frac' ? mathInline(ex.ans) : ex.ans}</div>
+        </div>
+      </div>
+    </article>`
+  }).join('');
+  
+  $('progress-text').textContent=`${solved.size} / 100`;
+  $('progress-bar').style.width=(solved.size)+'%';
+  
+  // Apply KaTeX rendering
+  renderAll();
+}
+
+function parseUser(v) {
+  // Normalize answer formatting
+  return v.trim().replace(/\s+/g, '').replace(',', '.').toUpperCase();
+}
+
+function check(id){
+  const ex = E.find(x=>x.id===id);
+  const raw = $('answer-'+id).value;
+  const user = parseUser(raw);
+  const ans = parseUser(ex.ans);
+  const fb = $('feedback-'+id);
+  
+  if (user === '') {
+      fb.className='text-sm font-bold mt-2 text-red-600';
+      fb.textContent='Insira uma resposta válida.';
+      return;
+  }
+
+  let ok = false;
+  if(user === ans) ok = true;
+  // Fallback for simple fractions typed as decimals if applicable
+  else if(ans.includes('/') && !ans.includes('V')) {
+      let parts = ans.split('/');
+      let uFloat = parseFloat(user);
+      if(!isNaN(uFloat) && Math.abs(uFloat - (parseFloat(parts[0])/parseFloat(parts[1]))) < 0.01) {
+          ok = true;
+      }
+  }
+
+  if (ok) {
+    solved.add(id);
+    localStorage.setItem('conjSolved',JSON.stringify([...solved]));
+    fb.className='text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent='✓ Certo! Entendimento perfeito dos conjuntos.';
+  } else {
+    fb.className='text-sm font-bold mt-2 text-red-600';
+    fb.textContent='✗ Incorreto. Analise os conjuntos e tente de novo.';
+  }
+  renderExercises();
+}
+
+function toggleSol(id){ $('solution-'+id).classList.toggle('hidden'); }
+
+document.querySelectorAll('.level-btn').forEach(b=>{
+  b.onclick = () => {
+    currentLevel = b.dataset.level;
+    document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderExercises();
+  }
+});
+
+// Inicialização Global
+window.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+  resetLabVisuals();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Potenciação — Aprenda Passo a Passo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  /* Paleta Tech/Lógica: Azul e Ciano */
+  :root {--ink:#0f172a; --paper:#f8fafc; --line:#e2e8f0; --accent:#2563eb; --accent-light:#dbeafe; --tech:#0891b2;}
+  body {background:#f1f5f9; color:var(--ink);}
+  .tab-btn.active {color:var(--accent); border-bottom-color:var(--accent); font-weight:800;}
+  
+  /* Padrão de Grade Digital */
+  .paper {
+    background: var(--paper);
+    background-image: 
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    border: 1px solid #bfdbfe;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
+  }
+  
+  .step {
+    position:relative; padding:1rem 1rem 1rem 3.2rem; 
+    border:1px solid #e2e8f0; border-radius:1rem; background:white;
+  }
+  .step::before {
+    content:attr(data-step); position:absolute; left:1rem; top:1rem; 
+    width:1.65rem; height:1.65rem; border-radius:999px; 
+    background:var(--accent-light); color:var(--accent); 
+    font-weight:800; display:grid; place-items:center; font-size:.8rem;
+  }
+  
+  canvas {max-width:100%; touch-action: none;}
+  .level-btn.active {background:var(--accent); color:white;}
+  .exercise-solution {animation:fade .2s ease;}
+  @keyframes fade {from{opacity:0; transform:translateY(-3px)} to{opacity:1; transform:none}}
+  
+  .tip {border-left:4px solid #f59e0b; background:#fffbeb;}
+  .success {border-left:4px solid #10b981; background:#ecfdf5;}
+  .warning {border-left:4px solid #ef4444; background:#fef2f2;}
+</style>
+</head>
+<body class="min-h-screen font-sans">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-blue-200 shadow-sm">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="flex items-center justify-between h-16">
+   <div>
+    <div class="font-black text-lg sm:text-xl text-blue-900">⚡ Potenciação</div>
+    <div class="text-[11px] text-slate-500 hidden sm:block">A matemática da multiplicação acelerada</div>
+   </div>
+   <nav class="flex gap-1 overflow-x-auto ml-4">
+    <button class="tab-btn active px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="teoria">📚 Teoria</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="laboratorio">📈 Crescimento</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="ferramentas">⚙️ Simplificadores</button>
+    <button class="tab-btn px-3 py-5 text-sm border-b-2 border-transparent whitespace-nowrap" data-tab="exercicios">✏️ 100 Exercícios</button>
+   </nav>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-7">
+
+<section id="sec-teoria" class="space-y-7">
+ <div class="rounded-3xl p-7 sm:p-10 bg-gradient-to-br from-blue-950 via-blue-800 to-cyan-950 text-white shadow-xl">
+  <span class="text-xs uppercase tracking-widest font-bold text-blue-300">Curso Completo</span>
+  <h1 class="text-3xl sm:text-5xl font-black mt-2">Domine os Expoentes</h1>
+  <p class="mt-4 max-w-3xl text-blue-100 leading-7">As propriedades das potências foram inventadas por preguiça! Os matemáticos queriam um atalho para não ter que escrever listas gigantescas de multiplicações. Aprenda as regras do jogo e nunca mais decore sem entender.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7">
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">10</b><div class="text-xs text-blue-300">regras lógicas</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">100</b><div class="text-xs text-blue-300">exercícios</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">✓</b><div class="text-xs text-blue-300">frações e negativos</div></div>
+   <div class="bg-white/10 rounded-2xl p-4"><b class="text-2xl">📈</b><div class="text-xs text-blue-300">gráfico visual</div></div>
+  </div>
+ </div>
+
+ <div class="tip rounded-2xl p-5 shadow-sm">
+  <b>A Regra de Ouro:</b> O expoente NUNCA multiplica a base! Se você vir $3^2$, seu cérebro deve ler "três vezes três" e não "três vezes dois". O expoente apenas dita o número de repetições.
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-blue-100 text-blue-700 grid place-items-center font-black">1</span><h2 class="text-xl font-black">A Anatomia da Potência</h2></div>
+   <p class="mt-4 text-slate-600 leading-7">Uma potência é formada por dois atores: a <b>Base</b> (o tijolo, o número que será multiplicado) e o <b>Expoente</b> (o chefe, que diz quantas vezes o tijolo vai aparecer na multiplicação).</p>
+   <div class="paper rounded-xl p-5 mt-4 text-center text-lg font-bold text-blue-900">
+    \[ \textcolor{#2563eb}{2}^{\textcolor{#dc2626}{4}} = \textcolor{#2563eb}{2} \times \textcolor{#2563eb}{2} \times \textcolor{#2563eb}{2} \times \textcolor{#2563eb}{2} = 16 \]
+   </div>
+   <p class="mt-4 text-sm text-slate-600">Base $\color{#2563eb}{2}$ repetida $\color{#dc2626}{4}$ vezes em multiplicações sucessivas.</p>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-blue-100 text-blue-700 grid place-items-center font-black">2</span><h2 class="text-xl font-black">Casos Essenciais (Decoreba Útil)</h2></div>
+   <div class="grid grid-cols-2 gap-2 mt-4 text-sm font-bold text-center">
+    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+        <b>Expoente 1</b><br>
+        Todo número elevado a 1 é ele mesmo.<br>
+        $5^1 = 5$
+    </div>
+    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+        <b>Expoente 0</b><br>
+        Todo número (diferente de zero) elevado a 0 é 1.<br>
+        $8^0 = 1$
+    </div>
+    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+        <b>Base 1</b><br>
+        O número 1 elevado a qualquer coisa é sempre 1.<br>
+        $1^{100} = 1$
+    </div>
+    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+        <b>Base 0</b><br>
+        O zero elevado a qualquer número positivo é 0.<br>
+        $0^{5} = 0$
+    </div>
+   </div>
+  </article>
+ </div>
+
+ <div class="bg-blue-900 text-white rounded-2xl border shadow-sm p-6 sm:p-10 mt-6">
+  <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-blue-800 text-blue-100 grid place-items-center font-black">3</span><h2 class="text-3xl font-black">A Armadilha do Sinal (Parênteses importam!)</h2></div>
+  <p class="mt-4 text-blue-100 text-lg leading-relaxed">Este é o erro mais cometido do mundo na matemática escolar. Existe uma diferença brutal entre $(-2)^4$ e $-2^4$. Quem está elevado à quarta potência?</p>
+  
+  <div class="grid md:grid-cols-2 gap-6 mt-6">
+      <div class="bg-white text-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden text-center">
+       <div class="text-sm text-slate-500 font-bold uppercase tracking-wide">Com Parênteses</div>
+       <p class="mt-3 text-sm">O sinal de "menos" <b>faz parte da base</b>. Ele se repete na multiplicação.</p>
+       <div class="mt-3 text-xl font-bold text-blue-700">\[ (-2)^4 \]</div>
+       <div class="mt-2 text-sm">$= (-2) \times (-2) \times (-2) \times (-2)$</div>
+       <div class="mt-2 font-black text-emerald-600 text-2xl">$+ 16$</div>
+      </div>
+
+      <div class="bg-white text-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden text-center">
+       <div class="text-sm text-slate-500 font-bold uppercase tracking-wide">Sem Parênteses</div>
+       <p class="mt-3 text-sm">O "menos" <b>NÃO</b> está elevado. É como se fosse um "-1" esperando do lado de fora!</p>
+       <div class="mt-3 text-xl font-bold text-blue-700">\[ -2^4 \]</div>
+       <div class="mt-2 text-sm">$= -(2 \times 2 \times 2 \times 2)$</div>
+       <div class="mt-2 font-black text-red-600 text-2xl">$- 16$</div>
+      </div>
+  </div>
+  <p class="mt-5 text-sm text-center font-bold text-blue-200">* Dica: Base negativa com expoente PAR fica positiva. Com expoente ÍMPAR, continua negativa.</p>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-blue-100 text-blue-700 grid place-items-center font-black">4</span><h2 class="text-xl font-black">Multiplicação e Divisão (Mesma Base)</h2></div>
+   <div class="space-y-4 mt-4 text-sm">
+    <div class="step" data-step="×"><b>Na multiplicação:</b> Conserva a base e SOMA os expoentes.<br>
+      $2^3 \times 2^4 = (2\times2\times2) \times (2\times2\times2\times2)$<br>
+      Temos 7 repetições! Logo, $2^3 \times 2^4 = 2^7$.
+    </div>
+    <div class="step" data-step="÷"><b>Na divisão:</b> Conserva a base e SUBTRAI os expoentes.<br>
+      $\frac{5^6}{5^2} = 5^{6-2} = 5^4$. Os de cima cortam os de baixo!
+    </div>
+   </div>
+  </article>
+
+  <article class="bg-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-blue-100 text-blue-700 grid place-items-center font-black">5</span><h2 class="text-xl font-black">Potência de Potência</h2></div>
+   <p class="mt-3 text-slate-600 text-sm">O que acontece quando uma potência inteira é elevada a outro expoente? Ex: $(2^3)^2$.</p>
+   <div class="bg-slate-50 rounded-xl p-3 mt-3 text-sm border">
+       Significa $(2^3) \times (2^3) = 2^6$. A regra rápida é: <b>Conserva a base e MULTIPLICA os expoentes!</b>
+   </div>
+   <div class="text-center font-bold mt-3 text-lg text-blue-800">\[ (x^a)^b = x^{a \cdot b} \]</div>
+  </article>
+ </div>
+
+ <div class="grid lg:grid-cols-2 gap-6 mt-6">
+  <div class="space-y-6">
+    <article class="bg-white rounded-2xl border p-6 shadow-sm border-l-4 border-l-cyan-500">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-blue-100 text-blue-700 grid place-items-center font-black">6</span><h2 class="text-xl font-black">O Expoente Negativo (Elevador)</h2></div>
+     <p class="mt-3 text-slate-600 text-sm">O sinal de "menos" <b>no expoente</b> não tem poder de deixar o número negativo. Ele é apenas uma placa de trânsito dizendo: <b>"INVERTA A BASE!"</b>.</p>
+     <div class="paper rounded-xl p-4 mt-3 text-center text-cyan-900 font-bold text-lg">
+      \[ x^{-n} = \left(\frac{1}{x}\right)^n = \frac{1}{x^n} \]
+     </div>
+     <div class="text-xs text-slate-500 mt-2">
+         Ex: $2^{-3} = \frac{1}{2^3} = \frac{1}{8}$. Se a base for uma fração, basta girá-la: $(\frac{2}{3})^{-2} = (\frac{3}{2})^2 = \frac{9}{4}$.
+     </div>
+    </article>
+    
+    <article class="bg-white rounded-2xl border p-6 shadow-sm border-l-4 border-l-emerald-500">
+     <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-blue-100 text-blue-700 grid place-items-center font-black">7</span><h2 class="text-xl font-black">O Expoente Fracionário</h2></div>
+     <div class="text-sm mt-3 text-slate-600">
+         Toda raiz é, na verdade, uma potência disfarçada. Um expoente em forma de fração se converte em raiz seguindo a regra "Quem tá no sol vai pra sombra, quem tá na sombra vai pro sol".
+         <div class="text-center font-bold mt-3 text-lg">\[ x^{\frac{\text{sol}}{\text{sombra}}} = \sqrt[\text{sombra}]{x^{\text{sol}}} \]</div>
+         Ex: $9^{\frac{1}{2}} = \sqrt[2]{9^1} = 3$.
+     </div>
+    </article>
+  </div>
+
+  <article class="bg-slate-900 text-white rounded-2xl border p-6 shadow-sm">
+   <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-slate-800 text-blue-400 grid place-items-center font-black">8</span><h2 class="text-2xl font-black text-blue-400">Notação Científica</h2></div>
+   <p class="mt-3 text-slate-300 text-sm">As potências de 10 servem para escrevermos o tamanho de galáxias ou vírus de forma curta. Tudo baseia-se em deslocar a vírgula.</p>
+   
+   <div class="mt-5 space-y-4">
+       <div class="bg-slate-800 p-3 rounded-lg border border-slate-700 text-sm">
+           <b>Números Gigantes (Expoente Positivo):</b><br>
+           A vírgula anda para a ESQUERDA. O expoente diz quantas casas andou.<br>
+           $150.000.000 = 1,5 \times 10^8$
+       </div>
+       <div class="bg-slate-800 p-3 rounded-lg border border-slate-700 text-sm">
+           <b>Números Minúsculos (Expoente Negativo):</b><br>
+           A vírgula anda para a DIREITA. O expoente diz as casas, com sinal negativo.<br>
+           $0,0000042 = 4,2 \times 10^{-6}$
+       </div>
+   </div>
+   <p class="text-xs text-slate-400 mt-4"><b>Regra:</b> O número principal (antes do $\times 10$) deve estar sempre entre 1 e 9,99.</p>
+  </article>
+ </div>
+</section>
+
+<section id="sec-laboratorio" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-blue-600">Simulador de Progressão</span>
+   <h1 class="text-3xl font-black mt-2">A Curva Exponencial vs Linear</h1>
+   <p class="text-slate-600 mt-2">Escolha uma Base. Observe como crescer somando (linear) é completamente ofuscado pelo crescimento multiplicativo da Potenciação. O eixo Y sobe tão rápido que o gráfico foge da tela.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col">
+   <h3 class="font-bold text-lg mb-4 text-center border-b pb-2">Controles da Progressão</h3>
+   
+   <div class="space-y-6 flex-1">
+      <div>
+        <label class="font-bold text-sm text-slate-700">Base ($x$): <span class="text-blue-700 font-black text-lg" id="lab-val-b">2</span></label>
+        <input type="range" id="lab-input-b" min="1.1" max="5" step="0.1" value="2" class="w-full mt-2 accent-blue-600">
+      </div>
+      
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4">
+          <div class="text-center font-bold text-sm mb-3 text-slate-500">Tabela de Crescimento (Expoente 0 a 5)</div>
+          <table class="w-full text-xs font-mono text-center">
+              <tr class="border-b"><th class="py-1">Exp ($n$)</th><th class="py-1 text-emerald-600">Multiplicação ($x \cdot n$)</th><th class="py-1 text-blue-600">Potência ($x^n$)</th></tr>
+              <tbody id="lab-table-body">
+              </tbody>
+          </table>
+      </div>
+   </div>
+  </div>
+  
+  <div class="bg-white rounded-2xl border p-6 shadow-sm flex flex-col relative items-center justify-center h-[500px]">
+    <div class="absolute top-4 left-6 flex gap-4 text-xs font-bold font-mono bg-white/80 p-2 rounded shadow backdrop-blur z-10">
+        <div class="flex items-center gap-1"><div class="w-3 h-3 bg-emerald-500 rounded-full"></div> Linear ($y = x \cdot n$)</div>
+        <div class="flex items-center gap-1"><div class="w-3 h-3 bg-blue-500 rounded-full"></div> Exponencial ($y = x^n$)</div>
+    </div>
+    <canvas id="lab-canvas" width="600" height="400" class="bg-slate-50 border rounded-xl shadow-inner w-full h-full"></canvas>
+  </div>
+ </div>
+</section>
+
+<section id="sec-ferramentas" class="hidden space-y-7">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <span class="text-xs font-bold uppercase tracking-widest text-blue-600">Assistentes Analíticos</span>
+   <h1 class="text-3xl font-black mt-2">Calculadoras Passo a Passo</h1>
+   <p class="text-slate-600 mt-2">Resolva potências complexas (com expoente negativo ou fracionário) ou consolide expressões multiplicativas usando as propriedades.</p>
+ </div>
+ 
+ <div class="grid lg:grid-cols-2 gap-6">
+  
+  <!-- Calculadora de Potências -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Cálculo de Base e Expoente</h2>
+   <p class="text-xs text-slate-500 mb-4">Veja como resolver expoentes negativos ou zero.</p>
+   
+   <div class="flex items-center gap-3 font-mono">
+      <div class="flex-1">
+          <label class="block text-xs font-bold mb-1">Base</label>
+          <input id="tool1-b" type="number" value="2" class="border rounded p-2 w-full text-center bg-slate-50">
+      </div>
+      <div class="text-2xl font-black pt-4">^</div>
+      <div class="flex-1">
+          <label class="block text-xs font-bold mb-1">Expoente</label>
+          <input id="tool1-e" type="number" value="-3" class="border rounded p-2 w-full text-center bg-slate-50">
+      </div>
+   </div>
+
+   <button onclick="calcPowTool()" class="w-full mt-4 bg-blue-600 hover:bg-blue-700 transition text-white rounded-xl py-3 font-bold text-sm">Calcular</button>
+   <div id="tool1-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+  <!-- Calculadora de Propriedades -->
+  <div class="bg-white rounded-2xl border p-6 shadow-sm">
+   <h2 class="font-black text-xl mb-1">Propriedades Básicas</h2>
+   <p class="text-xs text-slate-500 mb-4">Soma e subtração de expoentes para Bases Iguais.</p>
+   
+   <div class="grid grid-cols-[1fr_auto_1fr] gap-2 items-center font-mono">
+      <div class="border rounded p-2 bg-slate-50 text-center">
+          <input id="tool2-b1" type="number" value="5" class="w-8 text-right font-bold bg-transparent">^<input id="tool2-e1" type="number" value="3" class="w-8 font-bold bg-transparent">
+      </div>
+      <select id="tool2-op" class="border rounded p-2 font-bold bg-slate-100">
+          <option value="*">×</option>
+          <option value="/">÷</option>
+      </select>
+      <div class="border rounded p-2 bg-slate-50 text-center">
+          <input id="tool2-b2" type="number" value="5" class="w-8 text-right font-bold bg-transparent">^<input id="tool2-e2" type="number" value="4" class="w-8 font-bold bg-transparent">
+      </div>
+   </div>
+   
+   <button onclick="calcPropTool()" class="w-full mt-5 bg-cyan-700 hover:bg-cyan-800 transition text-white rounded-xl py-3 font-bold text-sm">Simplificar Expressão</button>
+   <div id="tool2-out" class="paper rounded-xl p-4 mt-4 hidden text-sm overflow-x-auto"></div>
+  </div>
+
+ </div>
+</section>
+
+<section id="sec-exercicios" class="hidden space-y-6">
+ <div class="bg-white rounded-3xl border p-7 shadow-sm">
+   <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+     <div>
+       <span class="text-xs font-bold uppercase tracking-widest text-blue-600">Treino progressivo</span>
+       <h1 class="text-3xl font-black mt-2">100 Exercícios Dinâmicos</h1>
+       <p class="text-slate-600 mt-2">Digite o valor final da potência. Para frações, use a barra (ex: <code>1/8</code> ou <code>-1/4</code>). Para números muito grandes simplificados, siga as dicas.</p>
+     </div>
+     <div class="min-w-[210px]">
+       <div class="flex justify-between text-sm font-bold"><span>Progresso</span><span id="progress-text">0 / 100</span></div>
+       <div class="h-3 bg-slate-100 rounded-full mt-2 overflow-hidden"><div id="progress-bar" class="h-full bg-blue-600 rounded-full transition-all duration-500" style="width:0%"></div></div>
+     </div>
+   </div>
+ </div>
+ 
+ <div class="bg-white rounded-2xl border p-4 shadow-sm">
+  <div class="flex flex-wrap gap-2" id="filters">
+   <button data-level="all" class="level-btn active rounded-lg px-3 py-2 text-xs font-bold">Todos</button>
+   <button data-level="1" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 1 (Definição)</button>
+   <button data-level="2" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 2 (Sinais/Zeros)</button>
+   <button data-level="3" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 3 (Prop. Base)</button>
+   <button data-level="4" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 4 (Exp. Negativo)</button>
+   <button data-level="5" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 5 (Exp. Fracionário)</button>
+   <button data-level="6" class="level-btn rounded-lg px-3 py-2 text-xs font-bold bg-slate-100">Nv 6 (Notação/Misto)</button>
+  </div>
+ </div>
+ 
+ <div id="exercise-list" class="grid md:grid-cols-2 gap-5"></div>
+</section>
+</main>
+<footer class="border-t bg-white mt-8"><div class="max-w-7xl mx-auto px-4 py-7 text-center text-sm text-slate-500">Material educacional interativo de Matemática • Renderizado com KaTeX</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+function mathInline(latex){return String.raw`\(${latex}\)`}
+function mathDisplay(latex){return String.raw`\[${latex}\]`}
+
+function renderAll(){
+    document.querySelectorAll('body').forEach(el=>{
+        if(window.renderMathInElement) renderMathInElement(el,{
+            delimiters:[
+                {left: '$$', right: '$$', display: true},
+                {left: '\\[', right: '\\]', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false}
+            ]
+        });
+    });
+}
+
+// Navegação
+const sections=['teoria','laboratorio','ferramentas','exercicios'];
+document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+    const t=btn.dataset.tab;
+    sections.forEach(s => $('sec-'+s).classList.toggle('hidden',s!==t));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active',b===btn));
+    if(t==='exercicios') renderExercises();
+    if(t==='laboratorio') initLab();
+}));
+
+// --- LABORATÓRIO (Gráfico Crescimento) ---
+let labInited = false;
+function initLab() {
+  if(!labInited) {
+    $('lab-input-b').addEventListener('input', updateLab);
+    window.addEventListener('resize', updateLab);
+    labInited = true;
+  }
+  updateLab();
+}
+
+function updateLab() {
+  if($('sec-laboratorio').classList.contains('hidden')) return;
+
+  const base = parseFloat($('lab-input-b').value);
+  $('lab-val-b').innerText = base.toFixed(1);
+
+  // Update table
+  let tBody = '';
+  for(let n=0; n<=5; n++) {
+      let linear = (base * n).toFixed(2).replace('.00','');
+      let exp = Math.pow(base, n).toFixed(2).replace('.00','');
+      tBody += `<tr><td class="py-1">${n}</td><td class="text-emerald-600">${linear}</td><td class="text-blue-600 font-bold">${exp}</td></tr>`;
+  }
+  $('lab-table-body').innerHTML = tBody;
+
+  drawLabCanvas(base);
+}
+
+function drawLabCanvas(base) {
+  const c = $('lab-canvas');
+  const container = c.parentElement;
+  
+  c.width = container.clientWidth - 48; 
+  c.height = container.clientHeight - 48; 
+
+  const ctx = c.getContext('2d');
+  const w = c.width, h = c.height;
+  
+  const mLeft = 40, mBottom = 40, mTop = 20, mRight = 20;
+  const gW = w - mLeft - mRight;
+  const gH = h - mTop - mBottom;
+  
+  ctx.clearRect(0,0,w,h);
+  
+  const maxN = 5;
+  const maxExp = Math.pow(base, maxN);
+  // Cap max Y visual to not squash small bases too much, but allow huge leaps
+  const visMaxY = Math.max(10, maxExp);
+
+  // Grid
+  ctx.strokeStyle = '#f1f5f9'; ctx.lineWidth = 1;
+  const stepsY = 5;
+  for(let j=0; j<=stepsY; j++) {
+      let y = mTop + (j * (gH/stepsY));
+      ctx.beginPath(); ctx.moveTo(mLeft, y); ctx.lineTo(w - mRight, y); ctx.stroke();
+  }
+  for(let j=0; j<=maxN; j++) {
+      let x = mLeft + (j * (gW/maxN));
+      ctx.beginPath(); ctx.moveTo(x, mTop); ctx.lineTo(x, h - mBottom); ctx.stroke();
+      ctx.fillStyle = '#64748b'; ctx.textAlign = 'center'; ctx.font = '10px sans-serif';
+      ctx.fillText(j, x, h - mBottom + 15);
+  }
+
+  // Axes
+  ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(mLeft, mTop); ctx.lineTo(mLeft, h - mBottom); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(mLeft, h - mBottom); ctx.lineTo(w - mRight, h - mBottom); ctx.stroke();
+
+  function getX(n) { return mLeft + (n/maxN) * gW; }
+  function getY(val) { return mTop + gH - (val / visMaxY) * gH; }
+
+  // Linear (Emerald)
+  ctx.beginPath();
+  ctx.moveTo(getX(0), getY(0));
+  for(let n=1; n<=maxN; n++) {
+      ctx.lineTo(getX(n), getY(base * n));
+  }
+  ctx.strokeStyle = '#10b981'; ctx.lineWidth = 3; ctx.stroke();
+
+  // Exponential (Blue)
+  ctx.beginPath();
+  ctx.moveTo(getX(0), getY(1));
+  for(let n=1; n<=maxN; n+=0.1) {
+      ctx.lineTo(getX(n), getY(Math.pow(base, n)));
+  }
+  ctx.strokeStyle = '#2563eb'; ctx.lineWidth = 3; ctx.stroke();
+  
+  // Dots for integers
+  for(let n=0; n<=maxN; n++) {
+      let py = getY(Math.pow(base, n));
+      if(py >= mTop) {
+          ctx.beginPath(); ctx.arc(getX(n), py, 4, 0, 2*Math.PI);
+          ctx.fillStyle = '#2563eb'; ctx.fill();
+      }
+  }
+}
+
+// --- FERRAMENTAS ---
+function calcPowTool() {
+    const b = parseInt($('tool1-b').value);
+    const e = parseInt($('tool1-e').value);
+    const out = $('tool1-out');
+    
+    if(isNaN(b)||isNaN(e)) return;
+    
+    let html = '';
+    
+    if (e === 0) {
+        if (b === 0) {
+            html = `<div class="warning rounded-xl p-4">Indeterminação matemática! $0^0$ não possui valor único definido.</div>`;
+        } else {
+            html = `<div class="step" data-step="1">Qualquer número diferente de zero elevado a zero é igual a 1.</div>
+                    <div class="success rounded-xl p-4 mt-4 text-center text-lg font-bold">\\[${b}^0 = 1\\]</div>`;
+        }
+    } else if (e > 0) {
+        let parts = Array(e).fill(b).join(' \\times ');
+        let res = Math.pow(b, e);
+        html = `<div class="step" data-step="1">Expoente positivo. Multiplicamos a base ${b} por ela mesma ${e} vezes.</div>
+                <div class="step mt-3" data-step="2">\\[\\implies ${parts}\\]</div>
+                <div class="success rounded-xl p-4 mt-4 text-center text-lg font-bold">\\[${b}^{${e}} = ${res}\\]</div>`;
+    } else {
+        // e < 0
+        let posE = Math.abs(e);
+        let res = Math.pow(b, posE);
+        html = `<div class="step" data-step="1">O expoente é negativo ($-${posE}$). Isso significa que devemos INVERTER a base.</div>
+                <div class="step mt-3" data-step="2">A base $${b}$ vira a fração $\\frac{1}{${b}}$. O expoente agora fica positivo!</div>
+                <div class="step mt-3" data-step="3">\\[\\implies \\left(\\frac{1}{${b}}\\right)^{${posE}} = \\frac{1^{${posE}}}{${b}^{${posE}}}\\]</div>
+                <div class="step mt-3" data-step="4">Calculando as partes: $1^{${posE}} = 1$ e $${b}^{${posE}} = ${res}$.</div>
+                <div class="success rounded-xl p-4 mt-4 text-center text-lg font-bold">\\[${b}^{${e}} = \\frac{1}{${res}}\\]</div>`;
+    }
+    
+    out.innerHTML = html;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+function calcPropTool() {
+    const b1 = parseInt($('tool2-b1').value);
+    const e1 = parseInt($('tool2-e1').value);
+    const b2 = parseInt($('tool2-b2').value);
+    const e2 = parseInt($('tool2-e2').value);
+    const op = $('tool2-op').value;
+    const out = $('tool2-out');
+    
+    if(isNaN(b1)||isNaN(b2)||isNaN(e1)||isNaN(e2)) return;
+    
+    if(b1 !== b2) {
+        out.innerHTML = `<div class="warning rounded-xl p-4 font-bold">As propriedades de soma/subtração de expoentes só funcionam quando as BASES SÃO IGUAIS! (${b1} \\neq ${b2}). Resolva as potências separadamente.</div>`;
+        out.classList.remove('hidden'); return;
+    }
+    
+    let html = '';
+    let newE;
+    
+    if (op === '*') {
+        newE = e1 + e2;
+        html = `<div class="step" data-step="1">Multiplicação de potências de Mesma Base (${b1}).</div>
+                <div class="step mt-3" data-step="2">A regra é: Conserva a base e SOMA os expoentes.</div>
+                <div class="step mt-3" data-step="3">\\[\\implies ${b1}^{${e1}} \\times ${b1}^{${e2}} = ${b1}^{${e1} + ${e2}} = ${b1}^{${newE}}\\]</div>`;
+    } else {
+        newE = e1 - e2;
+        html = `<div class="step" data-step="1">Divisão de potências de Mesma Base (${b1}).</div>
+                <div class="step mt-3" data-step="2">A regra é: Conserva a base e SUBTRAI os expoentes.</div>
+                <div class="step mt-3" data-step="3">\\[\\implies \\frac{${b1}^{${e1}}}{${b1}^{${e2}}} = ${b1}^{${e1} - (${e2})} = ${b1}^{${newE}}\\]</div>`;
+    }
+    
+    let valStr = '';
+    if(newE >= -5 && newE <= 10 && b1 <= 10) {
+        if(newE < 0) {
+            valStr = `\\implies \\frac{1}{${Math.pow(b1, Math.abs(newE))}}`;
+        } else {
+            valStr = `\\implies ${Math.pow(b1, newE)}`;
+        }
+    }
+
+    html += `<div class="success rounded-xl p-4 mt-4 text-center text-lg font-bold">Resultado Simplificado: \\[${b1}^{${newE}} ${valStr}\\]</div>`;
+    
+    out.innerHTML = html;
+    out.classList.remove('hidden');
+    renderAll();
+}
+
+// --- DATA DOS 100 EXERCÍCIOS ---
+const rawExercises = [
+  // L1: Definição Básica (1-15)
+  "1|1|Cálculo Básico|2^2|4|basic|2 vezes 2.",
+  "2|1|Cálculo Básico|2^3|8|basic|2 x 2 x 2.",
+  "3|1|Cálculo Básico|2^4|16|basic|2 x 2 x 2 x 2.",
+  "4|1|Cálculo Básico|3^2|9|basic|3 vezes 3.",
+  "5|1|Cálculo Básico|3^3|27|basic|3 x 3 x 3.",
+  "6|1|Cálculo Básico|4^2|16|basic|4 vezes 4.",
+  "7|1|Cálculo Básico|5^2|25|basic|5 vezes 5.",
+  "8|1|Cálculo Básico|5^3|125|basic|5 x 5 x 5.",
+  "9|1|Cálculo Básico|10^2|100|basic|1 com 2 zeros.",
+  "10|1|Cálculo Básico|10^3|1000|basic|1 com 3 zeros.",
+  "11|1|Cálculo Básico|6^2|36|basic|6 vezes 6.",
+  "12|1|Cálculo Básico|7^2|49|basic|7 vezes 7.",
+  "13|1|Cálculo Básico|8^2|64|basic|8 vezes 8.",
+  "14|1|Cálculo Básico|9^2|81|basic|9 vezes 9.",
+  "15|1|Soma de Potências|2^2 + 3^2|13|basic|Calcule 4 + 9.",
+
+  // L2: Sinais e Zeros (16-30)
+  "16|2|Expoente Zero|8^0|1|zero|Todo número (não nulo) elevado a zero é 1.",
+  "17|2|Expoente Zero|100^0|1|zero|Mesmo regra.",
+  "18|2|Expoente Um|15^1|15|basic|O número uma única vez.",
+  "19|2|Base Um|1^{50}|1|basic|1 x 1 x 1... sempre é 1.",
+  "20|2|Base Zero|0^{10}|0|basic|0 x 0 x 0... sempre é 0.",
+  "21|2|Armadilha do Sinal 1|(-2)^2|4|sign|(-2) x (-2) = +4. Parêntese garante que o menos se repete.",
+  "22|2|Armadilha do Sinal 2|-2^2|-4|sign|O menos está fora da potência! É -(2 x 2).",
+  "23|2|Sinal Ímpar|(-2)^3|-8|sign|(-2) x (-2) x (-2) = -8. Expoente ímpar mantém o sinal da base.",
+  "24|2|Sinal Ímpar|-2^3|-8|sign|O menos está fora, e -(2 x 2 x 2) dá -8.",
+  "25|2|Armadilha 3|(-3)^2|9|sign|Base negativa, expoente par = Positivo.",
+  "26|2|Armadilha 4|-3^2|-9|sign|Menos solto fora do quadrado.",
+  "27|2|Expoente Ímpar|(-1)^3|-1|sign|(-1) x (-1) x (-1) = -1.",
+  "28|2|Base Um Negativo|(-1)^{100}|1|sign|Expoente par transforma o negativo em positivo.",
+  "29|2|Base Um Negativo|(-1)^{99}|-1|sign|Expoente ímpar mantém o negativo.",
+  "30|2|Mistura|(-2)^2 + (-2)^3|-4|sign|4 + (-8) = -4.",
+
+  // L3: Propriedades da Base (31-55)
+  "31|3|Mesma Base (Mult)|2^3 \\times 2^2|32|prop|Conserva base (2), soma os expoentes (3+2=5). 2^5 = 32.",
+  "32|3|Mesma Base (Mult)|3^2 \\times 3^1|27|prop|Conserva base (3), soma expoentes (2+1=3). 3^3 = 27.",
+  "33|3|Mesma Base (Mult)|10^2 \\times 10^3|100000|prop|10^5 = 1 com 5 zeros.",
+  "34|3|Mesma Base (Mult)|x^3 \\times x^4|x^7|str|Soma os expoentes: 3+4.",
+  "35|3|Mesma Base (Mult)|a^2 \\times a|a^3|str|Lembre-se que 'a' é a^1.",
+  "36|3|Mesma Base (Div)|\\frac{2^5}{2^2}|8|prop|Conserva base, subtrai expoentes (5-2=3). 2^3 = 8.",
+  "37|3|Mesma Base (Div)|\\frac{3^4}{3^2}|9|prop|Subtrai expoentes (4-2=2). 3^2 = 9.",
+  "38|3|Mesma Base (Div)|\\frac{10^6}{10^3}|1000|prop|10^3.",
+  "39|3|Mesma Base (Div)|\\frac{y^8}{y^3}|y^5|str|8 - 3 = 5.",
+  "40|3|Potência de Potência|(2^2)^3|64|prop|Multiplica os expoentes (2x3=6). 2^6 = 64.",
+  "41|3|Potência de Potência|(3^1)^2|9|prop|1x2 = 2. 3^2 = 9.",
+  "42|3|Potência de Potência|(x^2)^4|x^8|str|Multiplica: 2x4 = 8.",
+  "43|3|Potência de Produto|(2 \\times 3)^2|36|prop|Distribui ou resolve dentro: 6^2 = 36.",
+  "44|3|Potência de Produto|(xy)^3|x^3y^3|str|O expoente cai em todos que estão multiplicando dentro.",
+  "45|3|Expressão Mesma Base|\\frac{2^3 \\times 2^4}{2^5}|4|prop|Cima vira 2^7. Dividindo por 2^5, fica 2^2 = 4.",
+  "46|3|Bases Iguais Eq|2^x = 16|4|eq|Sabemos que 16 é 2^4. Logo, x = 4.",
+  "47|3|Bases Iguais Eq|3^x = 81|4|eq|81 é 9x9 = 3^2 x 3^2 = 3^4.",
+  "48|3|Mult Falsa?|2^3 + 2^2|12|prop|Atenção! É SOMA, não multiplicação. Resolva separado: 8 + 4 = 12.",
+  "49|3|Simplificação Pura|(a^3)^2 \\times a|a^7|str|Fica a^6 * a^1 = a^7.",
+  "50|3|Tudo em 2|8^2|64|prop|Ou calcula direto (64), ou pensa (2^3)^2 = 2^6 = 64.",
+  "51|3|Tudo em 3|9^2|81|prop|Pense (3^2)^2 = 3^4 = 81.",
+  "52|3|Divisão que zera|\\frac{5^3}{5^3}|1|prop|Subtrai expoentes (3-3=0). 5^0 = 1. E qualquer número dividido por ele mesmo é 1.",
+  "53|3|Produto|(-2)^2 \\times (-2)^1|-8|prop|Conserva (-2), soma expoente (3). (-2)^3 = -8.",
+  "54|3|Produto Letras|2x^2 \\times 3x^3|6x^5|str|Multiplica os números (2x3), aplica regra nas bases (x^2*x^3 = x^5).",
+  "55|3|Potência total|(2x)^3|8x^3|str|O 3 cai no 2 (fica 8) e no x (fica x^3).",
+
+  // L4: Expoente Negativo (56-75)
+  "56|4|Expoente Negativo|2^{-1}|1/2|neg|O expoente negativo inverte a base 2 para 1/2. Expoente vira 1.",
+  "57|4|Expoente Negativo|3^{-1}|1/3|neg|Inverte a base para 1/3.",
+  "58|4|Expoente Negativo|2^{-2}|1/4|neg|Inverte (1/2) e eleva ao quadrado (1/4).",
+  "59|4|Expoente Negativo|3^{-2}|1/9|neg|Inverte para (1/3)^2.",
+  "60|4|Expoente Negativo|5^{-2}|1/25|neg|Inverte para (1/5)^2.",
+  "61|4|Expoente Negativo|10^{-1}|1/10|neg|Ou 0.1, mas digite em fração.",
+  "62|4|Expoente Negativo|10^{-2}|1/100|neg|1/100.",
+  "63|4|Fração Invertida|(1/2)^{-1}|2|neg|O negativo inverte a fração. 1/2 vira 2/1 = 2.",
+  "64|4|Fração Invertida|(1/3)^{-2}|9|neg|Inverte (3/1) e eleva ao quadrado: 3^2 = 9.",
+  "65|4|Fração Invertida|(2/3)^{-1}|3/2|neg|Basta virar de ponta cabeça.",
+  "66|4|Fração Invertida|(2/3)^{-2}|9/4|neg|Inverte para 3/2, depois eleva ao quadrado (9/4).",
+  "67|4|Prop e Negativo|2^3 \\times 2^{-1}|4|prop|Soma: 3 + (-1) = 2. 2^2 = 4.",
+  "68|4|Prop e Negativo|3^5 \\times 3^{-3}|9|prop|Soma: 5 + (-3) = 2. 3^2 = 9.",
+  "69|4|Div e Negativo|\\frac{2^2}{2^{-1}}|8|prop|Subtrai: 2 - (-1) = 2 + 1 = 3. 2^3 = 8.",
+  "70|4|Div e Negativo|\\frac{10^1}{10^{-2}}|1000|prop|1 - (-2) = 3. 10^3 = 1000.",
+  "71|4|Base Neg, Exp Neg|(-2)^{-2}|1/4|neg|Inverte a base: (-1/2). Eleva ao quadrado: (-1/2)*(-1/2) = 1/4.",
+  "72|4|Base Neg, Exp Neg|(-2)^{-3}|-1/8|neg|Inverte: (-1/2)^3 = -1/8.",
+  "73|4|Letras Ex Neg|x^{-2}|1/x^2|str|A base x desce pro denominador.",
+  "74|4|Letras Ex Neg|\\frac{1}{y^{-3}}|y^3|str|Negativo embaixo significa que ele 'sobe' ficando positivo.",
+  "75|4|Combinação Pura|(2^2)^{-1}|1/4|prop|Potência de potência: 2x(-1) = -2. Fica 2^{-2} = 1/4.",
+
+  // L5: Expoente Fracionário (76-90)
+  "76|5|Exp Fracionário|4^{1/2}|2|frac|O 2 debaixo da fração vira raiz quadrada. √4 = 2.",
+  "77|5|Exp Fracionário|9^{1/2}|3|frac|Raiz quadrada de 9.",
+  "78|5|Exp Fracionário|16^{1/2}|4|frac|Raiz quadrada de 16.",
+  "79|5|Exp Fracionário|25^{1/2}|5|frac|Raiz quadrada de 25.",
+  "80|5|Exp Fracionário 100|100^{1/2}|10|frac|Raiz quadrada de 100.",
+  "81|5|Raiz Cúbica|8^{1/3}|2|frac|O 3 vira raiz cúbica. Qual número x ele x ele = 8? 2.",
+  "82|5|Raiz Cúbica|27^{1/3}|3|frac|Raiz cúbica de 27 é 3.",
+  "83|5|Fração mista|8^{2/3}|4|frac|Raiz cúbica de 8 é 2. Depois eleva ao topo (2): 2^2 = 4.",
+  "84|5|Fração mista|27^{2/3}|9|frac|Raiz cúbica de 27 é 3. Eleva ao quadrado: 3^2 = 9.",
+  "85|5|Fração mista|16^{3/4}|8|frac|Raiz quarta de 16 é 2. 2 elevado a 3 é 8.",
+  "86|5|Fracionário Negativo|4^{-1/2}|1/2|neg|O menos inverte (1/4), a fração tira raiz quadrada (√(1/4) = 1/2).",
+  "87|5|Fracionário Negativo|9^{-1/2}|1/3|neg|Inverte e tira a raiz.",
+  "88|5|Prop e Fração|2^{1/2} \\times 2^{1/2}|2|prop|Soma: 1/2 + 1/2 = 1. 2^1 = 2. (Ou √2 * √2 = 2).",
+  "89|5|Prop e Fração|3^{3/2} \\times 3^{1/2}|9|prop|Soma: 3/2 + 1/2 = 4/2 = 2. Fica 3^2 = 9.",
+  "90|5|Letras|x^{1/2} \\times x^{1/2}|x|str|1/2 + 1/2 = 1. x^1 = x.",
+
+  // L6: Notação e Desafios (91-100)
+  "91|6|Notação Simples|1.5 \\times 10^2|150|sci|Anda 2 casas para a direita.",
+  "92|6|Notação Simples|3.4 \\times 10^3|3400|sci|Anda 3 casas para a direita.",
+  "93|6|Notação Negativa|5 \\times 10^{-2}|0.05|sci|Anda 2 casas para a esquerda.",
+  "94|6|Notação Multiplicação|(2 \\times 10^3) \\times (4 \\times 10^2)|800000|sci|Multiplica números (8), soma potências (10^5).",
+  "95|6|Notação Divisão|\\frac{6 \\times 10^5}{2 \\times 10^3}|300|sci|Divide números (3), subtrai potências (10^2).",
+  "96|6|Desafio Zeros|20^2|400|basic|20 x 20. Ou (2x10)^2 = 4x100 = 400.",
+  "97|6|Desafio Cubo|30^3|27000|basic|3x3x3 = 27. E adiciona 3 zeros.",
+  "98|6|Meio do Caminho|2^{10} \\div 2|512|prop|Dividir por 2 é subtrair 1 do expoente. 2^9 = 512. (Se souber 2^10=1024, metade é 512).",
+  "99|6|Metade da Potência|Qual a metade de $2^{100}$? (Digite a resposta com base e expoente)|2^{99}|text|Metade é dividir por $2^1$. Fica $2^{100-1} = 2^{99}$.",
+  "100|6|O Triplo da Potência|Qual o triplo de $3^{20}$? (Formato a^b)|3^{21}|text|Triplo é multiplicar por $3^1$. Fica $3^{20+1}$."
+];
+
+const E = rawExercises.map(line => {
+  const p = line.split('|');
+  return { id: parseInt(p[0]), level: parseInt(p[1]), title: p[2], q: p[3], ans: p[4], type: p[5], hint: p[6] };
+});
+
+function solutionSteps(ex){
+  const S=[];
+  if(ex.type==='basic' || ex.type==='zero'){
+    S.push(['1','Lembre-se da definição básica: a base multiplicada por ela mesma tantas vezes quanto manda o expoente.']);
+    S.push(['2',`Aplicação: ${ex.hint}`]);
+  }
+  else if(ex.type==='sign'){
+    S.push(['1','Cuidado com o sinal! Se o menos estiver dentro do parêntese, ele se repete. Se estiver fora, ele espera a conta terminar.']);
+    S.push(['2',`No seu caso: ${ex.hint}`]);
+  }
+  else if(ex.type==='prop'){
+    S.push(['1','Use a propriedade das potências de mesma base. Multiplicação = soma expoentes. Divisão = subtrai expoentes. Potência da potência = multiplica.']);
+    S.push(['2',`Raciocínio: ${ex.hint}`]);
+  }
+  else if(ex.type==='neg'){
+    S.push(['1','O expoente negativo manda INVERTER a base. Ele não deixa o número negativo!']);
+    S.push(['2',`Lógica: ${ex.hint}`]);
+  }
+  else if(ex.type==='frac'){
+    S.push(['1','Um expoente fracionário é uma raiz disfarçada. Quem está no denominador (sombra) vai para o índice da raiz (sol).']);
+    S.push(['2',`Passo a passo: ${ex.hint}`]);
+  }
+  else { // sci, eq, str
+    S.push(['1','Este é um exercício de notação, álgebra ou expressão com letras.']);
+    S.push(['2',`Atenção na regra: ${ex.hint}`]);
+  }
+  return S;
+}
+
+let solved = new Set(JSON.parse(localStorage.getItem('potSolved')||'[]'));
+let currentLevel = 'all';
+
+function renderExercises(){
+  let list = E.filter(e => (currentLevel==='all' || e.level == currentLevel));
+  
+  $('exercise-list').innerHTML=list.map(ex=>{
+    const done = solved.has(ex.id);
+    
+    // Prepare question display
+    let qHTML = '';
+    if (ex.type === 'text') {
+        qHTML = `<div class="text-sm font-bold text-slate-700 mt-6 mb-4 leading-relaxed">${ex.q}</div>`;
+    } else {
+        let dispQ = `\\displaystyle ${ex.q}`;
+        if(ex.type !== 'str') dispQ += ` = ?`;
+        qHTML = `<div class="text-center font-bold text-slate-700 mt-6 mb-4 text-2xl overflow-x-auto min-h-[40px] flex items-center justify-center">
+            ${mathDisplay(dispQ)}
+        </div>`;
+    }
+
+    return `<article class="bg-white rounded-2xl border ${done?'border-emerald-400':'border-slate-200'} p-5 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between gap-3">
+          <span class="text-xs font-black px-2.5 py-1 rounded-full bg-blue-50 text-blue-700">Q. ${ex.id}</span>
+          <span class="text-xs font-bold text-slate-400">${ex.title}</span>
+        </div>
+        ${qHTML}
+      </div>
+      
+      <div class="mt-4">
+        <div class="flex gap-2">
+          <input id="answer-${ex.id}" class="flex-1 border rounded-xl px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none font-mono" placeholder="Ex: 4, 1/2, x^2">
+          <button onclick="check(${ex.id})" class="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2 text-sm font-bold transition">Conferir</button>
+        </div>
+        <div id="feedback-${ex.id}" class="text-sm font-bold mt-2 min-h-[20px]"></div>
+        <button onclick="toggleSol(${ex.id})" class="mt-2 text-sm font-bold text-blue-700 hover:underline">👁 Ver Resolução Guiada</button>
+        
+        <div id="solution-${ex.id}" class="hidden exercise-solution mt-4 border-t pt-4">
+          <div class="text-xs uppercase tracking-widest font-black text-emerald-700 mb-3">Passo a Passo</div>
+          ${solutionSteps(ex).map(s=>`<div class="step mb-3" data-step="${s[0]}">${s[1]}</div>`).join('')}
+          <div class="success rounded-xl p-3 mt-2 text-center font-bold">Gabarito: ${mathInline(ex.ans)}</div>
+        </div>
+      </div>
+    </article>`
+  }).join('');
+  
+  $('progress-text').textContent=`${solved.size} / 100`;
+  $('progress-bar').style.width=(solved.size)+'%';
+  renderAll(); 
+}
+
+function parseUser(v) {
+  return v.trim().replace(/\s+/g, '').replace(',', '.').toLowerCase();
+}
+
+function check(id){
+  const ex = E.find(x=>x.id===id);
+  const raw = $('answer-'+id).value;
+  const user = parseUser(raw);
+  const ans = parseUser(ex.ans);
+  const fb = $('feedback-'+id);
+  
+  if (user === '') {
+      fb.className='text-sm font-bold mt-2 text-red-600';
+      fb.textContent='Insira uma resposta.';
+      return;
+  }
+
+  let ok = false;
+  if(user === ans) ok = true;
+  // Fallback for decimals if answer is a fraction
+  else if(ans.includes('/')) {
+      let parts = ans.split('/');
+      let uFloat = parseFloat(user);
+      if(!isNaN(uFloat) && Math.abs(uFloat - (parseFloat(parts[0])/parseFloat(parts[1]))) < 0.01) {
+          ok = true;
+      }
+  }
+
+  if (ok) {
+    solved.add(id);
+    localStorage.setItem('potSolved',JSON.stringify([...solved]));
+    fb.className='text-sm font-bold mt-2 text-emerald-600';
+    fb.textContent='✓ Certo! Você dominou o conceito.';
+  } else {
+    fb.className='text-sm font-bold mt-2 text-red-600';
+    fb.textContent='✗ Incorreto. Analise os sinais e as propriedades.';
+  }
+  renderExercises();
+}
+
+function toggleSol(id){ $('solution-'+id).classList.toggle('hidden'); }
+
+document.querySelectorAll('.level-btn').forEach(b=>{
+  b.onclick = () => {
+    currentLevel = b.dataset.level;
+    document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderExercises();
+  }
+});
+
+// Inicialização Global
+window.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+  initLab();
+});
+</script>
+</body>
+</html>
